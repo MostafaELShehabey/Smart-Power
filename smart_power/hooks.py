@@ -69,6 +69,8 @@ doc_events = {
 	"SP Rule Setting": {"on_update": "smart_power.rules.clear_cache"},
 	# Customer master (SP-31): one customer per mobile.
 	"Customer": {"validate": "smart_power.sp_sales.customer.validate"},
+	# Item catalogue (SP-29): specs that cannot be true are refused.
+	"Item": {"validate": "smart_power.sp_stock.item.validate"},
 	**{
 		dt: {
 			"before_insert": "smart_power.events.customization.tag_admin_owned",

@@ -8,3 +8,4 @@ smart_power.patches.sp22_currency_and_branding
 smart_power.patches.sp32_list_value_names
 smart_power.patches.sp32_seed_list_values
 smart_power.patches.sp31_customer_naming
+smart_power.patches.sp29_item_groups
