@@ -24,6 +24,25 @@ class TestCustomerMobile(IntegrationTestCase):
 		with self.assertRaises(frappe.MandatoryError):
 			make_customer(mobile=None)
 
+	def test_erpnext_test_data_needs_no_mobile(self):
+		# erpnext.tests.utils creates its customers without a mobile on a fresh CI site.
+		frappe.flags.sp_loading_erpnext_test_data = True
+		try:
+			doc = make_customer(mobile=None, name="Prestiga-Biz SP31")
+		finally:
+			frappe.flags.sp_loading_erpnext_test_data = False
+		self.assertFalse(doc.sp_mobile)
+
+	def test_the_flag_does_nothing_outside_tests(self):
+		frappe.flags.sp_loading_erpnext_test_data = True
+		frappe.flags.in_test = False
+		try:
+			with self.assertRaises(frappe.MandatoryError):
+				make_customer(mobile=None, name="Prestiga-Biz SP31 B")
+		finally:
+			frappe.flags.in_test = True
+			frappe.flags.sp_loading_erpnext_test_data = False
+
 	def test_invalid_mobile_is_refused(self):
 		for bad in ("1234", "01301234567", "0100123456"):
 			with self.assertRaises(frappe.ValidationError, msg=bad):

@@ -34,6 +34,15 @@ def find_by_mobile(mobile: str, exclude: str | None = None) -> str | None:
 	return frappe.db.get_value("Customer", filters)
 
 
+def is_erpnext_test_data() -> bool:
+	"""True while our tests load ERPNext's test records (tests.utils.load_erpnext_test_data).
+
+	ERPNext's test customers ("_Test Customer", "Prestiga-Biz" …) have no mobile; a fresh CI
+	site must still be able to create them. Never true outside a test run.
+	"""
+	return bool(frappe.flags.in_test and frappe.flags.sp_loading_erpnext_test_data)
+
+
 def validate(doc, method=None):
 	"""Customer validate hook: clean the mobiles, require one, and refuse a duplicate."""
 	for fieldname in ("sp_mobile", "sp_mobile_2"):
@@ -48,7 +57,7 @@ def validate(doc, method=None):
 				)
 
 	if not doc.sp_mobile:
-		if doc.get("is_internal_customer"):
+		if doc.get("is_internal_customer") or is_erpnext_test_data():
 			return
 		frappe.throw(_("Mobile is required: it is how a returning customer is found."), frappe.MandatoryError)
 
