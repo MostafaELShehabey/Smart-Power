@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 21:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "legal_name_ar",
+  "owner_name",
+  "column_break_legal",
+  "commercial_register",
+  "tax_card",
+  "fiscal_year_start",
+  "branding_section",
+  "logo",
+  "column_break_branding",
+  "stamp_image",
+  "addresses_section",
+  "addresses"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "description": "The ERPNext company these details print for."
+  },
+  {
+   "fieldname": "legal_name_ar",
+   "fieldtype": "Data",
+   "label": "Legal Name (Arabic)"
+  },
+  {
+   "fieldname": "owner_name",
+   "fieldtype": "Data",
+   "label": "Owner Name"
+  },
+  {
+   "fieldname": "column_break_legal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "commercial_register",
+   "fieldtype": "Data",
+   "label": "Commercial Register No."
+  },
+  {
+   "fieldname": "tax_card",
+   "fieldtype": "Data",
+   "label": "Tax Card No."
+  },
+  {
+   "fieldname": "fiscal_year_start",
+   "fieldtype": "Date",
+   "label": "Fiscal Year Start"
+  },
+  {
+   "fieldname": "branding_section",
+   "fieldtype": "Section Break",
+   "label": "Logo and Stamp"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Logo",
+   "description": "Printed on quotes, contracts, invoices and receipts."
+  },
+  {
+   "fieldname": "column_break_branding",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stamp_image",
+   "fieldtype": "Attach Image",
+   "label": "Stamp"
+  },
+  {
+   "fieldname": "addresses_section",
+   "fieldtype": "Section Break",
+   "label": "Addresses and Phones"
+  },
+  {
+   "fieldname": "addresses",
+   "fieldtype": "Table",
+   "label": "Addresses",
+   "options": "SP Company Address"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-09 21:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Company Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "SP Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "issingle": 1,
+ "track_changes": 1
+}

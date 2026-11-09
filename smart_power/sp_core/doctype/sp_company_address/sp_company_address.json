@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 21:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "label",
+  "address_ar",
+  "phone"
+ ],
+ "fields": [
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Label",
+   "reqd": 1,
+   "description": "For example: Kharga head office, Al-Muneera branch."
+  },
+  {
+   "fieldname": "address_ar",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Address (Arabic)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Phone"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-09 21:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Company Address",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 1
+}

@@ -11,6 +11,9 @@ Active,فعال
 Add,إضافة
 Add Value,إضافة قيمة
 Add Value to {0},إضافة قيمة إلى {0}
+Address (Arabic),العنوان (عربي)
+Addresses,العناوين
+Addresses and Phones,العناوين والتليفونات
 AM,ص
 Amount,المبلغ
 Annual Cost of Money,تكلفة الفلوس السنوية
@@ -35,6 +38,7 @@ Code,الكود
 Code {0} already exists in the list {1}.,الكود {0} موجود بالفعل في القائمة {1}.
 Comment,تعليق
 Commercial,تجاري
+Commercial Register No.,رقم السجل التجاري
 Company,شركة
 Completed By,تم بواسطة
 Completed On,تم في
@@ -83,10 +87,12 @@ Field names starting with {0} are reserved for developer fields.,أسماء ال
 Financial Center,المركز المالي
 Financing Type,نوع التمويل
 Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
+Fiscal Year Start,بداية السنة المالية
 Fixed,ثابت
 Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
+"For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
 From document,من المستند
 Full,كامل
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
@@ -102,7 +108,9 @@ Inverter Brand,ماركة الإنفرتر
 Iron Markup,معامل الحديد
 Item Group,مجموعة الأصناف
 Job Type,نوع الشغلانة
+Label,الاسم
 Late Entry,تسجيل متأخر
+Legal Name (Arabic),الاسم القانوني (عربي)
 Level,المستوى
 Light,خفيف
 Light: phone entry for the winch and car (decision 44).,خفيف: تسجيل من الموبايل للونش والعربية (قرار 44).
@@ -114,6 +122,8 @@ List,القائمة
 Lists,القوائم
 Locked for quote creators.,مقفل على أصحاب العروض.
 Log out,تسجيل الخروج
+Logo,الشعار
+Logo and Stamp,الشعار والختم
 Lost Reason,سبب الخسارة
 Manual Entry,إدخال يدوي
 Margin,هامش الربح
@@ -149,11 +159,14 @@ Other,أخرى
 Outcome,النتيجة
 Overridden,تم التخطي بسبب
 Override,تخطي
+Owner Name,اسم المالك
 Parent Value,القيمة الأم
 Payment Method,طريقة الدفع
+Phone,التليفون
 PM,م
 PO Sent,تم إرسال أمر التوريد
 Posting Event,حدث القيد
+"Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
 Priority,الأولوية
 Quotation,عرض سعر
 Quotations,عروض الأسعار
@@ -178,6 +191,7 @@ Review,المراجعة
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
 Reviewed On,تاريخ المراجعة
+Row {0}: the address {1} is listed twice.,الصف {0}: العنوان {1} مكرر.
 Row {0}: the minimum margin is higher than the maximum.,سطر {0}: أقل ربح أكبر من أقصى ربح.
 Row {0}: {1} is listed twice for {2}.,سطر {0}: {1} مكررة مرتين في {2}.
 Rule,القاعدة
@@ -213,6 +227,8 @@ SP Catalog Manager,الأصناف والكتالوجات
 SP Collection Officer,التحصيل
 SP Commission Manager,العمولات
 SP Commissioning Programmer,البرمجة والتشغيل
+SP Company Address,عنوان الشركة
+SP Company Settings,بيانات الشركة
 SP Contract Manager,العقود
 SP Custody Holder,صاحب عهدة
 SP Customer Followup,متابعة العملاء
@@ -258,6 +274,7 @@ SP Warranty Service,الضمان والصيانة
 SP Winch Manager,مسئول الونش
 SP Winch Operator,سواق الونش
 SP Winch Reviewer,مراجعة الونش
+Stamp,الختم
 Status,الحالة
 Subject,الموضوع
 Summary,الملخص
@@ -266,10 +283,12 @@ Supply and install,توريد وتركيب
 Supply only,توريد فقط
 System Type,نوع النظام
 Task Type,نوع المهمة
+Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
 Technical Review,مراجعة فنية
 Terms Note,ملاحظة الشروط
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
+The ERPNext company these details print for.,الشركة في النظام التي تُطبع لها هذه البيانات.
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
