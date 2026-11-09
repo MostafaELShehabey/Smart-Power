@@ -141,7 +141,10 @@ Imp (A),Imp (أمبير)
 Import,استيراد
 Import from Excel,استيراد من إكسل
 Import Items from Excel,استيراد الأصناف من إكسل
+Import Prices from Excel,استيراد الأسعار من إكسل
+Import: {0},استيراد: {0}
 Importing items…,جارٍ استيراد الأصناف…
+Importing prices…,جاري استيراد الأسعار…
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
 Individual,فرد
 Individual (BTC) or company (BTB). Sets the customer type.,فرد (BTC) أو شركة (BTB). يحدد نوع العميل.
@@ -151,6 +154,7 @@ Inverter Brand,ماركة الإنفرتر
 Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
 Item Group,مجموعة الأصناف
+Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
 Job Type,نوع الشغلانة
 Label,الاسم
 Late Entry,تسجيل متأخر
@@ -211,6 +215,7 @@ Off,متوقف
 Offer Type,نوع العرض
 Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
+One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
@@ -282,6 +287,7 @@ Rule Warning,تنبيه قاعدة
 Save,حفظ
 Saved,تم الحفظ
 Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
+Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون تغيير: {1} · أخطاء: {2}
 Scope,النطاق
 Second Mobile,موبايل إضافي
 Service Issue,مشكلة صيانة
@@ -376,6 +382,7 @@ Supplier,المورد
 Supplier List Price,سعر لستة المورد
 Supplier missing,المورد غير محدد
 Supplier Quotation,عرض سعر مورد
+Supplier {0} does not exist.,المورد {0} غير موجود.
 Supply and install,توريد وتركيب
 Supply only,توريد فقط
 System Type,نوع النظام
@@ -390,6 +397,7 @@ The default price category for items in this group.,فئة السعر الافت
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The ERPNext company these details print for.,الشركة في النظام التي تُطبع لها هذه البيانات.
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
+The file has no price column.,الملف لا يحتوي على عمود سعر.
 The file is empty.,الملف فارغ.
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
@@ -398,6 +406,7 @@ The order must contain every value of the list {0} once.,يجب أن يحتوي 
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
+The row has no price.,السطر لا يحتوي على سعر.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
@@ -408,6 +417,7 @@ Total discount limit for the follow-up owner,حد الخصم على الإجما
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit Account,الحساب الوسيط
 Unknown list {0}.,قائمة غير معروفة {0}.
+Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
 User,المستخدم
@@ -427,6 +437,7 @@ Who follows up this customer now. Changes through the case and hand-over.,من �
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
 Write-off,شطب
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
+You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} days,{0} يوم
@@ -434,6 +445,7 @@ You cannot change cost prices.,لا يمكنك تغيير أسعار التكل�
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
+{0} is repeated: it is already in row {1}.,{0} مكرر: موجود بالفعل في السطر {1}.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} of {1} items,{0} من {1} صنف
 {0} {1} does not exist.,{0} {1} غير موجود.
