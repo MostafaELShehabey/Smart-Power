@@ -6,3 +6,4 @@
 # Patches added in this section will be executed after doctypes are migrated
 smart_power.patches.sp22_currency_and_branding
 smart_power.patches.sp32_list_value_names
+smart_power.patches.sp32_seed_list_values

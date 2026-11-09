@@ -51,6 +51,27 @@ class SPListValue(Document):
 		duplicate = frappe.db.exists("SP List Value", filters)
 		if duplicate:
 			frappe.throw(_("Code {0} already exists in the list {1}.").format(self.code, _(self.list_name)))
+		if self.parent_value == self.name:
+			frappe.throw(_("A value cannot be its own parent."))
+
+	def on_trash(self):
+		"""A value in use is never deleted: the admin deactivates it instead (SP-32)."""
+		from frappe.model.delete_doc import get_dynamic_linked_docs, get_linked_docs
+
+		used_by = get_linked_docs(self) or get_dynamic_linked_docs(self)
+		if used_by:
+			first = used_by[0]
+			frappe.throw(
+				_(
+					"{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead."
+				).format(
+					frappe.bold(self.value_ar),
+					_(first["reference_doctype"]),
+					frappe.bold(first["reference_docname"]),
+				),
+				frappe.LinkExistsError,
+				title=_("Deactivate instead"),
+			)
 
 
 def clean_code(code: str | None) -> str:
