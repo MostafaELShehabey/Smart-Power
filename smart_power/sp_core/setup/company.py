@@ -1,0 +1,66 @@
+"""The Smart Power company (SP-25).
+
+`complete_setup` runs ERPNext's setup wizard with Smart Power's values instead of clicking
+through it, so every site (local, staging, production) gets the same company:
+
+    bench --site <site> execute smart_power.sp_core.setup.company.complete_setup
+
+It is safe to run again. When setup is already complete (done by hand, or by ERPNext's test
+data on a dev site) but the company is missing, only the company and its fiscal year are
+created, with ERPNext's own company step. Then the company is linked to X12 Company settings.
+"""
+
+import frappe
+from frappe import _
+
+from smart_power.sp_core.services.company import COMPANY_SETTINGS
+from smart_power.sp_core.setup.seed import defaults
+
+SETUP_OK = "ok"
+
+
+def setup_args() -> dict:
+	"""The setup wizard's answers, from defaults.json."""
+	return {k: v for k, v in defaults()["company"].items() if not k.startswith("_")}
+
+
+def complete_setup() -> str:
+	"""Create the company through ERPNext's setup wizard if setup is not done yet. Returns its name."""
+	from frappe.desk.page.setup_wizard.setup_wizard import setup_complete
+
+	args = setup_args()
+	if not frappe.is_setup_complete():
+		result = setup_complete(args) or {}
+		if result.get("status") != SETUP_OK:
+			frappe.throw(
+				_("ERPNext setup did not finish: {0}").format(result.get("fail") or result),
+				title=_("Setup failed"),
+			)
+	company = frappe.db.get_value("Company", {"company_name": args["company_name"]})
+	if not company:
+		create_company(args)
+		company = frappe.db.get_value("Company", {"company_name": args["company_name"]})
+	if not company:
+		frappe.throw(_("Setup is complete but there is no company named {0}.").format(args["company_name"]))
+	link_company_settings(company)
+	return company
+
+
+def create_company(args: dict) -> None:
+	"""ERPNext's setup step for the fiscal year and company (existing records are skipped)."""
+	from erpnext.setup.setup_wizard.operations.install_fixtures import install_company
+
+	install_company(frappe._dict(args))
+	company = frappe.db.get_value("Company", {"company_name": args["company_name"]})
+	if company and not frappe.db.get_single_value("Global Defaults", "default_company"):
+		frappe.db.set_single_value("Global Defaults", "default_company", company)
+
+
+def link_company_settings(company: str) -> None:
+	"""Point X12 at the company, unless the admin already chose one."""
+	settings = frappe.get_single(COMPANY_SETTINGS)
+	if settings.company:
+		return
+	settings.company = company
+	settings.flags.ignore_permissions = True
+	settings.save()
