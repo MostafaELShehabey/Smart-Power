@@ -32,17 +32,27 @@ class SPListValue(Document):
 			"Site Stage",
 			"Inverter Brand",
 		]
+		meta_json: DF.JSON | None
 		parent_value: DF.Link | None
 		sort_order: DF.Int
 		value_ar: DF.Data
 		value_en: DF.Data | None
 	# end: auto-generated types
 
+	def before_naming(self):
+		# The name is "{list_name}-{code}", so the code is cleaned before it is named.
+		self.code = clean_code(self.code)
+
 	def validate(self):
-		self.code = (self.code or "").strip().upper()
-		duplicate = frappe.db.exists(
-			"SP List Value",
-			{"list_name": self.list_name, "code": self.code, "name": ("!=", self.name)},
-		)
+		self.code = clean_code(self.code)
+		filters = {"list_name": self.list_name, "code": self.code}
+		if not self.is_new():
+			filters["name"] = ("!=", self.name)
+		duplicate = frappe.db.exists("SP List Value", filters)
 		if duplicate:
 			frappe.throw(_("Code {0} already exists in the list {1}.").format(self.code, _(self.list_name)))
+
+
+def clean_code(code: str | None) -> str:
+	"""Codes are upper case with no spaces: " cash box " → "CASH_BOX"."""
+	return "_".join((code or "").upper().split())

@@ -1,8 +1,8 @@
 {
  "actions": [],
  "allow_bulk_edit": 1,
- "allow_rename": 1,
- "autoname": "format:LV-{#####}",
+ "allow_rename": 0,
+ "autoname": "format:{list_name}-{code}",
  "creation": "2026-11-09 14:29:35.504435",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -15,7 +15,8 @@
   "value_ar",
   "value_en",
   "parent_value",
-  "is_active"
+  "is_active",
+  "meta_json"
  ],
  "fields": [
   {
@@ -25,20 +26,23 @@
    "in_standard_filter": 1,
    "label": "List",
    "options": "System Type\nFinancing Type\nPayment Method\nExpense Type\nField Expense\nSimple Record Type\nJob Type\nCall Result\nLost Reason\nRegion\nService Issue\nSite Stage\nInverter Brand",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
-   "description": "Short key used by reports and code, e.g. PUMP.",
+   "description": "Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",
    "fieldname": "code",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Code",
-   "reqd": 1
+   "reqd": 1,
+   "set_only_once": 1
   },
   {
    "fieldname": "sort_order",
    "fieldtype": "Int",
-   "label": "Sort Order"
+   "label": "Sort Order",
+   "in_list_view": 1
   },
   {
    "fieldname": "column_break_lv",
@@ -68,17 +72,25 @@
    "fieldname": "is_active",
    "fieldtype": "Check",
    "in_list_view": 1,
-   "label": "Active"
+   "label": "Active",
+   "in_standard_filter": 1,
+   "description": "Inactive values are hidden from pickers but still show on old records."
+  },
+  {
+   "description": "Extra settings for this value as JSON, e.g. the calculation template of a system type.",
+   "fieldname": "meta_json",
+   "fieldtype": "JSON",
+   "label": "Extra Data"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-09 12:30:00.000000",
+ "modified": "2026-11-09 19:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP List Value",
- "naming_rule": "Expression (old style)",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -120,7 +132,7 @@
  "rows_threshold_for_grid_search": 20,
  "search_fields": "value_ar,value_en,code",
  "show_title_field_in_link": 1,
- "sort_field": "list_name",
+ "sort_field": "sort_order",
  "sort_order": "ASC",
  "states": [],
  "title_field": "value_ar",

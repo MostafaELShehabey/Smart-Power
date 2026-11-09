@@ -59,6 +59,8 @@ Entry Mode,طريقة التسجيل
 Events,الأحداث
 Expense,مصروف
 Expense Type,نوع المصروف
+Extra Data,بيانات إضافية
+"Extra settings for this value as JSON, e.g. the calculation template of a system type.",إعدادات إضافية لهذه القيمة بصيغة JSON، مثل قالب الحساب لنوع النظام.
 Field,الحقل
 Field entry,التسجيل الميداني
 "Field entry is done from your phone. The Job, Expense and Money pages open here when they are ready.",التسجيل الميداني يتم من الموبايل. صفحات الشغلانة والمصروف والفلوس ستفتح هنا عند جاهزيتها.
@@ -79,6 +81,7 @@ Hello {0},أهلاً {0}
 Highlight,تمييز
 Hit At,وقت التنبيه
 Home Page Variant,شكل الصفحة الرئيسية
+Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
 Inverter Brand,ماركة الإنفرتر
 Iron Markup,معامل الحديد
 Item Group,مجموعة الأصناف
@@ -163,6 +166,7 @@ Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
+"Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",مفتاح قصير تستخدمه التقارير والنظام، مثل PUMP. لا يتغير بعد الحفظ لأنه جزء من اسم السجل.
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
 Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أيام من آخر إيداع)
 Simple Record Type,نوع التسجيل البسيط
