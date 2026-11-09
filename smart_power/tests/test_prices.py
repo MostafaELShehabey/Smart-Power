@@ -144,12 +144,16 @@ class TestSetPrice(IntegrationTestCase):
 		self.assertEqual(getdate(row.valid_from), getdate(today()))
 
 
+# Like the sheet's section headers: P1 = List less 13%, BTC = List less 3% plus 300, BTB = BTC less 5%.
+SHEET_RULES = (
+	("P1 Cost", "List Price", -13, 0),
+	("BTC", "List Price", -3, 300),
+	("BTB", "BTC", -5, 0),
+)
+
+
 class TestPricingRules(IntegrationTestCase):
-	RULES = (
-		("P1 Cost", "List Price", -13, 0),
-		("BTC", "List Price", -3, 300),
-		("BTB", "BTC", -5, 0),
-	)
+	RULES = SHEET_RULES
 
 	def test_derive_prices_like_the_sheet_headers(self):
 		rules = [
