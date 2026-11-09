@@ -1,5 +1,8 @@
 0 means no rounding; 5 rounds to the nearest 5.,صفر يعني بدون تقريب، و5 يعني التقريب لأقرب 5.
 1 is picked first.,رقم 1 يُختار أولاً.
+A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
+A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
+A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
 A reason is needed,مطلوب سبب
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
@@ -9,6 +12,7 @@ Account Map,خريطة الحسابات
 Action,الإجراء
 Active,فعال
 Add,إضافة
+Add Amount,مبلغ إضافي
 Add Value,إضافة قيمة
 Add Value to {0},إضافة قيمة إلى {0}
 "Added to every quote of its offer type, like transport or installation.",يُضاف لكل عرض من نفس نوع العرض، مثل النقل أو التركيب.
@@ -16,6 +20,8 @@ Address (Arabic),العنوان (عربي)
 Addresses,العناوين
 Addresses and Phones,العناوين والتليفونات
 AM,ص
+Amber After (days),أصفر بعد (أيام)
+Amber After must be fewer days than the Max Price Age.,يجب أن تكون أيام اللون الأصفر أقل من أقصى عمر للسعر.
 Amount,المبلغ
 Annual Cost of Money,تكلفة الفلوس السنوية
 Applies To,يُطبق على
@@ -28,6 +34,10 @@ Blocked,ممنوع
 Blocked by a business rule,تم المنع بقاعدة عمل
 Brand,الماركة
 Brand Priority,أولوية الماركات
+BTB,BTB
+BTB (Companies),BTB (الشركات)
+BTC,BTC
+BTC (Individuals),BTC (الأفراد)
 Call Result,نتيجة المكالمة
 Can Never Block,لا يمنع أبداً
 Cancelled,ملغي
@@ -35,6 +45,7 @@ Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Cash and Locks,الكاش والقفل
 Catalogue (PDF),الكتالوج (PDF)
 Category,التصنيف
+Change %,نسبة التغيير %
 Change Order,أمر تغيير
 Chassis,الشاسيه
 Check the specs,راجع المواصفات
@@ -78,6 +89,7 @@ Edit,تعديل
 Empty means all offer types.,فارغ يعني كل أنواع العروض.
 Empty means both.,فارغ يعني الاثنين.
 Empty means the default validity is also the maximum.,فارغ يعني أن الصلاحية الافتراضية هي الحد الأقصى.
+Empty uses the default rounding step in Smart Power Settings.,فارغ يستخدم خطوة التقريب الافتراضية في إعدادات سمارت باور.
 Entry Mode,طريقة التسجيل
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
@@ -106,6 +118,7 @@ Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
+From,من
 From document,من المستند
 Full,كامل
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
@@ -114,6 +127,7 @@ Hello {0},أهلاً {0}
 Highlight,تمييز
 Hit At,وقت التنبيه
 Home Page Variant,شكل الصفحة الرئيسية
+"How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
 Imp (A),Imp (أمبير)
 Import,استيراد
 Import from Excel,استيراد من إكسل
@@ -140,6 +154,7 @@ Limits and Scope,الحدود والنطاق
 "Limits must be a JSON object, for example {""max_days"": 3}.","يجب أن تكون الحدود كائن JSON، مثلاً {""max_days"": 3}."
 Limits must be valid JSON.,يجب أن تكون الحدود JSON صحيحاً.
 List,القائمة
+List Price,سعر اللستة
 Lists,القوائم
 Locked for quote creators.,مقفل على أصحاب العروض.
 Log out,تسجيل الخروج
@@ -148,6 +163,7 @@ Logo and Stamp,الشعار والختم
 Lost Reason,سبب الخسارة
 Main Supplier,المورد الرئيسي
 Manual Entry,إدخال يدوي
+Manual Prices,أسعار يدوية
 Margin,هامش الربح
 Margin on sale,هامش من البيع
 Margin Ranges,نطاقات الربح
@@ -156,6 +172,7 @@ Markup Basis,أساس المعامل
 Markup on cost,معامل على التكلفة
 Max DC Voltage (V),أقصى جهد DC (فولت)
 Max Margin %,أقصى ربح %
+Max Price Age (days),أقصى عمر للسعر (أيام)
 Max Total Discount: Follow-up Owner,أقصى خصم على الإجمالي: مسئول المتابعة
 Max Total Discount: Quote Creator,أقصى خصم على الإجمالي: صاحب العرض
 Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
@@ -170,6 +187,7 @@ Money this person receives passes through this account until it reaches an offic
 MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
+"Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
 New Value,القيمة الجديدة
 Note,ملاحظة
 Off,متوقف
@@ -186,6 +204,7 @@ Outcome,النتيجة
 Overridden,تم التخطي بسبب
 Override,تخطي
 Owner Name,اسم المالك
+P1 Cost,تكلفة P1
 Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
 Payment Method,طريقة الدفع
@@ -196,6 +215,11 @@ Posting Event,حدث القيد
 Power (HP),القدرة (حصان)
 Power (kW),القدرة (كيلووات)
 Power (W),القدرة (وات)
+Price,السعر
+Price Category,فئة السعر
+Price Lists,لستات الأسعار
+Price lists are not set,لستات الأسعار غير محددة
+Pricing Rules,قواعد التسعير
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
 Priority,الأولوية
 Pump Specs,مواصفات الطلمبة
@@ -222,9 +246,12 @@ Review,المراجعة
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
 Reviewed On,تاريخ المراجعة
+Round Derived Prices To,تقريب الأسعار المحسوبة إلى
 Row,الصف
+Row {0}: a price cannot be worked out from itself.,سطر {0}: لا يمكن حساب سعر من نفسه.
 Row {0}: the address {1} is listed twice.,الصف {0}: العنوان {1} مكرر.
 Row {0}: the minimum margin is higher than the maximum.,سطر {0}: أقل ربح أكبر من أقصى ربح.
+Row {0}: {1} already has a rule.,سطر {0}: {1} له قاعدة بالفعل.
 Row {0}: {1} is listed twice for {2}.,سطر {0}: {1} مكررة مرتين في {2}.
 Rule,القاعدة
 Rule Key,مفتاح القاعدة
@@ -235,8 +262,10 @@ Scope,النطاق
 Second Mobile,موبايل إضافي
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
+Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
+Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
 Setup failed,فشل الإعداد
 Setup is complete but there is no company named {0}.,الإعداد مكتمل لكن لا توجد شركة باسم {0}.
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
@@ -248,6 +277,7 @@ Site Stage,مرحلة الموقع
 Site Survey,معاينة موقع
 Smart Power,سمارت باور
 Smart Power Settings,إعدادات سمارت باور
+Smart Power's cost. Visible to cost roles only (SP-35).,تكلفة سمارت باور. تظهر لأدوار التكلفة فقط (SP-35).
 Snoozed Until,مؤجل حتى
 Sort Order,الترتيب
 SP Account Map,خريطة الحسابات
@@ -281,6 +311,8 @@ SP Margin Range,نطاق الربح
 SP Marketing Agent,التسويق
 SP Marketing and Quotes,ماركتنج وإعداد عروض
 SP Owner and Admin,المدير وصاحب الشركة
+SP Price Category,فئة سعر
+SP Price Rule,قاعدة تسعير
 SP Pricing Manager,لستة الأسعار
 SP Project Manager,مدير المشروعات
 SP Projects Manager,مدير المشروعات
@@ -308,10 +340,14 @@ SP Warranty Service,الضمان والصيانة
 SP Winch Manager,مسئول الونش
 SP Winch Operator,سواق الونش
 SP Winch Reviewer,مراجعة الونش
+Stale Price on a Quote,سعر قديم في عرض سعر
+Stale prices never block a quote (SP-63).,الأسعار القديمة لا تمنع عرض السعر أبداً (SP-63).
 Stamp,الختم
 Status,الحالة
 Subject,الموضوع
 Summary,الملخص
+Supplier List Price,سعر لستة المورد
+Supplier missing,المورد غير محدد
 Supplier Quotation,عرض سعر مورد
 Supply and install,توريد وتركيب
 Supply only,توريد فقط
@@ -321,14 +357,18 @@ Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
 Technical Review,مراجعة فنية
 Terms Note,ملاحظة الشروط
+The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
 The code is empty.,الكود فارغ.
+The default price category for items in this group.,فئة السعر الافتراضية لأصناف هذه المجموعة.
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The ERPNext company these details print for.,الشركة في النظام التي تُطبع لها هذه البيانات.
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
 The file is empty.,الملف فارغ.
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
+The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
+The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
@@ -364,4 +404,6 @@ Write-off,شطب
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} {1} does not exist.,{0} {1} غير موجود.
+{0}: a {1} price needs a supplier.,{0}: سعر {1} يحتاج مورداً.
+{0}: give a reason for changing the {1} price.,{0}: اكتب سبب تغيير سعر {1}.
 ★ Featured,★ مميز

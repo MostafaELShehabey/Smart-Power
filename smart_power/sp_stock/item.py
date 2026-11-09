@@ -16,7 +16,11 @@ SPEC_PAIRS = (
 
 
 def validate(doc, method=None):
-	"""Item validate hook: refuse spec values that cannot be true."""
+	"""Item validate hook: refuse spec values that cannot be true; take the group's price category."""
+	if not doc.get("sp_price_age_category") and doc.item_group:
+		doc.sp_price_age_category = frappe.get_cached_value(
+			"Item Group", doc.item_group, "sp_price_age_category"
+		)
 	for low, high in SPEC_PAIRS:
 		if flt(doc.get(low)) and flt(doc.get(high)) and flt(doc.get(low)) > flt(doc.get(high)):
 			frappe.throw(
@@ -42,3 +46,6 @@ def seed_item_groups() -> None:
 		frappe.get_doc(
 			{"doctype": "Item Group", "item_group_name": name, "parent_item_group": root, "is_group": 0}
 		).insert(ignore_permissions=True)
+	from smart_power.sp_stock.prices import seed_price_categories
+
+	seed_price_categories()

@@ -16,6 +16,12 @@
   "followup_discount_max_pct",
   "creator_discount_max_pct",
   "default_rounding_step",
+  "prices_section",
+  "list_price_list",
+  "cost_price_list",
+  "column_break_prices",
+  "btb_price_list",
+  "btc_price_list",
   "margins_section",
   "margin_ranges",
   "chassis_section",
@@ -88,6 +94,41 @@
    "fieldname": "default_rounding_step",
    "fieldtype": "Float",
    "label": "Default Rounding Step"
+  },
+  {
+   "description": "The four ERPNext price lists that the price list screen (I2) and the quotes use.",
+   "fieldname": "prices_section",
+   "fieldtype": "Section Break",
+   "label": "Price Lists"
+  },
+  {
+   "fieldname": "list_price_list",
+   "fieldtype": "Link",
+   "label": "Supplier List Price",
+   "options": "Price List"
+  },
+  {
+   "description": "Smart Power's cost. Visible to cost roles only (SP-35).",
+   "fieldname": "cost_price_list",
+   "fieldtype": "Link",
+   "label": "P1 Cost",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "column_break_prices",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "btb_price_list",
+   "fieldtype": "Link",
+   "label": "BTB (Companies)",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "btc_price_list",
+   "fieldtype": "Link",
+   "label": "BTC (Individuals)",
+   "options": "Price List"
   },
   {
    "description": "Warning range for the quote margin, never a block (decisions 47 and 67).",
@@ -190,7 +231,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-09 14:29:36.106885",
+ "modified": "2026-11-09 23:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

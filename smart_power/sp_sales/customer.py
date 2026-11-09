@@ -55,9 +55,19 @@ def validate(doc, method=None):
 
 
 def apply_tier(doc):
-	"""The tier decides ERPNext's customer type, so price lists and reports agree with it."""
+	"""The tier decides ERPNext's customer type and the customer's price list (BTC or BTB, SP-30),
+	so quotes, reports and price lists agree with it. A price list the user picked by hand stays
+	until the tier changes."""
+	from smart_power.sp_stock.prices import TIER_LIST, price_lists
+
 	if doc.get("sp_tier") in TIER_TO_CUSTOMER_TYPE:
 		doc.customer_type = TIER_TO_CUSTOMER_TYPE[doc.sp_tier]
+	if is_erpnext_test_data():
+		return
+	tier_list = price_lists().get(TIER_LIST.get(doc.get("sp_tier")))
+	tier_changed = not doc.is_new() and doc.has_value_changed("sp_tier")
+	if tier_list and (not doc.get("default_price_list") or tier_changed):
+		doc.default_price_list = tier_list
 
 
 def validate_region(doc):

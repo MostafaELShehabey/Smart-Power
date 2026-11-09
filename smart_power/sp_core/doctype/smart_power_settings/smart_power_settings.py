@@ -22,16 +22,20 @@ class SmartPowerSettings(Document):
 
 		account_map: DF.Table[SPAccountMap]
 		brand_priorities: DF.Table[SPBrandPriority]
+		btb_price_list: DF.Link | None
+		btc_price_list: DF.Link | None
 		case_inactivity_days: DF.Int
 		chassis_iron_markup_pct: DF.Percent
 		chassis_markup_basis: DF.Literal["Markup on cost", "Margin on sale"]
 		cost_of_money_pct: DF.Percent
+		cost_price_list: DF.Link | None
 		creator_discount_max_pct: DF.Percent
 		default_quote_print_format: DF.Link | None
 		default_rounding_step: DF.Float
 		field_entry_lock_days: DF.Int
 		followup_delay_days: DF.Int
 		followup_discount_max_pct: DF.Percent
+		list_price_list: DF.Link | None
 		margin_ranges: DF.Table[SPMarginRange]
 		max_validity_days: DF.Int
 		quote_due_hours: DF.Int
