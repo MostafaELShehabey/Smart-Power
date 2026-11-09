@@ -60,6 +60,8 @@ _RULE_EVENTS = {
 doc_events = {
 	"*": _RULE_EVENTS,
 	"SP Rule Setting": {"on_update": "smart_power.rules.clear_cache"},
+	# Customer master (SP-31): one customer per mobile.
+	"Customer": {"validate": "smart_power.sp_sales.customer.validate"},
 	**{
 		dt: {
 			"before_insert": "smart_power.events.customization.tag_admin_owned",
