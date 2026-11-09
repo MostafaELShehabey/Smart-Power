@@ -8,6 +8,9 @@ Abnormal,غير طبيعي
 Account Map,خريطة الحسابات
 Action,الإجراء
 Active,فعال
+Add,إضافة
+Add Value,إضافة قيمة
+Add Value to {0},إضافة قيمة إلى {0}
 AM,ص
 Amount,المبلغ
 Annual Cost of Money,تكلفة الفلوس السنوية
@@ -52,6 +55,7 @@ Discount,خصم
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
 Done,تم
+Drag to reorder,اسحب لتغيير الترتيب
 Due At,الميعاد
 Edit,تعديل
 Empty means all offer types.,فارغ يعني كل أنواع العروض.
@@ -97,6 +101,7 @@ Limits and Scope,الحدود والنطاق
 "Limits must be a JSON object, for example {""max_days"": 3}.","يجب أن تكون الحدود كائن JSON، مثلاً {""max_days"": 3}."
 Limits must be valid JSON.,يجب أن تكون الحدود JSON صحيحاً.
 List,القائمة
+Lists,القوائم
 Locked for quote creators.,مقفل على أصحاب العروض.
 Log out,تسجيل الخروج
 Lost Reason,سبب الخسارة
@@ -125,6 +130,8 @@ Old Value,القيمة القديمة
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
 Open,مفتوح
+Open as List,فتح كقائمة
+Order saved,تم حفظ الترتيب
 Other,أخرى
 Outcome,النتيجة
 Overridden,تم التخطي بسبب
@@ -152,6 +159,7 @@ Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
 Refund,رد مبلغ
 Region,المنطقة
+Rename,إعادة تسمية
 Request for Quotation,طلب عرض سعر من مورد
 Review,المراجعة
 Reviewed,تمت المراجعة
@@ -163,6 +171,7 @@ Rule,القاعدة
 Rule Key,مفتاح القاعدة
 "Rule limits as JSON, for example {""max_days"": 3}.","حدود القاعدة بصيغة JSON، مثلاً {""max_days"": 3}."
 Rule Warning,تنبيه قاعدة
+Save,حفظ
 Scope,النطاق
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
@@ -246,13 +255,16 @@ Technical,فني
 Technical Review,مراجعة فنية
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
+The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
+This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 Timestamp,الوقت
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit Account,الحساب الوسيط
+Unknown list {0}.,قائمة غير معروفة {0}.
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
 User,المستخدم
 Value (Arabic),القيمة (عربي)

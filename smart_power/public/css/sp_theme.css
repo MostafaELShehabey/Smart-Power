@@ -113,3 +113,13 @@ body .es-button[data-variant="solid"] {
 	max-height: 4rem;
 	width: auto;
 }
+
+/* X4 Lists page (SP-32) */
+.sp-lists-table .sp-drag {
+	cursor: grab;
+	width: 2rem;
+}
+.sp-lists-menu .sidebar-item.selected a {
+	color: var(--sp-navy);
+	font-weight: 600;
+}
