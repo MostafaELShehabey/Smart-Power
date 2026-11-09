@@ -1,4 +1,5 @@
-"""Customer master rules (SP-31): each customer is stored once, keyed by an Egyptian mobile."""
+"""Customer master rules (SP-31): each customer is stored once, keyed by an Egyptian mobile;
+the tier (BTC or BTB) sets ERPNext's customer type; the region comes from the X4 Region list."""
 
 import re
 
@@ -9,6 +10,9 @@ from frappe.utils import get_link_to_form
 # 11 digits: 010, 011, 012 or 015, then 8 digits (SP-31).
 MOBILE_PATTERN = re.compile(r"^01[0125]\d{8}$")
 COUNTRY_CODE = "20"
+REGION_LIST = "Region"
+# Tier → ERPNext customer type. Individuals buy at BTC prices, companies at BTB.
+TIER_TO_CUSTOMER_TYPE = {"Individual": "Individual", "Company": "Company"}
 INTERNATIONAL_PREFIX = "00"
 
 
@@ -35,7 +39,31 @@ def find_by_mobile(mobile: str, exclude: str | None = None) -> str | None:
 
 
 def validate(doc, method=None):
-	"""Customer validate hook: clean the mobiles, require one, and refuse a duplicate."""
+	"""Customer validate hook."""
+	validate_mobile(doc)
+	apply_tier(doc)
+	validate_region(doc)
+
+
+def apply_tier(doc):
+	"""The tier decides ERPNext's customer type, so price lists and reports agree with it."""
+	if doc.get("sp_tier") in TIER_TO_CUSTOMER_TYPE:
+		doc.customer_type = TIER_TO_CUSTOMER_TYPE[doc.sp_tier]
+
+
+def validate_region(doc):
+	"""Link filters only steer the picker; a value from another list is refused on save."""
+	if (
+		doc.get("sp_region")
+		and frappe.db.get_value("SP List Value", doc.sp_region, "list_name") != REGION_LIST
+	):
+		frappe.throw(
+			_("{0} is not a region. Pick a value from the Region list.").format(frappe.bold(doc.sp_region))
+		)
+
+
+def validate_mobile(doc):
+	"""Clean the mobiles, require one, and refuse a duplicate."""
 	for fieldname in ("sp_mobile", "sp_mobile_2"):
 		if doc.get(fieldname):
 			doc.set(fieldname, normalize_mobile(doc.get(fieldname)))

@@ -43,3 +43,27 @@ class TestCustomerMobile(IntegrationTestCase):
 		doc = make_customer("01223334444")
 		doc.customer_name = "اسم جديد"
 		doc.save()
+
+
+class TestCustomerTierRegion(IntegrationTestCase):
+	def test_tier_sets_customer_type(self):
+		doc = make_customer("01009990001", sp_tier="Company")
+		self.assertEqual(doc.customer_type, "Company")
+		doc.sp_tier = "Individual"
+		doc.save()
+		self.assertEqual(doc.customer_type, "Individual")
+
+	def test_default_tier_is_individual(self):
+		doc = make_customer("01009990002")
+		self.assertEqual((doc.sp_tier, doc.customer_type), ("Individual", "Individual"))
+
+	def test_region_from_the_region_list(self):
+		region = frappe.get_doc(
+			{"doctype": "SP List Value", "list_name": "Region", "code": "DAKHLA_T", "value_ar": "الداخلة"}
+		).insert()
+		doc = make_customer("01009990003", sp_region=region.name)
+		self.assertEqual(doc.sp_region, "Region-DAKHLA_T")
+
+	def test_value_from_another_list_is_refused(self):
+		with self.assertRaises(frappe.ValidationError):
+			make_customer("01009990004", sp_region="System Type-PUMP")
