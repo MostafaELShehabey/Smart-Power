@@ -1,11 +1,12 @@
 """SP-128 acceptance criteria on real Quotations: discount limits per role and quote validity."""
 
-import erpnext.tests.utils  # (bootstraps ERPNext's test company, customer and item)
 import frappe
 from frappe.tests import IntegrationTestCase
 
 from smart_power.rules import BLOCK, OFF, WARN, RuleBlocked
-from smart_power.tests.utils import make_quotation, make_user, set_rule, set_setting
+from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, set_rule, set_setting
+
+load_erpnext_test_data()
 
 
 class TestDiscountRules(IntegrationTestCase):

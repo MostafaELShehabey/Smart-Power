@@ -43,6 +43,8 @@ Cost Centers,المراكز المالية
 Credit Account,الحساب الدائن
 Custody,عهدة
 Custody Account,حساب العهدة
+Customer already exists,العميل موجود
+Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Deactivate instead,أوقفها بدلاً من الحذف
 Debit Account,الحساب المدين
 Default Quote Print Format,شكل طباعة العرض الافتراضي
@@ -58,6 +60,7 @@ Done,تم
 Drag to reorder,اسحب لتغيير الترتيب
 Due At,الميعاد
 Edit,تعديل
+"Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
 Empty means all offer types.,فارغ يعني كل أنواع العروض.
 Empty means both.,فارغ يعني الاثنين.
 Empty means the default validity is also the maximum.,فارغ يعني أن الصلاحية الافتراضية هي الحد الأقصى.
@@ -88,6 +91,7 @@ Highlight,تمييز
 Hit At,وقت التنبيه
 Home Page Variant,شكل الصفحة الرئيسية
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
+Invalid mobile,رقم موبايل غير صحيح
 Inverter Brand,ماركة الإنفرتر
 Iron Markup,معامل الحديد
 Item Group,مجموعة الأصناف
@@ -117,7 +121,9 @@ Max Total Discount: Quote Creator,أقصى خصم على الإجمالي: صا�
 Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
 Message,الرسالة
 Min Margin %,أقل ربح %
+Mobile,الموبايل
 Mobile Device ID,معرّف جهاز الموبايل
+Mobile is required: it is how a returning customer is found.,الموبايل مطلوب: به نتعرف على العميل عند عودته.
 Module {0} is reserved for developer changes. Use {1}.,الموديول {0} محجوز لتعديلات المطور. استخدم {1}.
 Money and Postings,الفلوس والقيود
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
@@ -173,6 +179,7 @@ Rule Key,مفتاح القاعدة
 Rule Warning,تنبيه قاعدة
 Save,حفظ
 Scope,النطاق
+Second Mobile,موبايل إضافي
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
@@ -279,4 +286,5 @@ Write-off,شطب
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
+"{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
