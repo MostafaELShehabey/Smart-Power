@@ -57,7 +57,9 @@ ROLES: tuple[RoleDef, ...] = (
 	RoleDef("system_designer", "مصمم الأنظمة", erpnext_roles=("Sales User",)),
 	RoleDef("quote_creator", "إعداد عروض الأسعار", erpnext_roles=("Sales User",)),
 	RoleDef("catalog_manager", "الأصناف والكتالوجات", erpnext_roles=("Item Manager",)),
-	RoleDef("pricing_manager", "لستة الأسعار", erpnext_roles=("Item Manager", "Sales Master Manager")),
+	# Prices only: Item Price and Price List are edited through Sales Master Manager. No Item
+	# Manager, so only the catalog manager and the admin add or edit items (SP-29).
+	RoleDef("pricing_manager", "لستة الأسعار", erpnext_roles=("Sales Master Manager",)),
 	# Contracts, stations, buying
 	RoleDef("contract_manager", "العقود", erpnext_roles=("Sales User",)),
 	RoleDef("project_manager", "مدير المشروعات", erpnext_roles=("Projects Manager", "Projects User")),
