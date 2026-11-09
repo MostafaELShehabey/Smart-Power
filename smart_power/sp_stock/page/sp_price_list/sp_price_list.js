@@ -6,6 +6,7 @@
 // (smart_power.sp_stock.prices and price_list_api).
 
 const SP_PRICE_API = "smart_power.sp_stock.price_list_api";
+const SP_PRICE_IMPORT_API = "smart_power.sp_stock.price_import";
 const SP_PAGE_LENGTH = 100; // sp-allow-number: rows per "load more", not a business value
 
 const SP_AGE_CHIP = {
@@ -48,7 +49,62 @@ class SPPriceList {
 			this.stale_first = !this.stale_first;
 			this.refresh();
 		});
-		this.refresh();
+		this.refresh().then(() => {
+			if (this.meta.can_edit) {
+				this.page.add_inner_button(__("Import from Excel"), () => this.open_import());
+			}
+		});
+	}
+
+	open_import() {
+		const esc = frappe.utils.escape_html;
+		const dialog = new frappe.ui.Dialog({
+			title: __("Import Prices from Excel"),
+			fields: [
+				{
+					fieldtype: "HTML",
+					fieldname: "help",
+					options: `<p>${esc(
+						__("One row per item and supplier. Blank cells keep the old price; an empty date means today.")
+					)}</p><p><a href="/api/method/${SP_PRICE_IMPORT_API}.get_import_template">${esc(
+						__("Download the template")
+					)}</a></p>`,
+				},
+				{ fieldtype: "Attach", fieldname: "file", label: __("Excel File"), reqd: 1 },
+				{
+					fieldtype: "Check",
+					fieldname: "apply_rules",
+					label: __("Update the prices worked out from these ones (pricing rules)"),
+					default: 1,
+				},
+				{ fieldtype: "HTML", fieldname: "result" },
+			],
+			primary_action_label: __("Import"),
+			primary_action: async (values) => {
+				const { message: r } = await frappe.call({
+					method: `${SP_PRICE_IMPORT_API}.import_prices`,
+					type: "POST",
+					args: { file_url: values.file, apply_rules: values.apply_rules },
+					freeze: true,
+					freeze_message: __("Importing prices…"),
+				});
+				const errors = (r.rows || [])
+					.filter((row) => row.status === "Error")
+					.map((row) => `<tr><td>${row.row}</td><td>${esc(row.item_code || "")}</td><td>${esc(row.message)}</td></tr>`)
+					.join("");
+				const summary = __("Saved: {0} · Unchanged: {1} · Errors: {2}", [r.saved, r.unchanged, r.errors]); // sp-allow-number: placeholders
+				dialog.fields_dict.result.$wrapper.html(
+					`<p>${esc(summary)}</p>` +
+						(errors
+							? `<table class="table table-bordered"><thead><tr><th>${esc(__("Row"))}</th><th>${esc(
+									__("Code")
+							  )}</th><th>${esc(__("Error"))}</th></tr></thead><tbody>${errors}</tbody></table>`
+							: "")
+				);
+				this.refresh();
+			},
+		});
+		dialog.show();
 	}
 
 	make_filters() {
@@ -78,6 +134,7 @@ class SPPriceList {
 	}
 
 	async refresh(more = false) {
+		// returns once the rows are drawn
 		this.start = more ? this.start + SP_PAGE_LENGTH : 0;
 		const { message } = await frappe.call(`${SP_PRICE_API}.get_rows`, {
 			filters: this.filter_values(),
