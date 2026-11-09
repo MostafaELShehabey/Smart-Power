@@ -1,0 +1,224 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "creation": "2026-11-09 14:29:36.106885",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "quotes_section",
+  "validity_days",
+  "max_validity_days",
+  "quote_due_hours",
+  "followup_delay_days",
+  "default_quote_print_format",
+  "column_break_quotes",
+  "followup_discount_max_pct",
+  "creator_discount_max_pct",
+  "default_rounding_step",
+  "margins_section",
+  "margin_ranges",
+  "chassis_section",
+  "chassis_iron_markup_pct",
+  "column_break_chassis",
+  "chassis_markup_basis",
+  "selection_section",
+  "brand_priorities",
+  "cash_section",
+  "showroom_cash_limit_amount",
+  "showroom_cash_limit_days",
+  "column_break_cash",
+  "field_entry_lock_days",
+  "case_inactivity_days",
+  "winch_debt_age_months",
+  "money_section",
+  "cost_of_money_pct",
+  "account_map"
+ ],
+ "fields": [
+  {
+   "fieldname": "quotes_section",
+   "fieldtype": "Section Break",
+   "label": "Quotes"
+  },
+  {
+   "description": "Default validity of a new quote.",
+   "fieldname": "validity_days",
+   "fieldtype": "Int",
+   "label": "Quote Validity (days)"
+  },
+  {
+   "description": "Empty means the default validity is also the maximum.",
+   "fieldname": "max_validity_days",
+   "fieldtype": "Int",
+   "label": "Maximum Quote Validity (days)"
+  },
+  {
+   "fieldname": "quote_due_hours",
+   "fieldtype": "Int",
+   "label": "Quote Due Within (hours)"
+  },
+  {
+   "fieldname": "followup_delay_days",
+   "fieldtype": "Int",
+   "label": "Follow-up Call After (days)"
+  },
+  {
+   "fieldname": "default_quote_print_format",
+   "fieldtype": "Link",
+   "label": "Default Quote Print Format",
+   "options": "Print Format"
+  },
+  {
+   "fieldname": "column_break_quotes",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "followup_discount_max_pct",
+   "fieldtype": "Percent",
+   "label": "Max Total Discount: Follow-up Owner"
+  },
+  {
+   "fieldname": "creator_discount_max_pct",
+   "fieldtype": "Percent",
+   "label": "Max Total Discount: Quote Creator"
+  },
+  {
+   "description": "0 means no rounding; 5 rounds to the nearest 5.",
+   "fieldname": "default_rounding_step",
+   "fieldtype": "Float",
+   "label": "Default Rounding Step"
+  },
+  {
+   "description": "Warning range for the quote margin, never a block (decisions 47 and 67).",
+   "fieldname": "margins_section",
+   "fieldtype": "Section Break",
+   "label": "Margin Ranges"
+  },
+  {
+   "fieldname": "margin_ranges",
+   "fieldtype": "Table",
+   "label": "Margin Ranges",
+   "options": "SP Margin Range"
+  },
+  {
+   "fieldname": "chassis_section",
+   "fieldtype": "Section Break",
+   "label": "Chassis"
+  },
+  {
+   "description": "Locked for quote creators.",
+   "fieldname": "chassis_iron_markup_pct",
+   "fieldtype": "Percent",
+   "label": "Iron Markup"
+  },
+  {
+   "fieldname": "column_break_chassis",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Markup on cost",
+   "fieldname": "chassis_markup_basis",
+   "fieldtype": "Select",
+   "label": "Markup Basis",
+   "options": "Markup on cost\nMargin on sale"
+  },
+  {
+   "fieldname": "selection_section",
+   "fieldtype": "Section Break",
+   "label": "Default Selection"
+  },
+  {
+   "fieldname": "brand_priorities",
+   "fieldtype": "Table",
+   "label": "Brand Priority",
+   "options": "SP Brand Priority"
+  },
+  {
+   "fieldname": "cash_section",
+   "fieldtype": "Section Break",
+   "label": "Cash and Locks"
+  },
+  {
+   "fieldname": "showroom_cash_limit_amount",
+   "fieldtype": "Currency",
+   "label": "Showroom Cash Limit (amount)"
+  },
+  {
+   "fieldname": "showroom_cash_limit_days",
+   "fieldtype": "Int",
+   "label": "Showroom Cash Limit (days since the last deposit)"
+  },
+  {
+   "fieldname": "column_break_cash",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "field_entry_lock_days",
+   "fieldtype": "Int",
+   "label": "Field Entry Lock (days)"
+  },
+  {
+   "fieldname": "case_inactivity_days",
+   "fieldtype": "Int",
+   "label": "Case Inactivity Alert (days)"
+  },
+  {
+   "fieldname": "winch_debt_age_months",
+   "fieldtype": "Int",
+   "label": "Winch Debt Age Alert (months)"
+  },
+  {
+   "fieldname": "money_section",
+   "fieldtype": "Section Break",
+   "label": "Money and Postings"
+  },
+  {
+   "description": "Used by installment plans (Release 2).",
+   "fieldname": "cost_of_money_pct",
+   "fieldtype": "Percent",
+   "label": "Annual Cost of Money"
+  },
+  {
+   "fieldname": "account_map",
+   "fieldtype": "Table",
+   "label": "Account Map",
+   "options": "SP Account Map"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-11-09 14:29:36.106885",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "Smart Power Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "SP Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

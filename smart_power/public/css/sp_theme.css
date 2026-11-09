@@ -1,0 +1,95 @@
+/* Smart Power desk theme (SP-22): Arabic font, navy and gold.
+ * Kept to CSS variables and a few selectors so a Frappe minor upgrade does not break it.
+ * Fonts are self-hosted (IBM Plex Sans Arabic, SIL OFL 1.1), never loaded from Google at runtime. */
+
+@font-face {
+	font-family: "IBM Plex Sans Arabic";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/assets/smart_power/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2") format("woff2");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+	font-family: "IBM Plex Sans Arabic";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("/assets/smart_power/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2") format("woff2");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+	font-family: "IBM Plex Sans Arabic";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("/assets/smart_power/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+	font-family: "IBM Plex Sans Arabic";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("/assets/smart_power/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2") format("woff2");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+:root {
+	--sp-navy: #0f2340;
+	--sp-navy-2: #1b3a63;
+	--sp-gold: #e0b43a;
+	--sp-gold-soft: #fbf3dc;
+}
+
+:root,
+[data-theme="light"] {
+	/* Arabic glyphs come from Plex Arabic; Latin text and digits fall back to the desk font. */
+	--font-stack: "IBM Plex Sans Arabic", "InterVariable", "Inter", -apple-system, "Segoe UI", sans-serif;
+	--btn-primary: var(--sp-navy);
+	--primary: var(--sp-navy);
+	--primary-color: var(--sp-navy);
+}
+
+html[lang="ar"] body {
+	font-family: var(--font-stack);
+}
+
+/* Top bar (where the desk shows one) */
+.navbar {
+	background-color: var(--sp-navy);
+	border-bottom: 2px solid var(--sp-gold);
+}
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .navbar-nav .nav-link {
+	color: #fff;
+}
+
+/* Primary actions in navy, the current step and the featured star in gold */
+.btn-primary,
+.btn.btn-primary {
+	background-color: var(--sp-navy);
+	border-color: var(--sp-navy);
+	color: #fff;
+}
+.btn-primary:hover,
+.btn.btn-primary:hover {
+	background-color: var(--sp-navy-2);
+	border-color: var(--sp-navy-2);
+}
+.sp-current-step,
+.sp-featured {
+	color: var(--sp-gold);
+}
+.sp-current-step-bg {
+	background-color: var(--sp-gold-soft);
+	border-inline-start: 3px solid var(--sp-gold);
+}
+
+/* Field entry page */
+.sp-field-page {
+	max-width: 32rem;
+	margin: 2rem auto;
+	text-align: start;
+}

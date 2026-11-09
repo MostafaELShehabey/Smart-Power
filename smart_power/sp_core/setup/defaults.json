@@ -1,0 +1,64 @@
+{
+	"_comment": "Seed values loaded once on install (never on later deploys). They are Mohamed's current values or examples (claude/fixed-vs-examples.md), not rules: the admin edits them in Smart Power Settings and SP Rule Setting. Each value names its source.",
+	"system_settings": {
+		"_source": "SP-22",
+		"language": "ar",
+		"country": "Egypt",
+		"time_zone": "Africa/Cairo",
+		"date_format": "dd-mm-yyyy",
+		"time_format": "HH:mm",
+		"number_format": "#,###.##",
+		"currency": "EGP",
+		"first_day_of_the_week": "Saturday",
+		"float_precision": "3",
+		"currency_precision": "2"
+	},
+	"fiscal_years": [
+		{"year": "2027", "year_start_date": "2027-01-01", "year_end_date": "2027-12-31", "_source": "SP-22"}
+	],
+	"settings": {
+		"validity_days": {"value": 3, "_source": "SP-128 settings list; Miro frame 01 'valid 3 days'"},
+		"quote_due_hours": {"value": 24, "_source": "decision 70 (24h quote, warning only)"},
+		"followup_delay_days": {"value": 1, "_source": "Miro team table: follow-up task the day after the quote"},
+		"followup_discount_max_pct": {"value": 2, "_source": "decisions 47 and 66: follow-up owner 1-2% on the total"},
+		"creator_discount_max_pct": {"value": 4, "_source": "decision 47: quote creator approves up to 4%"},
+		"chassis_iron_markup_pct": {"value": 25, "_source": "decision 77 'initially 25%'; open question: x1.2 in the Ali El-Shafei sheets"},
+		"chassis_markup_basis": {"value": "Markup on cost", "_source": "tech plan section 14 default; open question"},
+		"showroom_cash_limit_amount": {"value": 100000, "_source": "decision 63 (example: about 100-200 thousand)"},
+		"showroom_cash_limit_days": {"value": 7, "_source": "decision 63 (example: 7 days since the last deposit)"},
+		"field_entry_lock_days": {"value": 3, "_source": "decision 44 (3-day rule)"},
+		"default_rounding_step": {"value": 0, "_source": "no rounding until the templates set their own"}
+	},
+	"margin_ranges": [
+		{"scope": "Supply and install", "min_pct": 9, "max_pct": 11, "_source": "SP-128 example"},
+		{"scope": "Supply only", "min_pct": 6, "max_pct": 7, "_source": "SP-128 example"}
+	],
+	"rule_settings": {
+		"discount_followup_max": {"level": "Block", "_source": "SP-128"},
+		"discount_creator_max": {"level": "Warn", "_source": "SP-128"},
+		"quote_validity": {"level": "Block", "_source": "tech plan section 6 (quote validity rule)"}
+	},
+	"list_values": [
+		{"list_name": "System Type", "code": "PUMP", "value_ar": "طلمبات (غاطس)", "value_en": "Pump", "sort_order": 1},
+		{"list_name": "System Type", "code": "CHASSIS", "value_ar": "شاسيهات فقط", "value_en": "Chassis only", "sort_order": 2},
+		{"list_name": "System Type", "code": "OFFGRID", "value_ar": "أوف جريد", "value_en": "Off grid", "sort_order": 3},
+		{"list_name": "System Type", "code": "ONGRID", "value_ar": "أون جريد", "value_en": "On grid", "sort_order": 4},
+		{"list_name": "System Type", "code": "HYBRID", "value_ar": "هايبرد", "value_en": "Hybrid", "sort_order": 5},
+		{"list_name": "System Type", "code": "IRRIGATION", "value_ar": "ري", "value_en": "Irrigation", "sort_order": 6},
+		{"list_name": "System Type", "code": "WELLS", "value_ar": "آبار", "value_en": "Wells", "sort_order": 7},
+		{"list_name": "System Type", "code": "MAINTENANCE", "value_ar": "صيانة", "value_en": "Maintenance", "sort_order": 8},
+		{"list_name": "System Type", "code": "REINSTALL", "value_ar": "فك وتركيب", "value_en": "Dismantle and reinstall", "sort_order": 9},
+		{"list_name": "System Type", "code": "POWER", "value_ar": "باور", "value_en": "Power", "sort_order": 10},
+		{"list_name": "System Type", "code": "LIGHTING", "value_ar": "إنارة", "value_en": "Lighting", "sort_order": 11},
+		{"list_name": "Financing Type", "code": "CASH", "value_ar": "كاش", "value_en": "Cash", "sort_order": 1},
+		{"list_name": "Financing Type", "code": "INSTALLMENTS", "value_ar": "تقسيط", "value_en": "Installments", "sort_order": 2},
+		{"list_name": "Financing Type", "code": "AHLY", "value_ar": "البنك الأهلي", "value_en": "Al-Ahly Bank", "sort_order": 3},
+		{"list_name": "Financing Type", "code": "AGRI", "value_ar": "البنك الزراعي", "value_en": "Agri Bank", "sort_order": 4},
+		{"list_name": "Payment Method", "code": "CASH", "value_ar": "كاش", "value_en": "Cash", "sort_order": 1},
+		{"list_name": "Payment Method", "code": "BANK_MISR", "value_ar": "تحويل بنك مصر", "value_en": "Bank Misr transfer", "sort_order": 2},
+		{"list_name": "Payment Method", "code": "INSTAPAY", "value_ar": "إنستاباي", "value_en": "InstaPay", "sort_order": 3},
+		{"list_name": "Payment Method", "code": "POST", "value_ar": "البريد", "value_en": "Post", "sort_order": 4},
+		{"list_name": "Payment Method", "code": "VODAFONE_CASH", "value_ar": "فودافون كاش", "value_en": "Vodafone Cash", "sort_order": 5},
+		{"list_name": "Payment Method", "code": "POSTAL_CHEQUE", "value_ar": "شيك بريد", "value_en": "Postal cheque", "sort_order": 6}
+	]
+}

@@ -1,0 +1,7 @@
+Copyright (c) 2026 Smart Power. All rights reserved.
+
+This software is proprietary and confidential. It may not be copied, distributed or
+modified without written permission from Smart Power.
+
+Fonts in smart_power/public/fonts are IBM Plex Sans Arabic, licensed under the SIL Open
+Font License 1.1 (see smart_power/public/fonts/OFL-LICENSE.txt).
