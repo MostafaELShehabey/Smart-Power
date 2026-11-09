@@ -67,3 +67,25 @@ class TestCustomerTierRegion(IntegrationTestCase):
 	def test_value_from_another_list_is_refused(self):
 		with self.assertRaises(frappe.ValidationError):
 			make_customer("01009990004", sp_region="System Type-PUMP")
+
+
+class TestFeaturedCustomer(IntegrationTestCase):
+	def test_mark_featured_once(self):
+		from smart_power.sp_sales.customer import mark_featured
+
+		doc = make_customer("01009990010")
+		self.assertFalse(doc.sp_featured)
+		self.assertTrue(mark_featured(doc.name))
+		self.assertFalse(mark_featured(doc.name))
+		self.assertEqual(frappe.db.get_value("Customer", doc.name, "sp_featured"), 1)
+
+	def test_featured_is_read_only_on_the_form(self):
+		field = frappe.get_meta("Customer").get_field("sp_featured")
+		self.assertTrue(field.read_only)
+
+	def test_follow_up_owner_links_to_a_user(self):
+		doc = make_customer("01009990011", sp_owner_user="Administrator")
+		self.assertEqual(doc.sp_owner_user, "Administrator")
+
+	def test_list_star_is_hooked(self):
+		self.assertIn("public/js/customer_list.js", frappe.get_hooks("doctype_list_js")["Customer"])

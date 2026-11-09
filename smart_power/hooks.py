@@ -30,6 +30,9 @@ website_context = {
 	"splash_image": "/assets/smart_power/images/sp_logo.png",
 }
 
+# Customer list: gold star for featured customers (SP-31).
+doctype_list_js = {"Customer": "public/js/customer_list.js"}
+
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
 role_home_page = {role: "sp-field" for role in LIGHT_ENTRY_ROLES}
 before_request = ["smart_power.sp_core.web.redirect_light_users"]

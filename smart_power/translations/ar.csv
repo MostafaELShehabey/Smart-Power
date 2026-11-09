@@ -71,6 +71,7 @@ Expense,مصروف
 Expense Type,نوع المصروف
 Extra Data,بيانات إضافية
 "Extra settings for this value as JSON, e.g. the calculation template of a system type.",إعدادات إضافية لهذه القيمة بصيغة JSON، مثل قالب الحساب لنوع النظام.
+Featured,مميز
 Field,الحقل
 Field entry,التسجيل الميداني
 "Field entry is done from your phone. The Job, Expense and Money pages open here when they are ready.",التسجيل الميداني يتم من الموبايل. صفحات الشغلانة والمصروف والفلوس ستفتح هنا عند جاهزيتها.
@@ -84,6 +85,7 @@ Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
 Fixed,ثابت
 Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
+Follow-up Owner,مسؤول المتابعة
 From document,من المستند
 Full,كامل
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
@@ -116,6 +118,7 @@ Manual Entry,إدخال يدوي
 Margin,هامش الربح
 Margin on sale,هامش من البيع
 Margin Ranges,نطاقات الربح
+Marked as a featured customer.,تم تمييز العميل كعميل مميز.
 Markup Basis,أساس المعامل
 Markup on cost,معامل على التكلفة
 Max Margin %,أقصى ربح %
@@ -186,6 +189,7 @@ Second Mobile,موبايل إضافي
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
+Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
 "Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",مفتاح قصير تستخدمه التقارير والنظام، مثل PUMP. لا يتغير بعد الحفظ لأنه جزء من اسم السجل.
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
@@ -285,6 +289,7 @@ Warned,تم التنبيه
 Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
+Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
 Write-off,شطب
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
@@ -293,3 +298,4 @@ Write-off,شطب
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
+★ Featured,★ مميز

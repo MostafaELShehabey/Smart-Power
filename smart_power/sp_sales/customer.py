@@ -89,3 +89,16 @@ def validate_mobile(doc):
 			frappe.DuplicateEntryError,
 			title=_("Customer already exists"),
 		)
+
+
+def mark_featured(customer: str) -> bool:
+	"""Give the customer the gold star after their first won deal. Returns True the first time.
+
+	Called when a case is won or its contract is made (SP-70, SP-74). The field is read-only
+	on the form, so only this sets it.
+	"""
+	if frappe.db.get_value("Customer", customer, "sp_featured"):
+		return False
+	frappe.db.set_value("Customer", customer, "sp_featured", 1)
+	frappe.get_doc("Customer", customer).add_comment("Info", _("Marked as a featured customer."))
+	return True
