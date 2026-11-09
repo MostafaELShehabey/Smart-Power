@@ -39,6 +39,7 @@ Company,شركة
 Completed By,تم بواسطة
 Completed On,تم في
 Consignment Conversion,تحويل أمانة
+Consignment Owner,صاحب أمانة
 Cost Center,المركز المالي
 Cost Centers,المراكز المالية
 Credit Account,الحساب الدائن
@@ -267,11 +268,14 @@ System Type,نوع النظام
 Task Type,نوع المهمة
 Technical,فني
 Technical Review,مراجعة فنية
+Terms Note,ملاحظة الشروط
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
+The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
+The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 Tier,الفئة
@@ -289,6 +293,7 @@ Warned,تم التنبيه
 Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
+WhatsApp,واتساب
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
 Write-off,شطب
