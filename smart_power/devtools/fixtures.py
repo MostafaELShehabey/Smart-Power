@@ -29,7 +29,8 @@ class FixtureConflict(frappe.ValidationError):
 def fixture_records(app: str = "smart_power") -> list[dict]:
 	records = []
 	for path in sorted(glob.glob(os.path.join(frappe.get_app_path(app, "fixtures"), "*.json"))):
-		with open(path, encoding="utf-8") as f:
+		# Paths come from the app's own fixtures folder.
+		with open(path, encoding="utf-8") as f:  # nosemgrep
 			data = json.load(f)
 		for rec in data if isinstance(data, list) else [data]:
 			rec["_file"] = os.path.basename(path)

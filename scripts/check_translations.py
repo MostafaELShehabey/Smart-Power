@@ -44,11 +44,14 @@ def doctype_strings() -> set[str]:
 
 def fixture_strings() -> set[str]:
 	out = set()
-	for name in ("role.json", "role_profile.json"):
-		path = os.path.join(ROOT, "fixtures", name)
-		if os.path.exists(path):
-			with open(path, encoding="utf-8") as f:
-				out.update(r["name"] for r in json.load(f))
+	path = os.path.join(ROOT, "fixtures", "role.json")
+	if os.path.exists(path):
+		with open(path, encoding="utf-8") as f:
+			out.update(r["name"] for r in json.load(f))
+	# role profiles come from the catalogue, not from fixtures
+	catalogue = os.path.join(ROOT, "sp_core", "setup", "role_catalogue.py")
+	with open(catalogue, encoding="utf-8") as f:
+		out.update(re.findall(r'ProfileDef\(\s*"([^"]+)"', f.read()))
 	path = os.path.join(ROOT, "fixtures", "custom_field.json")
 	if os.path.exists(path):
 		with open(path, encoding="utf-8") as f:

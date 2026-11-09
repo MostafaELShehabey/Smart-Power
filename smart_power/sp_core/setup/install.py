@@ -27,6 +27,33 @@ def after_install() -> None:
 	sync_rule_settings()
 
 
+def after_sync() -> None:
+	"""Runs on install after the fixtures (the SP roles) are in."""
+	sync_role_profiles()
+
+
+def sync_role_profiles() -> None:
+	"""Create or correct the person-type role profiles from the role catalogue.
+
+	A profile is saved only when its roles differ, because saving one queues a job that
+	rewrites the roles of every user who has it.
+	"""
+	from smart_power.sp_core.setup.role_catalogue import PROFILES
+
+	for p in PROFILES:
+		expected = {r for r in p.roles() if frappe.db.exists("Role", r)}
+		if frappe.db.exists("Role Profile", p.name):
+			doc = frappe.get_doc("Role Profile", p.name)
+			if {r.role for r in doc.roles} == expected:
+				continue
+		else:
+			doc = frappe.new_doc("Role Profile")
+			doc.role_profile = p.name
+		doc.set("roles", [{"role": r} for r in sorted(expected)])
+		doc.flags.ignore_permissions = True
+		doc.save()
+
+
 def before_migrate() -> None:
 	from smart_power.devtools.fixtures import preflight
 
@@ -37,4 +64,5 @@ def after_migrate() -> None:
 	from smart_power.rules import sync_rule_settings
 
 	ensure_admin_module()
+	sync_role_profiles()
 	sync_rule_settings()

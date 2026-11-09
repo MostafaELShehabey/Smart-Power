@@ -25,7 +25,7 @@ The design is in the technical implementation plan (Claude doc, 6-11-2026), the 
 | `smart_power/rules` | The rules engine (`run(doc, event)`) and the rule functions |
 | `smart_power/api/mobile/v1` | Mobile API (Release 2) |
 | `smart_power/devtools` | Fixture preflight, admin backup, post-install check |
-| `smart_power/fixtures` | Developer-owned roles, role profiles and custom fields |
+| `smart_power/fixtures` | Developer-owned roles and custom fields (role profiles are synced from `sp_core/setup/role_catalogue.py`) |
 | `scripts/` | CI checks |
 
 Business logic goes in plain Python services that can be tested without the UI; DocType

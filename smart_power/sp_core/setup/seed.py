@@ -12,7 +12,8 @@ from smart_power.constants import SETTINGS_DOCTYPE
 @cache
 def defaults() -> dict:
 	path = os.path.join(os.path.dirname(__file__), "defaults.json")
-	with open(path, encoding="utf-8") as f:
+	# A fixed file inside the app.
+	with open(path, encoding="utf-8") as f:  # nosemgrep
 		return json.load(f)
 
 

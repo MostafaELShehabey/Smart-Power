@@ -111,7 +111,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-09 14:29:36.992399",
+ "modified": "2026-11-09 12:30:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP Task",
@@ -148,7 +148,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "All",
+   "role": "Desk User",
    "share": 1,
    "write": 1
   }

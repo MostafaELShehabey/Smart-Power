@@ -26,6 +26,7 @@ before_request = ["smart_power.sp_core.web.redirect_light_users"]
 
 # Install and migrate
 after_install = "smart_power.sp_core.setup.install.after_install"
+after_sync = "smart_power.sp_core.setup.install.after_sync"
 before_migrate = "smart_power.sp_core.setup.install.before_migrate"
 after_migrate = "smart_power.sp_core.setup.install.after_migrate"
 setup_wizard_complete = "smart_power.sp_core.setup.locale.apply_locale"
@@ -34,7 +35,9 @@ setup_wizard_complete = "smart_power.sp_core.setup.locale.apply_locale"
 # the "Smart Power Admin" module or a name without the "SP " prefix, so they are never exported.
 fixtures = [
 	{"dt": dt, "filters": [["module", "in", list(SP_MODULES)]]} for dt in ("Custom Field", "Property Setter")
-] + [{"dt": dt, "filters": [["name", "like", DEV_NAME_PREFIX + "%"]]} for dt in PREFIX_OWNED_DOCTYPES]
+] + [{"dt": dt, "filters": [["name", "like", DEV_NAME_PREFIX + "%"]]} for dt in ("Role", "Workflow")]
+# Role profiles are synced from the role catalogue instead (sp_core/setup/install.py): re-importing
+# them as fixtures on every migrate would re-queue a job that rewrites every user's roles.
 
 # Business rules (SP-128): modules whose @rule functions register at first use.
 sp_rule_modules = ["smart_power.rules.commercial"]

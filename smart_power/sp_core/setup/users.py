@@ -17,7 +17,8 @@ TEMPLATE = os.path.join(os.path.dirname(__file__), "users_seed_template.csv")
 
 def seed_users(path: str = TEMPLATE) -> list[str]:
 	created = []
-	with open(path, encoding="utf-8") as f:
+	# Run by a system admin with bench execute; never whitelisted.
+	with open(path, encoding="utf-8") as f:  # nosemgrep
 		for row in csv.DictReader(f):
 			email = (row.get("email") or "").strip()
 			if not email or frappe.db.exists("User", email):
