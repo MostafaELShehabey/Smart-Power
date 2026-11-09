@@ -3,6 +3,7 @@
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
 A reason is needed,مطلوب سبب
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
+A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
 Abnormal,غير طبيعي
 Account Map,خريطة الحسابات
 Action,الإجراء
@@ -39,6 +40,7 @@ Cost Centers,المراكز المالية
 Credit Account,الحساب الدائن
 Custody,عهدة
 Custody Account,حساب العهدة
+Deactivate instead,أوقفها بدلاً من الحذف
 Debit Account,الحساب المدين
 Default Quote Print Format,شكل طباعة العرض الافتراضي
 Default Rounding Step,خطوة التقريب الافتراضية
@@ -265,3 +267,4 @@ Write-off,شطب
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
+"{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
