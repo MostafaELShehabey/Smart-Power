@@ -71,6 +71,7 @@ Empty means all offer types.,فارغ يعني كل أنواع العروض.
 Empty means both.,فارغ يعني الاثنين.
 Empty means the default validity is also the maximum.,فارغ يعني أن الصلاحية الافتراضية هي الحد الأقصى.
 Entry Mode,طريقة التسجيل
+ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Events,الأحداث
 Expense,مصروف
 Expense Type,نوع المصروف
@@ -205,6 +206,8 @@ Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
+Setup failed,فشل الإعداد
+Setup is complete but there is no company named {0}.,الإعداد مكتمل لكن لا توجد شركة باسم {0}.
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
 "Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",مفتاح قصير تستخدمه التقارير والنظام، مثل PUMP. لا يتغير بعد الحفظ لأنه جزء من اسم السجل.
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
