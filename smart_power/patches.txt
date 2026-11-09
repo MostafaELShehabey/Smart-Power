@@ -9,3 +9,4 @@ smart_power.patches.sp32_list_value_names
 smart_power.patches.sp32_seed_list_values
 smart_power.patches.sp31_customer_naming
 smart_power.patches.sp29_item_groups
+smart_power.patches.sp30_price_lists

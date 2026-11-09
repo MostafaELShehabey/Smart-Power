@@ -79,6 +79,8 @@ doc_events = {
 	"Customer": {"validate": "smart_power.sp_sales.customer.validate"},
 	# Item catalogue (SP-29): specs that cannot be true are refused.
 	"Item": {"validate": "smart_power.sp_stock.item.validate"},
+	# Price list (SP-30): every price has a date and buying prices a supplier.
+	"Item Price": {"validate": "smart_power.sp_stock.prices.validate_item_price"},
 	**{
 		dt: {
 			"before_insert": "smart_power.events.customization.tag_admin_owned",

@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-11-09 21:11:10.241969",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "target",
+  "base",
+  "adjust_pct",
+  "add_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "target",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Price",
+   "options": "P1 Cost\nBTB\nBTC",
+   "reqd": 1
+  },
+  {
+   "fieldname": "base",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "From",
+   "options": "List Price\nP1 Cost\nBTC",
+   "reqd": 1
+  },
+  {
+   "description": "Negative for a discount, e.g. -13 for the list price less 13%.",
+   "fieldname": "adjust_pct",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Change %"
+  },
+  {
+   "description": "A fixed amount added after the %.",
+   "fieldname": "add_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Add Amount"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-09 21:11:10.241969",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "name": "SP Price Rule",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
