@@ -41,6 +41,7 @@ Check the specs,راجع المواصفات
 Cheque,شيك
 Code,الكود
 Code {0} already exists in the list {1}.,الكود {0} موجود بالفعل في القائمة {1}.
+Code {0} is repeated: it is already in row {1}.,الكود {0} مكرر: موجود بالفعل في الصف {1}.
 Comment,تعليق
 Commercial,تجاري
 Commercial Register No.,رقم السجل التجاري
@@ -51,6 +52,7 @@ Consignment Conversion,تحويل أمانة
 Consignment Owner,صاحب أمانة
 Cost Center,المركز المالي
 Cost Centers,المراكز المالية
+Created: {0} · Updated: {1} · Errors: {2},تمت إضافة: {0} · تم تحديث: {1} · أخطاء: {2}
 Credit Account,الحساب الدائن
 Custody,عهدة
 Custody Account,حساب العهدة
@@ -68,6 +70,7 @@ Discount,خصم
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
 Done,تم
+Download the template,تحميل النموذج
 Drag to reorder,اسحب لتغيير الترتيب
 Due At,الميعاد
 Edit,تعديل
@@ -77,7 +80,9 @@ Empty means both.,فارغ يعني الاثنين.
 Empty means the default validity is also the maximum.,فارغ يعني أن الصلاحية الافتراضية هي الحد الأقصى.
 Entry Mode,طريقة التسجيل
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
+Error,خطأ
 Events,الأحداث
+Excel File,ملف إكسل
 Expense,مصروف
 Expense Type,نوع المصروف
 Extra Data,بيانات إضافية
@@ -110,6 +115,10 @@ Highlight,تمييز
 Hit At,وقت التنبيه
 Home Page Variant,شكل الصفحة الرئيسية
 Imp (A),Imp (أمبير)
+Import,استيراد
+Import from Excel,استيراد من إكسل
+Import Items from Excel,استيراد الأصناف من إكسل
+Importing items…,جارٍ استيراد الأصناف…
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
 Individual,فرد
 Individual (BTC) or company (BTB). Sets the customer type.,فرد (BTC) أو شركة (BTB). يحدد نوع العميل.
@@ -166,6 +175,7 @@ Note,ملاحظة
 Off,متوقف
 Offer Type,نوع العرض
 Old Value,القيمة القديمة
+One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
 Open,مفتوح
@@ -212,6 +222,7 @@ Review,المراجعة
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
 Reviewed On,تاريخ المراجعة
+Row,الصف
 Row {0}: the address {1} is listed twice.,الصف {0}: العنوان {1} مكرر.
 Row {0}: the minimum margin is higher than the maximum.,سطر {0}: أقل ربح أكبر من أقصى ربح.
 Row {0}: {1} is listed twice for {2}.,سطر {0}: {1} مكررة مرتين في {2}.
@@ -310,8 +321,11 @@ Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
 Technical Review,مراجعة فنية
 Terms Note,ملاحظة الشروط
+The code is empty.,الكود فارغ.
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The ERPNext company these details print for.,الشركة في النظام التي تُطبع لها هذه البيانات.
+The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
+The file is empty.,الملف فارغ.
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
@@ -349,4 +363,5 @@ Write-off,شطب
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
+{0} {1} does not exist.,{0} {1} غير موجود.
 ★ Featured,★ مميز

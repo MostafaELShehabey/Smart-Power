@@ -39,7 +39,11 @@ website_context = {
 }
 
 # Customer list: gold star for featured customers (SP-31).
-doctype_list_js = {"Customer": "public/js/customer_list.js"}
+doctype_list_js = {
+	"Customer": "public/js/customer_list.js",
+	# Item list: import from Excel with Arabic headers (SP-29).
+	"Item": "public/js/item_list.js",
+}
 
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
 role_home_page = {role: "sp-field" for role in LIGHT_ENTRY_ROLES}
