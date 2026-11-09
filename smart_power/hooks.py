@@ -14,6 +14,16 @@ required_apps = ["frappe", "erpnext"]
 # Desk shell (SP-22): theme and font. Business logic never lives in client scripts.
 app_include_css = ["/assets/smart_power/css/sp_theme.css"]
 web_include_css = ["/assets/smart_power/css/sp_theme.css"]
+# Display formats only (12-hour clock with ص/م); stored values are unchanged.
+app_include_js = ["/assets/smart_power/js/sp_locale.js"]
+
+# The same display formats for print formats and PDFs (SP-22, used by SP-23).
+jinja = {
+	"methods": [
+		"smart_power.sp_core.formatting.time_12h",
+		"smart_power.sp_core.formatting.datetime_12h",
+	],
+}
 
 website_context = {
 	"favicon": "/assets/smart_power/images/sp_favicon.png",

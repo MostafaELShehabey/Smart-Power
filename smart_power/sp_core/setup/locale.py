@@ -28,6 +28,8 @@ def apply_locale(*args, **kwargs) -> None:
 		frappe.db.set_single_value("Global Defaults", "default_currency", values["currency"])
 		frappe.db.set_single_value("Global Defaults", "country", values["country"])
 
+	apply_currency()
+
 	for fy in defaults().get("fiscal_years", []):
 		if frappe.db.exists("DocType", "Fiscal Year") and not frappe.db.exists("Fiscal Year", fy["year"]):
 			frappe.get_doc(
@@ -40,14 +42,29 @@ def apply_locale(*args, **kwargs) -> None:
 			).insert(ignore_permissions=True)
 
 
+def apply_currency() -> None:
+	"""How money reads: symbol, its side and the number format of the company currency."""
+	spec = {k: v for k, v in defaults()["currency"].items() if not k.startswith("_")}
+	name = spec.pop("name")
+	if frappe.db.exists("Currency", name):
+		frappe.db.set_value("Currency", name, spec)
+
+
+APP_NAME = "Smart Power"
+LOGO = "/assets/smart_power/images/sp_logo.png"
+FAVICON = "/assets/smart_power/images/sp_favicon.png"
+BRAND_HTML = f'<img src="{LOGO}" alt="{APP_NAME}" class="sp-brand-logo">'
+
+
 def apply_branding() -> None:
-	"""Logo and app name on the desk, login page and website."""
-	logo = "/assets/smart_power/images/sp_logo.png"
+	"""Logo and app name on the desk, the login page and the website top bar."""
 	if frappe.db.exists("DocType", "Navbar Settings"):
-		frappe.db.set_single_value("Navbar Settings", "app_logo", logo)
+		frappe.db.set_single_value("Navbar Settings", "app_logo", LOGO)
+	frappe.db.set_single_value("System Settings", "app_name", APP_NAME)
 	ws = frappe.get_single("Website Settings")
-	ws.app_name = "Smart Power"
-	ws.app_logo = logo
-	ws.favicon = "/assets/smart_power/images/sp_favicon.png"
+	ws.app_name = APP_NAME
+	ws.app_logo = LOGO
+	ws.brand_html = BRAND_HTML
+	ws.favicon = FAVICON
 	ws.flags.ignore_permissions = True
 	ws.save()
