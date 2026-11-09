@@ -6,6 +6,19 @@ from frappe.utils import add_days, today
 from smart_power.sp_core.setup.role_catalogue import role
 
 
+def load_erpnext_test_data() -> None:
+	"""Create ERPNext's test company, customers and items (once per process).
+
+	Import erpnext.tests.utils only through this: its customers have no mobile, which the
+	SP-31 Customer rule allows only while this flag is set.
+	"""
+	frappe.flags.sp_loading_erpnext_test_data = True
+	try:
+		import erpnext.tests.utils  # (bootstraps the records on import)
+	finally:
+		frappe.flags.sp_loading_erpnext_test_data = False
+
+
 def make_user(email: str, keys: tuple[str, ...] = (), extra_roles: tuple[str, ...] = ()) -> str:
 	"""A test user holding the SP roles for the given catalogue keys (plus ERPNext base roles)."""
 	from smart_power.sp_core.setup.role_catalogue import BY_KEY
