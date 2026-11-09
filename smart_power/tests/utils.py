@@ -5,18 +5,28 @@ from frappe.utils import add_days, today
 
 from smart_power.sp_core.setup.role_catalogue import role
 
+# Selling Settings "Customer Naming By", stored as a global default.
+CUSTOMER_NAMING_DEFAULT = "cust_master_name"
+NAMING_BY_CUSTOMER_NAME = "Customer Name"
+
 
 def load_erpnext_test_data() -> None:
 	"""Create ERPNext's test company, customers and items (once per process).
 
-	Import erpnext.tests.utils only through this: its customers have no mobile, which the
-	SP-31 Customer rule allows only while this flag is set.
+	Import erpnext.tests.utils only through this:
+	- its customers have no mobile, which the SP-31 Customer rule allows only while
+	  frappe.flags.sp_loading_erpnext_test_data is set;
+	- its records link customers by name ("_Test Customer"), so customers are named by
+	  Customer Name while it loads, not CUS-##### (SP-31), then the site value is restored.
 	"""
+	naming = frappe.defaults.get_global_default(CUSTOMER_NAMING_DEFAULT)
+	frappe.defaults.set_global_default(CUSTOMER_NAMING_DEFAULT, NAMING_BY_CUSTOMER_NAME)
 	frappe.flags.sp_loading_erpnext_test_data = True
 	try:
 		import erpnext.tests.utils  # (bootstraps the records on import)
 	finally:
 		frappe.flags.sp_loading_erpnext_test_data = False
+		frappe.defaults.set_global_default(CUSTOMER_NAMING_DEFAULT, naming)
 
 
 def make_user(email: str, keys: tuple[str, ...] = (), extra_roles: tuple[str, ...] = ()) -> str:

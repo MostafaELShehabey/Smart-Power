@@ -10,7 +10,6 @@ class TestCustomerNaming(IntegrationTestCase):
 	def test_new_customer_gets_a_cus_number(self):
 		apply_customer_naming()
 		doc = frappe.get_doc(
-			# sp_mobile: required once the mobile feature (SP-31) is in; ignored before it.
 			{"doctype": "Customer", "customer_name": "عميل ترقيم", "sp_mobile": "01009998877"}
 		).insert()
 		self.assertTrue(doc.name.startswith("CUS-"), doc.name)
@@ -22,3 +21,12 @@ class TestCustomerNaming(IntegrationTestCase):
 			self.assertEqual(
 				frappe.db.get_value("Property Setter", name, ["value", "module"]), ("CUS-.#####", "SP Sales")
 			)
+
+	def test_erpnext_test_data_keeps_its_names(self):
+		# ERPNext's test records link "_Test Customer" by name, so it must not become CUS-#####.
+		apply_customer_naming()
+		from smart_power.tests.utils import load_erpnext_test_data
+
+		load_erpnext_test_data()
+		self.assertTrue(frappe.db.exists("Customer", "_Test Customer"))
+		self.assertEqual(frappe.defaults.get_global_default("cust_master_name"), "Naming Series")
