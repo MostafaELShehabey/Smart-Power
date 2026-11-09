@@ -7,6 +7,7 @@ Abnormal,غير طبيعي
 Account Map,خريطة الحسابات
 Action,الإجراء
 Active,فعال
+AM,ص
 Amount,المبلغ
 Annual Cost of Money,تكلفة الفلوس السنوية
 Applies To,يُطبق على
@@ -34,6 +35,7 @@ Completed By,تم بواسطة
 Completed On,تم في
 Consignment Conversion,تحويل أمانة
 Cost Center,المركز المالي
+Cost Centers,المراكز المالية
 Credit Account,الحساب الدائن
 Custody,عهدة
 Custody Account,حساب العهدة
@@ -124,9 +126,12 @@ Overridden,تم التخطي بسبب
 Override,تخطي
 Parent Value,القيمة الأم
 Payment Method,طريقة الدفع
+PM,م
 PO Sent,تم إرسال أمر التوريد
 Posting Event,حدث القيد
 Priority,الأولوية
+Quotation,عرض سعر
+Quotations,عروض الأسعار
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
 Quote Request,طلب عرض
 Quote validity,صلاحية العرض
@@ -142,6 +147,7 @@ Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
 Refund,رد مبلغ
 Region,المنطقة
+Request for Quotation,طلب عرض سعر من مورد
 Review,المراجعة
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
@@ -225,6 +231,7 @@ SP Winch Reviewer,مراجعة الونش
 Status,الحالة
 Subject,الموضوع
 Summary,الملخص
+Supplier Quotation,عرض سعر مورد
 Supply and install,توريد وتركيب
 Supply only,توريد فقط
 System Type,نوع النظام

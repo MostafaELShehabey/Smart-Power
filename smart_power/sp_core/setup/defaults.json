@@ -13,6 +13,13 @@
 		"float_precision": "3",
 		"currency_precision": "2"
 	},
+	"currency": {
+		"_source": "SP-22 acceptance: money shows like 12,345.00 EGP (Western digits until the owner agrees the number system, SP-158)",
+		"name": "EGP",
+		"symbol": "EGP",
+		"symbol_on_right": 1,
+		"number_format": "#,###.##"
+	},
 	"fiscal_years": [
 		{"year": "2027", "year_start_date": "2027-01-01", "year_end_date": "2027-12-31", "_source": "SP-22"}
 	],
