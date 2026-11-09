@@ -15,7 +15,11 @@ required_apps = ["frappe", "erpnext"]
 app_include_css = ["/assets/smart_power/css/sp_theme.css"]
 web_include_css = ["/assets/smart_power/css/sp_theme.css"]
 # Display formats only (12-hour clock with ص/م); stored values are unchanged.
-app_include_js = ["/assets/smart_power/js/sp_locale.js"]
+app_include_js = [
+	"/assets/smart_power/js/sp_locale.js",
+	# Item search by words in any order (SP-29)
+	"/assets/smart_power/js/item_search.js",
+]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).
 jinja = {
