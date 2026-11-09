@@ -66,6 +66,14 @@ html[lang="ar"] body {
 	color: #fff;
 }
 
+/* Primary actions in navy, the current step and the featured star in gold.
+ * Frappe v16 pages (login, setup wizard) use the espresso .es-button, coloured by --bt-solid-*. */
+body .es-button[data-variant="solid"] {
+	--bt-solid-bg: var(--sp-navy);
+	--bt-solid-bg-hover: var(--sp-navy-2);
+	--bt-solid-bg-active: var(--sp-navy-2);
+	--bt-solid-fg: #fff;
+}
 /* Primary actions in navy, the current step and the featured star in gold */
 .btn-primary,
 .btn.btn-primary {
@@ -92,4 +100,16 @@ html[lang="ar"] body {
 	max-width: 32rem;
 	margin: 2rem auto;
 	text-align: start;
+}
+
+/* Logo in the website top bar and on the login page (SP-22) */
+.sp-brand-logo {
+	max-height: 2rem;
+	width: auto;
+}
+.for-login .app-logo,
+.for-forgot .app-logo,
+.for-signup .app-logo {
+	max-height: 4rem;
+	width: auto;
 }
