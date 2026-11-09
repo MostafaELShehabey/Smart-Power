@@ -22,6 +22,10 @@ jinja = {
 	"methods": [
 		"smart_power.sp_core.formatting.time_12h",
 		"smart_power.sp_core.formatting.datetime_12h",
+		# Company legal data for templates (SP-25)
+		"smart_power.sp_core.services.company.get_company_settings",
+		"smart_power.sp_core.services.company.company_logo",
+		"smart_power.sp_core.services.company.company_addresses",
 	],
 }
 
