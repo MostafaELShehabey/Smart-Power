@@ -46,12 +46,12 @@ def complete_setup() -> str:
 	return company
 
 
-def create_company(args: dict) -> None:
+def create_company(answers: dict) -> None:
 	"""ERPNext's setup step for the fiscal year and company (existing records are skipped)."""
 	from erpnext.setup.setup_wizard.operations.install_fixtures import install_company
 
-	install_company(frappe._dict(args))
-	company = frappe.db.get_value("Company", {"company_name": args["company_name"]})
+	install_company(frappe._dict(answers))
+	company = frappe.db.get_value("Company", {"company_name": answers["company_name"]})
 	if company and not frappe.db.get_single_value("Global Defaults", "default_company"):
 		frappe.db.set_single_value("Global Defaults", "default_company", company)
 
