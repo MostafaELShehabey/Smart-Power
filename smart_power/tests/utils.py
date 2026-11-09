@@ -1,0 +1,68 @@
+"""Shared helpers for Smart Power tests."""
+
+import frappe
+from frappe.utils import add_days, today
+
+from smart_power.sp_core.setup.role_catalogue import role
+
+
+def make_user(email: str, keys: tuple[str, ...] = (), extra_roles: tuple[str, ...] = ()) -> str:
+	"""A test user holding the SP roles for the given catalogue keys (plus ERPNext base roles)."""
+	from smart_power.sp_core.setup.role_catalogue import BY_KEY
+
+	roles = {role(k) for k in keys} | set(extra_roles)
+	for k in keys:
+		roles.update(BY_KEY[k].erpnext_roles)
+	if frappe.db.exists("User", email):
+		user = frappe.get_doc("User", email)
+		user.set("roles", [])
+	else:
+		user = frappe.get_doc(
+			{"doctype": "User", "email": email, "first_name": email.split("@")[0], "send_welcome_email": 0}
+		)
+	for r in sorted(roles):
+		user.append("roles", {"role": r})
+	user.flags.ignore_permissions = True
+	user.save() if not user.is_new() else user.insert()
+	return email
+
+
+def set_setting(**values) -> None:
+	doc = frappe.get_single("Smart Power Settings")
+	doc.update(values)
+	doc.flags.ignore_permissions = True
+	doc.save()
+	frappe.clear_document_cache("Smart Power Settings", "Smart Power Settings")
+
+
+def set_rule(key: str, level: str, warn_needs_reason: int | None = None, limits: str | None = None) -> None:
+	doc = frappe.get_doc("SP Rule Setting", key)
+	doc.level = level
+	if warn_needs_reason is not None:
+		doc.warn_needs_reason = warn_needs_reason
+	if limits is not None:
+		doc.limits = limits
+	doc.save(ignore_permissions=True)
+
+
+def make_quotation(discount_pct: float = 0, valid_days: int = 1, rate: float = 1000, save: bool = True):
+	"""A quotation on ERPNext's test records (bootstrapped by erpnext.tests.utils)."""
+	q = frappe.get_doc(
+		{
+			"doctype": "Quotation",
+			"quotation_to": "Customer",
+			"party_name": "_Test Customer",
+			"company": "_Test Company",
+			"currency": frappe.get_cached_value("Company", "_Test Company", "default_currency"),
+			"conversion_rate": 1,
+			"transaction_date": today(),
+			"valid_till": add_days(today(), valid_days),
+			"selling_price_list": "Standard Selling",
+			"apply_discount_on": "Grand Total",
+			"additional_discount_percentage": discount_pct,
+			"items": [{"item_code": "_Test Item", "qty": 1, "rate": rate}],
+		}
+	)
+	if save:
+		q.insert()
+	return q

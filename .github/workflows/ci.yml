@@ -1,0 +1,115 @@
+# CI for the smart_power app (SP-20). Every pull request must pass all three jobs.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned to the same v16 minor as production (tech plan section 12). Bump both together.
+  FRAPPE_REF: v16.55.2
+  ERPNEXT_REF: v16.54.0
+  PYTHON_VERSION: "3.14"
+  NODE_VERSION: "24"
+
+jobs:
+  checks:
+    name: Lint and project checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Ruff
+        run: |
+          pip install ruff==0.14.10
+          ruff check .
+          ruff format --check .
+      - name: ESLint
+        run: npx --yes eslint@8 --quiet --no-eslintrc -c .eslintrc "smart_power/**/*.js"
+      - name: Frappe semgrep rules
+        run: |
+          pip install semgrep
+          git clone --depth 1 https://github.com/frappe/semgrep-rules.git /tmp/frappe-semgrep
+          semgrep scan --config /tmp/frappe-semgrep/rules --error --quiet smart_power
+      - name: No business numbers in code
+        run: python scripts/check_numeric_literals.py
+      - name: Fixtures are developer-owned only
+        run: python scripts/check_fixtures.py
+      - name: Every label has an Arabic translation
+        run: python scripts/check_translations.py
+
+  tests:
+    name: Install and test on Frappe and ERPNext
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    services:
+      mariadb:
+        image: mariadb:11.8
+        env:
+          MARIADB_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s --health-timeout=2s --health-retries=20
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: smart_power
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Cache pip and yarn
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/yarn
+          key: deps-${{ env.FRAPPE_REF }}-${{ env.ERPNEXT_REF }}-${{ hashFiles('smart_power/pyproject.toml') }}
+      - name: Install bench
+        run: |
+          sudo apt-get update && sudo apt-get install -y mariadb-client libmariadb-dev pkg-config
+          npm install -g yarn
+          pip install frappe-bench
+      - name: Init bench
+        run: |
+          bench init ~/frappe-bench --frappe-branch "$FRAPPE_REF" --python "$(which python)" \
+            --skip-redis-config-generation --skip-assets --no-backups
+          cd ~/frappe-bench
+          bench set-config -g db_host 127.0.0.1
+          bench set-config -g redis_cache redis://127.0.0.1:6379
+          bench set-config -g redis_queue redis://127.0.0.1:6379
+          bench set-config -g redis_socketio redis://127.0.0.1:6379
+          bench get-app https://github.com/frappe/erpnext --branch "$ERPNEXT_REF" --skip-assets
+          bench get-app smart_power "$GITHUB_WORKSPACE/smart_power" --skip-assets
+          bench setup requirements --dev
+      - name: Fresh install (SP-19 acceptance)
+        working-directory: /home/runner/frappe-bench
+        run: |
+          bench new-site test_site --db-root-username root --db-root-password root --admin-password admin \
+            --install-app erpnext --install-app smart_power
+          bench --site test_site execute smart_power.devtools.checks.post_install
+          bench --site test_site migrate
+      - name: Tests
+        working-directory: /home/runner/frappe-bench
+        run: |
+          bench --site test_site set-config allow_tests true
+          bench --site test_site run-tests --app smart_power

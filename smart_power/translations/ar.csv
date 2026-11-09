@@ -1,0 +1,256 @@
+0 means no rounding; 5 rounds to the nearest 5.,صفر يعني بدون تقريب، و5 يعني التقريب لأقرب 5.
+1 is picked first.,رقم 1 يُختار أولاً.
+A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
+A reason is needed,مطلوب سبب
+A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
+Abnormal,غير طبيعي
+Account Map,خريطة الحسابات
+Action,الإجراء
+Active,فعال
+Amount,المبلغ
+Annual Cost of Money,تكلفة الفلوس السنوية
+Applies To,يُطبق على
+Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
+Assigned To,مسند إلى
+Block,منع
+Blocked,ممنوع
+Blocked by a business rule,تم المنع بقاعدة عمل
+Brand,الماركة
+Brand Priority,أولوية الماركات
+Call Result,نتيجة المكالمة
+Can Never Block,لا يمنع أبداً
+Cancelled,ملغي
+Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
+Cash and Locks,الكاش والقفل
+Category,التصنيف
+Change Order,أمر تغيير
+Chassis,الشاسيه
+Cheque,شيك
+Code,الكود
+Code {0} already exists in the list {1}.,الكود {0} موجود بالفعل في القائمة {1}.
+Comment,تعليق
+Commercial,تجاري
+Completed By,تم بواسطة
+Completed On,تم في
+Consignment Conversion,تحويل أمانة
+Cost Center,المركز المالي
+Credit Account,الحساب الدائن
+Custody,عهدة
+Custody Account,حساب العهدة
+Debit Account,الحساب المدين
+Default Quote Print Format,شكل طباعة العرض الافتراضي
+Default Rounding Step,خطوة التقريب الافتراضية
+Default Selection,الاختيار الافتراضي
+Default validity of a new quote.,الصلاحية الافتراضية للعرض الجديد.
+Description,الوصف
+Details,التفاصيل
+Discount,خصم
+Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
+Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
+Done,تم
+Due At,الميعاد
+Edit,تعديل
+Empty means all offer types.,فارغ يعني كل أنواع العروض.
+Empty means both.,فارغ يعني الاثنين.
+Empty means the default validity is also the maximum.,فارغ يعني أن الصلاحية الافتراضية هي الحد الأقصى.
+Entry Mode,طريقة التسجيل
+Events,الأحداث
+Expense,مصروف
+Expense Type,نوع المصروف
+Field,الحقل
+Field entry,التسجيل الميداني
+"Field entry is done from your phone. The Job, Expense and Money pages open here when they are ready.",التسجيل الميداني يتم من الموبايل. صفحات الشغلانة والمصروف والفلوس ستفتح هنا عند جاهزيتها.
+Field Entry Lock (days),قفل التسجيل الميداني (أيام)
+Field Expense,مصروف ميداني
+Field Job,شغلانة ميدانية
+Field names starting with {0} are reserved for developer fields.,أسماء الحقول التي تبدأ بـ {0} محجوزة لحقول المطور.
+Financial Center,المركز المالي
+Financing Type,نوع التمويل
+Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
+Fixed,ثابت
+Follow-up Call,مكالمة متابعة
+Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
+From document,من المستند
+Full,كامل
+Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
+Hello {0},أهلاً {0}
+Highlight,تمييز
+Hit At,وقت التنبيه
+Home Page Variant,شكل الصفحة الرئيسية
+Inverter Brand,ماركة الإنفرتر
+Iron Markup,معامل الحديد
+Item Group,مجموعة الأصناف
+Job Type,نوع الشغلانة
+Late Entry,تسجيل متأخر
+Level,المستوى
+Light,خفيف
+Light: phone entry for the winch and car (decision 44).,خفيف: تسجيل من الموبايل للونش والعربية (قرار 44).
+Limits,الحدود
+Limits and Scope,الحدود والنطاق
+"Limits must be a JSON object, for example {""max_days"": 3}.","يجب أن تكون الحدود كائن JSON، مثلاً {""max_days"": 3}."
+Limits must be valid JSON.,يجب أن تكون الحدود JSON صحيحاً.
+List,القائمة
+Locked for quote creators.,مقفل على أصحاب العروض.
+Log out,تسجيل الخروج
+Lost Reason,سبب الخسارة
+Manual Entry,إدخال يدوي
+Margin,هامش الربح
+Margin on sale,هامش من البيع
+Margin Ranges,نطاقات الربح
+Markup Basis,أساس المعامل
+Markup on cost,معامل على التكلفة
+Max Margin %,أقصى ربح %
+Max Total Discount: Follow-up Owner,أقصى خصم على الإجمالي: مسئول المتابعة
+Max Total Discount: Quote Creator,أقصى خصم على الإجمالي: صاحب العرض
+Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
+Message,الرسالة
+Min Margin %,أقل ربح %
+Mobile Device ID,معرّف جهاز الموبايل
+Module {0} is reserved for developer changes. Use {1}.,الموديول {0} محجوز لتعديلات المطور. استخدم {1}.
+Money and Postings,الفلوس والقيود
+Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
+"Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
+New Value,القيمة الجديدة
+Note,ملاحظة
+Off,متوقف
+Offer Type,نوع العرض
+Old Value,القيمة القديمة
+Only for DocType,لنوع المستند هذا فقط
+Only for Offer Type,لنوع العرض هذا فقط
+Open,مفتوح
+Other,أخرى
+Outcome,النتيجة
+Overridden,تم التخطي بسبب
+Override,تخطي
+Parent Value,القيمة الأم
+Payment Method,طريقة الدفع
+PO Sent,تم إرسال أمر التوريد
+Posting Event,حدث القيد
+Priority,الأولوية
+Quote Due Within (hours),العرض مطلوب خلال (ساعات)
+Quote Request,طلب عرض
+Quote validity,صلاحية العرض
+Quote Validity (days),صلاحية العرض (أيام)
+Quotes,عروض الأسعار
+Raised By,سُجّل بواسطة
+Reason,السبب
+Reason Given,السبب المكتوب
+Reassign Request,طلب تحويل
+Reassignment,تحويل
+Receipt to Confirm,استلام محتاج تأكيد
+Reference DocType,نوع المستند المرتبط
+Reference Name,المستند المرتبط
+Refund,رد مبلغ
+Region,المنطقة
+Review,المراجعة
+Reviewed,تمت المراجعة
+Reviewed By,راجعه
+Reviewed On,تاريخ المراجعة
+Row {0}: the minimum margin is higher than the maximum.,سطر {0}: أقل ربح أكبر من أقصى ربح.
+Row {0}: {1} is listed twice for {2}.,سطر {0}: {1} مكررة مرتين في {2}.
+Rule,القاعدة
+Rule Key,مفتاح القاعدة
+"Rule limits as JSON, for example {""max_days"": 3}.","حدود القاعدة بصيغة JSON، مثلاً {""max_days"": 3}."
+Rule Warning,تنبيه قاعدة
+Scope,النطاق
+Service Issue,مشكلة صيانة
+Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
+Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
+"Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
+Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
+Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أيام من آخر إيداع)
+Simple Record Type,نوع التسجيل البسيط
+Site Stage,مرحلة الموقع
+Site Survey,معاينة موقع
+Smart Power,سمارت باور
+Smart Power Settings,إعدادات سمارت باور
+Snoozed Until,مؤجل حتى
+Sort Order,الترتيب
+SP Account Map,خريطة الحسابات
+SP Accountant,المحاسب
+SP Admin,الأدمن
+SP Audit Log,سجل العمليات
+SP Bank Financing,التمويل البنكي
+SP Brand Priority,أولوية الماركة
+SP Call Center,كول سنتر ومتابعة العملاء
+SP Catalog Manager,الأصناف والكتالوجات
+SP Collection Officer,التحصيل
+SP Commission Manager,العمولات
+SP Commissioning Programmer,البرمجة والتشغيل
+SP Contract Manager,العقود
+SP Custody Holder,صاحب عهدة
+SP Customer Followup,متابعة العملاء
+SP Driver,سواق العربية
+SP Edit Reason Log,سجل أسباب التعديل
+SP Fleet Assets,الأصول والمركبات
+SP HR Payroll,الموارد البشرية والمرتبات
+SP Installation Manager,مدير التركيبات
+SP Installation Technician,فني تركيبات
+SP Installations Manager,مدير التركيبات
+SP Jumbo Driver,سواق العربية (جامبو)
+SP Lead Intake,استقبال العملاء
+SP List Value,قيمة قائمة
+SP Main Store Keeper,أمين المخزن الرئيسي
+SP Margin Range,نطاق الربح
+SP Marketing Agent,التسويق
+SP Marketing and Quotes,ماركتنج وإعداد عروض
+SP Owner and Admin,المدير وصاحب الشركة
+SP Pricing Manager,لستة الأسعار
+SP Project Manager,مدير المشروعات
+SP Projects Manager,مدير المشروعات
+SP Purchase Officer,المشتريات
+SP Quote Creator,إعداد عروض الأسعار
+SP Receipt Confirmer,تأكيد الاستلام
+SP Regulatory Compliance,التراخيص والتأهيل
+SP Review Item,بند مراجعة
+SP Rule Hit,تنبيه قاعدة
+SP Rule Override Log,سجل تخطي القواعد
+SP Rule Setting,إعداد قاعدة
+SP Showroom and Winch,مبيعات المعرض والونش
+SP Showroom Cashier,خزنة المعرض
+SP Showroom Sales,مبيعات المعرض
+SP Showroom Store Keeper,أمين مخزن المعرض
+SP Site Receiver,استلام الموقع
+SP Site Survey,معاينة الموقع
+SP Store and Installations,تركيبات وأمين مخازن
+SP Supplier Accounts,حسابات الموردين
+SP System Designer,مصمم الأنظمة
+SP Task,مهمة
+SP Tax Insurance,الضرائب والتأمينات
+SP Technical Office,المكتب الفني
+SP Warranty Service,الضمان والصيانة
+SP Winch Manager,مسئول الونش
+SP Winch Operator,سواق الونش
+SP Winch Reviewer,مراجعة الونش
+Status,الحالة
+Subject,الموضوع
+Summary,الملخص
+Supply and install,توريد وتركيب
+Supply only,توريد فقط
+System Type,نوع النظام
+Task Type,نوع المهمة
+Technical,فني
+Technical Review,مراجعة فنية
+The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
+The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
+The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
+The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
+This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
+Timestamp,الوقت
+Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
+Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
+Transit Account,الحساب الوسيط
+Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
+User,المستخدم
+Value (Arabic),القيمة (عربي)
+Value (English),القيمة (إنجليزي)
+Warn,تنبيه
+Warned,تم التنبيه
+Warning,تنبيه
+Warning Needs a Reason,التنبيه يحتاج سبباً
+"Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
+Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
+Write-off,شطب
+{0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
+{0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
+{0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.

@@ -1,0 +1,40 @@
+"""Install and migrate hooks."""
+
+import frappe
+
+from smart_power.constants import ADMIN_MODULE
+
+
+def ensure_admin_module() -> None:
+	"""The custom module that holds the admin's own customizations (SP-164)."""
+	if frappe.db.exists("Module Def", ADMIN_MODULE):
+		return
+	frappe.get_doc(
+		{"doctype": "Module Def", "module_name": ADMIN_MODULE, "app_name": "smart_power", "custom": 1}
+	).insert(ignore_permissions=True)
+
+
+def after_install() -> None:
+	from smart_power.rules import sync_rule_settings
+	from smart_power.sp_core.setup.locale import apply_branding, apply_locale
+	from smart_power.sp_core.setup.seed import seed_list_values, seed_settings
+
+	ensure_admin_module()
+	apply_locale()
+	apply_branding()
+	seed_list_values()
+	seed_settings()
+	sync_rule_settings()
+
+
+def before_migrate() -> None:
+	from smart_power.devtools.fixtures import preflight
+
+	preflight(raise_on_conflict=True)
+
+
+def after_migrate() -> None:
+	from smart_power.rules import sync_rule_settings
+
+	ensure_admin_module()
+	sync_rule_settings()

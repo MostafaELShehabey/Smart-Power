@@ -1,0 +1,89 @@
+exclude: 'node_modules|.git'
+default_stages: [pre-commit]
+fail_fast: false
+
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        files: "smart_power.*"
+        exclude: ".*json$|.*txt$|.*csv|.*md|.*svg"
+      - id: check-merge-conflict
+      - id: check-ast
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: debug-statements
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.10
+    hooks:
+      - id: ruff
+        name: "Run ruff import sorter"
+        args: ["--select=I", "--fix"]
+
+      - id: ruff
+        name: "Run ruff linter"
+
+      - id: ruff-format
+        name: "Run ruff formatter"
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.7.1
+    hooks:
+      - id: prettier
+        types_or: [javascript, vue, scss]
+        # Ignore any files that might contain jinja / bundles
+        exclude: |
+            (?x)^(
+                smart_power/public/dist/.*|
+                .*node_modules.*|
+                .*boilerplate.*|
+                smart_power/templates/includes/.*|
+                smart_power/public/js/lib/.*
+            )$
+
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.44.0
+    hooks:
+      - id: eslint
+        types_or: [javascript]
+        args: ['--quiet']
+        # Ignore any files that might contain jinja / bundles
+        exclude: |
+            (?x)^(
+                smart_power/public/dist/.*|
+                cypress/.*|
+                .*node_modules.*|
+                .*boilerplate.*|
+                smart_power/templates/includes/.*|
+                smart_power/public/js/lib/.*
+            )$
+
+  - repo: local
+    hooks:
+      - id: sp-no-business-numbers
+        name: "No business numbers in code (tech plan section 1)"
+        entry: python scripts/check_numeric_literals.py
+        language: system
+        pass_filenames: false
+        types_or: [python, javascript]
+      - id: sp-fixture-ownership
+        name: "Fixtures are developer-owned only (SP-164)"
+        entry: python scripts/check_fixtures.py
+        language: system
+        pass_filenames: false
+        files: "smart_power/fixtures/.*json$"
+      - id: sp-arabic-translations
+        name: "Every label has an Arabic translation"
+        entry: python scripts/check_translations.py
+        language: system
+        pass_filenames: false
+
+ci:
+    autoupdate_schedule: weekly
+    skip: []
+    submodules: false

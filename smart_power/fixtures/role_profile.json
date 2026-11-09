@@ -1,0 +1,326 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.774100",
+  "name": "SP Owner and Admin",
+  "role_profile": "SP Owner and Admin",
+  "roles": [
+   {
+    "role": "Accounts Manager"
+   },
+   {
+    "role": "Accounts User"
+   },
+   {
+    "role": "Fleet Manager"
+   },
+   {
+    "role": "HR User"
+   },
+   {
+    "role": "Item Manager"
+   },
+   {
+    "role": "Projects Manager"
+   },
+   {
+    "role": "Purchase Manager"
+   },
+   {
+    "role": "Purchase Master Manager"
+   },
+   {
+    "role": "Purchase User"
+   },
+   {
+    "role": "SP Accountant"
+   },
+   {
+    "role": "SP Admin"
+   },
+   {
+    "role": "SP Bank Financing"
+   },
+   {
+    "role": "SP Collection Officer"
+   },
+   {
+    "role": "SP Commission Manager"
+   },
+   {
+    "role": "SP Fleet Assets"
+   },
+   {
+    "role": "SP HR Payroll"
+   },
+   {
+    "role": "SP Supplier Accounts"
+   },
+   {
+    "role": "SP Tax Insurance"
+   },
+   {
+    "role": "Sales Manager"
+   },
+   {
+    "role": "Sales Master Manager"
+   },
+   {
+    "role": "Stock Manager"
+   },
+   {
+    "role": "System Manager"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.842796",
+  "name": "SP Installations Manager",
+  "role_profile": "SP Installations Manager",
+  "roles": [
+   {
+    "role": "Maintenance User"
+   },
+   {
+    "role": "Projects User"
+   },
+   {
+    "role": "SP Commissioning Programmer"
+   },
+   {
+    "role": "SP Custody Holder"
+   },
+   {
+    "role": "SP Installation Manager"
+   },
+   {
+    "role": "SP Site Receiver"
+   },
+   {
+    "role": "SP Site Survey"
+   },
+   {
+    "role": "SP Warranty Service"
+   },
+   {
+    "role": "Stock User"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.862446",
+  "name": "SP Technical Office",
+  "role_profile": "SP Technical Office",
+  "roles": [
+   {
+    "role": "Item Manager"
+   },
+   {
+    "role": "Purchase User"
+   },
+   {
+    "role": "SP Catalog Manager"
+   },
+   {
+    "role": "SP Custody Holder"
+   },
+   {
+    "role": "SP Pricing Manager"
+   },
+   {
+    "role": "SP Quote Creator"
+   },
+   {
+    "role": "SP Receipt Confirmer"
+   },
+   {
+    "role": "SP Regulatory Compliance"
+   },
+   {
+    "role": "Sales Master Manager"
+   },
+   {
+    "role": "Sales User"
+   },
+   {
+    "role": "Stock User"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.878541",
+  "name": "SP Projects Manager",
+  "role_profile": "SP Projects Manager",
+  "roles": [
+   {
+    "role": "Item Manager"
+   },
+   {
+    "role": "Projects Manager"
+   },
+   {
+    "role": "Projects User"
+   },
+   {
+    "role": "Purchase User"
+   },
+   {
+    "role": "SP Contract Manager"
+   },
+   {
+    "role": "SP Pricing Manager"
+   },
+   {
+    "role": "SP Project Manager"
+   },
+   {
+    "role": "SP Purchase Officer"
+   },
+   {
+    "role": "SP Quote Creator"
+   },
+   {
+    "role": "SP Winch Reviewer"
+   },
+   {
+    "role": "Sales Master Manager"
+   },
+   {
+    "role": "Sales User"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.889709",
+  "name": "SP Showroom and Winch",
+  "role_profile": "SP Showroom and Winch",
+  "roles": [
+   {
+    "role": "Accounts User"
+   },
+   {
+    "role": "Fleet Manager"
+   },
+   {
+    "role": "SP Customer Followup"
+   },
+   {
+    "role": "SP Lead Intake"
+   },
+   {
+    "role": "SP Showroom Cashier"
+   },
+   {
+    "role": "SP Showroom Sales"
+   },
+   {
+    "role": "SP Showroom Store Keeper"
+   },
+   {
+    "role": "SP Winch Manager"
+   },
+   {
+    "role": "Sales User"
+   },
+   {
+    "role": "Stock User"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.902319",
+  "name": "SP Marketing and Quotes",
+  "role_profile": "SP Marketing and Quotes",
+  "roles": [
+   {
+    "role": "SP Custody Holder"
+   },
+   {
+    "role": "SP Lead Intake"
+   },
+   {
+    "role": "SP Marketing Agent"
+   },
+   {
+    "role": "SP Quote Creator"
+   },
+   {
+    "role": "Sales User"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.907940",
+  "name": "SP Call Center",
+  "role_profile": "SP Call Center",
+  "roles": [
+   {
+    "role": "SP Customer Followup"
+   },
+   {
+    "role": "SP Lead Intake"
+   },
+   {
+    "role": "Sales User"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.912812",
+  "name": "SP Store and Installations",
+  "role_profile": "SP Store and Installations",
+  "roles": [
+   {
+    "role": "Projects User"
+   },
+   {
+    "role": "SP Installation Technician"
+   },
+   {
+    "role": "SP Main Store Keeper"
+   },
+   {
+    "role": "Stock User"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.918290",
+  "name": "SP Jumbo Driver",
+  "role_profile": "SP Jumbo Driver",
+  "roles": [
+   {
+    "role": "SP Driver"
+   }
+  ]
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-11-09 14:29:37.922679",
+  "name": "SP Winch Operator",
+  "role_profile": "SP Winch Operator",
+  "roles": [
+   {
+    "role": "SP Winch Operator"
+   }
+  ]
+ }
+]
