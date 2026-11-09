@@ -16,6 +16,8 @@ class RoleDef:
 	desk_access: bool = True
 	erpnext_roles: tuple[str, ...] = field(default_factory=tuple)
 	name: str | None = None
+	# Sees cost, supplier prices and P1 (SP-35). Everyone else sees sale prices only.
+	sees_cost: bool = False
 
 	@property
 	def role_name(self) -> str:
@@ -38,11 +40,17 @@ ROLES: tuple[RoleDef, ...] = (
 			"Sales Master Manager",
 			"Purchase Master Manager",
 		),
+		sees_cost=True,
 	),
-	RoleDef("accountant", "المحاسب", erpnext_roles=("Accounts Manager", "Accounts User")),
+	RoleDef("accountant", "المحاسب", erpnext_roles=("Accounts Manager", "Accounts User"), sees_cost=True),
 	RoleDef("commission_manager", "العمولات", erpnext_roles=("Accounts User",)),
 	RoleDef("collection_officer", "التحصيل", erpnext_roles=("Accounts User",)),
-	RoleDef("supplier_accounts", "حسابات الموردين", erpnext_roles=("Accounts User", "Purchase User")),
+	RoleDef(
+		"supplier_accounts",
+		"حسابات الموردين",
+		erpnext_roles=("Accounts User", "Purchase User"),
+		sees_cost=True,
+	),
 	RoleDef("bank_financing", "التمويل البنكي", erpnext_roles=("Accounts User",)),
 	RoleDef("hr_payroll", "الموارد البشرية والمرتبات", erpnext_roles=("HR User",), name="SP HR Payroll"),
 	RoleDef("tax_insurance", "الضرائب والتأمينات", erpnext_roles=("Accounts User",)),
@@ -54,16 +62,16 @@ ROLES: tuple[RoleDef, ...] = (
 	# Marketing
 	RoleDef("marketing_agent", "التسويق", erpnext_roles=("Sales User",)),
 	# Quotes and prices (system_designer is merged into quote_creator, decision 67; the key stays)
-	RoleDef("system_designer", "مصمم الأنظمة", erpnext_roles=("Sales User",)),
-	RoleDef("quote_creator", "إعداد عروض الأسعار", erpnext_roles=("Sales User",)),
+	RoleDef("system_designer", "مصمم الأنظمة", erpnext_roles=("Sales User",), sees_cost=True),
+	RoleDef("quote_creator", "إعداد عروض الأسعار", erpnext_roles=("Sales User",), sees_cost=True),
 	RoleDef("catalog_manager", "الأصناف والكتالوجات", erpnext_roles=("Item Manager",)),
 	# Prices only: Item Price and Price List are edited through Sales Master Manager. No Item
 	# Manager, so only the catalog manager and the admin add or edit items (SP-29).
-	RoleDef("pricing_manager", "لستة الأسعار", erpnext_roles=("Sales Master Manager",)),
+	RoleDef("pricing_manager", "لستة الأسعار", erpnext_roles=("Sales Master Manager",), sees_cost=True),
 	# Contracts, stations, buying
 	RoleDef("contract_manager", "العقود", erpnext_roles=("Sales User",)),
 	RoleDef("project_manager", "مدير المشروعات", erpnext_roles=("Projects Manager", "Projects User")),
-	RoleDef("purchase_officer", "المشتريات", erpnext_roles=("Purchase User",)),
+	RoleDef("purchase_officer", "المشتريات", erpnext_roles=("Purchase User",), sees_cost=True),
 	RoleDef("receipt_confirmer", "تأكيد الاستلام", erpnext_roles=("Stock User", "Purchase User")),
 	# Stores and showroom
 	RoleDef("main_store_keeper", "أمين المخزن الرئيسي", erpnext_roles=("Stock User",)),
@@ -87,6 +95,9 @@ ROLES: tuple[RoleDef, ...] = (
 )
 
 BY_KEY: dict[str, RoleDef] = {r.key: r for r in ROLES}
+
+# Roles that see cost, supplier prices and P1 (SP-35).
+COST_ROLES = tuple(r.role_name for r in ROLES if r.sees_cost)
 
 # Roles whose users get the light mobile entry instead of the desk (SP-34, SP-180).
 LIGHT_ENTRY_ROLES = tuple(r.role_name for r in ROLES if not r.desk_access)
