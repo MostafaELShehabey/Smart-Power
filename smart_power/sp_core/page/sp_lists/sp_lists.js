@@ -11,7 +11,10 @@ frappe.pages["sp-lists"].on_page_load = function (wrapper) {
 		title: __("Lists"),
 		single_column: false,
 	});
-	wrapper.sp_lists = new SPLists(page);
+	// The list names come from SP List Value's meta, which the desk loads on demand.
+	frappe.model.with_doctype(SP_LIST_DOCTYPE, () => {
+		wrapper.sp_lists = new SPLists(page);
+	});
 };
 
 frappe.pages["sp-lists"].on_page_show = function (wrapper) {
@@ -47,6 +50,8 @@ class SPLists {
 				.on("click", (e) => {
 					e.preventDefault();
 					this.current = name;
+					// keep the tab in the address so a reload or a shared link opens the same list
+					window.history.replaceState(null, "", `?list=${encodeURIComponent(name)}`);
 					this.refresh();
 				})
 				.end()
