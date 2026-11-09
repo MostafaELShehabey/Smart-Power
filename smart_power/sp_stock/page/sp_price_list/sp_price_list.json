@@ -1,0 +1,20 @@
+{
+ "creation": "2026-11-09 23:30:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "tag",
+ "idx": 0,
+ "modified": "2026-11-09 23:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "name": "sp-price-list",
+ "owner": "Administrator",
+ "page_name": "sp-price-list",
+ "roles": [
+  {
+   "role": "Desk User"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Price List"
+}

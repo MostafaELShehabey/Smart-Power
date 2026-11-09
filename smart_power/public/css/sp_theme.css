@@ -142,3 +142,14 @@ body .es-button[data-variant="solid"] {
 .sp-lists-body {
 	overflow-x: auto;
 }
+
+/* I2 Price List (SP-30) */
+.sp-price-table td.sp-editable {
+	cursor: pointer;
+}
+.sp-price-table td.sp-editable:hover {
+	background-color: var(--sp-gold-soft);
+}
+.sp-price-table .indicator-pill {
+	white-space: nowrap;
+}

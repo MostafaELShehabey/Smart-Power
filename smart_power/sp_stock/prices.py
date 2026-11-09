@@ -349,11 +349,15 @@ def derive_prices(rules, known: dict[str, float], step: float = 0) -> dict[str, 
 	return derived
 
 
-def apply_category_rules(item_code: str, reason: str, price_date=None) -> dict[str, float]:
-	"""Recompute the item's rule-driven prices from its current base prices and save them.
+def apply_category_rules(
+	item_code: str, reason: str, price_date=None, given: dict[str, float] | None = None
+) -> dict[str, float]:
+	"""Recompute the item's rule-driven prices from its current prices and save them.
 
-	Items marked Manual Prices, and items whose category has no rules, are left alone.
-	Returns {key: new price} for the prices that changed.
+	`given` holds prices the user just set by hand: they are kept and feed the rules that
+	depend on them (BTC typed in, so BTB = BTC less 5% follows). Items marked Manual Prices,
+	and items whose category has no rules, are left alone. Returns {key: new price} for the
+	prices that changed.
 	"""
 	if frappe.get_cached_value("Item", item_code, "sp_manual_prices"):
 		return {}
@@ -363,9 +367,11 @@ def apply_category_rules(item_code: str, reason: str, price_date=None) -> dict[s
 	rules = frappe.get_cached_doc("SP Price Category", category).rules
 	if not rules:
 		return {}
+	given = given or {}
 	targets = {RULE_TARGET[r.target] for r in rules}
 	current = item_prices(item_code)
 	known = {k: row.rate for k, row in current.items() if row and k not in targets}
+	known.update(given)
 	derived = derive_prices(rules, known, rounding_step(category))
 	supplier = (current.get(LIST) or current.get(COST) or frappe._dict()).get("supplier")
 	changed = {}
