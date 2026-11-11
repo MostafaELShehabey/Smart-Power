@@ -20,6 +20,7 @@ def after_install() -> None:
 	from smart_power.sp_core.setup.seed import seed_list_values, seed_settings
 	from smart_power.sp_sales.setup import apply_customer_naming
 	from smart_power.sp_stock.prices import seed_price_lists
+	from smart_power.sp_stock.warehouses import seed_warehouse_types
 
 	ensure_admin_module()
 	apply_locale()
@@ -29,6 +30,7 @@ def after_install() -> None:
 	sync_rule_settings()
 	apply_customer_naming()
 	seed_price_lists()
+	seed_warehouse_types()
 
 
 def after_sync() -> None:
