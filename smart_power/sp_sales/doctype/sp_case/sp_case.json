@@ -95,7 +95,8 @@
    "options": "User",
    "default": "__user",
    "in_standard_filter": 1,
-   "description": "Who brought the request in (showroom, call or marketing)."
+   "description": "Who brought the request in (showroom, call or marketing).",
+   "read_only_depends_on": "eval:!doc.__islocal"
   },
   {
    "fieldname": "quote_creator",
@@ -103,7 +104,8 @@
    "label": "Quote Creator",
    "options": "User",
    "in_standard_filter": 1,
-   "description": "Whoever takes the request and prepares the quote."
+   "description": "Whoever takes the request and prepares the quote.",
+   "read_only_depends_on": "eval:!doc.__islocal"
   },
   {
    "fieldname": "column_break_owners",
@@ -117,7 +119,8 @@
    "reqd": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "description": "The case owner: follows up with the customer until won or lost. A case always has one."
+   "description": "The case owner: follows up with the customer until won or lost. A case always has one.",
+   "read_only_depends_on": "eval:!doc.__islocal"
   },
   {
    "fieldname": "last_action_at",
@@ -181,7 +184,7 @@
   }
  ],
  "links": [],
- "modified": "2026-11-11 10:00:00.000000",
+ "modified": "2026-11-11 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",
