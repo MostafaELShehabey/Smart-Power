@@ -46,3 +46,43 @@ def item_price_has_permission(doc, ptype: str | None = None, user: str | None = 
 	if doc.get("buying") and not can_see_cost(user):
 		return False
 	return True
+
+
+# --- SP Case: who sees a case (SP-35, with SP-46) ---------------------------------------------
+
+# Roles that see every case: the admin and the call centre lead who follows all cases (كاميليا).
+CASE_SEES_ALL = ("SP Admin", "System Manager", "SP Followup All")
+QUOTE_CREATOR = "SP Quote Creator"
+OPEN_REQUEST = "Quote request"
+
+
+def _case_sees_all(user: str) -> bool:
+	return user == "Administrator" or bool(set(CASE_SEES_ALL) & set(frappe.get_roles(user)))
+
+
+def case_query_conditions(user: str | None = None) -> str:
+	"""permission_query_conditions for SP Case: a case is seen by its requester, quote creator
+	and follow-up owner; quote creators also see unclaimed quote requests (to take them)."""
+	user = user or frappe.session.user
+	if _case_sees_all(user):
+		return ""
+	u = frappe.db.escape(user)
+	cond = f"(`tabSP Case`.follow_up_owner = {u} or `tabSP Case`.requested_by = {u} or `tabSP Case`.quote_creator = {u}"
+	if QUOTE_CREATOR in frappe.get_roles(user):
+		cond += f" or (`tabSP Case`.status = {frappe.db.escape(OPEN_REQUEST)} and ifnull(`tabSP Case`.quote_creator, '') = '')"
+	return cond + ")"
+
+
+def case_has_permission(doc, ptype: str | None = None, user: str | None = None) -> bool:
+	"""has_permission for SP Case, the same rule for one document."""
+	user = user or frappe.session.user
+	if _case_sees_all(user) or doc.is_new():
+		return True
+	if user in (doc.follow_up_owner, doc.requested_by, doc.quote_creator):
+		return True
+	if QUOTE_CREATOR not in frappe.get_roles(user):
+		return False
+	# "Unclaimed" is judged on the saved case: while a quote creator takes a request, the
+	# document being saved already says Draft, before its quote creator is filled in.
+	stored = frappe.db.get_value("SP Case", doc.name, ["status", "quote_creator"], as_dict=True) or doc
+	return bool(stored.status == OPEN_REQUEST and not stored.quote_creator)
