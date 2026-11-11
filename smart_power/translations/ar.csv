@@ -1,6 +1,8 @@
 0 means no rounding; 5 rounds to the nearest 5.,صفر يعني بدون تقريب، و5 يعني التقريب لأقرب 5.
 1 is picked first.,رقم 1 يُختار أولاً.
+A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
+A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
 A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
@@ -8,6 +10,7 @@ A reason is needed,مطلوب سبب
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
 Abnormal,غير طبيعي
+Accepted Quotation,العرض المعتمد
 Account Map,خريطة الحسابات
 Action,الإجراء
 Active,فعال
@@ -40,15 +43,19 @@ BTB,BTB
 BTB (Companies),BTB (الشركات)
 BTC,BTC
 BTC (Individuals),BTC (الأفراد)
+Call,مكالمة
 Call Result,نتيجة المكالمة
 Can Never Block,لا يمنع أبداً
 Cancelled,ملغي
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
+Case opened,فتح الحالة
 Cash and Locks,الكاش والقفل
 Catalogue (PDF),الكتالوج (PDF)
 Category,التصنيف
 Change %,نسبة التغيير %
 Change Order,أمر تغيير
+Changed By,تم التغيير بواسطة
+Channel,القناة
 Chassis,الشاسيه
 Check the specs,راجع المواصفات
 Cheque,شيك
@@ -58,6 +65,7 @@ Code,الكود
 Code or name,الكود أو الاسم
 Code {0} already exists in the list {1}.,الكود {0} موجود بالفعل في القائمة {1}.
 Code {0} is repeated: it is already in row {1}.,الكود {0} مكرر: موجود بالفعل في الصف {1}.
+Collection Owner,مسؤول التحصيل
 Comment,تعليق
 Commercial,تجاري
 Commercial Register No.,رقم السجل التجاري
@@ -72,8 +80,10 @@ Created: {0} · Updated: {1} · Errors: {2},تمت إضافة: {0} · تم تح�
 Credit Account,الحساب الدائن
 Custody,عهدة
 Custody Account,حساب العهدة
+Customer,العميل
 Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
+Customer Name,اسم العميل
 Deactivate instead,أوقفها بدلاً من الحذف
 Debit Account,الحساب المدين
 Default Quote Print Format,شكل طباعة العرض الافتراضي
@@ -87,6 +97,7 @@ Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أع
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
 Done,تم
 Download the template,تحميل النموذج
+Draft,مسودة
 Drag to reorder,اسحب لتغيير الترتيب
 Due At,الميعاد
 Edit,تعديل
@@ -101,6 +112,7 @@ ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
 Events,الأحداث
 Excel File,ملف إكسل
+Execution Owner,مسؤول التنفيذ
 Expense,مصروف
 Expense Type,نوع المصروف
 Extra Data,بيانات إضافية
@@ -120,12 +132,14 @@ Fiscal Year Start,بداية السنة المالية
 Fixed,ثابت
 Fixed Quote Line,بند ثابت في العرض
 Flow (m³/h),التصرف (م³/ساعة)
+Follow-up,متابعة
 Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
 Fresh,حديث
 From,من
+From Date,من تاريخ
 From document,من المستند
 Full,كامل
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
@@ -157,6 +171,7 @@ Item Group,مجموعة الأصناف
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
 Job Type,نوع الشغلانة
 Label,الاسم
+Last Action,آخر إجراء
 Late Entry,تسجيل متأخر
 Legal Name (Arabic),الاسم القانوني (عربي)
 Level,المستوى
@@ -174,6 +189,8 @@ Locked for quote creators.,مقفل على أصحاب العروض.
 Log out,تسجيل الخروج
 Logo,الشعار
 Logo and Stamp,الشعار والختم
+Lost,خسارة
+Lost Note,ملاحظة الخسارة
 Lost Reason,سبب الخسارة
 Main Supplier,المورد الرئيسي
 Manual Entry,إدخال يدوي
@@ -183,6 +200,7 @@ Margin %,الربح %
 Margin on sale,هامش من البيع
 Margin Ranges,نطاقات الربح
 Marked as a featured customer.,تم تمييز العميل كعميل مميز.
+Marketing,تسويق
 Markup Basis,أساس المعامل
 Markup on cost,معامل على التكلفة
 Max DC Voltage (V),أقصى جهد DC (فولت)
@@ -226,7 +244,10 @@ Other,أخرى
 Outcome,النتيجة
 Overridden,تم التخطي بسبب
 Override,تخطي
+Owner,المسؤول
+Owner History,سجل المسؤولين
 Owner Name,اسم المالك
+Owners,المسؤولون
 P1 Cost,تكلفة P1
 Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
@@ -252,8 +273,10 @@ Priority,الأولوية
 Pump Specs,مواصفات الطلمبة
 Quotation,عرض سعر
 Quotations,عروض الأسعار
+Quote Creator,معد العرض
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
 Quote Request,طلب عرض
+Quote request,طلب عرض
 Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
 Quotes,عروض الأسعار
@@ -269,6 +292,8 @@ Refund,رد مبلغ
 Region,المنطقة
 Rename,إعادة تسمية
 Request for Quotation,طلب عرض سعر من مورد
+Requested By,طالب العرض
+Result,النتيجة
 Review,المراجعة
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
@@ -290,6 +315,7 @@ Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
 Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون تغيير: {1} · أخطاء: {2}
 Scope,النطاق
 Second Mobile,موبايل إضافي
+Sent to customer,أُرسل للعميل
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
@@ -300,6 +326,7 @@ Setup failed,فشل الإعداد
 Setup is complete but there is no company named {0}.,الإعداد مكتمل لكن لا توجد شركة باسم {0}.
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
 "Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",مفتاح قصير تستخدمه التقارير والنظام، مثل PUMP. لا يتغير بعد الحفظ لأنه جزء من اسم السجل.
+Showroom,المعرض
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
 Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أيام من آخر إيداع)
 Simple Record Type,نوع التسجيل البسيط
@@ -317,6 +344,8 @@ SP Audit Log,سجل العمليات
 SP Bank Financing,التمويل البنكي
 SP Brand Priority,أولوية الماركة
 SP Call Center,كول سنتر ومتابعة العملاء
+SP Case,الحالة
+SP Case System Type,نوع نظام الحالة
 SP Catalog Manager,الأصناف والكتالوجات
 SP Collection Officer,التحصيل
 SP Commission Manager,العمولات
@@ -341,6 +370,7 @@ SP Margin Range,نطاق الربح
 SP Marketing Agent,التسويق
 SP Marketing and Quotes,ماركتنج وإعداد عروض
 SP Owner and Admin,المدير وصاحب الشركة
+SP Owner History,سجل المسؤولين
 SP Price Category,فئة سعر
 SP Price Rule,قاعدة تسعير
 SP Pricing Manager,لستة الأسعار
@@ -386,11 +416,13 @@ Supplier {0} does not exist.,المورد {0} غير موجود.
 Supply and install,توريد وتركيب
 Supply only,توريد فقط
 System Type,نوع النظام
+System Types,أنواع الأنظمة
 Task Type,نوع المهمة
 Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
 Technical Review,مراجعة فنية
 Terms Note,ملاحظة الشروط
+The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
 The code is empty.,الكود فارغ.
 The default price category for items in this group.,فئة السعر الافتراضية لأصناف هذه المجموعة.
@@ -413,6 +445,7 @@ This list has no values yet. Use Add Value.,هذه القائمة لا تحتو�
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 Tier,الفئة
 Timestamp,الوقت
+To,إلى
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit Account,الحساب الوسيط
@@ -433,8 +466,12 @@ Warning Needs a Reason,التنبيه يحتاج سبباً
 WhatsApp,واتساب
 When,متى
 Who,مَن
+"Who brought the request in (showroom, call or marketing).",من جاء بالطلب (المعرض أو المكالمة أو التسويق).
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
+Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
+Won,تم الكسب
+Won On,تاريخ الكسب
 Write-off,شطب
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
@@ -445,6 +482,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
+{0} is not in the list {1}.,{0} ليست ضمن القائمة {1}.
 {0} is repeated: it is already in row {1}.,{0} مكرر: موجود بالفعل في السطر {1}.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} of {1} items,{0} من {1} صنف
