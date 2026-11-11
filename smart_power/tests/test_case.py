@@ -62,8 +62,9 @@ class TestCase(IntegrationTestCase):
 
 	def test_won_sets_the_date(self):
 		case = make_case()
-		case.status = "Won"
-		case.save()
+		for status in ("Draft", "Sent to customer", "Follow-up", "Won"):  # the workflow's path
+			case.status = status
+			case.save()
 		self.assertTrue(case.won_on)
 
 	def test_touch_marks_the_last_action(self):

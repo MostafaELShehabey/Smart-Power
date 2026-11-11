@@ -18,10 +18,13 @@ def after_install() -> None:
 	from smart_power.rules import sync_rule_settings
 	from smart_power.sp_core.setup.locale import apply_branding, apply_locale
 	from smart_power.sp_core.setup.seed import seed_list_values, seed_settings
+	from smart_power.sp_sales.case_workflow import ensure_workflow_masters
 	from smart_power.sp_sales.setup import apply_customer_naming
 	from smart_power.sp_stock.prices import seed_price_lists
 
 	ensure_admin_module()
+	# before fixtures sync: the SP Case workflow fixture needs its states and actions (SP-46)
+	ensure_workflow_masters()
 	apply_locale()
 	apply_branding()
 	seed_list_values()

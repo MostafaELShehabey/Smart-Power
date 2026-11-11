@@ -126,6 +126,7 @@ Field Entry Lock (days),قفل التسجيل الميداني (أيام)
 Field Expense,مصروف ميداني
 Field Job,شغلانة ميدانية
 Field names starting with {0} are reserved for developer fields.,أسماء الحقول التي تبدأ بـ {0} محجوزة لحقول المطور.
+Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
 Financial Center,المركز المالي
 Financing Type,نوع التمويل
 Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
@@ -200,6 +201,8 @@ Margin,هامش الربح
 Margin %,الربح %
 Margin on sale,هامش من البيع
 Margin Ranges,نطاقات الربح
+Mark Lost,تسجيل الخسارة
+Mark Won,تسجيل الكسب
 Marked as a featured customer.,تم تمييز العميل كعميل مميز.
 Marketing,تسويق
 Markup Basis,أساس المعامل
@@ -294,7 +297,9 @@ Reference Name,المستند المرتبط
 Refund,رد مبلغ
 Region,المنطقة
 Rename,إعادة تسمية
+Reopen,إعادة فتح
 Request for Quotation,طلب عرض سعر من مورد
+Request Revision,طلب تعديل
 Requested By,طالب العرض
 Result,النتيجة
 Review,المراجعة
@@ -318,6 +323,7 @@ Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
 Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون تغيير: {1} · أخطاء: {2}
 Scope,النطاق
 Second Mobile,موبايل إضافي
+Send to Customer,إرسال للعميل
 Sent to customer,أُرسل للعميل
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
@@ -408,6 +414,7 @@ Stale first,القديم أولاً
 Stale Price on a Quote,سعر قديم في عرض سعر
 Stale prices never block a quote (SP-63).,الأسعار القديمة لا تمنع عرض السعر أبداً (SP-63).
 Stamp,الختم
+Start Follow-up,بدء المتابعة
 Status,الحالة
 Subject,الموضوع
 Summary,الملخص
@@ -420,6 +427,7 @@ Supply and install,توريد وتركيب
 Supply only,توريد فقط
 System Type,نوع النظام
 System Types,أنواع الأنظمة
+Take Request,استلام الطلب
 Task Type,نوع المهمة
 Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
@@ -450,6 +458,7 @@ Tier,الفئة
 Timestamp,الوقت
 To,إلى
 "To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
+Took the request,استلم الطلب
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit Account,الحساب الوسيط

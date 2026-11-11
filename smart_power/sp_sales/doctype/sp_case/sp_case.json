@@ -141,13 +141,12 @@
    "options": "SP List Value",
    "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Lost Reason\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
    "mandatory_depends_on": "eval:doc.status=='Lost'",
-   "depends_on": "eval:doc.status=='Lost'"
+   "description": "Fill it in before Mark Lost."
   },
   {
    "fieldname": "lost_note",
    "fieldtype": "Small Text",
-   "label": "Lost Note",
-   "depends_on": "eval:doc.status=='Lost'"
+   "label": "Lost Note"
   },
   {
    "fieldname": "column_break_result",
@@ -184,7 +183,7 @@
   }
  ],
  "links": [],
- "modified": "2026-11-11 12:00:00.000000",
+ "modified": "2026-11-11 12:30:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",
