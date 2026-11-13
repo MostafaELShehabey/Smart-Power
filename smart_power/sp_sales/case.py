@@ -13,7 +13,7 @@ from frappe import _
 from frappe.utils import now_datetime, today
 
 DOCTYPE = "SP Case"
-WON, LOST = "Won", "Lost"
+QUOTE_REQUEST, DRAFT, WON, LOST = "Quote request", "Draft", "Won", "Lost"
 SYSTEM_TYPE_LIST = "System Type"
 LOST_REASON_LIST = "Lost Reason"
 REASSIGN_ROLES = ("SP Admin", "System Manager")
@@ -33,6 +33,7 @@ def validate(doc) -> None:
 	_check_list(doc.lost_reason, LOST_REASON_LIST)
 	for row in doc.system_types:
 		_check_list(row.system_type, SYSTEM_TYPE_LIST)
+	take_request(doc)
 	record_owner_changes(doc)
 	if doc.is_new() or doc.has_value_changed("status"):
 		doc.last_action_at = now_datetime()
@@ -54,6 +55,17 @@ def record_first_owners(doc) -> None:
 					"changed_by": frappe.session.user,
 				},
 			)
+
+
+def take_request(doc) -> None:
+	"""Whoever moves a quote request to Draft becomes its quote creator, unless one is set."""
+	if doc.is_new() or doc.quote_creator or doc.status != DRAFT:
+		return
+	if doc.get_doc_before_save().status != QUOTE_REQUEST:
+		return
+	doc.quote_creator = frappe.session.user
+	reasons = doc.flags.sp_owner_change_reasons or {}
+	doc.flags.sp_owner_change_reasons = {**reasons, "quote_creator": _("Took the request")}
 
 
 def record_owner_changes(doc) -> None:
