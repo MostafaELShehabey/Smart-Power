@@ -43,6 +43,7 @@ Approve Version,اعتماد النسخة
 Approved,معتمد
 Approved Version,النسخة المعتمدة
 Arabic Name,الاسم العربي
+Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
 B,B
@@ -272,6 +273,7 @@ New price,السعر الجديد
 New Value,القيمة الجديدة
 New Version,نسخة جديدة
 Night Hours,ساعات الليل
+No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 No open requests here.,لا توجد طلبات مفتوحة هنا.
@@ -370,6 +372,7 @@ Reference Name,المستند المرتبط
 Refresh,تحديث
 Refund,رد مبلغ
 Region,المنطقة
+Registered with {0},مسجل لدى {0}
 Rename,إعادة تسمية
 Reopen,إعادة فتح
 Repricing Note,ملاحظة إعادة التسعير
@@ -525,6 +528,7 @@ Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
 Technical Review,مراجعة فنية
 Terms Note,ملاحظة الشروط
+The admin has been asked,تم إرسال الطلب للمدير
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
@@ -551,6 +555,8 @@ The station this site warehouse belongs to. One site warehouse per station.,ال
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
+This customer is followed up by a colleague. Ask the admin to reassign them.,هذا العميل يتابعه زميل. اطلب من المدير نقله.
+This customer is followed up by {0}. Ask the admin to reassign them.,هذا العميل يتابعه {0}. اطلب من المدير نقله.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
@@ -605,6 +611,7 @@ Write-off,شطب
 Wrong customer,عميل غير مطابق
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
+{0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} days,{0} يوم

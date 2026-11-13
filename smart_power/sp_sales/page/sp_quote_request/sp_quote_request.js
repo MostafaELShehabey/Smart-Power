@@ -153,12 +153,29 @@ class SPQuoteRequest {
 		const mobile = this.form.get_value("mobile");
 		const status = this.form.get_field("customer_status").$wrapper.empty();
 		this.existing = null;
+		this.blocked = false;
 		this.toggle_new_customer(true);
 		if (!mobile) return;
 		const { message: r } = await frappe.call(`${SP_QR_API}.check_mobile`, { mobile });
 		const esc = frappe.utils.escape_html;
-		if (!r.valid) {
+		if (r.status === "invalid") {
 			status.html(`<div class="text-danger small">${esc(__("This is not a valid Egyptian mobile."))}</div>`);
+			return;
+		}
+		if (r.status === "colleague") {
+			// a colleague's customer: only the owner's name, and a request to the admin
+			this.blocked = true;
+			this.toggle_new_customer(false);
+			const $box = $(
+				`<div class="alert alert-warning">${esc(__("Registered with {0}", [r.owner_name]))} </div>`
+			).appendTo(status);
+			$(`<button class="btn btn-xs btn-default"></button>`)
+				.text(__("Ask the admin to reassign"))
+				.on("click", async () => {
+					await frappe.call({ method: `${SP_QR_API}.request_reassign`, args: { mobile } });
+					frappe.show_alert({ message: __("The admin has been asked"), indicator: "green" });
+				})
+				.appendTo($box);
 			return;
 		}
 		if (r.customer) {
@@ -180,6 +197,10 @@ class SPQuoteRequest {
 	}
 
 	async save() {
+		if (this.blocked) {
+			frappe.msgprint(__("This customer is followed up by a colleague. Ask the admin to reassign them."));
+			return;
+		}
 		const values = this.form.get_values();
 		if (!values) return;
 		const details = this.details ? this.details.get_values() : {};
