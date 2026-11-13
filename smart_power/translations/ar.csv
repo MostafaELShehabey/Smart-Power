@@ -29,6 +29,7 @@ Addresses,العناوين
 Addresses and Phones,العناوين والتليفونات
 Age,العمر
 Aging,يقترب من القدم
+All,الكل
 AM,ص
 Amber,أصفر
 Amber After (days),أصفر بعد (أيام)
@@ -226,6 +227,7 @@ Max Total Discount: Quote Creator,أقصى خصم على الإجمالي: صا�
 Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
 Message,الرسالة
 Min Margin %,أقل ربح %
+Mine,طلباتي
 Mobile,الموبايل
 Mobile Device ID,معرّف جهاز الموبايل
 Mobile is required: it is how a returning customer is found.,الموبايل مطلوب: به نتعرف على العميل عند عودته.
@@ -241,6 +243,7 @@ New price,السعر الجديد
 New Value,القيمة الجديدة
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
+No open requests here.,لا توجد طلبات مفتوحة هنا.
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
@@ -305,6 +308,7 @@ Quote Due Within (hours),العرض مطلوب خلال (ساعات)
 Quote overdue: {0} ({1}),عرض متأخر: {0} ({1})
 Quote Request,طلب عرض
 Quote request,طلب عرض
+Quote Request Queue,قائمة طلبات العروض
 Quote Sent At,وقت إرسال العرض
 Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
@@ -319,6 +323,7 @@ Reassignment,تحويل
 Receipt to Confirm,استلام محتاج تأكيد
 Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
+Refresh,تحديث
 Refund,رد مبلغ
 Region,المنطقة
 Rename,إعادة تسمية
@@ -328,6 +333,7 @@ Request Details,تفاصيل الطلب
 Request for Quotation,طلب عرض سعر من مورد
 Request Notes,ملاحظات الطلب
 Request Revision,طلب تعديل
+Request {0} is yours,الطلب {0} أصبح لك
 Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Result,النتيجة
@@ -463,6 +469,7 @@ Supply and install,توريد وتركيب
 Supply only,توريد فقط
 System Type,نوع النظام
 System Types,أنواع الأنظمة
+Take,استلام
 Take Request,استلام الطلب
 Task Type,نوع المهمة
 Tax Card No.,رقم البطاقة الضريبية
@@ -494,6 +501,7 @@ The supplier owns goods kept with us on consignment (for example Africa System).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
+This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 Tier,الفئة
 Timestamp,الوقت
@@ -504,6 +512,7 @@ Total discount limit for the follow-up owner,حد الخصم على الإجما
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit,في الطريق
 Transit Account,الحساب الوسيط
+Unclaimed,غير مستلَم
 Unknown list {0}.,قائمة غير معروفة {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
@@ -535,6 +544,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} days,{0} يوم
+{0} h,{0} ساعة
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.

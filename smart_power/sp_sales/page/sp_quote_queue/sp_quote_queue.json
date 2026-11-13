@@ -1,0 +1,29 @@
+{
+ "creation": "2026-11-13 20:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "list",
+ "idx": 0,
+ "modified": "2026-11-13 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Sales",
+ "name": "sp-quote-queue",
+ "owner": "Administrator",
+ "page_name": "sp-quote-queue",
+ "roles": [
+  {
+   "role": "SP Quote Creator"
+  },
+  {
+   "role": "SP Followup All"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Quote Request Queue"
+}
