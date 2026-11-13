@@ -39,6 +39,9 @@ website_context = {
 }
 
 # Customer list: gold star for featured customers (SP-31).
+# Quotation form: New Version / Approve Version (SP-54).
+doctype_js = {"Quotation": "public/js/quotation.js"}
+
 doctype_list_js = {
 	"Customer": "public/js/customer_list.js",
 	# Item list: import from Excel with Arabic headers (SP-29).
@@ -81,7 +84,9 @@ doc_events = {
 	"Item": {"validate": "smart_power.sp_stock.item.validate"},
 	# Quotation belongs to an SP Case (SP-54)
 	"Quotation": {
+		"before_insert": "smart_power.sp_sales.quotation.before_insert",
 		"validate": "smart_power.sp_sales.quotation.validate",
+		"on_cancel": "smart_power.sp_sales.quotation.on_cancel",
 		"on_update": "smart_power.sp_sales.quotation.on_update",
 		"on_submit": "smart_power.sp_sales.quotation.on_update",
 	},

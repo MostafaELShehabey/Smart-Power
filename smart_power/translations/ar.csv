@@ -37,6 +37,8 @@ Amber After must be fewer days than the Max Price Age.,يجب أن تكون أي
 Amount,المبلغ
 Annual Cost of Money,تكلفة الفلوس السنوية
 Applies To,يُطبق على
+Approve Version,اعتماد النسخة
+Approved Version,النسخة المعتمدة
 Arabic Name,الاسم العربي
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
@@ -57,6 +59,7 @@ Cancelled,ملغي
 Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case opened,فتح الحالة
+Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Cash and Locks,الكاش والقفل
 Catalogue (PDF),الكتالوج (PDF)
 Category,التصنيف
@@ -214,6 +217,7 @@ Margin %,الربح %
 Margin on sale,هامش من البيع
 Margin Ranges,نطاقات الربح
 Mark Lost,تسجيل الخسارة
+Mark this version as the one the customer accepted?,اعتماد هذه النسخة كالتي وافق عليها العميل؟
 Mark Won,تسجيل الكسب
 Marked as a featured customer.,تم تمييز العميل كعميل مميز.
 Marketing,تسويق
@@ -241,6 +245,7 @@ Name,الاسم
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
 New price,السعر الجديد
 New Value,القيمة الجديدة
+New Version,نسخة جديدة
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 No open requests here.,لا توجد طلبات مفتوحة هنا.
@@ -255,10 +260,13 @@ Old Value,القيمة القديمة
 On time,في الموعد
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
+Only a quote linked to a case can be the approved version.,فقط العرض المرتبط بحالة يمكن أن يكون النسخة المعتمدة.
+Only a quote linked to a case has versions.,فقط العرض المرتبط بحالة له نسخ.
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
+"Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
 Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
@@ -284,6 +292,7 @@ Power (HP),القدرة (حصان)
 Power (kW),القدرة (كيلووات)
 Power (W),القدرة (وات)
 "Prepare and send the quote, or hand the request to another quote creator.",جهّز العرض وأرسله، أو سلّم الطلب لمعد عروض آخر.
+Previous Version,النسخة السابقة
 Price,السعر
 Price Category,فئة السعر
 Price date,تاريخ السعر
@@ -459,6 +468,7 @@ Start Follow-up,بدء المتابعة
 Station Project,مشروع المحطة
 Status,الحالة
 Subject,الموضوع
+Submit the quote before approving it.,اعتمد (Submit) العرض أولاً قبل اعتماد النسخة.
 Summary,الملخص
 Supplier,المورد
 Supplier List Price,سعر لستة المورد
@@ -500,6 +510,7 @@ The sales case this quote belongs to. Its customer must be the case's customer.,
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
+The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
@@ -521,8 +532,12 @@ Update the prices worked out from these ones (pricing rules),تحديث الأس
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
 User,المستخدم
+"v1, v2 … per case.",v1، v2 … لكل حالة.
 Value (Arabic),القيمة (عربي)
 Value (English),القيمة (إنجليزي)
+Version,النسخة
+Version {0} of case {1}.,النسخة {0} من الحالة {1}.
+Version {0} of case {1}: the approved version.,النسخة {0} من الحالة {1}: النسخة المعتمدة.
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
 Warn,تنبيه
