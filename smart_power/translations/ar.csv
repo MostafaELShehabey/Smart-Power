@@ -243,6 +243,7 @@ Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
 Item Group,مجموعة الأصناف
 Item Selection,اختيار الصنف
+Item {0} does not exist.,الصنف {0} غير موجود.
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
 Job Type,نوع الشغلانة
 Key,المفتاح
@@ -276,6 +277,7 @@ Location Pin,تحديد الموقع على الخريطة
 Locked,مقفل
 Locked BTC price,سعر BTC مقفل
 Locked for quote creators.,مقفل على أصحاب العروض.
+Locked line,سطر مقفل
 Log out,تسجيل الخروج
 Logo,الشعار
 Logo and Stamp,الشعار والختم
@@ -335,6 +337,9 @@ Night Hours,ساعات الليل
 No,لا
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
+No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
+"No item, so no cost.",لا يوجد صنف، فلا توجد تكلفة.
+"No item, so no price.",لا يوجد صنف، فلا يوجد سعر.
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 No open requests here.,لا توجد طلبات مفتوحة هنا.
@@ -732,9 +737,13 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} days,{0} يوم
 {0} h,{0} ساعة
+{0} has no P1 cost.,{0} ليس له تكلفة P1.
+{0} has no valuation rate.,{0} ليس له سعر تقييم.
+{0} has no {1} price.,{0} ليس له سعر {1}.
 {0} installation manager(s) asked,تم طلب المعاينة من {0} من مديري التركيبات
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
+{0} is locked: its markup cannot change.,{0} مقفل: لا يمكن تغيير نسبة الربح.
 {0} is not a photo.,{0} ليس صورة.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 {0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
@@ -742,6 +751,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} is not in the list {1}.,{0} ليست ضمن القائمة {1}.
 {0} is repeated: it is already in row {1}.,{0} مكرر: موجود بالفعل في السطر {1}.
 {0} is required for this system type.,{0} مطلوب لهذا النوع من الأنظمة.
+{0} is required.,{0} مطلوب.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} of {1} items,{0} من {1} صنف
 {0} {1} does not exist.,{0} {1} غير موجود.
@@ -750,6 +760,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 "{0}: brand priority needs an item group, a capacity spec and a need formula.",{0}: أولوية الماركة تحتاج مجموعة أصناف ومواصفة قدرة ومعادلة احتياج.
 {0}: first in stock needs an item group.,{0}: أول صنف متوفر يحتاج مجموعة أصناف.
 {0}: give a reason for changing the {1} price.,{0}: اكتب سبب تغيير سعر {1}.
+{0}: price is {1} days old.,{0}: عمر السعر {1} يوم.
 {0}: the default {1} is not a number.,{0}: القيمة الافتراضية {1} ليست رقمًا.
 {0}: the default {1} is not one of the options.,{0}: القيمة الافتراضية {1} ليست من الاختيارات.
 {0}: the formula {1} cannot be read.,{0}: لا يمكن قراءة المعادلة {1}.
@@ -762,7 +773,9 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0}: this kind of formula is not allowed.,{0}: هذا النوع من المعادلات غير مسموح.
 {0}: unknown name {1} in the formula {2}.,{0}: اسم غير معروف {1} في المعادلة {2}.
 {0}: {1},{0}: {1}
+{0}: {1} cannot be overridden.,{0}: لا يمكن تعديل {1}.
 {0}: {1} cannot be read.,{0}: لا يمكن قراءة {1}.
 {0}: {1} is a reserved name.,{0}: {1} اسم محجوز.
 {0}: {1} is not one of the choices.,{0}: {1} ليست من الاختيارات.
+{0}: {1} is not one of the options.,{0}: {1} ليس من الاختيارات.
 ★ Featured,★ مميز

@@ -1,0 +1,51 @@
+{
+ "about": "SP-55 golden file: a sample pump template (not Mohamed's real numbers, which come with SP-56). 40 HP, depth 99 m, plastic pipe 3 m.",
+ "item_group": "SPT Calc Motors",
+ "brands": {"SPT Brand A": 1, "SPT Brand B": 2},
+ "items": [
+  {"code": "SPT-MOTOR-A30", "group": "motors", "brand": "SPT Brand A", "hp": 30, "cost": 30000, "btc": 35000},
+  {"code": "SPT-MOTOR-A50", "group": "motors", "brand": "SPT Brand A", "hp": 50, "cost": 40000, "btc": 46000},
+  {"code": "SPT-MOTOR-B40", "group": "motors", "brand": "SPT Brand B", "hp": 40, "cost": 35000, "btc": 41000},
+  {"code": "SPT-PIPE", "cost": 300, "btc": 360},
+  {"code": "SPT-CABLE", "cost": 120, "btc": 150},
+  {"code": "SPT-ROPE", "cost": 10},
+  {"code": "SPT-PANEL", "cost": 2400},
+  {"code": "SPT-STAINLESS", "cost": 60000}
+ ],
+ "template": {
+  "inputs": [
+   {"input_key": "hp", "label": "HP", "input_type": "Float", "reqd": 1},
+   {"input_key": "depth", "label": "Depth (m)", "input_type": "Float", "reqd": 1},
+   {"input_key": "pipe_type", "label": "Pipe Type", "input_type": "Select", "options": "Plastic\nSteel", "default_value": "Plastic"},
+   {"input_key": "plastic_pipe_m", "label": "Plastic Pipe (m)", "default_value": "3"},
+   {"input_key": "steel_pipe_m", "label": "Steel Pipe (m)", "default_value": "6"},
+   {"input_key": "cable_allowance", "label": "Cable Allowance (m)", "default_value": "10"},
+   {"input_key": "rope_allowance", "label": "Rope Allowance (m)", "default_value": "30"},
+   {"input_key": "panels_per_hp", "label": "Panels per HP", "default_value": "2.5"}
+  ],
+  "lines": [
+   {"line_key": "motor", "section": "Submersible", "selection_rule": "Brand priority", "item_group": "SPT Calc Motors", "capacity_field": "hp", "need_formula": "hp", "qty_formula": "1", "pricing_method": "Locked BTC price"},
+   {"line_key": "pipes", "section": "Submersible", "item_code": "SPT-PIPE", "qty_formula": "ceil(depth / (plastic_pipe_m if pipe_type == 'Plastic' else steel_pipe_m))", "pricing_method": "Locked BTC price"},
+   {"line_key": "cable", "section": "Submersible", "item_code": "SPT-CABLE", "qty_formula": "depth + cable_allowance", "pricing_method": "Locked BTC price"},
+   {"line_key": "rope", "section": "Submersible", "item_code": "SPT-ROPE", "qty_formula": "depth * 2 + rope_allowance", "pricing_method": "Cost x Markup", "default_markup": 20, "rounding": "2 decimals"},
+   {"line_key": "panels", "section": "Energy", "item_code": "SPT-PANEL", "qty_formula": "ceil(hp * panels_per_hp)", "pricing_method": "Cost x Markup", "default_markup": 12, "rounding": "Nearest 5"},
+   {"line_key": "installation", "section": "Energy", "description": "تركيب وبرمجة", "qty_formula": "1", "cost_source": "Manual", "cost_default": 5000, "pricing_method": "Manual", "manual_rate": 8000},
+   {"line_key": "winch", "section": "Submersible", "description": "ونش", "qty_formula": "1", "cost_source": "Manual", "cost_default": 0, "pricing_method": "Manual", "manual_rate": 3000, "is_winch_line": 1},
+   {"line_key": "stainless_motor", "section": "Submersible", "item_code": "SPT-STAINLESS", "qty_formula": "motor.qty", "pricing_method": "Cost x Markup", "default_markup": 15, "is_optional": 1}
+  ]
+ },
+ "inputs": {"hp": 40, "depth": 99, "pipe_type": "Plastic"},
+ "expected": {
+  "lines": {
+   "motor": {"item_code": "SPT-MOTOR-A50", "qty": 1, "cost": 40000, "rate": 46000, "amount": 46000},
+   "pipes": {"qty": 33, "cost": 300, "rate": 360, "amount": 11880},
+   "cable": {"qty": 109, "cost": 120, "rate": 150, "amount": 16350},
+   "rope": {"qty": 228, "cost": 10, "rate": 12, "amount": 2736},
+   "panels": {"qty": 100, "cost": 2400, "rate": 2690, "amount": 269000},
+   "installation": {"qty": 1, "cost": 5000, "rate": 8000, "amount": 8000},
+   "winch": {"qty": 1, "cost": 0, "rate": 3000, "amount": 3000},
+   "stainless_motor": {"qty": 1, "cost": 60000, "rate": 69000, "amount": 69000}
+  },
+  "totals": {"cost": 310260, "sell": 356966, "profit": 46706, "margin_pct": 13.08, "optional_sell": 69000}
+ }
+}
