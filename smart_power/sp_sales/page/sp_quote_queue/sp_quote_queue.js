@@ -12,9 +12,11 @@ const SP_QQ_VIEWS = [
 const SP_QQ_COLOURS = { "On time": "green", Amber: "orange", Overdue: "red", Sent: "blue" };
 const SP_QQ_TICK_MS = 30000; // sp-allow-number: the countdown redraws every 30 seconds
 
-// "HH:MM" for a number of seconds, rounded up to the minute ("-HH:MM" once overdue)
+// "HH:MM" for a number of seconds: time left rounds up (a new request shows 24:00), time
+// overdue rounds down ("-HH:MM")
 function sp_qq_hhmm(seconds) {
-	const minutes = Math.ceil(Math.abs(seconds) / 60); // sp-allow-number: seconds per minute
+	const round = seconds < 0 ? Math.floor : Math.ceil;
+	const minutes = round(Math.abs(seconds) / 60); // sp-allow-number: seconds per minute
 	const hh = String(Math.floor(minutes / 60)).padStart(2, "0"); // sp-allow-number: minutes per hour
 	const mm = String(minutes % 60).padStart(2, "0"); // sp-allow-number: minutes per hour
 	return `${seconds < 0 ? "-" : ""}${hh}:${mm}`;
