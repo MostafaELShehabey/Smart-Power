@@ -52,83 +52,78 @@
 		"btc": {"name": "BTC", "selling": 1}
 	},
 	"request_fields": {
-		"_source": "SP-47 proposal (Jira unavailable while building): the quote request asks only the fields of the chosen system type. Stored in each System Type's Extra Data (X4) under request_fields, seeded once; the admin edits them (SP-132 X3 gives them a screen). Not required until the owner confirms.",
+		"_source": "SP-47 story: Pumps = HP, well depth, water level, pump depth (required); Off-grid = load table (device, qty, watts, day/night hours); On-grid = kW; Irrigation = feddans and water source. Hybrid (not in the story) gets the load table, not required; Chassis keeps the earlier proposal, not required. Stored in each System Type's Extra Data (X4) under request_fields; the admin edits them (SP-132 X3 gives them a screen).",
 		"PUMP": [
+			{
+				"fieldname": "hp",
+				"label": "Pump Power (HP)",
+				"label_ar": "قدرة الطلمبة (حصان)",
+				"fieldtype": "Float",
+				"reqd": 1
+			},
 			{
 				"fieldname": "well_depth_m",
 				"label": "Well Depth (m)",
 				"label_ar": "عمق البئر (متر)",
 				"fieldtype": "Float",
-				"reqd": 0
+				"reqd": 1
 			},
 			{
-				"fieldname": "head_m",
-				"label": "Head (m)",
-				"label_ar": "الرفع (متر)",
+				"fieldname": "water_level_m",
+				"label": "Water Level (m)",
+				"label_ar": "منسوب المياه (متر)",
 				"fieldtype": "Float",
-				"reqd": 0
+				"reqd": 1
 			},
 			{
-				"fieldname": "flow_m3h",
-				"label": "Flow (m³/h)",
-				"label_ar": "التصرف (م³/ساعة)",
+				"fieldname": "pump_depth_m",
+				"label": "Pump Depth (m)",
+				"label_ar": "عمق الطلمبة (متر)",
 				"fieldtype": "Float",
-				"reqd": 0
-			},
-			{
-				"fieldname": "motor_hp",
-				"label": "Motor (HP)",
-				"label_ar": "قدرة الموتور (حصان)",
-				"fieldtype": "Float",
-				"reqd": 0
+				"reqd": 1
 			}
 		],
 		"OFFGRID": [
 			{
-				"fieldname": "daily_load_kwh",
-				"label": "Daily Load (kWh)",
-				"label_ar": "الحمل اليومي (كيلووات ساعة)",
-				"fieldtype": "Float",
-				"reqd": 0
-			},
+				"fieldname": "loads",
+				"label": "Loads",
+				"label_ar": "الأحمال",
+				"fieldtype": "Load Table",
+				"reqd": 1
+			}
+		],
+		"HYBRID": [
 			{
-				"fieldname": "backup_hours",
-				"label": "Backup Hours",
-				"label_ar": "ساعات التشغيل الاحتياطي",
-				"fieldtype": "Float",
+				"fieldname": "loads",
+				"label": "Loads",
+				"label_ar": "الأحمال",
+				"fieldtype": "Load Table",
 				"reqd": 0
 			}
 		],
 		"ONGRID": [
 			{
-				"fieldname": "monthly_kwh",
-				"label": "Monthly Consumption (kWh)",
-				"label_ar": "الاستهلاك الشهري (كيلووات ساعة)",
+				"fieldname": "kw",
+				"label": "Power (kW)",
+				"label_ar": "القدرة (كيلووات)",
 				"fieldtype": "Float",
-				"reqd": 0
-			},
-			{
-				"fieldname": "roof_area_m2",
-				"label": "Roof Area (m²)",
-				"label_ar": "مساحة السطح (م²)",
-				"fieldtype": "Float",
-				"reqd": 0
+				"reqd": 1
 			}
 		],
-		"HYBRID": [
+		"IRRIGATION": [
 			{
-				"fieldname": "daily_load_kwh",
-				"label": "Daily Load (kWh)",
-				"label_ar": "الحمل اليومي (كيلووات ساعة)",
+				"fieldname": "feddans",
+				"label": "Area (feddans)",
+				"label_ar": "المساحة (فدان)",
 				"fieldtype": "Float",
-				"reqd": 0
+				"reqd": 1
 			},
 			{
-				"fieldname": "monthly_kwh",
-				"label": "Monthly Consumption (kWh)",
-				"label_ar": "الاستهلاك الشهري (كيلووات ساعة)",
-				"fieldtype": "Float",
-				"reqd": 0
+				"fieldname": "water_source",
+				"label": "Water Source",
+				"label_ar": "مصدر المياه",
+				"fieldtype": "Data",
+				"reqd": 1
 			}
 		],
 		"CHASSIS": [

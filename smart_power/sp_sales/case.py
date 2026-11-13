@@ -13,7 +13,7 @@ from frappe import _
 from frappe.utils import now_datetime, today
 
 from smart_power.sp_sales import quote_clock
-from smart_power.sp_sales.quote_request import clean_details
+from smart_power.sp_sales.quote_request import PAYMENT_LIST, clean_details
 
 DOCTYPE = "SP Case"
 QUOTE_REQUEST, DRAFT, WON, LOST = "Quote request", "Draft", "Won", "Lost"
@@ -36,9 +36,12 @@ def validate(doc) -> None:
 	_check_list(doc.lost_reason, LOST_REASON_LIST)
 	for row in doc.system_types:
 		_check_list(row.system_type, SYSTEM_TYPE_LIST)
-	if doc.request_details and doc.system_types:
+	if doc.system_types:
 		# only the first system type's request fields are kept (SP-47)
-		doc.request_details = clean_details(doc.system_types[0].system_type, doc.request_details)
+		system_type = doc.system_types[0].system_type
+		if doc.request_details:
+			doc.request_details = clean_details(system_type, doc.request_details)
+	_check_list(doc.get("payment_method"), PAYMENT_LIST)
 	take_request(doc)
 	record_owner_changes(doc)
 	quote_clock.on_validate(doc)

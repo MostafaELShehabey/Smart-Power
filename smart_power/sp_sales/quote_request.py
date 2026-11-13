@@ -31,7 +31,9 @@ SYSTEM_TYPE_LIST = "System Type"
 META_KEY = "request_fields"
 NUMBER_TYPES = {"Float": flt, "Int": cint}
 TEXT_TYPES = {"Data", "Small Text", "Select"}
-FIELD_TYPES = set(NUMBER_TYPES) | TEXT_TYPES | {"Check"}
+LOAD_TABLE = "Load Table"  # shows the case's load table (SP Load Line) instead of a single value
+FIELD_TYPES = set(NUMBER_TYPES) | TEXT_TYPES | {"Check", LOAD_TABLE}
+PAYMENT_LIST = "Financing Type"
 
 
 def request_fields(system_type: str | None) -> list[dict]:
@@ -50,6 +52,8 @@ def clean_details(system_type: str | None, details) -> dict:
 	cleaned = {}
 	for field in request_fields(system_type):
 		name, kind = field["fieldname"], field["fieldtype"]
+		if kind == LOAD_TABLE:
+			continue  # the loads are rows on the case, checked by check_loads
 		value = details.get(name)
 		if value in (None, ""):
 			if cint(field.get("reqd")):
@@ -121,7 +125,8 @@ def create_quote_request(request: dict | str) -> dict:
 	"""Find or create the customer by mobile, then open a case in "Quote request".
 
 	request: system_type, mobile, customer_name, tier, region (new customers), channel,
-	follow_up_owner, site_visit_needed, request_notes, details ({fieldname: value}).
+	follow_up_owner, location_text, geo, payment_method, site_visit_needed, request_notes,
+	details ({fieldname: value}) and loads ([{device, qty, watts, day_hours, night_hours}]).
 	"""
 	frappe.has_permission(CASE, "create", throw=True)
 	request = frappe.parse_json(request) if isinstance(request, str) else frappe._dict(request)
@@ -132,6 +137,9 @@ def create_quote_request(request: dict | str) -> dict:
 		frappe.throw(
 			_("{0} is not a valid Egyptian mobile.").format(frappe.bold(request.get("mobile") or ""))
 		)
+
+	details = clean_details(request.system_type, request.get("details"))
+	check_loads(request.system_type, request.get("loads"))
 
 	# the customer and the case are saved together or not at all
 	frappe.db.savepoint("sp_quote_request")
@@ -163,9 +171,13 @@ def create_quote_request(request: dict | str) -> dict:
 				"requested_by": frappe.session.user,
 				"follow_up_owner": request.get("follow_up_owner") or _default_followup_owner(),
 				"system_types": [{"system_type": request.system_type}],
-				"request_details": clean_details(request.system_type, request.get("details")),
+				"request_details": details,
 				"site_visit_needed": cint(request.get("site_visit_needed")),
 				"request_notes": request.get("request_notes"),
+				"location_text": request.get("location_text"),
+				"geo": request.get("geo"),
+				"payment_method": request.get("payment_method") or None,
+				"loads": request.get("loads") or [],
 			}
 		).insert()
 	except Exception:
@@ -177,6 +189,18 @@ def create_quote_request(request: dict | str) -> dict:
 def _default_followup_owner() -> str | None:
 	"""The person taking the request, when they follow up customers themselves."""
 	return frappe.session.user if FOLLOWUP_ROLE in frappe.get_roles() else None
+
+
+def needs_loads(system_type: str | None) -> dict | None:
+	"""The system type's load-table field, if it asks for one."""
+	return next((f for f in request_fields(system_type) if f["fieldtype"] == LOAD_TABLE), None)
+
+
+def check_loads(system_type: str | None, loads) -> None:
+	"""A type whose load table is required needs at least one load line."""
+	field = needs_loads(system_type)
+	if field and cint(field.get("reqd")) and not loads:
+		frappe.throw(_("{0} is required for this system type.").format(_label(field)), frappe.MandatoryError)
 
 
 def seed_request_fields() -> None:

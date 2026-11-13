@@ -16,27 +16,27 @@ class TestRequestFields(IntegrationTestCase):
 	def setUp(self):
 		seed_request_fields()
 
-	def test_pump_asks_well_and_motor(self):
+	def test_pump_asks_hp_well_water_level_and_pump_depth(self):
 		names = [f["fieldname"] for f in request_fields(PUMP)]
-		self.assertEqual(names, ["well_depth_m", "head_m", "flow_m3h", "motor_hp"])
+		self.assertEqual(names, ["hp", "well_depth_m", "water_level_m", "pump_depth_m"])
 		self.assertEqual(request_fields(by_code("System Type", "LIGHTING")), [])
 
 	def test_only_the_types_fields_are_kept_as_numbers(self):
-		cleaned = clean_details(PUMP, {"well_depth_m": "120", "monthly_kwh": 900, "note": "x"})
-		self.assertEqual(cleaned, {"well_depth_m": 120.0})
+		cleaned = clean_details(
+			PUMP, {"hp": "20", "well_depth_m": "120", "water_level_m": 40, "pump_depth_m": 90, "kw": 9}
+		)
+		self.assertEqual(
+			cleaned, {"hp": 20.0, "well_depth_m": 120.0, "water_level_m": 40.0, "pump_depth_m": 90.0}
+		)
 
 	def test_negative_is_refused(self):
 		with self.assertRaises(frappe.ValidationError):
-			clean_details(PUMP, {"head_m": -5})
+			clean_details(PUMP, {"hp": -5, "well_depth_m": 1, "water_level_m": 1, "pump_depth_m": 1})
 
-	def test_required_when_the_admin_says_so(self):
-		value = frappe.get_doc("SP List Value", PUMP)
-		meta = json.loads(value.meta_json) if isinstance(value.meta_json, str) else value.meta_json
-		meta["request_fields"][0]["reqd"] = 1
-		value.meta_json = json.dumps(meta, ensure_ascii=False)
-		value.save()
+	def test_pump_fields_are_required(self):
+		# story: HP, well depth, water level and pump depth show and are required for pumps
 		with self.assertRaises(frappe.MandatoryError):
-			clean_details(PUMP, {"head_m": 40})
+			clean_details(PUMP, {"hp": 20, "well_depth_m": 120})
 
 	def test_seeding_keeps_the_admins_fields(self):
 		value = frappe.get_doc("SP List Value", PUMP)
@@ -48,13 +48,19 @@ class TestRequestFields(IntegrationTestCase):
 	def test_case_keeps_its_types_details(self):
 		case = make_case(
 			system_types=[{"system_type": PUMP}],
-			request_details={"well_depth_m": "90", "roof_area_m2": 50},
+			request_details={
+				"hp": 20,
+				"well_depth_m": "90",
+				"water_level_m": 30,
+				"pump_depth_m": 60,
+				"kw": 5,
+			},
 			site_visit_needed=1,
 		)
 		self.assertEqual(
 			json.loads(case.request_details)
 			if isinstance(case.request_details, str)
 			else case.request_details,
-			{"well_depth_m": 90.0},
+			{"hp": 20.0, "well_depth_m": 90.0, "water_level_m": 30.0, "pump_depth_m": 60.0},
 		)
 		self.assertTrue(case.site_visit_needed)

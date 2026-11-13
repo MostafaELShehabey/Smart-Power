@@ -42,7 +42,9 @@ class TestQuoteRequestApi(IntegrationTestCase):
 			"channel": "Call",
 			"site_visit_needed": 1,
 			"request_notes": "بئر على عمق كبير",
-			"details": {"well_depth_m": "150", "motor_hp": 25, "roof_area_m2": 9},
+			"details": {"hp": 25, "well_depth_m": "150", "water_level_m": 60, "pump_depth_m": 120, "kw": 9},
+			"location_text": "الخارجة، طريق الداخلة",
+			"payment_method": "Financing Type-CASH",
 			**kw,
 		}
 
@@ -60,7 +62,12 @@ class TestQuoteRequestApi(IntegrationTestCase):
 			if isinstance(case.request_details, str)
 			else case.request_details
 		)
-		self.assertEqual(details, {"well_depth_m": 150.0, "motor_hp": 25.0})
+		self.assertEqual(
+			details, {"hp": 25.0, "well_depth_m": 150.0, "water_level_m": 60.0, "pump_depth_m": 120.0}
+		)
+		self.assertEqual(
+			(case.location_text, case.payment_method), ("الخارجة، طريق الداخلة", "Financing Type-CASH")
+		)
 		self.assertTrue(case.site_visit_needed)
 
 	def test_returning_customer_is_reused(self):
@@ -107,3 +114,28 @@ class TestQuoteRequestApi(IntegrationTestCase):
 			as_user(self.gaber, create_quote_request, self.request(mobile="01007770006"))
 		with self.assertRaises(frappe.PermissionError):
 			as_user(self.gaber, check_mobile, "01007770006")
+
+	def test_off_grid_needs_its_load_table(self):
+		offgrid = "System Type-OFFGRID"
+		with self.assertRaises(frappe.MandatoryError):
+			as_user(
+				self.camelia,
+				create_quote_request,
+				self.request(system_type=offgrid, mobile="01007770007", details={}),
+			)
+		loads = [{"device": "تلاجة", "qty": 1, "watts": 150, "day_hours": 24, "night_hours": 0}]
+		result = as_user(
+			self.camelia,
+			create_quote_request,
+			self.request(system_type=offgrid, mobile="01007770008", details={}, loads=loads),
+		)
+		rows = frappe.get_doc("SP Case", result["case"]).loads
+		self.assertEqual([(r.device, r.watts) for r in rows], [("تلاجة", 150.0)])
+
+	def test_payment_method_from_the_financing_list(self):
+		with self.assertRaises(frappe.ValidationError):
+			as_user(
+				self.camelia,
+				create_quote_request,
+				self.request(mobile="01007770009", payment_method="System Type-PUMP"),
+			)
