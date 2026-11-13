@@ -16,6 +16,16 @@ from smart_power.tests.utils import make_customer, make_user
 PUMP = "System Type-PUMP"
 
 
+def lead_source(code="FACEBOOK_T"):
+	"""A Lead Source value (the admin fills this X4 list)."""
+	name = f"Lead Source-{code}"
+	if not frappe.db.exists("SP List Value", name):
+		frappe.get_doc(
+			{"doctype": "SP List Value", "list_name": "Lead Source", "code": code, "value_ar": "فيسبوك"}
+		).insert()
+	return name
+
+
 def as_user(user, fn, *args):
 	frappe.set_user(user)
 	try:
@@ -93,9 +103,13 @@ class TestQuoteRequestApi(IntegrationTestCase):
 		self.assertFalse(as_user(self.camelia, check_mobile, "1234")["valid"])
 
 	def test_nothing_is_saved_when_the_case_fails(self):
-		# Maha does not follow up customers, so without an owner the case is refused …
-		with self.assertRaises(frappe.MandatoryError):
-			as_user(self.maha, create_quote_request, self.request(mobile="01007770004"))
+		# an unknown follow-up owner makes the case fail …
+		with self.assertRaises(frappe.ValidationError):
+			as_user(
+				self.camelia,
+				create_quote_request,
+				self.request(mobile="01007770004", follow_up_owner="nobody.sp47@example.com"),
+			)
 		# … and the new customer is not left behind
 		self.assertFalse(frappe.db.exists("Customer", {"sp_mobile": "01007770004"}))
 
@@ -105,7 +119,9 @@ class TestQuoteRequestApi(IntegrationTestCase):
 		result = as_user(
 			self.maha,
 			create_quote_request,
-			self.request(mobile="01007770005", channel="Marketing", follow_up_owner=self.camelia),
+			self.request(
+				mobile="01007770005", channel="Marketing", follow_up_owner=self.camelia, source=lead_source()
+			),
 		)
 		self.assertEqual(frappe.db.get_value("SP Case", result["case"], "follow_up_owner"), self.camelia)
 
