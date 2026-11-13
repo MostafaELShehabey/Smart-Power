@@ -51,6 +51,103 @@
 		"btb": {"name": "BTB", "selling": 1},
 		"btc": {"name": "BTC", "selling": 1}
 	},
+	"request_fields": {
+		"_source": "SP-47 proposal (Jira unavailable while building): the quote request asks only the fields of the chosen system type. Stored in each System Type's Extra Data (X4) under request_fields, seeded once; the admin edits them (SP-132 X3 gives them a screen). Not required until the owner confirms.",
+		"PUMP": [
+			{
+				"fieldname": "well_depth_m",
+				"label": "Well Depth (m)",
+				"label_ar": "عمق البئر (متر)",
+				"fieldtype": "Float",
+				"reqd": 0
+			},
+			{
+				"fieldname": "head_m",
+				"label": "Head (m)",
+				"label_ar": "الرفع (متر)",
+				"fieldtype": "Float",
+				"reqd": 0
+			},
+			{
+				"fieldname": "flow_m3h",
+				"label": "Flow (m³/h)",
+				"label_ar": "التصرف (م³/ساعة)",
+				"fieldtype": "Float",
+				"reqd": 0
+			},
+			{
+				"fieldname": "motor_hp",
+				"label": "Motor (HP)",
+				"label_ar": "قدرة الموتور (حصان)",
+				"fieldtype": "Float",
+				"reqd": 0
+			}
+		],
+		"OFFGRID": [
+			{
+				"fieldname": "daily_load_kwh",
+				"label": "Daily Load (kWh)",
+				"label_ar": "الحمل اليومي (كيلووات ساعة)",
+				"fieldtype": "Float",
+				"reqd": 0
+			},
+			{
+				"fieldname": "backup_hours",
+				"label": "Backup Hours",
+				"label_ar": "ساعات التشغيل الاحتياطي",
+				"fieldtype": "Float",
+				"reqd": 0
+			}
+		],
+		"ONGRID": [
+			{
+				"fieldname": "monthly_kwh",
+				"label": "Monthly Consumption (kWh)",
+				"label_ar": "الاستهلاك الشهري (كيلووات ساعة)",
+				"fieldtype": "Float",
+				"reqd": 0
+			},
+			{
+				"fieldname": "roof_area_m2",
+				"label": "Roof Area (m²)",
+				"label_ar": "مساحة السطح (م²)",
+				"fieldtype": "Float",
+				"reqd": 0
+			}
+		],
+		"HYBRID": [
+			{
+				"fieldname": "daily_load_kwh",
+				"label": "Daily Load (kWh)",
+				"label_ar": "الحمل اليومي (كيلووات ساعة)",
+				"fieldtype": "Float",
+				"reqd": 0
+			},
+			{
+				"fieldname": "monthly_kwh",
+				"label": "Monthly Consumption (kWh)",
+				"label_ar": "الاستهلاك الشهري (كيلووات ساعة)",
+				"fieldtype": "Float",
+				"reqd": 0
+			}
+		],
+		"CHASSIS": [
+			{
+				"fieldname": "panel_count",
+				"label": "Panel Count",
+				"label_ar": "عدد الألواح",
+				"fieldtype": "Int",
+				"reqd": 0
+			},
+			{
+				"fieldname": "panel_watt",
+				"label": "Panel Power (W)",
+				"label_ar": "قدرة اللوح (وات)",
+				"fieldtype": "Float",
+				"reqd": 0
+			}
+		]
+	},
 	"fiscal_years": [
 		{"year": "2027", "year_start_date": "2027-01-01", "year_end_date": "2027-12-31", "_source": "SP-22"}
 	],

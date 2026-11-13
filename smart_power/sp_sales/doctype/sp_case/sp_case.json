@@ -11,6 +11,11 @@
   "status",
   "channel",
   "system_types",
+  "request_section",
+  "site_visit_needed",
+  "request_notes",
+  "column_break_request",
+  "request_details",
   "owners_section",
   "requested_by",
   "quote_creator",
@@ -82,6 +87,33 @@
    "fieldtype": "Table MultiSelect",
    "label": "System Types",
    "options": "SP Case System Type"
+  },
+  {
+   "fieldname": "request_section",
+   "fieldtype": "Section Break",
+   "label": "Request"
+  },
+  {
+   "fieldname": "site_visit_needed",
+   "fieldtype": "Check",
+   "label": "Site Visit Needed",
+   "in_standard_filter": 1,
+   "description": "The quote needs a site survey first (survey tasks come with SP-95)."
+  },
+  {
+   "fieldname": "request_notes",
+   "fieldtype": "Small Text",
+   "label": "Request Notes"
+  },
+  {
+   "fieldname": "column_break_request",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "request_details",
+   "fieldtype": "JSON",
+   "label": "Request Details",
+   "description": "The answers to the system type's request fields."
   },
   {
    "fieldname": "owners_section",
@@ -183,7 +215,7 @@
   }
  ],
  "links": [],
- "modified": "2026-11-11 12:30:00.000000",
+ "modified": "2026-11-13 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

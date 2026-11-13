@@ -12,3 +12,4 @@ smart_power.patches.sp29_item_groups
 smart_power.patches.sp30_price_lists
 smart_power.patches.sp28_warehouses
 smart_power.patches.sp46_case_workflow_masters
+smart_power.patches.sp47_request_fields
