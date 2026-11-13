@@ -42,6 +42,7 @@ TEXT_TYPES = {"Data", "Small Text", "Select"}
 LOAD_TABLE = "Load Table"  # shows the case's load table (SP Load Line) instead of a single value
 FIELD_TYPES = set(NUMBER_TYPES) | TEXT_TYPES | {"Check", LOAD_TABLE}
 PAYMENT_LIST = "Financing Type"
+QUOTE_REQUEST_TASK, TASK_OPEN, TASK_CANCELLED = "Quote Request", "Open", "Cancelled"
 
 
 def request_fields(system_type: str | None) -> list[dict]:
@@ -305,7 +306,10 @@ def after_request(case) -> None:
 	)
 	for user in _users_with(QUOTE_CREATOR_ROLE):
 		_task(
-			case, "Quote Request", user, _("Quote request: {0}").format(case.customer_name or case.customer)
+			case,
+			QUOTE_REQUEST_TASK,
+			user,
+			_("Quote request: {0}").format(case.customer_name or case.customer),
 		)
 	if case.site_visit_needed:
 		for user in _users_with(INSTALLATION_MANAGER_ROLE):
@@ -315,6 +319,31 @@ def after_request(case) -> None:
 				user,
 				_("Site survey for {0}").format(case.customer_name or case.customer),
 			)
+
+
+def hand_over_request(case) -> None:
+	"""The request has a quote creator: the other "Quote Request" tasks close, and the quote
+	creator keeps (or gets) their own."""
+	open_tasks = frappe.get_all(
+		"SP Task",
+		filters={
+			"reference_doctype": CASE,
+			"reference_name": case.name,
+			"task_type": QUOTE_REQUEST_TASK,
+			"status": TASK_OPEN,
+		},
+		fields=["name", "assigned_to"],
+	)
+	for task in open_tasks:
+		if task.assigned_to != case.quote_creator:
+			frappe.db.set_value("SP Task", task.name, "status", TASK_CANCELLED)
+	if not any(t.assigned_to == case.quote_creator for t in open_tasks):
+		_task(
+			case,
+			QUOTE_REQUEST_TASK,
+			case.quote_creator,
+			_("Quote request: {0}").format(case.customer_name or case.customer),
+		)
 
 
 def _task(case, task_type: str, user: str, subject: str) -> None:
