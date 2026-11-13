@@ -81,6 +81,8 @@ doc_events = {
 	"Item": {"validate": "smart_power.sp_stock.item.validate"},
 	# Price list (SP-30): every price has a date and buying prices a supplier.
 	"Item Price": {"validate": "smart_power.sp_stock.prices.validate_item_price"},
+	# Warehouses by location (SP-28): one site warehouse per station.
+	"Warehouse": {"validate": "smart_power.sp_stock.warehouses.validate_warehouse"},
 	**{
 		dt: {
 			"before_insert": "smart_power.events.customization.tag_admin_owned",

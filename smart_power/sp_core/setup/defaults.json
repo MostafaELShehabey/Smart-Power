@@ -37,6 +37,13 @@
 		"_source": "SP-29: the catalogue categories (panels, inverters/drives, pumps, cables, pipes, structures, batteries, lighting, accessories). Arabic names because the team works in Arabic; the admin can rename them. Seeded once under ERPNext's root item group.",
 		"names": ["ألواح شمسية", "إنفرترات ودرايفات", "طلمبات", "كابلات", "مواسير", "شاسيهات وهياكل", "بطاريات", "إنارة", "إكسسوارات"]
 	},
+	"warehouses": {
+		"_source": "SP-28 and ERD 7.3: main store, showroom store and a Sites group (one warehouse per station). Arabic names; the admin can rename them. ERPNext's default stores are disabled while empty.",
+		"main": "المخزن الرئيسي",
+		"showroom": "مخزن المعرض",
+		"sites": "المواقع",
+		"disable_if_empty": ["Stores", "Finished Goods", "Work In Progress"]
+	},
 	"price_lists": {
 		"_source": "SP-30: the four price lists (supplier list price, P1 cost, BTB for companies, BTC for individuals). The admin can rename them; Smart Power Settings points at each one.",
 		"list": {"name": "List Price", "buying": 1},

@@ -16,6 +16,7 @@ from frappe import _
 from smart_power.sp_core.services.company import COMPANY_SETTINGS
 from smart_power.sp_core.setup.seed import defaults
 from smart_power.sp_stock.item import seed_item_groups
+from smart_power.sp_stock.warehouses import seed_warehouses
 
 SETUP_OK = "ok"
 
@@ -45,6 +46,7 @@ def complete_setup() -> str:
 		frappe.throw(_("Setup is complete but there is no company named {0}.").format(args["company_name"]))
 	link_company_settings(company)
 	seed_item_groups()
+	seed_warehouses(company)
 	return company
 
 
