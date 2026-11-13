@@ -12,8 +12,9 @@ from smart_power.tests.utils import make_user
 
 
 class TestRoles(IntegrationTestCase):
-	def test_catalogue_has_36_keys_and_all_roles_exist(self):
-		self.assertEqual(len(ROLES), 36)
+	def test_catalogue_has_37_keys_and_all_roles_exist(self):
+		# 36 keys from the Miro board, plus followup_all (SP-35)
+		self.assertEqual(len(ROLES), 37)
 		for r in ROLES:
 			self.assertTrue(frappe.db.exists("Role", r.role_name), r.role_name)
 			self.assertEqual(frappe.db.get_value("Role", r.role_name, "desk_access"), int(r.desk_access))

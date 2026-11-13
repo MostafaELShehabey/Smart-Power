@@ -1,9 +1,10 @@
-"""The role catalogue from the Miro board (36 keys, as of 8-11-2026) and the person-type profiles.
+"""The role catalogue from the Miro board (36 keys, as of 8-11-2026, plus followup_all from SP-35)
+and the person-type profiles.
 
 Roles are small and do one job each; a person holds several and the admin moves them (decision 24).
 Each SP role sits on top of the ERPNext roles that give it the standard permissions it needs.
-This module is the source the role fixtures are built from (`devtools.roles.build`), and the
-constants other code uses to check a role by its key.
+The role fixtures (fixtures/role.json) follow this module; it also holds the constants other
+code uses to check a role by its key.
 """
 
 from dataclasses import dataclass, field
@@ -58,6 +59,8 @@ ROLES: tuple[RoleDef, ...] = (
 	# Intake and follow-up
 	RoleDef("lead_intake", "استقبال العملاء", erpnext_roles=("Sales User",)),
 	RoleDef("customer_followup", "متابعة العملاء", erpnext_roles=("Sales User",)),
+	# Sees every case and quote, not only her own (SP-35: كاميليا sees all quotes).
+	RoleDef("followup_all", "متابعة كل الحالات", erpnext_roles=("Sales User",)),
 	RoleDef("site_survey", "معاينة الموقع", erpnext_roles=("Projects User",)),
 	# Marketing
 	RoleDef("marketing_agent", "التسويق", erpnext_roles=("Sales User",)),
@@ -202,7 +205,7 @@ PROFILES: tuple[ProfileDef, ...] = (
 		"SP Call Center",
 		"كول سنتر ومتابعة العملاء",
 		"كاميليا",
-		("lead_intake", "customer_followup"),
+		("lead_intake", "customer_followup", "followup_all"),
 	),
 	ProfileDef(
 		"SP Store and Installations",

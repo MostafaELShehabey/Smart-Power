@@ -14,9 +14,12 @@ from smart_power.tests.utils import make_user
 
 
 def actions(case, user):
+	"""The workflow actions a user has on the case (none if they cannot see it, SP-35)."""
 	frappe.set_user(user)
 	try:
 		return {t.action for t in get_transitions(frappe.get_doc("SP Case", case.name))}
+	except frappe.PermissionError:
+		return set()
 	finally:
 		frappe.set_user("Administrator")
 

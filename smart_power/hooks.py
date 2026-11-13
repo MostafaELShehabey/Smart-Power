@@ -107,10 +107,13 @@ permission_query_conditions = {
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.get_permission_query_conditions",
 	# Buying prices (List Price, P1 Cost) for cost roles only (SP-35).
 	"Item Price": "smart_power.permissions.item_price_query_conditions",
+	# A case is seen by its owners; كاميليا and the admin see all (SP-35, SP-46).
+	"SP Case": "smart_power.permissions.case_query_conditions",
 }
 has_permission = {
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
 	"Item Price": "smart_power.permissions.item_price_has_permission",
+	"SP Case": "smart_power.permissions.case_has_permission",
 }
 
 export_python_type_annotations = True
