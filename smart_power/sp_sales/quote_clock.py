@@ -46,7 +46,16 @@ def clock(case, now=None) -> dict:
 		state = AMBER
 	else:
 		state = ON_TIME
-	return {"hours": round(hours, 1), "state": state}
+	# the 24 h countdown: seconds until due (negative once overdue); None once sent or with no limit
+	left = None if stopped or not due_hours() else round((due_hours() - hours) * SECONDS_PER_HOUR)
+	return {"hours": round(hours, 1), "state": state, "seconds_left": left}
+
+
+def amber_seconds_left() -> int | None:
+	"""Seconds before due at which the countdown turns amber (24 h - 18 h = 6 h)."""
+	if not due_hours() or not amber_hours():
+		return None
+	return round((due_hours() - amber_hours()) * SECONDS_PER_HOUR)
 
 
 def on_validate(doc) -> None:

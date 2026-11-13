@@ -10,7 +10,7 @@ import frappe
 from frappe import _
 from frappe.utils import get_fullname
 
-from smart_power.sp_sales.quote_clock import clock
+from smart_power.sp_sales.quote_clock import amber_seconds_left, clock
 from smart_power.sp_sales.quote_request import (
 	ADMIN_ROLE,
 	INSTALLATION_MANAGER_ROLE,
@@ -58,10 +58,12 @@ def get_queue(view: str = ALL) -> list[dict]:
 	# quote creators see the whole queue; everyone else what the case rule allows
 	lister = frappe.get_all if is_creator else frappe.get_list
 	rows = lister(CASE, filters=filters, fields=QUEUE_FIELDS, order_by="creation asc", limit_page_length=0)
+	amber_left = amber_seconds_left()
 	names = [r.name for r in rows]
 	types, loads = _system_types(names), _load_counts(names)
 	for row in rows:
 		row.update(clock(row))
+		row["amber_left"] = amber_left
 		code, row["system_type"] = types.get(row.name, (None, None))
 		row.update(summarize_request(code, row.pop("request_details", None), loads.get(row.name, 0)))
 		row["follow_up_owner_name"] = row.follow_up_owner and get_fullname(row.follow_up_owner)

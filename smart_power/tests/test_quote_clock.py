@@ -4,7 +4,7 @@ import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_to_date, get_datetime, now_datetime
 
-from smart_power.sp_sales.quote_clock import AMBER, ON_TIME, OVERDUE, SENT, clock
+from smart_power.sp_sales.quote_clock import AMBER, ON_TIME, OVERDUE, SENT, amber_seconds_left, clock
 from smart_power.tests.test_case import make_case
 from smart_power.tests.utils import set_setting
 
@@ -21,8 +21,15 @@ class TestQuoteClock(IntegrationTestCase):
 		for hours, state in ((2, ON_TIME), (18.5, AMBER), (30, OVERDUE)):
 			self.assertEqual(clock({"creation": hours_ago(hours)})["state"], state, hours)
 		self.assertEqual(
-			clock({"creation": hours_ago(30), "quote_sent_at": hours_ago(10)}), {"hours": 20.0, "state": SENT}
+			clock({"creation": hours_ago(30), "quote_sent_at": hours_ago(10)}),
+			{"hours": 20.0, "state": SENT, "seconds_left": None},
 		)
+
+	def test_countdown(self):
+		# a new request counts down from 24:00; amber in the last 6 h; negative once overdue
+		self.assertAlmostEqual(clock({"creation": now_datetime()})["seconds_left"], 24 * 3600, delta=60)
+		self.assertAlmostEqual(clock({"creation": hours_ago(24.5)})["seconds_left"], -1800, delta=60)
+		self.assertEqual(amber_seconds_left(), 6 * 3600)
 
 	def test_settings_decide(self):
 		set_setting(quote_due_hours=48, quote_amber_hours=40)
