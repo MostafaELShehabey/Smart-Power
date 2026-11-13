@@ -243,8 +243,14 @@
    "no_copy": 1
   }
  ],
- "links": [],
- "modified": "2026-11-13 18:00:00.000000",
+ "links": [
+  {
+   "group": "Quotes",
+   "link_doctype": "Quotation",
+   "link_fieldname": "sp_case"
+  }
+ ],
+ "modified": "2026-11-14 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",
