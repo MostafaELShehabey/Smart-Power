@@ -22,6 +22,9 @@
   "column_break_owners",
   "follow_up_owner",
   "last_action_at",
+  "quote_due_at",
+  "quote_sent_at",
+  "quote_alert",
   "result_section",
   "lost_reason",
   "lost_note",
@@ -162,6 +165,32 @@
    "no_copy": 1
   },
   {
+   "fieldname": "quote_due_at",
+   "fieldtype": "Datetime",
+   "label": "Quote Due At",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_list_view": 0,
+   "description": "When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings)."
+  },
+  {
+   "fieldname": "quote_sent_at",
+   "fieldtype": "Datetime",
+   "label": "Quote Sent At",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "The quote clock stops here (Sent to customer)."
+  },
+  {
+   "fieldname": "quote_alert",
+   "fieldtype": "Select",
+   "label": "Quote Alert",
+   "options": "\nAmber\nOverdue",
+   "read_only": 1,
+   "no_copy": 1,
+   "hidden": 1
+  },
+  {
    "fieldname": "result_section",
    "fieldtype": "Section Break",
    "label": "Result"
@@ -215,7 +244,7 @@
   }
  ],
  "links": [],
- "modified": "2026-11-13 12:00:00.000000",
+ "modified": "2026-11-13 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

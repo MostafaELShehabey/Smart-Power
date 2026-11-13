@@ -12,6 +12,7 @@ import frappe
 from frappe import _
 from frappe.utils import now_datetime, today
 
+from smart_power.sp_sales import quote_clock
 from smart_power.sp_sales.quote_request import clean_details
 
 DOCTYPE = "SP Case"
@@ -40,6 +41,7 @@ def validate(doc) -> None:
 		doc.request_details = clean_details(doc.system_types[0].system_type, doc.request_details)
 	take_request(doc)
 	record_owner_changes(doc)
+	quote_clock.on_validate(doc)
 	if doc.is_new() or doc.has_value_changed("status"):
 		doc.last_action_at = now_datetime()
 		if doc.status == WON and not doc.won_on:
