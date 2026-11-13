@@ -1,5 +1,6 @@
 // Q3 Quote request queue (SP-48): open requests, oldest first, with the 24 h quote clock.
-// Green on time, amber soon due, red overdue. "Take" claims an unclaimed request.
+// Green on time, amber soon due, red overdue. "Take" claims an unclaimed request; every quote
+// creator sees every open request, a taken one marked with who took it.
 // The rules are on the server (smart_power.sp_sales.quote_queue).
 
 const SP_QQ_API = "smart_power.sp_sales.quote_queue";
@@ -26,7 +27,7 @@ frappe.pages["sp-quote-queue"].on_page_show = function (wrapper) {
 class SPQuoteQueue {
 	constructor(page) {
 		this.page = page;
-		this.view = "Unclaimed";
+		this.view = "All";
 		this.page.add_inner_button(__("Refresh"), () => this.refresh());
 		this.$tabs = $('<div class="sp-qq-tabs btn-group mb-3"></div>').appendTo(this.page.main);
 		SP_QQ_VIEWS.forEach((v) => {
@@ -80,20 +81,27 @@ class SPQuoteQueue {
 				<td>${esc(r.system_type || "")}${visit}</td>
 				<td>${esc(__(r.channel || ""))}</td>
 				<td>${esc(r.requested_by || "")}</td>
-				<td>${esc(r.quote_creator || "")}</td>
+				<td>${esc(r.taken_by || "")}</td>
 				<td class="text-right"></td>
 			</tr>`);
 			const $actions = $row.find("td:last");
-			if (!r.quote_creator && r.status === "Quote request") {
-				$(`<button class="btn btn-xs btn-primary"></button>`)
-					.text(__("Take"))
-					.on("click", () => this.take(r.name))
+			if (r.taken_by) {
+				$(`<span class="indicator-pill blue mr-1"></span>`)
+					.text(__("Taken by {0}", [r.taken_by]))
 					.appendTo($actions);
 			}
-			$(`<button class="btn btn-xs btn-default ml-1"></button>`)
-				.text(__("Open"))
-				.on("click", () => frappe.set_route("Form", "SP Case", r.name))
+			// Take is off once someone has taken the request (or for anyone not a quote creator)
+			$(`<button class="btn btn-xs btn-primary"></button>`)
+				.text(__("Take"))
+				.prop("disabled", !r.can_take)
+				.on("click", () => r.can_take && this.take(r.name))
 				.appendTo($actions);
+			if (r.can_open) {
+				$(`<button class="btn btn-xs btn-default ml-1"></button>`)
+					.text(__("Open"))
+					.on("click", () => frappe.set_route("Form", "SP Case", r.name))
+					.appendTo($actions);
+			}
 			$tbody.append($row);
 		});
 	}

@@ -2,7 +2,7 @@
 
 import frappe
 from frappe.tests import IntegrationTestCase
-from frappe.utils import add_to_date, now_datetime
+from frappe.utils import add_to_date, get_fullname, now_datetime
 
 from smart_power.sp_sales.quote_queue import get_queue, take
 from smart_power.tests.test_case import make_case
@@ -44,8 +44,54 @@ class TestQuoteQueue(IntegrationTestCase):
 		as_user(self.aya, take, self.old.name)
 		self.assertIn(self.old.name, [r.name for r in as_user(self.aya, get_queue, "Mine")])
 		self.assertNotIn(self.old.name, [r.name for r in as_user(self.maha, get_queue, "Unclaimed")])
-		# another quote creator no longer sees it at all (SP-35)
-		self.assertNotIn(self.old.name, [r.name for r in as_user(self.maha, get_queue, "All")])
+
+	def test_a_taken_request_shows_who_took_it(self):
+		as_user(self.aya, take, self.old.name)
+		# مها still sees it in the queue, marked taken by آية, and cannot take or open it (SP-35)
+		row = next(r for r in as_user(self.maha, get_queue, "All") if r.name == self.old.name)
+		self.assertEqual(row["taken_by"], get_fullname(self.aya))
+		self.assertFalse(row["can_take"])
+		self.assertFalse(row["can_open"])
+		mine = next(r for r in as_user(self.aya, get_queue, "All") if r.name == self.old.name)
+		self.assertTrue(mine["can_open"])
+		new = next(r for r in as_user(self.maha, get_queue, "All") if r.name == self.new.name)
+		self.assertTrue(new["can_take"])
+
+	def test_others_see_only_their_cases(self):
+		camelia = make_user("sp.queue.reader@example.com", ("customer_followup",))
+		self.assertNotIn(self.old.name, [r.name for r in as_user(camelia, get_queue, "All")])
+
+	def test_taking_closes_the_pool_tasks(self):
+		for user in (self.aya, self.maha):
+			frappe.get_doc(
+				{
+					"doctype": "SP Task",
+					"subject": "pool",
+					"task_type": "Quote Request",
+					"assigned_to": user,
+					"reference_doctype": "SP Case",
+					"reference_name": self.old.name,
+				}
+			).insert(ignore_permissions=True)
+		as_user(self.aya, take, self.old.name)
+		tasks = dict(
+			frappe.get_all(
+				"SP Task",
+				{"reference_name": self.old.name, "task_type": "Quote Request"},
+				["assigned_to", "status"],
+				as_list=True,
+			)
+		)
+		self.assertEqual(tasks, {self.aya: "Open", self.maha: "Cancelled"})
+
+	def test_taking_without_a_pool_task_gives_one(self):
+		as_user(self.aya, take, self.new.name)
+		self.assertTrue(
+			frappe.db.exists(
+				"SP Task",
+				{"reference_name": self.new.name, "assigned_to": self.aya, "status": "Open"},
+			)
+		)
 
 	def test_cannot_take_a_taken_request(self):
 		as_user(self.aya, take, self.old.name)

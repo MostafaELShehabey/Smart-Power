@@ -1,18 +1,36 @@
 """Q3 quote request queue (SP-48): open requests, oldest first, with their quote clock.
 
-Rows come through frappe.get_list, so each person sees only the cases SP-35 lets them see
-(quote creators: their own and unclaimed requests; the admin and كاميليا: all).
+Every quote creator sees every open request here, so nobody takes one already taken: a
+taken request shows who took it, and Take is off (SP-48). Outside the queue the SP-35 case
+rule still applies, so the case itself opens only for its owners, the admin and كاميليا.
+Anyone else gets the rows the case rule lets them see.
 """
 
 import frappe
 from frappe import _
+from frappe.utils import get_fullname
 
 from smart_power.sp_sales.quote_clock import clock
+from smart_power.sp_sales.quote_request import QUOTE_CREATOR_ROLE
 
 CASE = "SP Case"
 OPEN_STATUSES = ("Quote request", "Draft")
 UNCLAIMED, MINE, ALL = "Unclaimed", "Mine", "All"
 TAKE_ACTION = "Take Request"
+QUEUE_FIELDS = [
+	"name",
+	"creation",
+	"quote_sent_at",
+	"customer_name",
+	"mobile",
+	"channel",
+	"status",
+	"requested_by",
+	"quote_creator",
+	"follow_up_owner",
+	"site_visit_needed",
+	"quote_due_at",
+]
 
 
 @frappe.whitelist()
@@ -25,30 +43,17 @@ def get_queue(view: str = ALL) -> list[dict]:
 		filters["status"] = OPEN_STATUSES[0]
 	elif view == MINE:
 		filters["quote_creator"] = frappe.session.user
-	rows = frappe.get_list(
-		CASE,
-		filters=filters,
-		fields=[
-			"name",
-			"creation",
-			"quote_sent_at",
-			"customer_name",
-			"mobile",
-			"channel",
-			"status",
-			"requested_by",
-			"quote_creator",
-			"follow_up_owner",
-			"site_visit_needed",
-			"quote_due_at",
-		],
-		order_by="creation asc",
-		limit_page_length=0,
-	)
+	is_creator = QUOTE_CREATOR_ROLE in frappe.get_roles()
+	# quote creators see the whole queue; everyone else what the case rule allows
+	lister = frappe.get_all if is_creator else frappe.get_list
+	rows = lister(CASE, filters=filters, fields=QUEUE_FIELDS, order_by="creation asc", limit_page_length=0)
 	types = _system_types([r.name for r in rows])
 	for row in rows:
 		row.update(clock(row))
 		row["system_type"] = types.get(row.name)
+		row["can_take"] = is_creator and not row.quote_creator and row.status == OPEN_STATUSES[0]
+		row["taken_by"] = row.quote_creator and get_fullname(row.quote_creator)
+		row["can_open"] = frappe.has_permission(CASE, "read", doc=row.name)
 		row.pop("creation", None)
 	return rows
 
@@ -61,7 +66,9 @@ def take(case: str) -> str:
 	doc = frappe.get_doc(CASE, case)
 	doc.check_permission("read")
 	if doc.quote_creator:
-		frappe.throw(_("This request was already taken by {0}.").format(frappe.bold(doc.quote_creator)))
+		frappe.throw(
+			_("This request was already taken by {0}.").format(frappe.bold(get_fullname(doc.quote_creator)))
+		)
 	return apply_workflow(doc, TAKE_ACTION).name
 
 

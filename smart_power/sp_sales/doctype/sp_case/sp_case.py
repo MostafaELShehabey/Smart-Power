@@ -20,3 +20,8 @@ class SPCase(Document):
 			from smart_power.sp_sales.quotation import refresh_case_quotes
 
 			refresh_case_quotes(self.name)
+		# a taken (or reassigned) request: the pool tasks close, the quote creator keeps one (SP-48)
+		if before and before.quote_creator != self.quote_creator and self.quote_creator:
+			from smart_power.sp_sales.quote_request import hand_over_request
+
+			hand_over_request(self)
