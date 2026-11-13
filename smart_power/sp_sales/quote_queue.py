@@ -11,7 +11,7 @@ from frappe import _
 from frappe.utils import get_fullname
 
 from smart_power.sp_sales.quote_clock import clock
-from smart_power.sp_sales.quote_request import QUOTE_CREATOR_ROLE
+from smart_power.sp_sales.quote_request import QUOTE_CREATOR_ROLE, summarize_request
 
 CASE = "SP Case"
 OPEN_STATUSES = ("Quote request", "Draft")
@@ -30,6 +30,7 @@ QUEUE_FIELDS = [
 	"follow_up_owner",
 	"site_visit_needed",
 	"quote_due_at",
+	"request_details",
 ]
 
 
@@ -47,10 +48,14 @@ def get_queue(view: str = ALL) -> list[dict]:
 	# quote creators see the whole queue; everyone else what the case rule allows
 	lister = frappe.get_all if is_creator else frappe.get_list
 	rows = lister(CASE, filters=filters, fields=QUEUE_FIELDS, order_by="creation asc", limit_page_length=0)
-	types = _system_types([r.name for r in rows])
+	names = [r.name for r in rows]
+	types, loads = _system_types(names), _load_counts(names)
 	for row in rows:
 		row.update(clock(row))
-		row["system_type"] = types.get(row.name)
+		code, row["system_type"] = types.get(row.name, (None, None))
+		row.update(summarize_request(code, row.pop("request_details", None), loads.get(row.name, 0)))
+		row["follow_up_owner_name"] = row.follow_up_owner and get_fullname(row.follow_up_owner)
+		row["requested_by_name"] = row.requested_by and get_fullname(row.requested_by)
 		row["can_take"] = is_creator and not row.quote_creator and row.status == OPEN_STATUSES[0]
 		row["taken_by"] = row.quote_creator and get_fullname(row.quote_creator)
 		row["can_open"] = frappe.has_permission(CASE, "read", doc=row.name)
@@ -72,8 +77,21 @@ def take(case: str) -> str:
 	return apply_workflow(doc, TAKE_ACTION).name
 
 
-def _system_types(cases: list[str]) -> dict[str, str]:
-	"""Each case's first system type, as its Arabic name."""
+def _load_counts(cases: list[str]) -> dict[str, int]:
+	"""How many load lines each case has."""
+	if not cases:
+		return {}
+	rows = frappe.get_all(
+		"SP Load Line",
+		filters={"parent": ("in", cases), "parenttype": CASE},
+		fields=["parent", {"COUNT": "*", "as": "lines"}],
+		group_by="parent",
+	)
+	return {r.parent: r.lines for r in rows}
+
+
+def _system_types(cases: list[str]) -> dict[str, tuple[str, str]]:
+	"""Each case's first system type: its name and its Arabic label."""
 	if not cases:
 		return {}
 	rows = frappe.get_all(
@@ -92,5 +110,5 @@ def _system_types(cases: list[str]) -> dict[str, str]:
 	)
 	first = {}
 	for r in rows:
-		first.setdefault(r.parent, labels.get(r.system_type) or r.system_type)
+		first.setdefault(r.parent, (r.system_type, labels.get(r.system_type) or r.system_type))
 	return first

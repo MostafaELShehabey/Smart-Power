@@ -205,6 +205,7 @@ Isc (A),Isc (أمبير)
 Item Group,مجموعة الأصناف
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
 Job Type,نوع الشغلانة
+Key Data,البيانات الأساسية
 Label,الاسم
 Last Action,آخر إجراء
 Late Entry,تسجيل متأخر
@@ -257,6 +258,7 @@ Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
 Message,الرسالة
 Min Margin %,أقل ربح %
 Mine,طلباتي
+Missing Fields,الحقول الناقصة
 Mobile,الموبايل
 Mobile Device ID,معرّف جهاز الموبايل
 Mobile is required: it is how a returning customer is found.,الموبايل مطلوب: به نتعرف على العميل عند عودته.
@@ -276,6 +278,7 @@ New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Value,القيمة الجديدة
 New Version,نسخة جديدة
 Night Hours,ساعات الليل
+No,لا
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
@@ -617,6 +620,7 @@ Won,تم الكسب
 Won On,تاريخ الكسب
 Write-off,شطب
 Wrong customer,عميل غير مطابق
+Yes,نعم
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
 {0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}

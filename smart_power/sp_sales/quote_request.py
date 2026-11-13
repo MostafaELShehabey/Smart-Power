@@ -88,6 +88,32 @@ def clean_details(system_type: str | None, details) -> dict:
 	return cleaned
 
 
+def summarize_request(system_type: str | None, details, load_count: int = 0) -> dict:
+	"""For the Q3 queue (SP-48): the request's answers as "label: value" lines (key data), and
+	the labels of the type's fields left empty (missing fields). Read at display time, so a
+	field the admin adds later shows as missing on older requests."""
+	if isinstance(details, str):
+		details = json.loads(details or "{}")
+	details = details or {}
+	key_data, missing = [], []
+	for field in request_fields(system_type):
+		label = _label(field)
+		if field["fieldtype"] == LOAD_TABLE:
+			if load_count:
+				key_data.append(f"{label}: {load_count}")
+			else:
+				missing.append(label)
+			continue
+		value = details.get(field["fieldname"])
+		if value in (None, ""):
+			missing.append(label)
+		elif field["fieldtype"] == "Check":
+			key_data.append(f"{label}: {_('Yes') if cint(value) else _('No')}")
+		else:
+			key_data.append(f"{label}: {value}")
+	return {"key_data": key_data, "missing_fields": missing}
+
+
 @frappe.whitelist()
 def get_request_fields(system_type: str) -> list[dict]:
 	"""The fields the form shows for a system type."""
