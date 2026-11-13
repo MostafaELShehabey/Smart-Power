@@ -154,6 +154,7 @@
 	"settings": {
 		"validity_days": {"value": 3, "_source": "SP-128 settings list; Miro frame 01 'valid 3 days'"},
 		"quote_due_hours": {"value": 24, "_source": "decision 70 (24h quote, warning only)"},
+		"quote_amber_hours": {"value": 18, "_source": "SP-48: amber at 18 h, red after 24 h"},
 		"followup_delay_days": {"value": 1, "_source": "Miro team table: follow-up task the day after the quote"},
 		"followup_discount_max_pct": {"value": 2, "_source": "decisions 47 and 66: follow-up owner 1-2% on the total"},
 		"creator_discount_max_pct": {"value": 4, "_source": "decision 47: quote creator approves up to 4%"},

@@ -10,6 +10,7 @@
   "validity_days",
   "max_validity_days",
   "quote_due_hours",
+  "quote_amber_hours",
   "followup_delay_days",
   "default_quote_print_format",
   "column_break_quotes",
@@ -63,6 +64,13 @@
    "fieldname": "quote_due_hours",
    "fieldtype": "Int",
    "label": "Quote Due Within (hours)"
+  },
+  {
+   "fieldname": "quote_amber_hours",
+   "fieldtype": "Int",
+   "label": "Quote Amber After (hours)",
+   "non_negative": 1,
+   "description": "A quote request turns amber after this many hours without a quote sent; it is overdue after Quote Due Within."
   },
   {
    "fieldname": "followup_delay_days",
@@ -231,7 +239,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-09 23:00:00.000000",
+ "modified": "2026-11-13 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

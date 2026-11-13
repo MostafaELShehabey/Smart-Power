@@ -6,6 +6,7 @@ A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب �
 A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
+A quote request turns amber after this many hours without a quote sent; it is overdue after Quote Due Within.,يتحول طلب العرض للون الأصفر بعد هذا العدد من الساعات بدون إرسال عرض، ويصبح متأخراً بعد مدة استحقاق العرض.
 A reason is needed,مطلوب سبب
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
@@ -28,6 +29,7 @@ Addresses and Phones,العناوين والتليفونات
 Age,العمر
 Aging,يقترب من القدم
 AM,ص
+Amber,أصفر
 Amber After (days),أصفر بعد (أيام)
 Amber After must be fewer days than the Max Price Age.,يجب أن تكون أيام اللون الأصفر أقل من أقصى عمر للسعر.
 Amount,المبلغ
@@ -245,6 +247,7 @@ Off,متوقف
 Offer Type,نوع العرض
 Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
+On time,في الموعد
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
@@ -257,6 +260,7 @@ Open cases: {0},حالات مفتوحة: {0}
 Order saved,تم حفظ الترتيب
 Other,أخرى
 Outcome,النتيجة
+Overdue,متأخر
 Overridden,تم التخطي بسبب
 Override,تخطي
 Owner,المسؤول
@@ -289,10 +293,14 @@ Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن
 Pump Specs,مواصفات الطلمبة
 Quotation,عرض سعر
 Quotations,عروض الأسعار
+Quote Alert,تنبيه العرض
+Quote Amber After (hours),العرض يصفرّ بعد (ساعات)
 Quote Creator,معد العرض
+Quote Due At,موعد استحقاق العرض
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
 Quote Request,طلب عرض
 Quote request,طلب عرض
+Quote Sent At,وقت إرسال العرض
 Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
 Quotes,عروض الأسعار
@@ -341,6 +349,7 @@ Saving the request…,جارٍ حفظ الطلب…
 Scope,النطاق
 Second Mobile,موبايل إضافي
 Send to Customer,إرسال للعميل
+Sent,أُرسل
 Sent to customer,أُرسل للعميل
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
@@ -469,6 +478,7 @@ The four ERPNext price lists that the price list screen (I2) and the quotes use.
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
+The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
 The quote needs a site survey first (survey tasks come with SP-95).,العرض يحتاج معاينة للموقع أولاً (مهام المعاينة تأتي مع SP-95).
@@ -505,6 +515,7 @@ Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
 WhatsApp,واتساب
 When,متى
+When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
 Who,مَن
 "Who brought the request in (showroom, call or marketing).",من جاء بالطلب (المعرض أو المكالمة أو التسويق).
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
