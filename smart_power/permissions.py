@@ -86,3 +86,59 @@ def case_has_permission(doc, ptype: str | None = None, user: str | None = None) 
 	# document being saved already says Draft, before its quote creator is filled in.
 	stored = frappe.db.get_value("SP Case", doc.name, ["status", "quote_creator"], as_dict=True) or doc
 	return bool(stored.status == OPEN_REQUEST and not stored.quote_creator)
+
+
+# --- Quotation: cost and profit for cost roles only (SP-35, with SP-54) ------------------------
+
+# Cost fields on the quote live at permlevel 2 (Cost, Line Profit, Total Cost, Profit, Margin).
+# ERPNext already uses permlevel 1 on Quotation and gives it to Sales User, so 2 is ours.
+COST_PERMLEVEL = 2  # sp-allow-number: Frappe permission level, not a business value
+COST_DOCTYPES = ("Quotation",)
+# Of the cost roles, these may also type a cost on a quote line.
+COST_WRITE_ROLES = ("SP Admin", "SP Quote Creator", "SP System Designer")
+
+
+def sync_cost_permissions() -> None:
+	"""Give the cost roles read (and some write) at the cost permlevel on Quotation; never remove rows.
+
+	Uses Frappe's own add_permission, which copies the standard rules into Role Permissions
+	the first time (as the Role Permissions Manager does). Rows the admin changed are kept.
+	"""
+	from frappe.permissions import add_permission, update_permission_property
+
+	for doctype in COST_DOCTYPES:
+		for role in COST_ROLES:
+			if not frappe.db.exists("Role", role):
+				continue
+			key = {"parent": doctype, "role": role, "permlevel": COST_PERMLEVEL, "if_owner": 0}
+			if not frappe.db.exists("Custom DocPerm", key):
+				add_permission(doctype, role, COST_PERMLEVEL)
+				if role in COST_WRITE_ROLES:
+					update_permission_property(doctype, role, COST_PERMLEVEL, "write", 1, validate=False)
+	frappe.clear_cache(doctype="Quotation")
+
+
+# Quote cost and profit keys (permlevel COST_PERMLEVEL): header and line.
+QUOTE_COST_KEYS = ("sp_total_cost", "sp_profit", "sp_margin_pct")
+QUOTE_LINE_COST_KEYS = ("sp_cost", "sp_line_profit")
+
+
+@frappe.whitelist()
+def get_quote_view(name: str) -> dict:
+	"""A quote as its reader may see it: without the cost and profit keys for non-cost roles.
+
+	Plain REST already hides their values (Frappe sends 0 for a field the reader cannot see);
+	this view leaves the keys out altogether (SP-35, SP-54).
+	"""
+	doc = frappe.get_doc("Quotation", name)
+	doc.check_permission("read")
+	doc.apply_fieldlevel_read_permissions()
+	data = doc.as_dict()
+	if can_see_cost():
+		return data
+	for key in QUOTE_COST_KEYS:
+		data.pop(key, None)
+	for row in data.get("items") or []:
+		for key in QUOTE_LINE_COST_KEYS:
+			row.pop(key, None)
+	return data

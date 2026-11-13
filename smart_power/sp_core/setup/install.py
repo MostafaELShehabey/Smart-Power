@@ -72,8 +72,10 @@ def before_migrate() -> None:
 
 
 def after_migrate() -> None:
+	from smart_power.permissions import sync_cost_permissions
 	from smart_power.rules import sync_rule_settings
 
 	ensure_admin_module()
 	sync_role_profiles()
 	sync_rule_settings()
+	sync_cost_permissions()
