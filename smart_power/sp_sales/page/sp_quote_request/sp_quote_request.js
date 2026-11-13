@@ -114,9 +114,11 @@ class SPQuoteRequest {
 				{ fieldtype: "Column Break" },
 				{ fieldname: "site_visit_needed", fieldtype: "Check", label: __("Site Visit Needed") },
 				{ fieldname: "request_notes", fieldtype: "Small Text", label: __("Request Notes") },
+				{ fieldname: "photos_area", fieldtype: "HTML", label: __("Photos") },
 			],
 		});
 		this.form.make();
+		this.make_photos();
 		this.details = null;
 	}
 
@@ -226,12 +228,51 @@ class SPQuoteRequest {
 		delete details.loads;
 		const { message: r } = await frappe.call({
 			method: `${SP_QR_API}.create_quote_request`,
-			args: { request: { ...values, details, loads } },
+			args: { request: { ...values, details, loads, photos: this.photos.map((f) => f.name) } },
 			freeze: true,
 			freeze_message: __("Saving the request…"),
 		});
 		frappe.show_alert({ message: __("Request {0} saved", [r.case]), indicator: "green" });
 		frappe.set_route("Form", "SP Case", r.case);
+	}
+
+	// Optional photos: uploaded as private files now, attached to the case when it is saved.
+	make_photos() {
+		this.photos = [];
+		const $area = this.form.get_field("photos_area").$wrapper.empty();
+		$(`<label class="control-label"></label>`).text(__("Photos (optional)")).appendTo($area);
+		this.$photos = $(`<div class="sp-qr-photos d-flex flex-wrap mb-2"></div>`).appendTo($area);
+		$(`<button class="btn btn-default btn-xs"></button>`)
+			.text(__("Add Photos"))
+			.on("click", () => {
+				new frappe.ui.FileUploader({
+					allow_multiple: true,
+					restrictions: { allowed_file_types: ["image/*"] },
+					on_success: (file) => {
+						this.photos.push(file);
+						this.render_photos();
+					},
+				});
+			})
+			.appendTo($area);
+	}
+
+	render_photos() {
+		this.$photos.empty();
+		this.photos.forEach((file, i) => {
+			const $p = $(`<div class="mr-2 mb-2 text-center">
+				<img class="rounded border" style="height: 64px">
+				<div><a href="#" class="small text-muted"></a></div>
+			</div>`).appendTo(this.$photos);
+			$p.find("img").attr("src", file.file_url).attr("alt", file.file_name);
+			$p.find("a")
+				.text(__("Remove"))
+				.on("click", (e) => {
+					e.preventDefault();
+					this.photos.splice(i, 1);
+					this.render_photos();
+				});
+		});
 	}
 
 	reset() {
