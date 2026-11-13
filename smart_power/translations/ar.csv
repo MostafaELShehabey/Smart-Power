@@ -7,6 +7,7 @@ A price older than this is stale: red chip and clock icon. Empty means no limit.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
 A reason is needed,مطلوب سبب
+A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
 A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
@@ -242,6 +243,7 @@ One row per item. A code that already exists updates that item; blank cells keep
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
+Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
 Open,مفتوح
 Open as List,فتح كقائمة
 Order saved,تم حفظ الترتيب
@@ -289,6 +291,7 @@ Quotes,عروض الأسعار
 Raised By,سُجّل بواسطة
 Reason,السبب
 Reason Given,السبب المكتوب
+Reassign,إعادة إسناد
 Reassign Request,طلب تحويل
 Reassignment,تحويل
 Receipt to Confirm,استلام محتاج تأكيد
@@ -455,11 +458,13 @@ This rule can only warn; it can never block (decisions 47 and 67).,هذه الق
 Tier,الفئة
 Timestamp,الوقت
 To,إلى
+"To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit,في الطريق
 Transit Account,الحساب الوسيط
 Unknown list {0}.,قائمة غير معروفة {0}.
+Unknown owner {0}.,مسؤول غير معروف {0}.
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
