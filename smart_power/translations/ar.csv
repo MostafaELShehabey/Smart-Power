@@ -496,11 +496,13 @@ The quote creator can approve a discount on the total up to the limit in Smart P
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
 The quote needs a site survey first (survey tasks come with SP-95).,العرض يحتاج معاينة للموقع أولاً (مهام المعاينة تأتي مع SP-95).
 The row has no price.,السطر لا يحتوي على سعر.
+The sales case this quote belongs to. Its customer must be the case's customer.,الحالة التي يتبعها هذا العرض. عميله يجب أن يكون عميل الحالة.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
+"This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
 This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 Tier,الفئة
@@ -539,6 +541,7 @@ Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شه�
 Won,تم الكسب
 Won On,تاريخ الكسب
 Write-off,شطب
+Wrong customer,عميل غير مطابق
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.

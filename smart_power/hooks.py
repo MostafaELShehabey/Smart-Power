@@ -79,6 +79,12 @@ doc_events = {
 	"Customer": {"validate": "smart_power.sp_sales.customer.validate"},
 	# Item catalogue (SP-29): specs that cannot be true are refused.
 	"Item": {"validate": "smart_power.sp_stock.item.validate"},
+	# Quotation belongs to an SP Case (SP-54)
+	"Quotation": {
+		"validate": "smart_power.sp_sales.quotation.validate",
+		"on_update": "smart_power.sp_sales.quotation.on_update",
+		"on_submit": "smart_power.sp_sales.quotation.on_update",
+	},
 	# Price list (SP-30): every price has a date and buying prices a supplier.
 	"Item Price": {"validate": "smart_power.sp_stock.prices.validate_item_price"},
 	# Warehouses by location (SP-28): one site warehouse per station.
