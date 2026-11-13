@@ -63,6 +63,7 @@ Chassis,الشاسيه
 Check the specs,راجع المواصفات
 Cheque,شيك
 Choose an item or a category.,اختر صنفاً أو فئة.
+Choose the system type first.,اختر نوع النظام أولاً.
 Click to change,اضغط للتغيير
 Code,الكود
 Code or name,الكود أو الاسم
@@ -111,6 +112,7 @@ Empty means both.,فارغ يعني الاثنين.
 Empty means the default validity is also the maximum.,فارغ يعني أن الصلاحية الافتراضية هي الحد الأقصى.
 Empty uses the default rounding step in Smart Power Settings.,فارغ يستخدم خطوة التقريب الافتراضية في إعدادات سمارت باور.
 Enter at least one price.,أدخل سعراً واحداً على الأقل.
+Enter the customer's name: this mobile is new.,اكتب اسم العميل: هذا الموبايل جديد.
 Entry Mode,طريقة التسجيل
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
@@ -512,6 +514,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
+{0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
 {0} is not in the list {1}.,{0} ليست ضمن القائمة {1}.
 {0} is repeated: it is already in row {1}.,{0} مكرر: موجود بالفعل في السطر {1}.
