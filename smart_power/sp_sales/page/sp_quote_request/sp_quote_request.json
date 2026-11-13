@@ -1,0 +1,32 @@
+{
+ "creation": "2026-11-13 14:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "file",
+ "idx": 0,
+ "modified": "2026-11-13 14:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Sales",
+ "name": "sp-quote-request",
+ "owner": "Administrator",
+ "page_name": "sp-quote-request",
+ "roles": [
+  {
+   "role": "SP Lead Intake"
+  },
+  {
+   "role": "SP Customer Followup"
+  },
+  {
+   "role": "SP Marketing Agent"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Quote Request"
+}

@@ -50,6 +50,7 @@ Call,مكالمة
 Call Result,نتيجة المكالمة
 Can Never Block,لا يمنع أبداً
 Cancelled,ملغي
+Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case opened,فتح الحالة
 Cash and Locks,الكاش والقفل
@@ -64,6 +65,7 @@ Check the specs,راجع المواصفات
 Cheque,شيك
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose the system type first.,اختر نوع النظام أولاً.
+Clear,مسح
 Click to change,اضغط للتغيير
 Code,الكود
 Code or name,الكود أو الاسم
@@ -251,6 +253,7 @@ Only for Offer Type,لنوع العرض هذا فقط
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
 Open,مفتوح
 Open as List,فتح كقائمة
+Open cases: {0},حالات مفتوحة: {0}
 Order saved,تم حفظ الترتيب
 Other,أخرى
 Outcome,النتيجة
@@ -311,6 +314,7 @@ Request Details,تفاصيل الطلب
 Request for Quotation,طلب عرض سعر من مورد
 Request Notes,ملاحظات الطلب
 Request Revision,طلب تعديل
+Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Result,النتيجة
 Review,المراجعة
@@ -329,9 +333,11 @@ Rule Key,مفتاح القاعدة
 "Rule limits as JSON, for example {""max_days"": 3}.","حدود القاعدة بصيغة JSON، مثلاً {""max_days"": 3}."
 Rule Warning,تنبيه قاعدة
 Save,حفظ
+Save Request,حفظ الطلب
 Saved,تم الحفظ
 Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
 Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون تغيير: {1} · أخطاء: {2}
+Saving the request…,جارٍ حفظ الطلب…
 Scope,النطاق
 Second Mobile,موبايل إضافي
 Send to Customer,إرسال للعميل
@@ -470,6 +476,7 @@ The row has no price.,السطر لا يحتوي على سعر.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
+This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 Tier,الفئة
