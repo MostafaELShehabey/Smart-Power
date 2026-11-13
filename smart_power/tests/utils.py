@@ -89,3 +89,15 @@ def make_quotation(discount_pct: float = 0, valid_days: int = 1, rate: float = 1
 	if save:
 		q.insert()
 	return q
+
+
+def make_customer(mobile: str, name: str = "عميل تجربة", **kw) -> str:
+	"""A customer with an Egyptian mobile (SP-31); returns its name. Reuses one with that mobile."""
+	existing = frappe.db.get_value("Customer", {"sp_mobile": mobile})
+	if existing:
+		return existing
+	return (
+		frappe.get_doc({"doctype": "Customer", "customer_name": name, "sp_mobile": mobile, **kw})
+		.insert()
+		.name
+	)

@@ -1,0 +1,268 @@
+{
+ "actions": [],
+ "creation": "2026-11-11 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "customer_name",
+  "mobile",
+  "column_break_head",
+  "status",
+  "channel",
+  "system_types",
+  "owners_section",
+  "requested_by",
+  "quote_creator",
+  "column_break_owners",
+  "follow_up_owner",
+  "last_action_at",
+  "result_section",
+  "lost_reason",
+  "lost_note",
+  "column_break_result",
+  "won_on",
+  "accepted_quotation",
+  "history_section",
+  "owner_history"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "fetch_from": "customer.customer_name",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "mobile",
+   "fieldtype": "Data",
+   "label": "Mobile",
+   "fetch_from": "customer.sp_mobile",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_global_search": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Quote request\nDraft\nSent to customer\nFollow-up\nWon\nLost",
+   "default": "Quote request",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Select",
+   "label": "Channel",
+   "options": "Showroom\nCall\nMarketing",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "system_types",
+   "fieldtype": "Table MultiSelect",
+   "label": "System Types",
+   "options": "SP Case System Type"
+  },
+  {
+   "fieldname": "owners_section",
+   "fieldtype": "Section Break",
+   "label": "Owners"
+  },
+  {
+   "fieldname": "requested_by",
+   "fieldtype": "Link",
+   "label": "Requested By",
+   "options": "User",
+   "default": "__user",
+   "in_standard_filter": 1,
+   "description": "Who brought the request in (showroom, call or marketing)."
+  },
+  {
+   "fieldname": "quote_creator",
+   "fieldtype": "Link",
+   "label": "Quote Creator",
+   "options": "User",
+   "in_standard_filter": 1,
+   "description": "Whoever takes the request and prepares the quote."
+  },
+  {
+   "fieldname": "column_break_owners",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "follow_up_owner",
+   "fieldtype": "Link",
+   "label": "Follow-up Owner",
+   "options": "User",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "description": "The case owner: follows up with the customer until won or lost. A case always has one."
+  },
+  {
+   "fieldname": "last_action_at",
+   "fieldtype": "Datetime",
+   "label": "Last Action",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "result_section",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "lost_reason",
+   "fieldtype": "Link",
+   "label": "Lost Reason",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Lost Reason\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
+   "mandatory_depends_on": "eval:doc.status=='Lost'",
+   "depends_on": "eval:doc.status=='Lost'"
+  },
+  {
+   "fieldname": "lost_note",
+   "fieldtype": "Small Text",
+   "label": "Lost Note",
+   "depends_on": "eval:doc.status=='Lost'"
+  },
+  {
+   "fieldname": "column_break_result",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "won_on",
+   "fieldtype": "Date",
+   "label": "Won On",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "accepted_quotation",
+   "fieldtype": "Link",
+   "label": "Accepted Quotation",
+   "options": "Quotation",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "history_section",
+   "fieldtype": "Section Break",
+   "label": "Owner History",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "owner_history",
+   "fieldtype": "Table",
+   "label": "Owner History",
+   "options": "SP Owner History",
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-11 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Sales",
+ "name": "SP Case",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "read": 1,
+   "role": "System Manager",
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1
+  },
+  {
+   "read": 1,
+   "role": "SP Admin",
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1,
+   "delete": 1
+  },
+  {
+   "read": 1,
+   "role": "SP Lead Intake",
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "SP Customer Followup",
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "SP Marketing Agent",
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "create": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "SP Quote Creator",
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "CS-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "title_field": "customer_name",
+ "show_title_field_in_link": 1,
+ "search_fields": "customer_name,mobile,follow_up_owner",
+ "track_changes": 1
+}

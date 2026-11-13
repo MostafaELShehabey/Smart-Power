@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "creation": "2026-11-11 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "role_kind",
+  "from_user",
+  "to_user",
+  "from_date",
+  "reason",
+  "changed_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "role_kind",
+   "fieldtype": "Select",
+   "label": "Owner",
+   "options": "Requested By\nQuote Creator\nFollow-up Owner\nExecution Owner\nCollection Owner",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "from_user",
+   "fieldtype": "Link",
+   "label": "From",
+   "options": "User",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "to_user",
+   "fieldtype": "Link",
+   "label": "To",
+   "options": "User",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Datetime",
+   "label": "From Date",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "changed_by",
+   "fieldtype": "Link",
+   "label": "Changed By",
+   "options": "User",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-11 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Sales",
+ "name": "SP Owner History",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1
+}
