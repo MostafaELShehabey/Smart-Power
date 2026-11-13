@@ -12,6 +12,8 @@ import frappe
 from frappe import _
 from frappe.utils import now_datetime, today
 
+from smart_power.sp_sales.quote_request import clean_details
+
 DOCTYPE = "SP Case"
 QUOTE_REQUEST, DRAFT, WON, LOST = "Quote request", "Draft", "Won", "Lost"
 SYSTEM_TYPE_LIST = "System Type"
@@ -33,6 +35,9 @@ def validate(doc) -> None:
 	_check_list(doc.lost_reason, LOST_REASON_LIST)
 	for row in doc.system_types:
 		_check_list(row.system_type, SYSTEM_TYPE_LIST)
+	if doc.request_details and doc.system_types:
+		# only the first system type's request fields are kept (SP-47)
+		doc.request_details = clean_details(doc.system_types[0].system_type, doc.request_details)
 	take_request(doc)
 	record_owner_changes(doc)
 	if doc.is_new() or doc.has_value_changed("status"):

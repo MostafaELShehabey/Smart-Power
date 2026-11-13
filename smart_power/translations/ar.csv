@@ -304,7 +304,10 @@ Refund,رد مبلغ
 Region,المنطقة
 Rename,إعادة تسمية
 Reopen,إعادة فتح
+Request,الطلب
+Request Details,تفاصيل الطلب
 Request for Quotation,طلب عرض سعر من مورد
+Request Notes,ملاحظات الطلب
 Request Revision,طلب تعديل
 Requested By,طالب العرض
 Result,النتيجة
@@ -348,6 +351,7 @@ Simple Record Type,نوع التسجيل البسيط
 Site,موقع
 Site Stage,مرحلة الموقع
 Site Survey,معاينة موقع
+Site Visit Needed,يحتاج معاينة موقع
 Smart Power,سمارت باور
 Smart Power Settings,إعدادات سمارت باور
 Smart Power's cost. Visible to cost roles only (SP-35).,تكلفة سمارت باور. تظهر لأدوار التكلفة فقط (SP-35).
@@ -442,6 +446,7 @@ Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
 Technical Review,مراجعة فنية
 Terms Note,ملاحظة الشروط
+The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
 The code is empty.,الكود فارغ.
@@ -458,6 +463,7 @@ The order must contain every value of the list {0} once.,يجب أن يحتوي 
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
+The quote needs a site survey first (survey tasks come with SP-95).,العرض يحتاج معاينة للموقع أولاً (مهام المعاينة تأتي مع SP-95).
 The row has no price.,السطر لا يحتوي على سعر.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
@@ -509,10 +515,12 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
 {0} is not in the list {1}.,{0} ليست ضمن القائمة {1}.
 {0} is repeated: it is already in row {1}.,{0} مكرر: موجود بالفعل في السطر {1}.
+{0} is required for this system type.,{0} مطلوب لهذا النوع من الأنظمة.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} of {1} items,{0} من {1} صنف
 {0} {1} does not exist.,{0} {1} غير موجود.
 {0}: a {1} price needs a supplier.,{0}: سعر {1} يحتاج مورداً.
 {0}: give a reason for changing the {1} price.,{0}: اكتب سبب تغيير سعر {1}.
 {0}: {1},{0}: {1}
+{0}: {1} is not one of the choices.,{0}: {1} ليست من الاختيارات.
 ★ Featured,★ مميز
