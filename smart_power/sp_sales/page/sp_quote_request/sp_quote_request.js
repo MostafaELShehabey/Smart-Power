@@ -40,6 +40,17 @@ class SPQuoteRequest {
 					change: () => this.load_request_fields(),
 				},
 				{ fieldtype: "HTML", fieldname: "details_area" },
+				{ fieldtype: "Section Break", label: __("Location and Payment") },
+				{ fieldname: "location_text", fieldtype: "Data", label: __("Location") },
+				{
+					fieldname: "payment_method",
+					fieldtype: "Link",
+					options: "SP List Value",
+					label: __("Payment Method"),
+					get_query: () => ({ filters: { list_name: "Financing Type", is_active: 1 } }),
+				},
+				{ fieldtype: "Column Break" },
+				{ fieldname: "geo", fieldtype: "Geolocation", label: __("Location Pin") },
 				{ fieldtype: "Section Break", label: __("Customer") },
 				{
 					fieldname: "mobile",
@@ -106,15 +117,34 @@ class SPQuoteRequest {
 		const { message: fields } = await frappe.call(`${SP_QR_API}.get_request_fields`, { system_type });
 		if (!fields || !fields.length) return;
 		const arabic = frappe.boot.lang === "ar";
+		const label = (f) => (arabic && f.label_ar ? f.label_ar : __(f.label || f.fieldname));
 		this.details = new frappe.ui.FieldGroup({
 			parent: area,
-			fields: fields.map((f) => ({
-				fieldname: f.fieldname,
-				fieldtype: f.fieldtype,
-				options: f.options,
-				reqd: f.reqd,
-				label: arabic && f.label_ar ? f.label_ar : __(f.label || f.fieldname),
-			})),
+			fields: fields.map((f) =>
+				f.fieldtype === "Load Table"
+					? {
+							fieldname: "loads",
+							fieldtype: "Table",
+							label: label(f),
+							reqd: f.reqd,
+							in_place_edit: true,
+							data: [],
+							fields: [
+								{ fieldname: "device", fieldtype: "Data", label: __("Device"), in_list_view: 1, reqd: 1 },
+								{ fieldname: "qty", fieldtype: "Int", label: __("Qty"), in_list_view: 1, default: 1 },
+								{ fieldname: "watts", fieldtype: "Float", label: __("Watts"), in_list_view: 1 },
+								{ fieldname: "day_hours", fieldtype: "Float", label: __("Day Hours"), in_list_view: 1 },
+								{ fieldname: "night_hours", fieldtype: "Float", label: __("Night Hours"), in_list_view: 1 },
+							],
+					  }
+					: {
+							fieldname: f.fieldname,
+							fieldtype: f.fieldtype,
+							options: f.options,
+							reqd: f.reqd,
+							label: label(f),
+					  }
+			),
 		});
 		this.details.make();
 	}
@@ -154,9 +184,17 @@ class SPQuoteRequest {
 		if (!values) return;
 		const details = this.details ? this.details.get_values() : {};
 		if (this.details && !details) return;
+		const loads = (details.loads || []).map((row) => ({
+			device: row.device,
+			qty: row.qty,
+			watts: row.watts,
+			day_hours: row.day_hours,
+			night_hours: row.night_hours,
+		}));
+		delete details.loads;
 		const { message: r } = await frappe.call({
 			method: `${SP_QR_API}.create_quote_request`,
-			args: { request: { ...values, details } },
+			args: { request: { ...values, details, loads } },
 			freeze: true,
 			freeze_message: __("Saving the request…"),
 		});

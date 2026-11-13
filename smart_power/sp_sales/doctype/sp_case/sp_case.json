@@ -13,6 +13,10 @@
   "system_types",
   "request_section",
   "site_visit_needed",
+  "location_text",
+  "geo",
+  "payment_method",
+  "loads",
   "request_notes",
   "column_break_request",
   "request_details",
@@ -102,6 +106,33 @@
    "label": "Site Visit Needed",
    "in_standard_filter": 1,
    "description": "The quote needs a site survey first (survey tasks come with SP-95)."
+  },
+  {
+   "fieldname": "location_text",
+   "fieldtype": "Data",
+   "label": "Location",
+   "description": "Village, centre or landmark."
+  },
+  {
+   "fieldname": "geo",
+   "fieldtype": "Geolocation",
+   "label": "Location Pin"
+  },
+  {
+   "fieldname": "payment_method",
+   "fieldtype": "Link",
+   "label": "Payment Method",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Financing Type\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
+   "in_standard_filter": 1,
+   "description": "Cash, installments or bank financing (X4 Financing Type list)."
+  },
+  {
+   "fieldname": "loads",
+   "fieldtype": "Table",
+   "label": "Loads",
+   "options": "SP Load Line",
+   "description": "For off-grid and hybrid requests: each device with its watts and day / night hours."
   },
   {
    "fieldname": "request_notes",
@@ -250,7 +281,7 @@
    "link_fieldname": "sp_case"
   }
  ],
- "modified": "2026-11-14 10:00:00.000000",
+ "modified": "2026-11-14 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

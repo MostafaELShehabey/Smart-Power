@@ -66,6 +66,7 @@ Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case opened,فتح الحالة
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Cash and Locks,الكاش والقفل
+"Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
 Catalogue (PDF),الكتالوج (PDF)
 Category,التصنيف
 Change %,نسبة التغيير %
@@ -106,6 +107,7 @@ Customer,العميل
 Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Customer Name,اسم العميل
+Day Hours,ساعات النهار
 Deactivate instead,أوقفها بدلاً من الحذف
 Debit Account,الحساب المدين
 Default Quote Print Format,شكل طباعة العرض الافتراضي
@@ -115,6 +117,7 @@ Default validity of a new quote.,الصلاحية الافتراضية للعر�
 Description,الوصف
 Design Inputs,مدخلات التصميم
 Details,التفاصيل
+Device,الجهاز
 Discount,خصم
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
@@ -165,6 +168,7 @@ Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
 "For full alternative quotes on the same case (A/B/C, SP-59).",للعروض البديلة الكاملة على نفس الحالة (A/B/C، SP-59).
+For off-grid and hybrid requests: each device with its watts and day / night hours.,لطلبات الأوف جريد والهايبرد: كل جهاز بقدرته بالوات وساعات تشغيله نهاراً وليلاً.
 Fresh,حديث
 From,من
 From Date,من تاريخ
@@ -215,6 +219,10 @@ List,القائمة
 List Price,سعر اللستة
 Lists,القوائم
 Load more,تحميل المزيد
+Loads,الأحمال
+Location,الموقع
+Location and Payment,الموقع وطريقة الدفع
+Location Pin,تحديد الموقع على الخريطة
 Locked for quote creators.,مقفل على أصحاب العروض.
 Log out,تسجيل الخروج
 Logo,الشعار
@@ -263,6 +271,7 @@ Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعاد�
 New price,السعر الجديد
 New Value,القيمة الجديدة
 New Version,نسخة جديدة
+Night Hours,ساعات الليل
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 No open requests here.,لا توجد طلبات مفتوحة هنا.
@@ -330,6 +339,7 @@ Profit,الربح
 Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
 Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
 Pump Specs,مواصفات الطلمبة
+Qty,العدد
 Quotation,عرض سعر
 Quotations,عروض الأسعار
 Quote Alert,تنبيه العرض
@@ -451,6 +461,7 @@ SP Installations Manager,مدير التركيبات
 SP Jumbo Driver,سواق العربية (جامبو)
 SP Lead Intake,استقبال العملاء
 SP List Value,قيمة قائمة
+SP Load Line,بند حمل
 SP Main Store Keeper,أمين المخزن الرئيسي
 SP Margin Range,نطاق الربح
 SP Marketing Agent,التسويق
@@ -571,6 +582,7 @@ Version,النسخة
 Version 1 of this quote: every version of one quote shares it.,النسخة 1 من هذا العرض: كل نسخ العرض الواحد تشترك فيها.
 Version {0} of case {1}.,النسخة {0} من الحالة {1}.
 Version {0} of case {1}: the approved version.,النسخة {0} من الحالة {1}: النسخة المعتمدة.
+"Village, centre or landmark.",القرية أو المركز أو علامة مميزة.
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
 Warn,تنبيه
@@ -578,6 +590,7 @@ Warned,تم التنبيه
 Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
+Watts,وات
 WhatsApp,واتساب
 When,متى
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
