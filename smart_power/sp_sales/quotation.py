@@ -12,8 +12,9 @@ import frappe
 from frappe import _
 from frappe.query_builder import DocType
 from frappe.query_builder.functions import Max
-from frappe.utils import today
+from frappe.utils import add_days, getdate, today
 
+from smart_power.sp_core.services.settings import get_value
 from smart_power.sp_sales.case import touch
 
 CASE = "SP Case"
@@ -24,6 +25,15 @@ CLOSED_STATUSES = ("Won", "Lost")
 def validate(doc, method=None) -> None:
 	"""Quotation validate hook."""
 	check_case(doc)
+	set_valid_till(doc)
+
+
+def set_valid_till(doc) -> None:
+	"""An empty Valid Till comes from Quote Validity (days) in Smart Power Settings; the
+	quote_validity rule caps it at the maximum."""
+	days = get_value("validity_days")
+	if not doc.get("valid_till") and days and doc.get("transaction_date"):
+		doc.valid_till = add_days(doc.transaction_date, int(days))
 
 
 def before_insert(doc, method=None) -> None:
@@ -74,7 +84,7 @@ def new_version(quotation: str) -> str:
 	if not source.get("sp_case"):
 		frappe.throw(_("Only a quote linked to a case has versions."))
 	frappe.has_permission("Quotation", "create", throw=True)
-	doc = frappe.copy_doc(source)
+	doc = frappe.copy_doc(source, ignore_no_copy=False)  # no flags or approval carried over
 	doc.sp_previous_version = source.name
 	doc.transaction_date = today()
 	doc.valid_till = None
@@ -114,7 +124,24 @@ def approve_version(quotation: str) -> str:
 
 
 def check_can_approve(doc) -> None:
-	"""More conditions on the version itself (validity and repricing join here, SP-54)."""
+	"""An expired version, or one that needs repricing, is not approved: make a new version."""
+	if doc.get("sp_needs_repricing"):
+		frappe.throw(
+			_("This version needs repricing ({0}). Make a new version at today's prices.").format(
+				doc.get("sp_repricing_note") or _("prices changed")
+			)
+		)
+	if doc.get("valid_till") and getdate(doc.valid_till) < getdate(today()):
+		frappe.throw(
+			_("This version expired on {0}. Make a new version.").format(
+				frappe.format(doc.valid_till, "Date")
+			)
+		)
+
+
+def mark_needs_repricing(quotation: str, note: str) -> None:
+	"""Flag a quote whose prices changed or that expired before the deposit (SP-170's job)."""
+	frappe.db.set_value("Quotation", quotation, {"sp_needs_repricing": 1, "sp_repricing_note": note})
 
 
 def _can_approve(case) -> bool:

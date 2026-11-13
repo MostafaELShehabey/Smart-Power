@@ -242,6 +242,8 @@ MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
 Name,الاسم
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
+Needs Repricing,يحتاج إعادة تسعير
+Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
 New price,السعر الجديد
 New Value,القيمة الجديدة
@@ -300,6 +302,8 @@ Price history: {0},سجل أسعار: {0}
 Price List,لستة الأسعار
 Price Lists,لستات الأسعار
 Price lists are not set,لستات الأسعار غير محددة
+prices changed,تغيرت الأسعار
+Prices changed or the quote expired before the deposit: make a new version at today's prices (SP-170).,تغيرت الأسعار أو انتهت صلاحية العرض قبل المقدم: اعمل نسخة جديدة بأسعار اليوم (SP-170).
 Pricing rule,قاعدة تسعير
 Pricing Rules,قواعد التسعير
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
@@ -337,6 +341,7 @@ Refund,رد مبلغ
 Region,المنطقة
 Rename,إعادة تسمية
 Reopen,إعادة فتح
+Repricing Note,ملاحظة إعادة التسعير
 Request,الطلب
 Request Details,تفاصيل الطلب
 Request for Quotation,طلب عرض سعر من مورد
@@ -516,6 +521,8 @@ This list has no values yet. Use Add Value.,هذه القائمة لا تحتو�
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
 This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
+This version expired on {0}. Make a new version.,هذه النسخة انتهت صلاحيتها في {0}. اعمل نسخة جديدة.
+This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
 Tier,الفئة
 Timestamp,الوقت
 To,إلى
