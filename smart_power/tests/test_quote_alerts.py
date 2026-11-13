@@ -52,6 +52,22 @@ class TestQuoteAlerts(IntegrationTestCase):
 		self.assertTrue(frappe.db.exists("SP Review Item", {"reference_name": case.name, "status": "Open"}))
 		self.assertIn(self.aya, alerts_for(case))
 
+	def test_overdue_says_request_over_24_hours_once(self):
+		case = make_case(quote_creator=self.aya)
+		aged(case, 24.2)
+		lang = frappe.local.lang
+		frappe.local.lang = "ar"
+		try:
+			check_quote_clock()
+			check_quote_clock()
+		finally:
+			frappe.local.lang = lang
+		subjects = frappe.get_all(
+			"Notification Log", {"document_name": case.name, "for_user": self.aya}, pluck="subject"
+		)
+		self.assertEqual(len(subjects), 1)
+		self.assertTrue(subjects[0].startswith("طلب تجاوز 24 ساعة"), subjects[0])
+
 	def test_unclaimed_request_alerts_every_quote_creator(self):
 		case = make_case()
 		self.assertTrue({self.aya, self.maha, self.admin} <= set(recipients(case)))
@@ -81,5 +97,5 @@ class TestQuoteAlerts(IntegrationTestCase):
 		self.assertTrue(frappe.db.get_value("SP Rule Setting", "quote_24h", "never_block"))
 		self.assertIn(
 			"smart_power.sp_sales.quote_alerts.check_quote_clock",
-			frappe.get_hooks("scheduler_events")["hourly"],
+			frappe.get_hooks("scheduler_events")["cron"]["*/15 * * * *"],
 		)

@@ -1,4 +1,4 @@
-"""Hourly quote-clock alerts (SP-48).
+"""Quote-clock alerts every 15 minutes (SP-48).
 
 For each open request (Quote request or Draft, no quote sent yet):
 - amber: a reminder to the quote creator (every quote creator while nobody has taken it)
@@ -15,7 +15,7 @@ from frappe.desk.doctype.notification_log.notification_log import make_notificat
 
 from smart_power.rules import OFF, effective_level, evaluate, get_rule_setting, record_warning, registry
 from smart_power.rules.sales import QUOTE_CLOCK_EVENT
-from smart_power.sp_sales.quote_clock import AMBER, OVERDUE, clock
+from smart_power.sp_sales.quote_clock import AMBER, OVERDUE, clock, due_hours
 
 RULE_KEY = "quote_24h"
 OPEN_STATUSES = ("Quote request", "Draft")
@@ -28,7 +28,7 @@ def rule_is_off() -> bool:
 
 
 def check_quote_clock(now=None) -> None:
-	"""Scheduler (hourly): alert on requests that turned amber or overdue since the last run."""
+	"""Scheduler (every 15 minutes): alert on requests that turned amber or overdue since the last run."""
 	if rule_is_off():
 		return
 	for case in frappe.get_all(
@@ -41,7 +41,8 @@ def check_quote_clock(now=None) -> None:
 			doc = frappe.get_doc("SP Case", case.name)
 			for hit in evaluate(doc, QUOTE_CLOCK_EVENT):
 				record_warning(doc, hit)
-			notify(case, _("Quote overdue: {0} ({1})"))
+			# "طلب تجاوز 24 ساعة" with the hours from Quote Due Within
+			notify(case, _("Request over {2} hours: {0} ({1})"))  # sp-allow-number: placeholder
 			frappe.db.set_value("SP Case", case.name, "quote_alert", OVERDUE, update_modified=False)
 		elif state == AMBER and not case.quote_alert:
 			notify(case, _("Quote due soon: {0} ({1})"))
@@ -61,7 +62,7 @@ def notify(case, subject: str) -> None:
 				"type": "Alert",
 				"document_type": "SP Case",
 				"document_name": case.name,
-				"subject": subject.format(case.customer_name or case.name, case.name),
+				"subject": subject.format(case.customer_name or case.name, case.name, f"{due_hours():g}"),
 				"from_user": "Administrator",
 			}
 		),
