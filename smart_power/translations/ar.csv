@@ -88,6 +88,8 @@ Completed By,تم بواسطة
 Completed On,تم في
 Consignment Conversion,تحويل أمانة
 Consignment Owner,صاحب أمانة
+Cost,التكلفة
+Cost and Profit,التكلفة والربح
 Cost Center,المركز المالي
 Cost Centers,المراكز المالية
 Created: {0} · Updated: {1} · Errors: {2},تمت إضافة: {0} · تم تحديث: {1} · أخطاء: {2}
@@ -197,6 +199,7 @@ Limits,الحدود
 Limits and Scope,الحدود والنطاق
 "Limits must be a JSON object, for example {""max_days"": 3}.","يجب أن تكون الحدود كائن JSON، مثلاً {""max_days"": 3}."
 Limits must be valid JSON.,يجب أن تكون الحدود JSON صحيحاً.
+Line Profit,ربح البند
 List,القائمة
 List Price,سعر اللستة
 Lists,القوائم
@@ -286,6 +289,7 @@ P1 Cost,تكلفة P1
 Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
 Payment Method,طريقة الدفع
+"Per unit, from the P1 Cost price list when left empty.",للوحدة، من قائمة تكلفة P1 إذا تُركت فارغة.
 Phone,التليفون
 PM,م
 PO Sent,تم إرسال أمر التوريد
@@ -308,6 +312,8 @@ Pricing rule,قاعدة تسعير
 Pricing Rules,قواعد التسعير
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
 Priority,الأولوية
+Profit,الربح
+Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
 Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
 Pump Specs,مواصفات الطلمبة
 Quotation,عرض سعر
@@ -528,6 +534,7 @@ Timestamp,الوقت
 To,إلى
 "To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
 Took the request,استلم الطلب
+Total Cost,إجمالي التكلفة
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit,في الطريق
