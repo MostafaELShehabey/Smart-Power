@@ -28,6 +28,12 @@ LIST_VALUE = "SP List Value"
 FOLLOWUP_ROLE = "SP Customer Followup"
 CLOSED_STATUSES = ("Won", "Lost")
 ADMIN_ROLE = "SP Admin"
+QUOTE_CREATOR_ROLE = "SP Quote Creator"
+FOLLOWUP_ALL_ROLE = "SP Followup All"
+INSTALLATION_MANAGER_ROLE = "SP Installation Manager"
+MARKETING_ROLE = "SP Marketing Agent"
+MARKETING_CHANNEL = "Marketing"
+SOURCE_LIST = "Lead Source"
 INVALID, NEW, MINE, FEATURED, COLLEAGUE = "invalid", "new", "mine", "featured", "colleague"
 SYSTEM_TYPE_LIST = "System Type"
 META_KEY = "request_fields"
@@ -185,15 +191,20 @@ def _users_with(role: str) -> list[str]:
 
 @frappe.whitelist()
 def followup_owners() -> list[dict]:
-	"""Enabled users who follow up customers: the choices for the case's follow-up owner."""
+	"""Enabled users who follow up customers: the choices for the case's follow-up owner.
+	`lead` marks the follow-up lead (SP Followup All, كاميليا), marketing's default."""
 	frappe.has_permission(CASE, "create", throw=True)
 	users = frappe.get_all("Has Role", {"role": FOLLOWUP_ROLE, "parenttype": "User"}, pluck="parent")
-	return frappe.get_all(
+	leads = set(_users_with(FOLLOWUP_ALL_ROLE))
+	owners = frappe.get_all(
 		"User",
 		filters={"name": ("in", users or [""]), "enabled": 1},
 		fields=["name", "full_name"],
 		order_by="full_name asc",
 	)
+	for owner in owners:
+		owner["lead"] = int(owner.name in leads)
+	return owners
 
 
 @frappe.whitelist(methods=["POST"])
@@ -214,6 +225,8 @@ def create_quote_request(request: dict | str) -> dict:
 			_("{0} is not a valid Egyptian mobile.").format(frappe.bold(request.get("mobile") or ""))
 		)
 
+	if request.get("channel") == MARKETING_CHANNEL and not request.get("source"):
+		frappe.throw(_("A marketing request needs its source."), frappe.MandatoryError)
 	details = clean_details(request.system_type, request.get("details"))
 	check_loads(request.system_type, request.get("loads"))
 
@@ -253,6 +266,7 @@ def create_quote_request(request: dict | str) -> dict:
 				"channel": request.get("channel"),
 				"requested_by": frappe.session.user,
 				"follow_up_owner": request.get("follow_up_owner") or _default_followup_owner(),
+				"source": request.get("source") or None,
 				"system_types": [{"system_type": request.system_type}],
 				"request_details": details,
 				"site_visit_needed": cint(request.get("site_visit_needed")),
@@ -266,12 +280,67 @@ def create_quote_request(request: dict | str) -> dict:
 	except Exception:
 		frappe.db.rollback(save_point="sp_quote_request")
 		raise
+	after_request(case)
 	return {"case": case.name, "customer": customer, "new_customer": new_customer}
 
 
+def after_request(case) -> None:
+	"""A saved request: tell the admins and quote creators, give each quote creator a
+	"Quote Request" task (the first to take it closes the others, SP-48), and ask the
+	installation managers for a site survey when one is needed (SP-95 adds the survey)."""
+	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+
+	subject = _("New quote request: {0} ({1})").format(case.customer_name or case.customer, case.name)
+	make_notification_logs(
+		frappe._dict(
+			{
+				"type": "Alert",
+				"document_type": CASE,
+				"document_name": case.name,
+				"subject": subject,
+				"from_user": frappe.session.user,
+			}
+		),
+		sorted(set(_users_with(ADMIN_ROLE)) | set(_users_with(QUOTE_CREATOR_ROLE))),
+	)
+	for user in _users_with(QUOTE_CREATOR_ROLE):
+		_task(
+			case, "Quote Request", user, _("Quote request: {0}").format(case.customer_name or case.customer)
+		)
+	if case.site_visit_needed:
+		for user in _users_with(INSTALLATION_MANAGER_ROLE):
+			_task(
+				case,
+				"Site Survey",
+				user,
+				_("Site survey for {0}").format(case.customer_name or case.customer),
+			)
+
+
+def _task(case, task_type: str, user: str, subject: str) -> None:
+	frappe.get_doc(
+		{
+			"doctype": "SP Task",
+			"subject": subject,
+			"task_type": task_type,
+			"assigned_to": user,
+			"due_at": case.get("quote_due_at"),
+			"reference_doctype": CASE,
+			"reference_name": case.name,
+		}
+	).insert(ignore_permissions=True)
+
+
 def _default_followup_owner() -> str | None:
-	"""The person taking the request, when they follow up customers themselves."""
-	return frappe.session.user if FOLLOWUP_ROLE in frappe.get_roles() else None
+	"""The person taking the request when they follow up customers; marketing hands its
+	requests to كاميليا (the follow-up lead, SP Followup All) unless another owner is picked."""
+	roles = frappe.get_roles()
+	if FOLLOWUP_ROLE in roles:
+		return frappe.session.user
+	if MARKETING_ROLE in roles:
+		leads = _users_with(FOLLOWUP_ALL_ROLE)
+		return leads[0] if leads else None
+	return None
 
 
 def needs_loads(system_type: str | None) -> dict | None:

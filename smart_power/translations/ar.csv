@@ -4,6 +4,7 @@ A,A
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
 A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
+A marketing request needs its source.,طلب التسويق يحتاج إلى مصدره.
 A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
@@ -207,6 +208,7 @@ Job Type,نوع الشغلانة
 Label,الاسم
 Last Action,آخر إجراء
 Late Entry,تسجيل متأخر
+Lead Source,مصدر العميل المحتمل
 Legal Name (Arabic),الاسم القانوني (عربي)
 Level,المستوى
 Light,خفيف
@@ -270,6 +272,7 @@ Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
 New price,السعر الجديد
+New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Value,القيمة الجديدة
 New Version,نسخة جديدة
 Night Hours,ساعات الليل
@@ -354,6 +357,7 @@ Quote overdue: {0} ({1}),عرض متأخر: {0} ({1})
 Quote Request,طلب عرض
 Quote request,طلب عرض
 Quote Request Queue,قائمة طلبات العروض
+Quote request: {0},طلب عرض سعر: {0}
 Quote Sent At,وقت إرسال العرض
 Quote Status,حالة العرض
 Quote validity,صلاحية العرض
@@ -429,12 +433,14 @@ Simple Record Type,نوع التسجيل البسيط
 Site,موقع
 Site Stage,مرحلة الموقع
 Site Survey,معاينة موقع
+Site survey for {0},معاينة موقع لـ {0}
 Site Visit Needed,يحتاج معاينة موقع
 Smart Power,سمارت باور
 Smart Power Settings,إعدادات سمارت باور
 Smart Power's cost. Visible to cost roles only (SP-35).,تكلفة سمارت باور. تظهر لأدوار التكلفة فقط (SP-35).
 Snoozed Until,مؤجل حتى
 Sort Order,الترتيب
+Source,المصدر
 SP Account Map,خريطة الحسابات
 SP Accountant,المحاسب
 SP Admin,الأدمن
@@ -600,6 +606,7 @@ Watts,وات
 WhatsApp,واتساب
 When,متى
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
+Where a marketing request came from (X4 Lead Source list); required for the Marketing channel.,من أين جاء طلب التسويق (قائمة مصادر العملاء في X4)؛ مطلوب لقناة التسويق.
 Who,مَن
 "Who brought the request in (showroom, call or marketing).",من جاء بالطلب (المعرض أو المكالمة أو التسويق).
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.

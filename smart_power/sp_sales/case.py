@@ -13,7 +13,7 @@ from frappe import _
 from frappe.utils import now_datetime, today
 
 from smart_power.sp_sales import quote_clock
-from smart_power.sp_sales.quote_request import PAYMENT_LIST, clean_details
+from smart_power.sp_sales.quote_request import PAYMENT_LIST, SOURCE_LIST, clean_details
 
 DOCTYPE = "SP Case"
 QUOTE_REQUEST, DRAFT, WON, LOST = "Quote request", "Draft", "Won", "Lost"
@@ -42,6 +42,7 @@ def validate(doc) -> None:
 		if doc.request_details:
 			doc.request_details = clean_details(system_type, doc.request_details)
 	_check_list(doc.get("payment_method"), PAYMENT_LIST)
+	_check_list(doc.get("source"), SOURCE_LIST)
 	take_request(doc)
 	record_owner_changes(doc)
 	quote_clock.on_validate(doc)

@@ -10,6 +10,7 @@
   "column_break_head",
   "status",
   "channel",
+  "source",
   "system_types",
   "request_section",
   "site_visit_needed",
@@ -88,6 +89,15 @@
    "options": "Showroom\nCall\nMarketing",
    "reqd": 1,
    "in_standard_filter": 1
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Link",
+   "label": "Source",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Lead Source\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
+   "in_standard_filter": 1,
+   "description": "Where a marketing request came from (X4 Lead Source list); required for the Marketing channel."
   },
   {
    "fieldname": "system_types",
@@ -281,7 +291,7 @@
    "link_fieldname": "sp_case"
   }
  ],
- "modified": "2026-11-14 18:00:00.000000",
+ "modified": "2026-11-14 20:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

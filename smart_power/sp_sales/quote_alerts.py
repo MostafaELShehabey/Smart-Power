@@ -56,13 +56,15 @@ def recipients(case) -> list[str]:
 
 def notify(case, subject: str) -> None:
 	make_notification_logs(
-		{
-			"type": "Alert",
-			"document_type": "SP Case",
-			"document_name": case.name,
-			"subject": subject.format(case.customer_name or case.name, case.name),
-			"from_user": "Administrator",
-		},
+		frappe._dict(
+			{
+				"type": "Alert",
+				"document_type": "SP Case",
+				"document_name": case.name,
+				"subject": subject.format(case.customer_name or case.name, case.name),
+				"from_user": "Administrator",
+			}
+		),
 		recipients(case),
 	)
 

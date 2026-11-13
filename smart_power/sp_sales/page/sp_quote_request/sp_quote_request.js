@@ -25,7 +25,9 @@ class SPQuoteRequest {
 
 	async make() {
 		const { message: owners } = await frappe.call(`${SP_QR_API}.followup_owners`);
-		const me = (owners || []).find((u) => u.name === frappe.session.user);
+		// default owner: me when I follow up customers, else the follow-up lead (كاميليا)
+		const me =
+			(owners || []).find((u) => u.name === frappe.session.user) || (owners || []).find((u) => u.lead);
 		this.form = new frappe.ui.FieldGroup({
 			parent: this.$main,
 			fields: [
@@ -91,6 +93,15 @@ class SPQuoteRequest {
 						{ value: "Marketing", label: __("Marketing") },
 					],
 					default: "Call",
+				},
+				{
+					fieldname: "source",
+					fieldtype: "Link",
+					options: "SP List Value",
+					label: __("Source"),
+					depends_on: "eval:doc.channel=='Marketing'",
+					mandatory_depends_on: "eval:doc.channel=='Marketing'",
+					get_query: () => ({ filters: { list_name: "Lead Source", is_active: 1 } }),
 				},
 				{
 					fieldname: "follow_up_owner",
