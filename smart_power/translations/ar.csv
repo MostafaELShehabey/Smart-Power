@@ -26,6 +26,7 @@ Actions,إجراءات
 Active,فعال
 Add,إضافة
 Add Amount,مبلغ إضافي
+Add Photos,إضافة صور
 Add Value,إضافة قيمة
 Add Value to {0},إضافة قيمة إلى {0}
 "Added to every quote of its offer type, like transport or installation.",يُضاف لكل عرض من نفس نوع العرض، مثل النقل أو التركيب.
@@ -331,6 +332,9 @@ Parent Value,القيمة الأم
 Payment Method,طريقة الدفع
 "Per unit, from the P1 Cost price list when left empty.",للوحدة، من قائمة تكلفة P1 إذا تُركت فارغة.
 Phone,التليفون
+Photo {0} cannot be added to this request.,لا يمكن إضافة الصورة {0} إلى هذا الطلب.
+Photos,الصور
+Photos (optional),الصور (اختياري)
 PM,م
 PO Sent,تم إرسال أمر التوريد
 Posting Event,حدث القيد
@@ -388,6 +392,7 @@ Refresh,تحديث
 Refund,رد مبلغ
 Region,المنطقة
 Registered with {0},مسجل لدى {0}
+Remove,إزالة
 Rename,إعادة تسمية
 Reopen,إعادة فتح
 Repricing Note,ملاحظة إعادة التسعير
@@ -645,6 +650,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} installation manager(s) asked,تم طلب المعاينة من {0} من مديري التركيبات
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
+{0} is not a photo.,{0} ليس صورة.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 {0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.

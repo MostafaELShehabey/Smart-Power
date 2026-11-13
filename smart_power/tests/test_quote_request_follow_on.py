@@ -1,5 +1,7 @@
 """After a quote request is saved: alerts, tasks and marketing rules (SP-47)."""
 
+import base64
+
 import frappe
 from frappe.tests import IntegrationTestCase
 
@@ -67,3 +69,51 @@ class TestQuoteRequestFollowOn(IntegrationTestCase):
 				create_quote_request,
 				request(mobile="01007772005", channel="Marketing", source="System Type-PUMP"),
 			)
+
+
+PNG = base64.b64decode(
+	"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+)
+
+
+def upload(user, name, content=PNG):
+	frappe.set_user(user)
+	try:
+		return (
+			frappe.get_doc({"doctype": "File", "file_name": name, "content": content, "is_private": 1})
+			.insert()
+			.name
+		)
+	finally:
+		frappe.set_user("Administrator")
+
+
+class TestQuoteRequestPhotos(IntegrationTestCase):
+	def setUp(self):
+		self.camelia = make_user("sp.ph.camelia@example.com", ("lead_intake", "customer_followup"))
+		self.maha = make_user("sp.ph.maha@example.com", ("lead_intake", "customer_followup"))
+
+	def test_photos_are_attached_to_the_case(self):
+		photos = [upload(self.camelia, "well.png"), upload(self.camelia, "panel.png")]
+		case = as_user(self.camelia, create_quote_request, request(mobile="01007772101", photos=photos))[
+			"case"
+		]
+		self.assertEqual(
+			set(
+				frappe.get_all(
+					"File", {"attached_to_doctype": "SP Case", "attached_to_name": case}, pluck="name"
+				)
+			),
+			set(photos),
+		)
+
+	def test_only_my_own_photos(self):
+		theirs = upload(self.maha, "theirs.png")
+		with self.assertRaises(frappe.ValidationError):
+			as_user(self.camelia, create_quote_request, request(mobile="01007772102", photos=[theirs]))
+		self.assertFalse(frappe.db.exists("Customer", {"sp_mobile": "01007772102"}))
+
+	def test_only_images(self):
+		doc = upload(self.camelia, "notes.txt", b"hello")
+		with self.assertRaises(frappe.ValidationError):
+			as_user(self.camelia, create_quote_request, request(mobile="01007772103", photos=[doc]))

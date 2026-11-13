@@ -15,6 +15,7 @@ neither.
 """
 
 import json
+import mimetypes
 
 import frappe
 from frappe import _
@@ -241,7 +242,8 @@ def create_quote_request(request: dict | str) -> dict:
 
 	request: system_type, mobile, customer_name, tier, region (new customers), channel,
 	follow_up_owner, location_text, geo, payment_method, site_visit_needed, request_notes,
-	details ({fieldname: value}) and loads ([{device, qty, watts, day_hours, night_hours}]).
+	details ({fieldname: value}), loads ([{device, qty, watts, day_hours, night_hours}]) and
+	photos (optional: names of image Files the user has just uploaded, attached to the case).
 	"""
 	frappe.has_permission(CASE, "create", throw=True)
 	request = frappe.parse_json(request) if isinstance(request, str) else frappe._dict(request)
@@ -305,11 +307,24 @@ def create_quote_request(request: dict | str) -> dict:
 				"loads": request.get("loads") or [],
 			}
 		).insert()
+		attach_photos(case, request.get("photos"))
 	except Exception:
 		frappe.db.rollback(save_point="sp_quote_request")
 		raise
 	after_request(case)
 	return {"case": case.name, "customer": customer, "new_customer": new_customer}
+
+
+def attach_photos(case, photos) -> None:
+	"""Attach the request's photos to the case. Only the user's own unattached images qualify."""
+	for name in photos or []:
+		file = frappe.get_doc("File", name)
+		if file.owner != frappe.session.user or file.attached_to_doctype or file.is_folder:
+			frappe.throw(_("Photo {0} cannot be added to this request.").format(frappe.bold(file.file_name)))
+		if not (mimetypes.guess_type(file.file_url or file.file_name or "")[0] or "").startswith("image/"):
+			frappe.throw(_("{0} is not a photo.").format(frappe.bold(file.file_name)))
+		file.attached_to_doctype, file.attached_to_name = CASE, case.name
+		file.save(ignore_permissions=True)
 
 
 def after_request(case) -> None:
