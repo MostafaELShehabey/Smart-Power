@@ -1,5 +1,8 @@
+0 decimals,بدون كسور
 0 means no rounding; 5 rounds to the nearest 5.,صفر يعني بدون تقريب، و5 يعني التقريب لأقرب 5.
+1 decimal,رقم عشري واحد
 1 is picked first.,رقم 1 يُختار أولاً.
+2 decimals,رقمان عشريان
 A,A
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
@@ -17,6 +20,7 @@ A sent version cannot be cancelled. Make a new version instead.,لا يمكن إ
 A site survey is already asked for this request.,تم طلب معاينة الموقع لهذا الطلب بالفعل.
 A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
+A template needs at least one line before it is published.,القالب يحتاج سطرًا واحدًا على الأقل قبل نشره.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
 Abnormal,غير طبيعي
 Accepted Quotation,العرض المعتمد
@@ -54,11 +58,13 @@ Ask the quote creator to approve a larger discount.,اطلب من صاحب ال�
 Assigned To,مسند إلى
 B,B
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
+battery_ah,سعة البطارية (أمبير ساعة)
 Block,منع
 Blocked,ممنوع
 Blocked by a business rule,تم المنع بقاعدة عمل
 Brand,الماركة
 Brand Priority,أولوية الماركات
+Brand priority,أولوية الماركة
 BTB,BTB
 BTB (Companies),BTB (الشركات)
 BTC,BTC
@@ -68,6 +74,7 @@ Call,مكالمة
 Call Result,نتيجة المكالمة
 Can Never Block,لا يمنع أبداً
 Cancelled,ملغي
+Capacity Spec,مواصفة القدرة
 Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case opened,فتح الحالة
@@ -82,7 +89,9 @@ Change Order,أمر تغيير
 Changed By,تم التغيير بواسطة
 Channel,القناة
 Chassis,الشاسيه
+Check,اختيار (نعم/لا)
 Check the specs,راجع المواصفات
+Check the template,راجع القالب
 Cheque,شيك
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
@@ -107,6 +116,8 @@ Cost,التكلفة
 Cost and Profit,التكلفة والربح
 Cost Center,المركز المالي
 Cost Centers,المراكز المالية
+Cost Source,مصدر التكلفة
+Cost x Markup,التكلفة × نسبة الربح
 Countdown,العد التنازلي
 Created: {0} · Updated: {1} · Errors: {2},تمت إضافة: {0} · تم تحديث: {1} · أخطاء: {2}
 Credit Account,الحساب الدائن
@@ -116,9 +127,14 @@ Customer,العميل
 Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Customer Name,اسم العميل
+Data,نص
 Day Hours,ساعات النهار
 Deactivate instead,أوقفها بدلاً من الحذف
 Debit Account,الحساب المدين
+Default,الافتراضي
+Default Cost,التكلفة الافتراضية
+Default Item,الصنف الافتراضي
+Default Price,السعر الافتراضي
 Default Quote Print Format,شكل طباعة العرض الافتراضي
 Default Rounding Step,خطوة التقريب الافتراضية
 Default Selection,الاختيار الافتراضي
@@ -135,6 +151,8 @@ Download the template,تحميل النموذج
 Draft,مسودة
 Drag to reorder,اسحب لتغيير الترتيب
 Due At,الميعاد
+"E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round.",مثل ceil(depth / pipe_m). الأسماء المتاحة: المدخلات، مفاتيح السطور السابقة (pipes.qty)، item (مواصفات الصنف المختار)، settings؛ والدوال ceil وfloor وmround وnearest_divisible وmin وmax وabs وround.
+E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Edit,تعديل
 "Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
 Empty means all offer types.,فارغ يعني كل أنواع العروض.
@@ -154,6 +172,7 @@ Expense Type,نوع المصروف
 Expired,منتهي الصلاحية
 Extra Data,بيانات إضافية
 "Extra settings for this value as JSON, e.g. the calculation template of a system type.",إعدادات إضافية لهذه القيمة بصيغة JSON، مثل قالب الحساب لنوع النظام.
+Factory,المصنع
 Featured,مميز
 Field,الحقل
 Field entry,التسجيل الميداني
@@ -166,15 +185,21 @@ Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
 Financial Center,المركز المالي
 Financing Type,نوع التمويل
 Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
+First in stock,أول صنف متوفر بالمخزن
 First Version,النسخة الأولى
 Fiscal Year Start,بداية السنة المالية
 Fixed,ثابت
+Fixed list price,سعر القائمة الثابت
 Fixed Quote Line,بند ثابت في العرض
+Float,رقم عشري
 Flow (m³/h),التصرف (م³/ساعة)
+flow_m3h,التصرف (م³/ساعة)
 Follow-up,متابعة
 Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
+For a line with no item yet.,لسطر ليس له صنف بعد.
+For chassis templates: one per factory.,لقوالب الشاسيه: قالب لكل مصنع.
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
 "For full alternative quotes on the same case (A/B/C, SP-59).",للعروض البديلة الكاملة على نفس الحالة (A/B/C، SP-59).
 For off-grid and hybrid requests: each device with its watts and day / night hours.,لطلبات الأوف جريد والهايبرد: كل جهاز بقدرته بالوات وساعات تشغيله نهاراً وليلاً.
@@ -187,12 +212,16 @@ Full,كامل
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
 "Give a reason, for example the supplier's new price list.",اكتب السبب، مثلاً لستة المورد الجديدة.
 Head (m),الرفع (متر)
+head_m,الرفع (متر)
 Hello {0},أهلاً {0}
+Help,مساعدة
+Hidden on Print,مخفي في الطباعة
 Highlight,تمييز
 History,السجل
 Hit At,وقت التنبيه
 Home Page Variant,شكل الصفحة الرئيسية
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
+hp,القدرة (حصان)
 Imp (A),Imp (أمبير)
 Import,استيراد
 Import from Excel,استيراد من إكسل
@@ -204,15 +233,21 @@ Importing prices…,جاري استيراد الأسعار…
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
 Individual,فرد
 Individual (BTC) or company (BTB). Sets the customer type.,فرد (BTC) أو شركة (BTB). يحدد نوع العميل.
+Input {0},المدخل {0}
+Inputs,المدخلات
+Int,رقم صحيح
 Invalid mobile,رقم موبايل غير صحيح
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
 Inverter Brand,ماركة الإنفرتر
 Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
 Item Group,مجموعة الأصناف
+Item Selection,اختيار الصنف
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
 Job Type,نوع الشغلانة
+Key,المفتاح
 Key Data,البيانات الأساسية
+kw,القدرة (كيلووات)
 Label,الاسم
 Last Action,آخر إجراء
 Late Entry,تسجيل متأخر
@@ -225,15 +260,21 @@ Limits,الحدود
 Limits and Scope,الحدود والنطاق
 "Limits must be a JSON object, for example {""max_days"": 3}.","يجب أن تكون الحدود كائن JSON، مثلاً {""max_days"": 3}."
 Limits must be valid JSON.,يجب أن تكون الحدود JSON صحيحاً.
+Line Key,مفتاح السطر
 Line Profit,ربح البند
+Line {0},السطر {0}
+Lines,السطور
 List,القائمة
 List Price,سعر اللستة
+"Listed under the total, not in it (SP-59).",يظهر تحت الإجمالي ولا يدخل فيه (SP-59).
 Lists,القوائم
 Load more,تحميل المزيد
 Loads,الأحمال
 Location,الموقع
 Location and Payment,الموقع وطريقة الدفع
 Location Pin,تحديد الموقع على الخريطة
+Locked,مقفل
+Locked BTC price,سعر BTC مقفل
 Locked for quote creators.,مقفل على أصحاب العروض.
 Log out,تسجيل الخروج
 Logo,الشعار
@@ -243,6 +284,7 @@ Lost Note,ملاحظة الخسارة
 Lost Reason,سبب الخسارة
 Main,رئيسي
 Main Supplier,المورد الرئيسي
+Manual,يدوي
 Manual Entry,إدخال يدوي
 Manual Prices,أسعار يدوية
 Margin,هامش الربح
@@ -254,6 +296,7 @@ Mark this version as the one the customer accepted?,اعتماد هذه النس
 Mark Won,تسجيل الكسب
 Marked as a featured customer.,تم تمييز العميل كعميل مميز.
 Marketing,تسويق
+Markup %,نسبة الربح %
 Markup Basis,أساس المعامل
 Markup on cost,معامل على التكلفة
 Max DC Voltage (V),أقصى جهد DC (فولت)
@@ -277,6 +320,9 @@ MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
 Name,الاسم
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
+Nearest 10,أقرب 10
+Nearest 5,أقرب 5
+Need Formula,معادلة الاحتياج
 Needs Repricing,يحتاج إعادة تسعير
 Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
@@ -297,11 +343,13 @@ No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 Not allowed,غير مسموح
 Note,ملاحظة
+Notes,ملاحظات
 Off,متوقف
 Offer Type,نوع العرض
 Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
 On time,في الموعد
+One choice per line.,اختيار واحد في كل سطر.
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only a quote linked to a case can be the approved version.,فقط العرض المرتبط بحالة يمكن أن يكون النسخة المعتمدة.
@@ -316,6 +364,8 @@ Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
 Option,الخيار
+Optional,اختياري
+Options,الاختيارات
 Order saved,تم حفظ الترتيب
 Other,أخرى
 Outcome,النتيجة
@@ -327,10 +377,13 @@ Owner History,سجل المسؤولين
 Owner Name,اسم المالك
 Owners,المسؤولون
 P1 Cost,تكلفة P1
+P1 price,سعر P1
 Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
+Pass-through,بسعر التكلفة
 Payment Method,طريقة الدفع
 "Per unit, from the P1 Cost price list when left empty.",للوحدة، من قائمة تكلفة P1 إذا تُركت فارغة.
+Per-kW default,افتراضي لكل كيلووات
 Phone,التليفون
 Photo {0} cannot be added to this request.,لا يمكن إضافة الصورة {0} إلى هذا الطلب.
 Photos,الصور
@@ -352,15 +405,24 @@ Price Lists,لستات الأسعار
 Price lists are not set,لستات الأسعار غير محددة
 prices changed,تغيرت الأسعار
 Prices changed or the quote expired before the deposit: make a new version at today's prices (SP-170).,تغيرت الأسعار أو انتهت صلاحية العرض قبل المقدم: اعمل نسخة جديدة بأسعار اليوم (SP-170).
+Pricing,التسعير
 Pricing rule,قاعدة تسعير
 Pricing Rules,قواعد التسعير
+Print Group,مجموعة الطباعة
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
 Priority,الأولوية
 Profit,الربح
 Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
 Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
+Publish,نشر
+Publish version {0}? The published version of this offer type stops.,نشر الإصدار {0}؟ سيتوقف الإصدار المنشور حاليًا لنفس نوع العرض.
+Published,منشور
+Published On,تاريخ النشر
+Published template,قالب منشور
+Published: this version cannot change. Make a new version to edit.,منشور: لا يمكن تعديل هذا الإصدار. أنشئ إصدارًا جديدًا للتعديل.
 Pump Specs,مواصفات الطلمبة
 Qty,العدد
+Qty Formula,معادلة الكمية
 Quotation,عرض سعر
 Quotations,عروض الأسعار
 Quote Alert,تنبيه العرض
@@ -405,12 +467,14 @@ Request Revision,طلب تعديل
 Request {0} is yours,الطلب {0} أصبح لك
 Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
+Required,مطلوب
 Result,النتيجة
 Review,المراجعة
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
 Reviewed On,تاريخ المراجعة
 Round Derived Prices To,تقريب الأسعار المحسوبة إلى
+Round Price,تقريب السعر
 Row,الصف
 Row {0}: a price cannot be worked out from itself.,سطر {0}: لا يمكن حساب سعر من نفسه.
 Row {0}: the address {1} is listed twice.,الصف {0}: العنوان {1} مكرر.
@@ -429,6 +493,8 @@ Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون ت�
 Saving the request…,جارٍ حفظ الطلب…
 Scope,النطاق
 Second Mobile,موبايل إضافي
+Section,القسم
+Select,قائمة اختيار
 Send,إرسال
 Send to Customer,إرسال للعميل
 Sent,أُرسل
@@ -442,6 +508,7 @@ Set when the customer's first deal is won. Shows a gold star in lists.,يُفع�
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
 Setup failed,فشل الإعداد
 Setup is complete but there is no company named {0}.,الإعداد مكتمل لكن لا توجد شركة باسم {0}.
+"Shared by all versions, e.g. PUMP or CHASSIS-<factory>.",مشترك بين كل الإصدارات، مثل PUMP أو CHASSIS-<المصنع>.
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
 "Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",مفتاح قصير تستخدمه التقارير والنظام، مثل PUMP. لا يتغير بعد الحفظ لأنه جزء من اسم السجل.
 Showroom,المعرض
@@ -465,6 +532,9 @@ SP Admin,الأدمن
 SP Audit Log,سجل العمليات
 SP Bank Financing,التمويل البنكي
 SP Brand Priority,أولوية الماركة
+SP Calc Template,قالب الحساب
+SP Calc Template Input,مدخل قالب الحساب
+SP Calc Template Line,سطر قالب الحساب
 SP Call Center,كول سنتر ومتابعة العملاء
 SP Case,الحالة
 SP Case System Type,نوع نظام الحالة
@@ -553,6 +623,8 @@ Task Type,نوع المهمة
 Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
 Technical Review,مراجعة فنية
+Template Code,كود القالب
+Template Name,اسم القالب
 Terms Note,ملاحظة الشروط
 The admin has been asked,تم إرسال الطلب للمدير
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
@@ -568,6 +640,11 @@ The file is empty.,الملف فارغ.
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
 The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
+"The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
+The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
+The markup cannot be changed on a quote. Locked BTC lines are always locked.,لا يمكن تغيير نسبة الربح في العرض. سطور BTC المقفلة مقفلة دائمًا.
+"The name formulas use, e.g. depth or hp (letters, digits and _).",الاسم الذي تستخدمه المعادلات، مثل depth أو hp (حروف وأرقام و _).
+"The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
@@ -578,6 +655,7 @@ The quote needs a site survey first (survey tasks come with SP-95).,العرض �
 The requester was asked,تم سؤال صاحب الطلب
 The row has no price.,السطر لا يحتوي على سعر.
 The sales case this quote belongs to. Its customer must be the case's customer.,الحالة التي يتبعها هذا العرض. عميله يجب أن يكون عميل الحالة.
+"The smallest capacity accepted, e.g. hp.",أقل قدرة مقبولة، مثل hp.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
@@ -601,18 +679,23 @@ Total discount limit for the follow-up owner,حد الخصم على الإجما
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit,في الطريق
 Transit Account,الحساب الوسيط
+Type,النوع
 Unclaimed,غير مستلَم
 Unknown list {0}.,قائمة غير معروفة {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.
+Unpublish,إلغاء النشر
+Unpublished,أُلغي النشر
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
 User,المستخدم
 "v1, v2 … per case.",v1، v2 … لكل حالة.
+Valuation rate,سعر التقييم
 Value (Arabic),القيمة (عربي)
 Value (English),القيمة (إنجليزي)
 Version,النسخة
 Version 1 of this quote: every version of one quote shares it.,النسخة 1 من هذا العرض: كل نسخ العرض الواحد تشترك فيها.
+Version {0} is published and cannot change. Make a new version.,الإصدار {0} منشور ولا يمكن تعديله. أنشئ إصدارًا جديدًا.
 Version {0} of case {1}.,النسخة {0} من الحالة {1}.
 Version {0} of case {1}: the approved version.,النسخة {0} من الحالة {1}: النسخة المعتمدة.
 "Village, centre or landmark.",القرية أو المركز أو علامة مميزة.
@@ -623,6 +706,7 @@ Warned,تم التنبيه
 Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
+watt,القدرة (وات)
 Watts,وات
 What is missing?,ما الناقص؟
 WhatsApp,واتساب
@@ -634,6 +718,7 @@ Who,مَن
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
+Winch Line,سطر الونش
 Won,تم الكسب
 Won On,تاريخ الكسب
 Write what is missing.,اكتب ما هو ناقص.
@@ -660,8 +745,24 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} of {1} items,{0} من {1} صنف
 {0} {1} does not exist.,{0} {1} غير موجود.
+{0}: a Select input needs its options.,{0}: مدخل القائمة يحتاج اختياراته.
 {0}: a {1} price needs a supplier.,{0}: سعر {1} يحتاج مورداً.
+"{0}: brand priority needs an item group, a capacity spec and a need formula.",{0}: أولوية الماركة تحتاج مجموعة أصناف ومواصفة قدرة ومعادلة احتياج.
+{0}: first in stock needs an item group.,{0}: أول صنف متوفر يحتاج مجموعة أصناف.
 {0}: give a reason for changing the {1} price.,{0}: اكتب سبب تغيير سعر {1}.
+{0}: the default {1} is not a number.,{0}: القيمة الافتراضية {1} ليست رقمًا.
+{0}: the default {1} is not one of the options.,{0}: القيمة الافتراضية {1} ليست من الاختيارات.
+{0}: the formula {1} cannot be read.,{0}: لا يمكن قراءة المعادلة {1}.
+{0}: the formula {1} divides by zero.,{0}: المعادلة {1} فيها قسمة على صفر.
+{0}: the formula {1} failed: {2},{0}: فشلت المعادلة {1}: {2}
+{0}: the formula {1} must give a number.,{0}: المعادلة {1} يجب أن تعطي رقمًا.
+{0}: the key {1} is already an input or a line.,{0}: المفتاح {1} مستخدم لمدخل أو سطر آخر.
+{0}: the key {1} is used twice.,{0}: المفتاح {1} مستخدم مرتين.
+"{0}: the key {1} must start with a letter and use only a-z, 0-9 and _.",{0}: المفتاح {1} يجب أن يبدأ بحرف ويستخدم a-z و0-9 و _ فقط.
+{0}: this kind of formula is not allowed.,{0}: هذا النوع من المعادلات غير مسموح.
+{0}: unknown name {1} in the formula {2}.,{0}: اسم غير معروف {1} في المعادلة {2}.
 {0}: {1},{0}: {1}
+{0}: {1} cannot be read.,{0}: لا يمكن قراءة {1}.
+{0}: {1} is a reserved name.,{0}: {1} اسم محجوز.
 {0}: {1} is not one of the choices.,{0}: {1} ليست من الاختيارات.
 ★ Featured,★ مميز

@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "creation": "2026-11-14 03:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "input_key",
+  "label",
+  "input_type",
+  "options",
+  "default_value",
+  "reqd",
+  "help"
+ ],
+ "fields": [
+  {
+   "fieldname": "input_key",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Key",
+   "reqd": 1,
+   "columns": 2,
+   "description": "The name formulas use, e.g. depth or hp (letters, digits and _)."
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Label",
+   "reqd": 1,
+   "columns": 2
+  },
+  {
+   "default": "Float",
+   "fieldname": "input_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Float\nInt\nCheck\nSelect\nData",
+   "columns": 1
+  },
+  {
+   "depends_on": "eval:doc.input_type=='Select'",
+   "fieldname": "options",
+   "fieldtype": "Small Text",
+   "label": "Options",
+   "description": "One choice per line."
+  },
+  {
+   "fieldname": "default_value",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Default",
+   "columns": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "reqd",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Required",
+   "columns": 1
+  },
+  {
+   "fieldname": "help",
+   "fieldtype": "Small Text",
+   "label": "Help"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-14 03:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Calc Template Input",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 1
+}

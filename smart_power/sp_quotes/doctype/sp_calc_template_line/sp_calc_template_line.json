@@ -1,0 +1,198 @@
+{
+ "actions": [],
+ "creation": "2026-11-14 03:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "line_key",
+  "section",
+  "item_group",
+  "item_code",
+  "description",
+  "selection_rule",
+  "capacity_field",
+  "need_formula",
+  "column_break_qty",
+  "qty_formula",
+  "cost_source",
+  "cost_default",
+  "pricing_method",
+  "default_markup",
+  "manual_rate",
+  "rounding",
+  "column_break_flags",
+  "lock_markup",
+  "print_group",
+  "is_optional",
+  "is_hidden",
+  "is_winch_line"
+ ],
+ "fields": [
+  {
+   "fieldname": "line_key",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Line Key",
+   "reqd": 1,
+   "columns": 1,
+   "description": "The name later formulas use for this line, e.g. pipes (pipes.qty)."
+  },
+  {
+   "fieldname": "section",
+   "fieldtype": "Data",
+   "label": "Section",
+   "description": "E.g. Energy or Submersible."
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group",
+   "columns": 2
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Default Item",
+   "options": "Item",
+   "description": "The item for a Manual selection, and the fallback for the other rules."
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description",
+   "description": "For a line with no item yet."
+  },
+  {
+   "default": "Manual",
+   "fieldname": "selection_rule",
+   "fieldtype": "Select",
+   "label": "Item Selection",
+   "options": "Manual\nFirst in stock\nBrand priority"
+  },
+  {
+   "depends_on": "eval:doc.selection_rule=='Brand priority'",
+   "fieldname": "capacity_field",
+   "fieldtype": "Select",
+   "label": "Capacity Spec",
+   "options": "hp\nkw\nwatt\nbattery_ah\nhead_m\nflow_m3h",
+   "description": "The item spec compared with the need."
+  },
+  {
+   "depends_on": "eval:doc.selection_rule=='Brand priority'",
+   "fieldname": "need_formula",
+   "fieldtype": "Data",
+   "label": "Need Formula",
+   "description": "The smallest capacity accepted, e.g. hp."
+  },
+  {
+   "fieldname": "column_break_qty",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "qty_formula",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Qty Formula",
+   "reqd": 1,
+   "columns": 2,
+   "description": "E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round."
+  },
+  {
+   "default": "P1 price",
+   "fieldname": "cost_source",
+   "fieldtype": "Select",
+   "label": "Cost Source",
+   "options": "P1 price\nValuation rate\nPer-kW default\nManual"
+  },
+  {
+   "depends_on": "eval:['Per-kW default','Manual'].includes(doc.cost_source)",
+   "fieldname": "cost_default",
+   "fieldtype": "Currency",
+   "label": "Default Cost",
+   "permlevel": 0
+  },
+  {
+   "default": "Cost x Markup",
+   "fieldname": "pricing_method",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Pricing",
+   "columns": 1,
+   "options": "Cost x Markup\nLocked BTC price\nPass-through\nFixed list price\nManual"
+  },
+  {
+   "depends_on": "eval:doc.pricing_method=='Cost x Markup'",
+   "fieldname": "default_markup",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Markup %",
+   "columns": 1
+  },
+  {
+   "depends_on": "eval:doc.pricing_method=='Manual'",
+   "fieldname": "manual_rate",
+   "fieldtype": "Currency",
+   "label": "Default Price"
+  },
+  {
+   "fieldname": "rounding",
+   "fieldtype": "Select",
+   "label": "Round Price",
+   "options": "\n0 decimals\n1 decimal\n2 decimals\nNearest 5\nNearest 10"
+  },
+  {
+   "fieldname": "column_break_flags",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "lock_markup",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Locked",
+   "columns": 1,
+   "description": "The markup cannot be changed on a quote. Locked BTC lines are always locked."
+  },
+  {
+   "fieldname": "print_group",
+   "fieldtype": "Data",
+   "label": "Print Group"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_optional",
+   "fieldtype": "Check",
+   "label": "Optional",
+   "description": "Listed under the total, not in it (SP-59)."
+  },
+  {
+   "default": "0",
+   "fieldname": "is_hidden",
+   "fieldtype": "Check",
+   "label": "Hidden on Print"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_winch_line",
+   "fieldtype": "Check",
+   "label": "Winch Line"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-14 03:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Calc Template Line",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 0
+}
