@@ -10,6 +10,15 @@ const SP_QQ_VIEWS = [
 	{ value: "All", label: "All" },
 ];
 const SP_QQ_COLOURS = { "On time": "green", Amber: "orange", Overdue: "red", Sent: "blue" };
+const SP_QQ_TICK_MS = 30000; // sp-allow-number: the countdown redraws every 30 seconds
+
+// "HH:MM" for a number of seconds, rounded up to the minute ("-HH:MM" once overdue)
+function sp_qq_hhmm(seconds) {
+	const minutes = Math.ceil(Math.abs(seconds) / 60); // sp-allow-number: seconds per minute
+	const hh = String(Math.floor(minutes / 60)).padStart(2, "0"); // sp-allow-number: minutes per hour
+	const mm = String(minutes % 60).padStart(2, "0"); // sp-allow-number: minutes per hour
+	return `${seconds < 0 ? "-" : ""}${hh}:${mm}`;
+}
 
 frappe.pages["sp-quote-queue"].on_page_load = function (wrapper) {
 	const page = frappe.ui.make_app_page({
@@ -59,7 +68,7 @@ class SPQuoteQueue {
 			return;
 		}
 		const $table = $(`<table class="table table-hover sp-qq-table"><thead><tr>
-			<th>${esc(__("Age"))}</th>
+			<th>${esc(__("Countdown"))}</th>
 			<th>${esc(__("Customer"))}</th>
 			<th>${esc(__("System Type"))}</th>
 			<th>${esc(__("Key Data"))}</th>
@@ -76,9 +85,8 @@ class SPQuoteQueue {
 				? ` <span class="indicator-pill orange">${esc(__("Site Visit Needed"))}</span>`
 				: "";
 			const $row = $(`<tr>
-				<td><span class="indicator-pill ${colour}">${esc(__("{0} h", [r.hours]))} · ${esc(
-					__(r.state)
-				)}</span></td>
+				<td><span class="indicator-pill sp-qq-clock ${colour}">${esc(__(r.state))}</span>
+					<div class="text-muted small">${esc(__("{0} h", [r.hours]))}</div></td>
 				<td>${esc(r.customer_name || "")}<div class="text-muted small">${esc(r.mobile || "")}</div></td>
 				<td>${esc(r.system_type || "")}${visit}</td>
 				<td class="small">${(r.key_data || []).map((d) => `<div>${esc(d)}</div>`).join("")}</td>
@@ -128,7 +136,30 @@ class SPQuoteQueue {
 					.on("click", () => frappe.set_route("Form", "SP Case", r.name))
 					.appendTo($actions);
 			}
+			$row.find(".sp-qq-clock").data("row", r);
 			$tbody.append($row);
+		});
+		this.loaded_at = Date.now();
+		this.tick();
+		clearInterval(this.timer);
+		this.timer = setInterval(() => this.tick(), SP_QQ_TICK_MS);
+	}
+
+	// The 24 h countdown, from the seconds left when the queue loaded: green, amber in the
+	// last hours (Quote Amber After), red and negative once overdue.
+	tick() {
+		const passed = (Date.now() - this.loaded_at) / 1000; // sp-allow-number: ms per second
+		this.$body.find(".sp-qq-clock").each((i, el) => {
+			const r = $(el).data("row");
+			if (r.seconds_left === null || r.seconds_left === undefined) return;
+			const left = r.seconds_left - passed;
+			let state = "On time";
+			if (left <= 0) state = "Overdue";
+			else if (r.amber_left && left <= r.amber_left) state = "Amber";
+			$(el)
+				.removeClass(Object.values(SP_QQ_COLOURS).join(" "))
+				.addClass(SP_QQ_COLOURS[state])
+				.text(`${sp_qq_hhmm(left)} · ${__(state)}`);
 		});
 	}
 
