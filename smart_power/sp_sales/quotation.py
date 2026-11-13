@@ -26,6 +26,8 @@ CLOSED_STATUSES = ("Won", "Lost")
 def validate(doc, method=None) -> None:
 	"""Quotation validate hook."""
 	check_case(doc)
+	if doc.get("sp_case") and not doc.get("sp_quote_creator"):
+		doc.sp_quote_creator = frappe.db.get_value(CASE, doc.sp_case, "quote_creator")
 	set_valid_till(doc)
 	set_cost_and_profit(doc)
 
@@ -83,6 +85,12 @@ def on_cancel(doc, method=None) -> None:
 			frappe.db.set_value(CASE, doc.sp_case, "accepted_quotation", None)
 
 
+def after_insert(doc, method=None) -> None:
+	"""Version 1 is its own first version; later versions carry it over from new_version."""
+	if doc.get("sp_case") and not doc.get("sp_root"):
+		doc.db_set("sp_root", doc.name, update_modified=False)
+
+
 def on_update(doc, method=None) -> None:
 	if doc.get("sp_case"):
 		touch(doc.sp_case)
@@ -112,6 +120,8 @@ def new_version(quotation: str) -> str:
 	frappe.has_permission("Quotation", "create", throw=True)
 	doc = frappe.copy_doc(source, ignore_no_copy=False)  # no flags or approval carried over
 	doc.sp_previous_version = source.name
+	doc.sp_root = source.get("sp_root") or source.name
+	doc.sp_option_label = source.get("sp_option_label")
 	doc.transaction_date = today()
 	doc.valid_till = None
 	doc.insert()
