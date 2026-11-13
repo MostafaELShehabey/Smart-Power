@@ -1,5 +1,6 @@
 0 means no rounding; 5 rounds to the nearest 5.,صفر يعني بدون تقريب، و5 يعني التقريب لأقرب 5.
 1 is picked first.,رقم 1 يُختار أولاً.
+A,A
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
 A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
@@ -42,6 +43,7 @@ Approved Version,النسخة المعتمدة
 Arabic Name,الاسم العربي
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
+B,B
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
 Block,منع
 Blocked,ممنوع
@@ -52,6 +54,7 @@ BTB,BTB
 BTB (Companies),BTB (الشركات)
 BTC,BTC
 BTC (Individuals),BTC (الأفراد)
+C,C
 Call,مكالمة
 Call Result,نتيجة المكالمة
 Can Never Block,لا يمنع أبداً
@@ -107,6 +110,7 @@ Default Rounding Step,خطوة التقريب الافتراضية
 Default Selection,الاختيار الافتراضي
 Default validity of a new quote.,الصلاحية الافتراضية للعرض الجديد.
 Description,الوصف
+Design Inputs,مدخلات التصميم
 Details,التفاصيل
 Discount,خصم
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
@@ -146,6 +150,7 @@ Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
 Financial Center,المركز المالي
 Financing Type,نوع التمويل
 Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
+First Version,النسخة الأولى
 Fiscal Year Start,بداية السنة المالية
 Fixed,ثابت
 Fixed Quote Line,بند ثابت في العرض
@@ -155,10 +160,12 @@ Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
+"For full alternative quotes on the same case (A/B/C, SP-59).",للعروض البديلة الكاملة على نفس الحالة (A/B/C، SP-59).
 Fresh,حديث
 From,من
 From Date,من تاريخ
 From document,من المستند
+From the case when left empty.,من الحالة إذا تُرك فارغاً.
 Full,كامل
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
 "Give a reason, for example the supplier's new price list.",اكتب السبب، مثلاً لستة المورد الجديدة.
@@ -275,6 +282,7 @@ Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إ
 Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
+Option,الخيار
 Order saved,تم حفظ الترتيب
 Other,أخرى
 Outcome,النتيجة
@@ -509,6 +517,7 @@ The file has no price column.,الملف لا يحتوي على عمود سعر.
 The file is empty.,الملف فارغ.
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
+The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
@@ -550,6 +559,7 @@ User,المستخدم
 Value (Arabic),القيمة (عربي)
 Value (English),القيمة (إنجليزي)
 Version,النسخة
+Version 1 of this quote: every version of one quote shares it.,النسخة 1 من هذا العرض: كل نسخ العرض الواحد تشترك فيها.
 Version {0} of case {1}.,النسخة {0} من الحالة {1}.
 Version {0} of case {1}: the approved version.,النسخة {0} من الحالة {1}: النسخة المعتمدة.
 Vmp (V),Vmp (فولت)
