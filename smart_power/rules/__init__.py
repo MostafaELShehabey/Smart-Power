@@ -367,6 +367,11 @@ def _record(doc, hit: Hit, outcome: str, reason: str | None) -> None:
 	)
 
 
+def record_warning(doc, hit: Hit) -> None:
+	"""Log a hit found outside a save (e.g. by a scheduled check): SP Rule Hit + SP Review Item."""
+	_record(doc, hit, OUTCOME_WARNED, None)
+
+
 def _insert_hit(doc, hit: Hit, outcome: str, reason: str | None) -> None:
 	today = frappe.utils.today()
 	exists = frappe.db.exists(

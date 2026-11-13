@@ -65,7 +65,7 @@ fixtures = [
 # them as fixtures on every migrate would re-queue a job that rewrites every user's roles.
 
 # Business rules (SP-128): modules whose @rule functions register at first use.
-sp_rule_modules = ["smart_power.rules.commercial"]
+sp_rule_modules = ["smart_power.rules.commercial", "smart_power.rules.sales"]
 
 _RULE_EVENTS = {
 	"validate": "smart_power.rules.on_doc_event",
@@ -97,6 +97,8 @@ doc_events = {
 }
 
 scheduler_events = {
+	# 24 h quote clock: amber and overdue alerts (SP-48)
+	"hourly": ["smart_power.sp_sales.quote_alerts.check_quote_clock"],
 	"daily": [
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",

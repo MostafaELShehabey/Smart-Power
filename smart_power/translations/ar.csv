@@ -6,6 +6,7 @@ A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب �
 A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
+"A quote request should get its quote within Quote Due Within hours (Smart Power Settings). After that it is listed for the admin and its quote creator is reminded. A warning, never a block (decision 70).",طلب العرض يجب أن يُرسل عرضه خلال مدة استحقاق العرض (إعدادات سمارت باور). بعدها يظهر للأدمن ويتم تذكير معد العرض. تنبيه فقط، لا يمنع أبداً (قرار 70).
 A quote request turns amber after this many hours without a quote sent; it is overdue after Quote Due Within.,يتحول طلب العرض للون الأصفر بعد هذا العدد من الساعات بدون إرسال عرض، ويصبح متأخراً بعد مدة استحقاق العرض.
 A reason is needed,مطلوب سبب
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
@@ -242,6 +243,7 @@ No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
+No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 Note,ملاحظة
 Off,متوقف
 Offer Type,نوع العرض
@@ -278,6 +280,7 @@ Posting Event,حدث القيد
 Power (HP),القدرة (حصان)
 Power (kW),القدرة (كيلووات)
 Power (W),القدرة (وات)
+"Prepare and send the quote, or hand the request to another quote creator.",جهّز العرض وأرسله، أو سلّم الطلب لمعد عروض آخر.
 Price,السعر
 Price Category,فئة السعر
 Price date,تاريخ السعر
@@ -297,12 +300,15 @@ Quote Alert,تنبيه العرض
 Quote Amber After (hours),العرض يصفرّ بعد (ساعات)
 Quote Creator,معد العرض
 Quote Due At,موعد استحقاق العرض
+Quote due soon: {0} ({1}),عرض يقترب موعده: {0} ({1})
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
+Quote overdue: {0} ({1}),عرض متأخر: {0} ({1})
 Quote Request,طلب عرض
 Quote request,طلب عرض
 Quote Sent At,وقت إرسال العرض
 Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
+Quote within 24 hours,العرض خلال 24 ساعة
 Quotes,عروض الأسعار
 Raised By,سُجّل بواسطة
 Reason,السبب
