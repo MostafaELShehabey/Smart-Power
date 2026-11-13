@@ -172,7 +172,8 @@
 	"rule_settings": {
 		"discount_followup_max": {"level": "Block", "_source": "SP-128"},
 		"discount_creator_max": {"level": "Warn", "_source": "SP-128"},
-		"quote_validity": {"level": "Block", "_source": "tech plan section 6 (quote validity rule)"}
+		"quote_validity": {"level": "Block", "_source": "tech plan section 6 (quote validity rule)"},
+		"quote_24h": {"level": "Warn", "_source": "SP-128 / SP-48: warn, never block (decision 70)"}
 	},
 	"list_values": [
 		{"list_name": "System Type", "code": "PUMP", "value_ar": "طلمبات (غاطس)", "value_en": "Pump", "sort_order": 1},
