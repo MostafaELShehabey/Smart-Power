@@ -27,6 +27,8 @@ CASE = "SP Case"
 LIST_VALUE = "SP List Value"
 FOLLOWUP_ROLE = "SP Customer Followup"
 CLOSED_STATUSES = ("Won", "Lost")
+ADMIN_ROLE = "SP Admin"
+INVALID, NEW, MINE, FEATURED, COLLEAGUE = "invalid", "new", "mine", "featured", "colleague"
 SYSTEM_TYPE_LIST = "System Type"
 META_KEY = "request_fields"
 NUMBER_TYPES = {"Float": flt, "Int": cint}
@@ -88,23 +90,97 @@ def get_request_fields(system_type: str) -> list[dict]:
 
 @frappe.whitelist()
 def check_mobile(mobile: str) -> dict:
-	"""Is this a valid mobile, and does the customer already exist (with how many open cases)?"""
+	"""Look a mobile up for the request form (SP-47).
+
+	status: invalid, new, mine, featured or colleague. A colleague's customer (owned by
+	someone else and not featured) returns only the owner's name, never the customer's
+	details; the form offers "ask the admin to reassign" instead of saving.
+	"""
 	frappe.has_permission(CASE, "create", throw=True)
 	number = normalize_mobile(mobile)
-	result = {"mobile": number, "valid": is_valid_mobile(number), "customer": None}
-	customer = find_by_mobile(number) if result["valid"] else None
-	if customer:
-		info = frappe.db.get_value(
-			"Customer", customer, ["customer_name", "sp_tier", "sp_region"], as_dict=True
-		)
-		result.update(
-			customer=customer,
-			customer_name=info.customer_name,
-			tier=info.sp_tier,
-			region=info.sp_region,
-			open_cases=frappe.db.count(CASE, {"customer": customer, "status": ("not in", CLOSED_STATUSES)}),
-		)
-	return result
+	if not is_valid_mobile(number):
+		return {"mobile": number, "valid": False, "status": INVALID, "customer": None}
+	customer = find_by_mobile(number)
+	if not customer:
+		return {"mobile": number, "valid": True, "status": NEW, "customer": None}
+	status, owner = customer_status(customer)
+	if status == COLLEAGUE:
+		return {
+			"mobile": number,
+			"valid": True,
+			"status": COLLEAGUE,
+			"customer": None,
+			"owner_name": frappe.utils.get_fullname(owner),
+		}
+	info = frappe.db.get_value("Customer", customer, ["customer_name", "sp_tier", "sp_region"], as_dict=True)
+	return {
+		"mobile": number,
+		"valid": True,
+		"status": status,
+		"customer": customer,
+		"customer_name": info.customer_name,
+		"tier": info.sp_tier,
+		"region": info.sp_region,
+		"open_cases": frappe.db.count(CASE, {"customer": customer, "status": ("not in", CLOSED_STATUSES)}),
+	}
+
+
+def customer_owner(customer: str) -> str | None:
+	"""Who follows the customer up: its Follow-up Owner, else the owner of its latest case."""
+	owner = frappe.db.get_value("Customer", customer, "sp_owner_user")
+	if owner:
+		return owner
+	latest = frappe.get_all(
+		CASE, {"customer": customer}, ["follow_up_owner"], order_by="creation desc", limit=1
+	)
+	return latest[0].follow_up_owner if latest else None
+
+
+def customer_status(customer: str, user: str | None = None) -> tuple[str, str | None]:
+	"""(mine | featured | colleague, owner) for the user taking the request."""
+	user = user or frappe.session.user
+	owner = customer_owner(customer)
+	if frappe.db.get_value("Customer", customer, "sp_featured"):
+		return FEATURED, owner
+	if not owner or owner == user or _sees_all_customers(user):
+		return MINE, owner
+	return COLLEAGUE, owner
+
+
+@frappe.whitelist(methods=["POST"])
+def request_reassign(mobile: str) -> int:
+	"""Ask the admins to move a colleague's customer to me (SP-47): one task per admin."""
+	frappe.has_permission(CASE, "create", throw=True)
+	customer = find_by_mobile(normalize_mobile(mobile))
+	if not customer:
+		frappe.throw(_("No customer has this mobile."))
+	owner = customer_owner(customer)
+	requester = frappe.utils.get_fullname(frappe.session.user)
+	admins = _users_with(ADMIN_ROLE)
+	for admin in admins:
+		frappe.get_doc(
+			{
+				"doctype": "SP Task",
+				"subject": _("{0} asks to take over customer {1} from {2}").format(
+					requester, customer, frappe.utils.get_fullname(owner)
+				),
+				"task_type": "Reassign Request",
+				"assigned_to": admin,
+				"reference_doctype": "Customer",
+				"reference_name": customer,
+			}
+		).insert(ignore_permissions=True)
+	return len(admins)
+
+
+def _sees_all_customers(user: str) -> bool:
+	"""The admin can reassign directly, so a colleague's customer is not hidden from them."""
+	return user == "Administrator" or bool({ADMIN_ROLE, "System Manager"} & set(frappe.get_roles(user)))
+
+
+def _users_with(role: str) -> list[str]:
+	users = frappe.get_all("Has Role", {"role": role, "parenttype": "User"}, pluck="parent")
+	return frappe.get_all("User", {"name": ("in", users or [""]), "enabled": 1}, pluck="name")
 
 
 @frappe.whitelist()
@@ -145,6 +221,13 @@ def create_quote_request(request: dict | str) -> dict:
 	frappe.db.savepoint("sp_quote_request")
 	try:
 		customer, new_customer = find_by_mobile(mobile), False
+		if customer and customer_status(customer)[0] == COLLEAGUE:
+			frappe.throw(
+				_("This customer is followed up by {0}. Ask the admin to reassign them.").format(
+					frappe.bold(frappe.utils.get_fullname(customer_owner(customer)))
+				),
+				frappe.PermissionError,
+			)
 		if not customer:
 			if not cstr(request.get("customer_name")).strip():
 				frappe.throw(_("Enter the customer's name: this mobile is new."), frappe.MandatoryError)
