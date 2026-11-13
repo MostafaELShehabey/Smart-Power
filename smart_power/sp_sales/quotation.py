@@ -12,12 +12,13 @@ import frappe
 from frappe import _
 from frappe.query_builder import DocType
 from frappe.query_builder.functions import Max
-from frappe.utils import add_days, getdate, today
+from frappe.utils import add_days, flt, getdate, today
 
 from smart_power.sp_core.services.settings import get_value
 from smart_power.sp_sales.case import touch
 
 CASE = "SP Case"
+PCT = 100
 APPROVE_ROLES = ("SP Admin", "System Manager")
 CLOSED_STATUSES = ("Won", "Lost")
 
@@ -26,6 +27,31 @@ def validate(doc, method=None) -> None:
 	"""Quotation validate hook."""
 	check_case(doc)
 	set_valid_till(doc)
+	set_cost_and_profit(doc)
+
+
+def set_cost_and_profit(doc) -> None:
+	"""Cost per line from the P1 Cost list when empty; line profit, total cost, profit, margin.
+
+	Only for quotes of a case, so ERPNext's own quotations are left as they are. Who may see
+	these fields is SP-35's rule (cost roles only).
+	"""
+	if not doc.get("sp_case"):
+		return
+	from smart_power.sp_stock.prices import COST, latest_price
+
+	total_cost = 0.0
+	for row in doc.items:
+		if not flt(row.get("sp_cost")) and row.item_code:
+			price = latest_price(row.item_code, COST, on_date=doc.transaction_date)
+			row.sp_cost = flt(price.rate) * flt(row.conversion_factor or 1) if price else 0
+		line_cost = flt(row.sp_cost) * flt(row.qty)
+		row.sp_line_profit = flt(row.net_amount or row.amount) - line_cost
+		total_cost += line_cost
+	net = flt(doc.net_total)
+	doc.sp_total_cost = total_cost
+	doc.sp_profit = net - total_cost
+	doc.sp_margin_pct = doc.sp_profit / net * PCT if net else 0
 
 
 def set_valid_till(doc) -> None:
