@@ -62,8 +62,10 @@ class SPQuoteQueue {
 			<th>${esc(__("Age"))}</th>
 			<th>${esc(__("Customer"))}</th>
 			<th>${esc(__("System Type"))}</th>
-			<th>${esc(__("Channel"))}</th>
+			<th>${esc(__("Key Data"))}</th>
+			<th>${esc(__("Missing Fields"))}</th>
 			<th>${esc(__("Requested By"))}</th>
+			<th>${esc(__("Follow-up Owner"))}</th>
 			<th>${esc(__("Quote Creator"))}</th>
 			<th></th>
 		</tr></thead><tbody></tbody></table>`).appendTo(this.$body);
@@ -79,8 +81,14 @@ class SPQuoteQueue {
 				)}</span></td>
 				<td>${esc(r.customer_name || "")}<div class="text-muted small">${esc(r.mobile || "")}</div></td>
 				<td>${esc(r.system_type || "")}${visit}</td>
-				<td>${esc(__(r.channel || ""))}</td>
-				<td>${esc(r.requested_by || "")}</td>
+				<td class="small">${(r.key_data || []).map((d) => `<div>${esc(d)}</div>`).join("")}</td>
+				<td>${(r.missing_fields || [])
+					.map((m) => `<span class="indicator-pill red mr-1">${esc(m)}</span>`)
+					.join("")}</td>
+				<td>${esc(r.requested_by_name || "")}<div class="text-muted small">${esc(
+					__(r.channel || "")
+				)}</div></td>
+				<td>${esc(r.follow_up_owner_name || "")}</td>
 				<td>${esc(r.taken_by || "")}</td>
 				<td class="text-right"></td>
 			</tr>`);

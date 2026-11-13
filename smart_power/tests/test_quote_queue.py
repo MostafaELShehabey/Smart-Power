@@ -107,3 +107,23 @@ class TestQuoteQueue(IntegrationTestCase):
 	def test_page_roles(self):
 		roles = {r.role for r in frappe.get_doc("Page", "sp-quote-queue").roles}
 		self.assertEqual(roles, {"SP Quote Creator", "SP Followup All", "SP Admin", "System Manager"})
+
+
+class TestQueueColumns(IntegrationTestCase):
+	def test_key_data_and_missing_fields(self):
+		from smart_power.sp_sales.quote_request import summarize_request
+
+		pump = summarize_request("System Type-PUMP", {"hp": 5, "well_depth_m": 60})
+		self.assertEqual(len(pump["key_data"]), 2)
+		self.assertEqual(len(pump["missing_fields"]), 2)
+		hybrid = summarize_request("System Type-HYBRID", {}, load_count=0)
+		self.assertEqual(len(hybrid["missing_fields"]), 1)
+		self.assertEqual(summarize_request("System Type-HYBRID", {}, load_count=3)["missing_fields"], [])
+
+	def test_queue_rows_carry_the_columns(self):
+		aya = make_user("sp.queue.cols@example.com", ("quote_creator",))
+		case = make_case(system_types=[{"system_type": "System Type-ONGRID"}])
+		row = next(r for r in as_user(aya, get_queue, "All") if r.name == case.name)
+		self.assertEqual(row["follow_up_owner_name"], get_fullname(case.follow_up_owner))
+		self.assertEqual(len(row["missing_fields"]), 1)  # no kW given
+		self.assertNotIn("request_details", row)
