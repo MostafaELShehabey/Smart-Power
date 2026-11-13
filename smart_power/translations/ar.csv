@@ -9,6 +9,8 @@ A quote cannot be valid for longer than the maximum validity days in Smart Power
 A reason is needed,مطلوب سبب
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
+A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
+A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
 Abnormal,غير طبيعي
 Accepted Quotation,العرض المعتمد
@@ -71,6 +73,7 @@ Comment,تعليق
 Commercial,تجاري
 Commercial Register No.,رقم السجل التجاري
 Company,شركة
+Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
 Completed By,تم بواسطة
 Completed On,تم في
 Consignment Conversion,تحويل أمانة
@@ -194,6 +197,7 @@ Logo and Stamp,الشعار والختم
 Lost,خسارة
 Lost Note,ملاحظة الخسارة
 Lost Reason,سبب الخسارة
+Main,رئيسي
 Main Supplier,المورد الرئيسي
 Manual Entry,إدخال يدوي
 Manual Prices,أسعار يدوية
@@ -239,6 +243,7 @@ Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
+Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
@@ -275,6 +280,7 @@ Pricing rule,قاعدة تسعير
 Pricing Rules,قواعد التسعير
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
 Priority,الأولوية
+Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
 Pump Specs,مواصفات الطلمبة
 Quotation,عرض سعر
 Quotations,عروض الأسعار
@@ -339,6 +345,7 @@ Showroom,المعرض
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
 Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أيام من آخر إيداع)
 Simple Record Type,نوع التسجيل البسيط
+Site,موقع
 Site Stage,مرحلة الموقع
 Site Survey,معاينة موقع
 Smart Power,سمارت باور
@@ -416,6 +423,7 @@ Stale Price on a Quote,سعر قديم في عرض سعر
 Stale prices never block a quote (SP-63).,الأسعار القديمة لا تمنع عرض السعر أبداً (SP-63).
 Stamp,الختم
 Start Follow-up,بدء المتابعة
+Station Project,مشروع المحطة
 Status,الحالة
 Subject,الموضوع
 Summary,الملخص
@@ -451,6 +459,7 @@ The pricing rules go round in a circle. Work one price out from the list price o
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
 The row has no price.,السطر لا يحتوي على سعر.
+The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
@@ -462,6 +471,7 @@ To,إلى
 Took the request,استلم الطلب
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
+Transit,في الطريق
 Transit Account,الحساب الوسيط
 Unknown list {0}.,قائمة غير معروفة {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.

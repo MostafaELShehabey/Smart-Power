@@ -21,6 +21,7 @@ def after_install() -> None:
 	from smart_power.sp_sales.case_workflow import ensure_workflow_masters
 	from smart_power.sp_sales.setup import apply_customer_naming
 	from smart_power.sp_stock.prices import seed_price_lists
+	from smart_power.sp_stock.warehouses import seed_warehouse_types
 
 	ensure_admin_module()
 	# before fixtures sync: the SP Case workflow fixture needs its states and actions (SP-46)
@@ -32,6 +33,7 @@ def after_install() -> None:
 	sync_rule_settings()
 	apply_customer_naming()
 	seed_price_lists()
+	seed_warehouse_types()
 
 
 def after_sync() -> None:
