@@ -104,6 +104,24 @@ class SPQuoteQueue {
 				.prop("disabled", !r.can_take)
 				.on("click", () => r.can_take && this.take(r.name))
 				.appendTo($actions);
+			if (r.can_act) {
+				const $menu = $(`<div class="btn-group ml-1">
+					<button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"></button>
+					<div class="dropdown-menu dropdown-menu-right"></div>
+				</div>`).appendTo($actions);
+				$menu.find("button").text(__("Actions"));
+				const add = (label, fn) =>
+					$(`<a class="dropdown-item" href="#"></a>`)
+						.text(label)
+						.on("click", (e) => {
+							e.preventDefault();
+							fn();
+						})
+						.appendTo($menu.find(".dropdown-menu"));
+				add(__("Start the Quote"), () => this.start_quote(r.name));
+				add(__("Ask for Missing Data"), () => this.ask_missing_data(r));
+				add(__("Ask for a Site Survey"), () => this.ask_site_survey(r.name));
+			}
 			if (r.can_open) {
 				$(`<button class="btn btn-xs btn-default ml-1"></button>`)
 					.text(__("Open"))
@@ -118,5 +136,56 @@ class SPQuoteQueue {
 		await frappe.call({ method: `${SP_QQ_API}.take`, args: { case: name }, freeze: true });
 		frappe.show_alert({ message: __("Request {0} is yours", [name]), indicator: "green" });
 		this.refresh();
+	}
+
+	async start_quote(name) {
+		const { message } = await frappe.call({
+			method: `${SP_QQ_API}.start_quote`,
+			args: { case: name },
+			freeze: true,
+		});
+		if (message.quotation) {
+			frappe.set_route("Form", "Quotation", message.quotation);
+		} else {
+			frappe.new_doc("Quotation", message.new);
+		}
+	}
+
+	ask_missing_data(r) {
+		const dialog = new frappe.ui.Dialog({
+			title: __("Ask for Missing Data"),
+			fields: [
+				{
+					fieldname: "message",
+					fieldtype: "Small Text",
+					label: __("What is missing?"),
+					reqd: 1,
+					default: (r.missing_fields || []).join(", "),
+				},
+			],
+			primary_action_label: __("Send"),
+			primary_action: async ({ message }) => {
+				await frappe.call({
+					method: `${SP_QQ_API}.ask_missing_data`,
+					args: { case: r.name, message },
+					freeze: true,
+				});
+				dialog.hide();
+				frappe.show_alert({ message: __("The requester was asked"), indicator: "green" });
+			},
+		});
+		dialog.show();
+	}
+
+	async ask_site_survey(name) {
+		const { message: count } = await frappe.call({
+			method: `${SP_QQ_API}.ask_site_survey`,
+			args: { case: name },
+			freeze: true,
+		});
+		frappe.show_alert({
+			message: __("{0} installation manager(s) asked", [count]),
+			indicator: "green",
+		});
 	}
 }

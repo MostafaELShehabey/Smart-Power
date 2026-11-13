@@ -14,6 +14,7 @@ A reason is needed,مطلوب سبب
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
 A sent version cannot be cancelled. Make a new version instead.,لا يمكن إلغاء نسخة مُرسلة. اعمل نسخة جديدة بدلاً من ذلك.
+A site survey is already asked for this request.,تم طلب معاينة الموقع لهذا الطلب بالفعل.
 A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
@@ -21,6 +22,7 @@ Abnormal,غير طبيعي
 Accepted Quotation,العرض المعتمد
 Account Map,خريطة الحسابات
 Action,الإجراء
+Actions,إجراءات
 Active,فعال
 Add,إضافة
 Add Amount,مبلغ إضافي
@@ -44,6 +46,8 @@ Approve Version,اعتماد النسخة
 Approved,معتمد
 Approved Version,النسخة المعتمدة
 Arabic Name,الاسم العربي
+Ask for a Site Survey,طلب معاينة موقع
+Ask for Missing Data,طلب البيانات الناقصة
 Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
@@ -66,6 +70,7 @@ Cancelled,ملغي
 Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case opened,فتح الحالة
+Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا مفتوحًا.
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Cash and Locks,الكاش والقفل
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
@@ -258,6 +263,7 @@ Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
 Message,الرسالة
 Min Margin %,أقل ربح %
 Mine,طلباتي
+Missing data for {0}: {1},بيانات ناقصة لـ {0}: {1}
 Missing Fields,الحقول الناقصة
 Mobile,الموبايل
 Mobile Device ID,معرّف جهاز الموبايل
@@ -280,6 +286,7 @@ New Version,نسخة جديدة
 Night Hours,ساعات الليل
 No,لا
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
+No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 No open requests here.,لا توجد طلبات مفتوحة هنا.
@@ -300,6 +307,7 @@ Only a quote linked to a case has versions.,فقط العرض المرتبط ب�
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
+Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
 Open,مفتوح
@@ -415,6 +423,7 @@ Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون ت�
 Saving the request…,جارٍ حفظ الطلب…
 Scope,النطاق
 Second Mobile,موبايل إضافي
+Send,إرسال
 Send to Customer,إرسال للعميل
 Sent,أُرسل
 Sent to customer,أُرسل للعميل
@@ -515,6 +524,7 @@ Stale Price on a Quote,سعر قديم في عرض سعر
 Stale prices never block a quote (SP-63).,الأسعار القديمة لا تمنع عرض السعر أبداً (SP-63).
 Stamp,الختم
 Start Follow-up,بدء المتابعة
+Start the Quote,بدء عرض السعر
 Station Project,مشروع المحطة
 Status,الحالة
 Subject,الموضوع
@@ -559,6 +569,7 @@ The quote clock stops here (Sent to customer).,يتوقف عداد العرض ه
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
 The quote needs a site survey first (survey tasks come with SP-95).,العرض يحتاج معاينة للموقع أولاً (مهام المعاينة تأتي مع SP-95).
+The requester was asked,تم سؤال صاحب الطلب
 The row has no price.,السطر لا يحتوي على سعر.
 The sales case this quote belongs to. Its customer must be the case's customer.,الحالة التي يتبعها هذا العرض. عميله يجب أن يكون عميل الحالة.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
@@ -607,6 +618,7 @@ Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
 Watts,وات
+What is missing?,ما الناقص؟
 WhatsApp,واتساب
 When,متى
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
@@ -618,6 +630,7 @@ Whoever takes the request and prepares the quote.,من يستلم الطلب و�
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
 Won,تم الكسب
 Won On,تاريخ الكسب
+Write what is missing.,اكتب ما هو ناقص.
 Write-off,شطب
 Wrong customer,عميل غير مطابق
 Yes,نعم
@@ -628,6 +641,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} days,{0} يوم
 {0} h,{0} ساعة
+{0} installation manager(s) asked,تم طلب المعاينة من {0} من مديري التركيبات
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
