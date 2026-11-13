@@ -364,7 +364,6 @@ Quote Creator,معد العرض
 Quote Due At,موعد استحقاق العرض
 Quote due soon: {0} ({1}),عرض يقترب موعده: {0} ({1})
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
-Quote overdue: {0} ({1}),عرض متأخر: {0} ({1})
 Quote Request,طلب عرض
 Quote request,طلب عرض
 Quote Request Queue,قائمة طلبات العروض
@@ -395,6 +394,7 @@ Request,الطلب
 Request Details,تفاصيل الطلب
 Request for Quotation,طلب عرض سعر من مورد
 Request Notes,ملاحظات الطلب
+Request over {2} hours: {0} ({1}),طلب تجاوز {2} ساعة: {0} ({1})
 Request Revision,طلب تعديل
 Request {0} is yours,الطلب {0} أصبح لك
 Request {0} saved,تم حفظ الطلب {0}

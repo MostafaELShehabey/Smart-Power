@@ -109,8 +109,10 @@ doc_events = {
 }
 
 scheduler_events = {
-	# 24 h quote clock: amber and overdue alerts (SP-48)
-	"hourly": ["smart_power.sp_sales.quote_alerts.check_quote_clock"],
+	"cron": {
+		# 24 h quote clock: amber and overdue alerts every 15 minutes (SP-48)
+		"*/15 * * * *": ["smart_power.sp_sales.quote_alerts.check_quote_clock"],  # sp-allow-number: cron
+	},
 	"daily": [
 		# sent quote versions past Valid Till become Expired (SP-54)
 		"smart_power.sp_sales.quotation.expire_quotes",
