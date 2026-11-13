@@ -11,7 +11,16 @@ from frappe import _
 from frappe.utils import get_fullname
 
 from smart_power.sp_sales.quote_clock import clock
-from smart_power.sp_sales.quote_request import QUOTE_CREATOR_ROLE, summarize_request
+from smart_power.sp_sales.quote_request import (
+	ADMIN_ROLE,
+	INSTALLATION_MANAGER_ROLE,
+	QUOTE_CREATOR_ROLE,
+	SITE_SURVEY_TASK,
+	TASK_OPEN,
+	_task,
+	_users_with,
+	summarize_request,
+)
 
 CASE = "SP Case"
 OPEN_STATUSES = ("Quote request", "Draft")
@@ -44,7 +53,8 @@ def get_queue(view: str = ALL) -> list[dict]:
 		filters["status"] = OPEN_STATUSES[0]
 	elif view == MINE:
 		filters["quote_creator"] = frappe.session.user
-	is_creator = QUOTE_CREATOR_ROLE in frappe.get_roles()
+	roles = frappe.get_roles()
+	is_creator, is_admin = QUOTE_CREATOR_ROLE in roles, ADMIN_ROLE in roles
 	# quote creators see the whole queue; everyone else what the case rule allows
 	lister = frappe.get_all if is_creator else frappe.get_list
 	rows = lister(CASE, filters=filters, fields=QUEUE_FIELDS, order_by="creation asc", limit_page_length=0)
@@ -59,6 +69,9 @@ def get_queue(view: str = ALL) -> list[dict]:
 		row["can_take"] = is_creator and not row.quote_creator and row.status == OPEN_STATUSES[0]
 		row["taken_by"] = row.quote_creator and get_fullname(row.quote_creator)
 		row["can_open"] = frappe.has_permission(CASE, "read", doc=row.name)
+		# ask for data, ask for a survey, start the quote: the request's quote creator (or anyone
+		# who may take it) and the admin
+		row["can_act"] = is_admin or (is_creator and row.quote_creator in (None, "", frappe.session.user))
 		row.pop("creation", None)
 	return rows
 
@@ -112,3 +125,86 @@ def _system_types(cases: list[str]) -> dict[str, tuple[str, str]]:
 	for r in rows:
 		first.setdefault(r.parent, (r.system_type, labels.get(r.system_type) or r.system_type))
 	return first
+
+
+# --- Queue actions (SP-48) ----------------------------------------------------------------------
+
+
+def _check_can_act(doc) -> None:
+	"""Queue actions are for quote creators (and the admin) on an open request."""
+	roles = frappe.get_roles()
+	if QUOTE_CREATOR_ROLE not in roles and ADMIN_ROLE not in roles:
+		frappe.throw(_("Only quote creators can do this."), frappe.PermissionError)
+	if doc.status not in OPEN_STATUSES:
+		frappe.throw(_("Case {0} is no longer an open request.").format(doc.name))
+	if doc.quote_creator and doc.quote_creator != frappe.session.user and ADMIN_ROLE not in roles:
+		frappe.throw(
+			_("This request was already taken by {0}.").format(frappe.bold(get_fullname(doc.quote_creator))),
+			frappe.PermissionError,
+		)
+
+
+@frappe.whitelist(methods=["POST"])
+def ask_missing_data(case: str, message: str) -> None:
+	"""Ask the requester for missing data: a comment on the case and a bell alert to them."""
+	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+
+	doc = frappe.get_doc(CASE, case)
+	_check_can_act(doc)
+	message = (message or "").strip()
+	if not message:
+		frappe.throw(_("Write what is missing."), frappe.MandatoryError)
+	doc.add_comment("Comment", message)
+	if doc.requested_by and doc.requested_by != frappe.session.user:
+		make_notification_logs(
+			frappe._dict(
+				{
+					"type": "Alert",
+					"document_type": CASE,
+					"document_name": doc.name,
+					"subject": _("Missing data for {0}: {1}").format(doc.customer_name or doc.name, message),
+					"from_user": frappe.session.user,
+				}
+			),
+			[doc.requested_by],
+		)
+
+
+@frappe.whitelist(methods=["POST"])
+def ask_site_survey(case: str) -> int:
+	"""Ask installations for a site survey: a "Site Survey" task for each installation manager
+	(SP-95 replaces it with the Site Survey document). Returns how many were asked."""
+	doc = frappe.get_doc(CASE, case)
+	_check_can_act(doc)
+	if frappe.db.exists(
+		"SP Task",
+		{
+			"reference_doctype": CASE,
+			"reference_name": doc.name,
+			"task_type": SITE_SURVEY_TASK,
+			"status": TASK_OPEN,
+		},
+	):
+		frappe.throw(_("A site survey is already asked for this request."))
+	managers = _users_with(INSTALLATION_MANAGER_ROLE)
+	if not managers:
+		frappe.throw(_("No installation manager to ask."))
+	for user in managers:
+		_task(doc, SITE_SURVEY_TASK, user, _("Site survey for {0}").format(doc.customer_name or doc.customer))
+	return len(managers)
+
+
+@frappe.whitelist(methods=["POST"])
+def start_quote(case: str) -> dict:
+	"""Start the quote: an unclaimed request is taken first. Returns the case's open draft
+	quotation, or the values for a new one (the form opens pre-filled; SP-57 adds Q2)."""
+	doc = frappe.get_doc(CASE, case)
+	_check_can_act(doc)
+	if not doc.quote_creator:
+		take(doc.name)
+	draft = frappe.db.get_value(
+		"Quotation", {"sp_case": doc.name, "docstatus": 0}, "name", order_by="creation desc"
+	)
+	if draft:
+		return {"quotation": draft}
+	return {"new": {"quotation_to": "Customer", "party_name": doc.customer, "sp_case": doc.name}}

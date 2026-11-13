@@ -42,7 +42,8 @@ TEXT_TYPES = {"Data", "Small Text", "Select"}
 LOAD_TABLE = "Load Table"  # shows the case's load table (SP Load Line) instead of a single value
 FIELD_TYPES = set(NUMBER_TYPES) | TEXT_TYPES | {"Check", LOAD_TABLE}
 PAYMENT_LIST = "Financing Type"
-QUOTE_REQUEST_TASK, TASK_OPEN, TASK_CANCELLED = "Quote Request", "Open", "Cancelled"
+QUOTE_REQUEST_TASK, SITE_SURVEY_TASK = "Quote Request", "Site Survey"
+TASK_OPEN, TASK_CANCELLED = "Open", "Cancelled"
 
 
 def request_fields(system_type: str | None) -> list[dict]:
@@ -341,7 +342,7 @@ def after_request(case) -> None:
 		for user in _users_with(INSTALLATION_MANAGER_ROLE):
 			_task(
 				case,
-				"Site Survey",
+				SITE_SURVEY_TASK,
 				user,
 				_("Site survey for {0}").format(case.customer_name or case.customer),
 			)

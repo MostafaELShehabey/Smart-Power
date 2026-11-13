@@ -6,7 +6,10 @@ from frappe.utils import add_to_date, get_fullname, now_datetime
 
 from smart_power.sp_sales.quote_queue import get_queue, take
 from smart_power.tests.test_case import make_case
-from smart_power.tests.utils import make_user, set_setting
+from smart_power.tests.utils import load_erpnext_test_data, make_user, set_setting
+
+# loaded once, outside any test: it commits (start_quote's test needs a quotation)
+load_erpnext_test_data()
 
 
 def as_user(user, fn, *args):
@@ -127,3 +130,67 @@ class TestQueueColumns(IntegrationTestCase):
 		self.assertEqual(row["follow_up_owner_name"], get_fullname(case.follow_up_owner))
 		self.assertEqual(len(row["missing_fields"]), 1)  # no kW given
 		self.assertNotIn("request_details", row)
+
+
+class TestQueueActions(IntegrationTestCase):
+	def setUp(self):
+		self.aya = make_user("sp.qa.aya@example.com", ("quote_creator",))
+		self.maha = make_user("sp.qa.maha@example.com", ("quote_creator",))
+		self.camelia = make_user("sp.qa.camelia@example.com", ("lead_intake", "customer_followup"))
+		self.mostafa = make_user("sp.qa.mostafa@example.com", ("installation_manager",))
+		self.case = make_case(requested_by=self.camelia)
+
+	def test_ask_missing_data_comments_and_tells_the_requester(self):
+		from smart_power.sp_sales.quote_queue import ask_missing_data
+
+		as_user(self.aya, ask_missing_data, self.case.name, "عمق البئر؟")
+		self.assertTrue(
+			frappe.db.exists(
+				"Comment",
+				{"reference_name": self.case.name, "comment_type": "Comment", "content": "عمق البئر؟"},
+			)
+		)
+		self.assertTrue(
+			frappe.db.exists("Notification Log", {"document_name": self.case.name, "for_user": self.camelia})
+		)
+
+	def test_only_quote_creators_and_not_on_a_colleagues_request(self):
+		from smart_power.sp_sales.quote_queue import ask_missing_data, ask_site_survey
+
+		with self.assertRaises(frappe.PermissionError):
+			as_user(self.camelia, ask_site_survey, self.case.name)
+		as_user(self.aya, take, self.case.name)
+		with self.assertRaises(frappe.PermissionError):
+			as_user(self.maha, ask_missing_data, self.case.name, "?")
+
+	def test_ask_site_survey_once(self):
+		from smart_power.sp_sales.quote_queue import ask_site_survey
+
+		self.assertGreaterEqual(as_user(self.aya, ask_site_survey, self.case.name), 1)
+		self.assertTrue(
+			frappe.db.exists(
+				"SP Task",
+				{"reference_name": self.case.name, "task_type": "Site Survey", "assigned_to": self.mostafa},
+			)
+		)
+		with self.assertRaises(frappe.ValidationError):
+			as_user(self.aya, ask_site_survey, self.case.name)
+
+	def test_start_quote_takes_the_request_and_prefills(self):
+		from smart_power.sp_sales.quote_queue import start_quote
+
+		result = as_user(self.aya, start_quote, self.case.name)
+		self.assertEqual(
+			result["new"],
+			{"quotation_to": "Customer", "party_name": self.case.customer, "sp_case": self.case.name},
+		)
+		self.assertEqual(frappe.db.get_value("SP Case", self.case.name, "quote_creator"), self.aya)
+
+	def test_start_quote_opens_the_draft(self):
+		from smart_power.sp_sales.quote_queue import start_quote
+		from smart_power.tests.utils import make_quotation, make_test_case
+
+		case = make_test_case()
+		as_user(self.aya, take, case)
+		draft = make_quotation(case=case)
+		self.assertEqual(as_user(self.aya, start_quote, case), {"quotation": draft.name})
