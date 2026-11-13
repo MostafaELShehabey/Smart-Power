@@ -34,8 +34,11 @@ class TestQuotationCase(IntegrationTestCase):
 		with self.assertRaises(frappe.ValidationError):
 			quote_for(case)
 
-	def test_quotes_without_a_case_still_work(self):
-		self.assertFalse(make_quotation().sp_case)
+	def test_a_quote_needs_its_case(self):
+		q = make_quotation(save=False)
+		q.sp_case = None
+		with self.assertRaises(frappe.MandatoryError):
+			q.insert()
 
 	def test_case_shows_its_quotes(self):
 		links = frappe.get_meta("SP Case").links

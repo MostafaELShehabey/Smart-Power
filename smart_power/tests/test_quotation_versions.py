@@ -71,8 +71,7 @@ class TestQuotationVersions(IntegrationTestCase):
 		with self.assertRaises(frappe.ValidationError):
 			approve_version(q.name)
 
-	def test_cancelling_the_approved_version_clears_the_case(self):
+	def test_a_sent_version_cannot_be_cancelled(self):
 		q = submitted(quote_for(self.case))
-		approve_version(q.name)
-		frappe.get_doc("Quotation", q.name).cancel()
-		self.assertFalse(frappe.db.get_value("SP Case", self.case.name, "accepted_quotation"))
+		with self.assertRaises(frappe.ValidationError):
+			frappe.get_doc("Quotation", q.name).cancel()

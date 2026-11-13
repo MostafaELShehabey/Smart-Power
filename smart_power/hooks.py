@@ -87,7 +87,7 @@ doc_events = {
 		"before_insert": "smart_power.sp_sales.quotation.before_insert",
 		"after_insert": "smart_power.sp_sales.quotation.after_insert",
 		"validate": "smart_power.sp_sales.quotation.validate",
-		"on_cancel": "smart_power.sp_sales.quotation.on_cancel",
+		"before_cancel": "smart_power.sp_sales.quotation.before_cancel",
 		"on_update": "smart_power.sp_sales.quotation.on_update",
 		"on_submit": "smart_power.sp_sales.quotation.on_update",
 	},
@@ -112,6 +112,8 @@ scheduler_events = {
 	# 24 h quote clock: amber and overdue alerts (SP-48)
 	"hourly": ["smart_power.sp_sales.quote_alerts.check_quote_clock"],
 	"daily": [
+		# sent quote versions past Valid Till become Expired (SP-54)
+		"smart_power.sp_sales.quotation.expire_quotes",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],
