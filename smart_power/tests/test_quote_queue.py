@@ -6,7 +6,10 @@ from frappe.utils import add_to_date, get_fullname, now_datetime
 
 from smart_power.sp_sales.quote_queue import get_queue, take
 from smart_power.tests.test_case import make_case
-from smart_power.tests.utils import make_user, set_setting
+from smart_power.tests.utils import load_erpnext_test_data, make_user, set_setting
+
+# loaded once, outside any test: it commits (start_quote's test needs a quotation)
+load_erpnext_test_data()
 
 
 def as_user(user, fn, *args):
@@ -185,9 +188,8 @@ class TestQueueActions(IntegrationTestCase):
 
 	def test_start_quote_opens_the_draft(self):
 		from smart_power.sp_sales.quote_queue import start_quote
-		from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_test_case
+		from smart_power.tests.utils import make_quotation, make_test_case
 
-		load_erpnext_test_data()
 		case = make_test_case()
 		as_user(self.aya, take, case)
 		draft = make_quotation(case=case)
