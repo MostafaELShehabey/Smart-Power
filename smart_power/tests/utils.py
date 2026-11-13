@@ -68,11 +68,34 @@ def set_rule(key: str, level: str, warn_needs_reason: int | None = None, limits:
 	doc.save(ignore_permissions=True)
 
 
-def make_quotation(discount_pct: float = 0, valid_days: int = 1, rate: float = 1000, save: bool = True):
-	"""A quotation on ERPNext's test records (bootstrapped by erpnext.tests.utils)."""
+def make_test_case(customer: str = "_Test Customer") -> str:
+	"""An SP Case for ERPNext's test customer: every quote belongs to a case (SP-54)."""
+	return (
+		frappe.get_doc(
+			{
+				"doctype": "SP Case",
+				"customer": customer,
+				"channel": "Call",
+				"follow_up_owner": "Administrator",
+			}
+		)
+		.insert(ignore_permissions=True)
+		.name
+	)
+
+
+def make_quotation(
+	discount_pct: float = 0,
+	valid_days: int = 1,
+	rate: float = 1000,
+	save: bool = True,
+	case: str | None = None,
+):
+	"""A quotation on ERPNext's test records (bootstrapped by erpnext.tests.utils), on a case."""
 	q = frappe.get_doc(
 		{
 			"doctype": "Quotation",
+			"sp_case": case or make_test_case(),
 			"quotation_to": "Customer",
 			"party_name": "_Test Customer",
 			"company": "_Test Company",

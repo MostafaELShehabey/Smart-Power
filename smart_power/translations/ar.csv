@@ -12,6 +12,7 @@ A quote request turns amber after this many hours without a quote sent; it is ov
 A reason is needed,مطلوب سبب
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
+A sent version cannot be cancelled. Make a new version instead.,لا يمكن إلغاء نسخة مُرسلة. اعمل نسخة جديدة بدلاً من ذلك.
 A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
@@ -39,6 +40,7 @@ Amount,المبلغ
 Annual Cost of Money,تكلفة الفلوس السنوية
 Applies To,يُطبق على
 Approve Version,اعتماد النسخة
+Approved,معتمد
 Approved Version,النسخة المعتمدة
 Arabic Name,الاسم العربي
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
@@ -74,6 +76,7 @@ Chassis,الشاسيه
 Check the specs,راجع المواصفات
 Cheque,شيك
 Choose an item or a category.,اختر صنفاً أو فئة.
+Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
 Choose the system type first.,اختر نوع النظام أولاً.
 Clear,مسح
 Click to change,اضغط للتغيير
@@ -136,6 +139,7 @@ Excel File,ملف إكسل
 Execution Owner,مسؤول التنفيذ
 Expense,مصروف
 Expense Type,نوع المصروف
+Expired,منتهي الصلاحية
 Extra Data,بيانات إضافية
 "Extra settings for this value as JSON, e.g. the calculation template of a system type.",إعدادات إضافية لهذه القيمة بصيغة JSON، مثل قالب الحساب لنوع النظام.
 Featured,مميز
@@ -253,6 +257,7 @@ MPPT Min (V),أدنى MPPT (فولت)
 Name,الاسم
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
 Needs Repricing,يحتاج إعادة تسعير
+Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
 New price,السعر الجديد
@@ -264,6 +269,7 @@ No open requests here.,لا توجد طلبات مفتوحة هنا.
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
+Not allowed,غير مسموح
 Note,ملاحظة
 Off,متوقف
 Offer Type,نوع العرض
@@ -337,6 +343,7 @@ Quote Request,طلب عرض
 Quote request,طلب عرض
 Quote Request Queue,قائمة طلبات العروض
 Quote Sent At,وقت إرسال العرض
+Quote Status,حالة العرض
 Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
 Quote within 24 hours,العرض خلال 24 ساعة
@@ -393,6 +400,7 @@ Sent,أُرسل
 Sent to customer,أُرسل للعميل
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
+"Set by the system: sent versions stay valid until approved, superseded, lost or expired.",يحددها النظام: النسخ المرسلة تظل صالحة حتى تُعتمد أو تُستبدل أو تُخسر أو تنتهي صلاحيتها.
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
@@ -489,6 +497,7 @@ Status,الحالة
 Subject,الموضوع
 Submit the quote before approving it.,اعتمد (Submit) العرض أولاً قبل اعتماد النسخة.
 Summary,الملخص
+Superseded,مُستبدل
 Supplier,المورد
 Supplier List Price,سعر لستة المورد
 Supplier missing,المورد غير محدد

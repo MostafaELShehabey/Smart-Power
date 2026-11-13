@@ -10,6 +10,7 @@ and records it on the case (the contract is made from it, SP-74).
 
 import frappe
 from frappe import _
+from frappe.model.docstatus import DocStatus
 from frappe.query_builder import DocType
 from frappe.query_builder.functions import Max
 from frappe.utils import add_days, flt, getdate, today
@@ -21,15 +22,76 @@ CASE = "SP Case"
 PCT = 100
 APPROVE_ROLES = ("SP Admin", "System Manager")
 CLOSED_STATUSES = ("Won", "Lost")
+SUBMITTED, CANCELLED = DocStatus.submitted(), DocStatus.cancelled()
+DRAFT, SENT, NEEDS_REPRICING, APPROVED, SUPERSEDED, LOST, EXPIRED = (
+	"Draft",
+	"Sent",
+	"Needs repricing",
+	"Approved",
+	"Superseded",
+	"Lost",
+	"Expired",
+)
 
 
 def validate(doc, method=None) -> None:
 	"""Quotation validate hook."""
+	if not doc.get("sp_case"):
+		frappe.throw(_("Choose the case this quote belongs to."), frappe.MandatoryError)
 	check_case(doc)
-	if doc.get("sp_case") and not doc.get("sp_quote_creator"):
+	if not doc.get("sp_quote_creator"):
 		doc.sp_quote_creator = frappe.db.get_value(CASE, doc.sp_case, "quote_creator")
+	if doc.get("_action") == "submit":
+		# sending a version: it is dated today and valid for Quote Validity (days) from today
+		doc.transaction_date = today()
+		doc.valid_till = None
 	set_valid_till(doc)
 	set_cost_and_profit(doc)
+	doc.sp_status = status_of(doc, sending=doc.get("_action") == "submit")
+
+
+def status_of(doc, sending: bool = False, case_status: str | None = None) -> str:
+	"""Draft, Sent, Needs repricing, Approved, Superseded, Lost or Expired."""
+	case_status = case_status or frappe.db.get_value(CASE, doc.sp_case, "status")
+	submitted = sending or doc.docstatus == SUBMITTED
+	if case_status == LOST:
+		return LOST
+	if not submitted:
+		return DRAFT
+	if doc.get("sp_is_approved"):
+		return APPROVED
+	if doc.get("sp_superseded"):
+		return SUPERSEDED
+	if doc.get("sp_needs_repricing"):
+		return NEEDS_REPRICING
+	if doc.get("valid_till") and getdate(doc.valid_till) < getdate(today()):
+		return EXPIRED
+	return SENT
+
+
+def refresh_status(quotation: str) -> str:
+	"""Recompute a quote's status after something outside the quote changed."""
+	doc = frappe.get_doc("Quotation", quotation)
+	status = status_of(doc)
+	if status != doc.get("sp_status"):
+		doc.db_set("sp_status", status, update_modified=False)
+	return status
+
+
+def refresh_case_quotes(case: str) -> None:
+	"""When a case is lost or reopened, its quotes follow."""
+	for name in frappe.get_all("Quotation", {"sp_case": case, "docstatus": ("<", CANCELLED)}, pluck="name"):
+		refresh_status(name)
+
+
+def expire_quotes() -> None:
+	"""Daily: sent versions past Valid Till become Expired (SP-170 adds Needs repricing)."""
+	for name in frappe.get_all(
+		"Quotation",
+		{"sp_status": SENT, "docstatus": SUBMITTED, "valid_till": ("<", today())},
+		pluck="name",
+	):
+		refresh_status(name)
 
 
 def set_cost_and_profit(doc) -> None:
@@ -77,12 +139,13 @@ def before_insert(doc, method=None) -> None:
 		doc.sp_version = int(highest or 0) + 1
 
 
-def on_cancel(doc, method=None) -> None:
-	"""A cancelled approved version is no longer the case's accepted quote."""
-	if doc.get("sp_is_approved") and doc.get("sp_case"):
-		doc.db_set("sp_is_approved", 0)
-		if frappe.db.get_value(CASE, doc.sp_case, "accepted_quotation") == doc.name:
-			frappe.db.set_value(CASE, doc.sp_case, "accepted_quotation", None)
+def before_cancel(doc, method=None) -> None:
+	"""A sent version is never cancelled or amended: the customer can still go back to it.
+	Make a new version instead (tech plan section 3 rule 7)."""
+	if doc.get("sp_case"):
+		frappe.throw(
+			_("A sent version cannot be cancelled. Make a new version instead."), title=_("Not allowed")
+		)
 
 
 def after_insert(doc, method=None) -> None:
@@ -119,6 +182,10 @@ def new_version(quotation: str) -> str:
 		frappe.throw(_("Only a quote linked to a case has versions."))
 	frappe.has_permission("Quotation", "create", throw=True)
 	doc = frappe.copy_doc(source, ignore_no_copy=False)  # no flags or approval carried over
+	# a new version is always an editable draft (Frappe's copy_doc keeps docstatus under tests)
+	doc.docstatus = DocStatus.draft()
+	for row in doc.get_all_children():
+		row.docstatus = DocStatus.draft()
 	doc.sp_previous_version = source.name
 	doc.sp_root = source.get("sp_root") or source.name
 	doc.sp_option_label = source.get("sp_option_label")
@@ -153,7 +220,9 @@ def approve_version(quotation: str) -> str:
 		"Quotation", {"sp_case": doc.sp_case, "sp_is_approved": 1, "name": ("!=", doc.name)}, pluck="name"
 	):
 		frappe.db.set_value("Quotation", other, "sp_is_approved", 0)
+		refresh_status(other)
 	doc.db_set("sp_is_approved", 1)
+	refresh_status(doc.name)
 	frappe.db.set_value(CASE, doc.sp_case, "accepted_quotation", doc.name)
 	touch(doc.sp_case)
 	return doc.name
@@ -178,6 +247,7 @@ def check_can_approve(doc) -> None:
 def mark_needs_repricing(quotation: str, note: str) -> None:
 	"""Flag a quote whose prices changed or that expired before the deposit (SP-170's job)."""
 	frappe.db.set_value("Quotation", quotation, {"sp_needs_repricing": 1, "sp_repricing_note": note})
+	refresh_status(quotation)
 
 
 def _can_approve(case) -> bool:
