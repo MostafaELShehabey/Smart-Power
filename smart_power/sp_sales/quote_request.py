@@ -7,6 +7,11 @@ The fields live in the System Type's Extra Data (SP List Value meta_json, X4) un
                           "label_ar": "عمق البئر (متر)", "fieldtype": "Float", "reqd": 0}]}
 
 The answers are stored on the case as Request Details (JSON).
+
+The C3 form calls three methods: `check_mobile` while the mobile is typed (a returning
+customer's file opens instead of a duplicate), `followup_owners` for the owner picker, and
+`create_quote_request`, which finds or creates the customer and opens the case, both or
+neither.
 """
 
 import json
@@ -16,8 +21,12 @@ from frappe import _
 from frappe.utils import cint, cstr, flt
 
 from smart_power.sp_core.setup.seed import defaults
+from smart_power.sp_sales.customer import find_by_mobile, is_valid_mobile, normalize_mobile
 
+CASE = "SP Case"
 LIST_VALUE = "SP List Value"
+FOLLOWUP_ROLE = "SP Customer Followup"
+CLOSED_STATUSES = ("Won", "Lost")
 SYSTEM_TYPE_LIST = "System Type"
 META_KEY = "request_fields"
 NUMBER_TYPES = {"Float": flt, "Int": cint}
@@ -64,6 +73,110 @@ def clean_details(system_type: str | None, details) -> dict:
 			value = cstr(value).strip()
 		cleaned[name] = value
 	return cleaned
+
+
+@frappe.whitelist()
+def get_request_fields(system_type: str) -> list[dict]:
+	"""The fields the form shows for a system type."""
+	frappe.has_permission(CASE, "create", throw=True)
+	return request_fields(system_type)
+
+
+@frappe.whitelist()
+def check_mobile(mobile: str) -> dict:
+	"""Is this a valid mobile, and does the customer already exist (with how many open cases)?"""
+	frappe.has_permission(CASE, "create", throw=True)
+	number = normalize_mobile(mobile)
+	result = {"mobile": number, "valid": is_valid_mobile(number), "customer": None}
+	customer = find_by_mobile(number) if result["valid"] else None
+	if customer:
+		info = frappe.db.get_value(
+			"Customer", customer, ["customer_name", "sp_tier", "sp_region"], as_dict=True
+		)
+		result.update(
+			customer=customer,
+			customer_name=info.customer_name,
+			tier=info.sp_tier,
+			region=info.sp_region,
+			open_cases=frappe.db.count(CASE, {"customer": customer, "status": ("not in", CLOSED_STATUSES)}),
+		)
+	return result
+
+
+@frappe.whitelist()
+def followup_owners() -> list[dict]:
+	"""Enabled users who follow up customers: the choices for the case's follow-up owner."""
+	frappe.has_permission(CASE, "create", throw=True)
+	users = frappe.get_all("Has Role", {"role": FOLLOWUP_ROLE, "parenttype": "User"}, pluck="parent")
+	return frappe.get_all(
+		"User",
+		filters={"name": ("in", users or [""]), "enabled": 1},
+		fields=["name", "full_name"],
+		order_by="full_name asc",
+	)
+
+
+@frappe.whitelist(methods=["POST"])
+def create_quote_request(request: dict | str) -> dict:
+	"""Find or create the customer by mobile, then open a case in "Quote request".
+
+	request: system_type, mobile, customer_name, tier, region (new customers), channel,
+	follow_up_owner, site_visit_needed, request_notes, details ({fieldname: value}).
+	"""
+	frappe.has_permission(CASE, "create", throw=True)
+	request = frappe.parse_json(request) if isinstance(request, str) else frappe._dict(request)
+	if not request.get("system_type"):
+		frappe.throw(_("Choose the system type first."), frappe.MandatoryError)
+	mobile = normalize_mobile(request.get("mobile"))
+	if not is_valid_mobile(mobile):
+		frappe.throw(
+			_("{0} is not a valid Egyptian mobile.").format(frappe.bold(request.get("mobile") or ""))
+		)
+
+	# the customer and the case are saved together or not at all
+	frappe.db.savepoint("sp_quote_request")
+	try:
+		customer, new_customer = find_by_mobile(mobile), False
+		if not customer:
+			if not cstr(request.get("customer_name")).strip():
+				frappe.throw(_("Enter the customer's name: this mobile is new."), frappe.MandatoryError)
+			customer = (
+				frappe.get_doc(
+					{
+						"doctype": "Customer",
+						"customer_name": cstr(request.customer_name).strip(),
+						"sp_mobile": mobile,
+						"sp_tier": request.get("tier") or None,
+						"sp_region": request.get("region") or None,
+					}
+				)
+				.insert()
+				.name
+			)
+			new_customer = True
+
+		case = frappe.get_doc(
+			{
+				"doctype": CASE,
+				"customer": customer,
+				"channel": request.get("channel"),
+				"requested_by": frappe.session.user,
+				"follow_up_owner": request.get("follow_up_owner") or _default_followup_owner(),
+				"system_types": [{"system_type": request.system_type}],
+				"request_details": clean_details(request.system_type, request.get("details")),
+				"site_visit_needed": cint(request.get("site_visit_needed")),
+				"request_notes": request.get("request_notes"),
+			}
+		).insert()
+	except Exception:
+		frappe.db.rollback(save_point="sp_quote_request")
+		raise
+	return {"case": case.name, "customer": customer, "new_customer": new_customer}
+
+
+def _default_followup_owner() -> str | None:
+	"""The person taking the request, when they follow up customers themselves."""
+	return frappe.session.user if FOLLOWUP_ROLE in frappe.get_roles() else None
 
 
 def seed_request_fields() -> None:
