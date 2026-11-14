@@ -56,3 +56,29 @@ class TestCaseReassign(IntegrationTestCase):
 		case = make_case()
 		reassign(case.name, "quote_creator", creator, "استلام الطلب")
 		self.assertEqual(frappe.db.get_value("SP Case", case.name, "quote_creator"), creator)
+
+
+class TestReassignFromTheDialog(IntegrationTestCase):
+	"""The Reassign dialog leaves out an empty "To" (SP-46, found in the browser sweep)."""
+
+	def test_empty_to_gives_a_clear_message_not_a_crash(self):
+		case = make_case()
+		with self.assertRaises(frappe.ValidationError) as ctx:
+			frappe.call(
+				"smart_power.sp_sales.case.reassign",
+				case=case.name,
+				owner_field="follow_up_owner",
+				reason="بدون مستخدم",
+			)
+		self.assertNotIsInstance(ctx.exception, TypeError)
+
+	def test_empty_to_clears_the_quote_creator(self):
+		creator = make_user("sp.reassign.creator@example.com", ("quote_creator",))
+		case = make_case(quote_creator=creator)
+		frappe.call(
+			"smart_power.sp_sales.case.reassign",
+			case=case.name,
+			owner_field="quote_creator",
+			reason="يرجع للمجموعة",
+		)
+		self.assertFalse(frappe.db.get_value("SP Case", case.name, "quote_creator"))
