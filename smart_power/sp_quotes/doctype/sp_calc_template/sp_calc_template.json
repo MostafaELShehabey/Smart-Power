@@ -1,0 +1,194 @@
+{
+ "actions": [],
+ "creation": "2026-11-14 03:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "template_key",
+  "template_name",
+  "offer_type",
+  "factory",
+  "column_break_version",
+  "version",
+  "is_published",
+  "published_on",
+  "previous_version",
+  "inputs_section",
+  "inputs",
+  "lines_section",
+  "lines",
+  "notes_section",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "template_key",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Template Code",
+   "reqd": 1,
+   "set_only_once": 1,
+   "description": "Shared by all versions, e.g. PUMP, or CHASSIS-FACTORY for a factory's chassis."
+  },
+  {
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Template Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "offer_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Offer Type",
+   "options": "SP List Value",
+   "reqd": 1,
+   "link_filters": "[[\"SP List Value\",\"list_name\",\"=\",\"System Type\"]]"
+  },
+  {
+   "fieldname": "factory",
+   "fieldtype": "Link",
+   "label": "Factory",
+   "options": "Supplier",
+   "description": "For chassis templates: one per factory."
+  },
+  {
+   "fieldname": "column_break_version",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "version",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Version",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Published",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "published_on",
+   "fieldtype": "Datetime",
+   "label": "Published On",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "previous_version",
+   "fieldtype": "Link",
+   "label": "Previous Version",
+   "options": "SP Calc Template",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "inputs_section",
+   "fieldtype": "Section Break",
+   "label": "Inputs"
+  },
+  {
+   "fieldname": "inputs",
+   "fieldtype": "Table",
+   "label": "Inputs",
+   "options": "SP Calc Template Input"
+  },
+  {
+   "fieldname": "lines_section",
+   "fieldtype": "Section Break",
+   "label": "Lines"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "label": "Lines",
+   "options": "SP Calc Template Line"
+  },
+  {
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "collapsible": 1,
+   "label": "Notes"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-14 03:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Calc Template",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SP Admin",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SP Pricing Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SP Quote Creator"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SP System Designer"
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "template_name",
+ "track_changes": 1,
+ "show_title_field_in_link": 1
+}
