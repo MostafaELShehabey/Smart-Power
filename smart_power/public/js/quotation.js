@@ -21,6 +21,13 @@ frappe.ui.form.on("Quotation", {
 			);
 		}
 
+		if (frm.doc.docstatus < 2) { // sp-allow-number: docstatus cancelled
+			frm.add_custom_button(
+				frm.doc.docstatus === 0 ? __("Send to Customer") : __("Send Again"),
+				() => sp_quote_send(frm)
+			);
+		}
+
 		frm.add_custom_button(__("New Option"), () =>
 			frappe.confirm(
 				__("Copy this quote as a full alternative (the next option, e.g. B) on the same case?"),
@@ -186,4 +193,87 @@ function sp_quote_notes(r) {
 		indicator: notes.some((n) => n.level === "warn") ? "orange" : "blue",
 		message: `<ul>${notes.map((n) => `<li>${esc(n.line_key)}: ${esc(n.message)}</li>`).join("")}</ul>`,
 	});
+}
+
+// Send a quote version (SP-61): the server submits a draft, prints the PDF, logs the send and
+// moves the case; here the PDF is shared to WhatsApp (phone) or downloaded with WhatsApp Web
+// opened (computer).
+const SP_SEND_API = "smart_power.sp_quotes.quote_send";
+
+async function sp_quote_send(frm) {
+	const { message: opts } = await frappe.call(`${SP_SEND_API}.send_options`, { quotation: frm.doc.name });
+	const dialog = new frappe.ui.Dialog({
+		title: frm.doc.docstatus === 0 ? __("Send to Customer") : __("Send Again"),
+		fields: [
+			{
+				fieldname: "print_format",
+				fieldtype: "Select",
+				label: __("Print Format"),
+				options: opts.formats,
+				default: opts.default,
+				reqd: 1,
+			},
+			{
+				fieldname: "channel",
+				fieldtype: "Select",
+				label: __("Channel"),
+				options: opts.channels.map((c) => ({ value: c, label: __(c) })),
+				default: "WhatsApp",
+				reqd: 1,
+			},
+			{
+				fieldname: "note",
+				fieldtype: "HTML",
+				options: `<p class="text-muted small">${frappe.utils.escape_html(
+					frm.doc.docstatus === 0
+						? __("Sending freezes this version: it cannot be edited afterwards.")
+						: __("A new PDF is made and logged for this send.")
+				)}</p>`,
+			},
+		],
+		primary_action_label: __("Send"),
+		primary_action: async (values) => {
+			dialog.hide();
+			const { message: r } = await frappe.call({
+				method: `${SP_SEND_API}.send_quote`,
+				args: { quotation: frm.doc.name, ...values },
+				freeze: true,
+				freeze_message: __("Making the PDF…"),
+			});
+			(r.warnings || []).forEach((w) => frappe.show_alert({ message: w, indicator: "orange" }, 10)); // sp-allow-number: seconds on screen
+			frappe.show_alert({ message: __("Quote sent"), indicator: "green" });
+			await sp_quote_share(r, values.channel, frm);
+			frm.reload_doc();
+		},
+	});
+	dialog.show();
+}
+
+async function sp_quote_share(r, channel, frm) {
+	const blob = await (await fetch(r.file_url, { credentials: "same-origin" })).blob();
+	const file = new File([blob], r.file_name, { type: "application/pdf" });
+	// a phone: share the PDF straight to WhatsApp (or any app the user picks)
+	if (channel === "WhatsApp" && navigator.canShare && navigator.canShare({ files: [file] })) {
+		try {
+			await navigator.share({ files: [file], title: frm.doc.name });
+			return;
+		} catch (e) {
+			// the user closed the share sheet: fall back to the download below
+		}
+	}
+	// a computer: download the PDF, and open WhatsApp Web on the customer's number
+	const link = document.createElement("a");
+	link.href = URL.createObjectURL(blob);
+	link.download = r.file_name;
+	link.click();
+	if (channel === "WhatsApp") {
+		const phone = sp_whatsapp_number(r.mobile);
+		window.open(`https://web.whatsapp.com/send${phone ? `?phone=${phone}` : ""}`, "_blank");
+	}
+}
+
+// An Egyptian mobile (01xxxxxxxxx) in WhatsApp's international form (201xxxxxxxxx)
+function sp_whatsapp_number(mobile) {
+	const digits = (mobile || "").replace(/\D/g, "");
+	return digits.startsWith("0") ? `2${digits}` : digits; // sp-allow-number: Egypt country code
 }

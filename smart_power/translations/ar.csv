@@ -9,6 +9,7 @@ A case always has a follow-up owner.,كل حالة لها مسؤول متابع�
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
 A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
 A marketing request needs its source.,طلب التسويق يحتاج إلى مصدره.
+A new PDF is made and logged for this send.,يُنشأ ملف PDF جديد ويُسجَّل لهذا الإرسال.
 A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
@@ -337,6 +338,7 @@ Lost Note,ملاحظة الخسارة
 Lost Reason,سبب الخسارة
 Main,رئيسي
 Main Supplier,المورد الرئيسي
+Making the PDF…,جارٍ إنشاء ملف PDF…
 Manual,يدوي
 Manual Entry,إدخال يدوي
 Manual Prices,أسعار يدوية
@@ -529,6 +531,7 @@ Quote Request,طلب عرض
 Quote request,طلب عرض
 Quote Request Queue,قائمة طلبات العروض
 Quote request: {0},طلب عرض سعر: {0}
+Quote sent,تم إرسال العرض
 Quote Sent At,وقت إرسال العرض
 Quote Status,حالة العرض
 Quote validity,صلاحية العرض
@@ -596,7 +599,9 @@ Second Mobile,موبايل إضافي
 Section,القسم
 Select,قائمة اختيار
 Send,إرسال
+Send Again,إرسال مرة أخرى
 Send to Customer,إرسال للعميل
+Sending freezes this version: it cannot be edited afterwards.,الإرسال يثبّت هذا الإصدار: لا يمكن تعديله بعد ذلك.
 Sent,أُرسل
 Sent At,وقت الإرسال
 Sent By,أرسله
