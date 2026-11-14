@@ -152,7 +152,9 @@ def write_lines(doc, result) -> None:
 				"sp_line_key": line.line_key,
 				"sp_markup_pct": line.markup,
 				"sp_is_manual_qty": line.is_manual_qty,
-				"sp_lock_markup": line.lock_markup,
+				# a BTC price is locked too: no markup edit, no discount on its own (SP-68)
+				"sp_lock_markup": 1 if line.lock_markup or line.pricing_method == LOCKED_BTC else 0,
+				"sp_line_section": line.section,
 			},
 		)
 	for row in manual_rows:

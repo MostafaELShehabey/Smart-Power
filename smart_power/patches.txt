@@ -23,3 +23,4 @@ smart_power.patches.sp62_quote_print_format
 smart_power.patches.sp62_letterhead_default
 smart_power.patches.sp62_letterhead_sizes
 smart_power.patches.sp62_desk_default_print_format
+smart_power.patches.sp68_discount_followup_warn

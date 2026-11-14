@@ -21,7 +21,7 @@ class TestDiscountRules(IntegrationTestCase):
 		set_setting(
 			followup_discount_max_pct=2, creator_discount_max_pct=4, validity_days=3, max_validity_days=0
 		)
-		set_rule("discount_followup_max", BLOCK)
+		set_rule("discount_followup_max", WARN, warn_needs_reason=0)
 		set_rule("discount_creator_max", WARN, warn_needs_reason=0)
 		set_rule("quote_validity", BLOCK)
 
@@ -29,11 +29,17 @@ class TestDiscountRules(IntegrationTestCase):
 		frappe.set_user("Administrator")
 		frappe.db.after_rollback.reset()
 
-	def test_followup_owner_blocked_above_limit(self):
-		"""Given discount_followup_max = 2% at Block, when Camelia tries 2.5%, then it is blocked."""
+	def test_followup_owner_above_limit_is_saved_and_flagged(self):
+		"""Given discount_followup_max = 2%, when Camelia gives 2.5%, then it is saved and flagged.
+		There is no approval gate (SP-68, decision 67): even set to Block, the rule only warns."""
 		frappe.set_user(self.camelia)
-		with self.assertRaises(RuleBlocked):
-			make_quotation(discount_pct=2.5)
+		q = make_quotation(discount_pct=2.5)
+		frappe.set_user("Administrator")
+		self.assertTrue(
+			frappe.db.exists(
+				"SP Review Item", {"reference_name": q.name, "category": "Discount", "status": "Open"}
+			)
+		)
 
 	def test_admin_raises_the_limit_and_the_same_discount_passes(self):
 		"""Given the admin changes the limit to 3%, when she tries 2.5%, then it is allowed."""

@@ -8,7 +8,7 @@ import frappe
 from frappe import _
 from frappe.utils import date_diff, flt
 
-from smart_power.rules import BLOCK, Finding, RuleContext, rule
+from smart_power.rules import Finding, RuleContext, rule
 from smart_power.sp_core.setup.role_catalogue import role
 
 PCT = 100
@@ -42,8 +42,10 @@ def _user_has(key: str) -> bool:
 	"discount_followup_max",
 	doctypes=("Quotation",),
 	title="Total discount limit for the follow-up owner",
-	description="The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.",
-	default_level=BLOCK,
+	description="The follow-up owner can give a discount on the total up to the limit in Smart Power "
+	"Settings; above it the discount is kept and the admin is flagged. There is no approval gate "
+	"(decision 67), so it never blocks.",
+	never_block=True,
 	review_category="Discount",
 )
 def discount_followup_max(doc, ctx: RuleContext):
@@ -57,7 +59,7 @@ def discount_followup_max(doc, ctx: RuleContext):
 		message=_("Discount {0}% is above the follow-up owner's limit of {1}%.").format(
 			frappe.format(pct, "Percent"), frappe.format(limit, "Percent")
 		),
-		suggestion=_("Ask the quote creator to approve a larger discount."),
+		highlight=True,
 		amount=flt(doc.get("discount_amount")),
 	)
 
