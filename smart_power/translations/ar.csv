@@ -213,6 +213,7 @@ For chassis templates: one per factory.,لقوالب الشاسيه: قالب ل
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
 "For full alternative quotes on the same case (A/B/C, SP-59).",للعروض البديلة الكاملة على نفس الحالة (A/B/C، SP-59).
 For off-grid and hybrid requests: each device with its watts and day / night hours.,لطلبات الأوف جريد والهايبرد: كل جهاز بقدرته بالوات وساعات تشغيله نهاراً وليلاً.
+For Smart Power,عن سمارت باور
 Fresh,حديث
 From,من
 From Date,من تاريخ
@@ -476,6 +477,7 @@ Reassign,إعادة إسناد
 Reassign Request,طلب تحويل
 Reassignment,تحويل
 Receipt to Confirm,استلام محتاج تأكيد
+Received by,المستلم
 Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
 Refresh,تحديث

@@ -30,6 +30,12 @@ jinja = {
 		"smart_power.sp_core.services.company.get_company_settings",
 		"smart_power.sp_core.services.company.company_logo",
 		"smart_power.sp_core.services.company.company_addresses",
+		# Printed documents (SP-23)
+		"smart_power.sp_core.printing.money",
+		"smart_power.sp_core.printing.ar_words",
+		"smart_power.sp_core.printing.ar_date",
+		"smart_power.sp_core.printing.signature_block",
+		"smart_power.sp_core.printing.qr",
 	],
 }
 
