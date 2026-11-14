@@ -75,6 +75,7 @@ Blocked,ممنوع
 Blocked by a business rule,تم المنع بقاعدة عمل
 Blocks,الفقرات
 Board view,عرض اللوحة
+Both sides,الجانبان
 Brand,الماركة
 Brand Priority,أولوية الماركات
 Brand priority,أولوية الماركة
@@ -126,6 +127,8 @@ Check the prices and the discount before the next version.,راجع الأسعا
 Check the specs,راجع المواصفات
 Check the template,راجع القالب
 Cheque,شيك
+Cheque Bounce,ارتداد شيك
+Cheque Deposit,إيداع شيك
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
 Choose the system type first.,اختر نوع النظام أولاً.
@@ -161,11 +164,18 @@ Countdown,العد التنازلي
 Counter,العداد
 Counter saved,تم حفظ العداد
 Created: {0} · Updated: {1} · Errors: {2},تمت إضافة: {0} · تم تحديث: {1} · أخطاء: {2}
+credit,الدائن
 Credit Account,الحساب الدائن
+Credit Center,مركز الدائن
+Credit Cost Center,مركز تكلفة الدائن
+Credit side,جانب الدائن
 Current,الحالي
 Custody,عهدة
 Custody Account,حساب العهدة
+Custody Expense,مصروف عهدة
+Custody Settlement,تسوية عهدة
 Customer,العميل
+Customer Advance,سلفة عميل
 Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Customer Name,اسم العميل
@@ -174,7 +184,11 @@ Data,نص
 Date,التاريخ
 Day Hours,ساعات النهار
 Deactivate instead,أوقفها بدلاً من الحذف
+debit,المدين
 Debit Account,الحساب المدين
+Debit Center,مركز المدين
+Debit Cost Center,مركز تكلفة المدين
+Debit side,جانب المدين
 Default,الافتراضي
 Default Cost,التكلفة الافتراضية
 Default Item,الصنف الافتراضي
@@ -226,6 +240,7 @@ Enter the customer's name: this mobile is new.,اكتب اسم العميل: ه�
 Entry Mode,طريقة التسجيل
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
+Event,الحدث
 Events,الأحداث
 Excel File,ملف إكسل
 Execution Owner,مسؤول التنفيذ
@@ -243,6 +258,7 @@ Field entry,التسجيل الميداني
 Field Entry Lock (days),قفل التسجيل الميداني (أيام)
 Field Expense,مصروف ميداني
 Field Job,شغلانة ميدانية
+Field Money,نقدية ميدانية
 Field names starting with {0} are reserved for developer fields.,أسماء الحقول التي تبدأ بـ {0} محجوزة لحقول المطور.
 File,الملف
 Fill from,املأ من
@@ -256,6 +272,7 @@ Fiscal Year Start,بداية السنة المالية
 Fixed,ثابت
 Fixed list price,سعر القائمة الثابت
 Fixed Quote Line,بند ثابت في العرض
+Fixed: the cost center below. From document: the document's own center (e.g. the station's).,ثابت: مركز التكلفة أدناه. من المستند: مركز المستند نفسه (مثل مركز المحطة).
 Float,رقم عشري
 Flow (m³/h),التصرف (م³/ساعة)
 flow_m3h,التصرف (م³/ساعة)
@@ -312,6 +329,7 @@ Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
 In person,شخصيًا
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
+Indirect Split,توزيع غير مباشر
 Individual,فرد
 Individual (BTC) or company (BTB). Sets the customer type.,فرد (BTC) أو شركة (BTB). يحدد نوع العميل.
 Input {0},المدخل {0}
@@ -444,6 +462,7 @@ Next Call,المكالمة التالية
 Next Number,الرقم التالي
 Night Hours,ساعات الليل
 No,لا
+No account is mapped for {0}. The admin adds it in Smart Power Settings > Account Map.,لا يوجد حساب مربوط لـ {0}. يضيفه المدير في إعدادات سمارت باور > خريطة الحسابات.
 No call yet.,لا توجد مكالمات بعد.
 No cases here.,لا توجد حالات هنا.
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
@@ -461,6 +480,7 @@ No quote sent {0} hours after the request (due within {1} hours).,لم يُرس�
 No quote yet.,لا يوجد عرض بعد.
 No sent quote yet.,لم يُرسل عرض بعد.
 No.,رقم
+None,لا شيء
 Nos,عدد
 Not allowed,غير مسموح
 Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
@@ -539,6 +559,8 @@ Placeholders you can use,المتغيرات المتاحة
 PM,م
 PO Sent,تم إرسال أمر التوريد
 Posting Event,حدث القيد
+Posting {0}: the amount must be above zero.,ترحيل {0}: يجب أن يكون المبلغ أكبر من صفر.
+"Posting {0}: the {1} side has no cost center. Set it in Smart Power Settings > Account Map, or on the document.",ترحيل {0}: جانب {1} بلا مركز تكلفة. حدده في إعدادات سمارت باور > خريطة الحسابات، أو على المستند.
 Power (HP),القدرة (حصان)
 Power (kW),القدرة (كيلووات)
 Power (W),القدرة (وات)
@@ -566,6 +588,7 @@ Print Sample,نموذج الطباعة
 Priority,الأولوية
 Profit,الربح
 Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
+Project,المشروع
 Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
 Publish,نشر
 Publish version {0}? New prints of this document use it.,نشر الإصدار {0}؟ ستستخدمه الطباعات الجديدة لهذا المستند.
@@ -690,6 +713,7 @@ Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (
 "Set by the system: sent versions stay valid until approved, superseded, lost or expired.",يحددها النظام: النسخ المرسلة تظل صالحة حتى تُعتمد أو تُستبدل أو تُخسر أو تنتهي صلاحيتها.
 Set Counter,ضبط العداد
 Set Counter: {0},ضبط العداد: {0}
+Set the company to post to.,حدد الشركة للترحيل إليها.
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
@@ -703,6 +727,7 @@ Show,عرض
 Showroom,المعرض
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
 Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أيام من آخر إيداع)
+Showroom Deposit,إيداع المعرض
 Simple Record Type,نوع التسجيل البسيط
 Site,موقع
 Site Stage,مرحلة الموقع
@@ -715,6 +740,7 @@ Smart Power's cost. Visible to cost roles only (SP-35).,تكلفة سمارت ب
 Snoozed Until,مؤجل حتى
 Sort Order,الترتيب
 Source,المصدر
+Source Type,نوع المصدر
 SP Account Map,خريطة الحسابات
 SP Accountant,المحاسب
 SP Admin,الأدمن
@@ -843,6 +869,7 @@ The customer,العميل
 The default price category for items in this group.,فئة السعر الافتراضية لأصناف هذه المجموعة.
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The discounts are more than the quote total.,الخصومات أكبر من إجمالي العرض.
+The document that posted this entry. Cancelling it cancels this entry.,المستند الذي رحّل هذا القيد. إلغاؤه يلغي هذا القيد.
 The ERPNext company these details print for.,الشركة في النظام التي تُطبع لها هذه البيانات.
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
 The file has no price column.,الملف لا يحتوي على عمود سعر.
@@ -872,6 +899,7 @@ The requester was asked,تم سؤال صاحب الطلب
 The row has no price.,السطر لا يحتوي على سعر.
 The sales case this quote belongs to. Its customer must be the case's customer.,الحالة التي يتبعها هذا العرض. عميله يجب أن يكون عميل الحالة.
 "The smallest capacity accepted, e.g. hp.",أقل قدرة مقبولة، مثل hp.
+"The Smart Power event this entry was posted for (Account Map, SP-113).",حدث سمارت باور الذي رُحّل له هذا القيد (خريطة الحسابات).
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
@@ -954,11 +982,13 @@ When,متى
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
 Where a marketing request came from (X4 Lead Source list); required for the Marketing channel.,من أين جاء طلب التسويق (قائمة مصادر العملاء في X4)؛ مطلوب لقناة التسويق.
+"Which side carries the document's project (the station), e.g. a station's cost on the debit side.",أي جانب يحمل مشروع المستند (المحطة)، مثل تكلفة المحطة في جانب المدين.
 Who,مَن
 "Who brought the request in (showroom, call or marketing).",من جاء بالطلب (المعرض أو المكالمة أو التسويق).
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
+Winch Internal Charge,تحميل داخلي للونش
 Winch Line,سطر الونش
 Won,تم الكسب
 Won On,تاريخ الكسب
