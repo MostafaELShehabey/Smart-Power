@@ -12,6 +12,7 @@ const SP_OWNERS = [
 
 frappe.ui.form.on("SP Case", {
 	refresh(frm) {
+		sp_quote_history(frm);
 		if (frm.is_new() || !SP_REASSIGN_ROLES.some((r) => frappe.user.has_role(r))) return;
 		frm.add_custom_button(__("Reassign"), () => sp_reassign_dialog(frm));
 	},
@@ -44,4 +45,46 @@ function sp_reassign_dialog(frm) {
 		},
 	});
 	dialog.show();
+}
+
+// Quote history (SP-61): every version, its status and total, and the PDF of every send.
+async function sp_quote_history(frm) {
+	const field = frm.get_field("quote_history_html");
+	if (!field || frm.is_new()) return;
+	const { message: quotes } = await frappe.call("smart_power.sp_quotes.quote_send.quote_history", {
+		case: frm.doc.name,
+	});
+	const esc = frappe.utils.escape_html;
+	if (!quotes || !quotes.length) {
+		field.$wrapper.html(`<p class="text-muted">${esc(__("No quote yet."))}</p>`);
+		return;
+	}
+	const rows = quotes
+		.map((q) => {
+			const sends = q.sends.length
+				? q.sends
+						.map(
+							(s) => `<div class="small">${esc(frappe.datetime.str_to_user(s.sent_at))} · ${esc(
+								__(s.channel)
+							)} · ${esc(s.sent_by_name)} · <a href="${esc(s.file_url)}" target="_blank">${esc(
+								__("PDF")
+							)}</a></div>`
+						)
+						.join("")
+				: `<div class="small text-muted">${esc(__("Not sent"))}</div>`;
+			const approved = q.sp_is_approved ? ` <span class="indicator-pill green">${esc(__("Approved"))}</span>` : "";
+			return `<tr>
+				<td><a href="/app/quotation/${encodeURIComponent(q.name)}">${esc(q.name)}</a></td>
+				<td>${esc(q.sp_option_label || "A")}</td>
+				<td>${esc(String(q.sp_version || ""))}</td>
+				<td>${esc(__(q.sp_status || ""))}${approved}</td>
+				<td class="text-right">${esc(format_currency(q.total, q.currency))}</td>
+				<td>${sends}</td>
+			</tr>`;
+		})
+		.join("");
+	field.$wrapper.html(`<table class="table table-sm"><thead><tr>
+		<th>${esc(__("Quotation"))}</th><th>${esc(__("Option"))}</th><th>${esc(__("Version"))}</th>
+		<th>${esc(__("Status"))}</th><th class="text-right">${esc(__("Total"))}</th><th>${esc(__("Sends"))}</th>
+	</tr></thead><tbody>${rows}</tbody></table>`);
 }

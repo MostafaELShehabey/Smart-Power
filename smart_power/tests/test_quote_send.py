@@ -161,3 +161,13 @@ class TestQuoteSend(IntegrationTestCase):
 			][-1],
 			"smart_power.sp_sales.quotation.update_child_qty_rate",
 		)
+
+	def test_quote_history_lists_versions_and_their_sends(self):
+		from smart_power.sp_quotes.quote_send import quote_history
+
+		self.send()
+		self.send()
+		history = quote_history(self.case.name)
+		self.assertEqual(history[0].name, self.quote.name)
+		self.assertEqual(len(history[0].sends), 2)
+		self.assertTrue(history[0].sends[0].file_url.endswith(".pdf"))
