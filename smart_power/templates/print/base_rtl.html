@@ -1,0 +1,24 @@
+{#- Smart Power base for printed documents (SP-23): right to left, IBM Plex Sans Arabic (embedded),
+    A4. The letterhead (default "Smart Power") gives the header (logo, legal name, commercial
+    register) and the footer (addresses, page X of Y); a PDF repeats both on every page.
+
+    A print format uses it like this:
+        {% extends "smart_power/templates/print/base_rtl.html" %}
+        {% block body %} ... {{ money(doc.grand_total) }} {{ ar_words(doc.grand_total) }} ... {% endblock %}
+-#}
+{{ sp_print_styles() }}
+{%- if letter_head and not no_letterhead %}
+<div id="header-html" class="hidden-pdf">
+	<div class="letter-head">{{ letter_head }}</div>
+</div>
+{%- endif %}
+<div class="sp-print" dir="rtl" lang="ar">
+	{%- block title %}{% endblock %}
+	{%- block body %}{% endblock %}
+	{%- block signatures %}{% endblock %}
+</div>
+{%- if footer and not no_letterhead %}
+<div id="footer-html" class="visible-pdf">
+	<div class="letter-head-footer">{{ footer }}</div>
+</div>
+{%- endif %}

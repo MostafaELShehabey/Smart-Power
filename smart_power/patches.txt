@@ -15,3 +15,4 @@ smart_power.patches.sp46_case_workflow_masters
 smart_power.patches.sp47_request_fields
 smart_power.patches.sp48_quote_clock
 smart_power.patches.sp47_story_request_fields
+smart_power.patches.sp23_print_setup
