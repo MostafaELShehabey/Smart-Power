@@ -508,7 +508,7 @@ Set when the customer's first deal is won. Shows a gold star in lists.,يُفع�
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
 Setup failed,فشل الإعداد
 Setup is complete but there is no company named {0}.,الإعداد مكتمل لكن لا توجد شركة باسم {0}.
-"Shared by all versions, e.g. PUMP or CHASSIS-<factory>.",مشترك بين كل الإصدارات، مثل PUMP أو CHASSIS-<المصنع>.
+"Shared by all versions, e.g. PUMP, or CHASSIS-FACTORY for a factory's chassis.",مشترك بين كل الإصدارات، مثل PUMP، أو CHASSIS-FACTORY لشاسيه مصنع معيّن.
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
 "Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",مفتاح قصير تستخدمه التقارير والنظام، مثل PUMP. لا يتغير بعد الحفظ لأنه جزء من اسم السجل.
 Showroom,المعرض

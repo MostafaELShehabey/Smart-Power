@@ -28,7 +28,7 @@
    "label": "Template Code",
    "reqd": 1,
    "set_only_once": 1,
-   "description": "Shared by all versions, e.g. PUMP or CHASSIS-<factory>."
+   "description": "Shared by all versions, e.g. PUMP, or CHASSIS-FACTORY for a factory's chassis."
   },
   {
    "fieldname": "template_name",
