@@ -152,6 +152,7 @@ Description,الوصف
 Design Inputs,مدخلات التصميم
 Details,التفاصيل
 Device,الجهاز
+Difference,الفرق
 Discount,خصم
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
@@ -255,6 +256,7 @@ Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
 Item,الصنف
 Item Group,مجموعة الأصناف
+Item Name,اسم الصنف
 Item Selection,اختيار الصنف
 Item {0} does not exist.,الصنف {0} غير موجود.
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
@@ -357,7 +359,6 @@ No,لا
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
 No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
-no item yet,لا يوجد صنف بعد
 "No item, so no cost.",لا يوجد صنف، فلا توجد تكلفة.
 "No item, so no price.",لا يوجد صنف، فلا يوجد سعر.
 No items match these filters.,لا توجد أصناف مطابقة.
@@ -367,7 +368,7 @@ No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 Not allowed,غير مسموح
-Not on the quote: {0}.,غير مضاف للعرض: {0}.
+Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
 Note,ملاحظة
 Notes,ملاحظات
 of,من
@@ -394,7 +395,9 @@ Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
 Option,الخيار
 Optional,اختياري
-optional line,سطر اختياري
+Optional additions (not included in the total),إضافات اختيارية (غير محسوبة في الإجمالي)
+Optional Lines,السطور الاختيارية
+Optional Lines (not in the total),السطور الاختيارية (خارج الإجمالي)
 Options,الاختيارات
 Order saved,تم حفظ الترتيب
 Other,أخرى
@@ -443,6 +446,7 @@ Pricing Rules,قواعد التسعير
 Print Group,مجموعة الطباعة
 Print Sample,نموذج الطباعة
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
+"Printed under the total with their own price. Never added to the total, the cost or the margin (SP-59).",تُطبع تحت الإجمالي بسعرها الخاص، ولا تُضاف أبدًا للإجمالي أو التكلفة أو الهامش (SP-59).
 Priority,الأولوية
 Profit,الربح
 Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
@@ -475,6 +479,7 @@ Quote Validity (days),صلاحية العرض (أيام)
 Quote within 24 hours,العرض خلال 24 ساعة
 Quotes,عروض الأسعار
 Raised By,سُجّل بواسطة
+Rate,السعر
 Reason,السبب
 Reason Given,السبب المكتوب
 Reassign,إعادة إسناد
@@ -606,6 +611,7 @@ SP Project Manager,مدير المشروعات
 SP Projects Manager,مدير المشروعات
 SP Purchase Officer,المشتريات
 SP Quote Creator,إعداد عروض الأسعار
+SP Quote Optional Line,سطر اختياري في العرض
 SP Receipt Confirmer,تأكيد الاستلام
 SP Regulatory Compliance,التراخيص والتأهيل
 SP Review Item,بند مراجعة
@@ -751,6 +757,7 @@ Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
 watt,القدرة (وات)
 Watts,وات
+"What changes if the customer adds it, e.g. a full stainless motor instead of a stainless body with a cast-iron cap.",ما الذي يتغير لو أضافه العميل، مثل موتور استانلس كامل بدل جسم استانلس بغطاء زهر.
 What is missing?,ما الناقص؟
 WhatsApp,واتساب
 When,متى

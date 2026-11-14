@@ -7,8 +7,8 @@ The quote keeps the template version it used (Calculation Template), its design 
 the quote creator's changes per line (Line Overrides), so a recalculation gives the same
 lines. A quantity typed by hand stays and is marked Manual Qty; the item can be changed; a
 markup change needs a reason (SP Edit Reason Log) and is refused on a locked line. Lines with
-no item yet and optional lines are not written as quote rows (they are listed in the result;
-the builder and optional lines come with SP-57 and SP-59). Rows added by hand are kept.
+no item yet are listed in the result, not written; optional lines go to the quote's optional
+table, outside its totals (SP-59). Rows added by hand are kept.
 Only a draft version is calculated: a sent version is frozen (SP-54).
 """
 
@@ -98,18 +98,28 @@ def recalculate(doc) -> dict:
 
 
 def write_lines(doc, result) -> None:
-	"""Replace the calculated rows; keep the rows added by hand."""
+	"""Replace the calculated rows; keep the rows added by hand. Optional lines go to the
+	optional table (SP-59), outside the quote's totals."""
 	manual_rows = [row for row in doc.items if not row.get("sp_line_key")]
+	manual_optional = [row for row in doc.get("sp_optional_lines") or [] if not row.get("line_key")]
 	doc.set("items", [])
+	doc.set("sp_optional_lines", [])
 	for line in result.lines:
-		if line.is_optional or not line.item_code:
-			reason = _("optional line") if line.is_optional else _("no item yet")
+		if not line.item_code:
 			result.rule_results.append(
+				{"line_key": line.line_key, "level": INFO, "message": _("Not on the quote: no item yet.")}
+			)
+			continue
+		if line.is_optional:
+			doc.append(
+				"sp_optional_lines",
 				{
+					"item_code": line.item_code,
+					"qty": line.qty,
+					"rate": line.rate,
+					"sp_cost": line.cost,
 					"line_key": line.line_key,
-					"level": INFO,
-					"message": _("Not on the quote: {0}.").format(reason),
-				}
+				},
 			)
 			continue
 		doc.append(
@@ -127,6 +137,8 @@ def write_lines(doc, result) -> None:
 		)
 	for row in manual_rows:
 		doc.append("items", row.as_dict(no_default_fields=True))
+	for row in manual_optional:
+		doc.append("sp_optional_lines", row.as_dict(no_default_fields=True))
 
 
 def quote_for_edit(name: str):
