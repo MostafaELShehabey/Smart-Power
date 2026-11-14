@@ -47,6 +47,7 @@ def validate(doc, method=None) -> None:
 		doc.valid_till = None
 	set_valid_till(doc)
 	set_cost_and_profit(doc)
+	set_optional_lines(doc)
 	doc.sp_status = status_of(doc, sending=doc.get("_action") == "submit")
 
 
@@ -116,6 +117,22 @@ def set_cost_and_profit(doc) -> None:
 	doc.sp_total_cost = total_cost
 	doc.sp_profit = net - total_cost
 	doc.sp_margin_pct = doc.sp_profit / net * PCT if net else 0
+
+
+def set_optional_lines(doc) -> None:
+	"""Optional lines (SP-59): their own amount and cost, never part of the quote's totals.
+
+	They sit in their own table, so ERPNext's totals, the cost and the margin never see them.
+	"""
+	from smart_power.sp_stock.prices import COST, latest_price
+
+	for row in doc.get("sp_optional_lines") or []:
+		if not row.qty:
+			row.qty = 1
+		row.amount = flt(row.qty) * flt(row.rate)
+		if not flt(row.sp_cost) and row.item_code:
+			price = latest_price(row.item_code, COST, on_date=doc.transaction_date)
+			row.sp_cost = flt(price.rate) if price else 0
 
 
 def set_valid_till(doc) -> None:

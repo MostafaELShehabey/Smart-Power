@@ -138,7 +138,8 @@ def get_quote_view(name: str) -> dict:
 		return data
 	for key in QUOTE_COST_KEYS:
 		data.pop(key, None)
-	for row in data.get("items") or []:
-		for key in QUOTE_LINE_COST_KEYS:
-			row.pop(key, None)
+	for table in ("items", "sp_optional_lines"):
+		for row in data.get(table) or []:
+			for key in QUOTE_LINE_COST_KEYS:
+				row.pop(key, None)
 	return data

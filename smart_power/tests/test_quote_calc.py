@@ -36,7 +36,12 @@ class TestQuoteCalc(IntegrationTestCase):
 		self.assertEqual((rows["motor"].item_code, rows["motor"].sp_lock_markup), ("SPT-MOTOR-A50", 1))
 		self.assertEqual(rows["panels"].rate, 2690)
 		skipped = {r["line_key"] for r in result.rule_results if r["level"] == "info"}
-		self.assertEqual(skipped, {"installation", "winch", "stainless_motor"})
+		self.assertEqual(skipped, {"installation", "winch"})
+		# the optional line goes under the total, not into it (SP-59)
+		self.assertEqual(
+			[(r.line_key, r.item_code, r.amount) for r in doc.sp_optional_lines],
+			[("stainless_motor", "SPT-STAINLESS", 69000)],
+		)
 
 	def test_manual_qty_is_kept_on_recalculation(self):
 		calculate_quote(self.quote.name, self.data["inputs"])

@@ -102,3 +102,10 @@
 	width: 72pt;
 	height: 72pt;
 }
+.sp-optional {
+	margin-top: 12pt;
+	page-break-inside: avoid;
+}
+.sp-optional h3 {
+	font-size: 11pt;
+}
