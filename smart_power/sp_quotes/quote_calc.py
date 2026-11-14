@@ -85,6 +85,26 @@ def set_line_override(
 	return recalculate(doc)
 
 
+@frappe.whitelist()
+def template_for_quote(quotation: str, template: str | None = None) -> dict:
+	"""The template Calculate will use, and its inputs, so the dialog can ask for them: the one
+	picked, else the one the quote used, else the published one for the case's system type."""
+	doc = frappe.get_doc(QUOTATION, quotation)
+	doc.check_permission("read")
+	if not can_see_cost():
+		frappe.throw(_("Only the quote creator and the cost roles price a quote."), frappe.PermissionError)
+	name = template or doc.get("sp_calc_template") or default_template(doc)
+	if not name:
+		frappe.throw(_("There is no published calculation template for this case's system type."))
+	inputs = frappe.get_all(
+		"SP Calc Template Input",
+		filters={"parent": name, "parenttype": TEMPLATE},
+		fields=["input_key", "label", "input_type", "options", "default_value", "reqd", "help"],
+		order_by="idx asc",
+	)
+	return {"template": name, "inputs": inputs}
+
+
 def recalculate(doc) -> dict:
 	result = calculate(
 		doc.sp_calc_template,

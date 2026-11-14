@@ -84,12 +84,20 @@ async function sp_quote_calculate(frm) {
 					get_query: () => ({ filters: { is_published: 1 } }),
 				},
 				resolve,
-				__("Calculate")
+				__("Calculate"),
+				__("Next")
 			)
 		);
 		template = values.template;
 	}
-	const inputs = template ? (await frappe.db.get_doc("SP Calc Template", template)).inputs : [];
+	// no template picked: the one the server will use (the published one for the case's system
+	// type), so its inputs are still asked for
+	const { message: info } = await frappe.call({
+		method: `${SP_QC_API}.template_for_quote`,
+		args: { quotation: frm.doc.name, template: template || null },
+	});
+	template = info.template;
+	const inputs = info.inputs || [];
 	const dialog = new frappe.ui.Dialog({
 		title: __("Design Inputs"),
 		fields: inputs.map((i) => ({
@@ -118,7 +126,11 @@ async function sp_quote_calculate(frm) {
 }
 
 function sp_quote_change_line(frm) {
-	const lines = frm.doc.items.filter((row) => row.sp_line_key).map((row) => row.sp_line_key);
+	// the calculated lines, including the optional ones under the total (SP-59)
+	const lines = [
+		...frm.doc.items.filter((row) => row.sp_line_key).map((row) => row.sp_line_key),
+		...(frm.doc.sp_optional_lines || []).filter((row) => row.line_key).map((row) => row.line_key),
+	];
 	const dialog = new frappe.ui.Dialog({
 		title: __("Change a Line"),
 		fields: [
