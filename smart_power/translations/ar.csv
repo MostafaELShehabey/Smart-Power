@@ -97,6 +97,7 @@ Cancelled,ملغي
 Capacity Spec,مواصفة القدرة
 Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
+Case of {0} reassigned from {1} to {2},حالة {0} أُعيد إسنادها من {1} إلى {2}
 Case opened,فتح الحالة
 Case {0} already has options {1}.,الحالة {0} لديها بالفعل الخيارات {1}.
 Case {0} cannot move from {1} to {2}.,لا يمكن نقل الحالة {0} من {1} إلى {2}.
@@ -280,6 +281,7 @@ Give Discount,إعطاء خصم
 Give discount,إعطاء الخصم
 Given By,أعطاه
 Given On,تاريخ الإعطاء
+Hand over,تسليم
 Head (m),الرفع (متر)
 head_m,الرفع (متر)
 Hello {0},أهلاً {0}
@@ -474,6 +476,7 @@ Only for Offer Type,لنوع العرض هذا فقط
 Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
+Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
 "Only the case's follow-up owner, its quote creator or the admin can give a discount.",فقط مسئول متابعة الحالة أو معد العرض أو المدير يمكنه إعطاء خصم.
 "Only the case's follow-up owner, its quote creator or the admin can send a quote.",يرسل العرض مسئول متابعة الحالة أو مُعدّ العرض أو المدير فقط.
@@ -809,6 +812,8 @@ Text,النص
 Text Blocks,فقرات النص
 The admin has been asked,تم إرسال الطلب للمدير
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
+The case is already yours.,الحالة لك بالفعل.
+The case is handed over.,تم تسليم الحالة.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
 The code is empty.,الكود فارغ.
@@ -946,6 +951,8 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} days,{0} يوم
+{0} does not follow customers up; hand the case to a colleague who does.,{0} لا يتابع العملاء؛ سلّم الحالة لزميل يتابعهم.
+{0} gave you the case of {1}: {2},{0} سلّمك حالة {1}: {2}
 {0} gave {1} off {2} on quote {3} ({4}),{0} أعطى خصم {1} على {2} في العرض {3} ({4})
 {0} h,{0} ساعة
 {0} has no P1 cost.,{0} ليس له تكلفة P1.
@@ -969,6 +976,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is required for this system type.,{0} مطلوب لهذا النوع من الأنظمة.
 {0} is required.,{0} مطلوب.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
+{0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
 {0} of {1} items,{0} من {1} صنف
 {0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
 {0} {1} does not exist.,{0} {1} غير موجود.

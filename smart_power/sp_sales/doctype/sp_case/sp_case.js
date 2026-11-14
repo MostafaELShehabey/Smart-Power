@@ -14,6 +14,7 @@ frappe.ui.form.on("SP Case", {
 	refresh(frm) {
 		sp_quote_history(frm);
 		sp_followup_view(frm);
+		sp_hand_over_button(frm);
 		if (sp_can_log_call(frm)) {
 			frm.add_custom_button(__("Log call"), () => sp_log_call_dialog(frm));
 		}
@@ -235,4 +236,41 @@ async function sp_followup_view(frm) {
 		<div class="col-md-5"><h6>${esc(__("Calls"))}</h6>${calls}</div>
 		<div class="col-md-7"><h6>${esc(__("Quote"))}</h6>${quote}</div>
 	</div>`);
+}
+
+// F5 Hand over (SP-69): the case's follow-up owner gives it to a colleague at once, no approval.
+// The open call tasks and the board card move with it; the admin uses Reassign instead.
+async function sp_hand_over_button(frm) {
+	if (frm.is_new() || frm.doc.follow_up_owner !== frappe.session.user) return;
+	const { message: opts } = await frappe.call("smart_power.sp_sales.followup.hand_over_options", {
+		case: frm.doc.name,
+	});
+	if (!opts.allowed) return;
+	frm.add_custom_button(__("Hand over"), () => {
+		const dialog = new frappe.ui.Dialog({
+			title: __("Hand over"),
+			fields: [
+				{
+					fieldname: "to_user",
+					fieldtype: "Select",
+					label: __("To"),
+					reqd: 1,
+					options: opts.users,
+				},
+				{ fieldname: "note", fieldtype: "Small Text", label: __("Note") },
+			],
+			primary_action_label: __("Hand over"),
+			primary_action: async (values) => {
+				await frappe.call({
+					method: "smart_power.sp_sales.followup.hand_over",
+					args: { case: frm.doc.name, ...values },
+					freeze: true,
+				});
+				dialog.hide();
+				frappe.show_alert({ message: __("The case is handed over."), indicator: "green" });
+				frappe.set_route("sp-followup-board");
+			},
+		});
+		dialog.show();
+	});
 }
