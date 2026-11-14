@@ -91,7 +91,11 @@ _RULE_EVENTS = {
 }
 
 doc_events = {
-	"*": _RULE_EVENTS,
+	"*": {
+		**_RULE_EVENTS,
+		# a cancelled source cancels the Journal Entries it posted (SP-113)
+		"on_cancel": "smart_power.sp_finance.posting.cancel_postings",
+	},
 	"SP Rule Setting": {"on_update": "smart_power.rules.clear_cache"},
 	# Customer master (SP-31): one customer per mobile.
 	"Customer": {"validate": "smart_power.sp_sales.customer.validate"},

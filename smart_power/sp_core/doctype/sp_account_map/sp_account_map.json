@@ -9,48 +9,89 @@
  "field_order": [
   "event",
   "debit_account",
+  "debit_center_rule",
+  "debit_cost_center",
+  "column_break_credit",
   "credit_account",
-  "center_rule",
-  "cost_center",
+  "credit_center_rule",
+  "credit_cost_center",
+  "project_rule",
   "note"
  ],
  "fields": [
   {
    "fieldname": "event",
    "fieldtype": "Select",
+   "label": "Event",
+   "options": "Field Job\nField Expense\nField Money\nCustody Expense\nCustody Settlement\nCheque Deposit\nCheque Bounce\nCustomer Advance\nIndirect Split\nWinch Internal Charge\nShowroom Deposit\nWrite-off\nRefund",
+   "reqd": 1,
    "in_list_view": 1,
-   "label": "Posting Event",
-   "options": "Field Job\nCustody\nCheque\nExpense\nRefund\nWrite-off",
-   "reqd": 1
+   "columns": 2
   },
   {
    "fieldname": "debit_account",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Debit Account",
-   "options": "Account"
+   "options": "Account",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "debit_center_rule",
+   "fieldtype": "Select",
+   "label": "Debit Center",
+   "options": "Fixed\nFrom document",
+   "default": "Fixed",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Fixed: the cost center below. From document: the document's own center (e.g. the station's)."
+  },
+  {
+   "fieldname": "debit_cost_center",
+   "fieldtype": "Link",
+   "label": "Debit Cost Center",
+   "options": "Cost Center",
+   "mandatory_depends_on": "eval:doc.debit_center_rule=='Fixed'"
+  },
+  {
+   "fieldname": "column_break_credit",
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "credit_account",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Credit Account",
-   "options": "Account"
-  },
-  {
-   "default": "From document",
-   "fieldname": "center_rule",
-   "fieldtype": "Select",
+   "options": "Account",
+   "reqd": 1,
    "in_list_view": 1,
-   "label": "Financial Center",
-   "options": "From document\nFixed"
+   "columns": 2
   },
   {
-   "depends_on": "eval:doc.center_rule==\"Fixed\"",
-   "fieldname": "cost_center",
+   "fieldname": "credit_center_rule",
+   "fieldtype": "Select",
+   "label": "Credit Center",
+   "options": "Fixed\nFrom document",
+   "default": "Fixed",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "credit_cost_center",
    "fieldtype": "Link",
-   "label": "Cost Center",
-   "options": "Cost Center"
+   "label": "Credit Cost Center",
+   "options": "Cost Center",
+   "mandatory_depends_on": "eval:doc.credit_center_rule=='Fixed'"
+  },
+  {
+   "fieldname": "project_rule",
+   "fieldtype": "Select",
+   "label": "Project",
+   "options": "None\nDebit side\nCredit side\nBoth sides",
+   "default": "None",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Which side carries the document's project (the station), e.g. a station's cost on the debit side."
   },
   {
    "fieldname": "note",
@@ -62,7 +103,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-11-09 14:29:35.991058",
+ "modified": "2026-11-15 15:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP Account Map",
