@@ -160,6 +160,15 @@ def quote_print(doc) -> frappe._dict:
 			case=doc.get("sp_case"),
 		),
 		lines=print_lines(rows, names),
+		optional=[
+			{
+				"description": _arabic_names([r.item_code]).get(r.item_code) or r.item_name or r.item_code,
+				"note": r.note,
+				"qty": flt(r.qty),
+				"amount": flt(r.amount),
+			}
+			for r in doc.get("sp_optional_lines") or []
+		],
 		totals=frappe._dict(
 			subtotal=flt(doc.get("total")),
 			discount=flt(doc.get("discount_amount")),

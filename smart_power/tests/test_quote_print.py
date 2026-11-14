@@ -8,7 +8,7 @@ from unittest.mock import patch
 import frappe
 from frappe.tests import IntegrationTestCase
 
-from smart_power.sp_core.documents import seed_quote_template
+from smart_power.sp_core.documents import seed_quote_template, sp_block
 from smart_power.sp_quotes.quote_print import print_lines, quote_print
 from smart_power.sp_sales.quotation import new_option
 from smart_power.tests.test_print_template import chromium_works
@@ -114,3 +114,20 @@ class TestQuotePrint(IntegrationTestCase):
 		text = "".join(page.extract_text() for page in pdf.pages)
 		self.assertIn(self.a.name, text)
 		self.assertIn(self.b.name, text)
+
+	def test_found_in_the_browser_check(self):
+		# a new quote carries the Smart Power letterhead, units are not translated as "no",
+		# amounts stay left to right in the admin's text, and optional lines use Arabic names
+		from smart_power.sp_core.setup.print_setup import LETTER_HEAD, setup_printing
+
+		setup_printing()
+		self.assertEqual(make_quotation().letter_head, LETTER_HEAD)
+		frappe.local.lang = "ar"
+		try:
+			self.assertEqual(frappe._("Nos"), "عدد")
+		finally:
+			frappe.local.lang = "en"
+		preamble = str(sp_block("Quotation", "preamble", self.a))
+		self.assertIn('<span class="sp-num">', preamble)
+		frappe.db.set_value("Item", "_Test Item", "sp_name_ar", "صنف اختبار")
+		self.assertEqual(quote_print(self.a).optional[0]["description"], "صنف اختبار")

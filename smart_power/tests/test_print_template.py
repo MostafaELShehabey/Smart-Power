@@ -86,6 +86,8 @@ class TestPrintTemplate(IntegrationTestCase):
 		frappe.db.set_value("Letter Head", stock.name, "is_default", 1)
 		setup_printing()
 		self.assertEqual(frappe.db.get_value("Letter Head", {"is_default": 1}), LETTER_HEAD)
+		# and the site's default, which ERPNext copies onto new quotes (found in the SP-62 check)
+		self.assertEqual(frappe.db.get_default("letter_head"), LETTER_HEAD)
 
 	def test_admin_choice_of_default_is_kept(self):
 		own = frappe.get_doc(
