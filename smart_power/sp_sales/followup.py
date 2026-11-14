@@ -177,3 +177,104 @@ def case_view(case: str) -> dict:
 			],
 		}
 	return {"calls": calls, "quote": quote, "status": doc.status}
+
+
+# --- F5 hand over and S4 reassign (SP-69) ------------------------------------------------------
+
+FOLLOWUP_ROLE = "SP Customer Followup"
+OWNER_FIELD = "follow_up_owner"
+
+
+def can_hand_over(case, user: str | None = None) -> bool:
+	"""F5 is for the case's own follow-up owner, who holds the follow-up role (not marketing)."""
+	user = user or frappe.session.user
+	return (
+		case.get(OWNER_FIELD) == user
+		and FOLLOWUP_ROLE in frappe.get_roles(user)
+		and case.get("status") not in CLOSED
+	)
+
+
+@frappe.whitelist(methods=["POST"])
+def hand_over(case: str, to_user: str, note: str | None = None) -> str:
+	"""F5: give my case to a colleague at once, with no approval. The history keeps the date,
+	from and to; the open call tasks and the board card move with the case."""
+	doc = frappe.get_doc(CASE, case)
+	if not can_hand_over(doc):
+		frappe.throw(
+			_("Only the case's follow-up owner can hand it over. Ask the admin to reassign it."),
+			frappe.PermissionError,
+		)
+	if to_user == frappe.session.user:
+		frappe.throw(_("The case is already yours."))
+	if not frappe.db.get_value("User", to_user, "enabled") or FOLLOWUP_ROLE not in frappe.get_roles(to_user):
+		frappe.throw(
+			_("{0} does not follow customers up; hand the case to a colleague who does.").format(
+				frappe.bold(get_fullname(to_user))
+			)
+		)
+	doc.set(OWNER_FIELD, to_user)
+	doc.flags.sp_owner_change_reasons = {OWNER_FIELD: (note or "").strip() or _("Hand over")}
+	doc.flags.sp_hand_over = True
+	# after the hand over the case is the colleague's: the giver may no longer write it
+	doc.save(ignore_permissions=True)
+	return doc.name
+
+
+def owner_changed(case, old_owner: str | None) -> None:
+	"""SP Case on_update, when the follow-up owner changed (hand over or admin reassign): the
+	open call tasks move, the customer follows (unless featured), both owners are told, and an
+	admin reassign is listed for review."""
+	new_owner = case.get(OWNER_FIELD)
+	for name in frappe.get_all(
+		TASK,
+		{"reference_doctype": CASE, "reference_name": case.name, "task_type": CALL_TASK, "status": TASK_OPEN},
+		pluck="name",
+	):
+		frappe.db.set_value(TASK, name, "assigned_to", new_owner)
+	if case.customer and not frappe.db.get_value("Customer", case.customer, "sp_featured"):
+		frappe.db.set_value("Customer", case.customer, "sp_owner_user", new_owner)
+	reason = (case.flags.sp_owner_change_reasons or {}).get(OWNER_FIELD) or ""
+	by = get_fullname(frappe.session.user)
+	customer = case.customer_name or case.customer
+	if new_owner:
+		_notify(case, new_owner, _("{0} gave you the case of {1}: {2}").format(by, customer, reason))
+	if old_owner and old_owner != frappe.session.user:
+		_notify(
+			case,
+			old_owner,
+			_("{0} moved the case of {1} to {2}: {3}").format(by, customer, get_fullname(new_owner), reason),
+		)
+	if not case.flags.sp_hand_over:  # the admin's reassign is listed for review (RV2)
+		from smart_power.sp_core.services.review import open_review_item
+
+		open_review_item(
+			category="Reassignment",
+			reference_doctype=CASE,
+			reference_name=case.name,
+			summary=_("Case of {0} reassigned from {1} to {2}").format(
+				customer, get_fullname(old_owner), get_fullname(new_owner)
+			),
+			reason=reason,
+		)
+
+
+@frappe.whitelist()
+def hand_over_options(case: str) -> dict:
+	"""F5: whether this user may hand the case over, and to whom (the other follow-up people)."""
+	doc = frappe.get_doc(CASE, case)
+	doc.check_permission("read")
+	if not can_hand_over(doc):
+		return {"allowed": False, "users": []}
+	users = frappe.get_all(
+		"Has Role", {"role": FOLLOWUP_ROLE, "parenttype": "User"}, pluck="parent", distinct=True
+	)
+	enabled = frappe.get_all(
+		"User", {"name": ("in", users or [""]), "enabled": 1, "user_type": "System User"}, pluck="name"
+	)
+	return {
+		"allowed": True,
+		"users": [
+			{"value": u, "label": get_fullname(u)} for u in sorted(enabled) if u != frappe.session.user
+		],
+	}
