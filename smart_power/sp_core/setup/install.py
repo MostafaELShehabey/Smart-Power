@@ -20,6 +20,7 @@ def after_install() -> None:
 	from smart_power.sp_core.setup.locale import apply_branding, apply_locale
 	from smart_power.sp_core.setup.print_setup import setup_printing
 	from smart_power.sp_core.setup.seed import seed_list_values, seed_settings
+	from smart_power.sp_quotes.quote_print import seed_default_print_format
 	from smart_power.sp_sales.case_workflow import ensure_workflow_masters
 	from smart_power.sp_sales.quote_request import seed_request_fields
 	from smart_power.sp_sales.setup import allow_repeated_items, apply_customer_naming
@@ -41,6 +42,7 @@ def after_install() -> None:
 	seed_warehouse_types()
 	setup_printing()
 	seed_quote_template()
+	seed_default_print_format()
 
 
 def after_sync() -> None:

@@ -169,9 +169,11 @@ def sp_block(document: str, block_key: str, doc=None) -> Markup:
 	return _render(block, doc) if block else Markup("")
 
 
-def sp_blocks(document: str, doc=None) -> list[Markup]:
-	"""Every block of the document's published template, in order, filled for doc."""
-	return [_render(block, doc) for block in _blocks(document)]
+def sp_blocks(document: str, doc=None, exclude=None) -> list[Markup]:
+	"""Every block of the document's published template, in order, filled for doc (less the
+	keys in exclude, e.g. a preamble printed on its own)."""
+	skip = set(exclude or ())
+	return [_render(block, doc) for block in _blocks(document) if block.block_key not in skip]
 
 
 # --- the starting quote template ------------------------------------------------------------
