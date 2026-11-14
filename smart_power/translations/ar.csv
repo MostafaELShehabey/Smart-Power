@@ -20,6 +20,7 @@ A sent version cannot be cancelled. Make a new version instead.,لا يمكن إ
 A site survey is already asked for this request.,تم طلب معاينة الموقع لهذا الطلب بالفعل.
 A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
+A template needs at least one block before it is published.,القالب يحتاج فقرة واحدة على الأقل قبل نشره.
 A template needs at least one line before it is published.,القالب يحتاج سطرًا واحدًا على الأقل قبل نشره.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
 Abnormal,غير طبيعي
@@ -60,8 +61,11 @@ B,B
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
 battery_ah,سعة البطارية (أمبير ساعة)
 Block,منع
+Block Key,مفتاح الفقرة
+Block {0},الفقرة {0}
 Blocked,ممنوع
 Blocked by a business rule,تم المنع بقاعدة عمل
+Blocks,الفقرات
 Brand,الماركة
 Brand Priority,أولوية الماركات
 Brand priority,أولوية الماركة
@@ -98,6 +102,7 @@ Changed By,تم التغيير بواسطة
 Channel,القناة
 Chassis,الشاسيه
 Check,اختيار (نعم/لا)
+Check the placeholders,راجع المتغيرات
 Check the specs,راجع المواصفات
 Check the template,راجع القالب
 Cheque,شيك
@@ -121,6 +126,7 @@ Completed By,تم بواسطة
 Completed On,تم في
 Consignment Conversion,تحويل أمانة
 Consignment Owner,صاحب أمانة
+Contract,العقد
 "Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
 Cost,التكلفة
 Cost (manual lines),التكلفة (السطور اليدوية)
@@ -138,6 +144,7 @@ Customer,العميل
 Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Customer Name,اسم العميل
+Customer Statement,كشف حساب العميل
 Data,نص
 Day Hours,ساعات النهار
 Deactivate instead,أوقفها بدلاً من الحذف
@@ -150,6 +157,7 @@ Default Quote Print Format,شكل طباعة العرض الافتراضي
 Default Rounding Step,خطوة التقريب الافتراضية
 Default Selection,الاختيار الافتراضي
 Default validity of a new quote.,الصلاحية الافتراضية للعرض الجديد.
+Delivery Note,إذن التسليم
 Description,الوصف
 Design Inputs,مدخلات التصميم
 Details,التفاصيل
@@ -158,6 +166,7 @@ Difference,الفرق
 Discount,خصم
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
+Document,المستند
 Done,تم
 Download the template,تحميل النموذج
 Draft,مسودة
@@ -171,6 +180,7 @@ Empty goes back to the template.,اتركه فارغًا للرجوع لقيمة
 Empty means all offer types.,فارغ يعني كل أنواع العروض.
 Empty means both.,فارغ يعني الاثنين.
 Empty means the default validity is also the maximum.,فارغ يعني أن الصلاحية الافتراضية هي الحد الأقصى.
+Empty shows the placeholders as they are.,اتركه فارغًا لعرض المتغيرات كما هي.
 Empty uses the default rounding step in Smart Power Settings.,فارغ يستخدم خطوة التقريب الافتراضية في إعدادات سمارت باور.
 Empty uses the published template of the case's system type.,اتركه فارغًا لاستخدام القالب المنشور لنوع نظام الحالة.
 Enter at least one price.,أدخل سعراً واحداً على الأقل.
@@ -195,6 +205,7 @@ Field Entry Lock (days),قفل التسجيل الميداني (أيام)
 Field Expense,مصروف ميداني
 Field Job,شغلانة ميدانية
 Field names starting with {0} are reserved for developer fields.,أسماء الحقول التي تبدأ بـ {0} محجوزة لحقول المطور.
+Fill from,املأ من
 Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
 Financial Center,المركز المالي
 Financing Type,نوع التمويل
@@ -236,6 +247,7 @@ History,السجل
 Hit At,وقت التنبيه
 Home Page Variant,شكل الصفحة الرئيسية
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
+"How print formats find this block, e.g. warranty (a-z, 0-9 and _).",الاسم الذي تجد به نماذج الطباعة هذه الفقرة، مثل warranty (حروف a-z وأرقام و _).
 hp,القدرة (حصان)
 Imp (A),Imp (أمبير)
 Import,استيراد
@@ -254,6 +266,7 @@ Int,رقم صحيح
 Invalid mobile,رقم موبايل غير صحيح
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
 Inverter Brand,ماركة الإنفرتر
+Invoice,الفاتورة
 Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
 Item,الصنف
@@ -431,6 +444,8 @@ Phone,التليفون
 Photo {0} cannot be added to this request.,لا يمكن إضافة الصورة {0} إلى هذا الطلب.
 Photos,الصور
 Photos (optional),الصور (اختياري)
+Placeholders,المتغيرات
+Placeholders you can use,المتغيرات المتاحة
 PM,م
 PO Sent,تم إرسال أمر التوريد
 Posting Event,حدث القيد
@@ -438,6 +453,7 @@ Power (HP),القدرة (حصان)
 Power (kW),القدرة (كيلووات)
 Power (W),القدرة (وات)
 "Prepare and send the quote, or hand the request to another quote creator.",جهّز العرض وأرسله، أو سلّم الطلب لمعد عروض آخر.
+Preview,معاينة
 Previous Version,النسخة السابقة
 Price,السعر
 Price (manual lines),السعر (السطور اليدوية)
@@ -461,12 +477,14 @@ Profit,الربح
 Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
 Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
 Publish,نشر
+Publish version {0}? New prints of this document use it.,نشر الإصدار {0}؟ ستستخدمه الطباعات الجديدة لهذا المستند.
 Publish version {0}? The published version of this offer type stops.,نشر الإصدار {0}؟ سيتوقف الإصدار المنشور حاليًا لنفس نوع العرض.
 Published,منشور
 Published On,تاريخ النشر
 Published template,قالب منشور
 Published: this version cannot change. Make a new version to edit.,منشور: لا يمكن تعديل هذا الإصدار. أنشئ إصدارًا جديدًا للتعديل.
 Pump Specs,مواصفات الطلمبة
+Purchase Order,أمر الشراء
 Qty,العدد
 Qty Formula,معادلة الكمية
 Quotation,عرض سعر
@@ -494,6 +512,7 @@ Reason Given,السبب المكتوب
 Reassign,إعادة إسناد
 Reassign Request,طلب تحويل
 Reassignment,تحويل
+Receipt,إيصال الاستلام
 Receipt to Confirm,استلام محتاج تأكيد
 Received by,المستلم
 Reference DocType,نوع المستند المرتبط
@@ -517,6 +536,7 @@ Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Required,مطلوب
 Result,النتيجة
+Return Note,إذن المرتجع
 Review,المراجعة
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
@@ -535,6 +555,7 @@ Rule Key,مفتاح القاعدة
 Rule Warning,تنبيه قاعدة
 Save,حفظ
 Save Request,حفظ الطلب
+Save to see the placeholders of this document.,احفظ لعرض متغيرات هذا المستند.
 Saved,تم الحفظ
 Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
 Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون تغيير: {1} · أخطاء: {2}
@@ -559,6 +580,7 @@ Setup is complete but there is no company named {0}.,الإعداد مكتمل �
 "Shared by all versions, e.g. PUMP, or CHASSIS-FACTORY for a factory's chassis.",مشترك بين كل الإصدارات، مثل PUMP، أو CHASSIS-FACTORY لشاسيه مصنع معيّن.
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
 "Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",مفتاح قصير تستخدمه التقارير والنظام، مثل PUMP. لا يتغير بعد الحفظ لأنه جزء من اسم السجل.
+Show,عرض
 Showroom,المعرض
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
 Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أيام من آخر إيداع)
@@ -595,6 +617,8 @@ SP Company Settings,بيانات الشركة
 SP Contract Manager,العقود
 SP Custody Holder,صاحب عهدة
 SP Customer Followup,متابعة العملاء
+SP Document Block,فقرة مستند
+SP Document Template,قالب مستند
 SP Driver,سواق العربية
 SP Edit Reason Log,سجل أسباب التعديل
 SP Fleet Assets,الأصول والمركبات
@@ -680,6 +704,8 @@ Template Name,اسم القالب
 Template {0} is not published.,القالب {0} غير منشور.
 Terms Note,ملاحظة الشروط
 Test with Sample Inputs,تجربة بمدخلات نموذجية
+Text,النص
+Text Blocks,فقرات النص
 The admin has been asked,تم إرسال الطلب للمدير
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
@@ -728,6 +754,7 @@ This version expired on {0}. Make a new version.,هذه النسخة انتهت 
 This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
 Tier,الفئة
 Timestamp,الوقت
+Title,العنوان
 To,إلى
 "To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
 Took the request,استلم الطلب
@@ -735,6 +762,7 @@ Total Cost,إجمالي التكلفة
 Total cost {0} · Total sale {1} · Profit {2} · Margin {3}%,إجمالي التكلفة {0} · إجمالي البيع {1} · الربح {2} · الهامش {3}%
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
+Transfer Note,إذن التحويل
 Transit,في الطريق
 Transit Account,الحساب الوسيط
 Type,النوع
@@ -745,6 +773,7 @@ Unpublish,إلغاء النشر
 Unpublished,أُلغي النشر
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
+"Use {placeholders} from the list on the template, e.g. {customer_name}.",استخدم {المتغيرات} من القائمة في القالب، مثل {customer_name}.
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
 User,المستخدم
 "v1, v2 … per case.",v1، v2 … لكل حالة.
@@ -753,6 +782,7 @@ Value (Arabic),القيمة (عربي)
 Value (English),القيمة (إنجليزي)
 Version,النسخة
 Version 1 of this quote: every version of one quote shares it.,النسخة 1 من هذا العرض: كل نسخ العرض الواحد تشترك فيها.
+Version {0} is published and cannot change. Make a new version.,الإصدار {0} منشور ولا يمكن تعديله. أنشئ إصدارًا جديدًا.
 Version {0} is published or used by a quote and cannot change. Make a new version.,الإصدار {0} منشور أو مستخدم في عرض ولا يمكن تعديله. أنشئ إصدارًا جديدًا.
 "Village, centre or landmark.",القرية أو المركز أو علامة مميزة.
 Vmp (V),Vmp (فولت)
@@ -762,6 +792,7 @@ Warned,تم التنبيه
 Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
+Warranty Certificate,شهادة الضمان
 watt,القدرة (وات)
 Watts,وات
 "What changes if the customer adds it, e.g. a full stainless motor instead of a stainless body with a cast-iron cap.",ما الذي يتغير لو أضافه العميل، مثل موتور استانلس كامل بدل جسم استانلس بغطاء زهر.
@@ -820,11 +851,14 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0}: the formula {1} divides by zero.,{0}: المعادلة {1} فيها قسمة على صفر.
 {0}: the formula {1} failed: {2},{0}: فشلت المعادلة {1}: {2}
 {0}: the formula {1} must give a number.,{0}: المعادلة {1} يجب أن تعطي رقمًا.
+{0}: the key is used twice.,{0}: المفتاح مستخدم مرتين.
+"{0}: the key must start with a letter and use only a-z, 0-9 and _.",{0}: المفتاح يجب أن يبدأ بحرف ويستخدم a-z و0-9 و _ فقط.
 {0}: the key {1} is already an input or a line.,{0}: المفتاح {1} مستخدم لمدخل أو سطر آخر.
 {0}: the key {1} is used twice.,{0}: المفتاح {1} مستخدم مرتين.
 "{0}: the key {1} must start with a letter and use only a-z, 0-9 and _.",{0}: المفتاح {1} يجب أن يبدأ بحرف ويستخدم a-z و0-9 و _ فقط.
 {0}: this kind of formula is not allowed.,{0}: هذا النوع من المعادلات غير مسموح.
 {0}: unknown name {1} in the formula {2}.,{0}: اسم غير معروف {1} في المعادلة {2}.
+{0}: unknown placeholder {1}. Valid placeholders: {2},{0}: متغير غير معروف {1}. المتغيرات المتاحة: {2}
 {0}: {1},{0}: {1}
 {0}: {1} cannot be overridden.,{0}: لا يمكن تعديل {1}.
 {0}: {1} cannot be read.,{0}: لا يمكن قراءة {1}.

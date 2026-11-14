@@ -38,6 +38,9 @@ jinja = {
 		"smart_power.sp_core.printing.qr",
 		"smart_power.sp_core.printing.sp_print_styles",
 		"smart_power.sp_core.printing.embed_image",
+		# The admin's document text (SP-134, X8)
+		"smart_power.sp_core.documents.sp_block",
+		"smart_power.sp_core.documents.sp_blocks",
 	],
 }
 

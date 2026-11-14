@@ -16,6 +16,7 @@ def ensure_admin_module() -> None:
 
 def after_install() -> None:
 	from smart_power.rules import sync_rule_settings
+	from smart_power.sp_core.documents import seed_quote_template
 	from smart_power.sp_core.setup.locale import apply_branding, apply_locale
 	from smart_power.sp_core.setup.print_setup import setup_printing
 	from smart_power.sp_core.setup.seed import seed_list_values, seed_settings
@@ -39,6 +40,7 @@ def after_install() -> None:
 	seed_price_lists()
 	seed_warehouse_types()
 	setup_printing()
+	seed_quote_template()
 
 
 def after_sync() -> None:
