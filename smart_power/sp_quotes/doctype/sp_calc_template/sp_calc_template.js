@@ -53,7 +53,8 @@ function sp_calc_show(r) {
 	const rows = r.lines
 		.map(
 			(l) => `<tr class="${l.is_optional ? "text-muted" : ""}">
-				<td>${esc(l.line_key)}</td><td>${esc(l.item_code || l.item_name || "")}</td>
+				<td>${esc(l.line_key)}${l.is_optional ? ` <span class="small">(${__("Optional")})</span>` : ""}</td>
+				<td>${esc(l.item_code || l.item_name || "")}</td>
 				<td class="text-right">${num(l.qty)}${l.is_manual_qty ? " ✎" : ""}</td>
 				<td class="text-right">${num(l.cost)}</td><td class="text-right">${num(l.rate)}${
 				l.lock_markup ? " 🔒" : ""
