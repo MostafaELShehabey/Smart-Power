@@ -108,8 +108,11 @@ def record_owner_changes(doc) -> None:
 
 
 @frappe.whitelist(methods=["POST"])
-def reassign(case: str, owner_field: str, to_user: str | None, reason: str) -> str:
-	"""Give one of the case's owners to another user, with a reason (admin only for now)."""
+def reassign(case: str, owner_field: str, to_user: str | None = None, reason: str | None = None) -> str:
+	"""Give one of the case's owners to another user, with a reason (admin only for now).
+
+	An empty to_user clears the owner (a request goes back to the quote creators' pool); the
+	follow-up owner can never be empty, so that gives the case's own message, not a crash."""
 	if owner_field not in OWNER_FIELDS:
 		frappe.throw(_("Unknown owner {0}.").format(owner_field))
 	if frappe.session.user != "Administrator" and not set(REASSIGN_ROLES) & set(frappe.get_roles()):
