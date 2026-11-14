@@ -20,6 +20,7 @@ from frappe.model.workflow import get_workflow, get_workflow_safe_globals
 from frappe.utils import add_days, get_datetime, get_fullname, getdate, now_datetime
 
 from smart_power.permissions import _case_sees_all
+from smart_power.sp_sales.followup import _close_call_tasks
 
 CASE, CALL, TASK, QUOTE = "SP Case", "SP Call Log", "SP Task", "Quotation"
 CALL_TASK, TASK_OPEN = "Follow-up Call", "Open"
@@ -161,7 +162,9 @@ def _cards(rows: list[dict]) -> list[dict]:
 				"currency": quote.get("currency"),
 				"last_call": call.get("label"),
 				"last_call_at": call.get("call_time"),
-				"next_call_at": next_calls.get(row.name) or call.get("next_call_at"),
+				"next_call_at": None
+				if row.status in (WON, LOST)
+				else next_calls.get(row.name) or call.get("next_call_at"),
 				**_expiry(quote.get("valid_till"), row.status, now),
 				"moves": _moves(row, transitions),
 			}
@@ -331,7 +334,9 @@ def mark_won(case: str, quotation: str) -> str:
 		frappe.throw(_("Quote {0} is not on case {1}.").format(quotation, case))
 	if not frappe.db.get_value(QUOTE, quotation, "sp_is_approved"):
 		approve_version(quotation)
-	return apply_workflow(frappe.get_doc(CASE, case), transition.action).status
+	status = apply_workflow(frappe.get_doc(CASE, case), transition.action).status
+	_close_call_tasks(case)  # a won case needs no more sales calls (found in the browser check)
+	return status
 
 
 @frappe.whitelist()
