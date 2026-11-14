@@ -91,6 +91,18 @@ class TestBoard(IntegrationTestCase):
 		self.assertEqual(mark_won(self.case, self.quote.name), "Won")
 		self.assertEqual(frappe.db.get_value("SP Case", self.case, "accepted_quotation"), self.quote.name)
 		self.assertTrue(frappe.db.get_value("Quotation", self.quote.name, "sp_is_approved"))
+		self.assertFalse(  # no more sales calls on a won case
+			frappe.db.exists(
+				"SP Task", {"reference_name": self.case, "task_type": "Follow-up Call", "status": "Open"}
+			)
+		)
+		self.assertIsNone(card(board(), self.case)["next_call_at"])
+
+	def test_a_case_change_refreshes_the_boards(self):
+		with patch("frappe.publish_realtime") as publish:
+			move_case(self.case, "follow_up")
+		events = [c.args[0] for c in publish.call_args_list]
+		self.assertIn("sp_case_update", events)
 
 	def test_the_owner_cannot_mark_won(self):
 		move_case(self.case, "follow_up")
@@ -99,3 +111,8 @@ class TestBoard(IntegrationTestCase):
 		with self.assertRaises(frappe.ValidationError):
 			mark_won(self.case, self.quote.name)
 		self.assertEqual(frappe.db.get_value("SP Case", self.case, "status"), "Follow-up")
+
+	def test_the_board_page_is_for_the_follow_up_team(self):
+		roles = {r.role for r in frappe.get_doc("Page", "sp-followup-board").roles}
+		self.assertTrue({"SP Customer Followup", "SP Followup All", "SP Admin"} <= roles)
+		self.assertNotIn("SP Quote Creator", roles)

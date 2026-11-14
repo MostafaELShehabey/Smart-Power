@@ -70,6 +70,7 @@ Block {0},الفقرة {0}
 Blocked,ممنوع
 Blocked by a business rule,تم المنع بقاعدة عمل
 Blocks,الفقرات
+Board view,عرض اللوحة
 Brand,الماركة
 Brand Priority,أولوية الماركات
 Brand priority,أولوية الماركة
@@ -213,6 +214,7 @@ Execution Owner,مسؤول التنفيذ
 Expense,مصروف
 Expense Type,نوع المصروف
 Expired,منتهي الصلاحية
+Expires In,ينتهي خلال
 Extra Data,بيانات إضافية
 "Extra settings for this value as JSON, e.g. the calculation template of a system type.",إعدادات إضافية لهذه القيمة بصيغة JSON، مثل قالب الحساب لنوع النظام.
 Factory,المصنع
@@ -240,6 +242,7 @@ Float,رقم عشري
 Flow (m³/h),التصرف (م³/ساعة)
 flow_m3h,التصرف (م³/ساعة)
 Follow-up,متابعة
+Follow-up Board,لوحة المتابعة
 Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
@@ -305,6 +308,7 @@ Key Data,البيانات الأساسية
 kw,القدرة (كيلووات)
 Label,الاسم
 Last Action,آخر إجراء
+Last Call,آخر مكالمة
 Late Entry,تسجيل متأخر
 Lead Source,مصدر العميل المحتمل
 Legal Name (Arabic),الاسم القانوني (عربي)
@@ -325,6 +329,7 @@ Line {0} is not in template {1}.,السطر {0} غير موجود في القا�
 Lines,السطور
 List,القائمة
 List Price,سعر اللستة
+List view,عرض القائمة
 "Listed under the total, not in it (SP-59).",يظهر تحت الإجمالي ولا يدخل فيه (SP-59).
 Lists,القوائم
 Load more,تحميل المزيد
@@ -404,6 +409,7 @@ Next Number,الرقم التالي
 Night Hours,ساعات الليل
 No,لا
 No call yet.,لا توجد مكالمات بعد.
+No cases here.,لا توجد حالات هنا.
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
 No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
@@ -616,6 +622,7 @@ Second Mobile,موبايل إضافي
 Section,القسم
 Select,قائمة اختيار
 Send,إرسال
+Send a quote before marking the case won.,أرسل عرضًا قبل تسجيل الحالة كمكسوبة.
 Send Again,إرسال مرة أخرى
 Send to Customer,إرسال للعميل
 Sending freezes this version: it cannot be edited afterwards.,الإرسال يثبّت هذا الإصدار: لا يمكن تعديله بعد ذلك.
@@ -749,6 +756,7 @@ Supplier Quotation,عرض سعر مورد
 Supplier {0} does not exist.,المورد {0} غير موجود.
 Supply and install,توريد وتركيب
 Supply only,توريد فقط
+System,النظام
 System Type,نوع النظام
 System Types,أنواع الأنظمة
 Take,استلام
@@ -793,6 +801,7 @@ The markup cannot be changed on a quote. Locked BTC lines are always locked.,ل�
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The next call cannot be before this call.,لا يمكن أن تكون المكالمة التالية قبل هذه المكالمة.
 The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
+The option the customer took,الخيار الذي اختاره العميل
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
@@ -813,6 +822,7 @@ This customer is followed up by a colleague. Ask the admin to reassign them.,ه�
 This customer is followed up by {0}. Ask the admin to reassign them.,هذا العميل يتابعه {0}. اطلب من المدير نقله.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
+This move is not allowed.,هذا النقل غير مسموح.
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
 This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
@@ -950,4 +960,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0}: {1} is a reserved name.,{0}: {1} اسم محجوز.
 {0}: {1} is not one of the choices.,{0}: {1} ليست من الاختيارات.
 {0}: {1} is not one of the options.,{0}: {1} ليس من الاختيارات.
+{0}d {1}h,{0}ي {1}س
+{0}h {1}m,{0}س {1}د
+{0}m,{0}د
 ★ Featured,★ مميز
