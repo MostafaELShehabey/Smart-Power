@@ -234,5 +234,9 @@ def embed_image(url: str | None) -> str:
 		if name:
 			import base64
 
-			content = base64.b64encode(frappe.get_doc("File", name).get_content(encodings=[])).decode()
+			try:
+				content = base64.b64encode(frappe.get_doc("File", name).get_content(encodings=[])).decode()
+			except OSError, frappe.ValidationError:
+				# the file is gone from disk: print the link rather than fail the whole document
+				content = None
 	return f"data:{mime};base64,{content}" if content else url

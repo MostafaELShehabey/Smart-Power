@@ -28,6 +28,18 @@ def chromium_works() -> bool:
 		return False
 
 
+MISSING_LOGO = "/files/sp-gone-logo.png"
+
+
+def missing_logo() -> str:
+	"""A File record whose file is not on disk (an admin's logo deleted from the server)."""
+	if not frappe.db.exists("File", {"file_url": MISSING_LOGO}):
+		frappe.get_doc(
+			{"doctype": "File", "file_name": "sp-gone-logo.png", "file_url": MISSING_LOGO, "is_private": 0}
+		).db_insert()
+	return MISSING_LOGO
+
+
 def sample(rows: int | None = None, as_pdf: bool = False):
 	doc = frappe.get_doc(SETTINGS)
 	if rows:
@@ -93,6 +105,7 @@ class TestPrintTemplate(IntegrationTestCase):
 
 	def test_header_shows_the_legal_data(self):
 		company = frappe.get_doc(SETTINGS)
+		company.logo = missing_logo()  # a logo whose file is gone from disk still prints
 		company.legal_name_ar = "سمارت باور لأنظمة الطاقة"
 		company.commercial_register = "123456"
 		company.save()
@@ -114,6 +127,17 @@ class TestPrintTemplate(IntegrationTestCase):
 			{"doctype": "File", "file_name": "sp_test_logo.png", "content": png, "is_private": 0}
 		).insert()
 		self.assertTrue(embed_image(logo.file_url).startswith("data:image/png;base64,"))
+		# a File record whose file is gone from disk never breaks a print
+		missing = frappe.get_doc(
+			{
+				"doctype": "File",
+				"file_name": "gone.png",
+				"file_url": "/files/sp-gone-logo.png",
+				"is_private": 0,
+			}
+		)
+		missing.db_insert()
+		self.assertEqual(embed_image("/files/sp-gone-logo.png"), "/files/sp-gone-logo.png")
 		escape = "/assets/smart_power/../../../../sites/x.png"
 		self.assertEqual(embed_image(escape), escape)
 
