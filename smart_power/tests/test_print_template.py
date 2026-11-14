@@ -159,14 +159,16 @@ class TestPrintTemplate(IntegrationTestCase):
 
 		company = frappe.get_doc(SETTINGS)
 		company.legal_name_ar = "سمارت باور"
+		company.commercial_register = "SP-CR-7731"
 		company.save()
 		reader = PdfReader(io.BytesIO(sample(rows=90, as_pdf=True)))
 		pages = len(reader.pages)
 		self.assertGreaterEqual(pages, 3)
 		for number, page in enumerate(reader.pages, start=1):
+			# Arabic comes out of a PDF as joined letter shapes, so the header is checked by the
+			# commercial register number it prints on every page
 			text = page.extract_text()
-			self.assertIn("سمارت باور", text, number)  # the header on every page
+			self.assertIn("SP-CR-7731", text, number)
 			self.assertIn(f"{number}", text)
 			self.assertIn(f"{pages}", text)
-		first = reader.pages[0].extract_text()
-		self.assertIn("INVT GD100", first)  # English stays left to right inside Arabic
+		self.assertIn("INVT GD100", reader.pages[0].extract_text())  # English stays left to right
