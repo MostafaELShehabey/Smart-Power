@@ -196,6 +196,12 @@ async function sp_followup_view(frm) {
 		: `<p class="text-muted">${esc(__("No call yet."))}</p>`;
 	let quote = `<p class="text-muted">${esc(__("No sent quote yet."))}</p>`;
 	const q = view.quote;
+	if (q && sp_can_log_call(frm)) {
+		// F4 (SP-68): a discount on the quote shown here; a sent version gets a new version
+		frm.add_custom_button(__("Give Discount"), () =>
+			smart_power.discount_dialog(q.name, () => frm.reload_doc())
+		);
+	}
 	if (q) {
 		const money = (v) => esc(format_currency(v, q.currency));
 		const lines = q.lines
