@@ -48,15 +48,21 @@ class TestDocumentTemplates(IntegrationTestCase):
 
 	def test_published_warranty_change_shows_on_new_prints(self):
 		quote = make_quotation()
-		v1 = quote_template()
-		self.assertIn("الشركة المصنعة", str(sp_block("Quotation", "warranty", quote)))
-		v2 = frappe.get_doc(TEMPLATE, v1.new_version())
-		next(b for b in v2.blocks if b.block_key == "warranty").body = "<p>ضمان خمس سنوات على الألواح.</p>"
-		v2.save()
+
+		def publish_warranty(text):
+			draft = frappe.get_doc(TEMPLATE, quote_template().new_version())
+			next(b for b in draft.blocks if b.block_key == "warranty").body = f"<p>{text}</p>"
+			draft.save()
+			return draft
+
+		first = publish_warranty("ضمان سنة")
+		first.publish()
+		self.assertIn("ضمان سنة", str(sp_block("Quotation", "warranty", quote)))
+		second = publish_warranty("ضمان خمس سنوات على الألواح.")
 		self.assertNotIn("خمس سنوات", str(sp_block("Quotation", "warranty", quote)))  # still a draft
-		v2.publish()
+		second.publish()
 		self.assertIn("خمس سنوات", str(sp_block("Quotation", "warranty", quote)))
-		self.assertFalse(frappe.db.get_value(TEMPLATE, v1.name, "is_published"))
+		self.assertFalse(frappe.db.get_value(TEMPLATE, first.name, "is_published"))
 
 	def test_published_version_is_frozen(self):
 		template = quote_template()
