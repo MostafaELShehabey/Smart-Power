@@ -159,6 +159,41 @@ def before_insert(doc, method=None) -> None:
 		doc.sp_version = int(highest or 0) + 1
 
 
+def _lines(doc) -> list:
+	return [(r.item_code, flt(r.qty), flt(r.rate)) for r in doc.get("items") or []]
+
+
+def before_update_after_submit(doc, method=None) -> None:
+	"""A sent version of a case never changes its lines, not even through ERPNext's Update Items
+	(SP-61): the customer holds that PDF. Changes go into a new version."""
+	if not doc.get("sp_case"):
+		return
+	before = doc.get_doc_before_save()
+	if before and _lines(before) != _lines(doc):
+		frappe.throw(
+			_("Version {0} was sent and its lines cannot change. Make a new version.").format(doc.name),
+			title=_("Sent version"),
+		)
+
+
+@frappe.whitelist()
+def update_child_qty_rate(
+	parent_doctype: str, trans_items: str, parent_doctype_name: str, child_docname: str = "items"
+):
+	"""ERPNext's "Update Items", refused on a case's quote (its sent lines never change, SP-61);
+	every other document goes on to ERPNext unchanged."""
+	from erpnext.controllers.accounts_controller import update_child_qty_rate as erpnext_update
+
+	if parent_doctype == "Quotation" and frappe.db.get_value("Quotation", parent_doctype_name, "sp_case"):
+		frappe.throw(
+			_("Version {0} was sent and its lines cannot change. Make a new version.").format(
+				parent_doctype_name
+			),
+			title=_("Sent version"),
+		)
+	return erpnext_update(parent_doctype, trans_items, parent_doctype_name, child_docname)
+
+
 def before_cancel(doc, method=None) -> None:
 	"""A sent version is never cancelled or amended: the customer can still go back to it.
 	Make a new version instead (tech plan section 3 rule 7)."""

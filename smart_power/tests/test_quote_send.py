@@ -134,3 +134,30 @@ class TestQuoteSend(IntegrationTestCase):
 		self.assertEqual(options["default"], "SP Quotation")
 		self.assertIn("SP Quotation", options["formats"])
 		self.assertEqual(options["channels"], ["WhatsApp", "In person", "Other"])
+
+	def test_update_items_cannot_change_a_sent_version(self):
+		# found in the browser check: ERPNext's "Update Items" edits a submitted quote's lines
+		import json
+
+		from smart_power.sp_sales.quotation import update_child_qty_rate  # what the button reaches
+
+		self.send()
+		row = frappe.get_doc("Quotation", self.quote.name).items[0]
+		trans = [
+			{
+				"docname": row.name,
+				"item_code": row.item_code,
+				"qty": 99,
+				"rate": row.rate,
+				"conversion_factor": 1,
+			}
+		]
+		with self.assertRaises(frappe.ValidationError):
+			update_child_qty_rate("Quotation", json.dumps(trans), self.quote.name)
+		self.assertEqual(frappe.db.get_value("Quotation Item", row.name, "qty"), row.qty)
+		self.assertEqual(
+			frappe.get_hooks("override_whitelisted_methods")[
+				"erpnext.controllers.accounts_controller.update_child_qty_rate"
+			][-1],
+			"smart_power.sp_sales.quotation.update_child_qty_rate",
+		)

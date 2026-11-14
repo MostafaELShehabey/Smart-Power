@@ -101,6 +101,7 @@ doc_events = {
 		"after_insert": "smart_power.sp_sales.quotation.after_insert",
 		"validate": "smart_power.sp_sales.quotation.validate",
 		"before_cancel": "smart_power.sp_sales.quotation.before_cancel",
+		"before_update_after_submit": "smart_power.sp_sales.quotation.before_update_after_submit",
 		"on_update": "smart_power.sp_sales.quotation.on_update",
 		"on_submit": "smart_power.sp_sales.quotation.on_update",
 	},
@@ -145,6 +146,13 @@ has_permission = {
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
 	"Item Price": "smart_power.permissions.item_price_has_permission",
 	"SP Case": "smart_power.permissions.case_has_permission",
+}
+
+# ERPNext's "Update Items" is refused on a case's sent quote (SP-61)
+override_whitelisted_methods = {
+	"erpnext.controllers.accounts_controller.update_child_qty_rate": (
+		"smart_power.sp_sales.quotation.update_child_qty_rate"
+	),
 }
 
 export_python_type_annotations = True

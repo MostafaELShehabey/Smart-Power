@@ -601,6 +601,7 @@ Sent,أُرسل
 Sent At,وقت الإرسال
 Sent By,أرسله
 Sent to customer,أُرسل للعميل
+Sent version,إصدار مُرسل
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 "Set by the system: sent versions stay valid until approved, superseded, lost or expired.",يحددها النظام: النسخ المرسلة تظل صالحة حتى تُعتمد أو تُستبدل أو تُخسر أو تنتهي صلاحيتها.
@@ -831,6 +832,7 @@ Version,النسخة
 Version 1 of this quote: every version of one quote shares it.,النسخة 1 من هذا العرض: كل نسخ العرض الواحد تشترك فيها.
 Version {0} is published and cannot change. Make a new version.,الإصدار {0} منشور ولا يمكن تعديله. أنشئ إصدارًا جديدًا.
 Version {0} is published or used by a quote and cannot change. Make a new version.,الإصدار {0} منشور أو مستخدم في عرض ولا يمكن تعديله. أنشئ إصدارًا جديدًا.
+Version {0} was sent and its lines cannot change. Make a new version.,تم إرسال الإصدار {0} ولا يمكن تغيير سطوره. أنشئ إصدارًا جديدًا.
 "Village, centre or landmark.",القرية أو المركز أو علامة مميزة.
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
