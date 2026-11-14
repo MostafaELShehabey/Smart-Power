@@ -6,9 +6,11 @@ frappe.ui.form.on("Quotation", {
 	refresh(frm) {
 		if (!frm.doc.sp_case || frm.is_new()) return;
 		const API = "smart_power.sp_sales.quotation";
-		const note = frm.doc.sp_is_approved
-			? __("Version {0} of case {1}: the approved version.", [frm.doc.sp_version, frm.doc.sp_case])
-			: __("Version {0} of case {1}.", [frm.doc.sp_version, frm.doc.sp_case]);
+		const option = frm.doc.sp_option_label || "A";
+		const args = [option, frm.doc.sp_version, frm.doc.sp_case];
+		const approved = __("Option {0}, version {1} of case {2}: the approved version.", args); // sp-allow-number: placeholders
+		const plain = __("Option {0}, version {1} of case {2}.", args); // sp-allow-number: placeholders
+		const note = frm.doc.sp_is_approved ? approved : plain;
 		frm.set_intro(note, frm.doc.sp_is_approved ? "green" : "blue");
 		if (frm.doc.sp_needs_repricing) {
 			frm.set_intro(
@@ -18,6 +20,20 @@ frappe.ui.form.on("Quotation", {
 				"red"
 			);
 		}
+
+		frm.add_custom_button(__("New Option"), () =>
+			frappe.confirm(
+				__("Copy this quote as a full alternative (the next option, e.g. B) on the same case?"),
+				async () => {
+					const { message: name } = await frappe.call({
+						method: `${API}.new_option`,
+						args: { quotation: frm.doc.name },
+						freeze: true,
+					});
+					frappe.set_route("Form", "Quotation", name);
+				}
+			)
+		);
 
 		frm.add_custom_button(__("New Version"), async () => {
 			const { message: name } = await frappe.call({
