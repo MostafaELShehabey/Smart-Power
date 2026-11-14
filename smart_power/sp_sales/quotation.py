@@ -46,6 +46,9 @@ def validate(doc, method=None) -> None:
 		doc.transaction_date = today()
 		doc.valid_till = None
 	set_valid_till(doc)
+	from smart_power.sp_quotes.discounts import apply_discounts
+
+	apply_discounts(doc)  # SP-68: before the margin, which the discount lowers
 	set_cost_and_profit(doc)
 	set_optional_lines(doc)
 	check_option_label(doc)

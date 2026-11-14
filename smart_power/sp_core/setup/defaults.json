@@ -165,7 +165,7 @@
 		{"scope": "Supply only", "min_pct": 6, "max_pct": 7, "_source": "SP-128 example"}
 	],
 	"rule_settings": {
-		"discount_followup_max": {"level": "Block", "_source": "SP-128"},
+		"discount_followup_max": {"level": "Warn", "_source": "SP-68 / decision 67: no approval gate, warn never block"},
 		"discount_creator_max": {"level": "Warn", "_source": "SP-128"},
 		"quote_validity": {"level": "Block", "_source": "tech plan section 6 (quote validity rule)"},
 		"quote_24h": {"level": "Warn", "_source": "SP-128 / SP-48: warn, never block (decision 70)"}

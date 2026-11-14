@@ -98,6 +98,7 @@ doc_events = {
 	# Quotation belongs to an SP Case (SP-54)
 	"Quotation": {
 		"before_insert": "smart_power.sp_sales.quotation.before_insert",
+		"before_validate": "smart_power.sp_quotes.discounts.check_locked_lines",
 		"after_insert": "smart_power.sp_sales.quotation.after_insert",
 		"validate": "smart_power.sp_sales.quotation.validate",
 		"before_cancel": "smart_power.sp_sales.quotation.before_cancel",
