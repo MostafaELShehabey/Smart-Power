@@ -14,6 +14,7 @@ A quote cannot be valid for longer than the maximum validity days in Smart Power
 "A quote request should get its quote within Quote Due Within hours (Smart Power Settings). After that it is listed for the admin and its quote creator is reminded. A warning, never a block (decision 70).",طلب العرض يجب أن يُرسل عرضه خلال مدة استحقاق العرض (إعدادات سمارت باور). بعدها يظهر للأدمن ويتم تذكير معد العرض. تنبيه فقط، لا يمنع أبداً (قرار 70).
 A quote request turns amber after this many hours without a quote sent; it is overdue after Quote Due Within.,يتحول طلب العرض للون الأصفر بعد هذا العدد من الساعات بدون إرسال عرض، ويصبح متأخراً بعد مدة استحقاق العرض.
 A reason is needed,مطلوب سبب
+A reason is needed to change a counter.,تغيير العداد يحتاج سببًا.
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
 A sent version cannot be cancelled. Make a new version instead.,لا يمكن إلغاء نسخة مُرسلة. اعمل نسخة جديدة بدلاً من ذلك.
@@ -136,8 +137,11 @@ Cost Centers,المراكز المالية
 Cost Source,مصدر التكلفة
 Cost x Markup,التكلفة × نسبة الربح
 Countdown,العد التنازلي
+Counter,العداد
+Counter saved,تم حفظ العداد
 Created: {0} · Updated: {1} · Errors: {2},تمت إضافة: {0} · تم تحديث: {1} · أخطاء: {2}
 Credit Account,الحساب الدائن
+Current,الحالي
 Custody,عهدة
 Custody Account,حساب العهدة
 Customer,العميل
@@ -167,6 +171,8 @@ Discount,خصم
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
 Document,المستند
+Document Naming Settings,إعدادات تسمية المستندات
+Document Numbering,ترقيم المستندات
 Done,تم
 Download the template,تحميل النموذج
 Draft,مسودة
@@ -229,6 +235,8 @@ For chassis templates: one per factory.,لقوالب الشاسيه: قالب ل
 "For full alternative quotes on the same case (A/B/C, SP-59).",للعروض البديلة الكاملة على نفس الحالة (A/B/C، SP-59).
 For off-grid and hybrid requests: each device with its watts and day / night hours.,لطلبات الأوف جريد والهايبرد: كل جهاز بقدرته بالوات وساعات تشغيله نهاراً وليلاً.
 For Smart Power,عن سمارت باور
+Format,الصيغة
+Formats with .YYYY. restart every year. ERPNext documents change their format in Document Naming Settings.,الصيغ التي تحتوي .YYYY. يبدأ ترقيمها من جديد كل سنة. صيغ مستندات ERPNext تُغيَّر من إعدادات تسمية المستندات.
 Fresh,حديث
 From,من
 From Date,من تاريخ
@@ -371,6 +379,7 @@ New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Value,القيمة الجديدة
 New Version,نسخة جديدة
 Next,التالي
+Next Number,الرقم التالي
 Night Hours,ساعات الليل
 No,لا
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
@@ -406,6 +415,7 @@ Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
 Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
+Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
 Only the quote creator and the cost roles price a quote.,تسعير العرض لمُعدّ العرض وأدوار التكلفة فقط.
 Open,مفتوح
@@ -571,6 +581,8 @@ Sent to customer,أُرسل للعميل
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 "Set by the system: sent versions stay valid until approved, superseded, lost or expired.",يحددها النظام: النسخ المرسلة تظل صالحة حتى تُعتمد أو تُستبدل أو تُخسر أو تنتهي صلاحيتها.
+Set Counter,ضبط العداد
+Set Counter: {0},ضبط العداد: {0}
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
@@ -726,6 +738,7 @@ The markup cannot be changed on a quote. Locked BTC lines are always locked.,ل�
 "The name formulas use, e.g. depth or hp (letters, digits and _).",الاسم الذي تستخدمه المعادلات، مثل depth أو hp (حروف وأرقام و _).
 "The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
+The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
@@ -752,6 +765,7 @@ This rule can only warn; it can never block (decisions 47 and 67).,هذه الق
 "This sample shows the Smart Power letterhead, the Arabic font and the shared print helpers.",يعرض هذا النموذج ورق سمارت باور الرسمي والخط العربي وأدوات الطباعة المشتركة.
 This version expired on {0}. Make a new version.,هذه النسخة انتهت صلاحيتها في {0}. اعمل نسخة جديدة.
 This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
+This Year's Prefix,بادئة هذه السنة
 Tier,الفئة
 Timestamp,الوقت
 Title,العنوان
@@ -812,6 +826,7 @@ Won On,تاريخ الكسب
 Write what is missing.,اكتب ما هو ناقص.
 Write-off,شطب
 Wrong customer,عميل غير مطابق
+Yearly reset,يبدأ كل سنة
 Yes,نعم
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
@@ -825,9 +840,11 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} has no valuation rate.,{0} ليس له سعر تقييم.
 {0} has no {1} price.,{0} ليس له سعر {1}.
 {0} installation manager(s) asked,تم طلب المعاينة من {0} من مديري التركيبات
+{0} is already used up to {1}: the counter cannot go below {1}.,{0} مستخدم حتى الرقم {1}: لا يمكن أن يقل العداد عن {1}.
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
 {0} is locked: its markup cannot change.,{0} مقفل: لا يمكن تغيير نسبة الربح.
+{0} is not a numbering series of {1}.,{0} ليست سلسلة ترقيم لـ {1}.
 {0} is not a photo.,{0} ليس صورة.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 {0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
