@@ -17,3 +17,4 @@ smart_power.patches.sp48_quote_clock
 smart_power.patches.sp47_story_request_fields
 smart_power.patches.sp23_print_setup
 smart_power.patches.sp55_allow_repeated_items
+smart_power.patches.sp134_quote_template

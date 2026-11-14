@@ -1,0 +1,51 @@
+{
+ "actions": [],
+ "creation": "2026-11-14 19:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "block_key",
+  "title",
+  "body"
+ ],
+ "fields": [
+  {
+   "fieldname": "block_key",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Block Key",
+   "reqd": 1,
+   "columns": 2,
+   "description": "How print formats find this block, e.g. warranty (a-z, 0-9 and _)."
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "columns": 3
+  },
+  {
+   "fieldname": "body",
+   "fieldtype": "Text Editor",
+   "in_list_view": 1,
+   "label": "Text",
+   "columns": 5,
+   "description": "Use {placeholders} from the list on the template, e.g. {customer_name}."
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-14 19:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Document Block",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 0
+}
