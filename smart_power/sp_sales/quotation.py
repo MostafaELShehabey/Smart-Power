@@ -48,6 +48,7 @@ def validate(doc, method=None) -> None:
 	set_valid_till(doc)
 	set_cost_and_profit(doc)
 	set_optional_lines(doc)
+	check_option_label(doc)
 	doc.sp_status = status_of(doc, sending=doc.get("_action") == "submit")
 
 
@@ -144,8 +145,10 @@ def set_valid_till(doc) -> None:
 
 
 def before_insert(doc, method=None) -> None:
-	"""Number the version: one more than the case's highest."""
+	"""Number the version: one more than the case's highest. The first quote is option A."""
 	if doc.get("sp_case"):
+		if not doc.get("sp_option_label"):
+			doc.sp_option_label = option_labels()[0]
 		quotation = DocType("Quotation")
 		highest = (
 			frappe.qb.from_(quotation)
@@ -206,6 +209,71 @@ def new_version(quotation: str) -> str:
 	doc.sp_previous_version = source.name
 	doc.sp_root = source.get("sp_root") or source.name
 	doc.sp_option_label = source.get("sp_option_label")
+	doc.transaction_date = today()
+	doc.valid_till = None
+	doc.insert()
+	return doc.name
+
+
+def option_labels() -> list[str]:
+	"""The option labels in order (A, B, C), from the Option field."""
+	field = frappe.get_meta("Quotation").get_field("sp_option_label")
+	return [o.strip() for o in (field.options or "").split("\n") if o.strip()]
+
+
+def check_option_label(doc) -> None:
+	"""One label per alternative on a case: the versions of option B all say B (SP-59)."""
+	if not (doc.get("sp_case") and doc.get("sp_option_label") and doc.get("sp_root")):
+		return
+	quotation = DocType("Quotation")
+	clash = (
+		frappe.qb.from_(quotation)
+		.select(quotation.name)
+		.where(quotation.sp_case == doc.sp_case)
+		.where(quotation.sp_option_label == doc.sp_option_label)
+		.where(quotation.sp_root != doc.sp_root)
+		.where(quotation.name != doc.name)
+		.where(quotation.docstatus < CANCELLED)
+		.limit(1)
+		.run()
+	)
+	if clash:
+		frappe.throw(
+			_("Option {0} is already another alternative on case {1} ({2}).").format(
+				frappe.bold(doc.sp_option_label), doc.sp_case, clash[0][0]
+			),
+			title=_("Option taken"),
+		)
+
+
+@frappe.whitelist(methods=["POST"])
+def new_option(quotation: str) -> str:
+	"""Copy a quote of a case into a full alternative with the next free label (B, then C):
+	another brand or inverter, priced on its own. Its versions follow it (SP-59)."""
+	source = frappe.get_doc("Quotation", quotation)
+	source.check_permission("read")
+	if not source.get("sp_case"):
+		frappe.throw(_("Only a quote linked to a case has options."))
+	frappe.has_permission("Quotation", "create", throw=True)
+	used = set(
+		frappe.get_all(
+			"Quotation",
+			{"sp_case": source.sp_case, "docstatus": ("<", CANCELLED)},
+			pluck="sp_option_label",
+		)
+	)
+	free = [label for label in option_labels() if label not in used]
+	if not free:
+		frappe.throw(
+			_("Case {0} already has options {1}.").format(source.sp_case, ", ".join(option_labels()))
+		)
+	doc = frappe.copy_doc(source, ignore_no_copy=False)
+	doc.docstatus = DocStatus.draft()
+	for row in doc.get_all_children():
+		row.docstatus = DocStatus.draft()
+	doc.sp_option_label = free[0]
+	doc.sp_previous_version = None
+	doc.sp_root = None  # a new alternative is its own first version
 	doc.transaction_date = today()
 	doc.valid_till = None
 	doc.insert()

@@ -82,6 +82,7 @@ Capacity Spec,مواصفة القدرة
 Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case opened,فتح الحالة
+Case {0} already has options {1}.,الحالة {0} لديها بالفعل الخيارات {1}.
 Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا مفتوحًا.
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Cash and Locks,الكاش والقفل
@@ -120,6 +121,7 @@ Completed By,تم بواسطة
 Completed On,تم في
 Consignment Conversion,تحويل أمانة
 Consignment Owner,صاحب أمانة
+"Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
 Cost,التكلفة
 Cost (manual lines),التكلفة (السطور اليدوية)
 Cost and Profit,التكلفة والربح
@@ -350,6 +352,7 @@ Needs Repricing,يحتاج إعادة تسعير
 Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
+New Option,خيار جديد
 New price,السعر الجديد
 New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Value,القيمة الجديدة
@@ -382,6 +385,7 @@ One row per item and supplier. Blank cells keep the old price; an empty date mea
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only a draft version can be calculated. Make a new version.,لا يُحسب إلا الإصدار المسودة. أنشئ إصدارًا جديدًا.
 Only a quote linked to a case can be the approved version.,فقط العرض المرتبط بحالة يمكن أن يكون النسخة المعتمدة.
+Only a quote linked to a case has options.,الخيارات متاحة فقط للعرض المرتبط بحالة.
 Only a quote linked to a case has versions.,فقط العرض المرتبط بحالة له نسخ.
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
@@ -394,6 +398,10 @@ Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
 Option,الخيار
+Option taken,الخيار مستخدم
+Option {0} is already another alternative on case {1} ({2}).,الخيار {0} مستخدم لبديل آخر في الحالة {1} ({2}).
+"Option {0}, version {1} of case {2}.",الخيار {0}، الإصدار {1} من الحالة {2}.
+"Option {0}, version {1} of case {2}: the approved version.",الخيار {0}، الإصدار {1} من الحالة {2}: الإصدار المعتمد.
 Optional,اختياري
 Optional additions (not included in the total),إضافات اختيارية (غير محسوبة في الإجمالي)
 Optional Lines,السطور الاختيارية
@@ -745,8 +753,6 @@ Value (English),القيمة (إنجليزي)
 Version,النسخة
 Version 1 of this quote: every version of one quote shares it.,النسخة 1 من هذا العرض: كل نسخ العرض الواحد تشترك فيها.
 Version {0} is published or used by a quote and cannot change. Make a new version.,الإصدار {0} منشور أو مستخدم في عرض ولا يمكن تعديله. أنشئ إصدارًا جديدًا.
-Version {0} of case {1}.,النسخة {0} من الحالة {1}.
-Version {0} of case {1}: the approved version.,النسخة {0} من الحالة {1}: النسخة المعتمدة.
 "Village, centre or landmark.",القرية أو المركز أو علامة مميزة.
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
