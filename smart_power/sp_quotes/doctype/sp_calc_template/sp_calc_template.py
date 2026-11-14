@@ -130,7 +130,7 @@ class SPCalcTemplate(Document):
 	def new_version(self) -> str:
 		"""An editable copy as the next version."""
 		frappe.has_permission("SP Calc Template", "create", throw=True)
-		copy = frappe.copy_doc(self)
+		copy = frappe.copy_doc(self, ignore_no_copy=False)  # a new version starts as an unpublished draft
 		copy.previous_version = self.name
 		copy.insert()
 		return copy.name
