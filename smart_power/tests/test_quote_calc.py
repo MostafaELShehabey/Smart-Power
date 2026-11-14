@@ -110,3 +110,15 @@ class TestQuoteCalc(IntegrationTestCase):
 		self.assertEqual(
 			[i.input_key for i in info["inputs"]], [i["input_key"] for i in self.data["template"]["inputs"]]
 		)
+
+	def test_a_hand_row_may_repeat_a_template_item(self):
+		# found in the browser sweep: ERPNext refused the same item on two quote lines
+		from smart_power.sp_sales.setup import allow_repeated_items
+
+		allow_repeated_items()
+		doc = frappe.get_doc("Quotation", self.quote.name)
+		doc.items[0].item_code = "SPT-PIPE"
+		doc.save()
+		calculate_quote(self.quote.name, self.data["inputs"])
+		pipes = [row for row in self.rows()[0].items if row.item_code == "SPT-PIPE"]
+		self.assertEqual(len(pipes), 2)  # the template's pipes line and the hand row
