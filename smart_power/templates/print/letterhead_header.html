@@ -1,0 +1,17 @@
+{%- set company = get_company_settings() -%}
+<div class="sp-letterhead" dir="rtl">
+	<table class="sp-letterhead-table">
+		<tr>
+			<td class="sp-letterhead-logo"><img src="{{ embed_image(company_logo()) }}" alt=""></td>
+			<td class="sp-letterhead-name">
+				<div class="sp-legal-name">{{ company.legal_name_ar or company.company or "" }}</div>
+				{%- if company.commercial_register %}
+				<div class="sp-legal-line">{{ _("Commercial Register") }}: <span class="sp-num">{{ company.commercial_register }}</span></div>
+				{%- endif %}
+				{%- if company.tax_card %}
+				<div class="sp-legal-line">{{ _("Tax Card") }}: <span class="sp-num">{{ company.tax_card }}</span></div>
+				{%- endif %}
+			</td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,8 @@
+<div class="sp-letterfoot" dir="rtl">
+	<div class="sp-addresses">
+		{%- for row in company_addresses() %}
+		<span class="sp-address">{{ row.label or "" }}{% if row.address %}: {{ row.address }}{% endif %}{% if row.phone %} · <span class="sp-num">{{ row.phone }}</span>{% endif %}</span>
+		{%- endfor %}
+	</div>
+	<div class="sp-page-no">{{ _("Page") }} <span class="page"></span> {{ _("of") }} <span class="topage"></span></div>
+</div>

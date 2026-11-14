@@ -112,6 +112,7 @@ Code {0} is repeated: it is already in row {1}.,الكود {0} مكرر: موج�
 Collection Owner,مسؤول التحصيل
 Comment,تعليق
 Commercial,تجاري
+Commercial Register,السجل التجاري
 Commercial Register No.,رقم السجل التجاري
 Company,شركة
 Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
@@ -369,6 +370,7 @@ Not allowed,غير مسموح
 Not on the quote: {0}.,غير مضاف للعرض: {0}.
 Note,ملاحظة
 Notes,ملاحظات
+of,من
 Off,متوقف
 Offer Type,نوع العرض
 Old price: {0},السعر القديم: {0}
@@ -406,6 +408,7 @@ Owner Name,اسم المالك
 Owners,المسؤولون
 P1 Cost,تكلفة P1
 P1 price,سعر P1
+Page,صفحة
 Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
 Pass-through,بسعر التكلفة
@@ -438,6 +441,7 @@ Pricing,التسعير
 Pricing rule,قاعدة تسعير
 Pricing Rules,قواعد التسعير
 Print Group,مجموعة الطباعة
+Print Sample,نموذج الطباعة
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
 Priority,الأولوية
 Profit,الربح
@@ -650,6 +654,7 @@ Take,استلام
 Take Request,استلام الطلب
 Taken by {0},أخذه {0}
 Task Type,نوع المهمة
+Tax Card,البطاقة الضريبية
 Tax Card No.,رقم البطاقة الضريبية
 Technical,فني
 Technical Review,مراجعة فنية
@@ -703,6 +708,7 @@ This list has no values yet. Use Add Value.,هذه القائمة لا تحتو�
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
 This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
+"This sample shows the Smart Power letterhead, the Arabic font and the shared print helpers.",يعرض هذا النموذج ورق سمارت باور الرسمي والخط العربي وأدوات الطباعة المشتركة.
 This version expired on {0}. Make a new version.,هذه النسخة انتهت صلاحيتها في {0}. اعمل نسخة جديدة.
 This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
 Tier,الفئة
