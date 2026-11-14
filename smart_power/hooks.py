@@ -105,7 +105,11 @@ doc_events = {
 		"validate": "smart_power.sp_sales.quotation.validate",
 		"before_cancel": "smart_power.sp_sales.quotation.before_cancel",
 		"before_update_after_submit": "smart_power.sp_sales.quotation.before_update_after_submit",
-		"on_update": "smart_power.sp_sales.quotation.on_update",
+		"on_update": [
+			"smart_power.sp_sales.quotation.on_update",
+			# every discount is listed in the review centre (SP-129)
+			"smart_power.sp_core.review_centre.list_quote_discount",
+		],
 		"on_submit": "smart_power.sp_sales.quotation.on_update",
 	},
 	# Price list (SP-30): every price has a date and buying prices a supplier.
