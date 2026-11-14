@@ -129,8 +129,10 @@ def check_placeholders(document: str, text: str | None, where: str) -> None:
 
 
 def fill(text: str | None, doc) -> str:
-	"""The text with each {placeholder} replaced by the document's value (HTML-escaped)."""
-	doc = doc or frappe._dict()
+	"""The text with each {placeholder} replaced by the document's value (HTML-escaped). With
+	no document (a preview), the placeholders stay as they are."""
+	if doc is None:
+		return str(text or "")
 	table = resolvers()
 
 	def value(match):

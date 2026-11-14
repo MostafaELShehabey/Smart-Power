@@ -107,3 +107,7 @@ class TestDocumentTemplates(IntegrationTestCase):
 		draft = new_template()
 		draft.run_method("publish")
 		self.assertTrue(frappe.db.get_value(TEMPLATE, draft.name, "is_published"))
+
+	def test_preview_without_a_document_keeps_the_placeholders(self):
+		blocks = quote_template().preview()
+		self.assertIn("{customer_name}", blocks[0])
