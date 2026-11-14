@@ -4,6 +4,7 @@
 1 is picked first.,رقم 1 يُختار أولاً.
 2 decimals,رقمان عشريان
 A,A
+A cancelled quote cannot be sent.,لا يمكن إرسال عرض ملغى.
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
 A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
@@ -81,6 +82,7 @@ Calculation Notes,ملاحظات الحساب
 Calculation Template,قالب الحساب
 Call,مكالمة
 Call Result,نتيجة المكالمة
+Call {0} about quote {1},اتصل بـ {0} بخصوص العرض {1}
 Can Never Block,لا يمنع أبداً
 Cancelled,ملغي
 Capacity Spec,مواصفة القدرة
@@ -90,6 +92,7 @@ Case opened,فتح الحالة
 Case {0} already has options {1}.,الحالة {0} لديها بالفعل الخيارات {1}.
 Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا مفتوحًا.
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
+Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
 Cash and Locks,الكاش والقفل
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
 Catalogue (PDF),الكتالوج (PDF)
@@ -104,6 +107,7 @@ Channel,القناة
 Chassis,الشاسيه
 Check,اختيار (نعم/لا)
 Check the placeholders,راجع المتغيرات
+Check the prices and the discount before the next version.,راجع الأسعار والخصم قبل الإصدار التالي.
 Check the specs,راجع المواصفات
 Check the template,راجع القالب
 Cheque,شيك
@@ -213,6 +217,7 @@ Field Entry Lock (days),قفل التسجيل الميداني (أيام)
 Field Expense,مصروف ميداني
 Field Job,شغلانة ميدانية
 Field names starting with {0} are reserved for developer fields.,أسماء الحقول التي تبدأ بـ {0} محجوزة لحقول المطور.
+File,الملف
 Fill from,املأ من
 Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
 Financial Center,المركز المالي
@@ -267,6 +272,7 @@ Import Prices from Excel,استيراد الأسعار من إكسل
 Import: {0},استيراد: {0}
 Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
+In person,شخصيًا
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
 Individual,فرد
 Individual (BTC) or company (BTB). Sets the customer type.,فرد (BTC) أو شركة (BTB). يحدد نوع العميل.
@@ -339,6 +345,7 @@ Margin,هامش الربح
 Margin %,الربح %
 Margin on sale,هامش من البيع
 Margin Ranges,نطاقات الربح
+Margin {0}% is outside the range {1}% to {2}% for this offer type.,الهامش {0}% خارج النطاق من {1}% إلى {2}% لهذا النوع من العروض.
 Mark Lost,تسجيل الخسارة
 Mark this version as the one the customer accepted?,اعتماد هذه النسخة كالتي وافق عليها العميل؟
 Mark Won,تسجيل الكسب
@@ -416,6 +423,7 @@ Only a draft version can be calculated. Make a new version.,لا يُحسب إل
 Only a quote linked to a case can be the approved version.,فقط العرض المرتبط بحالة يمكن أن يكون النسخة المعتمدة.
 Only a quote linked to a case has options.,الخيارات متاحة فقط للعرض المرتبط بحالة.
 Only a quote linked to a case has versions.,فقط العرض المرتبط بحالة له نسخ.
+Only a quote linked to a case is sent from here.,يُرسل من هنا فقط العرض المرتبط بحالة.
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
@@ -423,6 +431,7 @@ Only quote creators can do this.,هذا الإجراء لمُعدّي عروض �
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
+"Only the case's follow-up owner, its quote creator or the admin can send a quote.",يرسل العرض مسئول متابعة الحالة أو مُعدّ العرض أو المدير فقط.
 Only the quote creator and the cost roles price a quote.,تسعير العرض لمُعدّ العرض وأدوار التكلفة فقط.
 Open,مفتوح
 Open as List,فتح كقائمة
@@ -455,6 +464,7 @@ Parent Value,القيمة الأم
 Pass-through,بسعر التكلفة
 Payment Method,طريقة الدفع
 Payment Schedule,جدول السداد
+PDF,ملف PDF
 "Per unit, from the P1 Cost price list when left empty.",للوحدة، من قائمة تكلفة P1 إذا تُركت فارغة.
 Per-kW default,افتراضي لكل كيلووات
 Phone,التليفون
@@ -485,6 +495,7 @@ Prices changed or the quote expired before the deposit: make a new version at to
 Pricing,التسعير
 Pricing rule,قاعدة تسعير
 Pricing Rules,قواعد التسعير
+Print Format,نموذج الطباعة
 Print Group,مجموعة الطباعة
 Print Sample,نموذج الطباعة
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
@@ -513,6 +524,7 @@ Quote Creator,معد العرض
 Quote Due At,موعد استحقاق العرض
 Quote due soon: {0} ({1}),عرض يقترب موعده: {0} ({1})
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
+Quote margin within its range,هامش العرض داخل نطاقه
 Quote Request,طلب عرض
 Quote request,طلب عرض
 Quote Request Queue,قائمة طلبات العروض
@@ -522,6 +534,7 @@ Quote Status,حالة العرض
 Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
 Quote within 24 hours,العرض خلال 24 ساعة
+Quote {0} sent to {1},تم إرسال العرض {0} إلى {1}
 Quotes,عروض الأسعار
 Raised By,سُجّل بواسطة
 Rate,السعر
@@ -585,7 +598,10 @@ Select,قائمة اختيار
 Send,إرسال
 Send to Customer,إرسال للعميل
 Sent,أُرسل
+Sent At,وقت الإرسال
+Sent By,أرسله
 Sent to customer,أُرسل للعميل
+Sent version,إصدار مُرسل
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 "Set by the system: sent versions stay valid until approved, superseded, lost or expired.",يحددها النظام: النسخ المرسلة تظل صالحة حتى تُعتمد أو تُستبدل أو تُخسر أو تنتهي صلاحيتها.
@@ -665,6 +681,7 @@ SP Projects Manager,مدير المشروعات
 SP Purchase Officer,المشتريات
 SP Quote Creator,إعداد عروض الأسعار
 SP Quote Optional Line,سطر اختياري في العرض
+SP Quote Send Log,سجل إرسال العروض
 SP Receipt Confirmer,تأكيد الاستلام
 SP Regulatory Compliance,التراخيص والتأهيل
 SP Review Item,بند مراجعة
@@ -796,6 +813,7 @@ Type,النوع
 Unclaimed,غير مستلَم
 Unit,الوحدة
 Unit Price,سعر الوحدة
+Unknown channel {0}.,قناة غير معروفة {0}.
 Unknown list {0}.,قائمة غير معروفة {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.
 Unpublish,إلغاء النشر
@@ -814,6 +832,7 @@ Version,النسخة
 Version 1 of this quote: every version of one quote shares it.,النسخة 1 من هذا العرض: كل نسخ العرض الواحد تشترك فيها.
 Version {0} is published and cannot change. Make a new version.,الإصدار {0} منشور ولا يمكن تعديله. أنشئ إصدارًا جديدًا.
 Version {0} is published or used by a quote and cannot change. Make a new version.,الإصدار {0} منشور أو مستخدم في عرض ولا يمكن تعديله. أنشئ إصدارًا جديدًا.
+Version {0} was sent and its lines cannot change. Make a new version.,تم إرسال الإصدار {0} ولا يمكن تغيير سطوره. أنشئ إصدارًا جديدًا.
 "Village, centre or landmark.",القرية أو المركز أو علامة مميزة.
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
@@ -829,6 +848,7 @@ Watts,وات
 What is missing?,ما الناقص؟
 WhatsApp,واتساب
 When,متى
+"When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
 Where a marketing request came from (X4 Lead Source list); required for the Marketing channel.,من أين جاء طلب التسويق (قائمة مصادر العملاء في X4)؛ مطلوب لقناة التسويق.
 Who,مَن
@@ -862,6 +882,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} is locked: its markup cannot change.,{0} مقفل: لا يمكن تغيير نسبة الربح.
 {0} is not a numbering series of {1}.,{0} ليست سلسلة ترقيم لـ {1}.
 {0} is not a photo.,{0} ليس صورة.
+{0} is not a quote print format.,{0} ليس نموذج طباعة للعروض.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 {0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
