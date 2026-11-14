@@ -70,6 +70,7 @@ BTB (Companies),BTB (الشركات)
 BTC,BTC
 BTC (Individuals),BTC (الأفراد)
 C,C
+Calculate,احسب
 Call,مكالمة
 Call Result,نتيجة المكالمة
 Can Never Block,لا يمنع أبداً
@@ -241,6 +242,7 @@ Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
 Inverter Brand,ماركة الإنفرتر
 Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
+Item,الصنف
 Item Group,مجموعة الأصناف
 Item Selection,اختيار الصنف
 Item {0} does not exist.,الصنف {0} غير موجود.
@@ -631,6 +633,7 @@ Technical Review,مراجعة فنية
 Template Code,كود القالب
 Template Name,اسم القالب
 Terms Note,ملاحظة الشروط
+Test with Sample Inputs,تجربة بمدخلات نموذجية
 The admin has been asked,تم إرسال الطلب للمدير
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
@@ -680,6 +683,7 @@ To,إلى
 "To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
 Took the request,استلم الطلب
 Total Cost,إجمالي التكلفة
+Total cost {0} · Total sale {1} · Profit {2} · Margin {3}%,إجمالي التكلفة {0} · إجمالي البيع {1} · الربح {2} · الهامش {3}%
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transit,في الطريق

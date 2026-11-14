@@ -115,6 +115,14 @@ class SPCalcTemplate(Document):
 		self.add_comment("Info", _("Unpublished"))
 
 	@frappe.whitelist()
+	def run_sample(self, inputs: dict | str | None = None) -> dict:
+		"""Price this template (as it is on the form) with sample inputs; nothing is saved."""
+		from smart_power.sp_quotes.engine import calculate
+
+		self.check_permission("read")
+		return calculate(self, frappe.parse_json(inputs) or {})
+
+	@frappe.whitelist()
 	def new_version(self) -> str:
 		"""An editable copy as the next version."""
 		frappe.has_permission("SP Calc Template", "create", throw=True)

@@ -155,3 +155,21 @@ class TestCalcTemplate(IntegrationTestCase):
 	def test_publish_needs_lines(self):
 		with self.assertRaises(frappe.ValidationError):
 			make_template(lines=[]).publish()
+
+
+class TestCalcTemplateSample(IntegrationTestCase):
+	def test_run_sample_prices_the_form_as_it_is(self):
+		doc = make_template(
+			lines=[
+				{
+					"line_key": "rope",
+					"qty_formula": "depth * 2 + rope_allowance",
+					"cost_source": "Manual",
+					"cost_default": 10,
+					"pricing_method": "Pass-through",
+				}
+			]
+		)
+		result = doc.run_sample({"hp": 40, "depth": 99})
+		self.assertEqual(result.lines[0].qty, 228)
+		self.assertEqual(result.totals.sell, 2280)
