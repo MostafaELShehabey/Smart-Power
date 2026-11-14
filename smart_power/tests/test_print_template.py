@@ -1,6 +1,7 @@
 """The base print template, letterhead and PDF settings (SP-23)."""
 
 import base64
+import html
 import io
 import os
 import subprocess
@@ -44,7 +45,11 @@ def sample(rows: int | None = None, as_pdf: bool = False):
 	doc = frappe.get_doc(SETTINGS)
 	if rows:
 		doc.sample_rows = rows
-	return frappe.get_print(SETTINGS, SETTINGS, SAMPLE, doc=doc, as_pdf=as_pdf, letterhead=LETTER_HEAD)
+	try:
+		return frappe.get_print(SETTINGS, SETTINGS, SAMPLE, doc=doc, as_pdf=as_pdf, letterhead=LETTER_HEAD)
+	except Exception as e:
+		# Frappe wraps a template error's traceback in HTML: show the real cause
+		raise AssertionError(html.unescape(str(e))[-4000:]) from None
 
 
 class TestPrintTemplate(IntegrationTestCase):
