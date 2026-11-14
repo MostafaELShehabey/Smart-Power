@@ -179,3 +179,40 @@ def check_margin(doc) -> list[str]:
 		record_warning(doc, hit)
 		messages.append(hit.finding.message)
 	return messages
+
+
+@frappe.whitelist()
+def quote_history(case: str) -> list[dict]:
+	"""Every quote version of a case (newest first) with every send and its PDF."""
+	frappe.get_doc(CASE, case).check_permission("read")
+	quotes = frappe.get_all(
+		"Quotation",
+		filters={"sp_case": case},
+		fields=[
+			"name",
+			"sp_option_label",
+			"sp_version",
+			"sp_status",
+			"sp_is_approved",
+			"rounded_total",
+			"grand_total",
+			"currency",
+			"transaction_date",
+			"docstatus",
+		],
+		order_by="sp_version desc",
+	)
+	sends = frappe.get_all(
+		LOG,
+		filters={"case": case},
+		fields=["quotation", "sent_at", "channel", "sent_by", "file_url"],
+		order_by="sent_at desc",
+	)
+	by_quote = {}
+	for send in sends:
+		send.sent_by_name = frappe.utils.get_fullname(send.sent_by)
+		by_quote.setdefault(send.quotation, []).append(send)
+	for quote in quotes:
+		quote.total = quote.rounded_total or quote.grand_total
+		quote.sends = by_quote.get(quote.name, [])
+	return quotes

@@ -36,6 +36,8 @@
   "column_break_result",
   "won_on",
   "accepted_quotation",
+  "quote_history_section",
+  "quote_history_html",
   "history_section",
   "owner_history"
  ],
@@ -270,6 +272,17 @@
    "no_copy": 1
   },
   {
+   "fieldname": "quote_history_section",
+   "fieldtype": "Section Break",
+   "label": "Quote History",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "quote_history_html",
+   "fieldtype": "HTML",
+   "label": "Quote History"
+  },
+  {
    "fieldname": "history_section",
    "fieldtype": "Section Break",
    "label": "Owner History",
@@ -291,7 +304,7 @@
    "link_fieldname": "sp_case"
   }
  ],
- "modified": "2026-11-14 20:00:00.000000",
+ "modified": "2026-11-14 23:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

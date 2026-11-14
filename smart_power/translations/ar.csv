@@ -405,10 +405,12 @@ No open requests here.,لا توجد طلبات مفتوحة هنا.
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
+No quote yet.,لا يوجد عرض بعد.
 No.,رقم
 Nos,عدد
 Not allowed,غير مسموح
 Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
+Not sent,لم يُرسل
 Note,ملاحظة
 Notes,ملاحظات
 of,من
@@ -526,6 +528,7 @@ Quote Creator,معد العرض
 Quote Due At,موعد استحقاق العرض
 Quote due soon: {0} ({1}),عرض يقترب موعده: {0} ({1})
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
+Quote History,سجل العروض
 Quote margin within its range,هامش العرض داخل نطاقه
 Quote Request,طلب عرض
 Quote request,طلب عرض
@@ -602,6 +605,7 @@ Send,إرسال
 Send Again,إرسال مرة أخرى
 Send to Customer,إرسال للعميل
 Sending freezes this version: it cannot be edited afterwards.,الإرسال يثبّت هذا الإصدار: لا يمكن تعديله بعد ذلك.
+Sends,مرات الإرسال
 Sent,أُرسل
 Sent At,وقت الإرسال
 Sent By,أرسله
