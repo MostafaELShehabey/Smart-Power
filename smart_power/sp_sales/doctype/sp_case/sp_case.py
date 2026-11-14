@@ -14,6 +14,9 @@ class SPCase(Document):
 		case.validate(self)
 
 	def on_update(self):
+		from smart_power.sp_sales.board import publish_update
+
+		publish_update(self)  # the follow-up boards refresh (SP-66)
 		# a lost or reopened case moves its quotes to Lost and back (SP-54)
 		before = self.get_doc_before_save()
 		if before and before.status != self.status and case.LOST in (self.status, before.status):
