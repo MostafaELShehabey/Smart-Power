@@ -55,7 +55,8 @@
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Rate",
-   "columns": 1
+   "columns": 1,
+   "options": "currency"
   },
   {
    "fieldname": "amount",
@@ -63,7 +64,8 @@
    "in_list_view": 1,
    "label": "Amount",
    "read_only": 1,
-   "columns": 1
+   "columns": 1,
+   "options": "currency"
   },
   {
    "fieldname": "column_break_cost",
@@ -74,7 +76,8 @@
    "fieldtype": "Currency",
    "label": "Cost",
    "permlevel": 2,
-   "description": "Per unit, from the P1 Cost price list when left empty."
+   "description": "Per unit, from the P1 Cost price list when left empty.",
+   "options": "currency"
   },
   {
    "fieldname": "line_key",
@@ -85,7 +88,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-14 15:00:00.000000",
+ "modified": "2026-11-14 16:30:00.000000",
  "modified_by": "Administrator",
  "module": "SP Quotes",
  "name": "SP Quote Optional Line",
