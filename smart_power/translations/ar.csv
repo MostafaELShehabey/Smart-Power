@@ -63,6 +63,7 @@ Assigned To,مسند إلى
 B,B
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
 battery_ah,سعة البطارية (أمبير ساعة)
+Becomes a call task for the follow-up owner.,تصبح مهمة اتصال لمسئول المتابعة.
 Block,منع
 Block Key,مفتاح الفقرة
 Block {0},الفقرة {0}
@@ -83,6 +84,8 @@ Calculation Notes,ملاحظات الحساب
 Calculation Template,قالب الحساب
 Call,مكالمة
 Call Result,نتيجة المكالمة
+Call Time,وقت المكالمة
+Call {0},اتصل بـ {0}
 Call {0} about quote {1},اتصل بـ {0} بخصوص العرض {1}
 Can Never Block,لا يمنع أبداً
 Cancelled,ملغي
@@ -91,6 +94,7 @@ Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case opened,فتح الحالة
 Case {0} already has options {1}.,الحالة {0} لديها بالفعل الخيارات {1}.
+Case {0} is closed; reopen it before logging calls.,الحالة {0} مغلقة؛ أعد فتحها قبل تسجيل المكالمات.
 Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا مفتوحًا.
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
@@ -331,6 +335,7 @@ Locked for quote creators.,مقفل على أصحاب العروض.
 Locked line,سطر مقفل
 Locked Markup,نسبة ربح مقفلة
 Log out,تسجيل الخروج
+Logged By,سجّلها
 Logo,الشعار
 Logo and Stamp,الشعار والختم
 Lost,خسارة
@@ -390,6 +395,7 @@ New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Value,القيمة الجديدة
 New Version,نسخة جديدة
 Next,التالي
+Next Call,المكالمة التالية
 Next Number,الرقم التالي
 Night Hours,ساعات الليل
 No,لا
@@ -651,6 +657,7 @@ SP Calc Template,قالب الحساب
 SP Calc Template Input,مدخل قالب الحساب
 SP Calc Template Line,سطر قالب الحساب
 SP Call Center,كول سنتر ومتابعة العملاء
+SP Call Log,سجل المكالمات
 SP Case,الحالة
 SP Case System Type,نوع نظام الحالة
 SP Catalog Manager,الأصناف والكتالوجات
@@ -776,6 +783,7 @@ The markup cannot be changed on a quote. Locked BTC lines are always locked.,ل�
 "The name formulas use, e.g. depth or hp (letters, digits and _).",الاسم الذي تستخدمه المعادلات، مثل depth أو hp (حروف وأرقام و _).
 "The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
+The next call cannot be before this call.,لا يمكن أن تكون المكالمة التالية قبل هذه المكالمة.
 The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
@@ -845,6 +853,7 @@ Version {0} was sent and its lines cannot change. Make a new version.,تم إر�
 "Village, centre or landmark.",القرية أو المركز أو علامة مميزة.
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
+Voice Note,ملاحظة صوتية
 Warn,تنبيه
 Warned,تم التنبيه
 Warning,تنبيه
@@ -889,6 +898,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
 {0} is locked: its markup cannot change.,{0} مقفل: لا يمكن تغيير نسبة الربح.
+{0} is not a call result.,{0} ليست نتيجة مكالمة.
 {0} is not a numbering series of {1}.,{0} ليست سلسلة ترقيم لـ {1}.
 {0} is not a photo.,{0} ليس صورة.
 {0} is not a quote print format.,{0} ليس نموذج طباعة للعروض.
@@ -901,6 +911,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 {0} is required.,{0} مطلوب.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} of {1} items,{0} من {1} صنف
+{0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
 {0} {1} does not exist.,{0} {1} غير موجود.
 {0}: a Select input needs its options.,{0}: مدخل القائمة يحتاج اختياراته.
 {0}: a {1} price needs a supplier.,{0}: سعر {1} يحتاج مورداً.
