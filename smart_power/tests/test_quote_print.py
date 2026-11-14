@@ -131,3 +131,41 @@ class TestQuotePrint(IntegrationTestCase):
 		self.assertIn('<span class="sp-num">', preamble)
 		frappe.db.set_value("Item", "_Test Item", "sp_name_ar", "صنف اختبار")
 		self.assertEqual(quote_print(self.a).optional[0]["description"], "صنف اختبار")
+
+	def test_desk_default_replaces_erpnext_formats_only(self):
+		from frappe.custom.doctype.property_setter.property_setter import make_property_setter
+
+		from smart_power.sp_quotes.quote_print import make_desk_default
+
+		def set_default(value):
+			make_property_setter(
+				"Quotation",
+				None,
+				"default_print_format",
+				value,
+				"Data",
+				for_doctype=True,
+				is_system_generated=False,
+			)
+			frappe.clear_cache(doctype="Quotation")
+
+		set_default("Quotation Classic")  # ERPNext's own format
+		make_desk_default()
+		frappe.clear_cache(doctype="Quotation")
+		self.assertEqual(frappe.get_meta("Quotation").default_print_format, FORMAT)
+
+		own = frappe.get_doc(
+			{
+				"doctype": "Print Format",
+				"name": "عرض المدير",
+				"doc_type": "Quotation",
+				"standard": "No",
+				"custom_format": 1,
+				"print_format_type": "Jinja",
+				"html": "<p>{{ doc.name }}</p>",
+			}
+		).insert()
+		set_default(own.name)  # the admin's own format stays
+		make_desk_default()
+		frappe.clear_cache(doctype="Quotation")
+		self.assertEqual(frappe.get_meta("Quotation").default_print_format, own.name)

@@ -212,3 +212,30 @@ def seed_default_print_format() -> None:
 	settings = "Smart Power Settings"
 	if not frappe.db.get_single_value(settings, "default_quote_print_format"):
 		frappe.db.set_single_value(settings, "default_quote_print_format", PRINT_FORMAT)
+
+
+def make_desk_default() -> None:
+	"""Quotation's default print format in the desk becomes SP Quotation, once, when the current
+	one is empty or one of ERPNext's own standard formats (decided by the user, 2026-11-14). A
+	format the admin built is never replaced, and the setting stays the admin's to change."""
+	from frappe.custom.doctype.property_setter.property_setter import make_property_setter
+
+	current = frappe.get_meta("Quotation").default_print_format
+	if current == PRINT_FORMAT:
+		return
+	if current:
+		standard, module = frappe.db.get_value("Print Format", current, ["standard", "module"]) or (
+			None,
+			None,
+		)
+		if standard != "Yes" or (module or "").startswith("SP "):
+			return  # the admin's own format
+	make_property_setter(
+		"Quotation",
+		None,
+		"default_print_format",
+		PRINT_FORMAT,
+		"Data",
+		for_doctype=True,
+		is_system_generated=False,
+	)
