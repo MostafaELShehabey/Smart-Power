@@ -23,7 +23,7 @@ CASE, LOG, TASK = "SP Case", "SP Quote Send Log", "SP Task"
 CHANNELS = ("WhatsApp", "In person", "Other")
 QUOTE_REQUEST, DRAFT_CASE, SENT_CASE = "Quote request", "Draft", "Sent to customer"
 CLOSED = ("Won", "Lost")
-CALL_TASK, TASK_OPEN = "Follow-up Call", "Open"
+CALL_TASK, REQUEST_TASK, TASK_OPEN = "Follow-up Call", "Quote Request", "Open"
 FALLBACK_FORMAT = "SP Quotation"
 
 
@@ -124,6 +124,22 @@ def mark_case_sent(case) -> None:
 		case = apply_workflow(case, "Take Request")
 	if case.get("status") == DRAFT_CASE:
 		apply_workflow(case, "Send to Customer")
+	# the quote request is answered: its open tasks are done (found in SP-67's browser check)
+	for name in frappe.get_all(
+		TASK,
+		{
+			"reference_doctype": CASE,
+			"reference_name": case.name,
+			"task_type": REQUEST_TASK,
+			"status": TASK_OPEN,
+		},
+		pluck="name",
+	):
+		frappe.db.set_value(
+			TASK,
+			name,
+			{"status": "Done", "completed_by": frappe.session.user, "completed_on": now_datetime()},
+		)
 
 
 def notify(doc, case) -> None:

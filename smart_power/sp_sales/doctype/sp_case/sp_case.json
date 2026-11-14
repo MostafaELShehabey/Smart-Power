@@ -36,6 +36,8 @@
   "column_break_result",
   "won_on",
   "accepted_quotation",
+  "followup_section",
+  "followup_html",
   "quote_history_section",
   "quote_history_html",
   "history_section",
@@ -272,6 +274,16 @@
    "no_copy": 1
   },
   {
+   "fieldname": "followup_section",
+   "fieldtype": "Section Break",
+   "label": "Follow-up"
+  },
+  {
+   "fieldname": "followup_html",
+   "fieldtype": "HTML",
+   "label": "Follow-up"
+  },
+  {
    "fieldname": "quote_history_section",
    "fieldtype": "Section Break",
    "label": "Quote History",
@@ -302,9 +314,14 @@
    "group": "Quotes",
    "link_doctype": "Quotation",
    "link_fieldname": "sp_case"
+  },
+  {
+   "group": "Follow-up",
+   "link_doctype": "SP Call Log",
+   "link_fieldname": "case"
   }
  ],
- "modified": "2026-11-14 23:00:00.000000",
+ "modified": "2026-11-14 23:30:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

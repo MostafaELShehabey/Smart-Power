@@ -87,6 +87,7 @@ Call Result,نتيجة المكالمة
 Call Time,وقت المكالمة
 Call {0},اتصل بـ {0}
 Call {0} about quote {1},اتصل بـ {0} بخصوص العرض {1}
+Calls,المكالمات
 Can Never Block,لا يمنع أبداً
 Cancelled,ملغي
 Capacity Spec,مواصفة القدرة
@@ -334,6 +335,7 @@ Locked BTC price,سعر BTC مقفل
 Locked for quote creators.,مقفل على أصحاب العروض.
 Locked line,سطر مقفل
 Locked Markup,نسبة ربح مقفلة
+Log call,تسجيل مكالمة
 Log out,تسجيل الخروج
 Logged By,سجّلها
 Logo,الشعار
@@ -399,6 +401,7 @@ Next Call,المكالمة التالية
 Next Number,الرقم التالي
 Night Hours,ساعات الليل
 No,لا
+No call yet.,لا توجد مكالمات بعد.
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
 No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
@@ -412,6 +415,7 @@ No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 No quote yet.,لا يوجد عرض بعد.
+No sent quote yet.,لم يُرسل عرض بعد.
 No.,رقم
 Nos,عدد
 Not allowed,غير مسموح
@@ -528,6 +532,7 @@ Qty,العدد
 Qty Formula,معادلة الكمية
 Quotation,عرض سعر
 Quotations,عروض الأسعار
+Quote,العرض
 Quote Alert,تنبيه العرض
 Quote Amber After (hours),العرض يصفرّ بعد (ساعات)
 Quote Creator,معد العرض
