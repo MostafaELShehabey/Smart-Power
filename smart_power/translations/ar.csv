@@ -30,6 +30,7 @@ A template needs at least one block before it is published.,القالب يحت�
 A template needs at least one line before it is published.,القالب يحتاج سطرًا واحدًا على الأقل قبل نشره.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
 Abnormal,غير طبيعي
+Abnormal flags,التنبيهات غير الطبيعية
 Accepted Quotation,العرض المعتمد
 Account Map,خريطة الحسابات
 Action,الإجراء
@@ -114,6 +115,7 @@ Change,التغيير
 Change %,نسبة التغيير %
 Change a Line,تعديل سطر
 Change Order,أمر تغيير
+Change orders,أوامر التغيير
 Changed By,تم التغيير بواسطة
 "Changes the quote creator made to the calculated lines, by line key.",تعديلات مُعدّ العرض على السطور المحسوبة، حسب مفتاح السطر.
 Channel,القناة
@@ -143,6 +145,7 @@ Company {0} has no Sites warehouse group. Run the company setup first.,الشر�
 Completed By,تم بواسطة
 Completed On,تم في
 Consignment Conversion,تحويل أمانة
+Consignment conversions,تحويلات الأمانة
 Consignment Owner,صاحب أمانة
 Contract,العقد
 "Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
@@ -189,6 +192,7 @@ Discount,خصم
 Discount given,تم إعطاء خصم
 Discount on {0},خصم على {0}
 Discount {0} given. New total: {1}.,تم إعطاء خصم {0}. الإجمالي الجديد: {1}.
+Discount {0}% ({1}) on quote {2},خصم {0}% ({1}) على العرض {2}
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
 Discounts,الخصومات
@@ -206,6 +210,7 @@ Due Date,تاريخ الاستحقاق
 "E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round.",مثل ceil(depth / pipe_m). الأسماء المتاحة: المدخلات، مفاتيح السطور السابقة (pipes.qty)، item (مواصفات الصنف المختار)، settings؛ والدوال ceil وfloor وmround وnearest_divisible وmin وmax وabs وround.
 E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Edit,تعديل
+Edits with reason,التعديلات بسبب
 "Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
 Empty goes back to the template.,اتركه فارغًا للرجوع لقيمة القالب.
 Empty means all offer types.,فارغ يعني كل أنواع العروض.
@@ -331,6 +336,7 @@ Last Action,آخر إجراء
 Last Call,آخر مكالمة
 Last-minute ask,العشم
 Last-minute discount,خصم العشم
+Late and reopened field entries,الإدخالات الميدانية المتأخرة والمعاد فتحها
 Late Entry,تسجيل متأخر
 Lead Source,مصدر العميل المحتمل
 Legal Name (Arabic),الاسم القانوني (عربي)
@@ -376,12 +382,14 @@ Main,رئيسي
 Main Supplier,المورد الرئيسي
 Making the PDF…,جارٍ إنشاء ملف PDF…
 Manual,يدوي
+Manual entries,الإدخالات اليدوية
 Manual Entry,إدخال يدوي
 Manual Prices,أسعار يدوية
 Manual Qty,كمية يدوية
 Margin,هامش الربح
 Margin %,الربح %
 Margin on sale,هامش من البيع
+Margin out of range,هامش خارج النطاق
 Margin Ranges,نطاقات الربح
 Margin {0}% is outside the range {1}% to {2}% for this offer type.,الهامش {0}% خارج النطاق من {1}% إلى {2}% لهذا النوع من العروض.
 Mark Lost,تسجيل الخسارة
@@ -563,6 +571,7 @@ Published: this version cannot change. Make a new version to edit.,منشور: �
 Pump,الطلمبة
 Pump Specs,مواصفات الطلمبة
 Purchase Order,أمر الشراء
+Purchase orders sent,أوامر الشراء المرسلة
 Qty,العدد
 Qty Formula,معادلة الكمية
 Quotation,عرض سعر
@@ -597,6 +606,7 @@ Reason Given,السبب المكتوب
 Reassign,إعادة إسناد
 Reassign Request,طلب تحويل
 Reassignment,تحويل
+Reassignments,إعادات الإسناد
 Receipt,إيصال الاستلام
 Receipt to Confirm,استلام محتاج تأكيد
 Received by,المستلم
@@ -623,6 +633,7 @@ Required,مطلوب
 Result,النتيجة
 Return Note,إذن المرتجع
 Review,المراجعة
+Review: {0},مراجعة: {0}
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
 Reviewed On,تاريخ المراجعة
@@ -640,7 +651,9 @@ Row {0}: {1} is listed twice for {2}.,سطر {0}: {1} مكررة مرتين في
 Rule,القاعدة
 Rule Key,مفتاح القاعدة
 "Rule limits as JSON, for example {""max_days"": 3}.","حدود القاعدة بصيغة JSON، مثلاً {""max_days"": 3}."
+Rule overrides,تجاوزات القواعد
 Rule Warning,تنبيه قاعدة
+Rule warnings,تحذيرات القواعد
 Save,حفظ
 Save Request,حفظ الطلب
 Save to see the placeholders of this document.,احفظ لعرض متغيرات هذا المستند.
@@ -892,6 +905,7 @@ Unknown column {0}.,عمود غير معروف {0}.
 Unknown discount kind {0}.,نوع خصم غير معروف {0}.
 Unknown list {0}.,قائمة غير معروفة {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.
+Unknown review tab {0}.,تبويب مراجعة غير معروف {0}.
 Unpublish,إلغاء النشر
 Unpublished,أُلغي النشر
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
@@ -938,8 +952,10 @@ Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شه�
 Winch Line,سطر الونش
 Won,تم الكسب
 Won On,تاريخ الكسب
+Write the comment first.,اكتب التعليق أولًا.
 Write what is missing.,اكتب ما هو ناقص.
 Write-off,شطب
+Write-offs,الشطب
 Wrong customer,عميل غير مطابق
 Yearly reset,يبدأ كل سنة
 Yes,نعم
@@ -950,6 +966,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} cannot be changed here.,لا يمكن تعديل {0} هنا.
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
+{0} cannot review; forward it to the admin.,{0} لا يمكنه المراجعة؛ حوّلها إلى المدير.
 {0} days,{0} يوم
 {0} does not follow customers up; hand the case to a colleague who does.,{0} لا يتابع العملاء؛ سلّم الحالة لزميل يتابعهم.
 {0} gave you the case of {1}: {2},{0} سلّمك حالة {1}: {2}
@@ -978,6 +995,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
 {0} of {1} items,{0} من {1} صنف
+{0} reviewed {1}: {2},{0} راجع {1}: {2}
 {0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
 {0} {1} does not exist.,{0} {1} غير موجود.
 {0}: a Select input needs its options.,{0}: مدخل القائمة يحتاج اختياراته.
