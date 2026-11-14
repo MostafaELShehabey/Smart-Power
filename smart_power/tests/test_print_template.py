@@ -127,6 +127,12 @@ class TestPrintTemplate(IntegrationTestCase):
 		self.assertTrue("سمارت باور لأنظمة الطاقة" in html, "سمارت باور لأنظمة الطاقة")
 		self.assertTrue("123456" in html, "123456")
 
+	def test_letterhead_carries_its_own_sizes(self):
+		# found in the SP-62 check: under ERPNext's own print formats the logo filled the page
+		content = frappe.db.get_value("Letter Head", LETTER_HEAD, "content")
+		self.assertIn("sp-letterhead-style", content)
+		self.assertIn("max-height", content)
+
 	def test_logo_is_embedded(self):
 		self.assertTrue(
 			embed_image("/assets/smart_power/images/sp_logo.png").startswith("data:image/png;base64,")

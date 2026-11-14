@@ -1,4 +1,13 @@
 {%- set company = get_company_settings() -%}
+<style class="sp-letterhead-style">
+	/* the letterhead's own sizes, so any print format (ERPNext's too) shows it right */
+	.sp-letterhead { direction: rtl; font-family: "IBM Plex Sans Arabic", sans-serif; }
+	.sp-letterhead-table { width: 100%; border-bottom: 2px solid #c8a24a; }
+	.sp-letterhead-logo { width: 90px; }
+	.sp-letterhead-logo img { max-height: 60px; max-width: 90px; }
+	.sp-legal-name { font-size: 16px; font-weight: 700; color: #0b2e59; }
+	.sp-legal-line { font-size: 11px; color: #4a5568; }
+</style>
 <div class="sp-letterhead" dir="rtl">
 	<table class="sp-letterhead-table">
 		<tr>
