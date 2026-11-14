@@ -146,3 +146,16 @@ class TestDiscounts(IntegrationTestCase):
 		)
 		self.assertEqual(options["limit_pct"], 2)
 		self.assertNotIn("cost", frappe.as_json(options))
+
+	def test_the_pdf_prints_each_discount_and_the_last_minute_ask(self):
+		from smart_power.sp_quotes.quote_print import quote_print
+
+		give_discount(self.quote.name, percent=10, applies_to="Submersible")
+		give_discount(self.quote.name, amount=250, kind="Last-minute ask")
+		lines = quote_print(self.doc()).totals.discounts
+		self.assertEqual(
+			[(d["label"], d["amount"]) for d in lines],
+			[("Discount on Submersible", 900), ("Last-minute discount", 250)],
+		)
+		html = frappe.get_print("Quotation", self.quote.name, "SP Quotation", doc=self.doc())
+		self.assertEqual(html.count('class="sp-quote-discount"'), 2)

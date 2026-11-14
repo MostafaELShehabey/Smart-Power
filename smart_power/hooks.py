@@ -19,6 +19,8 @@ app_include_js = [
 	"/assets/smart_power/js/sp_locale.js",
 	# Item search by words in any order (SP-29)
 	"/assets/smart_power/js/item_search.js",
+	# F4 Give a discount, on the case and quote forms (SP-68)
+	"/assets/smart_power/js/sp_discount.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).

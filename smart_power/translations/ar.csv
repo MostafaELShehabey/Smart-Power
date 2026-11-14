@@ -186,9 +186,12 @@ Device,الجهاز
 Difference,الفرق
 Discount,خصم
 Discount given,تم إعطاء خصم
+Discount on {0},خصم على {0}
+Discount {0} given. New total: {1}.,تم إعطاء خصم {0}. الإجمالي الجديد: {1}.
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
 Discount {0}% is above the quote creator's limit of {1}%.,الخصم {0}% أعلى من حد صاحب العرض ({1}%).
 Discounts,الخصومات
+Discounts already given,الخصومات المعطاة
 "Discounts on the quote total or a section, and the customer's last-minute ask. Their sum is the quote's discount (SP-68).",خصومات على إجمالي العرض أو على قسم منه، وعشم العميل. مجموعها هو خصم العرض.
 Document,المستند
 Document Naming Settings,إعدادات تسمية المستندات
@@ -269,9 +272,12 @@ From Date,من تاريخ
 From document,من المستند
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
 Full,كامل
+Give a discount,إعطاء خصم
 Give a percent or an amount.,أدخل نسبة أو مبلغًا.
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
 "Give a reason, for example the supplier's new price list.",اكتب السبب، مثلاً لستة المورد الجديدة.
+Give Discount,إعطاء خصم
+Give discount,إعطاء الخصم
 Given By,أعطاه
 Given On,تاريخ الإعطاء
 Head (m),الرفع (متر)
@@ -322,6 +328,7 @@ Label,الاسم
 Last Action,آخر إجراء
 Last Call,آخر مكالمة
 Last-minute ask,العشم
+Last-minute discount,خصم العشم
 Late Entry,تسجيل متأخر
 Lead Source,مصدر العميل المحتمل
 Legal Name (Arabic),الاسم القانوني (عربي)
@@ -416,6 +423,7 @@ New price,السعر الجديد
 New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Value,القيمة الجديدة
 New Version,نسخة جديدة
+New version {0}: send it to the customer.,إصدار جديد {0}: أرسله للعميل.
 Next,التالي
 Next Call,المكالمة التالية
 Next Number,الرقم التالي
@@ -572,6 +580,7 @@ Quote request: {0},طلب عرض سعر: {0}
 Quote sent,تم إرسال العرض
 Quote Sent At,وقت إرسال العرض
 Quote Status,حالة العرض
+Quote total,إجمالي العرض
 Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
 Quote within 24 hours,العرض خلال 24 ساعة
@@ -853,6 +862,7 @@ This rule can only warn; it can never block (decisions 47 and 67).,هذه الق
 "This sample shows the Smart Power letterhead, the Arabic font and the shared print helpers.",يعرض هذا النموذج ورق سمارت باور الرسمي والخط العربي وأدوات الطباعة المشتركة.
 This version expired on {0}. Make a new version.,هذه النسخة انتهت صلاحيتها في {0}. اعمل نسخة جديدة.
 This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
+This version was sent: the discount makes a new version.,هذا الإصدار أُرسل: الخصم ينشئ إصدارًا جديدًا.
 This Year's Prefix,بادئة هذه السنة
 Tier,الفئة
 Timestamp,الوقت
@@ -930,6 +940,7 @@ Yearly reset,يبدأ كل سنة
 Yes,نعم
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
+Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
 {0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}
 {0} cannot be changed here.,لا يمكن تعديل {0} هنا.
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.

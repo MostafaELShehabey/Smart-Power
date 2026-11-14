@@ -28,6 +28,16 @@ frappe.ui.form.on("Quotation", {
 			);
 		}
 
+		if (frm.doc.docstatus < 2) { // sp-allow-number: docstatus cancelled
+			frm.add_custom_button(__("Give Discount"), () =>
+				smart_power.discount_dialog(frm.doc.name, (result) =>
+					result.quotation === frm.doc.name
+						? frm.reload_doc()
+						: frappe.set_route("Form", "Quotation", result.quotation)
+				)
+			);
+		}
+
 		frm.add_custom_button(__("New Option"), () =>
 			frappe.confirm(
 				__("Copy this quote as a full alternative (the next option, e.g. B) on the same case?"),

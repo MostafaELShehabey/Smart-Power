@@ -172,6 +172,16 @@ def quote_print(doc) -> frappe._dict:
 		totals=frappe._dict(
 			subtotal=flt(doc.get("total")),
 			discount=flt(doc.get("discount_amount")),
+			# SP-68: each discount on its own line; the last-minute ask (العشم) as its own line
+			discounts=[
+				{
+					"label": _("Last-minute discount")
+					if r.kind == "Last-minute ask"
+					else (_("Discount on {0}").format(r.applies_to) if r.applies_to else _("Discount")),
+					"amount": flt(r.amount),
+				}
+				for r in doc.get("sp_discounts") or []
+			],
 			taxes=flt(doc.get("total_taxes_and_charges")),
 			total=total,
 			words=ar_words(total),
