@@ -95,6 +95,7 @@ Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case opened,فتح الحالة
 Case {0} already has options {1}.,الحالة {0} لديها بالفعل الخيارات {1}.
+Case {0} cannot move from {1} to {2}.,لا يمكن نقل الحالة {0} من {1} إلى {2}.
 Case {0} is closed; reopen it before logging calls.,الحالة {0} مغلقة؛ أعد فتحها قبل تسجيل المكالمات.
 Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا مفتوحًا.
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
@@ -242,6 +243,7 @@ Follow-up,متابعة
 Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
+Following up,قيد المتابعة
 For a line with no item yet.,لسطر ليس له صنف بعد.
 For chassis templates: one per factory.,لقوالب الشاسيه: قالب لكل مصنع.
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
@@ -551,6 +553,7 @@ Quote Status,حالة العرض
 Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
 Quote within 24 hours,العرض خلال 24 ساعة
+Quote {0} is not on case {1}.,العرض {0} ليس على الحالة {1}.
 Quote {0} sent to {1},تم إرسال العرض {0} إلى {1}
 Quotes,عروض الأسعار
 Raised By,سُجّل بواسطة
@@ -836,12 +839,14 @@ Unclaimed,غير مستلَم
 Unit,الوحدة
 Unit Price,سعر الوحدة
 Unknown channel {0}.,قناة غير معروفة {0}.
+Unknown column {0}.,عمود غير معروف {0}.
 Unknown list {0}.,قائمة غير معروفة {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.
 Unpublish,إلغاء النشر
 Unpublished,أُلغي النشر
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
+Use the {0} dialog to close a case.,استخدم نافذة {0} لإغلاق الحالة.
 "Use {placeholders} from the list on the template, e.g. {customer_name}.",استخدم {المتغيرات} من القائمة في القالب، مثل {customer_name}.
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
 User,المستخدم
@@ -859,6 +864,7 @@ Version {0} was sent and its lines cannot change. Make a new version.,تم إر�
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
 Voice Note,ملاحظة صوتية
+Waiting for quote,في انتظار العرض
 Warn,تنبيه
 Warned,تم التنبيه
 Warning,تنبيه

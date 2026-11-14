@@ -60,6 +60,9 @@ def after_call(doc) -> None:
 
 		apply_workflow(case, "Start Follow-up")
 	touch(case.name)
+	from smart_power.sp_sales.board import publish_update
+
+	publish_update(case)  # the card's last call changes on the board (SP-66)
 	if _code(doc.result) == WANTS_REVISION and case.quote_creator:
 		_notify(
 			case,
