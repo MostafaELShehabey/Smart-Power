@@ -173,3 +173,17 @@ class TestCalcTemplateSample(IntegrationTestCase):
 		result = doc.run_sample({"hp": 40, "depth": 99})
 		self.assertEqual(result.lines[0].qty, 228)
 		self.assertEqual(result.totals.sell, 2280)
+
+
+class TestCalcTemplateNewVersion(IntegrationTestCase):
+	def test_new_version_of_a_published_template_is_an_editable_draft(self):
+		# found while building SP-134: copy_doc kept "published" on the copy, so it was frozen
+		published = make_template()
+		published.publish()
+		draft = frappe.get_doc(
+			"SP Calc Template", frappe.get_doc("SP Calc Template", published.name).new_version()
+		)
+		self.assertFalse(draft.is_published)
+		self.assertTrue(frappe.db.get_value("SP Calc Template", published.name, "is_published"))
+		draft.lines[0].qty_formula = "depth / 6"
+		draft.save()  # not frozen
