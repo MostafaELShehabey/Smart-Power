@@ -137,6 +137,7 @@ Code {0} already exists in the list {1}.,الكود {0} موجود بالفعل 
 Code {0} is repeated: it is already in row {1}.,الكود {0} مكرر: موجود بالفعل في الصف {1}.
 Collection Owner,مسؤول التحصيل
 Comment,تعليق
+Comment to the owner,تعليق للمسئول
 Commercial,تجاري
 Commercial Register,السجل التجاري
 Commercial Register No.,رقم السجل التجاري
@@ -272,6 +273,8 @@ For off-grid and hybrid requests: each device with its watts and day / night hou
 For Smart Power,عن سمارت باور
 Format,الصيغة
 Formats with .YYYY. restart every year. ERPNext documents change their format in Document Naming Settings.,الصيغ التي تحتوي .YYYY. يبدأ ترقيمها من جديد كل سنة. صيغ مستندات ERPNext تُغيَّر من إعدادات تسمية المستندات.
+Forward,تحويل
+Forwarded.,تم التحويل.
 Fresh,حديث
 From,من
 From Date,من تاريخ
@@ -393,8 +396,10 @@ Margin out of range,هامش خارج النطاق
 Margin Ranges,نطاقات الربح
 Margin {0}% is outside the range {1}% to {2}% for this offer type.,الهامش {0}% خارج النطاق من {1}% إلى {2}% لهذا النوع من العروض.
 Mark Lost,تسجيل الخسارة
+Mark selected reviewed,تمييز المحدد كمُراجع
 Mark this version as the one the customer accepted?,اعتماد هذه النسخة كالتي وافق عليها العميل؟
 Mark Won,تسجيل الكسب
+Mark {0} items reviewed?,تمييز {0} عناصر كمُراجعة؟
 Marked as a featured customer.,تم تمييز العميل كعميل مميز.
 Marketing,تسويق
 Markup %,نسبة الربح %
@@ -462,6 +467,7 @@ Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف 
 Not sent,لم يُرسل
 Note,ملاحظة
 Notes,ملاحظات
+Nothing to review here.,لا شيء للمراجعة هنا.
 of,من
 Off,متوقف
 Offer Type,نوع العرض
@@ -610,6 +616,7 @@ Reassignments,إعادات الإسناد
 Receipt,إيصال الاستلام
 Receipt to Confirm,استلام محتاج تأكيد
 Received by,المستلم
+Record,السجل
 Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
 Refresh,تحديث
@@ -633,6 +640,7 @@ Required,مطلوب
 Result,النتيجة
 Return Note,إذن المرتجع
 Review,المراجعة
+Review Centre,مركز المراجعة
 Review: {0},مراجعة: {0}
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
@@ -665,6 +673,7 @@ Scope,النطاق
 Second Mobile,موبايل إضافي
 Section,القسم
 Select,قائمة اختيار
+Select the items to mark reviewed.,حدد العناصر لتمييزها كمُراجعة.
 Send,إرسال
 Send a quote before marking the case won.,أرسل عرضًا قبل تسجيل الحالة كمكسوبة.
 Send Again,إرسال مرة أخرى
@@ -852,6 +861,7 @@ The next call cannot be before this call.,لا يمكن أن تكون المكا
 The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
 The option the customer took,الخيار الذي اختاره العميل
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
+The owner is notified.,تم إبلاغ المسئول.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
@@ -993,6 +1003,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is required for this system type.,{0} مطلوب لهذا النوع من الأنظمة.
 {0} is required.,{0} مطلوب.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
+{0} marked reviewed.,تم تمييز {0} كمُراجعة.
 {0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
 {0} of {1} items,{0} من {1} صنف
 {0} reviewed {1}: {2},{0} راجع {1}: {2}

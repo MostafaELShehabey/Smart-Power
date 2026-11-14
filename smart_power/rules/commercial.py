@@ -57,7 +57,7 @@ def discount_followup_max(doc, ctx: RuleContext):
 		return None
 	return Finding(
 		message=_("Discount {0}% is above the follow-up owner's limit of {1}%.").format(
-			frappe.format(pct, "Percent"), frappe.format(limit, "Percent")
+			frappe.format(pct, "Float"), frappe.format(limit, "Float")
 		),
 		highlight=True,
 		amount=flt(doc.get("discount_amount")),
@@ -80,7 +80,7 @@ def discount_creator_max(doc, ctx: RuleContext):
 		return None
 	return Finding(
 		message=_("Discount {0}% is above the quote creator's limit of {1}%.").format(
-			frappe.format(pct, "Percent"), frappe.format(limit, "Percent")
+			frappe.format(pct, "Float"), frappe.format(limit, "Float")
 		),
 		amount=flt(doc.get("discount_amount")),
 		highlight=True,
