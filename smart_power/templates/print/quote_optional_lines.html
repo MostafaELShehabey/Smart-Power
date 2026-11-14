@@ -1,7 +1,9 @@
 {#- Optional lines under a quote's total (SP-59). The quote PDF (SP-62) includes it after the totals:
         {% include "smart_power/templates/print/quote_optional_lines.html" %}
     They are never part of the total; each shows its own price and what it changes. No cost. -#}
-{%- if doc.sp_optional_lines %}
+{#- The quote PDF passes q.optional (Arabic item names); otherwise the quote's own rows. -#}
+{%- set optional_rows = q.optional if (q is defined and q.optional) else doc.sp_optional_lines -%}
+{%- if optional_rows %}
 <div class="sp-optional">
 	<h3>{{ _("Optional additions (not included in the total)") }}</h3>
 	<table class="sp-table">
@@ -14,9 +16,9 @@
 			</tr>
 		</thead>
 		<tbody>
-		{%- for row in doc.sp_optional_lines %}
+		{%- for row in optional_rows %}
 			<tr>
-				<td>{{ row.item_name or row.item_code or "" }}</td>
+				<td>{{ row.description or row.item_name or row.item_code or "" }}</td>
 				<td>{{ row.note or "" }}</td>
 				<td class="sp-num">{{ frappe.format(row.qty, {"fieldtype": "Float"}) }}</td>
 				<td class="sp-amount">{{ money(row.amount, doc.currency) }}</td>

@@ -48,6 +48,11 @@ def _system_type(doc) -> str:
 	return cstr(frappe.db.get_value("SP List Value", system_type, "value_ar")) if system_type else ""
 
 
+def _amount(value, currency) -> Markup:
+	"""An amount inside Arabic text, kept left to right ("230,800.00 EGP", not reversed)."""
+	return Markup('<span class="sp-num">{}</span>').format(money(value, currency))
+
+
 def resolvers() -> dict:
 	"""placeholder -> how to read it from the document being printed."""
 	return {
@@ -56,7 +61,7 @@ def resolvers() -> dict:
 		"date": lambda doc: ar_date(
 			doc.get("transaction_date") or doc.get("posting_date") or frappe.utils.today()
 		),
-		"total": lambda doc: money(_total(doc), doc.get("currency")),
+		"total": lambda doc: _amount(_total(doc), doc.get("currency")),
 		"total_words": lambda doc: ar_words(_total(doc)),
 		"document_no": lambda doc: doc.get("name") or "",
 		"quote_no": lambda doc: doc.get("name") or "",
@@ -67,10 +72,10 @@ def resolvers() -> dict:
 		"system_type": _system_type,
 		"station_no": lambda doc: doc.get("sp_station") or doc.get("project") or "",
 		"supplier_name": lambda doc: doc.get("supplier_name") or doc.get("supplier") or "",
-		"amount": lambda doc: money(_total(doc), doc.get("currency")),
+		"amount": lambda doc: _amount(_total(doc), doc.get("currency")),
 		"amount_words": lambda doc: ar_words(_total(doc)),
 		"operation_date": lambda doc: ar_date(doc.get("sp_operation_date")),
-		"balance": lambda doc: money(
+		"balance": lambda doc: _amount(
 			flt(doc.get("balance") or doc.get("outstanding_amount")), doc.get("currency")
 		),
 	}
@@ -169,9 +174,11 @@ def sp_block(document: str, block_key: str, doc=None) -> Markup:
 	return _render(block, doc) if block else Markup("")
 
 
-def sp_blocks(document: str, doc=None) -> list[Markup]:
-	"""Every block of the document's published template, in order, filled for doc."""
-	return [_render(block, doc) for block in _blocks(document)]
+def sp_blocks(document: str, doc=None, exclude=None) -> list[Markup]:
+	"""Every block of the document's published template, in order, filled for doc (less the
+	keys in exclude, e.g. a preamble printed on its own)."""
+	skip = set(exclude or ())
+	return [_render(block, doc) for block in _blocks(document) if block.block_key not in skip]
 
 
 # --- the starting quote template ------------------------------------------------------------

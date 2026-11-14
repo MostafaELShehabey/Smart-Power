@@ -19,3 +19,7 @@ smart_power.patches.sp23_print_setup
 smart_power.patches.sp55_allow_repeated_items
 smart_power.patches.sp134_quote_template
 smart_power.patches.sp134_yearly_counters
+smart_power.patches.sp62_quote_print_format
+smart_power.patches.sp62_letterhead_default
+smart_power.patches.sp62_letterhead_sizes
+smart_power.patches.sp62_desk_default_print_format

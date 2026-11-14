@@ -41,6 +41,8 @@ jinja = {
 		# The admin's document text (SP-134, X8)
 		"smart_power.sp_core.documents.sp_block",
 		"smart_power.sp_core.documents.sp_blocks",
+		# The customer quote PDF (SP-62)
+		"smart_power.sp_quotes.quote_print.quote_print",
 	],
 }
 

@@ -86,6 +86,8 @@ class TestPrintTemplate(IntegrationTestCase):
 		frappe.db.set_value("Letter Head", stock.name, "is_default", 1)
 		setup_printing()
 		self.assertEqual(frappe.db.get_value("Letter Head", {"is_default": 1}), LETTER_HEAD)
+		# and the site's default, which ERPNext copies onto new quotes (found in the SP-62 check)
+		self.assertEqual(frappe.db.get_default("letter_head"), LETTER_HEAD)
 
 	def test_admin_choice_of_default_is_kept(self):
 		own = frappe.get_doc(
@@ -124,6 +126,12 @@ class TestPrintTemplate(IntegrationTestCase):
 		html = sample()
 		self.assertTrue("سمارت باور لأنظمة الطاقة" in html, "سمارت باور لأنظمة الطاقة")
 		self.assertTrue("123456" in html, "123456")
+
+	def test_letterhead_carries_its_own_sizes(self):
+		# found in the SP-62 check: under ERPNext's own print formats the logo filled the page
+		content = frappe.db.get_value("Letter Head", LETTER_HEAD, "content")
+		self.assertIn("sp-letterhead-style", content)
+		self.assertIn("max-height", content)
 
 	def test_logo_is_embedded(self):
 		self.assertTrue(
