@@ -171,3 +171,21 @@ class TestQuoteSend(IntegrationTestCase):
 		self.assertEqual(history[0].name, self.quote.name)
 		self.assertEqual(len(history[0].sends), 2)
 		self.assertTrue(history[0].sends[0].file_url.endswith(".pdf"))
+
+	def test_sending_answers_the_quote_request_task(self):
+		# found in SP-67's browser check: the quote creator's request task stayed open
+		creator = make_user("sp.send.creator@example.com", ("quote_creator",))
+		frappe.db.set_value("SP Case", self.case.name, "quote_creator", creator)
+		task = frappe.get_doc(
+			{
+				"doctype": "SP Task",
+				"subject": "Quote request",
+				"task_type": "Quote Request",
+				"assigned_to": creator,
+				"due_at": now_datetime(),
+				"reference_doctype": "SP Case",
+				"reference_name": self.case.name,
+			}
+		).insert(ignore_permissions=True)
+		self.send()
+		self.assertEqual(frappe.db.get_value("SP Task", task.name, "status"), "Done")

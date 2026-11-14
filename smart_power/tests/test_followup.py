@@ -64,14 +64,15 @@ class TestFollowUp(IntegrationTestCase):
 		self.assertTrue(any("يريد إنفرتر أكبر" in s for s in subjects), subjects)
 
 	def test_a_call_without_a_next_date_leaves_no_open_call_task(self):
-		log_call(self.case, PRICE_OBJECTION, "السعر عالي")
+		self.assertFalse(log_call(self.case, PRICE_OBJECTION, "السعر عالي")["lost"])
 		self.assertEqual(call_tasks(self.case), [])
 
 	def test_lost_closes_the_case_with_its_reason(self):
-		log_call(self.case, "Call Result-LOST", "اشترى من غيرنا")
+		self.assertTrue(log_call(self.case, "Call Result-LOST", "اشترى من غيرنا")["lost"])
 		mark_lost(self.case, "Lost Reason-PRICE_CHECK_ONLY", "استفسار فقط")
 		case = frappe.get_doc("SP Case", self.case)
 		self.assertEqual((case.status, case.lost_reason), ("Lost", "Lost Reason-PRICE_CHECK_ONLY"))
+		self.assertFalse(frappe.db.exists("SP Task", {"reference_name": self.case, "status": "Open"}))
 		with self.assertRaises(frappe.ValidationError):
 			log_call(self.case, INTERESTED)  # a closed case takes no more calls
 

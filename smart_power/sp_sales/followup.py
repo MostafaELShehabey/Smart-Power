@@ -17,7 +17,7 @@ from frappe.utils import get_fullname, now_datetime
 from smart_power.sp_sales.case import touch
 
 CASE, TASK, CALL = "SP Case", "SP Task", "SP Call Log"
-CALL_TASK, TASK_OPEN, TASK_DONE = "Follow-up Call", "Open", "Done"
+CALL_TASK, TASK_OPEN, TASK_DONE, TASK_CANCELLED = "Follow-up Call", "Open", "Done", "Cancelled"
 RESULTS = "Call Result"
 WANTS_REVISION, LOST = "WANTS_REVISION", "LOST"
 SENT, FOLLOW_UP, CLOSED = "Sent to customer", "Follow-up", ("Won", "Lost")
@@ -99,16 +99,14 @@ def _notify(case, user: str, subject: str) -> None:
 
 
 @frappe.whitelist(methods=["POST"])
-def log_call(case: str, result: str, note: str | None = None, next_call_at: str | None = None) -> str:
-	"""F3: log a call on a case (the follow-up owner, the admin or the follow-up lead)."""
+def log_call(case: str, result: str, note: str | None = None, next_call_at: str | None = None) -> dict:
+	"""F3: log a call on a case (the follow-up owner, the admin or the follow-up lead).
+	`lost` tells the form to open the lost dialog."""
 	frappe.get_doc(CASE, case).check_permission("write")
-	return (
-		frappe.get_doc(
-			{"doctype": CALL, "case": case, "result": result, "note": note, "next_call_at": next_call_at}
-		)
-		.insert()
-		.name
-	)
+	call = frappe.get_doc(
+		{"doctype": CALL, "case": case, "result": result, "note": note, "next_call_at": next_call_at}
+	).insert()
+	return {"name": call.name, "lost": _code(result) == LOST}
 
 
 @frappe.whitelist(methods=["POST"])
@@ -123,6 +121,11 @@ def mark_lost(case: str, lost_reason: str, lost_note: str | None = None) -> str:
 	# the workflow reloads the case, so the reason is saved first
 	doc.db_set({"lost_reason": lost_reason, "lost_note": lost_note})
 	_close_call_tasks(case)
+	# nothing else is left to do on a lost case
+	for name in frappe.get_all(
+		TASK, {"reference_doctype": CASE, "reference_name": case, "status": TASK_OPEN}, pluck="name"
+	):
+		frappe.db.set_value(TASK, name, "status", TASK_CANCELLED)
 	return apply_workflow(frappe.get_doc(CASE, case), "Mark Lost").name
 
 
