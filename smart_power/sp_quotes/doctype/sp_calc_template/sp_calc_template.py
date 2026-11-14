@@ -115,7 +115,7 @@ class SPCalcTemplate(Document):
 		self.add_comment("Info", _("Unpublished"))
 
 	@frappe.whitelist()
-	def run_sample(self, inputs=None) -> dict:
+	def run_sample(self, inputs: dict | str | None = None) -> dict:
 		"""Price this template (as it is on the form) with sample inputs; nothing is saved."""
 		from smart_power.sp_quotes.engine import calculate
 
