@@ -39,11 +39,15 @@ class SPCalcTemplate(Document):
 
 	def check_published_is_frozen(self):
 		before = None if self.is_new() else self.get_doc_before_save()
-		if before and before.is_published and content(before) != content(self):
+		# a published version, or one a quote was calculated from, never changes
+		frozen = before and (
+			before.is_published or frappe.db.exists("Quotation", {"sp_calc_template": self.name})
+		)
+		if frozen and content(before) != content(self):
 			frappe.throw(
-				_("Version {0} is published and cannot change. Make a new version.").format(
-					frappe.bold(self.name)
-				),
+				_(
+					"Version {0} is published or used by a quote and cannot change. Make a new version."
+				).format(frappe.bold(self.name)),
 				title=_("Published template"),
 			)
 
