@@ -101,3 +101,12 @@ class TestQuoteCalc(IntegrationTestCase):
 				calculate_quote(self.quote.name, self.data["inputs"])
 		finally:
 			frappe.set_user("Administrator")
+
+	def test_dialog_learns_the_default_template_and_its_inputs(self):
+		from smart_power.sp_quotes.quote_calc import template_for_quote
+
+		info = template_for_quote(self.quote.name)
+		self.assertEqual(info["template"], self.template.name)  # the published one for PUMP
+		self.assertEqual(
+			[i.input_key for i in info["inputs"]], [i["input_key"] for i in self.data["template"]["inputs"]]
+		)
