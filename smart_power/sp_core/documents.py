@@ -207,4 +207,4 @@ def seed_quote_template() -> None:
 			"blocks": [{"block_key": key, "title": title, "body": body} for key, title, body in QUOTE_BLOCKS],
 		}
 	).insert(ignore_permissions=True)
-	doc.publish(check=False)
+	doc.publish_now()

@@ -55,10 +55,13 @@ class SPDocumentTemplate(Document):
 			documents.check_placeholders(self.document, row.body, where)
 
 	@frappe.whitelist()
-	def publish(self, check: bool = True):
+	def publish(self):
 		"""Publish this version; the document's other published version stops."""
-		if cint(check):
-			self.check_permission("write")
+		self.check_permission("write")
+		self.publish_now()
+
+	def publish_now(self):
+		"""Publish without a permission check (the app's own seeding)."""
 		if not self.blocks:
 			frappe.throw(_("A template needs at least one block before it is published."))
 		for name in frappe.get_all(

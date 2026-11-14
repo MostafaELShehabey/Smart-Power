@@ -95,3 +95,15 @@ class TestDocumentTemplates(IntegrationTestCase):
 		quote = make_quotation()
 		blocks = quote_template().preview(quote.name)
 		self.assertIn(quote.name, blocks[0])
+
+	def test_publish_works_the_way_the_form_calls_it(self):
+		# found in the browser check: the Publish button sent an empty "check" argument, which
+		# Frappe's argument validation refused; publish now takes no arguments
+		import inspect
+
+		from smart_power.sp_core.doctype.sp_document_template.sp_document_template import SPDocumentTemplate
+
+		self.assertEqual(list(inspect.signature(SPDocumentTemplate.publish).parameters), ["self"])
+		draft = new_template()
+		draft.run_method("publish")
+		self.assertTrue(frappe.db.get_value(TEMPLATE, draft.name, "is_published"))
