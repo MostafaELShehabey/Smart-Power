@@ -6,6 +6,7 @@ import io
 import os
 import subprocess
 import unittest
+from unittest.mock import patch
 
 import frappe
 from frappe.tests import IntegrationTestCase
@@ -55,6 +56,12 @@ def sample(rows: int | None = None, as_pdf: bool = False):
 class TestPrintTemplate(IntegrationTestCase):
 	def setUp(self):
 		setup_printing()
+		# CI skips building assets, so there is no assets.json and Frappe's print view fails
+		# looking up print.bundle.css; a real bench always has one. Plain paths are fine here.
+		if frappe.utils.get_assets_json() is None:
+			patcher = patch("frappe.utils.get_assets_json", return_value={})
+			patcher.start()
+			self.addCleanup(patcher.stop)
 
 	def test_print_settings(self):
 		ps = frappe.get_single("Print Settings")
