@@ -37,6 +37,7 @@ class TestReviewCentre(IntegrationTestCase):
 		self.assertTrue(listed[high.name].highlight)
 		self.assertIn(low.name, listed)  # within the limit, still listed
 		self.assertFalse(listed[low.name].highlight)
+		self.assertNotIn("%%", listed[high.name].summary)  # found in the browser check
 		# one item per quote, even when the limit rule listed it too
 		self.assertEqual(
 			frappe.db.count("SP Review Item", {"reference_name": high.name, "status": "Open"}), 1
@@ -90,3 +91,7 @@ class TestReviewCentre(IntegrationTestCase):
 				"ToDo", {"reference_name": item.name, "allocated_to": self.admin, "status": "Open"}
 			)
 		)
+
+	def test_the_page_is_for_the_admin(self):
+		roles = {r.role for r in frappe.get_doc("Page", "sp-review-centre").roles}
+		self.assertEqual(roles, {"SP Admin", "System Manager"})
