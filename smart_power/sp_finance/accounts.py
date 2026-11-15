@@ -92,6 +92,33 @@ def seed_accounts(company: str) -> None:
 		)
 	for row in spec["modes_of_payment"]:
 		_mode_of_payment(company, row, names.get(row["account"]))
+	for row in spec["accounts"]:
+		if row.get("bank"):
+			bank_account(company, row["bank"], names[row["account_name"]], row["account_name"])
+
+
+def bank_account(company: str, bank: str, account: str, title: str) -> str:
+	"""The Bank Account record of an official account, for ERPNext's bank reconciliation (SP-116)."""
+	existing = frappe.db.get_value("Bank Account", {"account": account, "is_company_account": 1})
+	if existing:
+		return existing
+	if not frappe.db.exists("Bank", bank):
+		frappe.get_doc({"doctype": "Bank", "bank_name": bank}).insert(ignore_permissions=True)
+	abbr = frappe.get_cached_value("Company", company, "abbr")
+	doc = frappe.get_doc(
+		{
+			"doctype": "Bank Account",
+			# Bank Account names are "<account name> - <bank>": the company keeps them apart
+			"account_name": f"{title} - {abbr}",
+			"bank": bank,
+			"account": account,
+			"is_company_account": 1,
+			"company": company,
+		}
+	)
+	doc.flags.ignore_permissions = True
+	doc.insert()
+	return doc.name
 
 
 def _mode_of_payment(company: str, row: dict, account: str | None) -> None:
@@ -212,7 +239,18 @@ def my_balances() -> list[dict]:
 		filters={"sp_holder": frappe.session.user, "sp_account_kind": ("in", HOLDER_KINDS), "is_group": 0},
 		fields=["name", "account_name", "sp_account_kind", "company", "account_currency"],
 	)
-	return [
-		{**r, "balance": flt(get_balance_on(r.name, company=r.company, ignore_account_permission=True))}
-		for r in rows
-	]
+	from smart_power.sp_finance.transit import days_held, limit_days
+
+	out = []
+	for r in rows:
+		held = days_held(r.name) if r.sp_account_kind == TRANSIT else 0
+		limit = limit_days(r.name) if r.sp_account_kind == TRANSIT else 0
+		out.append(
+			{
+				**r,
+				"balance": flt(get_balance_on(r.name, company=r.company, ignore_account_permission=True)),
+				"days_held": held,
+				"over": bool(limit and held > limit),
+			}
+		)
+	return out

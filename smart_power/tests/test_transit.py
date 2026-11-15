@@ -86,3 +86,33 @@ class TestTransit(IntegrationTestCase):
 		journal(self.cash, self.receivable, 5000, add_days(today(), -5))
 		self.assertNotIn(self.cash, check_cash_held())
 		frappe.db.set_value("Account", self.cash, "sp_max_days_held", 0)
+
+	def test_the_treasury_shows_days_held_and_is_the_admins(self):
+		from smart_power.sp_finance.treasury import treasury
+
+		journal(self.cash, self.receivable, 5000, add_days(today(), -3))
+		data = treasury(COMPANY)
+		row = next(r for r in data["transit"] if r["account"] == self.cash)
+		self.assertEqual((row["days_held"], row["over"], row["balance"]), (4, True, 5000))
+		official = {r["account_name"]: r for r in data["official"]}
+		self.assertEqual(len(official), 4)
+		self.assertTrue(official["Smart Power Bank Misr"]["bank_account"])  # for reconciliation
+		frappe.set_user(make_user("sp.tr.camelia@example.com", ("customer_followup", "followup_all")))
+		try:
+			with self.assertRaises(frappe.PermissionError):
+				treasury(COMPANY)
+		finally:
+			frappe.set_user("Administrator")
+		roles = {r.role for r in frappe.get_doc("Page", "sp-treasury").roles}
+		self.assertEqual(roles, {"SP Admin", "System Manager"})
+
+	def test_the_holder_sees_their_days_held(self):
+		from smart_power.sp_finance.accounts import my_balances
+
+		journal(self.cash, self.receivable, 5000, add_days(today(), -3))
+		frappe.set_user(self.mohamed)
+		try:
+			mine = my_balances()
+		finally:
+			frappe.set_user("Administrator")
+		self.assertEqual((mine[0]["days_held"], mine[0]["over"]), (4, True))

@@ -36,6 +36,7 @@ A write-off needs a reason.,الشطب يحتاج سببًا.
 Abnormal,غير طبيعي
 Abnormal flags,التنبيهات غير الطبيعية
 Accepted Quotation,العرض المعتمد
+Account,الحساب
 Account Map,خريطة الحسابات
 Account {0} is not an account of {1}.,الحساب {0} ليس من حسابات {1}.
 Action,الإجراء
@@ -76,6 +77,7 @@ Ask the quote creator to approve a larger discount.,اطلب من صاحب ال�
 Assigned To,مسند إلى
 Attach the receipt photo.,أرفق صورة الإيصال.
 B,B
+Balance,الرصيد
 Bank,البنك
 Bank Branch,فرع البنك
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
@@ -132,6 +134,7 @@ Cash held too long,نقدية محتفظ بها مدة طويلة
 "Cash in a person's transit account longer than its Max Days Held (or Cash Held Limit in Smart Power Settings) alerts the holder and the admin every day until it is deposited. A warning, never a block.",النقدية في حساب نقدية شخص أطول من أقصى أيام الاحتفاظ (أو حد الاحتفاظ بالنقدية في الإعدادات) تنبّه الحائز والمدير يوميًا حتى تُودع. تحذير، وليس منعًا.
 Cash may stay here this many days before the holder and the admin are alerted; empty uses the setting (SP-116).,يمكن أن تبقى النقدية هنا هذا العدد من الأيام قبل تنبيه الحائز والمدير؛ الفارغ يستخدم الإعداد.
 Cash may stay with a person this many days; after that the holder and the admin are alerted daily until it is deposited. An account's own Max Days Held overrides it (SP-116).,يمكن أن تبقى النقدية مع شخص هذا العدد من الأيام؛ بعدها يُنبَّه الحائز والمدير يوميًا حتى تُودع. أقصى أيام الاحتفاظ للحساب نفسه يتجاوزه.
+Cash with people,النقدية مع الأشخاص
 Cash with {0},نقدية مع {0}
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
 Catalogue (PDF),الكتالوج (PDF)
@@ -232,6 +235,7 @@ Data,نص
 Date,التاريخ
 Dates,التواريخ
 Day Hours,ساعات النهار
+Days Held,أيام الاحتفاظ
 Deactivate instead,أوقفها بدلاً من الحذف
 debit,المدين
 Debit Account,الحساب المدين
@@ -579,6 +583,7 @@ of,من
 Off,متوقف
 Offer Type,نوع العرض
 Official,رسمي
+Official accounts,الحسابات الرسمية
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: cash one person or channel holds until it reaches an official account. Custody: the custody given to a person (SP-26).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة نقدية: نقدية يحملها شخص أو قناة حتى تصل لحساب رسمي. عهدة: العهدة المعطاة لشخص.
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: the money one person holds until it reaches an official account (SP-114, SP-116).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة: المال الذي يحمله شخص حتى يصل لحساب رسمي.
 Old price: {0},السعر القديم: {0}
@@ -752,6 +757,7 @@ Receipt to Confirm,استلام محتاج تأكيد
 Received by,المستلم
 Receives Customer Money,يستلم أموال العملاء
 Receiving Account,الحساب المستلم
+Reconcile,مطابقة
 Record,السجل
 Record Deposit,تسجيل عربون
 Record Payment,تسجيل دفعة
@@ -960,6 +966,7 @@ Start Follow-up,بدء المتابعة
 Start Installing,بدء التركيب
 Start Purchasing,بدء الشراء
 Start the Quote,بدء عرض السعر
+Statement,كشف حساب
 Station,المحطة
 Station opened,تم فتح المحطة
 Station Project,مشروع المحطة
@@ -1065,6 +1072,7 @@ The supplier owns goods kept with us on consignment (for example Africa System).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
 The template section of the line (e.g. Energy). Discounts apply to a section or the quote total (SP-68).,قسم السطر في القالب (مثل الطاقة). تُطبق الخصومات على قسم أو على إجمالي العرض.
 The template version this quote was calculated from (set by Calculate).,إصدار القالب الذي حُسب منه هذا العرض (يُضبط عند الحساب).
+The treasury is the admin's.,الخزينة خاصة بالمدير.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
 There is no published calculation template for this case's system type.,لا يوجد قالب حساب منشور لنوع نظام هذه الحالة.
 This customer is followed up by a colleague. Ask the admin to reassign them.,هذا العميل يتابعه زميل. اطلب من المدير نقله.
@@ -1095,6 +1103,7 @@ Total discount limit for the quote creator,حد الخصم على الإجمال
 Transfer Note,إذن التحويل
 Transit,في الطريق
 Transit Account,الحساب الوسيط
+Treasury,الخزينة
 Type,النوع
 Unclaimed,غير مستلَم
 Unit,الوحدة
