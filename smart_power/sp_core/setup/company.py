@@ -47,6 +47,9 @@ def complete_setup() -> str:
 	link_company_settings(company)
 	seed_item_groups()
 	seed_warehouses(company)
+	from smart_power.sp_finance.accounts import seed_accounts
+
+	seed_accounts(company)  # SP-26
 	return company
 
 

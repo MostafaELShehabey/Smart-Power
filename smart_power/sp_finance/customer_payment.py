@@ -5,7 +5,7 @@ with its receipt, and the admin confirms it against the bank or the cash.
 
 - The receiving account is an official account (Bank Misr, InstaPay, the Post, Vodafone Cash) or
   the recorder's own transit account (cash in hand); accounts are flagged on the Account itself
-  (Receives Customer Money: Official / Transit + holder). The Treasury (SP-116) lists them and
+  (Money Kind: Official / Transit + holder, SP-26). The Treasury (SP-116) lists them and
   counts the days a transit balance is held.
 - A receipt photo is needed, except for cash into the recorder's own transit account.
 - Pending money shows on the station as pending; Paid counts confirmed payments only.
@@ -22,6 +22,8 @@ with its receipt, and the admin confirms it against the bank or the cash.
 import frappe
 from frappe import _
 from frappe.utils import flt, now_datetime
+
+from smart_power.sp_finance.accounts import mode_for_method
 
 PAYMENT, STATION, CASE, TASK = "SP Customer Payment", "SP Station", "SP Case", "SP Task"
 DRAFT, PENDING, CONFIRMED, REJECTED = "Draft", "Pending", "Confirmed", "Rejected"
@@ -41,7 +43,7 @@ def receiving_accounts(company: str, user: str | None = None) -> list[str]:
 	user = user or frappe.session.user
 	return frappe.get_all(
 		"Account",
-		filters={"company": company, "is_group": 0, "disabled": 0, "sp_receiving_kind": OFFICIAL},
+		filters={"company": company, "is_group": 0, "disabled": 0, "sp_account_kind": OFFICIAL},
 		pluck="name",
 	) + frappe.get_all(
 		"Account",
@@ -49,7 +51,7 @@ def receiving_accounts(company: str, user: str | None = None) -> list[str]:
 			"company": company,
 			"is_group": 0,
 			"disabled": 0,
-			"sp_receiving_kind": TRANSIT,
+			"sp_account_kind": TRANSIT,
 			"sp_holder": user,
 		},
 		pluck="name",
@@ -94,7 +96,7 @@ def _check_receiving_account(doc) -> None:
 	if not doc.receiving_account:
 		frappe.throw(_("Choose the account that received the money."), frappe.MandatoryError)
 	kind, holder, company = frappe.db.get_value(
-		"Account", doc.receiving_account, ["sp_receiving_kind", "sp_holder", "company"]
+		"Account", doc.receiving_account, ["sp_account_kind", "sp_holder", "company"]
 	)
 	if company != doc.company:
 		frappe.throw(_("Account {0} is not an account of {1}.").format(doc.receiving_account, doc.company))
@@ -239,6 +241,7 @@ def _payment_entry(doc) -> str:
 			"reference_date": doc.work_date,
 			"project": so.project if so else None,
 			"remarks": _("Customer payment {0}").format(doc.name),
+			"mode_of_payment": mode_for_method(doc.method),
 			"sp_is_deposit": doc.is_deposit,
 			"sp_case": doc.case if doc.is_deposit else None,
 		}
@@ -400,14 +403,14 @@ def payment_options(station: str | None = None, case: str | None = None) -> dict
 			{
 				"value": a.name,
 				"label": _("{0} (yours)").format(a.account_name)
-				if a.sp_receiving_kind == TRANSIT
+				if a.sp_account_kind == TRANSIT
 				else a.account_name,
 			}
 			for a in frappe.get_all(
 				"Account",
 				filters={"name": ("in", receiving_accounts(company) or [""])},
-				fields=["name", "account_name", "sp_receiving_kind"],
-				order_by="sp_receiving_kind asc, account_name asc",
+				fields=["name", "account_name", "sp_account_kind"],
+				order_by="sp_account_kind asc, account_name asc",
 			)
 		],
 		"due": max(due, 0.0),
