@@ -15,6 +15,7 @@ and by change orders and write-offs.
 """
 
 import frappe
+from frappe.model.docstatus import DocStatus
 from frappe.utils import flt, getdate
 
 STATION = "SP Station"
@@ -22,7 +23,7 @@ STATION = "SP Station"
 
 def _agreed_and_schedule(doc) -> tuple[float, list]:
 	for doctype, name in (("Sales Order", doc.sales_order), ("Quotation", doc.quotation_accepted)):
-		if name and frappe.db.exists(doctype, name):
+		if name and frappe.db.exists(doctype, {"name": name, "docstatus": ("<", DocStatus.cancelled())}):
 			source = frappe.get_doc(doctype, name)
 			total = flt(source.get("rounded_total") or source.get("grand_total"))
 			schedule = sorted(

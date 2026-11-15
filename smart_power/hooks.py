@@ -116,6 +116,13 @@ doc_events = {
 		],
 		"on_submit": "smart_power.sp_sales.quotation.on_update",
 	},
+	# The contract (SP-74): one Sales Order per case; the station's money follows it
+	"Sales Order": {
+		"validate": "smart_power.sp_stations.contract.validate_order",
+		"on_update": "smart_power.sp_stations.contract.on_order_change",
+		"on_submit": "smart_power.sp_stations.contract.on_order_change",
+		"on_cancel": "smart_power.sp_stations.contract.on_order_change",
+	},
 	# A confirmed (or reversed) customer payment refreshes its station's money (SP-73)
 	"Payment Entry": {
 		"on_submit": "smart_power.sp_stations.money.on_payment",
