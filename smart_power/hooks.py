@@ -21,6 +21,8 @@ app_include_js = [
 	"/assets/smart_power/js/item_search.js",
 	# F4 Give a discount, on the case and quote forms (SP-68)
 	"/assets/smart_power/js/sp_discount.js",
+	# A2 Record a customer payment, on the station and the case (SP-114)
+	"/assets/smart_power/js/sp_payment.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).

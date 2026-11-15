@@ -359,3 +359,85 @@ def _notify(doc, users, subject: str) -> None:
 			),
 			users,
 		)
+
+
+# --- the A2 dialog ----------------------------------------------------------------------------------
+
+RECORDER_ROLES = (
+	"SP Collection Officer",
+	"SP Showroom Cashier",
+	"SP Customer Followup",
+	"SP Followup All",
+	"SP Project Manager",
+	*ADMIN_ROLES,
+)
+
+
+def can_record(user: str | None = None) -> bool:
+	user = user or frappe.session.user
+	return user == "Administrator" or bool(set(RECORDER_ROLES) & set(frappe.get_roles(user)))
+
+
+@frappe.whitelist()
+def payment_options(station: str | None = None, case: str | None = None) -> dict:
+	"""What the Record Payment dialog offers this user: the accounts and the amount still due."""
+	if station:
+		doc = frappe.get_doc(STATION, station)
+		doc.check_permission("read")
+		company, due = doc.company, flt(doc.remaining_amount) - flt(doc.pending_amount)
+	elif case:
+		frappe.get_doc(CASE, case).check_permission("read")
+		quote = frappe.db.get_value(CASE, case, "accepted_quotation")
+		company = frappe.db.get_value("Quotation", quote, "company") if quote else None
+		due = 0.0
+	else:
+		frappe.throw(_("Choose the station or the case."))
+	company = company or frappe.defaults.get_user_default("Company")
+	return {
+		"can_record": can_record(),
+		"company": company,
+		"accounts": [
+			{
+				"value": a.name,
+				"label": _("{0} (yours)").format(a.account_name)
+				if a.sp_receiving_kind == TRANSIT
+				else a.account_name,
+			}
+			for a in frappe.get_all(
+				"Account",
+				filters={"name": ("in", receiving_accounts(company) or [""])},
+				fields=["name", "account_name", "sp_receiving_kind"],
+				order_by="sp_receiving_kind asc, account_name asc",
+			)
+		],
+		"due": max(due, 0.0),
+	}
+
+
+@frappe.whitelist(methods=["POST"])
+def record_payment(values: str | dict) -> str:
+	"""Record and submit a customer payment from the dialog; it is then pending confirmation."""
+	if not can_record():
+		frappe.throw(_("You do not record customer payments."), frappe.PermissionError)
+	values = frappe.parse_json(values)
+	allowed = (
+		"station", "case", "is_deposit", "amount", "work_date", "method", "receiving_account",
+		"reference_no", "receipt_photo", "channel", "third_party_type", "third_party",
+	)  # fmt: skip
+	doc = frappe.get_doc({"doctype": PAYMENT, **{k: values.get(k) for k in allowed if values.get(k)}})
+	doc.insert()
+	doc.submit()
+	return doc.name
+
+
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def account_query(
+	doctype: str, txt: str, searchfield: str, start: int, page_len: int, filters: dict | None = None
+):
+	"""The Receiving Account picker: the official accounts and the user's own transit."""
+	company = (filters or {}).get("company") or frappe.defaults.get_user_default("Company")
+	names = receiving_accounts(company)
+	txt = (txt or "").lower()
+	rows = [(n,) for n in names if txt in n.lower()]
+	return rows[int(start) : int(start) + int(page_len)]

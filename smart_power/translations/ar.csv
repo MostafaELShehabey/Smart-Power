@@ -152,6 +152,7 @@ Cheque No.,رقم الشيك
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
+Choose the station or the case.,اختر المحطة أو الحالة.
 "Choose the station, or the case for a deposit before the station exists.",اختر المحطة، أو الحالة لعربون قبل وجود المحطة.
 Choose the system type first.,اختر نوع النظام أولاً.
 Clear,مسح
@@ -173,7 +174,9 @@ Company,شركة
 Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
 Completed By,تم بواسطة
 Completed On,تم في
+Confirm,تأكيد
 Confirm {0} from {1} ({2}),تأكيد {0} من {1} ({2})
+Confirm {0} received into {1}? It is posted now.,تأكيد استلام {0} في {1}؟ سيتم ترحيله الآن.
 Confirmation,التأكيد
 Confirmed,مؤكد
 Confirmed By,أكده
@@ -733,6 +736,8 @@ Received by,المستلم
 Receives Customer Money,يستلم أموال العملاء
 Receiving Account,الحساب المستلم
 Record,السجل
+Record Deposit,تسجيل عربون
+Record Payment,تسجيل دفعة
 Record Write-off,تسجيل شطب
 Recorded By,سجّلها
 Recorded payments the admin has not confirmed yet; not counted in Paid (SP-114).,دفعات مسجلة لم يؤكدها المدير بعد؛ لا تُحسب في المدفوع.
@@ -744,6 +749,8 @@ Refresh,تحديث
 Refund,رد مبلغ
 Region,المنطقة
 Registered with {0},مسجل لدى {0}
+Reject,رفض
+Reject Payment,رفض الدفعة
 Reject Reason,سبب الرفض
 Rejected,مرفوض
 Rejected: {0} from {1}: {2},مرفوض: {0} من {1}: {2}
@@ -1143,7 +1150,9 @@ Yearly reset,يبدأ كل سنة
 Yes,نعم
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
+You do not record customer payments.,أنت لا تسجل دفعات العملاء.
 Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
+{0} (yours),{0} (خاصتك)
 {0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}
 {0} cannot be changed here.,لا يمكن تعديل {0} هنا.
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.
@@ -1179,6 +1188,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} marked reviewed.,تم تمييز {0} كمُراجعة.
 {0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
 {0} of {1} items,{0} من {1} صنف
+{0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
 {0} reviewed {1}: {2},{0} راجع {1}: {2}
 {0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
 {0} {1} does not exist.,{0} {1} غير موجود.
