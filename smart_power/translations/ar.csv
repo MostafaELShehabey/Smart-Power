@@ -165,9 +165,11 @@ Check the specs,راجع المواصفات
 Check the template,راجع القالب
 Cheque,شيك
 Cheque Bounce,ارتداد شيك
+Cheque bounced,شيك مرتجع
 Cheque Deposit,إيداع شيك
 Cheque Due Alert (days before),تنبيه استحقاق الشيك (أيام قبل)
 Cheque No.,رقم الشيك
+Cheque {0} collected? Its payment of {1} posts to the Post.,تم تحصيل الشيك {0}؟ ستُرحّل دفعته {1} إلى البريد.
 Cheque {0} is already registered as {1}.,الشيك {0} مسجل بالفعل برقم {1}.
 Cheque {0} is {1}; it cannot become {2}.,الشيك {0} حالته {1}؛ لا يمكن أن يصبح {2}.
 Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
@@ -410,6 +412,7 @@ Give discount,إعطاء الخصم
 Give the reason for the rejection.,اذكر سبب الرفض.
 Given By,أعطاه
 Given On,تاريخ الإعطاء
+Hand cheque {0} to the lawyer?,تسليم الشيك {0} للمحامي؟
 Hand over,تسليم
 Head (m),الرفع (متر)
 head_m,الرفع (متر)
@@ -530,6 +533,7 @@ Margin on sale,هامش من البيع
 Margin out of range,هامش خارج النطاق
 Margin Ranges,نطاقات الربح
 Margin {0}% is outside the range {1}% to {2}% for this offer type.,الهامش {0}% خارج النطاق من {1}% إلى {2}% لهذا النوع من العروض.
+Mark cheque {0} as taken to the Post?,تمييز الشيك {0} كمودع في البريد؟
 Mark Lost,تسجيل الخسارة
 Mark selected reviewed,تمييز المحدد كمُراجع
 Mark this version as the one the customer accepted?,اعتماد هذه النسخة كالتي وافق عليها العميل؟
