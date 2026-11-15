@@ -116,6 +116,11 @@ doc_events = {
 		],
 		"on_submit": "smart_power.sp_sales.quotation.on_update",
 	},
+	# A confirmed (or reversed) customer payment refreshes its station's money (SP-73)
+	"Payment Entry": {
+		"on_submit": "smart_power.sp_stations.money.on_payment",
+		"on_cancel": "smart_power.sp_stations.money.on_payment",
+	},
 	# Price list (SP-30): every price has a date and buying prices a supplier.
 	"Item Price": {"validate": "smart_power.sp_stock.prices.validate_item_price"},
 	# Warehouses by location (SP-28): one site warehouse per station.
