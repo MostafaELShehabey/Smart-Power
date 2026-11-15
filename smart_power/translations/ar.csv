@@ -433,6 +433,9 @@ Lost Reason,سبب الخسارة
 Made when the station opens; the station's accounting dimension.,يُنشأ عند فتح المحطة؛ وهو البُعد المحاسبي للمحطة.
 Main,رئيسي
 Main Supplier,المورد الرئيسي
+Make Contract,إنشاء العقد
+Make the contract (Sales Order) and the station from the approved version {0}?,إنشاء العقد (أمر البيع) والمحطة من الإصدار المعتمد {0}؟
+Make the contract (Sales Order) from the case's approved version?,إنشاء العقد (أمر البيع) من الإصدار المعتمد للحالة؟
 Making the PDF…,جارٍ إنشاء ملف PDF…
 Manual,يدوي
 Manual entries,الإدخالات اليدوية
