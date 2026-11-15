@@ -71,8 +71,16 @@ def _build_order(case):
 	so.sp_case = case.name
 	so.transaction_date = today()
 	so.delivery_date = so.delivery_date or today()
+	from smart_power.sp_stock.warehouses import MAIN, warehouse_of
+
+	# the stock is reserved and delivered from the company's main store (SP-28)
+	main = warehouse_of(so.company, MAIN)
+	if main:
+		so.set_warehouse = main
 	for row in so.items:
 		row.delivery_date = row.delivery_date or so.delivery_date
+		if main:
+			row.warehouse = main
 	warranty = {r.name: r.get("sp_warranty_years") for r in quote.items}
 	for row in so.items:
 		if row.get("quotation_item") in warranty:
@@ -180,3 +188,17 @@ def validate_order(doc, method=None) -> None:
 			{"commission_amount": flt(doc.get("sp_referrer_commission"))},
 			update_modified=False,
 		)
+
+
+@frappe.whitelist()
+def contract_info(case: str) -> dict:
+	"""For the case and station forms: the contract, the station, and whether this user may make it."""
+	doc = frappe.get_doc(CASE, case)
+	doc.check_permission("read")
+	can_make = frappe.session.user == "Administrator" or bool(set(CONTRACT_ROLES) & set(frappe.get_roles()))
+	return {
+		"sales_order": contract_of(case),
+		"station": frappe.db.get_value(STATION, {"case": case, "status": ("!=", "Cancelled")}),
+		"approved": doc.accepted_quotation,
+		"can_make": can_make and doc.status != "Lost",
+	}

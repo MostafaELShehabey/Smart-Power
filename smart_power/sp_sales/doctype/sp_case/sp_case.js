@@ -15,6 +15,7 @@ frappe.ui.form.on("SP Case", {
 		sp_quote_history(frm);
 		sp_followup_view(frm);
 		sp_hand_over_button(frm);
+		sp_contract_buttons(frm, frm.doc.name);
 		if (sp_can_log_call(frm)) {
 			frm.add_custom_button(__("Log call"), () => sp_log_call_dialog(frm));
 		}
@@ -273,4 +274,31 @@ async function sp_hand_over_button(frm) {
 		});
 		dialog.show();
 	});
+}
+
+// The contract (SP-74): made once from the approved version, with the station; shared with the
+// station form.
+async function sp_contract_buttons(frm, case_name) {
+	if (frm.is_new() || !case_name) return;
+	const { message: info } = await frappe.call("smart_power.sp_stations.contract.contract_info", {
+		case: case_name,
+	});
+	if (info.sales_order) {
+		frm.add_custom_button(__("Contract"), () => frappe.set_route("Form", "Sales Order", info.sales_order), __("View"));
+	}
+	if (info.station && frm.doctype !== "SP Station") {
+		frm.add_custom_button(__("Station"), () => frappe.set_route("Form", "SP Station", info.station), __("View"));
+	}
+	if (!info.sales_order && info.approved && info.can_make) {
+		frm.add_custom_button(__("Make Contract"), () =>
+			frappe.confirm(__("Make the contract (Sales Order) and the station from the approved version {0}?", [info.approved]), async () => {
+				const { message: result } = await frappe.call({
+					method: "smart_power.sp_stations.contract.make_contract",
+					args: { case: case_name },
+					freeze: true,
+				});
+				frappe.set_route("Form", "Sales Order", result.sales_order);
+			})
+		);
+	}
 }

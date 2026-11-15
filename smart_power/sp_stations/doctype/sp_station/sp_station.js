@@ -15,6 +15,11 @@ frappe.ui.form.on("SP Station", {
 		if (admin && frm.doc.remaining_amount > 0 && frm.doc.status !== "Cancelled") {
 			frm.add_custom_button(__("Record Write-off"), () => sp_station_write_off(frm));
 		}
+		if (frm.doc.sales_order) {
+			frm.add_custom_button(__("Contract"), () => frappe.set_route("Form", "Sales Order", frm.doc.sales_order), __("View"));
+		} else if (frm.doc.case) {
+			sp_station_contract_button(frm);
+		}
 		if (frm.doc.project) {
 			frm.add_custom_button(__("Project"), () => frappe.set_route("Form", "Project", frm.doc.project), __("View"));
 		}
@@ -72,4 +77,18 @@ function sp_station_write_off(frm) {
 		},
 	});
 	dialog.show();
+}
+
+// The contract (SP-74) when the station was opened before it: made from the case's approved version.
+function sp_station_contract_button(frm) {
+	frm.add_custom_button(__("Make Contract"), () =>
+		frappe.confirm(__("Make the contract (Sales Order) from the case's approved version?"), async () => {
+			const { message: result } = await frappe.call({
+				method: "smart_power.sp_stations.contract.make_contract",
+				args: { case: frm.doc.case },
+				freeze: true,
+			});
+			frappe.set_route("Form", "Sales Order", result.sales_order);
+		})
+	);
 }

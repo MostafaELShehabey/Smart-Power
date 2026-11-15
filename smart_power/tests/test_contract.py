@@ -66,6 +66,9 @@ class TestContract(IntegrationTestCase):
 		self.assertEqual((station.sales_order, so.sp_station, so.sp_case), (so.name, station.name, self.case))
 		self.assertEqual(so.project, station.project)
 		self.assertEqual({r.project for r in so.items}, {station.project})
+		from smart_power.sp_stock.warehouses import MAIN, warehouse_of
+
+		self.assertEqual({r.warehouse for r in so.items}, {warehouse_of(COMPANY, MAIN)})  # main store
 		self.assertEqual(flt(station.agreed_amount), flt(so.rounded_total or so.grand_total))
 		dup = frappe.copy_doc(so)
 		dup.sp_case = self.case
@@ -117,3 +120,13 @@ class TestContract(IntegrationTestCase):
 		self.assertIn("778899", html)  # the cheques annex
 		for word in ("4321", "4,321", "sp_cost", "commission"):
 			self.assertNotIn(word, html)
+
+	def test_the_forms_know_the_contract_and_the_station(self):
+		from smart_power.sp_stations.contract import contract_info
+
+		approve_version(self.a.name)
+		before = contract_info(self.case)
+		self.assertEqual((before["sales_order"], before["approved"]), (None, self.a.name))
+		result = self.contract()
+		after = contract_info(self.case)
+		self.assertEqual((after["sales_order"], after["station"]), (result["sales_order"], result["station"]))
