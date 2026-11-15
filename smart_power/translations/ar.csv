@@ -228,6 +228,7 @@ Customer Advance,سلفة عميل
 Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Customer Name,اسم العميل
+Customer payment,دفعة عميل
 Customer payment {0},دفعة عميل {0}
 Customer Statement,كشف حساب العميل
 Customer {0} paid {1} directly ({2}),العميل {0} دفع لـ {1} مباشرة ({2})
@@ -606,6 +607,7 @@ Only for Offer Type,لنوع العرض هذا فقط
 Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
 Only the admin changes the {0}.,فقط المدير يغيّر {0}.
+Only the admin confirms money.,فقط المدير يؤكد الأموال.
 Only the admin confirms or rejects a payment.,فقط المدير يؤكد الدفعة أو يرفضها.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
 Only the admin records a write-off.,فقط المدير يسجل الشطب.
@@ -1108,6 +1110,7 @@ Type,النوع
 Unclaimed,غير مستلَم
 Unit,الوحدة
 Unit Price,سعر الوحدة
+Unknown bulk confirmation.,تأكيد جماعي غير معروف.
 Unknown channel {0}.,قناة غير معروفة {0}.
 Unknown column {0}.,عمود غير معروف {0}.
 Unknown discount kind {0}.,نوع خصم غير معروف {0}.
@@ -1211,6 +1214,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is not a section of this quote. Discount a section or the quote total.,{0} ليس قسمًا في هذا العرض. اخصم على قسم أو على إجمالي العرض.
 {0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
+{0} is not confirmed here.,{0} لا يُؤكد هنا.
 {0} is not in the list {1}.,{0} ليست ضمن القائمة {1}.
 {0} is repeated: it is already in row {1}.,{0} مكرر: موجود بالفعل في السطر {1}.
 {0} is required for this system type.,{0} مطلوب لهذا النوع من الأنظمة.
