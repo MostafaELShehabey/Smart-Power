@@ -127,7 +127,11 @@ Case {0} is {1}; its quotes are not discounted any more.,الحالة {0} {1}؛ 
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
 Cash,نقدي
 Cash and Locks,الكاش والقفل
+Cash Held Limit (days),حد الاحتفاظ بالنقدية (أيام)
+Cash held too long,نقدية محتفظ بها مدة طويلة
+"Cash in a person's transit account longer than its Max Days Held (or Cash Held Limit in Smart Power Settings) alerts the holder and the admin every day until it is deposited. A warning, never a block.",النقدية في حساب نقدية شخص أطول من أقصى أيام الاحتفاظ (أو حد الاحتفاظ بالنقدية في الإعدادات) تنبّه الحائز والمدير يوميًا حتى تُودع. تحذير، وليس منعًا.
 Cash may stay here this many days before the holder and the admin are alerted; empty uses the setting (SP-116).,يمكن أن تبقى النقدية هنا هذا العدد من الأيام قبل تنبيه الحائز والمدير؛ الفارغ يستخدم الإعداد.
+Cash may stay with a person this many days; after that the holder and the admin are alerted daily until it is deposited. An account's own Max Days Held overrides it (SP-116).,يمكن أن تبقى النقدية مع شخص هذا العدد من الأيام؛ بعدها يُنبَّه الحائز والمدير يوميًا حتى تُودع. أقصى أيام الاحتفاظ للحساب نفسه يتجاوزه.
 Cash with {0},نقدية مع {0}
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
 Catalogue (PDF),الكتالوج (PDF)
@@ -245,6 +249,8 @@ Default validity of a new quote.,الصلاحية الافتراضية للعر�
 Delivery Note,إذن التسليم
 Deposit,عربون
 "Deposit confirmed for {0}: station {1}, contract {2}",تم تأكيد عربون {0}: المحطة {1}، العقد {2}
+Deposit it into an official account.,أودعها في حساب رسمي.
+Deposit the cash: {0},أودع النقدية: {0}
 Deposit: drafted by the deposit automation for the lines not in stock (SP-175).,عربون: أنشأه تأكيد العربون للأصناف غير المتوفرة بالمخزن.
 Description,الوصف
 Design Inputs,مدخلات التصميم
@@ -1178,6 +1184,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} gave you the case of {1}: {2},{0} سلّمك حالة {1}: {2}
 {0} gave {1} off {2} on quote {3} ({4}),{0} أعطى خصم {1} على {2} في العرض {3} ({4})
 {0} h,{0} ساعة
+{0} has held {1} for {2} days (limit {3}).,{0} محتفظ بـ {1} منذ {2} أيام (الحد {3}).
 {0} has no P1 cost.,{0} ليس له تكلفة P1.
 {0} has no valuation rate.,{0} ليس له سعر تقييم.
 {0} has no {1} price.,{0} ليس له سعر {1}.

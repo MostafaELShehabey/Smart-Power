@@ -34,6 +34,7 @@
   "cash_section",
   "showroom_cash_limit_amount",
   "showroom_cash_limit_days",
+  "cash_held_limit_days",
   "large_payment_threshold",
   "column_break_cash",
   "field_entry_lock_days",
@@ -200,6 +201,12 @@
    "label": "Showroom Cash Limit (days since the last deposit)"
   },
   {
+   "fieldname": "cash_held_limit_days",
+   "fieldtype": "Int",
+   "label": "Cash Held Limit (days)",
+   "description": "Cash may stay with a person this many days; after that the holder and the admin are alerted daily until it is deposited. An account's own Max Days Held overrides it (SP-116)."
+  },
+  {
    "fieldname": "large_payment_threshold",
    "fieldtype": "Currency",
    "label": "Large Payment (alert the admin above)",
@@ -246,7 +253,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-15 21:00:00.000000",
+ "modified": "2026-11-15 23:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

@@ -157,6 +157,7 @@
 		"chassis_markup_basis": {"value": "Markup on cost", "_source": "tech plan section 14 default; open question"},
 		"showroom_cash_limit_amount": {"value": 100000, "_source": "decision 63 (example: about 100-200 thousand)"},
 		"showroom_cash_limit_days": {"value": 7, "_source": "decision 63 (example: 7 days since the last deposit)"},
+		"cash_held_limit_days": {"value": 3, "_source": "SP-116 (the story's example: 3 days)"},
 		"field_entry_lock_days": {"value": 3, "_source": "decision 44 (3-day rule)"},
 		"default_rounding_step": {"value": 0, "_source": "no rounding until the templates set their own"}
 	},
@@ -168,7 +169,8 @@
 		"discount_followup_max": {"level": "Warn", "_source": "SP-68 / decision 67: no approval gate, warn never block"},
 		"discount_creator_max": {"level": "Warn", "_source": "SP-128"},
 		"quote_validity": {"level": "Block", "_source": "tech plan section 6 (quote validity rule)"},
-		"quote_24h": {"level": "Warn", "_source": "SP-128 / SP-48: warn, never block (decision 70)"}
+		"quote_24h": {"level": "Warn", "_source": "SP-128 / SP-48: warn, never block (decision 70)"},
+		"cash_held_too_long": {"level": "Warn", "_source": "SP-116: warn, never block"}
 	},
 	"list_values": [
 		{"list_name": "System Type", "code": "PUMP", "value_ar": "طلمبات (غاطس)", "value_en": "Pump", "sort_order": 1},
