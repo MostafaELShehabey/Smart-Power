@@ -170,7 +170,8 @@
 		"discount_creator_max": {"level": "Warn", "_source": "SP-128"},
 		"quote_validity": {"level": "Block", "_source": "tech plan section 6 (quote validity rule)"},
 		"quote_24h": {"level": "Warn", "_source": "SP-128 / SP-48: warn, never block (decision 70)"},
-		"cash_held_too_long": {"level": "Warn", "_source": "SP-116: warn, never block"}
+		"cash_held_too_long": {"level": "Warn", "_source": "SP-116: warn, never block"},
+		"transfer_over_balance": {"level": "Warn", "_source": "SP-117: warn, configurable"}
 	},
 	"list_values": [
 		{"list_name": "System Type", "code": "PUMP", "value_ar": "طلمبات (غاطس)", "value_en": "Pump", "sort_order": 1},

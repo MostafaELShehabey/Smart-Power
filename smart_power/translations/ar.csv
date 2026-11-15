@@ -31,6 +31,8 @@ A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن ي�
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
 A template needs at least one block before it is published.,القالب يحتاج فقرة واحدة على الأقل قبل نشره.
 A template needs at least one line before it is published.,القالب يحتاج سطرًا واحدًا على الأقل قبل نشره.
+A transfer from a transit account for more than the account holds. A warning by default (SP-117); the admin can make it a block.,تحويل من حساب نقدية بمبلغ أكبر من رصيده. تحذير افتراضيًا؛ ويمكن للمدير جعله منعًا.
+A transfer moves money between official and transit accounts only.,التحويل ينقل المال بين الحسابات الرسمية وحسابات النقدية فقط.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
 A write-off needs a reason.,الشطب يحتاج سببًا.
 Abnormal,غير طبيعي
@@ -90,6 +92,7 @@ Blocked,ممنوع
 Blocked by a business rule,تم المنع بقاعدة عمل
 Blocks,الفقرات
 Board view,عرض اللوحة
+Both accounts must belong to the same company.,يجب أن يتبع الحسابان نفس الشركة.
 Both sides,الجانبان
 Brand,الماركة
 Brand Priority,أولوية الماركات
@@ -151,6 +154,7 @@ Changed by {0},غيّره {0}
 Channel,القناة
 Chassis,الشاسيه
 Check,اختيار (نعم/لا)
+"Check the amount, or record the missing receipts first.",راجع المبلغ، أو سجّل الإيصالات الناقصة أولًا.
 Check the placeholders,راجع المتغيرات
 Check the prices and the discount before the next version.,راجع الأسعار والخصم قبل الإصدار التالي.
 Check the specs,راجع المواصفات
@@ -165,6 +169,7 @@ Choose the case this quote belongs to.,اختر الحالة التي يتبعه
 Choose the station or the case.,اختر المحطة أو الحالة.
 "Choose the station, or the case for a deposit before the station exists.",اختر المحطة، أو الحالة لعربون قبل وجود المحطة.
 Choose the system type first.,اختر نوع النظام أولاً.
+Choose two different accounts.,اختر حسابين مختلفين.
 Clear,مسح
 Click to change,اضغط للتغيير
 Close Financially,إغلاق مالي
@@ -187,6 +192,7 @@ Completed By,تم بواسطة
 Completed On,تم في
 Confirm,تأكيد
 Confirm selected,تأكيد المحدد
+Confirm the transfer of {0} from {1},تأكيد تحويل {0} من {1}
 Confirm {0} from {1} ({2}),تأكيد {0} من {1} ({2})
 Confirm {0} from {1}? The entry posts now.,تأكيد {0} من {1}؟ سيُرحّل القيد الآن.
 Confirm {0} items? Their entries post now.,تأكيد {0} عناصر؟ ستُرحّل قيودها الآن.
@@ -196,6 +202,7 @@ Confirmations,التأكيدات
 Confirmed,مؤكد
 Confirmed By,أكده
 Confirmed.,تم التأكيد.
+Confirmed: transfer of {0},تم التأكيد: تحويل {0}
 Confirmed: {0} from {1},تم التأكيد: {0} من {1}
 Confirming,جارٍ التأكيد
 Consignment Conversion,تحويل أمانة
@@ -371,10 +378,12 @@ Forward,تحويل
 Forwarded.,تم التحويل.
 Fresh,حديث
 From,من
+From Account,من حساب
 From Date,من تاريخ
 From document,من المستند
 From the approved quote's line.,من سطر العرض المعتمد.
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
+from {0},من {0}
 Full,كامل
 Give a discount,إعطاء خصم
 Give a percent or an amount.,أدخل نسبة أو مبلغًا.
@@ -620,6 +629,7 @@ Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إ
 Only the admin changes the {0}.,فقط المدير يغيّر {0}.
 Only the admin confirms money.,فقط المدير يؤكد الأموال.
 Only the admin confirms or rejects a payment.,فقط المدير يؤكد الدفعة أو يرفضها.
+Only the admin confirms or rejects a transfer.,فقط المدير يؤكد التحويل أو يرفضه.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
 Only the admin records a write-off.,فقط المدير يسجل الشطب.
 Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
@@ -716,6 +726,7 @@ Profit,الربح
 Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
 Project,المشروع
 Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
+Proof,الإثبات
 Publish,نشر
 Publish version {0}? New prints of this document use it.,نشر الإصدار {0}؟ ستستخدمه الطباعات الجديدة لهذا المستند.
 Publish version {0}? The published version of this offer type stops.,نشر الإصدار {0}؟ سيتوقف الإصدار المنشور حاليًا لنفس نوع العرض.
@@ -790,6 +801,7 @@ Reject Payment,رفض الدفعة
 Reject Reason,سبب الرفض
 Rejected,مرفوض
 Rejected: the recorder is told.,مرفوض: تم إبلاغ من سجّله.
+Rejected: transfer of {0}: {1},مرفوض: تحويل {0}: {1}
 Rejected: {0} from {1}: {2},مرفوض: {0} من {1}: {2}
 Remaining,المتبقي
 Remaining: {0},المتبقي: {0}
@@ -968,6 +980,7 @@ SP System Designer,مصمم الأنظمة
 SP Task,مهمة
 SP Tax Insurance,الضرائب والتأمينات
 SP Technical Office,المكتب الفني
+SP Transfer,تحويل
 SP Warranty Service,الضمان والصيانة
 SP Winch Manager,مسئول الونش
 SP Winch Operator,سواق الونش
@@ -1041,6 +1054,7 @@ The customer,العميل
 The customer's deposit: confirming it makes the contract and the station (SP-175).,عربون العميل: تأكيده ينشئ العقد والمحطة.
 The day the money was received.,يوم استلام المبلغ.
 The default price category for items in this group.,فئة السعر الافتراضية لأصناف هذه المجموعة.
+The deposit slip or transfer screenshot.,إيصال الإيداع أو صورة التحويل.
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The discounts are more than the quote total.,الخصومات أكبر من إجمالي العرض.
 The document that posted this entry. Cancelling it cancels this entry.,المستند الذي رحّل هذا القيد. إلغاؤه يلغي هذا القيد.
@@ -1107,6 +1121,7 @@ Tier,الفئة
 Timestamp,الوقت
 Title,العنوان
 To,إلى
+To Account,إلى حساب
 "To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
 Took the request,استلم الطلب
 Total,الإجمالي
@@ -1115,7 +1130,11 @@ Total Cost,إجمالي التكلفة
 Total cost {0} · Total sale {1} · Profit {2} · Margin {3}%,إجمالي التكلفة {0} · إجمالي البيع {1} · الربح {2} · الهامش {3}%
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
+Transfer / deposit,تحويل / إيداع
+Transfer above the transit balance,تحويل أكبر من رصيد النقدية
 Transfer Note,إذن التحويل
+Transfer {0},تحويل {0}
+"Transfer {0} is {1}, not pending.",التحويل {0} حالته {1}، وليس قيد الانتظار.
 Transit,في الطريق
 Transit Account,الحساب الوسيط
 Treasury,الخزينة
@@ -1194,10 +1213,12 @@ Wrong customer,عميل غير مطابق
 Wrote off {0}: {1},تم شطب {0}: {1}
 Yearly reset,يبدأ كل سنة
 Yes,نعم
+You can move money only from your own transit account.,يمكنك نقل المال فقط من حساب النقدية الخاص بك.
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
 You do not record customer payments.,أنت لا تسجل دفعات العملاء.
 Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
+"Your own transit account, or (the admin) any money account.",حساب النقدية الخاص بك، أو (للمدير) أي حساب مالي.
 {0} (yours),{0} (خاصتك)
 {0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}
 {0} cannot be changed here.,لا يمكن تعديل {0} هنا.
@@ -1214,6 +1235,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} has no P1 cost.,{0} ليس له تكلفة P1.
 {0} has no valuation rate.,{0} ليس له سعر تقييم.
 {0} has no {1} price.,{0} ليس له سعر {1}.
+{0} holds {1}; the transfer is {2}.,{0} رصيده {1}؛ والتحويل {2}.
 {0} installation manager(s) asked,تم طلب المعاينة من {0} من مديري التركيبات
 {0} is already used up to {1}: the counter cannot go below {1}.,{0} مستخدم حتى الرقم {1}: لا يمكن أن يقل العداد عن {1}.
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.

@@ -1,0 +1,293 @@
+"""Transfer / deposit between money accounts (A4, SP-117).
+
+    from account → to account, amount, date, reference, receipt photo
+
+- A cash holder deposits from their own transit account (they are never offered someone else's);
+  the admin may move money between any money accounts.
+- A transfer is pending until the admin confirms it in A1 (SP-115); confirming posts Dr to /
+  Cr from, which settles the transit balance and resets its days held (SP-116). Rejected: back to
+  the recorder with the reason, nothing posted.
+- The admin's own official → official transfer posts at once (no confirmation), and is audited.
+- Moving more than a transit account holds is a warning, set in rule settings (transfer_over_balance).
+"""
+
+import frappe
+from frappe import _
+from frappe.utils import flt, now_datetime
+
+from smart_power.sp_finance.accounts import OFFICIAL, TRANSIT
+
+TRANSFER, TASK = "SP Transfer", "SP Task"
+DRAFT, PENDING, CONFIRMED, REJECTED = "Draft", "Pending", "Confirmed", "Rejected"
+MONEY_KINDS = (OFFICIAL, TRANSIT)
+CONFIRM_TASK, TASK_OPEN, TASK_DONE = "Receipt to Confirm", "Open", "Done"
+ADMIN_ROLE, ADMIN_ROLES = "SP Admin", ("SP Admin", "System Manager")
+KIND = "Transfer / deposit"
+
+
+def is_admin(user: str | None = None) -> bool:
+	user = user or frappe.session.user
+	return user == "Administrator" or bool(set(ADMIN_ROLES) & set(frappe.get_roles(user)))
+
+
+def _account(name: str) -> frappe._dict:
+	return (
+		frappe.db.get_value(
+			"Account", name, ["sp_account_kind", "sp_holder", "company", "account_name"], as_dict=True
+		)
+		or frappe._dict()
+	)
+
+
+def sources(company: str, user: str | None = None) -> list[str]:
+	"""The accounts this user may move money from: their own transit; the admin, any money account."""
+	user = user or frappe.session.user
+	filters = {"company": company, "is_group": 0, "disabled": 0}
+	if is_admin(user):
+		return frappe.get_all("Account", {**filters, "sp_account_kind": ("in", MONEY_KINDS)}, pluck="name")
+	return frappe.get_all("Account", {**filters, "sp_account_kind": TRANSIT, "sp_holder": user}, pluck="name")
+
+
+def destinations(company: str) -> list[str]:
+	return frappe.get_all(
+		"Account",
+		{"company": company, "is_group": 0, "disabled": 0, "sp_account_kind": ("in", MONEY_KINDS)},
+		pluck="name",
+	)
+
+
+# --- record -------------------------------------------------------------------------------------
+
+
+def validate(doc) -> None:
+	if doc.from_account == doc.to_account:
+		frappe.throw(_("Choose two different accounts."))
+	src, dst = _account(doc.from_account), _account(doc.to_account)
+	if src.sp_account_kind not in MONEY_KINDS or dst.sp_account_kind not in MONEY_KINDS:
+		frappe.throw(_("A transfer moves money between official and transit accounts only."))
+	if src.company != dst.company:
+		frappe.throw(_("Both accounts must belong to the same company."))
+	doc.company = src.company
+	if flt(doc.amount) <= 0:
+		frappe.throw(_("The amount must be above zero."))
+	if doc.is_new() or not doc.recorded_by:
+		doc.recorded_by = frappe.session.user
+		doc.entry_time = now_datetime()
+	if not is_admin(doc.recorded_by) and doc.from_account not in sources(doc.company, doc.recorded_by):
+		frappe.throw(_("You can move money only from your own transit account."), frappe.PermissionError)
+	if doc.docstatus.is_draft():
+		doc.status = DRAFT
+	if not doc.receipt_photo and not _posts_at_once(doc):
+		frappe.throw(_("Attach the receipt photo."), frappe.MandatoryError)
+
+
+def _posts_at_once(doc) -> bool:
+	"""The admin's own official → official transfer needs no confirmation."""
+	return (
+		is_admin(doc.recorded_by)
+		and _account(doc.from_account).sp_account_kind == OFFICIAL
+		and _account(doc.to_account).sp_account_kind == OFFICIAL
+	)
+
+
+def on_submit(doc) -> None:
+	if _posts_at_once(doc):
+		from smart_power.sp_core.services.audit import audit
+
+		_post(doc)
+		audit(
+			"Official transfer",
+			doc.doctype,
+			doc.name,
+			from_account=doc.from_account,
+			to_account=doc.to_account,
+			amount=flt(doc.amount),
+		)
+		return
+	doc.db_set("status", PENDING)
+	from smart_power.sp_sales.quote_request import _users_with
+
+	for admin in _users_with(ADMIN_ROLE) or ["Administrator"]:
+		frappe.get_doc(
+			{
+				"doctype": TASK,
+				"subject": _("Confirm the transfer of {0} from {1}").format(
+					frappe.format(doc.amount, "Currency"), _account(doc.from_account).account_name
+				),
+				"task_type": CONFIRM_TASK,
+				"assigned_to": admin,
+				"reference_doctype": TRANSFER,
+				"reference_name": doc.name,
+				"description": doc.receipt_photo or "",
+			}
+		).insert(ignore_permissions=True)
+
+
+def _build_entry(doc):
+	return frappe.get_doc(
+		{
+			"doctype": "Journal Entry",
+			"voucher_type": "Bank Entry",
+			"company": doc.company,
+			"posting_date": doc.work_date,
+			"cheque_no": doc.reference_no or doc.name,
+			"cheque_date": doc.work_date,
+			"user_remark": _("Transfer {0}").format(doc.name),
+			"sp_posting_event": "Transfer",
+			"sp_source_doctype": TRANSFER,
+			"sp_source_name": doc.name,
+			"accounts": [
+				{"account": doc.to_account, "debit_in_account_currency": flt(doc.amount)},
+				{"account": doc.from_account, "credit_in_account_currency": flt(doc.amount)},
+			],
+		}
+	)
+
+
+def _post(doc) -> str:
+	je = _build_entry(doc)
+	je.flags.ignore_permissions = True
+	je.insert()
+	je.submit()
+	doc.db_set({"journal_entry": je.name, "status": CONFIRMED, "confirmed_by": frappe.session.user})
+	return je.name
+
+
+# --- confirm / reject (A1, SP-115) ----------------------------------------------------------------
+
+
+def _pending(name: str):
+	if not is_admin():
+		frappe.throw(_("Only the admin confirms or rejects a transfer."), frappe.PermissionError)
+	doc = frappe.get_doc(TRANSFER, name)
+	if doc.status != PENDING:
+		frappe.throw(_("Transfer {0} is {1}, not pending.").format(name, _(doc.status)))
+	return doc
+
+
+@frappe.whitelist(methods=["POST"])
+def confirm(name: str) -> str:
+	doc = _pending(name)
+	entry = _post(doc)
+	_close_tasks(doc)
+	_notify(
+		doc, [doc.recorded_by], _("Confirmed: transfer of {0}").format(frappe.format(doc.amount, "Currency"))
+	)
+	return entry
+
+
+@frappe.whitelist(methods=["POST"])
+def reject(name: str, reason: str) -> str:
+	reason = (reason or "").strip()
+	if not reason:
+		frappe.throw(_("Give the reason for the rejection."), frappe.MandatoryError)
+	doc = _pending(name)
+	doc.flags.sp_rejecting = True
+	doc.cancel()
+	doc.db_set({"status": REJECTED, "reject_reason": reason})
+	_close_tasks(doc)
+	subject = _("Rejected: transfer of {0}: {1}").format(frappe.format(doc.amount, "Currency"), reason)
+	_notify(doc, [doc.recorded_by], subject)
+	if doc.recorded_by:
+		frappe.get_doc(
+			{
+				"doctype": TASK,
+				"subject": subject,
+				"task_type": "Other",
+				"assigned_to": doc.recorded_by,
+				"reference_doctype": TRANSFER,
+				"reference_name": doc.name,
+				"description": reason,
+			}
+		).insert(ignore_permissions=True)
+	return doc.name
+
+
+def on_cancel(doc) -> None:
+	"""A rejection posts nothing; a confirmed transfer's entry is cancelled with it (SP-113 hook)."""
+	if doc.status == PENDING:
+		doc.db_set("status", REJECTED)
+	_close_tasks(doc)
+
+
+def _close_tasks(doc) -> None:
+	for name in frappe.get_all(
+		TASK, {"reference_doctype": TRANSFER, "reference_name": doc.name, "status": TASK_OPEN}, pluck="name"
+	):
+		frappe.db.set_value(
+			TASK,
+			name,
+			{"status": TASK_DONE, "completed_by": frappe.session.user, "completed_on": now_datetime()},
+		)
+
+
+def _notify(doc, users, subject: str) -> None:
+	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+
+	users = sorted({u for u in users if u})
+	if users:
+		make_notification_logs(
+			frappe._dict(
+				{
+					"type": "Alert",
+					"document_type": TRANSFER,
+					"document_name": doc.name,
+					"subject": subject,
+					"from_user": frappe.session.user,
+				}
+			),
+			users,
+		)
+
+
+# --- the confirmations centre source (SP-115) -----------------------------------------------------
+
+
+def pending_items(filters: dict) -> list[dict]:
+	where = {"status": PENDING, "docstatus": 1}
+	if filters.get("account"):
+		where["to_account"] = filters["account"]
+	if filters.get("from_date") and filters.get("to_date"):
+		where["work_date"] = ("between", [filters["from_date"], filters["to_date"]])
+	elif filters.get("from_date"):
+		where["work_date"] = (">=", filters["from_date"])
+	elif filters.get("to_date"):
+		where["work_date"] = ("<=", filters["to_date"])
+	rows = frappe.get_all(
+		TRANSFER,
+		filters=where,
+		fields=["name", "recorded_by", "work_date", "from_account", "to_account", "amount", "receipt_photo"],
+		order_by="work_date asc, creation asc",
+	)
+	return [
+		{
+			"doctype": TRANSFER,
+			"name": r.name,
+			"kind": _(KIND),
+			"recorder": r.recorded_by,
+			"date": r.work_date,
+			"account": r.to_account,
+			"amount": flt(r.amount),
+			"photo": r.receipt_photo,
+			"station": None,
+			"party": _("from {0}").format(r.from_account),
+		}
+		for r in rows
+	]
+
+
+def preview(name: str) -> list[dict]:
+	doc = frappe.get_doc(TRANSFER, name)
+	center = frappe.get_cached_value("Company", doc.company, "cost_center")
+	return [
+		{
+			"account": r.account,
+			"debit": flt(r.debit_in_account_currency),
+			"credit": flt(r.credit_in_account_currency),
+			"party": None,
+			"cost_center": center,
+			"project": None,
+			"station": None,
+		}
+		for r in _build_entry(doc).accounts
+	]
