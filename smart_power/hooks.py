@@ -137,7 +137,11 @@ doc_events = {
 	"Sales Order": {
 		"validate": "smart_power.sp_stations.contract.validate_order",
 		"on_update": "smart_power.sp_stations.contract.on_order_change",
-		"on_submit": "smart_power.sp_stations.contract.on_order_change",
+		"on_submit": [
+			"smart_power.sp_stations.contract.on_order_change",
+			# the contract's postal cheques join the register (SP-118)
+			"smart_power.sp_finance.cheques.from_contract",
+		],
 		"on_cancel": "smart_power.sp_stations.contract.on_order_change",
 	},
 	# A confirmed (or reversed) customer payment refreshes its station's money (SP-73)
@@ -179,6 +183,8 @@ scheduler_events = {
 		"smart_power.sp_sales.quotation.expire_quotes",
 		# cash held too long in a transit account: the holder and the admin, daily (SP-116)
 		"smart_power.sp_finance.transit.check_cash_held",
+		# postal cheques due soon: Due, with alerts (SP-118)
+		"smart_power.sp_finance.cheques.check_due",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],

@@ -35,6 +35,8 @@
   "showroom_cash_limit_amount",
   "showroom_cash_limit_days",
   "cash_held_limit_days",
+  "cheque_due_lead_days",
+  "cheque_auto_confirm",
   "large_payment_threshold",
   "column_break_cash",
   "field_entry_lock_days",
@@ -207,6 +209,18 @@
    "description": "Cash may stay with a person this many days; after that the holder and the admin are alerted daily until it is deposited. An account's own Max Days Held overrides it (SP-116)."
   },
   {
+   "fieldname": "cheque_due_lead_days",
+   "fieldtype": "Int",
+   "label": "Cheque Due Alert (days before)",
+   "description": "A postal cheque becomes Due this many days before its due date, and its holder, the collection owner and the admin are alerted (SP-118)."
+  },
+  {
+   "fieldname": "cheque_auto_confirm",
+   "fieldtype": "Check",
+   "label": "Confirm Collected Cheques at Once",
+   "description": "On: a collected postal cheque posts its payment at once. Off: the payment waits for the admin in Confirmations (SP-118)."
+  },
+  {
    "fieldname": "large_payment_threshold",
    "fieldtype": "Currency",
    "label": "Large Payment (alert the admin above)",
@@ -253,7 +267,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-15 23:00:00.000000",
+ "modified": "2026-11-16 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",
