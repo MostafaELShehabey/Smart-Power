@@ -145,6 +145,8 @@ doc_events = {
 			"smart_power.sp_stations.contract.on_order_change",
 			# the contract's postal cheques join the register (SP-118)
 			"smart_power.sp_finance.cheques.from_contract",
+			# financed by the Agri Bank: the admin records the customer's advance (SP-121)
+			"smart_power.sp_finance.advances.on_contract",
 		],
 		"on_cancel": "smart_power.sp_stations.contract.on_order_change",
 	},

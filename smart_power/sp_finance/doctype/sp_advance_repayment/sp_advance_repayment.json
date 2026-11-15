@@ -1,0 +1,76 @@
+{
+ "actions": [],
+ "creation": "2026-11-17 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "istable": 1,
+ "modified": "2026-11-17 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Advance Repayment",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "field_order": [
+  "repayment_date",
+  "amount",
+  "fee_amount",
+  "to_account",
+  "reference",
+  "journal_entry",
+  "fee_entry"
+ ],
+ "fields": [
+  {
+   "fieldname": "repayment_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Repaid",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "fee_amount",
+   "fieldtype": "Currency",
+   "label": "Fee",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "to_account",
+   "fieldtype": "Link",
+   "label": "To Account",
+   "options": "Account",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reference",
+   "fieldtype": "Data",
+   "label": "Reference",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Repayment Entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "fee_entry",
+   "fieldtype": "Link",
+   "label": "Fee Entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  }
+ ]
+}

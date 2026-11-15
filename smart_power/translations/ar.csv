@@ -49,17 +49,25 @@ Active,فعال
 Add,إضافة
 Add Amount,مبلغ إضافي
 Add Photos,إضافة صور
+Add Repayment,إضافة سداد
 Add Value,إضافة قيمة
 Add Value to {0},إضافة قيمة إلى {0}
 "Added to every quote of its offer type, like transport or installation.",يُضاف لكل عرض من نفس نوع العرض، مثل النقل أو التركيب.
 Address (Arabic),العنوان (عربي)
 Addresses,العناوين
 Addresses and Phones,العناوين والتليفونات
+Advance,السلفة
+Advance Amount,مبلغ السلفة
+Advance Fee,عمولة السلفة
+Advance Repayment,سداد السلفة
+Advance {0} for station {1} ({2}),سلفة {0} للمحطة {1} ({2})
+"advance {0}, station {1}",السلفة {0}، المحطة {1}
 Advances (Agri Bank),سلف (البنك الزراعي)
 Age,العمر
 Aging,يقترب من القدم
 Agreed,المتفق عليه
 Agri Bank,البنك الزراعي
+Agri Bank Advance,سلفة البنك الزراعي
 All,الكل
 AM,ص
 Amber,أصفر
@@ -101,6 +109,7 @@ Both accounts must belong to the same company.,يجب أن يتبع الحساب
 Both sides,الجانبان
 Bounced,مرتجع
 Bounced On,تاريخ الارتجاع
+Branch,الفرع
 Brand,الماركة
 Brand Priority,أولوية الماركات
 Brand priority,أولوية الماركة
@@ -179,6 +188,7 @@ Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
 Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبلغ {1} يستحق في {2}؛ أودعه في البريد
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
+Choose the account the money came into.,اختر الحساب الذي دخلت إليه الأموال.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
 Choose the station or the case.,اختر المحطة أو الحالة.
 "Choose the station, or the case for a deposit before the station exists.",اختر المحطة، أو الحالة لعربون قبل وجود المحطة.
@@ -336,6 +346,7 @@ Empty uses the default rounding step in Smart Power Settings.,فارغ يستخ�
 Empty uses the published template of the case's system type.,اتركه فارغًا لاستخدام القالب المنشور لنوع نظام الحالة.
 "Empty: the quote total. Otherwise a section of the quote (e.g. Energy or Submersible), never one line.",فارغ: إجمالي العرض. وإلا فقسم من العرض (مثل الطاقة أو الغاطس)، وليس سطرًا واحدًا أبدًا.
 Enter at least one price.,أدخل سعراً واحداً على الأقل.
+"Enter the amount repaid, the fee, or both.",أدخل المبلغ المسدد أو العمولة أو كليهما.
 Enter the customer's name: this mobile is new.,اكتب اسم العميل: هذا الموبايل جديد.
 Entered At,وقت الإدخال
 Entry it will post,القيد الذي سيُرحّل
@@ -358,6 +369,10 @@ Extra Data,بيانات إضافية
 "Extra settings for this value as JSON, e.g. the calculation template of a system type.",إعدادات إضافية لهذه القيمة بصيغة JSON، مثل قالب الحساب لنوع النظام.
 Factory,المصنع
 Featured,مميز
+Fee,العمولة
+Fee Entry,قيد العمولة
+Fee Income,إيراد العمولة
+Fee on {0},عمولة على {0}
 Field,الحقل
 Field entry,التسجيل الميداني
 "Field entry is done from your phone. The Job, Expense and Money pages open here when they are ready.",التسجيل الميداني يتم من الموبايل. صفحات الشغلانة والمصروف والفلوس ستفتح هنا عند جاهزيتها.
@@ -545,6 +560,7 @@ Mark cheque {0} as taken to the Post?,تمييز الشيك {0} كمودع في 
 Mark Lost,تسجيل الخسارة
 Mark selected reviewed,تمييز المحدد كمُراجع
 Mark this version as the one the customer accepted?,اعتماد هذه النسخة كالتي وافق عليها العميل؟
+Mark Unpaid,تمييز كغير مسددة
 Mark Won,تسجيل الكسب
 Mark {0} items reviewed?,تمييز {0} عناصر كمُراجعة؟
 Marked as a featured customer.,تم تمييز العميل كعميل مميز.
@@ -667,6 +683,8 @@ Only the admin confirms money.,فقط المدير يؤكد الأموال.
 Only the admin confirms or rejects a payment.,فقط المدير يؤكد الدفعة أو يرفضها.
 Only the admin confirms or rejects a transfer.,فقط المدير يؤكد التحويل أو يرفضه.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
+Only the admin or bank financing changes an advance.,المدير أو التمويل البنكي فقط يعدّل السلفة.
+Only the admin or bank financing records an advance.,المدير أو التمويل البنكي فقط يسجّل السلفة.
 Only the admin records a write-off.,فقط المدير يسجل الشطب.
 Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
@@ -674,6 +692,7 @@ Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,
 "Only the case's follow-up owner, its quote creator or the admin can send a quote.",يرسل العرض مسئول متابعة الحالة أو مُعدّ العرض أو المدير فقط.
 Only the contracts manager or the admin makes the contract.,فقط مسئول العقود أو المدير ينشئ العقد.
 Only the quote creator and the cost roles price a quote.,تسعير العرض لمُعدّ العرض وأدوار التكلفة فقط.
+Only {0} is outstanding on this advance.,المتبقي على هذه السلفة {0} فقط.
 Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
@@ -691,6 +710,8 @@ Options,الاختيارات
 Order saved,تم حفظ الترتيب
 Other,أخرى
 Outcome,النتيجة
+Outstanding,المتبقي
+Outstanding: {0},المتبقي: {0}
 Overdue,متأخر
 Overridden,تم التخطي بسبب
 Override,تخطي
@@ -703,9 +724,12 @@ P1 price,سعر P1
 Page,صفحة
 Paid,المدفوع
 Paid (confirmed),المدفوع (المؤكد)
+Paid From,مدفوعة من
+Paid On,تاريخ الدفع
 Paid to a Third Party,مدفوع لطرف ثالث
 Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
+Partly repaid,مسددة جزئيًا
 Pass-through,بسعر التكلفة
 Payee,المستفيد
 Payee Type,نوع المستفيد
@@ -729,6 +753,7 @@ Placeholders,المتغيرات
 Placeholders you can use,المتغيرات المتاحة
 PM,م
 PO Sent,تم إرسال أمر التوريد
+Post Repayment,ترحيل السداد
 Postal Cheque,شيك بريدي
 Postal Cheques,الشيكات البريدية
 "Posted by hand, not by a document; listed in the review centre (SP-119).",مرحّل يدويًا، وليس من مستند؛ مدرج في مركز المراجعة.
@@ -827,9 +852,11 @@ Reconcile,مطابقة
 Record,السجل
 Record Deposit,تسجيل عربون
 Record Payment,تسجيل دفعة
+Record the Agri Bank advance for station {0} ({1}),سجّل سلفة البنك الزراعي للمحطة {0} ({1})
 Record Write-off,تسجيل شطب
 Recorded By,سجّلها
 Recorded payments the admin has not confirmed yet; not counted in Paid (SP-114).,دفعات مسجلة لم يؤكدها المدير بعد؛ لا تُحسب في المدفوع.
+Reference,المرجع
 Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
 Reference No.,رقم المرجع
@@ -850,6 +877,10 @@ Remaining: {0},المتبقي: {0}
 Remove,إزالة
 Rename,إعادة تسمية
 Reopen,إعادة فتح
+Repaid,مسددة
+Repayment Entry,قيد السداد
+Repayment of {0},سداد {0}
+Repayments,السداد
 Repricing Note,ملاحظة إعادة التسعير
 Request,الطلب
 Request Details,تفاصيل الطلب
@@ -956,6 +987,7 @@ Source Type,نوع المصدر
 SP Account Map,خريطة الحسابات
 SP Accountant,المحاسب
 SP Admin,الأدمن
+SP Advance Repayment,سداد سلفة
 SP Audit Log,سجل العمليات
 SP Bank Financing,التمويل البنكي
 SP Brand Priority,أولوية الماركة
@@ -976,6 +1008,7 @@ SP Company Settings,بيانات الشركة
 SP Contract Cheque,شيك العقد
 SP Contract Manager,العقود
 SP Custody Holder,صاحب عهدة
+SP Customer Advance,سلفة عميل
 SP Customer Balances,أرصدة العملاء
 SP Customer Followup,متابعة العملاء
 SP Customer Payment,دفعة عميل
@@ -1051,6 +1084,7 @@ Station Project,مشروع المحطة
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
 Status,الحالة
 Subject,الموضوع
+Submit the advance first.,اعتمد السلفة أولًا.
 Submit the quote before approving it.,اعتمد (Submit) العرض أولاً قبل اعتماد النسخة.
 Subtotal,الإجمالي قبل الخصم
 Summary,الملخص
@@ -1129,6 +1163,7 @@ The markup cannot be changed on a quote. Locked BTC lines are always locked.,ل�
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The next call cannot be before this call.,لا يمكن أن تكون المكالمة التالية قبل هذه المكالمة.
 The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
+The official account the advance is paid from.,الحساب الرسمي الذي دُفعت منه السلفة.
 The option the customer took,الخيار الذي اختاره العميل
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The owner is notified.,تم إبلاغ المسئول.
@@ -1156,6 +1191,7 @@ The template version this quote was calculated from (set by Calculate).,إصدا
 The treasury is the admin's.,الخزينة خاصة بالمدير.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
 There is no published calculation template for this case's system type.,لا يوجد قالب حساب منشور لنوع نظام هذه الحالة.
+This advance is repaid.,هذه السلفة مسددة.
 This customer is followed up by a colleague. Ask the admin to reassign them.,هذا العميل يتابعه زميل. اطلب من المدير نقله.
 This customer is followed up by {0}. Ask the admin to reassign them.,هذا العميل يتابعه {0}. اطلب من المدير نقله.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
@@ -1202,6 +1238,8 @@ Unknown discount kind {0}.,نوع خصم غير معروف {0}.
 Unknown list {0}.,قائمة غير معروفة {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.
 Unknown review tab {0}.,تبويب مراجعة غير معروف {0}.
+Unpaid - overdue,غير مسددة - متأخرة
+Unpaid advance,سلفة غير مسددة
 Unpublish,إلغاء النشر
 Unpublished,أُلغي النشر
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
@@ -1257,6 +1295,7 @@ With lawyer,مع المحامي
 Won,تم الكسب
 Won On,تاريخ الكسب
 Won: the deposit was confirmed.,مكسوبة: تم تأكيد العربون.
+Write a note: why is it unpaid?,اكتب ملاحظة: لماذا لم تُسدد؟
 Write off between 0 and the remaining {0}.,اشطب مبلغًا بين 0 والمتبقي {0}.
 Write the comment first.,اكتب التعليق أولًا.
 Write what is missing.,اكتب ما هو ناقص.
@@ -1316,6 +1355,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
 {0} marked reviewed.,تم تمييز {0} كمُراجعة.
 {0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
+"{0} must be an official account (a bank, the Post, InstaPay …).",يجب أن يكون {0} حسابًا رسميًا (بنك، البريد، إنستاباي …).
 {0} of {1} items,{0} من {1} صنف
 {0} recorded.,تم تسجيل {0}.
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.

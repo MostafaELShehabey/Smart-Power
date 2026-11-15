@@ -1,0 +1,302 @@
+{
+ "actions": [],
+ "creation": "2026-11-17 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "modified": "2026-11-17 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Customer Advance",
+ "owner": "Administrator",
+ "autoname": "ADV-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "search_fields": "station,customer_name,status",
+ "title_field": "customer_name",
+ "show_title_field_in_link": 0,
+ "field_order": [
+  "station",
+  "customer",
+  "customer_name",
+  "project",
+  "company",
+  "column_break_head",
+  "status",
+  "bank",
+  "branch",
+  "advance_section",
+  "amount",
+  "paid_on",
+  "paid_from_account",
+  "column_break_advance",
+  "repaid_amount",
+  "outstanding_amount",
+  "fee_amount",
+  "repayments_section",
+  "repayments",
+  "note_section",
+  "note",
+  "journal_entry",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1,
+   "in_standard_filter": 1,
+   "fetch_from": "station.customer"
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1,
+   "in_list_view": 1,
+   "fetch_from": "station.customer_name"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1,
+   "hidden": 1,
+   "fetch_from": "station.project"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1,
+   "fetch_from": "station.company"
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nOpen\nPartly repaid\nRepaid\nUnpaid - overdue\nCancelled",
+   "default": "Draft",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "bank",
+   "fieldtype": "Link",
+   "label": "Bank",
+   "options": "Bank",
+   "reqd": 1
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Data",
+   "label": "Branch"
+  },
+  {
+   "fieldname": "advance_section",
+   "fieldtype": "Section Break",
+   "label": "Advance"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Advance Amount",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "paid_on",
+   "fieldtype": "Date",
+   "label": "Paid On",
+   "reqd": 1,
+   "default": "Today"
+  },
+  {
+   "fieldname": "paid_from_account",
+   "fieldtype": "Link",
+   "label": "Paid From",
+   "options": "Account",
+   "reqd": 1,
+   "description": "The official account the advance is paid from."
+  },
+  {
+   "fieldname": "column_break_advance",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "repaid_amount",
+   "fieldtype": "Currency",
+   "label": "Repaid",
+   "read_only": 1,
+   "no_copy": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "outstanding_amount",
+   "fieldtype": "Currency",
+   "label": "Outstanding",
+   "read_only": 1,
+   "no_copy": 1,
+   "allow_on_submit": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "fee_amount",
+   "fieldtype": "Currency",
+   "label": "Fee Income",
+   "read_only": 1,
+   "no_copy": 1,
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "repayments_section",
+   "fieldtype": "Section Break",
+   "label": "Repayments"
+  },
+  {
+   "fieldname": "repayments",
+   "fieldtype": "Table",
+   "label": "Repayments",
+   "options": "SP Advance Repayment",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "note_section",
+   "fieldtype": "Section Break",
+   "label": "Note"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note",
+   "allow_on_submit": 1
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Journal Entry",
+   "options": "Journal Entry",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "SP Customer Advance",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Bank Financing",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 0,
+   "amend": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Collection Officer",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "delete": 0,
+   "permlevel": 0
+  }
+ ]
+}

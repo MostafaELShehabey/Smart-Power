@@ -53,8 +53,11 @@ def lines(
 	project: str | None = None,
 	party_type: str | None = None,
 	party: str | None = None,
+	debit_account: str | None = None,
+	credit_account: str | None = None,
 ) -> list[dict]:
-	"""The two balanced lines of an event, from the Account Map."""
+	"""The two balanced lines of an event, from the Account Map. A document that chooses its money
+	account (e.g. the official account an advance is paid from, SP-121) passes it for that side."""
 	row = account_map(event)
 	if not row:
 		frappe.throw(
@@ -69,13 +72,13 @@ def lines(
 	cost_center = cost_center or doc.get("cost_center")
 	project = project or doc.get("project")
 	debit = {
-		"account": row.debit_account,
+		"account": debit_account or row.debit_account,
 		"debit_in_account_currency": amount,
 		"credit_in_account_currency": 0,
 		"cost_center": _center(row.debit_center_rule, row.debit_cost_center, cost_center, "debit", event),
 	}
 	credit = {
-		"account": row.credit_account,
+		"account": credit_account or row.credit_account,
 		"debit_in_account_currency": 0,
 		"credit_in_account_currency": amount,
 		"cost_center": _center(row.credit_center_rule, row.credit_cost_center, cost_center, "credit", event),

@@ -190,7 +190,12 @@ def validate_order(doc, method=None) -> None:
 		frappe.db.set_value(
 			STATION,
 			doc.sp_station,
-			{"commission_amount": flt(doc.get("sp_referrer_commission"))},
+			{
+				"commission_amount": flt(doc.get("sp_referrer_commission")),
+				# the financing chosen on the contract (an Agri Bank advance follows it, SP-121)
+				"financing_type": doc.get("sp_financing_type"),
+				"bank_branch": doc.get("sp_bank_branch"),
+			},
 			update_modified=False,
 		)
 

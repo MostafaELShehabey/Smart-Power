@@ -17,6 +17,13 @@ frappe.ui.form.on("SP Station", {
 				smart_power.record_payment_dialog({ station: frm.doc.name }, () => frm.reload_doc())
 			);
 		}
+		// financed by the Agri Bank: the customer's own share is advanced and tracked apart (SP-121)
+		const bank_financing = admin || frappe.user.has_role("SP Bank Financing");
+		if (bank_financing && frm.doc.financing_type === "Financing Type-AGRI" && frm.doc.status !== "Cancelled") {
+			frm.add_custom_button(__("Agri Bank Advance"), () =>
+				frappe.new_doc("SP Customer Advance", { station: frm.doc.name })
+			);
+		}
 		if (admin && frm.doc.remaining_amount > 0 && frm.doc.status !== "Cancelled") {
 			frm.add_custom_button(__("Record Write-off"), () => sp_station_write_off(frm));
 		}
