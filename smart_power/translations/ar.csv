@@ -127,6 +127,8 @@ Case {0} is {1}; its quotes are not discounted any more.,الحالة {0} {1}؛ 
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
 Cash,نقدي
 Cash and Locks,الكاش والقفل
+Cash may stay here this many days before the holder and the admin are alerted; empty uses the setting (SP-116).,يمكن أن تبقى النقدية هنا هذا العدد من الأيام قبل تنبيه الحائز والمدير؛ الفارغ يستخدم الإعداد.
+Cash with {0},نقدية مع {0}
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
 Catalogue (PDF),الكتالوج (PDF)
 Category,التصنيف
@@ -171,6 +173,7 @@ Commercial,تجاري
 Commercial Register,السجل التجاري
 Commercial Register No.,رقم السجل التجاري
 Company,شركة
+Company {0} has no account group {1}.,الشركة {0} ليس لديها مجموعة الحسابات {1}.
 Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
 Completed By,تم بواسطة
 Completed On,تم في
@@ -199,6 +202,8 @@ Cost x Markup,التكلفة × نسبة الربح
 Countdown,العد التنازلي
 Counter,العداد
 Counter saved,تم حفظ العداد
+Create Custody Account,إنشاء حساب عهدة
+Create Transit Account,إنشاء حساب نقدية
 Created: {0} · Updated: {1} · Errors: {2},تمت إضافة: {0} · تم تحديث: {1} · أخطاء: {2}
 credit,الدائن
 Credit Account,الحساب الدائن
@@ -209,6 +214,7 @@ Current,الحالي
 Custody,عهدة
 Custody Account,حساب العهدة
 Custody Expense,مصروف عهدة
+Custody of {0},عهدة {0}
 Custody Settlement,تسوية عهدة
 Customer,العميل
 Customer Advance,سلفة عميل
@@ -485,6 +491,7 @@ Marketing,تسويق
 Markup %,نسبة الربح %
 Markup Basis,أساس المعامل
 Markup on cost,معامل على التكلفة
+Max Days Held,أقصى أيام الاحتفاظ
 Max DC Voltage (V),أقصى جهد DC (فولت)
 Max Margin %,أقصى ربح %
 Max Price Age (days),أقصى عمر للسعر (أيام)
@@ -504,10 +511,13 @@ Mobile is required: it is how a returning customer is found.,الموبايل م
 Module {0} is reserved for developer changes. Use {1}.,الموديول {0} محجوز لتعديلات المطور. استخدم {1}.
 Money,الأموال
 Money and Postings,الفلوس والقيود
+Money Kind,نوع المال
 Money remaining,مبلغ متبقٍ
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
 MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
+My cash,نقديتي
+My custody,عهدتي
 Name,الاسم
 Name the third party the customer paid.,اذكر الطرف الثالث الذي دفع له العميل.
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
@@ -563,6 +573,7 @@ of,من
 Off,متوقف
 Offer Type,نوع العرض
 Official,رسمي
+"Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: cash one person or channel holds until it reaches an official account. Custody: the custody given to a person (SP-26).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة نقدية: نقدية يحملها شخص أو قناة حتى تصل لحساب رسمي. عهدة: العهدة المعطاة لشخص.
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: the money one person holds until it reaches an official account (SP-114, SP-116).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة: المال الذي يحمله شخص حتى يصل لحساب رسمي.
 Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
@@ -849,6 +860,7 @@ Site survey for {0},معاينة موقع لـ {0}
 Site Visit Needed,يحتاج معاينة موقع
 Site Warehouse,مخزن الموقع
 Smart Power,سمارت باور
+Smart Power Money,أموال سمارت باور
 Smart Power Settings,إعدادات سمارت باور
 Smart Power's cost. Visible to cost roles only (SP-35).,تكلفة سمارت باور. تظهر لأدوار التكلفة فقط (SP-35).
 Snoozed Until,مؤجل حتى
@@ -1026,6 +1038,9 @@ The next document gets this number plus one.,المستند التالي يأخ�
 The option the customer took,الخيار الذي اختاره العميل
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The owner is notified.,تم إبلاغ المسئول.
+"The person collects cash: an account ""Cash with ..."" under Cash In Hand, with them as holder (SP-26).","الشخص يحصّل نقدية: حساب ""نقدية مع ..."" تحت النقدية بالصندوق، وهو الحائز."
+"The person holds a custody: an account ""Custody of ..."" under Custody, with them as holder (SP-26).","الشخص يحمل عهدة: حساب ""عهدة ..."" تحت العهد، وهو الحائز."
+The person who holds this money; they see its balance. A channel's transit account (the showroom safe) may have none.,الشخص الذي يحمل هذا المال؛ يرى رصيده. حساب نقدية القناة (خزنة المعرض) قد يكون بلا حائز.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.

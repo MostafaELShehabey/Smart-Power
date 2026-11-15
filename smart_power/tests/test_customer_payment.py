@@ -31,7 +31,7 @@ def account(name, parent_type, kind, holder=None, account_type=None):
 				"company": COMPANY,
 				"parent_account": parent,
 				"account_type": account_type,
-				"sp_receiving_kind": kind,
+				"sp_account_kind": kind,
 				"sp_holder": holder,
 			}
 		).insert()

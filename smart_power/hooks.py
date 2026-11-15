@@ -59,7 +59,11 @@ website_context = {
 
 # Customer list: gold star for featured customers (SP-31).
 # Quotation form: New Version / Approve Version (SP-54).
-doctype_js = {"Quotation": "public/js/quotation.js"}
+doctype_js = {
+	"Quotation": "public/js/quotation.js",
+	# your own transit and custody balances on your profile (SP-26)
+	"User": "public/js/user.js",
+}
 
 doctype_list_js = {
 	"Customer": "public/js/customer_list.js",
@@ -137,6 +141,8 @@ doc_events = {
 		],
 		"on_cancel": "smart_power.sp_stations.money.on_payment",
 	},
+	# Ticked on the User form: the person's transit / custody account is made (SP-26)
+	"User": {"on_update": "smart_power.sp_finance.accounts.on_user_update"},
 	# Price list (SP-30): every price has a date and buying prices a supplier.
 	"Item Price": {"validate": "smart_power.sp_stock.prices.validate_item_price"},
 	# Warehouses by location (SP-28): one site warehouse per station.
@@ -173,11 +179,15 @@ permission_query_conditions = {
 	"Item Price": "smart_power.permissions.item_price_query_conditions",
 	# A case is seen by its owners; كاميليا and the admin see all (SP-35, SP-46).
 	"SP Case": "smart_power.permissions.case_query_conditions",
+	# money accounts: others see only their own transit and custody (SP-26)
+	"Account": "smart_power.sp_finance.accounts.account_query_conditions",
+	"GL Entry": "smart_power.sp_finance.accounts.gl_query_conditions",
 }
 has_permission = {
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
 	"Item Price": "smart_power.permissions.item_price_has_permission",
 	"SP Case": "smart_power.permissions.case_has_permission",
+	"Account": "smart_power.sp_finance.accounts.account_has_permission",
 }
 
 # ERPNext's "Update Items" is refused on a case's sent quote (SP-61)

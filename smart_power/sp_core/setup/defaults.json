@@ -225,5 +225,34 @@
 		{"list_name": "Site Stage", "code": "PUMP_LOWERING", "value_ar": "تنزيل الطلمبة", "value_en": "Pump lowering", "sort_order": 5, "_source": "SP-32"},
 		{"list_name": "Site Stage", "code": "PANEL_INVERTER", "value_ar": "تركيب اللوحة والإنفرتر", "value_en": "Panel and inverter", "sort_order": 6, "_source": "SP-32"},
 		{"list_name": "Site Stage", "code": "TESTING", "value_ar": "الاختبار والتشغيل", "value_en": "Testing", "sort_order": 7, "_source": "SP-32"}
-	]
+	],
+	"accounts": {
+		"_source": "SP-26 (A7): the 4 official accounts, the custody group and the other accounts. Person transit and custody accounts are made from the User form.",
+		"custody_group": {"account_name": "Custody", "parent": "Current Assets"},
+		"accounts": [
+			{"account_name": "Smart Power Bank Misr", "parent": "Bank Accounts", "account_type": "Bank", "kind": "Official"},
+			{"account_name": "Mohamed Soliman InstaPay", "parent": "Bank Accounts", "account_type": "Bank", "kind": "Official"},
+			{"account_name": "The Post", "parent": "Bank Accounts", "account_type": "Bank", "kind": "Official"},
+			{"account_name": "Vodafone Cash", "parent": "Bank Accounts", "account_type": "Bank", "kind": "Official"},
+			{"account_name": "Showroom Safe", "parent": "Cash In Hand", "account_type": "Cash", "kind": "Transit"},
+			{"account_name": "Customer Advances - Agri Bank", "parent": "Loans and Advances (Assets)", "kind": "Other"},
+			{"account_name": "Consignment Memo", "parent": "Temporary Accounts", "account_type": "Temporary", "kind": "Other"},
+			{"account_name": "Indirect Cost Pool", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other"},
+			{"account_name": "Commission Payable", "parent": "Current Liabilities", "kind": "Other"},
+			{"account_name": "Projects Revenue", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
+			{"account_name": "Showroom Sales", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
+			{"account_name": "Winch Income", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
+			{"account_name": "Jumbo Income", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
+			{"account_name": "Storage Fees", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
+			{"account_name": "Advance Fees", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"}
+		],
+		"modes_of_payment": [
+			{"mode": "Cash", "type": "Cash", "account": "Showroom Safe", "method": "CASH"},
+			{"mode": "Bank Misr Transfer", "type": "Bank", "account": "Smart Power Bank Misr", "method": "BANK_MISR"},
+			{"mode": "InstaPay", "type": "Bank", "account": "Mohamed Soliman InstaPay", "method": "INSTAPAY"},
+			{"mode": "Post Deposit", "type": "Bank", "account": "The Post", "method": "POST"},
+			{"mode": "Vodafone Cash", "type": "Bank", "account": "Vodafone Cash", "method": "VODAFONE_CASH"},
+			{"mode": "Postal Cheque", "type": "Bank", "account": "The Post", "method": "POSTAL_CHEQUE"}
+		]
+	}
 }
