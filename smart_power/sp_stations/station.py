@@ -53,8 +53,12 @@ def before_insert(doc) -> None:
 		or frappe.defaults.get_user_default("Company")
 		or frappe.db.get_single_value("Global Defaults", "default_company")
 	)
-	if not doc.execution_owner and PROJECT_MANAGER in frappe.get_roles():
-		doc.execution_owner = frappe.session.user
+	if not doc.execution_owner:
+		# the projects manager executes: whoever opens it, or (when the deposit automation or the
+		# admin opens it) the projects manager on the team
+		doc.execution_owner = (
+			frappe.session.user if PROJECT_MANAGER in frappe.get_roles() else _projects_manager()
+		)
 	doc.collection_owner = doc.collection_owner or doc.execution_owner
 	for fieldname, label in OWNER_LABELS.items():
 		if doc.get(fieldname):
@@ -68,6 +72,15 @@ def before_insert(doc) -> None:
 					"changed_by": frappe.session.user,
 				},
 			)
+
+
+def _projects_manager() -> str | None:
+	users = frappe.get_all(
+		"Has Role", {"role": PROJECT_MANAGER, "parenttype": "User"}, pluck="parent", order_by="creation asc"
+	)
+	return next(
+		(u for u in users if u != "Administrator" and frappe.db.get_value("User", u, "enabled")), None
+	)
 
 
 def after_insert(doc) -> None:

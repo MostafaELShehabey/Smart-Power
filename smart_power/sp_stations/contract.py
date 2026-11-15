@@ -42,6 +42,11 @@ def make_contract(case: str, at_deposit: bool = False) -> dict:
 	"""The case's contract (Sales Order) and station, made once; at the deposit the estimate is
 	frozen. Returns {sales_order, station, created}."""
 	_check_can_contract()
+	return ensure_contract(case, at_deposit=frappe.utils.cint(at_deposit))
+
+
+def ensure_contract(case: str, at_deposit: bool = False) -> dict:
+	"""make_contract without the role check, for the deposit automation (SP-175)."""
 	doc = frappe.get_doc(CASE, case)
 	so_name, created = contract_of(case), False
 	if not so_name:
@@ -54,7 +59,7 @@ def make_contract(case: str, at_deposit: bool = False) -> dict:
 		so_name, created = _build_order(doc).name, True
 	station = _station_for(doc, so_name)
 	_link(so_name, station)
-	if frappe.utils.cint(at_deposit):
+	if at_deposit:
 		freeze_estimate(so_name)
 	from smart_power.sp_stations.money import refresh
 
