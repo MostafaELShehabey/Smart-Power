@@ -127,7 +127,12 @@ doc_events = {
 	},
 	# A confirmed (or reversed) customer payment refreshes its station's money (SP-73)
 	"Payment Entry": {
-		"on_submit": "smart_power.sp_stations.money.on_payment",
+		# a confirmed deposit makes the contract and the station (SP-175)
+		"before_submit": "smart_power.sp_stations.deposit.before_submit",
+		"on_submit": [
+			"smart_power.sp_stations.money.on_payment",
+			"smart_power.sp_stations.deposit.on_submit",
+		],
 		"on_cancel": "smart_power.sp_stations.money.on_payment",
 	},
 	# Price list (SP-30): every price has a date and buying prices a supplier.

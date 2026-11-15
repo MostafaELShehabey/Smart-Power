@@ -219,6 +219,9 @@ Default Rounding Step,خطوة التقريب الافتراضية
 Default Selection,الاختيار الافتراضي
 Default validity of a new quote.,الصلاحية الافتراضية للعرض الجديد.
 Delivery Note,إذن التسليم
+Deposit,عربون
+"Deposit confirmed for {0}: station {1}, contract {2}",تم تأكيد عربون {0}: المحطة {1}، العقد {2}
+Deposit: drafted by the deposit automation for the lines not in stock (SP-175).,عربون: أنشأه تأكيد العربون للأصناف غير المتوفرة بالمخزن.
 Description,الوصف
 Design Inputs,مدخلات التصميم
 Details,التفاصيل
@@ -506,6 +509,7 @@ No account is mapped for {0}. The admin adds it in Smart Power Settings > Accoun
 No call yet.,لا توجد مكالمات بعد.
 No cases here.,لا توجد حالات هنا.
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
+No default supplier for: {0},لا يوجد مورد افتراضي لـ: {0}
 No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
 No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
 "No item, so no cost.",لا يوجد صنف، فلا توجد تكلفة.
@@ -647,6 +651,7 @@ Published template,قالب منشور
 Published: this version cannot change. Make a new version to edit.,منشور: لا يمكن تعديل هذا الإصدار. أنشئ إصدارًا جديدًا للتعديل.
 Pump,الطلمبة
 Pump Specs,مواصفات الطلمبة
+Purchase for station {0},شراء للمحطة {0}
 Purchase Order,أمر الشراء
 Purchase orders sent,أوامر الشراء المرسلة
 Purchasing,قيد الشراء
@@ -915,6 +920,7 @@ Taxes,الضرائب
 Technical,فني
 Technical Annex,الملحق الفني
 Technical Review,مراجعة فنية
+Technical review of station {0},مراجعة فنية للمحطة {0}
 Technically closed,مغلقة فنيًا
 Technically Closed On,تاريخ الإغلاق الفني
 Template,القالب
@@ -934,7 +940,9 @@ The case owner: follows up with the customer until won or lost. A case always ha
 The case's follow-up owner; fixed once the contract exists.,مسئول متابعة الحالة؛ ثابت بعد وجود العقد.
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
 The code is empty.,الكود فارغ.
+"The confirmed deposit Payment Entry that ran the automation (text, so the deposit can still be reversed).",قيد العربون المؤكد الذي شغّل الأتمتة (نص، حتى يمكن عكس العربون).
 The customer,العميل
+"The customer's deposit on a case: confirming it makes the contract, the station, draft purchase orders and reservations (SP-175).",عربون العميل على حالة: تأكيده ينشئ العقد والمحطة وأوامر الشراء المبدئية والحجوزات.
 The default price category for items in this group.,فئة السعر الافتراضية لأصناف هذه المجموعة.
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The discounts are more than the quote total.,الخصومات أكبر من إجمالي العرض.
@@ -1070,6 +1078,7 @@ Winch Internal Charge,تحميل داخلي للونش
 Winch Line,سطر الونش
 Won,تم الكسب
 Won On,تاريخ الكسب
+Won: the deposit was confirmed.,مكسوبة: تم تأكيد العربون.
 Write off between 0 and the remaining {0}.,اشطب مبلغًا بين 0 والمتبقي {0}.
 Write the comment first.,اكتب التعليق أولًا.
 Write what is missing.,اكتب ما هو ناقص.

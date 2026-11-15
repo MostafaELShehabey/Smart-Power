@@ -24,6 +24,7 @@ def after_install() -> None:
 	from smart_power.sp_sales.case_workflow import ensure_workflow_masters
 	from smart_power.sp_sales.quote_request import seed_request_fields
 	from smart_power.sp_sales.setup import allow_repeated_items, apply_customer_naming
+	from smart_power.sp_stations.setup import enable_stock_reservation
 	from smart_power.sp_stations.station_workflow import ensure_workflow_masters as station_masters
 	from smart_power.sp_stock.prices import seed_price_lists
 	from smart_power.sp_stock.warehouses import seed_warehouse_types
@@ -40,6 +41,7 @@ def after_install() -> None:
 	sync_rule_settings()
 	apply_customer_naming()
 	allow_repeated_items()
+	enable_stock_reservation()
 	seed_price_lists()
 	seed_warehouse_types()
 	setup_printing()
