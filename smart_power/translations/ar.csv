@@ -29,6 +29,7 @@ A reason is needed to change a counter.,تغيير العداد يحتاج سب�
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
 A sent version cannot be cancelled. Make a new version instead.,لا يمكن إلغاء نسخة مُرسلة. اعمل نسخة جديدة بدلاً من ذلك.
+A settlement needs at least one expense.,التسوية تحتاج مصروفًا واحدًا على الأقل.
 A site survey is already asked for this request.,تم طلب معاينة الموقع لهذا الطلب بالفعل.
 A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
@@ -49,6 +50,7 @@ Actions,إجراءات
 Active,فعال
 Add,إضافة
 Add Amount,مبلغ إضافي
+Add Expense,إضافة مصروف
 Add Photos,إضافة صور
 Add Repayment,إضافة سداد
 Add Value,إضافة قيمة
@@ -76,12 +78,18 @@ Amber After (days),أصفر بعد (أيام)
 Amber After must be fewer days than the Max Price Age.,يجب أن تكون أيام اللون الأصفر أقل من أقصى عمر للسعر.
 Amended From,معدل من
 Amount,المبلغ
+Amount Given,المبلغ المسلّم
 "An official account, or your own transit account (cash in hand).",حساب رسمي، أو حساب العهدة الخاص بك (نقدية في اليد).
 Annex: payment schedule,ملحق: جدول السداد
 Annual Cost of Money,تكلفة الفلوس السنوية
 Applies To,يُطبق على
+Approve,موافقة
+Approve the custody settlement of {0}: {1},وافق على تسوية عهدة {0}: {1}
 Approve Version,اعتماد النسخة
+Approve {0}? Every expense posts to its center.,الموافقة على {0}؟ كل مصروف يُرحّل إلى مركزه.
+Approve {0}? {1} expense(s) go back to the holder.,الموافقة على {0}؟ {1} مصروف يعود لصاحب العهدة.
 Approved,معتمد
+Approved By,وافق عليها
 Approved Version,النسخة المعتمدة
 Arabic Name,الاسم العربي
 Ask for a Site Survey,طلب معاينة موقع
@@ -136,6 +144,10 @@ Cancel Station,إلغاء المحطة
 Cancelled,ملغي
 Capacity (kW),القدرة (ك.وات)
 Capacity Spec,مواصفة القدرة
+Carried,مُرحّلة للفترة التالية
+Carry,ترحيل للفترة التالية
+Carry to the next period,ترحيل للفترة التالية
+Carry: it stays with the holder for the next period. Return: it goes back to an official account when the admin approves.,ترحيل: يبقى مع صاحب العهدة للفترة التالية. إرجاع: يعود لحساب رسمي عند موافقة المدير.
 Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case of {0} reassigned from {1} to {2},حالة {0} أُعيد إسنادها من {1} إلى {2}
@@ -161,6 +173,7 @@ Cash with {0},نقدية مع {0}
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
 Catalogue (PDF),الكتالوج (PDF)
 Category,التصنيف
+Center,المركز
 Change,التغيير
 Change %,نسبة التغيير %
 Change a Line,تعديل سطر
@@ -170,6 +183,7 @@ Changed By,تم التغيير بواسطة
 Changed by {0},غيّره {0}
 "Changes the quote creator made to the calculated lines, by line key.",تعديلات مُعدّ العرض على السطور المحسوبة، حسب مفتاح السطر.
 Channel,القناة
+Charged To,يُحمّل على
 Chassis,الشاسيه
 Check,اختيار (نعم/لا)
 "Check the amount, or record the missing receipts first.",راجع المبلغ، أو سجّل الإيصالات الناقصة أولًا.
@@ -192,12 +206,17 @@ Choose an item or a category.,اختر صنفاً أو فئة.
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the account the money came into.,اختر الحساب الذي دخلت إليه الأموال.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
+Choose the center.,اختر المركز.
+Choose the expense type.,اختر نوع المصروف.
 Choose the station or the case.,اختر المحطة أو الحالة.
 "Choose the station, or the case for a deposit before the station exists.",اختر المحطة، أو الحالة لعربون قبل وجود المحطة.
+Choose the station.,اختر المحطة.
 Choose the system type first.,اختر نوع النظام أولاً.
 Choose two different accounts.,اختر حسابين مختلفين.
+"Choose where the expense lands: a station, a center or petty cash.",اختر أين يُحمّل المصروف: محطة أو مركز أو نثريات.
 Clear,مسح
 Click to change,اضغط للتغيير
+Client ID,معرّف التطبيق
 Close Financially,إغلاق مالي
 Close Technically,إغلاق فني
 Code,الكود
@@ -269,9 +288,18 @@ Credit side,جانب الدائن
 Current,الحالي
 Custody,عهدة
 Custody Account,حساب العهدة
+Custody balance,رصيد العهدة
 Custody Expense,مصروف عهدة
+"Custody is given from an official account (a bank, the Post, InstaPay …).",تُسلّم العهدة من حساب رسمي (بنك، البريد، إنستاباي …).
 Custody of {0},عهدة {0}
+Custody returned by {0} ({1}),عهدة مرتجعة من {0} ({1})
 Custody Settlement,تسوية عهدة
+Custody settlement approved: {0},تمت الموافقة على تسوية العهدة: {0}
+Custody settlement rejected: {0},رُفضت تسوية العهدة: {0}
+Custody settlement {0} of {1},تسوية العهدة {0} لـ {1}
+Custody settlement {0} rejected: {1},رُفضت تسوية العهدة {0}: {1}
+Custody {0} is closed.,العهدة {0} مغلقة.
+Custody {0} to {1},العهدة {0} إلى {1}
 Customer,العميل
 Customer Advance,سلفة عميل
 Customer already exists,العميل موجود
@@ -295,6 +323,7 @@ Debit Account,الحساب المدين
 Debit Center,مركز المدين
 Debit Cost Center,مركز تكلفة المدين
 Debit side,جانب المدين
+Decision,القرار
 Default,الافتراضي
 Default Cost,التكلفة الافتراضية
 Default Item,الصنف الافتراضي
@@ -358,6 +387,7 @@ Enter the customer's name: this mobile is new.,اكتب اسم العميل: ه�
 Entered At,وقت الإدخال
 Entry it will post,القيد الذي سيُرحّل
 Entry Mode,طريقة التسجيل
+Entry Time,وقت الإدخال
 Entry {0} comes from {1} {2}: cancel or correct that document instead.,القيد {0} صادر من {1} {2}: ألغِ أو صحّح ذلك المستند بدلًا منه.
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
@@ -365,11 +395,15 @@ Estimate Frozen On,تاريخ تثبيت التقدير
 Estimated Cost (frozen),التكلفة التقديرية (مثبتة)
 Event,الحدث
 Events,الأحداث
+"Every expense recorded, approved or not.",كل مصروف مسجل، تمت الموافقة عليه أم لا.
 Excel File,ملف إكسل
 Execution,التنفيذ
 Execution Owner,مسؤول التنفيذ
 Expense,مصروف
+Expense Entry,قيد المصروفات
+Expense Row,صف المصروف
 Expense Type,نوع المصروف
+Expenses,المصروفات
 Expired,منتهي الصلاحية
 Expires In,ينتهي خلال
 Extra Data,بيانات إضافية
@@ -401,6 +435,7 @@ Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
 First in stock,أول صنف متوفر بالمخزن
 First Version,النسخة الأولى
 Fiscal Year Start,بداية السنة المالية
+Fix the rejected custody expenses of {0},عدّل مصروفات العهدة المرفوضة في {0}
 Fixed,ثابت
 Fixed list price,سعر القائمة الثابت
 Fixed Quote Line,بند ثابت في العرض
@@ -439,8 +474,10 @@ Give a reason for each warning to continue.,اكتب سبباً لكل تنبي�
 Give Discount,إعطاء خصم
 Give discount,إعطاء الخصم
 Give the reason for the rejection.,اذكر سبب الرفض.
+Given,مُسلّمة
 Given By,أعطاه
 Given On,تاريخ الإعطاء
+Given {0} on {1},سُلّمت {0} في {1}
 Hand cheque {0} to the lawyer?,تسليم الشيك {0} للمحامي؟
 Hand over,تسليم
 Has Overdue,عليها متأخرات
@@ -454,6 +491,7 @@ History,السجل
 Hit At,وقت التنبيه
 Holder,الحائز
 Holder Name,اسم الحائز
+Holder's Custody Balance,رصيد عهدة صاحبها
 Home Page Variant,شكل الصفحة الرئيسية
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
 "How print formats find this block, e.g. warranty (a-z, 0-9 and _).",الاسم الذي تجد به نماذج الطباعة هذه الفقرة، مثل warranty (حروف a-z وأرقام و _).
@@ -467,6 +505,7 @@ Import: {0},استيراد: {0}
 Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
 In person,شخصيًا
+In settlement,في التسوية
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
 Indirect Pool Center,مركز التكاليف غير المباشرة
 Indirect Split,توزيع غير مباشر
@@ -514,6 +553,8 @@ Late and reopened field entries,الإدخالات الميدانية المتأ
 Late Entry,تسجيل متأخر
 Lead Source,مصدر العميل المحتمل
 Left,المتبقي
+Leftover,المتبقي
+Leftover Cash,النقدية المتبقية
 Legal Name (Arabic),الاسم القانوني (عربي)
 Level,المستوى
 Light,خفيف
@@ -613,6 +654,7 @@ MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
 My cash,نقديتي
 My custody,عهدتي
+My Custody,عهدتي
 Name,الاسم
 Name the third party the customer paid.,اذكر الطرف الثالث الذي دفع له العميل.
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
@@ -646,6 +688,7 @@ No contract schedule yet,لا يوجد جدول سداد للعقد بعد
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No default supplier for: {0},لا يوجد مورد افتراضي لـ: {0}
 No entries yet.,لا توجد قيود بعد.
+No expenses yet.,لا توجد مصروفات بعد.
 No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
 No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
 "No item, so no cost.",لا يوجد صنف، فلا توجد تكلفة.
@@ -653,6 +696,7 @@ No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 no more,لا غير
+No open custody.,لا توجد عهدة مفتوحة.
 No open requests here.,لا توجد طلبات مفتوحة هنا.
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
@@ -687,6 +731,7 @@ One row per item and supplier. Blank cells keep the old price; an empty date mea
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only,فقط
 Only a deposit is recorded on a case; other payments go on the station.,العربون فقط يُسجل على الحالة؛ باقي الدفعات على المحطة.
+Only a draft or rejected expense is removed.,يُحذف المصروف المسودة أو المرفوض فقط.
 Only a draft version can be calculated. Make a new version.,لا يُحسب إلا الإصدار المسودة. أنشئ إصدارًا جديدًا.
 Only a posted entry is reversed.,يُعكس القيد المرحّل فقط.
 Only a quote linked to a case can be the approved version.,فقط العرض المرتبط بحالة يمكن أن يكون النسخة المعتمدة.
@@ -698,11 +743,13 @@ Only a site warehouse is linked to a project.,مخزن الموقع فقط هو 
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
 Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
+Only the admin approves a custody settlement.,المدير فقط يوافق على تسوية العهدة.
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
 Only the admin changes the {0}.,فقط المدير يغيّر {0}.
 Only the admin confirms money.,فقط المدير يؤكد الأموال.
 Only the admin confirms or rejects a payment.,فقط المدير يؤكد الدفعة أو يرفضها.
 Only the admin confirms or rejects a transfer.,فقط المدير يؤكد التحويل أو يرفضه.
+Only the admin gives custody.,المدير فقط يسلّم العهدة.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
 Only the admin or bank financing changes an advance.,المدير أو التمويل البنكي فقط يعدّل السلفة.
 Only the admin or bank financing records an advance.,المدير أو التمويل البنكي فقط يسجّل السلفة.
@@ -770,6 +817,8 @@ Pending Confirmation,قيد التأكيد
 "Per unit, from the P1 Cost price list when left empty.",للوحدة، من قائمة تكلفة P1 إذا تُركت فارغة.
 Per-kW default,افتراضي لكل كيلووات
 Percent,النسبة
+Petty cash,نثريات
+Petty cash of {0},نثريات {0}
 Phone,التليفون
 Photo {0} cannot be added to this request.,لا يمكن إضافة الصورة {0} إلى هذا الطلب.
 Photos,الصور
@@ -880,6 +929,7 @@ Record Deposit,تسجيل عربون
 Record Payment,تسجيل دفعة
 Record the Agri Bank advance for station {0} ({1}),سجّل سلفة البنك الزراعي للمحطة {0} ({1})
 Record Write-off,تسجيل شطب
+Recorded,المسجل
 Recorded By,سجّلها
 Recorded payments the admin has not confirmed yet; not counted in Paid (SP-114).,دفعات مسجلة لم يؤكدها المدير بعد؛ لا تُحسب في المدفوع.
 Reference,المرجع
@@ -894,6 +944,7 @@ Registered with {0},مسجل لدى {0}
 Reject,رفض
 Reject Payment,رفض الدفعة
 Reject Reason,سبب الرفض
+Reject the settlement,رفض التسوية
 Rejected,مرفوض
 Rejected: the recorder is told.,مرفوض: تم إبلاغ من سجّله.
 Rejected: transfer of {0}: {1},مرفوض: تحويل {0}: {1}
@@ -901,6 +952,7 @@ Rejected: {0} from {1}: {2},مرفوض: {0} من {1}: {2}
 Remaining,المتبقي
 Remaining: {0},المتبقي: {0}
 Remove,إزالة
+Remove this expense?,حذف هذا المصروف؟
 Rename,إعادة تسمية
 Reopen,إعادة فتح
 Repaid,مسددة
@@ -919,7 +971,13 @@ Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Required,مطلوب
 Result,النتيجة
+Return,إرجاع
+Return Entry,قيد الإرجاع
 Return Note,إذن المرتجع
+Return the leftover to an official account.,أرجع المتبقي إلى حساب رسمي.
+Return To,إرجاع إلى
+Return to an official account,إرجاع إلى حساب رسمي
+Returned,مُرجعة
 Reversal of {0},عكس {0}
 Reversal {0} of {1},القيد العكسي {0} لـ {1}
 Reverse,عكس القيد
@@ -936,9 +994,11 @@ Row,الصف
 Row {0} ({1}) is locked: it cannot be discounted on its own. Discount its section or the quote total.,السطر {0} ({1}) مقفل: لا يمكن الخصم عليه وحده. اخصم على قسمه أو على إجمالي العرض.
 Row {0}: a price cannot be worked out from itself.,سطر {0}: لا يمكن حساب سعر من نفسه.
 Row {0}: give a discount above zero.,السطر {0}: أدخل خصمًا أكبر من صفر.
+Row {0}: give the reason for rejecting it.,الصف {0}: اذكر سبب الرفض.
 Row {0}: the address {1} is listed twice.,الصف {0}: العنوان {1} مكرر.
 Row {0}: the discount {1} is more than the total it applies to ({2}).,السطر {0}: الخصم {1} أكبر من الإجمالي الذي يُطبق عليه ({2}).
 Row {0}: the minimum margin is higher than the maximum.,سطر {0}: أقل ربح أكبر من أقصى ربح.
+Row {0}: this expense is not open for a settlement.,الصف {0}: هذا المصروف غير متاح للتسوية.
 Row {0}: {1} already has a rule.,سطر {0}: {1} له قاعدة بالفعل.
 Row {0}: {1} is listed twice for {2}.,سطر {0}: {1} مكررة مرتين في {2}.
 Rule,القاعدة
@@ -981,12 +1041,17 @@ Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (
 "Set by the system: sent versions stay valid until approved, superseded, lost or expired.",يحددها النظام: النسخ المرسلة تظل صالحة حتى تُعتمد أو تُستبدل أو تُخسر أو تنتهي صلاحيتها.
 Set Counter,ضبط العداد
 Set Counter: {0},ضبط العداد: {0}
+Set the account of expense type {0} (Lists) or the Custody Expense row of the Account Map.,حدد حساب نوع المصروف {0} (القوائم) أو صف مصروف العهدة في خريطة الحسابات.
 Set the company to post to.,حدد الشركة للترحيل إليها.
 Set the Postal Cheque account of {0} (Mode of Payment).,حدد حساب الشيك البريدي لـ {0} (طريقة الدفع).
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
+Settlement,التسوية
+Settlement submitted,أُرسلت التسوية
+"Settlement {0} is {1}, not pending.",التسوية {0} حالتها {1}، وليست معلقة.
+Settlements,التسويات
 Setup failed,فشل الإعداد
 Setup is complete but there is no company named {0}.,الإعداد مكتمل لكن لا توجد شركة باسم {0}.
 "Shared by all versions, e.g. PUMP, or CHASSIS-FACTORY for a factory's chassis.",مشترك بين كل الإصدارات، مثل PUMP، أو CHASSIS-FACTORY لشاسيه مصنع معيّن.
@@ -1037,7 +1102,11 @@ SP Company Address,عنوان الشركة
 SP Company Settings,بيانات الشركة
 SP Contract Cheque,شيك العقد
 SP Contract Manager,العقود
+SP Custody,العهدة
 SP Custody Holder,صاحب عهدة
+SP Custody Line,مصروف عهدة
+SP Custody Settlement,تسوية عهدة
+SP Custody Settlement Line,مصروف في تسوية
 SP Customer Advance,سلفة عميل
 SP Customer Balances,أرصدة العملاء
 SP Customer Followup,متابعة العملاء
@@ -1098,6 +1167,7 @@ SP Warranty Service,الضمان والصيانة
 SP Winch Manager,مسئول الونش
 SP Winch Operator,سواق الونش
 SP Winch Reviewer,مراجعة الونش
+Spending,صرف
 Stale,قديم
 Stale first,القديم أولاً
 Stale Price on a Quote,سعر قديم في عرض سعر
@@ -1112,11 +1182,14 @@ Station,المحطة
 "Station documents (payments, write-offs, advances, purchases for a station) post here, with the station's project.",مستندات المحطة (المدفوعات والشطب والسلف والمشتريات) تُرحّل هنا، مع مشروع المحطة.
 Station opened,تم فتح المحطة
 Station Project,مشروع المحطة
+Station {0},المحطة {0}
 Station {0} not found.,المحطة {0} غير موجودة.
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
 Stations late: {0},محطات متأخرة: {0}
 Status,الحالة
 Subject,الموضوع
+Submit,اعتماد
+Submit Settlement,إرسال التسوية
 Submit the advance first.,اعتمد السلفة أولًا.
 Submit the quote before approving it.,اعتمد (Submit) العرض أولاً قبل اعتماد النسخة.
 Subtotal,الإجمالي قبل الخصم
@@ -1188,17 +1261,20 @@ The first party (Smart Power),الطرف الأول (سمارت باور)
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 "The follow-up owner can give a discount on the total up to the limit in Smart Power Settings; above it the discount is kept and the admin is flagged. There is no approval gate (decision 67), so it never blocks.",يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد في إعدادات سمارت باور؛ وفوقه يُحفظ الخصم ويُنبَّه المدير. لا توجد بوابة موافقة، لذا لا يمنع أبدًا.
 The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
+The holder's custody account after the approved expenses (carried amounts included).,حساب عهدة صاحبها بعد المصروفات الموافق عليها (شاملًا المُرحّل).
 The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
 "The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
 The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
 "The lump sum agreed with the referrer: a hidden cost of the station, never printed.",المبلغ المقطوع المتفق عليه مع الوسيط: تكلفة مخفية للمحطة، لا تُطبع أبدًا.
 The markup cannot be changed on a quote. Locked BTC lines are always locked.,لا يمكن تغيير نسبة الربح في العرض. سطور BTC المقفلة مقفلة دائمًا.
+The mobile app's id for an expense entered offline (M11); the same id is saved once.,معرّف تطبيق الموبايل لمصروف أُدخل دون اتصال؛ يُحفظ المعرّف نفسه مرة واحدة.
 "The name formulas use, e.g. depth or hp (letters, digits and _).",الاسم الذي تستخدمه المعادلات، مثل depth أو hp (حروف وأرقام و _).
 "The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The next call cannot be before this call.,لا يمكن أن تكون المكالمة التالية قبل هذه المكالمة.
 The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
 The official account the advance is paid from.,الحساب الرسمي الذي دُفعت منه السلفة.
+The official account the custody is paid from.,الحساب الرسمي الذي تُدفع منه العهدة.
 The option the customer took,الخيار الذي اختاره العميل
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The owner is notified.,تم إبلاغ المسئول.
@@ -1226,11 +1302,13 @@ The template section of the line (e.g. Energy). Discounts apply to a section or 
 The template version this quote was calculated from (set by Calculate).,إصدار القالب الذي حُسب منه هذا العرض (يُضبط عند الحساب).
 The treasury is the admin's.,الخزينة خاصة بالمدير.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
+There are no expenses to settle.,لا توجد مصروفات للتسوية.
 There is no published calculation template for this case's system type.,لا يوجد قالب حساب منشور لنوع نظام هذه الحالة.
 This advance is repaid.,هذه السلفة مسددة.
 This customer is followed up by a colleague. Ask the admin to reassign them.,هذا العميل يتابعه زميل. اطلب من المدير نقله.
 This customer is followed up by {0}. Ask the admin to reassign them.,هذا العميل يتابعه {0}. اطلب من المدير نقله.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
+This is not your custody.,هذه ليست عهدتك.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
 This move is not allowed.,هذا النقل غير مسموح.
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
@@ -1352,7 +1430,9 @@ You can move money only from your own transit account.,يمكنك نقل الم�
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
 You do not record customer payments.,أنت لا تسجل دفعات العملاء.
+You have been given custody of {0},سُلّمت إليك عهدة بمبلغ {0}
 You hold no money account to transfer from.,ليس لديك حساب مالي للتحويل منه.
+You see only your own custody.,ترى عهدتك فقط.
 Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
 "Your own transit account, or (the admin) any money account.",حساب النقدية الخاص بك، أو (للمدير) أي حساب مالي.
 {0} (yours),{0} (خاصتك)
@@ -1364,6 +1444,8 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0} confirmed, {1} failed.",تم تأكيد {0}، وفشل {1}.
 {0} days,{0} يوم
 {0} does not follow customers up; hand the case to a colleague who does.,{0} لا يتابع العملاء؛ سلّم الحالة لزميل يتابعهم.
+{0} expenses,{0} مصروفات
+"{0} expenses, {1}. The admin approves them in Confirmations.",{0} مصروفات، {1}. يوافق عليها المدير في التأكيدات.
 {0} gave you the case of {1}: {2},{0} سلّمك حالة {1}: {2}
 {0} gave {1} off {2} on quote {3} ({4}),{0} أعطى خصم {1} على {2} في العرض {3} ({4})
 {0} h,{0} ساعة
@@ -1428,6 +1510,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0}: {1} is a reserved name.,{0}: {1} اسم محجوز.
 {0}: {1} is not one of the choices.,{0}: {1} ليست من الاختيارات.
 {0}: {1} is not one of the options.,{0}: {1} ليس من الاختيارات.
+"{0}; {1} expense(s) rejected, see the reasons",{0}؛ رُفض {1} مصروف، راجع الأسباب
 {0}d {1}h,{0}ي {1}س
 {0}h {1}m,{0}س {1}د
 {0}m,{0}د

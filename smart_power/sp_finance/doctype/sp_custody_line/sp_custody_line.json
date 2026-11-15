@@ -1,0 +1,130 @@
+{
+ "actions": [],
+ "creation": "2026-11-17 16:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "istable": 1,
+ "modified": "2026-11-17 18:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Custody Line",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "field_order": [
+  "work_date",
+  "amount",
+  "expense_type",
+  "center_type",
+  "station",
+  "cost_center",
+  "column_break_line",
+  "receipt_photo",
+  "note",
+  "status",
+  "reject_reason",
+  "settlement",
+  "entry_time",
+  "client_uuid"
+ ],
+ "fields": [
+  {
+   "fieldname": "work_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "expense_type",
+   "fieldtype": "Link",
+   "label": "Expense Type",
+   "options": "SP List Value",
+   "reqd": 1,
+   "in_list_view": 1,
+   "link_filters": "[[\"SP List Value\",\"list_name\",\"=\",\"Expense Type\"],[\"SP List Value\",\"is_active\",\"=\",1]]"
+  },
+  {
+   "fieldname": "center_type",
+   "fieldtype": "Select",
+   "label": "Charged To",
+   "options": "Station\nCenter\nPetty cash",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "column_break_line",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "receipt_photo",
+   "fieldtype": "Attach Image",
+   "label": "Receipt Photo"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nIn settlement\nApproved\nRejected",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reject_reason",
+   "fieldtype": "Small Text",
+   "label": "Reject Reason",
+   "read_only": 1
+  },
+  {
+   "fieldname": "settlement",
+   "fieldtype": "Link",
+   "label": "Settlement",
+   "options": "SP Custody Settlement",
+   "read_only": 1
+  },
+  {
+   "fieldname": "entry_time",
+   "fieldtype": "Datetime",
+   "label": "Entry Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_uuid",
+   "fieldtype": "Data",
+   "label": "Client ID",
+   "read_only": 1,
+   "hidden": 1,
+   "description": "The mobile app's id for an expense entered offline (M11); the same id is saved once."
+  }
+ ]
+}
