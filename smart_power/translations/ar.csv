@@ -98,6 +98,7 @@ BTB,BTB
 BTB (Companies),BTB (الشركات)
 BTC,BTC
 BTC (Individuals),BTC (الأفراد)
+Bulk confirmation,تأكيد جماعي
 C,C
 Calculate,احسب
 Calculate the quote from its template first.,احسب العرض من قالبه أولًا.
@@ -185,12 +186,18 @@ Company {0} has no Sites warehouse group. Run the company setup first.,الشر�
 Completed By,تم بواسطة
 Completed On,تم في
 Confirm,تأكيد
+Confirm selected,تأكيد المحدد
 Confirm {0} from {1} ({2}),تأكيد {0} من {1} ({2})
+Confirm {0} from {1}? The entry posts now.,تأكيد {0} من {1}؟ سيُرحّل القيد الآن.
+Confirm {0} items? Their entries post now.,تأكيد {0} عناصر؟ ستُرحّل قيودها الآن.
 Confirm {0} received into {1}? It is posted now.,تأكيد استلام {0} في {1}؟ سيتم ترحيله الآن.
 Confirmation,التأكيد
+Confirmations,التأكيدات
 Confirmed,مؤكد
 Confirmed By,أكده
+Confirmed.,تم التأكيد.
 Confirmed: {0} from {1},تم التأكيد: {0} من {1}
+Confirming,جارٍ التأكيد
 Consignment Conversion,تحويل أمانة
 Consignment conversions,تحويلات الأمانة
 Consignment Owner,صاحب أمانة
@@ -213,6 +220,7 @@ Create Custody Account,إنشاء حساب عهدة
 Create Transit Account,إنشاء حساب نقدية
 Created: {0} · Updated: {1} · Errors: {2},تمت إضافة: {0} · تم تحديث: {1} · أخطاء: {2}
 credit,الدائن
+Credit,دائن
 Credit Account,الحساب الدائن
 Credit Center,مركز الدائن
 Credit Cost Center,مركز تكلفة الدائن
@@ -239,6 +247,7 @@ Day Hours,ساعات النهار
 Days Held,أيام الاحتفاظ
 Deactivate instead,أوقفها بدلاً من الحذف
 debit,المدين
+Debit,مدين
 Debit Account,الحساب المدين
 Debit Center,مركز المدين
 Debit Cost Center,مركز تكلفة المدين
@@ -298,6 +307,7 @@ Empty uses the published template of the case's system type.,اتركه فارغ
 Enter at least one price.,أدخل سعراً واحداً على الأقل.
 Enter the customer's name: this mobile is new.,اكتب اسم العميل: هذا الموبايل جديد.
 Entered At,وقت الإدخال
+Entry it will post,القيد الذي سيُرحّل
 Entry Mode,طريقة التسجيل
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
@@ -580,6 +590,7 @@ Not sent,لم يُرسل
 Note,ملاحظة
 Notes,ملاحظات
 Nothing to review here.,لا شيء للمراجعة هنا.
+Nothing waiting for confirmation.,لا شيء في انتظار التأكيد.
 of,من
 Off,متوقف
 Offer Type,نوع العرض
@@ -778,6 +789,7 @@ Reject,رفض
 Reject Payment,رفض الدفعة
 Reject Reason,سبب الرفض
 Rejected,مرفوض
+Rejected: the recorder is told.,مرفوض: تم إبلاغ من سجّله.
 Rejected: {0} from {1}: {2},مرفوض: {0} من {1}: {2}
 Remaining,المتبقي
 Remaining: {0},المتبقي: {0}
@@ -835,6 +847,7 @@ Second Mobile,موبايل إضافي
 Section,القسم
 Select,قائمة اختيار
 Select the items to mark reviewed.,حدد العناصر لتمييزها كمُراجعة.
+Select the items you checked against the statement.,حدد العناصر التي راجعتها مع الكشف.
 Send,إرسال
 Send a quote before marking the case won.,أرسل عرضًا قبل تسجيل الحالة كمكسوبة.
 Send Again,إرسال مرة أخرى
@@ -1191,6 +1204,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} cannot review; forward it to the admin.,{0} لا يمكنه المراجعة؛ حوّلها إلى المدير.
+"{0} confirmed, {1} failed.",تم تأكيد {0}، وفشل {1}.
 {0} days,{0} يوم
 {0} does not follow customers up; hand the case to a colleague who does.,{0} لا يتابع العملاء؛ سلّم الحالة لزميل يتابعهم.
 {0} gave you the case of {1}: {2},{0} سلّمك حالة {1}: {2}
@@ -1225,6 +1239,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} of {1} items,{0} من {1} صنف
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
 {0} reviewed {1}: {2},{0} راجع {1}: {2}
+{0} waiting · {1},{0} في الانتظار · {1}
 {0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
 {0} {1} does not exist.,{0} {1} غير موجود.
 {0}: a Select input needs its options.,{0}: مدخل القائمة يحتاج اختياراته.
