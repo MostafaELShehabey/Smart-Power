@@ -50,6 +50,9 @@ def complete_setup() -> str:
 	from smart_power.sp_finance.accounts import seed_accounts
 
 	seed_accounts(company)  # SP-26
+	from smart_power.sp_finance.advances import seed_account_map
+
+	seed_account_map(company)  # SP-121
 	return company
 
 
