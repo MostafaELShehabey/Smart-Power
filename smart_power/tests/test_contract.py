@@ -93,3 +93,27 @@ class TestContract(IntegrationTestCase):
 		frappe.set_user(other)
 		with self.assertRaises(frappe.PermissionError):
 			make_contract(self.case)
+
+	def test_the_contract_print_carries_the_quote_warranty_and_the_clauses(self):
+		from unittest.mock import patch
+
+		from smart_power.sp_core.documents import seed_contract_template
+		from smart_power.sp_stations.contract_print import contract_print
+
+		if frappe.utils.get_assets_json() is None:
+			patcher = patch("frappe.utils.get_assets_json", return_value={})
+			patcher.start()
+			self.addCleanup(patcher.stop)
+		seed_contract_template()
+		approve_version(self.a.name)
+		so = frappe.get_doc("Sales Order", self.contract()["sales_order"])
+		so.sp_referrer_commission = 4321
+		so.append("sp_cheques", {"cheque_no": "778899", "due_date": so.transaction_date, "amount": 10000})
+		so.save()
+		data = contract_print(so)
+		self.assertEqual(data.lines[0]["warranty_years"], 5)
+		html = frappe.get_print("Sales Order", so.name, "SP Contract", doc=so)
+		self.assertIn("sp-block-ownership", html)  # the admin's clauses
+		self.assertIn("778899", html)  # the cheques annex
+		for word in ("4321", "4,321", "sp_cost", "commission"):
+			self.assertNotIn(word, html)

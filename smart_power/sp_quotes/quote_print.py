@@ -58,6 +58,7 @@ def print_lines(rows, names=None) -> list[dict]:
 				"uom": row.get("uom") or row.get("stock_uom"),
 				"qty": flt(row.get("qty")),
 				"rate": flt(row.get("rate")),
+				"warranty_years": flt(row.get("sp_warranty_years")),
 				"amount": flt(row.get("amount")),
 			}
 		)

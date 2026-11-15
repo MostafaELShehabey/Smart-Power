@@ -57,6 +57,7 @@ Amber,أصفر
 Amber After (days),أصفر بعد (أيام)
 Amber After must be fewer days than the Max Price Age.,يجب أن تكون أيام اللون الأصفر أقل من أقصى عمر للسعر.
 Amount,المبلغ
+Annex: payment schedule,ملحق: جدول السداد
 Annual Cost of Money,تكلفة الفلوس السنوية
 Applies To,يُطبق على
 Approve Version,اعتماد النسخة
@@ -940,6 +941,7 @@ The execution owner by default; the admin switches it from a date.,مسئول ا
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
 The file has no price column.,الملف لا يحتوي على عمود سعر.
 The file is empty.,الملف فارغ.
+The first party (Smart Power),الطرف الأول (سمارت باور)
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 "The follow-up owner can give a discount on the total up to the limit in Smart Power Settings; above it the discount is kept and the admin is flagged. There is no approval gate (decision 67), so it never blocks.",يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد في إعدادات سمارت باور؛ وفوقه يُحفظ الخصم ويُنبَّه المدير. لا توجد بوابة موافقة، لذا لا يمنع أبدًا.
 The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
@@ -966,6 +968,7 @@ The requester was asked,تم سؤال صاحب الطلب
 The row has no price.,السطر لا يحتوي على سعر.
 The sales case this quote belongs to. Its customer must be the case's customer.,الحالة التي يتبعها هذا العرض. عميله يجب أن يكون عميل الحالة.
 The sales owner is fixed once the contract exists.,مسئول المبيعات ثابت بعد وجود العقد.
+The second party (the customer),الطرف الثاني (العميل)
 "The smallest capacity accepted, e.g. hp.",أقل قدرة مقبولة، مثل hp.
 "The Smart Power event this entry was posted for (Account Map, SP-113).",حدث سمارت باور الذي رُحّل له هذا القيد (خريطة الحسابات).
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
