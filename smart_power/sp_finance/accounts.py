@@ -112,7 +112,9 @@ def mode_for_method(method: str | None) -> str | None:
 	if not method:
 		return None
 	code = frappe.db.get_value("SP List Value", method, "code")
-	return next((r["mode"] for r in _spec()["modes_of_payment"] if r["method"] == code), None)
+	mode = next((r["mode"] for r in _spec()["modes_of_payment"] if r["method"] == code), None)
+	# only a mode that exists: a site not seeded yet, or one the admin removed, posts without it
+	return mode if mode and frappe.db.exists("Mode of Payment", mode) else None
 
 
 # --- a person's transit and custody accounts ---------------------------------------------------

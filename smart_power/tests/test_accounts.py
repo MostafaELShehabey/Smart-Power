@@ -100,6 +100,13 @@ class TestAccounts(IntegrationTestCase):
 		frappe.set_user("Administrator")
 		self.assertEqual(account_query_conditions("Administrator"), "")
 
+	def test_a_missing_mode_of_payment_is_left_out(self):
+		# found in CI: a site whose modes are not seeded yet still posts the payment
+		from unittest.mock import patch
+
+		with patch("frappe.db.exists", return_value=False):
+			self.assertIsNone(mode_for_method("Payment Method-INSTAPAY"))
+
 	def test_a_payment_method_has_its_mode_of_payment(self):
 		self.assertEqual(mode_for_method("Payment Method-INSTAPAY"), "InstaPay")
 		row = frappe.db.get_value(
