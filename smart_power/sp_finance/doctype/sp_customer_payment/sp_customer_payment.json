@@ -1,0 +1,389 @@
+{
+ "actions": [],
+ "creation": "2026-11-15 21:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "modified": "2026-11-15 21:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Customer Payment",
+ "owner": "Administrator",
+ "autoname": "CP-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "title_field": "customer_name",
+ "show_title_field_in_link": 1,
+ "track_changes": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "search_fields": "customer_name,station,status",
+ "field_order": [
+  "station",
+  "is_deposit",
+  "case",
+  "customer",
+  "customer_name",
+  "column_break_head",
+  "status",
+  "company",
+  "channel",
+  "money_section",
+  "amount",
+  "work_date",
+  "method",
+  "column_break_money",
+  "receiving_account",
+  "reference_no",
+  "receipt_photo",
+  "third_party_section",
+  "third_party_type",
+  "third_party",
+  "review_section",
+  "recorded_by",
+  "entry_time",
+  "confirmed_by",
+  "column_break_review",
+  "reject_reason",
+  "payment_entry",
+  "journal_entry",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "search_index": 1,
+   "description": "Empty for a deposit before the station exists: then the case."
+  },
+  {
+   "fieldname": "is_deposit",
+   "fieldtype": "Check",
+   "label": "Deposit",
+   "description": "The customer's deposit: confirming it makes the contract and the station (SP-175)."
+  },
+  {
+   "fieldname": "case",
+   "fieldtype": "Link",
+   "label": "Case",
+   "options": "SP Case",
+   "search_index": 1,
+   "mandatory_depends_on": "eval:doc.is_deposit && !doc.station"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending\nConfirmed\nRejected",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "no_copy": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Select",
+   "label": "Channel",
+   "options": "Collection\nShowroom",
+   "default": "Collection"
+  },
+  {
+   "fieldname": "money_section",
+   "fieldtype": "Section Break",
+   "label": "Payment"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "work_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1,
+   "default": "Today",
+   "description": "The day the money was received."
+  },
+  {
+   "fieldname": "method",
+   "fieldtype": "Link",
+   "label": "Method",
+   "options": "SP List Value",
+   "reqd": 1,
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Payment Method\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
+  },
+  {
+   "fieldname": "column_break_money",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "receiving_account",
+   "fieldtype": "Link",
+   "label": "Receiving Account",
+   "options": "Account",
+   "mandatory_depends_on": "eval:!doc.third_party",
+   "description": "An official account, or your own transit account (cash in hand)."
+  },
+  {
+   "fieldname": "reference_no",
+   "fieldtype": "Data",
+   "label": "Reference No."
+  },
+  {
+   "fieldname": "receipt_photo",
+   "fieldtype": "Attach Image",
+   "label": "Receipt Photo",
+   "description": "Needed unless it is cash into your own transit account."
+  },
+  {
+   "fieldname": "third_party_section",
+   "fieldtype": "Section Break",
+   "label": "Paid to a Third Party",
+   "depends_on": "eval:doc.third_party_type || doc.third_party",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "third_party_type",
+   "fieldtype": "Link",
+   "label": "Payee Type",
+   "options": "DocType",
+   "link_filters": "[[\"DocType\", \"name\", \"in\", [\"Supplier\", \"Account\"]]]",
+   "description": "Supplier, or an expense Account, the customer paid directly."
+  },
+  {
+   "fieldname": "third_party",
+   "fieldtype": "Dynamic Link",
+   "label": "Payee",
+   "options": "third_party_type"
+  },
+  {
+   "fieldname": "review_section",
+   "fieldtype": "Section Break",
+   "label": "Confirmation"
+  },
+  {
+   "fieldname": "recorded_by",
+   "fieldtype": "Link",
+   "label": "Recorded By",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "entry_time",
+   "fieldtype": "Datetime",
+   "label": "Entered At",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "confirmed_by",
+   "fieldtype": "Link",
+   "label": "Confirmed By",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_review",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reject_reason",
+   "fieldtype": "Small Text",
+   "label": "Reject Reason",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "payment_entry",
+   "fieldtype": "Link",
+   "label": "Payment Entry",
+   "options": "Payment Entry",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Journal Entry",
+   "options": "Journal Entry",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "SP Customer Payment",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "delete": 1,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "delete": 1,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Collection Officer",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 0,
+   "amend": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Showroom Cashier",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 0,
+   "amend": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Customer Followup",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 0,
+   "amend": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Followup All",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 0,
+   "amend": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 0,
+   "amend": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "delete": 0,
+   "permlevel": 0
+  }
+ ]
+}

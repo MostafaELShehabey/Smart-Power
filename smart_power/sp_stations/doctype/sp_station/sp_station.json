@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-15 18:00:00.000000",
+ "modified": "2026-11-15 21:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -33,6 +33,7 @@
   "money_section",
   "agreed_amount",
   "paid_amount",
+  "pending_amount",
   "write_off_amount",
   "column_break_money",
   "remaining_amount",
@@ -163,6 +164,14 @@
    "label": "Paid (confirmed)",
    "read_only": 1,
    "no_copy": 1
+  },
+  {
+   "fieldname": "pending_amount",
+   "fieldtype": "Currency",
+   "label": "Pending Confirmation",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "Recorded payments the admin has not confirmed yet; not counted in Paid (SP-114)."
   },
   {
    "fieldname": "write_off_amount",
