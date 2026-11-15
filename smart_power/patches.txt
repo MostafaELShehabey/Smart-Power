@@ -30,3 +30,4 @@ smart_power.patches.sp175_stock_reservation
 smart_power.patches.sp114_payment_method_third_party
 smart_power.patches.sp26_account_kind
 smart_power.patches.sp26_chart_of_accounts
+smart_power.patches.sp116_cash_held_limit
