@@ -32,3 +32,4 @@ smart_power.patches.sp26_account_kind
 smart_power.patches.sp26_chart_of_accounts
 smart_power.patches.sp116_cash_held_limit
 smart_power.patches.sp116_bank_accounts
+smart_power.patches.sp118_cheque_settings

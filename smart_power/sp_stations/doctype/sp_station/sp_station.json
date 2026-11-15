@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-15 21:00:00.000000",
+ "modified": "2026-11-16 15:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -11,7 +11,18 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "links": [],
+ "links": [
+  {
+   "group": "Money",
+   "link_doctype": "SP Customer Payment",
+   "link_fieldname": "station"
+  },
+  {
+   "group": "Money",
+   "link_doctype": "SP Cheque",
+   "link_fieldname": "station"
+  }
+ ],
  "name": "SP Station",
  "autoname": ".YYYY.-.###",
  "naming_rule": "Expression (old style)",
