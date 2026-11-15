@@ -191,13 +191,23 @@ def reject(name: str, reason: str) -> str:
 	doc.db_set({"status": REJECTED, "reject_reason": reason})
 	_close_tasks(doc)
 	_refresh(doc)
-	_notify(
-		doc,
-		[doc.recorded_by],
-		_("Rejected: {0} from {1}: {2}").format(
-			frappe.format(doc.amount, "Currency"), doc.customer_name, reason
-		),
+	subject = _("Rejected: {0} from {1}: {2}").format(
+		frappe.format(doc.amount, "Currency"), doc.customer_name, reason
 	)
+	_notify(doc, [doc.recorded_by], subject)
+	if doc.recorded_by:
+		# the recorder fixes it: amend the payment with what the admin asked (SP-115)
+		frappe.get_doc(
+			{
+				"doctype": TASK,
+				"subject": subject,
+				"task_type": "Other",
+				"assigned_to": doc.recorded_by,
+				"reference_doctype": PAYMENT,
+				"reference_name": doc.name,
+				"description": reason,
+			}
+		).insert(ignore_permissions=True)
 	return doc.name
 
 
@@ -220,6 +230,15 @@ def _receivable(company: str) -> str:
 
 
 def _payment_entry(doc) -> str:
+	pe = _build_payment_entry(doc)
+	pe.flags.ignore_permissions = True
+	pe.insert()
+	pe.submit()  # a deposit runs SP-175 here
+	return pe.name
+
+
+def _build_payment_entry(doc):
+	"""The Payment Entry a confirmation posts, unsaved (the confirmations centre previews it)."""
 	so = (
 		frappe.db.get_value(STATION, doc.station, ["sales_order", "project"], as_dict=True)
 		if doc.station
@@ -250,10 +269,7 @@ def _payment_entry(doc) -> str:
 	pe.set_missing_values()
 	if so and so.sales_order and not doc.is_deposit:
 		_allocate_to_contract(pe, so.sales_order)
-	pe.flags.ignore_permissions = True
-	pe.insert()
-	pe.submit()  # a deposit runs SP-175 here
-	return pe.name
+	return pe
 
 
 def _allocate_to_contract(pe, sales_order: str) -> None:
@@ -283,6 +299,14 @@ def _allocate_to_contract(pe, sales_order: str) -> None:
 
 
 def _third_party_entry(doc) -> str:
+	je = _build_third_party_entry(doc)
+	je.flags.ignore_permissions = True
+	je.insert()
+	je.submit()
+	return je.name
+
+
+def _build_third_party_entry(doc):
 	"""Money the customer paid straight to a supplier (or an expense): Dr them / Cr the customer."""
 	project = frappe.db.get_value(STATION, doc.station, "project") if doc.station else None
 	if doc.third_party_type == "Supplier":
@@ -316,10 +340,7 @@ def _third_party_entry(doc) -> str:
 			],
 		}
 	)
-	je.flags.ignore_permissions = True
-	je.insert()
-	je.submit()
-	return je.name
+	return je
 
 
 # --- helpers ----------------------------------------------------------------------------------------
@@ -444,3 +465,72 @@ def account_query(
 	txt = (txt or "").lower()
 	rows = [(n,) for n in names if txt in n.lower()]
 	return rows[int(start) : int(start) + int(page_len)]
+
+
+# --- the confirmations centre (SP-115) ---------------------------------------------------------------
+
+KIND = "Customer payment"
+
+
+def pending_items(filters: dict) -> list[dict]:
+	"""This source's pending items for A1, in the centre's shape."""
+	where = {"status": PENDING, "docstatus": 1}
+	if filters.get("account"):
+		where["receiving_account"] = filters["account"]
+	if filters.get("from_date"):
+		where["work_date"] = (">=", filters["from_date"])
+	if filters.get("to_date"):
+		where["work_date"] = (
+			("between", [filters["from_date"], filters["to_date"]])
+			if filters.get("from_date")
+			else ("<=", filters["to_date"])
+		)
+	rows = frappe.get_all(
+		PAYMENT,
+		filters=where,
+		fields=[
+			"name", "recorded_by", "work_date", "receiving_account", "third_party", "amount",
+			"receipt_photo", "station", "case", "customer_name", "is_deposit", "channel",
+		],
+		order_by="work_date asc, creation asc",
+	)  # fmt: skip
+	return [
+		{
+			"doctype": PAYMENT,
+			"name": r.name,
+			"kind": _("Deposit") if r.is_deposit else _(KIND),
+			"recorder": r.recorded_by,
+			"date": r.work_date,
+			"account": r.receiving_account or r.third_party,
+			"amount": flt(r.amount),
+			"photo": r.receipt_photo,
+			"station": r.station or r.case,
+			"party": r.customer_name,
+		}
+		for r in rows
+	]
+
+
+def preview(name: str) -> list[dict]:
+	"""The exact lines the confirmation will post: Dr / Cr, party, center and station."""
+	doc = frappe.get_doc(PAYMENT, name)
+	if doc.method == THIRD_PARTY:
+		entry = _build_third_party_entry(doc)
+		return [
+			{
+				"account": r.account,
+				"debit": flt(r.debit_in_account_currency),
+				"credit": flt(r.credit_in_account_currency),
+				"party": r.get("party"),
+				"cost_center": r.get("cost_center")
+				or frappe.get_cached_value("Company", doc.company, "cost_center"),
+				"project": r.get("project"),
+			}
+			for r in entry.accounts
+		]
+	pe = _build_payment_entry(doc)
+	center = pe.get("cost_center") or frappe.get_cached_value("Company", doc.company, "cost_center")
+	return [
+		{"account": pe.paid_to, "debit": flt(pe.paid_amount), "credit": 0, "party": None, "cost_center": center, "project": pe.project},
+		{"account": pe.paid_from, "debit": 0, "credit": flt(pe.paid_amount), "party": pe.party, "cost_center": center, "project": pe.project},
+	]  # fmt: skip

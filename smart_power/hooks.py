@@ -90,6 +90,10 @@ fixtures = [
 # Role profiles are synced from the role catalogue instead (sp_core/setup/install.py): re-importing
 # them as fixtures on every migrate would re-queue a job that rewrites every user's roles.
 
+# A1 Confirmations centre (SP-115): the money DocTypes waiting for the admin, {DocType: module}
+# with pending_items / preview / confirm / reject. Transfers, custody and cash box add theirs.
+sp_confirmation_sources = {"SP Customer Payment": "smart_power.sp_finance.customer_payment"}
+
 # Business rules (SP-128): modules whose @rule functions register at first use.
 sp_rule_modules = ["smart_power.rules.commercial", "smart_power.rules.sales", "smart_power.rules.finance"]
 
