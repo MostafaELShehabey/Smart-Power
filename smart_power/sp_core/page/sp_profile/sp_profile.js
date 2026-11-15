@@ -81,8 +81,12 @@ class SPProfile {
 			frappe.ui.toolbar.clear_cache(); // the Desk reloads in the new language and direction
 		});
 
-		// notification channels
+		// notification channels; the per-event push choice is on G4 (SP-40)
 		const $note = section(__("Notifications"));
+		$(`<button class="btn btn-xs btn-default mb-2"></button>`)
+			.text(__("Choose per event"))
+			.on("click", () => frappe.set_route("sp-notifications"))
+			.appendTo($note);
 		[
 			["in_app", __("In the app")],
 			["email", __("By email")],
