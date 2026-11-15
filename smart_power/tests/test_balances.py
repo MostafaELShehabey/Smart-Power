@@ -3,6 +3,7 @@
 import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, flt, today
+from frappe.www.printview import get_rendered_template
 
 from smart_power.sp_finance import balances
 from smart_power.sp_finance.report.sp_customer_balances.sp_customer_balances import execute
@@ -71,7 +72,8 @@ class TestBalances(IntegrationTestCase):
 		self.assertEqual(len(lines), 4)  # the contract, two payments, the write-off
 		self.assertEqual(lines[-1]["balance"], flt(st.remaining_amount))
 		self.assertEqual(lines[-1]["balance"], 120000)
-		html = frappe.get_print("SP Station", st.name, "SP Customer Statement")
+		# the format alone: printview's page needs built assets, which CI does not have
+		html = get_rendered_template(st, print_format=frappe.get_doc("Print Format", "SP Customer Statement"))
 		self.assertIn(st.name, html)
 
 	def test_overdue_is_what_the_past_instalments_still_lack(self):
