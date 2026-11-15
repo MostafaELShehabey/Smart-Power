@@ -100,6 +100,9 @@ def after_insert(doc) -> None:
 	project.flags.ignore_permissions = True
 	project.insert()
 	doc.db_set("project", project.name)
+	from smart_power.sp_finance.centers import tag_project
+
+	tag_project(doc)  # back-link and the Projects center (SP-27)
 	doc.db_set("site_warehouse", site_warehouse(project.name))
 	if doc.customer:
 		mark_featured(doc.customer)

@@ -69,8 +69,13 @@ def lines(
 	amount = flt(amount)
 	if amount <= 0:
 		frappe.throw(_("Posting {0}: the amount must be above zero.").format(frappe.bold(_(event))))
-	cost_center = cost_center or doc.get("cost_center")
 	project = project or doc.get("project")
+	cost_center = cost_center or doc.get("cost_center")
+	if not cost_center and project:
+		# a station document's own center is Projects (SP-27)
+		from smart_power.sp_finance.centers import station_center
+
+		cost_center = station_center(frappe.db.get_value("Project", project, "company"))
 	debit = {
 		"account": debit_account or row.debit_account,
 		"debit_in_account_currency": amount,
