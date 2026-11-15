@@ -43,6 +43,13 @@
   "field_entry_lock_days",
   "case_inactivity_days",
   "winch_debt_age_months",
+  "centers_section",
+  "center_projects",
+  "center_showroom",
+  "center_winch",
+  "column_break_centers",
+  "center_jumbo",
+  "center_indirect",
   "money_section",
   "cost_of_money_pct",
   "account_map"
@@ -268,13 +275,58 @@
    "fieldtype": "Int",
    "label": "Instalment Due Alert (days before)",
    "description": "The collection owner is told this many days before a contract instalment falls due (SP-81)."
+  },
+  {
+   "fieldname": "centers_section",
+   "fieldtype": "Section Break",
+   "label": "Financial Centers",
+   "description": "The cost center each source posts to (SP-27). A station is never a cost center: its costs carry its project."
+  },
+  {
+   "fieldname": "column_break_centers",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "center_projects",
+   "fieldtype": "Link",
+   "options": "Cost Center",
+   "label": "Projects Center",
+   "description": "Station documents (payments, write-offs, advances, purchases for a station) post here, with the station's project."
+  },
+  {
+   "fieldname": "center_showroom",
+   "fieldtype": "Link",
+   "options": "Cost Center",
+   "label": "Showroom Center",
+   "description": "Showroom sales, cash box and showroom costs."
+  },
+  {
+   "fieldname": "center_winch",
+   "fieldtype": "Link",
+   "options": "Cost Center",
+   "label": "Winch Center",
+   "description": "Winch jobs and costs (each vehicle may get its own child center)."
+  },
+  {
+   "fieldname": "center_jumbo",
+   "fieldtype": "Link",
+   "options": "Cost Center",
+   "label": "Jumbo Center",
+   "description": "Jumbo car jobs and costs."
+  },
+  {
+   "fieldname": "center_indirect",
+   "fieldtype": "Link",
+   "options": "Cost Center",
+   "label": "Indirect Pool Center",
+   "description": "Salaries, rent and general costs; split into stations monthly (SP-124)."
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-17 12:00:00.000000",
+ "modified": "2026-11-17 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

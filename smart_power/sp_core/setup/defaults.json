@@ -232,6 +232,16 @@
 		{"list_name": "Site Stage", "code": "PANEL_INVERTER", "value_ar": "تركيب اللوحة والإنفرتر", "value_en": "Panel and inverter", "sort_order": 6, "_source": "SP-32"},
 		{"list_name": "Site Stage", "code": "TESTING", "value_ar": "الاختبار والتشغيل", "value_en": "Testing", "sort_order": 7, "_source": "SP-32"}
 	],
+	"cost_centers": {
+		"_source": "SP-27, decisions 34-36 and 39-41: five financial centers under the company group; each station is its Project, never a cost center",
+		"centers": [
+			{"key": "projects", "name": "Projects", "_source": "station documents"},
+			{"key": "showroom", "name": "Showroom"},
+			{"key": "winch", "name": "Winch"},
+			{"key": "jumbo", "name": "Jumbo"},
+			{"key": "indirect", "name": "Indirect Pool", "_source": "salaries, rent and general costs, split monthly (SP-124)"}
+		]
+	},
 	"accounts": {
 		"_source": "SP-26 (A7): the 4 official accounts, the custody group and the other accounts. Person transit and custody accounts are made from the User form.",
 		"custody_group": {"account_name": "Custody", "parent": "Current Assets"},

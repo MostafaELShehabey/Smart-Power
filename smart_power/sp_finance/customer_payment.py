@@ -253,6 +253,8 @@ def _payment_entry(doc) -> str:
 
 def _build_payment_entry(doc):
 	"""The Payment Entry a confirmation posts, unsaved (the confirmations centre previews it)."""
+	from smart_power.sp_finance.centers import station_center
+
 	so = (
 		frappe.db.get_value(STATION, doc.station, ["sales_order", "project"], as_dict=True)
 		if doc.station
@@ -273,6 +275,8 @@ def _build_payment_entry(doc):
 			"reference_no": doc.reference_no or doc.name,
 			"reference_date": doc.work_date,
 			"project": so.project if so else None,
+			# a station's money posts to the Projects center (SP-27)
+			"cost_center": station_center(doc.company) if so else None,
 			"remarks": _("Customer payment {0}").format(doc.name),
 			"mode_of_payment": mode_for_method(doc.method),
 			"sp_is_deposit": doc.is_deposit,

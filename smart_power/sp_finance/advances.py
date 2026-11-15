@@ -283,10 +283,11 @@ def seed_account_map(company: str) -> None:
 			{
 				"event": event,
 				"debit_account": debit,
-				"debit_center_rule": "Fixed",
+				# a station's advance: the Projects center, from the document (SP-27)
+				"debit_center_rule": "From document",
 				"debit_cost_center": center,
 				"credit_account": credit,
-				"credit_center_rule": "Fixed",
+				"credit_center_rule": "From document",
 				"credit_cost_center": center,
 				"project_rule": project_rule,
 				"note": note,

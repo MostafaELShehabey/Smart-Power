@@ -217,6 +217,7 @@ Commercial Register,السجل التجاري
 Commercial Register No.,رقم السجل التجاري
 Company,شركة
 Company {0} has no account group {1}.,الشركة {0} ليس لديها مجموعة الحسابات {1}.
+Company {0} has no cost center group.,الشركة {0} ليس لها مجموعة مراكز تكلفة.
 Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
 Completed By,تم بواسطة
 Completed On,تم في
@@ -391,6 +392,7 @@ File,الملف
 Fill from,املأ من
 Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
 Financial Center,المركز المالي
+Financial Centers,المراكز المالية
 Financially closed,مغلقة ماليًا
 Financially Closed On,تاريخ الإغلاق المالي
 Financing,التمويل
@@ -466,6 +468,7 @@ Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
 In person,شخصيًا
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
+Indirect Pool Center,مركز التكاليف غير المباشرة
 Indirect Split,توزيع غير مباشر
 Individual,فرد
 Individual (BTC) or company (BTB). Sets the customer type.,فرد (BTC) أو شركة (BTB). يحدد نوع العميل.
@@ -493,6 +496,8 @@ Item {0} does not exist.,الصنف {0} غير موجود.
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
 Job Type,نوع الشغلانة
 Journal Entry,قيد يومية
+Jumbo car jobs and costs.,شغل وتكاليف عربية الجامبو.
+Jumbo Center,مركز الجامبو
 Key,المفتاح
 Key Data,البيانات الأساسية
 Kind,النوع
@@ -812,6 +817,7 @@ Profit,الربح
 Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
 Project,المشروع
 Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
+Projects Center,مركز المشروعات
 Proof,الإثبات
 Publish,نشر
 Publish version {0}? New prints of this document use it.,نشر الإصدار {0}؟ ستستخدمه الطباعات الجديدة لهذا المستند.
@@ -941,6 +947,7 @@ Rule Key,مفتاح القاعدة
 Rule overrides,تجاوزات القواعد
 Rule Warning,تنبيه قاعدة
 Rule warnings,تحذيرات القواعد
+"Salaries, rent and general costs; split into stations monthly (SP-124).",المرتبات والإيجار والمصروفات العامة؛ توزع على المحطات شهريًا.
 Sales,المبيعات
 Sales Order {0} already belongs to station {1}.,أمر البيع {0} يخص المحطة {1} بالفعل.
 Sales Owner,مسئول المبيعات
@@ -989,7 +996,9 @@ Show,عرض
 Showroom,المعرض
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
 Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أيام من آخر إيداع)
+Showroom Center,مركز المعرض
 Showroom Deposit,إيداع المعرض
+"Showroom sales, cash box and showroom costs.",مبيعات المعرض والخزنة وتكاليف المعرض.
 Simple Record Type,نوع التسجيل البسيط
 Site,موقع
 Site Stage,مرحلة الموقع
@@ -1100,6 +1109,7 @@ Start Purchasing,بدء الشراء
 Start the Quote,بدء عرض السعر
 Statement,كشف حساب
 Station,المحطة
+"Station documents (payments, write-offs, advances, purchases for a station) post here, with the station's project.",مستندات المحطة (المدفوعات والشطب والسلف والمشتريات) تُرحّل هنا، مع مشروع المحطة.
 Station opened,تم فتح المحطة
 Station Project,مشروع المحطة
 Station {0} not found.,المحطة {0} غير موجودة.
@@ -1159,6 +1169,7 @@ The collected cheque this payment is for (SP-118).,الشيك المحصل ال�
 The collection owner is told this many days before a contract instalment falls due (SP-81).,يُنبَّه مسئول التحصيل قبل استحقاق قسط العقد بهذا العدد من الأيام.
 "The confirmed deposit Payment Entry that ran the automation (text, so the deposit can still be reversed).",قيد العربون المؤكد الذي شغّل الأتمتة (نص، حتى يمكن عكس العربون).
 The contract's payment-schedule line this cheque pays.,سطر جدول السداد في العقد الذي يسدده هذا الشيك.
+The cost center each source posts to (SP-27). A station is never a cost center: its costs carry its project.,مركز التكلفة الذي يُرحّل إليه كل مصدر. المحطة ليست مركز تكلفة: تكاليفها تحمل مشروعها.
 The customer,العميل
 "The customer's deposit on a case: confirming it makes the contract, the station, draft purchase orders and reservations (SP-175).",عربون العميل على حالة: تأكيده ينشئ العقد والمحطة وأوامر الشراء المبدئية والحجوزات.
 The customer's deposit: confirming it makes the contract and the station (SP-175).,عربون العميل: تأكيده ينشئ العقد والمحطة.
@@ -1207,6 +1218,7 @@ The sales owner is fixed once the contract exists.,مسئول المبيعات �
 The second party (the customer),الطرف الثاني (العميل)
 "The smallest capacity accepted, e.g. hp.",أقل قدرة مقبولة، مثل hp.
 "The Smart Power event this entry was posted for (Account Map, SP-113).",حدث سمارت باور الذي رُحّل له هذا القيد (خريطة الحسابات).
+The station this project is (SP-27): its money and costs carry this project.,المحطة التي يمثلها هذا المشروع: أموالها وتكاليفها تحمل هذا المشروع.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
@@ -1313,8 +1325,10 @@ Who,مَن
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
 Who physically has the cheque now.,من يحمل الشيك فعليًا الآن.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
+Winch Center,مركز الونش
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
 Winch Internal Charge,تحميل داخلي للونش
+Winch jobs and costs (each vehicle may get its own child center).,شغل وتكاليف الونش (لكل مركبة مركز فرعي خاص بها عند الحاجة).
 Winch Line,سطر الونش
 With lawyer,مع المحامي
 Won,تم الكسب
