@@ -1,0 +1,38 @@
+{
+ "creation": "2026-11-17 12:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "money-coins-1",
+ "idx": 0,
+ "modified": "2026-11-17 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stations",
+ "name": "sp-collections",
+ "owner": "Administrator",
+ "page_name": "sp-collections",
+ "roles": [
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "SP Accountant"
+  },
+  {
+   "role": "SP Collection Officer"
+  },
+  {
+   "role": "SP Project Manager"
+  },
+  {
+   "role": "SP Customer Followup"
+  },
+  {
+   "role": "SP Followup All"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Collections"
+}
