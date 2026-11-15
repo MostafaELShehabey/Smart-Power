@@ -34,3 +34,4 @@ smart_power.patches.sp116_cash_held_limit
 smart_power.patches.sp116_bank_accounts
 smart_power.patches.sp118_cheque_settings
 smart_power.patches.sp121_advance_account_map
+smart_power.patches.sp81_installment_settings

@@ -8,6 +8,7 @@ A cancelled quote cannot be discounted.,لا يمكن الخصم على عرض �
 A cancelled quote cannot be sent.,لا يمكن إرسال عرض ملغى.
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
 A closed station cannot be cancelled.,لا يمكن إلغاء محطة مغلقة.
+A collection call on a station (SP-81).,مكالمة تحصيل على محطة.
 A customer payment above this amount is flagged to the admin when it is recorded (SP-114).,دفعة العميل فوق هذا المبلغ تُنبَّه للمدير عند تسجيلها.
 "A deposit is received by Smart Power, not paid to a third party.",العربون تستلمه سمارت باور، ولا يُدفع لطرف ثالث.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
@@ -97,6 +98,7 @@ Bank / Post Office,البنك / مكتب البريد
 Bank Branch,فرع البنك
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
 battery_ah,سعة البطارية (أمبير ساعة)
+Becomes a call task for the collection owner.,تصبح مهمة اتصال لمسئول التحصيل.
 Becomes a call task for the follow-up owner.,تصبح مهمة اتصال لمسئول المتابعة.
 Block,منع
 Block Key,مفتاح الفقرة
@@ -205,7 +207,9 @@ Code {0} is repeated: it is already in row {1}.,الكود {0} مكرر: موج�
 Collected,تم التحصيل
 Collected On,تاريخ التحصيل
 Collection,التحصيل
+Collection call: {0},مكالمة تحصيل: {0}
 Collection Owner,مسؤول التحصيل
+Collections,التحصيل
 Comment,تعليق
 Comment to the owner,تعليق للمسئول
 Commercial,تجاري
@@ -228,6 +232,7 @@ Confirmation,التأكيد
 Confirmations,التأكيدات
 Confirmed,مؤكد
 Confirmed By,أكده
+"Confirmed payments allocated first in, first out to the instalments (SP-81).",المدفوعات المؤكدة موزعة على الأقساط، الأقدم أولًا.
 Confirmed.,تم التأكيد.
 Confirmed: transfer of {0},تم التأكيد: تحويل {0}
 Confirmed: {0} from {1},تم التأكيد: {0} من {1}
@@ -329,6 +334,7 @@ Download the template,تحميل النموذج
 Draft,مسودة
 Drag to reorder,اسحب لتغيير الترتيب
 Due,مستحق
+Due Alert Sent,أُرسل تنبيه الاستحقاق
 Due At,الميعاد
 Due Date,تاريخ الاستحقاق
 "E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round.",مثل ceil(depth / pipe_m). الأسماء المتاحة: المدخلات، مفاتيح السطور السابقة (pipes.qty)، item (مواصفات الصنف المختار)، settings؛ والدوال ceil وfloor وmround وnearest_divisible وmin وmax وabs وround.
@@ -435,6 +441,7 @@ Given By,أعطاه
 Given On,تاريخ الإعطاء
 Hand cheque {0} to the lawyer?,تسليم الشيك {0} للمحامي؟
 Hand over,تسليم
+Has Overdue,عليها متأخرات
 Head (m),الرفع (متر)
 head_m,الرفع (متر)
 Hello {0},أهلاً {0}
@@ -467,6 +474,9 @@ Inputs,المدخلات
 Installing,قيد التركيب
 Installments,أقساط
 Instalment,القسط
+Instalment Due Alert (days before),تنبيه استحقاق القسط (أيام قبله)
+Instalment due: {0} from {1} (station {2}) on {3},قسط مستحق: {0} من {1} (المحطة {2}) في {3}
+Instalment Status,حالة القسط
 Int,رقم صحيح
 Invalid mobile,رقم موبايل غير صحيح
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
@@ -492,11 +502,13 @@ Large Payment (alert the admin above),دفعة كبيرة (تنبيه المدي
 Large payment: {0},دفعة كبيرة: {0}
 Last Action,آخر إجراء
 Last Call,آخر مكالمة
+Last contact {0}: {1} ({2}),آخر تواصل {0}: {1} ({2})
 Last-minute ask,العشم
 Last-minute discount,خصم العشم
 Late and reopened field entries,الإدخالات الميدانية المتأخرة والمعاد فتحها
 Late Entry,تسجيل متأخر
 Lead Source,مصدر العميل المحتمل
+Left,المتبقي
 Legal Name (Arabic),الاسم القانوني (عربي)
 Level,المستوى
 Light,خفيف
@@ -529,6 +541,7 @@ Locked for quote creators.,مقفل على أصحاب العروض.
 Locked line,سطر مقفل
 Locked Markup,نسبة ربح مقفلة
 Log call,تسجيل مكالمة
+Log Cheque,تسجيل شيك
 Log out,تسجيل الخروج
 Logged By,سجّلها
 Logo,الشعار
@@ -623,6 +636,8 @@ No,لا
 No account is mapped for {0}. The admin adds it in Smart Power Settings > Account Map.,لا يوجد حساب مربوط لـ {0}. يضيفه المدير في إعدادات سمارت باور > خريطة الحسابات.
 No call yet.,لا توجد مكالمات بعد.
 No cases here.,لا توجد حالات هنا.
+No contact yet,لا يوجد تواصل بعد
+No contract schedule yet,لا يوجد جدول سداد للعقد بعد
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No default supplier for: {0},لا يوجد مورد افتراضي لـ: {0}
 No entries yet.,لا توجد قيود بعد.
@@ -639,6 +654,7 @@ No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 No quote yet.,لا يوجد عرض بعد.
 No sent quote yet.,لم يُرسل عرض بعد.
+No stations are assigned to you.,لا توجد محطات مسندة لك
 No.,رقم
 None,لا شيء
 Nos,عدد
@@ -692,6 +708,7 @@ Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,
 "Only the case's follow-up owner, its quote creator or the admin can send a quote.",يرسل العرض مسئول متابعة الحالة أو مُعدّ العرض أو المدير فقط.
 Only the contracts manager or the admin makes the contract.,فقط مسئول العقود أو المدير ينشئ العقد.
 Only the quote creator and the cost roles price a quote.,تسعير العرض لمُعدّ العرض وأدوار التكلفة فقط.
+Only the station's collection owner logs its calls.,مسئول تحصيل المحطة فقط يسجّل مكالماتها.
 Only {0} is outstanding on this advance.,المتبقي على هذه السلفة {0} فقط.
 Open,مفتوح
 Open as List,فتح كقائمة
@@ -713,6 +730,8 @@ Outcome,النتيجة
 Outstanding,المتبقي
 Outstanding: {0},المتبقي: {0}
 Overdue,متأخر
+Overdue Alert Sent,أُرسل تنبيه التأخير
+Overdue: {0} of {1} (station {2}) was due on {3},متأخر: {0} على {1} (المحطة {2}) كان مستحقًا في {3}
 Overridden,تم التخطي بسبب
 Override,تخطي
 Owner,المسؤول
@@ -723,6 +742,7 @@ P1 Cost,تكلفة P1
 P1 price,سعر P1
 Page,صفحة
 Paid,المدفوع
+Paid (allocated),المدفوع (الموزع)
 Paid (confirmed),المدفوع (المؤكد)
 Paid From,مدفوعة من
 Paid On,تاريخ الدفع
@@ -931,6 +951,7 @@ Saved,تم الحفظ
 Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
 Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون تغيير: {1} · أخطاء: {2}
 Saving the request…,جارٍ حفظ الطلب…
+Schedule and cheques,جدول السداد والشيكات
 Scope,النطاق
 Second Mobile,موبايل إضافي
 Section,القسم
@@ -1081,7 +1102,9 @@ Statement,كشف حساب
 Station,المحطة
 Station opened,تم فتح المحطة
 Station Project,مشروع المحطة
+Station {0} not found.,المحطة {0} غير موجودة.
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
+Stations late: {0},محطات متأخرة: {0}
 Status,الحالة
 Subject,الموضوع
 Submit the advance first.,اعتمد السلفة أولًا.
@@ -1133,6 +1156,7 @@ The case's follow-up owner; fixed once the contract exists.,مسئول متاب�
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
 The code is empty.,الكود فارغ.
 The collected cheque this payment is for (SP-118).,الشيك المحصل الذي تخصه هذه الدفعة.
+The collection owner is told this many days before a contract instalment falls due (SP-81).,يُنبَّه مسئول التحصيل قبل استحقاق قسط العقد بهذا العدد من الأيام.
 "The confirmed deposit Payment Entry that ran the automation (text, so the deposit can still be reversed).",قيد العربون المؤكد الذي شغّل الأتمتة (نص، حتى يمكن عكس العربون).
 The contract's payment-schedule line this cheque pays.,سطر جدول السداد في العقد الذي يسدده هذا الشيك.
 The customer,العميل
@@ -1275,6 +1299,7 @@ watt,القدرة (وات)
 Watts,وات
 "What changes if the customer adds it, e.g. a full stainless motor instead of a stainless body with a cast-iron cap.",ما الذي يتغير لو أضافه العميل، مثل موتور استانلس كامل بدل جسم استانلس بغطاء زهر.
 What is missing?,ما الناقص؟
+What the contract's instalments already due still lack (SP-81).,ما تبقى من أقساط العقد المستحقة بالفعل.
 WhatsApp,واتساب
 When,متى
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).

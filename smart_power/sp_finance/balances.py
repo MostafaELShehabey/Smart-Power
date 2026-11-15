@@ -57,7 +57,12 @@ def station_has_permission(doc, ptype: str | None = None, user: str | None = Non
 
 
 def overdue(doc) -> float:
-	"""What the instalments already due still lack (paid and written-off money covers the oldest)."""
+	"""What the instalments already due still lack: the contract's instalments (SP-81), else the
+	accepted quote's schedule (paid and written-off money covers the oldest first)."""
+	from smart_power.sp_stations.installments import allocation, overdue_of
+
+	if doc.sales_order:
+		return overdue_of(allocation(doc))[0]
 	_agreed, schedule = _agreed_and_schedule(doc)
 	due = sum(amount for date, amount in schedule if date < getdate(today()))
 	covered = flt(doc.paid_amount) + flt(doc.write_off_amount)
