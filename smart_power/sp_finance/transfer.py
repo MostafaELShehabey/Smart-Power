@@ -222,21 +222,17 @@ def _close_tasks(doc) -> None:
 
 
 def _notify(doc, users, subject: str) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+	from smart_power.notify import send
 
 	users = sorted({u for u in users if u})
 	if users:
-		make_notification_logs(
-			frappe._dict(
-				{
-					"type": "Alert",
-					"document_type": TRANSFER,
-					"document_name": doc.name,
-					"subject": subject,
-					"from_user": frappe.session.user,
-				}
-			),
+		send(
+			"transfer_decided",
 			users,
+			TRANSFER,
+			doc.name,
+			subject,
+			from_user=frappe.session.user,
 		)
 
 

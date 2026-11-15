@@ -89,22 +89,17 @@ def check_cash_held() -> list[str]:
 
 
 def _alert(acc, balance: float, message: str) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
-
+	from smart_power.notify import send
 	from smart_power.sp_sales.quote_request import _users_with
 
 	users = sorted({u for u in [acc.sp_holder, *_users_with(ADMIN_ROLE)] if u})
 	if not users:
 		return
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				"document_type": "Account",
-				"document_name": acc.name,
-				"subject": _("Deposit the cash: {0}").format(message),
-				"from_user": "Administrator",
-			}
-		),
+	send(
+		"cash_held_too_long",
 		users,
+		"Account",
+		acc.name,
+		_("Deposit the cash: {0}").format(message),
+		from_user="Administrator",
 	)

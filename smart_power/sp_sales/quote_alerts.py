@@ -11,8 +11,8 @@ Alerts use Frappe's notification bell; SP-40 adds preferences and the mobile pus
 
 import frappe
 from frappe import _
-from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
 
+from smart_power.notify import send
 from smart_power.rules import OFF, effective_level, evaluate, get_rule_setting, record_warning, registry
 from smart_power.rules.sales import QUOTE_CLOCK_EVENT
 from smart_power.sp_sales.quote_clock import AMBER, OVERDUE, clock, due_hours
@@ -56,17 +56,13 @@ def recipients(case) -> list[str]:
 
 
 def notify(case, subject: str) -> None:
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				"document_type": "SP Case",
-				"document_name": case.name,
-				"subject": subject.format(case.customer_name or case.name, case.name, f"{due_hours():g}"),
-				"from_user": "Administrator",
-			}
-		),
+	send(
+		"request_overdue",
 		recipients(case),
+		"SP Case",
+		case.name,
+		subject.format(case.customer_name or case.name, case.name, f"{due_hours():g}"),
+		from_user="Administrator",
 	)
 
 

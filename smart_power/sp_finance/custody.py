@@ -528,20 +528,16 @@ def _money(value) -> str:
 
 
 def _notify(user: str, doctype: str, name: str, subject: str) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+	from smart_power.notify import send
 
 	if user:
-		make_notification_logs(
-			frappe._dict(
-				{
-					"type": "Alert",
-					"document_type": doctype,
-					"document_name": name,
-					"subject": subject,
-					"from_user": frappe.session.user,
-				}
-			),
+		send(
+			"custody",
 			[user],
+			doctype,
+			name,
+			subject,
+			from_user=frappe.session.user,
 		)
 
 

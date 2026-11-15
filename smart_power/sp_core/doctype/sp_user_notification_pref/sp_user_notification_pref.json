@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "creation": "2026-11-17 22:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "istable": 1,
+ "modified": "2026-11-17 22:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP User Notification Pref",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "permissions": [],
+ "field_order": [
+  "event",
+  "in_app",
+  "push"
+ ],
+ "fields": [
+  {
+   "fieldname": "event",
+   "fieldtype": "Link",
+   "label": "Event",
+   "options": "SP Notification Event",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "in_app",
+   "fieldtype": "Check",
+   "label": "In App",
+   "default": "1",
+   "read_only": 1,
+   "in_list_view": 1,
+   "description": "Always on: the in-app feed is the official record."
+  },
+  {
+   "fieldname": "push",
+   "fieldtype": "Check",
+   "label": "Push to Mobile",
+   "in_list_view": 1
+  }
+ ]
+}

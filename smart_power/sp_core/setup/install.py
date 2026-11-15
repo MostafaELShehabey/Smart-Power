@@ -49,6 +49,9 @@ def after_install() -> None:
 	seed_contract_template()
 	seed_default_print_format()
 	make_desk_default()
+	from smart_power.notify import sync_events
+
+	sync_events()  # the notification event catalogue (SP-40)
 
 
 def after_sync() -> None:
@@ -92,3 +95,6 @@ def after_migrate() -> None:
 	sync_role_profiles()
 	sync_rule_settings()
 	sync_cost_permissions()
+	from smart_power.notify import sync_events
+
+	sync_events()  # the notification event catalogue (SP-40)

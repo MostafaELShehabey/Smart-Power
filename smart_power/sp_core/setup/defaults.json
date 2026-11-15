@@ -238,6 +238,30 @@
 		{"list_name": "Site Stage", "code": "PANEL_INVERTER", "value_ar": "تركيب اللوحة والإنفرتر", "value_en": "Panel and inverter", "sort_order": 6, "_source": "SP-32"},
 		{"list_name": "Site Stage", "code": "TESTING", "value_ar": "الاختبار والتشغيل", "value_en": "Testing", "sort_order": 7, "_source": "SP-32"}
 	],
+	"notification_events": [
+		{"key": "new_request", "label_ar": "طلب عرض سعر جديد", "label_en": "New quote request", "default_push": 1, "roles": "SP Admin, SP Quote Creator"},
+		{"key": "quote_sent", "label_ar": "تم إرسال عرض السعر", "label_en": "Quote sent", "default_push": 1, "roles": "SP Customer Followup, SP Followup All, SP Lead Intake"},
+		{"key": "request_overdue", "label_ar": "طلب أقدم من 24 ساعة", "label_en": "Request older than 24 h", "default_push": 1, "roles": "SP Admin, SP Quote Creator"},
+		{"key": "missing_data", "label_ar": "بيانات ناقصة في الطلب", "label_en": "Missing data on a request", "default_push": 1, "roles": "SP Lead Intake, SP Customer Followup"},
+		{"key": "revision_requested", "label_ar": "العميل يطلب تعديل العرض", "label_en": "Customer wants the quote revised", "default_push": 1, "roles": "SP Quote Creator"},
+		{"key": "discount_given", "label_ar": "تم إعطاء خصم", "label_en": "Discount given", "default_push": 0, "roles": "SP Admin"},
+		{"key": "case_handed_over", "label_ar": "تم تسليم حالة", "label_en": "Case handed over", "default_push": 1, "roles": "SP Customer Followup, SP Followup All, SP Admin"},
+		{"key": "won_case", "label_ar": "حالة مكسوبة (تأكيد العربون)", "label_en": "Won case (deposit confirmed)", "default_push": 1, "roles": "SP Project Manager, SP Admin"},
+		{"key": "payment_confirmed", "label_ar": "تم تأكيد دفعة", "label_en": "Payment confirmed", "default_push": 0, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Project Manager"},
+		{"key": "receipt_rejected", "label_ar": "تم رفض إيصال", "label_en": "Receipt rejected", "default_push": 1, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Showroom Cashier, SP Custody Holder"},
+		{"key": "large_payment", "label_ar": "دفعة كبيرة", "label_en": "Large payment", "default_push": 1, "roles": "SP Admin"},
+		{"key": "installment_due", "label_ar": "قسط مستحق قريبًا", "label_en": "Instalment due", "default_push": 1, "roles": "SP Collection Officer, SP Project Manager"},
+		{"key": "installment_overdue", "label_ar": "قسط متأخر", "label_en": "Instalment overdue", "default_push": 1, "roles": "SP Collection Officer, SP Project Manager, SP Admin"},
+		{"key": "cash_held_too_long", "label_ar": "نقدية محتفظ بها مدة طويلة", "label_en": "Cash held too long", "default_push": 1, "roles": "SP Custody Holder, SP Showroom Cashier, SP Admin"},
+		{"key": "entry_locked", "label_ar": "إدخال مقفول", "label_en": "Entry locked", "default_push": 0, "roles": "SP Admin"},
+		{"key": "cheque_due", "label_ar": "شيك مستحق", "label_en": "Cheque due", "default_push": 1, "roles": "SP Collection Officer, SP Project Manager, SP Admin"},
+		{"key": "cheque_bounced", "label_ar": "شيك مرتجع", "label_en": "Cheque bounced", "default_push": 1, "roles": "SP Collection Officer, SP Project Manager, SP Admin"},
+		{"key": "abnormal_flag", "label_ar": "علامة غير طبيعية", "label_en": "Abnormal flag", "default_push": 0, "roles": "SP Admin"},
+		{"key": "margin_breach", "label_ar": "هامش ربح خارج الحدود", "label_en": "Margin out of range", "default_push": 0, "roles": "SP Admin"},
+		{"key": "transfer_decided", "label_ar": "قرار على تحويل", "label_en": "Transfer confirmed or rejected", "default_push": 0, "roles": "SP Custody Holder, SP Showroom Cashier, SP Winch Manager"},
+		{"key": "custody", "label_ar": "العهدة: تسليم وتسوية", "label_en": "Custody given or settled", "default_push": 1, "roles": "SP Custody Holder"},
+		{"key": "review_comment", "label_ar": "تعليق مراجعة", "label_en": "Review comment", "default_push": 0, "roles": "SP Admin"}
+	],
 	"cost_centers": {
 		"_source": "SP-27, decisions 34-36 and 39-41: five financial centers under the company group; each station is its Project, never a cost center",
 		"centers": [

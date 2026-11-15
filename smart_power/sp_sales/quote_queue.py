@@ -149,7 +149,7 @@ def _check_can_act(doc) -> None:
 @frappe.whitelist(methods=["POST"])
 def ask_missing_data(case: str, message: str) -> None:
 	"""Ask the requester for missing data: a comment on the case and a bell alert to them."""
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+	from smart_power.notify import send
 
 	doc = frappe.get_doc(CASE, case)
 	_check_can_act(doc)
@@ -158,17 +158,13 @@ def ask_missing_data(case: str, message: str) -> None:
 		frappe.throw(_("Write what is missing."), frappe.MandatoryError)
 	doc.add_comment("Comment", message)
 	if doc.requested_by and doc.requested_by != frappe.session.user:
-		make_notification_logs(
-			frappe._dict(
-				{
-					"type": "Alert",
-					"document_type": CASE,
-					"document_name": doc.name,
-					"subject": _("Missing data for {0}: {1}").format(doc.customer_name or doc.name, message),
-					"from_user": frappe.session.user,
-				}
-			),
+		send(
+			"missing_data",
 			[doc.requested_by],
+			CASE,
+			doc.name,
+			_("Missing data for {0}: {1}").format(doc.customer_name or doc.name, message),
+			from_user=frappe.session.user,
 		)
 
 

@@ -72,6 +72,9 @@ Agreed,المتفق عليه
 Agri Bank,البنك الزراعي
 Agri Bank Advance,سلفة البنك الزراعي
 All,الكل
+All read,كلها مقروءة
+Already read,مقروءة
+Always on: the in-app feed is the official record.,دائمًا مفعّل: إشعارات البرنامج هي السجل الرسمي.
 AM,ص
 Amber,أصفر
 Amber After (days),أصفر بعد (أيام)
@@ -207,6 +210,7 @@ Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
 Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبلغ {1} يستحق في {2}؛ أودعه في البريد
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose Arabic or English.,اختر العربية أو الإنجليزية.
+Choose per event,اختر لكل حدث
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the account the money came into.,اختر الحساب الذي دخلت إليه الأموال.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
@@ -401,6 +405,7 @@ Estimate Frozen On,تاريخ تثبيت التقدير
 Estimated Cost (frozen),التكلفة التقديرية (مثبتة)
 Event,الحدث
 Events,الأحداث
+Every event always appears here in the app. Tick the ones that should also push to your phone.,كل حدث يظهر هنا داخل البرنامج دائمًا. علّم ما تريد أن يصلك أيضًا على الموبايل.
 "Every expense recorded, approved or not.",كل مصروف مسجل، تمت الموافقة عليه أم لا.
 Excel File,ملف إكسل
 Execution,التنفيذ
@@ -510,6 +515,7 @@ Import Prices from Excel,استيراد الأسعار من إكسل
 Import: {0},استيراد: {0}
 Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
+In App,داخل البرنامج
 In person,شخصيًا
 In settlement,في التسوية
 In the app,داخل البرنامج
@@ -549,6 +555,8 @@ Key Data,البيانات الأساسية
 Kind,النوع
 kw,القدرة (كيلووات)
 Label,الاسم
+Label (Arabic),الاسم (عربي)
+Label (English),الاسم (إنجليزي)
 Language,اللغة
 Large Payment (alert the admin above),دفعة كبيرة (تنبيه المدير فوقها)
 Large payment: {0},دفعة كبيرة: {0}
@@ -624,6 +632,7 @@ Margin on sale,هامش من البيع
 Margin out of range,هامش خارج النطاق
 Margin Ranges,نطاقات الربح
 Margin {0}% is outside the range {1}% to {2}% for this offer type.,الهامش {0}% خارج النطاق من {1}% إلى {2}% لهذا النوع من العروض.
+Mark All Read,تمييز الكل كمقروء
 Mark cheque {0} as taken to the Post?,تمييز الشيك {0} كمودع في البريد؟
 Mark Lost,تسجيل الخسارة
 Mark selected reviewed,تمييز المحدد كمُراجع
@@ -708,6 +717,7 @@ No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
 No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 no more,لا غير
+No notifications yet.,لا توجد إشعارات بعد.
 No open custody.,لا توجد عهدة مفتوحة.
 No open requests here.,لا توجد طلبات مفتوحة هنا.
 No price,بدون سعر
@@ -723,11 +733,13 @@ Nos,عدد
 Not allowed,غير مسموح
 "Not balanced: debit {0}, credit {1}, difference {2}",غير متوازن: المدين {0}، الدائن {1}، الفرق {2}
 Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
+Not read yet,غير مقروءة
 Not sent,لم يُرسل
 Note,ملاحظة
 Notes,ملاحظات
 Nothing to review here.,لا شيء للمراجعة هنا.
 Nothing waiting for confirmation.,لا شيء في انتظار التأكيد.
+Notification Preferences,تفضيلات الإشعارات
 Notifications,الإشعارات
 of,من
 Off,متوقف
@@ -792,6 +804,7 @@ Optional Lines (not in the total),السطور الاختيارية (خارج ا
 Options,الاختيارات
 Order saved,تم حفظ الترتيب
 Other,أخرى
+Other events,أحداث أخرى
 Outcome,النتيجة
 Outstanding,المتبقي
 Outstanding: {0},المتبقي: {0}
@@ -829,6 +842,7 @@ Payment {0},دفعة {0}
 PDF,ملف PDF
 Pending,قيد التأكيد
 Pending Confirmation,قيد التأكيد
+Per event: the in-app feed is always on; push to mobile is the user's choice (SP-40).,لكل حدث: إشعارات البرنامج مفعّلة دائمًا؛ الإرسال للموبايل حسب اختيار المستخدم.
 "Per unit, from the P1 Cost price list when left empty.",للوحدة، من قائمة تكلفة P1 إذا تُركت فارغة.
 Per-kW default,افتراضي لكل كيلووات
 Percent,النسبة
@@ -896,6 +910,10 @@ Purchase for station {0},شراء للمحطة {0}
 Purchase Order,أمر الشراء
 Purchase orders sent,أوامر الشراء المرسلة
 Purchasing,قيد الشراء
+Push by Default,إرسال للموبايل افتراضيًا
+Push Settings,إعدادات الموبايل
+Push to Mobile,إرسال للموبايل
+"Push to the phone unless the user turns it off (the mobile app, SP-149).",يُرسل للموبايل ما لم يوقفه المستخدم (تطبيق الموبايل).
 Qty,العدد
 Qty Formula,معادلة الكمية
 Quotation,عرض سعر
@@ -1003,6 +1021,7 @@ Review: {0},مراجعة: {0}
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
 Reviewed On,تاريخ المراجعة
+Roles,الأدوار
 Roles are set by the admin.,الصلاحيات يحددها المدير.
 Round Derived Prices To,تقريب الأسعار المحسوبة إلى
 Round Price,تقريب السعر
@@ -1147,6 +1166,7 @@ SP Main Store Keeper,أمين المخزن الرئيسي
 SP Margin Range,نطاق الربح
 SP Marketing Agent,التسويق
 SP Marketing and Quotes,ماركتنج وإعداد عروض
+SP Notification Event,حدث إشعار
 SP Owner and Admin,المدير وصاحب الشركة
 SP Owner History,سجل المسؤولين
 SP Price Category,فئة سعر
@@ -1180,6 +1200,7 @@ SP Task,مهمة
 SP Tax Insurance,الضرائب والتأمينات
 SP Technical Office,المكتب الفني
 SP Transfer,تحويل
+SP User Notification Pref,تفضيل إشعار المستخدم
 SP Warranty Service,الضمان والصيانة
 SP Winch Manager,مسئول الونش
 SP Winch Operator,سواق الونش
@@ -1343,6 +1364,7 @@ Title,العنوان
 To,إلى
 To Account,إلى حساب
 "To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
+Today,اليوم
 Took the request,استلم الطلب
 Total,الإجمالي
 Total Capacity (kW),إجمالي القدرة (ك.وات)
@@ -1368,6 +1390,7 @@ Unknown channel {0}.,قناة غير معروفة {0}.
 Unknown column {0}.,عمود غير معروف {0}.
 Unknown discount kind {0}.,نوع خصم غير معروف {0}.
 Unknown list {0}.,قائمة غير معروفة {0}.
+Unknown notification event {0}.,حدث إشعار غير معروف {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.
 Unknown review tab {0}.,تبويب مراجعة غير معروف {0}.
 Unpaid - overdue,غير مسددة - متأخرة
@@ -1420,6 +1443,7 @@ Who,مَن
 "Who brought the request in (showroom, call or marketing).",من جاء بالطلب (المعرض أو المكالمة أو التسويق).
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
 Who physically has the cheque now.,من يحمل الشيك فعليًا الآن.
+Who usually gets it; the preferences list it to them first.,من يصله عادةً؛ يظهر لهم أولًا في التفضيلات.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
 Winch Center,مركز الونش
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
@@ -1444,6 +1468,7 @@ Wrong customer,عميل غير مطابق
 Wrote off {0}: {1},تم شطب {0}: {1}
 Yearly reset,يبدأ كل سنة
 Yes,نعم
+Yesterday,أمس
 You can move money only from your own transit account.,يمكنك نقل المال فقط من حساب النقدية الخاص بك.
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
@@ -1452,6 +1477,7 @@ You have been given custody of {0},سُلّمت إليك عهدة بمبلغ {0}
 You hold no company money.,لا توجد معك أموال للشركة.
 You hold no money account to transfer from.,ليس لديك حساب مالي للتحويل منه.
 You see only your own custody.,ترى عهدتك فقط.
+Your events,أحداثك
 Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
 "Your own transit account, or (the admin) any money account.",حساب النقدية الخاص بك، أو (للمدير) أي حساب مالي.
 {0} (yours),{0} (خاصتك)
@@ -1500,6 +1526,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} recorded.,تم تسجيل {0}.
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
 {0} reviewed {1}: {2},{0} راجع {1}: {2}
+{0} unread,{0} غير مقروءة
 {0} waiting · {1},{0} في الانتظار · {1}
 {0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
 {0} {1} does not exist.,{0} {1} غير موجود.

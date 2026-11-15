@@ -1,0 +1,107 @@
+{
+ "actions": [],
+ "autoname": "field:key",
+ "naming_rule": "By fieldname",
+ "creation": "2026-11-17 22:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "modified": "2026-11-17 22:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Notification Event",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "key",
+ "sort_order": "ASC",
+ "states": [],
+ "title_field": "label_ar",
+ "show_title_field_in_link": 1,
+ "search_fields": "label_ar,label_en",
+ "field_order": [
+  "key",
+  "label_ar",
+  "label_en",
+  "column_break_event",
+  "default_push",
+  "roles"
+ ],
+ "fields": [
+  {
+   "fieldname": "key",
+   "fieldtype": "Data",
+   "label": "Key",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "label_ar",
+   "fieldtype": "Data",
+   "label": "Label (Arabic)",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "label_en",
+   "fieldtype": "Data",
+   "label": "Label (English)",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_event",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_push",
+   "fieldtype": "Check",
+   "label": "Push by Default",
+   "description": "Push to the phone unless the user turns it off (the mobile app, SP-149)."
+  },
+  {
+   "fieldname": "roles",
+   "fieldtype": "Small Text",
+   "label": "Roles",
+   "read_only": 1,
+   "description": "Who usually gets it; the preferences list it to them first."
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "write": 1,
+   "create": 0,
+   "delete": 0,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "write": 1,
+   "create": 0,
+   "delete": 0,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0
+  },
+  {
+   "role": "Desk User",
+   "read": 1,
+   "report": 1,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0
+  }
+ ]
+}

@@ -135,6 +135,7 @@ def mark_bounced(name: str, note: str | None = None) -> str:
 		_("Cheque {0} of {1} bounced ({2})").format(
 			doc.cheque_no, frappe.format(doc.amount, "Currency"), doc.customer_name or doc.station
 		),
+		"cheque_bounced",
 	)
 	return doc.status
 
@@ -170,6 +171,7 @@ def check_due() -> list[str]:
 				frappe.format(doc.amount, "Currency"),
 				frappe.format(getdate(doc.due_date), "Date"),
 			),
+			"cheque_due",
 		)
 		made_due.append(name)
 	return made_due
@@ -181,22 +183,18 @@ def _admins() -> list[str]:
 	return _users_with(ADMIN_ROLE)
 
 
-def _alert(doc, users, subject: str) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+def _alert(doc, users, subject: str, event: str) -> None:
+	from smart_power.notify import send
 
 	users = sorted({u for u in users if u})
 	if users:
-		make_notification_logs(
-			frappe._dict(
-				{
-					"type": "Alert",
-					"document_type": CHEQUE,
-					"document_name": doc.name,
-					"subject": subject,
-					"from_user": frappe.session.user,
-				}
-			),
+		send(
+			event,
 			users,
+			CHEQUE,
+			doc.name,
+			subject,
+			from_user=frappe.session.user,
 		)
 
 

@@ -214,31 +214,26 @@ def give_discount(
 
 
 def _tell_admins(doc, case, row) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
-
+	from smart_power.notify import send
 	from smart_power.sp_sales.quote_request import _users_with
 
 	admins = sorted(set(_users_with(ADMIN_ROLE)) - {frappe.session.user})
 	if not admins:
 		return
 	where = row.applies_to or _("the quote total")
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				"document_type": CASE,
-				"document_name": case.name,
-				"subject": _("{0} gave {1} off {2} on quote {3} ({4})").format(
-					frappe.utils.get_fullname(frappe.session.user),
-					frappe.format(row.amount, {"fieldtype": "Currency", "options": doc.currency}),
-					where,
-					doc.name,
-					case.customer_name or case.customer,
-				),
-				"from_user": frappe.session.user,
-			}
-		),
+	send(
+		"discount_given",
 		admins,
+		CASE,
+		case.name,
+		_("{0} gave {1} off {2} on quote {3} ({4})").format(
+			frappe.utils.get_fullname(frappe.session.user),
+			frappe.format(row.amount, {"fieldtype": "Currency", "options": doc.currency}),
+			where,
+			doc.name,
+			case.customer_name or case.customer,
+		),
+		from_user=frappe.session.user,
 	)
 
 
