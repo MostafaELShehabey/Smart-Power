@@ -4,7 +4,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "is_submittable": 1,
- "modified": "2026-11-15 21:00:00.000000",
+ "modified": "2026-11-16 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Finance",
  "name": "SP Customer Payment",
@@ -38,6 +38,7 @@
   "receiving_account",
   "reference_no",
   "receipt_photo",
+  "cheque",
   "third_party_section",
   "third_party_type",
   "third_party",
@@ -169,6 +170,15 @@
    "fieldtype": "Attach Image",
    "label": "Receipt Photo",
    "description": "Needed unless it is cash into your own transit account."
+  },
+  {
+   "fieldname": "cheque",
+   "fieldtype": "Link",
+   "label": "Postal Cheque",
+   "options": "SP Cheque",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "The collected cheque this payment is for (SP-118)."
   },
   {
    "fieldname": "third_party_section",

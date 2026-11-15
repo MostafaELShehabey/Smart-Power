@@ -16,6 +16,7 @@ A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب �
 A marketing request needs its source.,طلب التسويق يحتاج إلى مصدره.
 A new PDF is made and logged for this send.,يُنشأ ملف PDF جديد ويُسجَّل لهذا الإرسال.
 A percent of the total it applies to; leave empty to give an amount.,نسبة من الإجمالي الذي يُطبق عليه؛ اتركها فارغة لإعطاء مبلغ.
+"A postal cheque becomes Due this many days before its due date, and its holder, the collection owner and the admin are alerted (SP-118).",يصبح الشيك البريدي مستحقًا قبل تاريخه بهذا العدد من الأيام، ويُنبَّه حائزه ومسئول التحصيل والمدير.
 A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
@@ -81,6 +82,7 @@ Attach the receipt photo.,أرفق صورة الإيصال.
 B,B
 Balance,الرصيد
 Bank,البنك
+Bank / Post Office,البنك / مكتب البريد
 Bank Branch,فرع البنك
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
 battery_ah,سعة البطارية (أمبير ساعة)
@@ -94,6 +96,8 @@ Blocks,الفقرات
 Board view,عرض اللوحة
 Both accounts must belong to the same company.,يجب أن يتبع الحسابان نفس الشركة.
 Both sides,الجانبان
+Bounced,مرتجع
+Bounced On,تاريخ الارتجاع
 Brand,الماركة
 Brand Priority,أولوية الماركات
 Brand priority,أولوية الماركة
@@ -162,7 +166,12 @@ Check the template,راجع القالب
 Cheque,شيك
 Cheque Bounce,ارتداد شيك
 Cheque Deposit,إيداع شيك
+Cheque Due Alert (days before),تنبيه استحقاق الشيك (أيام قبل)
 Cheque No.,رقم الشيك
+Cheque {0} is already registered as {1}.,الشيك {0} مسجل بالفعل برقم {1}.
+Cheque {0} is {1}; it cannot become {2}.,الشيك {0} حالته {1}؛ لا يمكن أن يصبح {2}.
+Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
+Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبلغ {1} يستحق في {2}؛ أودعه في البريد
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
@@ -178,6 +187,8 @@ Code,الكود
 Code or name,الكود أو الاسم
 Code {0} already exists in the list {1}.,الكود {0} موجود بالفعل في القائمة {1}.
 Code {0} is repeated: it is already in row {1}.,الكود {0} مكرر: موجود بالفعل في الصف {1}.
+Collected,تم التحصيل
+Collected On,تاريخ التحصيل
 Collection,التحصيل
 Collection Owner,مسؤول التحصيل
 Comment,تعليق
@@ -191,6 +202,7 @@ Company {0} has no Sites warehouse group. Run the company setup first.,الشر�
 Completed By,تم بواسطة
 Completed On,تم في
 Confirm,تأكيد
+Confirm Collected Cheques at Once,تأكيد الشيكات المحصلة فورًا
 Confirm selected,تأكيد المحدد
 Confirm the transfer of {0} from {1},تأكيد تحويل {0} من {1}
 Confirm {0} from {1} ({2}),تأكيد {0} من {1} ({2})
@@ -244,6 +256,7 @@ Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Customer Name,اسم العميل
 Customer payment,دفعة عميل
+Customer Payment,دفعة العميل
 Customer payment {0},دفعة عميل {0}
 Customer Statement,كشف حساب العميل
 Customer {0} paid {1} directly ({2}),العميل {0} دفع لـ {1} مباشرة ({2})
@@ -274,6 +287,8 @@ Deposit it into an official account.,أودعها في حساب رسمي.
 Deposit my cash,إيداع نقديتي
 Deposit the cash: {0},أودع النقدية: {0}
 Deposit: drafted by the deposit automation for the lines not in stock (SP-175).,عربون: أنشأه تأكيد العربون للأصناف غير المتوفرة بالمخزن.
+Deposited,مودع
+Deposited On,تاريخ الإيداع
 Description,الوصف
 Design Inputs,مدخلات التصميم
 Details,التفاصيل
@@ -296,6 +311,7 @@ Done,تم
 Download the template,تحميل النموذج
 Draft,مسودة
 Drag to reorder,اسحب لتغيير الترتيب
+Due,مستحق
 Due At,الميعاد
 Due Date,تاريخ الاستحقاق
 "E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round.",مثل ceil(depth / pipe_m). الأسماء المتاحة: المدخلات، مفاتيح السطور السابقة (pipes.qty)، item (مواصفات الصنف المختار)، settings؛ والدوال ceil وfloor وmround وnearest_divisible وmin وmax وabs وround.
@@ -404,6 +420,7 @@ Highlight,تمييز
 History,السجل
 Hit At,وقت التنبيه
 Holder,الحائز
+Holder Name,اسم الحائز
 Home Page Variant,شكل الصفحة الرئيسية
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
 "How print formats find this block, e.g. warranty (a-z, 0-9 and _).",الاسم الذي تجد به نماذج الطباعة هذه الفقرة، مثل warranty (حروف a-z وأرقام و _).
@@ -425,6 +442,7 @@ Input {0},المدخل {0}
 Inputs,المدخلات
 Installing,قيد التركيب
 Installments,أقساط
+Instalment,القسط
 Int,رقم صحيح
 Invalid mobile,رقم موبايل غير صحيح
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
@@ -432,6 +450,7 @@ Inverter Brand,ماركة الإنفرتر
 Invoice,الفاتورة
 Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
+Issuer,الساحب
 Item,الصنف
 Item Group,مجموعة الأصناف
 Item Name,اسم الصنف
@@ -611,6 +630,7 @@ Official accounts,الحسابات الرسمية
 Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
 On time,في الموعد
+On: a collected postal cheque posts its payment at once. Off: the payment waits for the admin in Confirmations (SP-118).,مفعل: الشيك المحصل يُرحّل دفعته فورًا. غير مفعل: تنتظر الدفعة المدير في التأكيدات.
 One choice per line.,اختيار واحد في كل سطر.
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
@@ -693,6 +713,7 @@ Placeholders,المتغيرات
 Placeholders you can use,المتغيرات المتاحة
 PM,م
 PO Sent,تم إرسال أمر التوريد
+Postal Cheque,شيك بريدي
 Postal Cheques,الشيكات البريدية
 Posting Event,حدث القيد
 Posting {0}: the amount must be above zero.,ترحيل {0}: يجب أن يكون المبلغ أكبر من صفر.
@@ -779,6 +800,7 @@ Reassignments,إعادات الإسناد
 Receipt,إيصال الاستلام
 Receipt Photo,صورة الإيصال
 Receipt to Confirm,استلام محتاج تأكيد
+Received,مستلم
 Received by,المستلم
 Receives Customer Money,يستلم أموال العملاء
 Receiving Account,الحساب المستلم
@@ -878,6 +900,7 @@ Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (
 Set Counter,ضبط العداد
 Set Counter: {0},ضبط العداد: {0}
 Set the company to post to.,حدد الشركة للترحيل إليها.
+Set the Postal Cheque account of {0} (Mode of Payment).,حدد حساب الشيك البريدي لـ {0} (طريقة الدفع).
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
@@ -921,6 +944,7 @@ SP Call Log,سجل المكالمات
 SP Case,الحالة
 SP Case System Type,نوع نظام الحالة
 SP Catalog Manager,الأصناف والكتالوجات
+SP Cheque,شيك بريدي
 SP Collection Officer,التحصيل
 SP Commission Manager,العمولات
 SP Commissioning Programmer,البرمجة والتشغيل
@@ -1049,7 +1073,9 @@ The case owner: follows up with the customer until won or lost. A case always ha
 The case's follow-up owner; fixed once the contract exists.,مسئول متابعة الحالة؛ ثابت بعد وجود العقد.
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
 The code is empty.,الكود فارغ.
+The collected cheque this payment is for (SP-118).,الشيك المحصل الذي تخصه هذه الدفعة.
 "The confirmed deposit Payment Entry that ran the automation (text, so the deposit can still be reversed).",قيد العربون المؤكد الذي شغّل الأتمتة (نص، حتى يمكن عكس العربون).
+The contract's payment-schedule line this cheque pays.,سطر جدول السداد في العقد الذي يسدده هذا الشيك.
 The customer,العميل
 "The customer's deposit on a case: confirming it makes the contract, the station, draft purchase orders and reservations (SP-175).",عربون العميل على حالة: تأكيده ينشئ العقد والمحطة وأوامر الشراء المبدئية والحجوزات.
 The customer's deposit: confirming it makes the contract and the station (SP-175).,عربون العميل: تأكيده ينشئ العقد والمحطة.
@@ -1190,16 +1216,19 @@ WhatsApp,واتساب
 When,متى
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
 When the deposit was confirmed: the station's estimated cost is frozen then (SP-74).,عند تأكيد العربون: تُثبت التكلفة التقديرية للمحطة حينها.
+When the holder is not a system user.,عندما لا يكون الحائز مستخدمًا في النظام.
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
 Where a marketing request came from (X4 Lead Source list); required for the Marketing channel.,من أين جاء طلب التسويق (قائمة مصادر العملاء في X4)؛ مطلوب لقناة التسويق.
 "Which side carries the document's project (the station), e.g. a station's cost on the debit side.",أي جانب يحمل مشروع المستند (المحطة)، مثل تكلفة المحطة في جانب المدين.
 Who,مَن
 "Who brought the request in (showroom, call or marketing).",من جاء بالطلب (المعرض أو المكالمة أو التسويق).
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
+Who physically has the cheque now.,من يحمل الشيك فعليًا الآن.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
 Winch Internal Charge,تحميل داخلي للونش
 Winch Line,سطر الونش
+With lawyer,مع المحامي
 Won,تم الكسب
 Won On,تاريخ الكسب
 Won: the deposit was confirmed.,مكسوبة: تم تأكيد العربون.

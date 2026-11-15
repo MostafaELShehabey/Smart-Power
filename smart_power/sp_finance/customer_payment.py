@@ -107,7 +107,8 @@ def _check_receiving_account(doc) -> None:
 				frappe.bold(doc.receiving_account)
 			)
 		)
-	if not doc.receipt_photo and not (own_transit and doc.method == CASH):
+	# a collected postal cheque is its own proof (SP-118)
+	if not doc.receipt_photo and not doc.get("cheque") and not (own_transit and doc.method == CASH):
 		frappe.throw(_("Attach the receipt photo."), frappe.MandatoryError)
 
 
@@ -159,13 +160,25 @@ def _pending(name: str):
 @frappe.whitelist(methods=["POST"])
 def confirm(name: str) -> str:
 	"""The admin checked the money: post it. Returns the entry's name."""
-	doc = _pending(name)
-	if doc.method == THIRD_PARTY:
-		entry = _third_party_entry(doc)
-		doc.db_set("journal_entry", entry)
-	else:
-		entry = _payment_entry(doc)
-		doc.db_set("payment_entry", entry)
+	return post_confirmed(_pending(name))
+
+
+def post_confirmed(doc) -> str:
+	"""Post a pending payment. The admin's Confirm comes here; so does a collected postal cheque
+	when Smart Power Settings confirm those at once (SP-118)."""
+	if doc.status != PENDING:
+		frappe.throw(_("Payment {0} is {1}, not pending.").format(doc.name, _(doc.status)))
+	# the posting is the system's: it reaches the official accounts whoever triggered it (SP-26)
+	frappe.flags.sp_system_posting = True
+	try:
+		if doc.method == THIRD_PARTY:
+			entry = _third_party_entry(doc)
+			doc.db_set("journal_entry", entry)
+		else:
+			entry = _payment_entry(doc)
+			doc.db_set("payment_entry", entry)
+	finally:
+		frappe.flags.sp_system_posting = False
 	doc.db_set({"status": CONFIRMED, "confirmed_by": frappe.session.user})
 	_close_tasks(doc)
 	_refresh(doc)

@@ -194,6 +194,9 @@ def on_user_update(doc, method=None) -> None:
 
 
 def _sees_all(user: str) -> bool:
+	# a posting made by the system on someone's action (e.g. a collected cheque) sees every account
+	if frappe.flags.sp_system_posting:
+		return True
 	return user == "Administrator" or bool(set(SEES_ALL) & set(frappe.get_roles(user)))
 
 
