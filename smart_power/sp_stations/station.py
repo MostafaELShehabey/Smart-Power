@@ -96,6 +96,8 @@ def after_insert(doc) -> None:
 
 
 def validate(doc) -> None:
+	if doc.customer:  # the customer may come from the case, after the form's own fetch
+		doc.customer_name = frappe.db.get_value("Customer", doc.customer, "customer_name")
 	doc.capacity_kw_total = sum(flt(r.capacity_kw) * (flt(r.qty) or 1) for r in doc.systems)
 	if doc.is_new():
 		return
