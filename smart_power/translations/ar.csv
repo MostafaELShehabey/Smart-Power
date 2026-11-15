@@ -17,6 +17,7 @@ A marketing request needs its source.,طلب التسويق يحتاج إلى م
 A new PDF is made and logged for this send.,يُنشأ ملف PDF جديد ويُسجَّل لهذا الإرسال.
 A percent of the total it applies to; leave empty to give an amount.,نسبة من الإجمالي الذي يُطبق عليه؛ اتركها فارغة لإعطاء مبلغ.
 "A postal cheque becomes Due this many days before its due date, and its holder, the collection owner and the admin are alerted (SP-118).",يصبح الشيك البريدي مستحقًا قبل تاريخه بهذا العدد من الأيام، ويُنبَّه حائزه ومسئول التحصيل والمدير.
+A posted entry is never cancelled. Use Reverse to post a reversing entry.,القيد المرحّل لا يُلغى أبدًا. استخدم عكس القيد لترحيل قيد عكسي.
 A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
@@ -81,6 +82,7 @@ Assigned To,مسند إلى
 Attach the receipt photo.,أرفق صورة الإيصال.
 B,B
 Balance,الرصيد
+Balanced: debit {0} = credit {1},متوازن: المدين {0} = الدائن {1}
 Bank,البنك
 Bank / Post Office,البنك / مكتب البريد
 Bank Branch,فرع البنك
@@ -335,6 +337,7 @@ Enter the customer's name: this mobile is new.,اكتب اسم العميل: ه�
 Entered At,وقت الإدخال
 Entry it will post,القيد الذي سيُرحّل
 Entry Mode,طريقة التسجيل
+Entry {0} comes from {1} {2}: cancel or correct that document instead.,القيد {0} صادر من {1} {2}: ألغِ أو صحّح ذلك المستند بدلًا منه.
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
 Estimate Frozen On,تاريخ تثبيت التقدير
@@ -518,6 +521,7 @@ Lost Reason,سبب الخسارة
 Made when the station opens; the station's accounting dimension.,يُنشأ عند فتح المحطة؛ وهو البُعد المحاسبي للمحطة.
 Main,رئيسي
 Main Supplier,المورد الرئيسي
+Make a reversing entry of {0}?,إنشاء قيد عكسي لـ {0}؟
 Make Contract,إنشاء العقد
 Make the contract (Sales Order) and the station from the approved version {0}?,إنشاء العقد (أمر البيع) والمحطة من الإصدار المعتمد {0}؟
 Make the contract (Sales Order) from the case's approved version?,إنشاء العقد (أمر البيع) من الإصدار المعتمد للحالة؟
@@ -525,6 +529,7 @@ Making the PDF…,جارٍ إنشاء ملف PDF…
 Manual,يدوي
 Manual entries,الإدخالات اليدوية
 Manual Entry,إدخال يدوي
+Manual entry {0}: {1},قيد يدوي {0}: {1}
 Manual Prices,أسعار يدوية
 Manual Qty,كمية يدوية
 Margin,هامش الربح
@@ -618,6 +623,7 @@ No.,رقم
 None,لا شيء
 Nos,عدد
 Not allowed,غير مسموح
+"Not balanced: debit {0}, credit {1}, difference {2}",غير متوازن: المدين {0}، الدائن {1}، الفرق {2}
 Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
 Not sent,لم يُرسل
 Note,ملاحظة
@@ -641,6 +647,7 @@ One row per item. A code that already exists updates that item; blank cells keep
 Only,فقط
 Only a deposit is recorded on a case; other payments go on the station.,العربون فقط يُسجل على الحالة؛ باقي الدفعات على المحطة.
 Only a draft version can be calculated. Make a new version.,لا يُحسب إلا الإصدار المسودة. أنشئ إصدارًا جديدًا.
+Only a posted entry is reversed.,يُعكس القيد المرحّل فقط.
 Only a quote linked to a case can be the approved version.,فقط العرض المرتبط بحالة يمكن أن يكون النسخة المعتمدة.
 Only a quote linked to a case has options.,الخيارات متاحة فقط للعرض المرتبط بحالة.
 Only a quote linked to a case has versions.,فقط العرض المرتبط بحالة له نسخ.
@@ -719,6 +726,8 @@ PM,م
 PO Sent,تم إرسال أمر التوريد
 Postal Cheque,شيك بريدي
 Postal Cheques,الشيكات البريدية
+"Posted by hand, not by a document; listed in the review centre (SP-119).",مرحّل يدويًا، وليس من مستند؛ مدرج في مركز المراجعة.
+Posted by {0} {1}. Correct or cancel that document; its entry follows.,رحّله {0} {1}. صحّح أو ألغِ ذلك المستند؛ وقيده يتبعه.
 Posting Event,حدث القيد
 Posting {0}: the amount must be above zero.,ترحيل {0}: يجب أن يكون المبلغ أكبر من صفر.
 "Posting {0}: the {1} side has no cost center. Set it in Smart Power Settings > Account Map, or on the document.",ترحيل {0}: جانب {1} بلا مركز تكلفة. حدده في إعدادات سمارت باور > خريطة الحسابات، أو على المستند.
@@ -848,6 +857,10 @@ Requested By,طالب العرض
 Required,مطلوب
 Result,النتيجة
 Return Note,إذن المرتجع
+Reversal of {0},عكس {0}
+Reversal {0} of {1},القيد العكسي {0} لـ {1}
+Reverse,عكس القيد
+"Reverse, never cancel",اعكس، لا تلغِ
 Review,المراجعة
 Review Centre,مركز المراجعة
 Review: {0},مراجعة: {0}

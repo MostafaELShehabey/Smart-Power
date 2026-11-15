@@ -65,6 +65,8 @@ doctype_js = {
 	"Quotation": "public/js/quotation.js",
 	# your own transit and custody balances on your profile (SP-26)
 	"User": "public/js/user.js",
+	# A6 / A6b: source, Reverse, the live balanced check (SP-119)
+	"Journal Entry": "public/js/journal_entry.js",
 }
 
 doctype_list_js = {
@@ -144,6 +146,11 @@ doc_events = {
 		],
 		"on_cancel": "smart_power.sp_stations.contract.on_order_change",
 	},
+	# A posted entry is reversed, never cancelled; one without a source is a manual entry (SP-119)
+	"Journal Entry": {
+		"before_cancel": "smart_power.sp_finance.journal.before_cancel",
+		"on_submit": "smart_power.sp_finance.journal.on_submit",
+	},
 	# A confirmed (or reversed) customer payment refreshes its station's money (SP-73)
 	"Payment Entry": {
 		# a confirmed deposit makes the contract and the station (SP-175)
@@ -205,6 +212,7 @@ has_permission = {
 	"Item Price": "smart_power.permissions.item_price_has_permission",
 	"SP Case": "smart_power.permissions.case_has_permission",
 	"Account": "smart_power.sp_finance.accounts.account_has_permission",
+	"Journal Entry": "smart_power.sp_finance.journal.has_permission",
 }
 
 # ERPNext's "Update Items" is refused on a case's sent quote (SP-61)

@@ -145,7 +145,9 @@ def cancel_postings(doc, method=None) -> None:
 	"""on_cancel of any document: its posted entries are cancelled with it."""
 	if doc.doctype == JE or not frappe.db.has_column(JE, "sp_source_name"):
 		return
+	from smart_power.sp_finance.journal import allow_cancel
+
 	for name in postings(doc):
 		entry = frappe.get_doc(JE, name)
-		entry.flags.ignore_permissions = True
+		allow_cancel(entry)  # the source was cancelled: its entry goes with it (SP-119)
 		entry.cancel()

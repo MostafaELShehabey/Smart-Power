@@ -232,6 +232,7 @@ def on_cancel(doc) -> None:
 		if name and frappe.db.get_value(doctype, name, "docstatus") == 1:
 			entry = frappe.get_doc(doctype, name)
 			entry.flags.ignore_permissions = True
+			entry.flags.sp_allow_cancel = True  # the payment's own entry (SP-119)
 			entry.cancel()
 	doc.db_set("status", REJECTED if doc.status == PENDING else doc.status)
 	_close_tasks(doc)
