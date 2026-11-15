@@ -85,9 +85,13 @@ def compute(doc) -> dict:
 
 def refresh(station: str) -> dict:
 	"""Recompute and store the station's money figures."""
+	from smart_power.sp_stations.installments import allocate
+
 	doc = frappe.get_doc(STATION, station)
 	values = compute(doc)
 	frappe.db.set_value(STATION, station, values, update_modified=False)
+	doc.update(values)
+	allocate(doc)  # the instalments' paid and status follow the money (SP-81)
 	return {**values, "write_off_amount": flt(doc.write_off_amount)}
 
 

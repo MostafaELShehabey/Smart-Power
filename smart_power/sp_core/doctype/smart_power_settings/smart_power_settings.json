@@ -37,6 +37,7 @@
   "cash_held_limit_days",
   "cheque_due_lead_days",
   "cheque_auto_confirm",
+  "installment_due_lead_days",
   "large_payment_threshold",
   "column_break_cash",
   "field_entry_lock_days",
@@ -261,13 +262,19 @@
    "fieldtype": "Table",
    "label": "Account Map",
    "options": "SP Account Map"
+  },
+  {
+   "fieldname": "installment_due_lead_days",
+   "fieldtype": "Int",
+   "label": "Instalment Due Alert (days before)",
+   "description": "The collection owner is told this many days before a contract instalment falls due (SP-81)."
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-16 14:00:00.000000",
+ "modified": "2026-11-17 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

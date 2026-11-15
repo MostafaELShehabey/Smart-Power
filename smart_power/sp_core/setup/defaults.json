@@ -160,6 +160,7 @@
 		"cash_held_limit_days": {"value": 3, "_source": "SP-116 (the story's example: 3 days)"},
 		"cheque_due_lead_days": {"value": 7, "_source": "SP-118 (the story's example: 7-day lead)"},
 		"cheque_auto_confirm": {"value": 1, "_source": "SP-118: collected cheques post at once by default"},
+		"installment_due_lead_days": {"value": 3, "_source": "SP-81: the collection owner is told 3 days before an instalment falls due"},
 		"field_entry_lock_days": {"value": 3, "_source": "decision 44 (3-day rule)"},
 		"default_rounding_step": {"value": 0, "_source": "no rounding until the templates set their own"}
 	},

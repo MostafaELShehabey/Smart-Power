@@ -196,6 +196,8 @@ scheduler_events = {
 		"smart_power.sp_finance.transit.check_cash_held",
 		# postal cheques due soon: Due, with alerts (SP-118)
 		"smart_power.sp_finance.cheques.check_due",
+		# contract instalments: allocated, Overdue, due and overdue alerts once (SP-81)
+		"smart_power.sp_stations.installments.update_installments",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],

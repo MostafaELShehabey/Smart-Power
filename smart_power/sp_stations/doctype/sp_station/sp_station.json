@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-17 10:00:00.000000",
+ "modified": "2026-11-17 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -55,6 +55,8 @@
   "remaining_amount",
   "next_due_date",
   "next_due_amount",
+  "overdue_amount",
+  "has_overdue",
   "systems_section",
   "systems",
   "capacity_kw_total",
@@ -374,6 +376,22 @@
    "options": "SP Owner History",
    "read_only": 1,
    "no_copy": 1
+  },
+  {
+   "fieldname": "overdue_amount",
+   "fieldtype": "Currency",
+   "label": "Overdue",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "What the contract's instalments already due still lack (SP-81)."
+  },
+  {
+   "fieldname": "has_overdue",
+   "fieldtype": "Check",
+   "label": "Has Overdue",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_standard_filter": 1
   }
  ],
  "permissions": [
