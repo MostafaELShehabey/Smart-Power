@@ -23,6 +23,8 @@ app_include_js = [
 	"/assets/smart_power/js/sp_discount.js",
 	# A2 Record a customer payment, on the station and the case (SP-114)
 	"/assets/smart_power/js/sp_payment.js",
+	# A4 Transfer / deposit, from the Treasury and the holder's profile (SP-117)
+	"/assets/smart_power/js/sp_transfer.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).

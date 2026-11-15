@@ -271,6 +271,7 @@ Delivery Note,إذن التسليم
 Deposit,عربون
 "Deposit confirmed for {0}: station {1}, contract {2}",تم تأكيد عربون {0}: المحطة {1}، العقد {2}
 Deposit it into an official account.,أودعها في حساب رسمي.
+Deposit my cash,إيداع نقديتي
 Deposit the cash: {0},أودع النقدية: {0}
 Deposit: drafted by the deposit automation for the lines not in stock (SP-175).,عربون: أنشأه تأكيد العربون للأصناف غير المتوفرة بالمخزن.
 Description,الوصف
@@ -383,7 +384,6 @@ From Date,من تاريخ
 From document,من المستند
 From the approved quote's line.,من سطر العرض المعتمد.
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
-from {0},من {0}
 Full,كامل
 Give a discount,إعطاء خصم
 Give a percent or an amount.,أدخل نسبة أو مبلغًا.
@@ -562,6 +562,7 @@ Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعاد�
 New Option,خيار جديد
 New price,السعر الجديد
 New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
+New Transfer,تحويل جديد
 New Value,القيمة الجديدة
 New Version,نسخة جديدة
 New version {0}: send it to the customer.,إصدار جديد {0}: أرسله للعميل.
@@ -1131,6 +1132,7 @@ Total cost {0} · Total sale {1} · Profit {2} · Margin {3}%,إجمالي ال�
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Transfer / deposit,تحويل / إيداع
+Transfer / Deposit,تحويل / إيداع
 Transfer above the transit balance,تحويل أكبر من رصيد النقدية
 Transfer Note,إذن التحويل
 Transfer {0},تحويل {0}
@@ -1217,6 +1219,7 @@ You can move money only from your own transit account.,يمكنك نقل الم�
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
 You do not record customer payments.,أنت لا تسجل دفعات العملاء.
+You hold no money account to transfer from.,ليس لديك حساب مالي للتحويل منه.
 Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
 "Your own transit account, or (the admin) any money account.",حساب النقدية الخاص بك، أو (للمدير) أي حساب مالي.
 {0} (yours),{0} (خاصتك)
@@ -1259,6 +1262,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} marked reviewed.,تم تمييز {0} كمُراجعة.
 {0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
 {0} of {1} items,{0} من {1} صنف
+{0} recorded.,تم تسجيل {0}.
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
 {0} reviewed {1}: {2},{0} راجع {1}: {2}
 {0} waiting · {1},{0} في الانتظار · {1}

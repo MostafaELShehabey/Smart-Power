@@ -129,3 +129,27 @@ class TestTransfer(IntegrationTestCase):
 		self.assertTrue(
 			frappe.db.exists("SP Rule Hit", {"rule_key": "transfer_over_balance", "reference_name": doc.name})
 		)
+
+	def test_the_dialog_offers_only_your_own_transit(self):
+		from smart_power.sp_core.services.company import COMPANY_SETTINGS
+		from smart_power.sp_finance.transfer import record_transfer, transfer_options
+
+		frappe.db.set_single_value(COMPANY_SETTINGS, "company", COMPANY)
+		journal(self.cash, self.receivable, 700, today())
+		frappe.set_user(self.driver)
+		try:
+			opts = transfer_options()
+			self.assertEqual([s["value"] for s in opts["sources"]], [self.cash])
+			self.assertEqual(opts["sources"][0]["balance"], 700)
+			name = record_transfer(
+				{
+					"from_account": self.cash,
+					"to_account": self.post,
+					"amount": 700,
+					"work_date": today(),
+					"receipt_photo": PHOTO,
+				}
+			)
+		finally:
+			frappe.set_user("Administrator")
+		self.assertEqual(frappe.db.get_value("SP Transfer", name, "status"), "Pending")

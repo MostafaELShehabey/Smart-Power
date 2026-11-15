@@ -19,5 +19,9 @@ frappe.ui.form.on("User", {
 				.join(" · ") + (over ? ` — <b>${esc(__("Deposit it into an official account."))}</b>` : ""),
 			over ? "red" : "blue"
 		);
+		// SP-117: deposit your cash into an official account (pending the admin's confirmation)
+		if (rows.some((r) => r.sp_account_kind === "Transit" && r.balance > 0)) {
+			frm.add_custom_button(__("Deposit my cash"), () => smart_power.transfer_dialog({}, () => frm.reload_doc()));
+		}
 	},
 });
