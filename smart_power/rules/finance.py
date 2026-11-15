@@ -45,3 +45,32 @@ def cash_held_too_long(doc, ctx: RuleContext):
 		amount=doc.flags.sp_balance,
 		highlight=True,
 	)
+
+
+@rule(
+	"transfer_over_balance",
+	doctypes=("SP Transfer",),
+	category="Commercial",
+	default_level=WARN,
+	title="Transfer above the transit balance",
+	description="A transfer from a transit account for more than the account holds. A warning by "
+	"default (SP-117); the admin can make it a block.",
+	review_category="Rule Warning",
+)
+def transfer_over_balance(doc, ctx: RuleContext):
+	import frappe
+	from erpnext.accounts.utils import get_balance_on
+	from frappe.utils import flt
+
+	if frappe.db.get_value("Account", doc.from_account, "sp_account_kind") != "Transit":
+		return None
+	balance = flt(get_balance_on(doc.from_account, ignore_account_permission=True))
+	if flt(doc.amount) <= balance:
+		return None
+	return Finding(
+		message=_("{0} holds {1}; the transfer is {2}.").format(
+			doc.from_account, frappe.format(balance, "Currency"), frappe.format(doc.amount, "Currency")
+		),
+		suggestion=_("Check the amount, or record the missing receipts first."),
+		amount=flt(doc.amount) - balance,
+	)

@@ -92,7 +92,10 @@ fixtures = [
 
 # A1 Confirmations centre (SP-115): the money DocTypes waiting for the admin, {DocType: module}
 # with pending_items / preview / confirm / reject. Transfers, custody and cash box add theirs.
-sp_confirmation_sources = {"SP Customer Payment": "smart_power.sp_finance.customer_payment"}
+sp_confirmation_sources = {
+	"SP Customer Payment": "smart_power.sp_finance.customer_payment",
+	"SP Transfer": "smart_power.sp_finance.transfer",  # SP-117
+}
 
 # Business rules (SP-128): modules whose @rule functions register at first use.
 sp_rule_modules = ["smart_power.rules.commercial", "smart_power.rules.sales", "smart_power.rules.finance"]
