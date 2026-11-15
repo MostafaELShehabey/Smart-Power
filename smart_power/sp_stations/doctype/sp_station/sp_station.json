@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-16 15:00:00.000000",
+ "modified": "2026-11-16 16:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -452,6 +452,19 @@
   },
   {
    "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Collection Officer",
    "read": 1,
    "report": 1,
    "export": 1,
