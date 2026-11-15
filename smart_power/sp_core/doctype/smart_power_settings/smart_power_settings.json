@@ -34,6 +34,7 @@
   "cash_section",
   "showroom_cash_limit_amount",
   "showroom_cash_limit_days",
+  "large_payment_threshold",
   "column_break_cash",
   "field_entry_lock_days",
   "case_inactivity_days",
@@ -199,6 +200,12 @@
    "label": "Showroom Cash Limit (days since the last deposit)"
   },
   {
+   "fieldname": "large_payment_threshold",
+   "fieldtype": "Currency",
+   "label": "Large Payment (alert the admin above)",
+   "description": "A customer payment above this amount is flagged to the admin when it is recorded (SP-114)."
+  },
+  {
    "fieldname": "column_break_cash",
    "fieldtype": "Column Break"
   },
@@ -239,7 +246,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-13 18:00:00.000000",
+ "modified": "2026-11-15 21:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

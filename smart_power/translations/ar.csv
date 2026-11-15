@@ -8,6 +8,8 @@ A cancelled quote cannot be discounted.,لا يمكن الخصم على عرض �
 A cancelled quote cannot be sent.,لا يمكن إرسال عرض ملغى.
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
 A closed station cannot be cancelled.,لا يمكن إلغاء محطة مغلقة.
+A customer payment above this amount is flagged to the admin when it is recorded (SP-114).,دفعة العميل فوق هذا المبلغ تُنبَّه للمدير عند تسجيلها.
+"A deposit is received by Smart Power, not paid to a third party.",العربون تستلمه سمارت باور، ولا يُدفع لطرف ثالث.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
 "A last-minute ask (العشم) is the customer's final request, printed as its own line under the total.",العشم هو آخر طلب للعميل، ويُطبع في سطر مستقل تحت الإجمالي.
 A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
@@ -35,6 +37,7 @@ Abnormal,غير طبيعي
 Abnormal flags,التنبيهات غير الطبيعية
 Accepted Quotation,العرض المعتمد
 Account Map,خريطة الحسابات
+Account {0} is not an account of {1}.,الحساب {0} ليس من حسابات {1}.
 Action,الإجراء
 Actions,إجراءات
 Active,فعال
@@ -56,7 +59,9 @@ AM,ص
 Amber,أصفر
 Amber After (days),أصفر بعد (أيام)
 Amber After must be fewer days than the Max Price Age.,يجب أن تكون أيام اللون الأصفر أقل من أقصى عمر للسعر.
+Amended From,معدل من
 Amount,المبلغ
+"An official account, or your own transit account (cash in hand).",حساب رسمي، أو حساب العهدة الخاص بك (نقدية في اليد).
 Annex: payment schedule,ملحق: جدول السداد
 Annual Cost of Money,تكلفة الفلوس السنوية
 Applies To,يُطبق على
@@ -69,6 +74,7 @@ Ask for Missing Data,طلب البيانات الناقصة
 Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
+Attach the receipt photo.,أرفق صورة الإيصال.
 B,B
 Bank,البنك
 Bank Branch,فرع البنك
@@ -144,7 +150,9 @@ Cheque Bounce,ارتداد شيك
 Cheque Deposit,إيداع شيك
 Cheque No.,رقم الشيك
 Choose an item or a category.,اختر صنفاً أو فئة.
+Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
+"Choose the station, or the case for a deposit before the station exists.",اختر المحطة، أو الحالة لعربون قبل وجود المحطة.
 Choose the system type first.,اختر نوع النظام أولاً.
 Clear,مسح
 Click to change,اضغط للتغيير
@@ -165,6 +173,11 @@ Company,شركة
 Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
 Completed By,تم بواسطة
 Completed On,تم في
+Confirm {0} from {1} ({2}),تأكيد {0} من {1} ({2})
+Confirmation,التأكيد
+Confirmed,مؤكد
+Confirmed By,أكده
+Confirmed: {0} from {1},تم التأكيد: {0} من {1}
 Consignment Conversion,تحويل أمانة
 Consignment conversions,تحويلات الأمانة
 Consignment Owner,صاحب أمانة
@@ -199,7 +212,9 @@ Customer Advance,سلفة عميل
 Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Customer Name,اسم العميل
+Customer payment {0},دفعة عميل {0}
 Customer Statement,كشف حساب العميل
+Customer {0} paid {1} directly ({2}),العميل {0} دفع لـ {1} مباشرة ({2})
 Data,نص
 Date,التاريخ
 Dates,التواريخ
@@ -251,6 +266,7 @@ E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Edit,تعديل
 Edits with reason,التعديلات بسبب
 "Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
+Empty for a deposit before the station exists: then the case.,فارغ لعربون قبل وجود المحطة: وحينها الحالة.
 Empty goes back to the template.,اتركه فارغًا للرجوع لقيمة القالب.
 Empty means all offer types.,فارغ يعني كل أنواع العروض.
 Empty means both.,فارغ يعني الاثنين.
@@ -261,6 +277,7 @@ Empty uses the published template of the case's system type.,اتركه فارغ
 "Empty: the quote total. Otherwise a section of the quote (e.g. Energy or Submersible), never one line.",فارغ: إجمالي العرض. وإلا فقسم من العرض (مثل الطاقة أو الغاطس)، وليس سطرًا واحدًا أبدًا.
 Enter at least one price.,أدخل سعراً واحداً على الأقل.
 Enter the customer's name: this mobile is new.,اكتب اسم العميل: هذا الموبايل جديد.
+Entered At,وقت الإدخال
 Entry Mode,طريقة التسجيل
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
@@ -335,6 +352,7 @@ Give a reason for each warning to continue.,اكتب سبباً لكل تنبي�
 "Give a reason, for example the supplier's new price list.",اكتب السبب، مثلاً لستة المورد الجديدة.
 Give Discount,إعطاء خصم
 Give discount,إعطاء الخصم
+Give the reason for the rejection.,اذكر سبب الرفض.
 Given By,أعطاه
 Given On,تاريخ الإعطاء
 Hand over,تسليم
@@ -382,11 +400,14 @@ Item Selection,اختيار الصنف
 Item {0} does not exist.,الصنف {0} غير موجود.
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
 Job Type,نوع الشغلانة
+Journal Entry,قيد يومية
 Key,المفتاح
 Key Data,البيانات الأساسية
 Kind,النوع
 kw,القدرة (كيلووات)
 Label,الاسم
+Large Payment (alert the admin above),دفعة كبيرة (تنبيه المدير فوقها)
+Large payment: {0},دفعة كبيرة: {0}
 Last Action,آخر إجراء
 Last Call,آخر مكالمة
 Last-minute ask,العشم
@@ -469,6 +490,7 @@ Max Total Discount: Quote Creator,أقصى خصم على الإجمالي: صا�
 Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
 May differ from the instalment it pays.,قد تختلف عن القسط الذي تسدده.
 Message,الرسالة
+Method,طريقة الدفع
 Min Margin %,أقل ربح %
 Mine,طلباتي
 Missing data for {0}: {1},بيانات ناقصة لـ {0}: {1}
@@ -484,10 +506,12 @@ Money this person receives passes through this account until it reaches an offic
 MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
 Name,الاسم
+Name the third party the customer paid.,اذكر الطرف الثالث الذي دفع له العميل.
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
 Nearest 10,أقرب 10
 Nearest 5,أقرب 5
 Need Formula,معادلة الاحتياج
+Needed unless it is cash into your own transit account.,مطلوبة إلا إذا كانت نقدية في حساب العهدة الخاص بك.
 Needs Repricing,يحتاج إعادة تسعير
 Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
@@ -535,6 +559,8 @@ Nothing to review here.,لا شيء للمراجعة هنا.
 of,من
 Off,متوقف
 Offer Type,نوع العرض
+Official,رسمي
+"Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: the money one person holds until it reaches an official account (SP-114, SP-116).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة: المال الذي يحمله شخص حتى يصل لحساب رسمي.
 Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
 On time,في الموعد
@@ -542,6 +568,7 @@ One choice per line.,اختيار واحد في كل سطر.
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only,فقط
+Only a deposit is recorded on a case; other payments go on the station.,العربون فقط يُسجل على الحالة؛ باقي الدفعات على المحطة.
 Only a draft version can be calculated. Make a new version.,لا يُحسب إلا الإصدار المسودة. أنشئ إصدارًا جديدًا.
 Only a quote linked to a case can be the approved version.,فقط العرض المرتبط بحالة يمكن أن يكون النسخة المعتمدة.
 Only a quote linked to a case has options.,الخيارات متاحة فقط للعرض المرتبط بحالة.
@@ -554,6 +581,7 @@ Only for Offer Type,لنوع العرض هذا فقط
 Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
 Only the admin changes the {0}.,فقط المدير يغيّر {0}.
+Only the admin confirms or rejects a payment.,فقط المدير يؤكد الدفعة أو يرفضها.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
 Only the admin records a write-off.,فقط المدير يسجل الشطب.
 Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
@@ -591,12 +619,20 @@ P1 price,سعر P1
 Page,صفحة
 Paid,المدفوع
 Paid (confirmed),المدفوع (المؤكد)
+Paid to a Third Party,مدفوع لطرف ثالث
 Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
 Pass-through,بسعر التكلفة
+Payee,المستفيد
+Payee Type,نوع المستفيد
+Payment,الدفعة
+Payment Entry,سند الدفع
 Payment Method,طريقة الدفع
 Payment Schedule,جدول السداد
+"Payment {0} is {1}, not pending.",الدفعة {0} حالتها {1}، وليست قيد الانتظار.
 PDF,ملف PDF
+Pending,قيد التأكيد
+Pending Confirmation,قيد التأكيد
 "Per unit, from the P1 Cost price list when left empty.",للوحدة، من قائمة تكلفة P1 إذا تُركت فارغة.
 Per-kW default,افتراضي لكل كيلووات
 Percent,النسبة
@@ -691,17 +727,26 @@ Reassign Request,طلب تحويل
 Reassignment,تحويل
 Reassignments,إعادات الإسناد
 Receipt,إيصال الاستلام
+Receipt Photo,صورة الإيصال
 Receipt to Confirm,استلام محتاج تأكيد
 Received by,المستلم
+Receives Customer Money,يستلم أموال العملاء
+Receiving Account,الحساب المستلم
 Record,السجل
 Record Write-off,تسجيل شطب
+Recorded By,سجّلها
+Recorded payments the admin has not confirmed yet; not counted in Paid (SP-114).,دفعات مسجلة لم يؤكدها المدير بعد؛ لا تُحسب في المدفوع.
 Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
+Reference No.,رقم المرجع
 Referrer Commission,عمولة الوسيط
 Refresh,تحديث
 Refund,رد مبلغ
 Region,المنطقة
 Registered with {0},مسجل لدى {0}
+Reject Reason,سبب الرفض
+Rejected,مرفوض
+Rejected: {0} from {1}: {2},مرفوض: {0} من {1}: {2}
 Remaining,المتبقي
 Remaining: {0},المتبقي: {0}
 Remove,إزالة
@@ -826,6 +871,7 @@ SP Contract Cheque,شيك العقد
 SP Contract Manager,العقود
 SP Custody Holder,صاحب عهدة
 SP Customer Followup,متابعة العملاء
+SP Customer Payment,دفعة عميل
 SP Document Block,فقرة مستند
 SP Document Template,قالب مستند
 SP Driver,سواق العربية
@@ -904,6 +950,7 @@ Supplier List Price,سعر لستة المورد
 Supplier missing,المورد غير محدد
 Supplier Quotation,عرض سعر مورد
 Supplier {0} does not exist.,المورد {0} غير موجود.
+"Supplier, or an expense Account, the customer paid directly.",مورد، أو حساب مصروف، دفع له العميل مباشرة.
 Supply and install,توريد وتركيب
 Supply only,توريد فقط
 System,النظام
@@ -933,6 +980,7 @@ Test with Sample Inputs,تجربة بمدخلات نموذجية
 Text,النص
 Text Blocks,فقرات النص
 The admin has been asked,تم إرسال الطلب للمدير
+The amount must be above zero.,يجب أن يكون المبلغ أكبر من صفر.
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
 The case is already yours.,الحالة لك بالفعل.
 The case is handed over.,تم تسليم الحالة.
@@ -943,6 +991,8 @@ The code is empty.,الكود فارغ.
 "The confirmed deposit Payment Entry that ran the automation (text, so the deposit can still be reversed).",قيد العربون المؤكد الذي شغّل الأتمتة (نص، حتى يمكن عكس العربون).
 The customer,العميل
 "The customer's deposit on a case: confirming it makes the contract, the station, draft purchase orders and reservations (SP-175).",عربون العميل على حالة: تأكيده ينشئ العقد والمحطة وأوامر الشراء المبدئية والحجوزات.
+The customer's deposit: confirming it makes the contract and the station (SP-175).,عربون العميل: تأكيده ينشئ العقد والمحطة.
+The day the money was received.,يوم استلام المبلغ.
 The default price category for items in this group.,فئة السعر الافتراضية لأصناف هذه المجموعة.
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The discounts are more than the quote total.,الخصومات أكبر من إجمالي العرض.
@@ -1112,6 +1162,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
 {0} is locked: its markup cannot change.,{0} مقفل: لا يمكن تغيير نسبة الربح.
+{0} is neither an official account nor your own transit account.,{0} ليس حسابًا رسميًا ولا حساب العهدة الخاص بك.
 {0} is not a call result.,{0} ليست نتيجة مكالمة.
 {0} is not a numbering series of {1}.,{0} ليست سلسلة ترقيم لـ {1}.
 {0} is not a photo.,{0} ليس صورة.

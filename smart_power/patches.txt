@@ -27,3 +27,4 @@ smart_power.patches.sp68_discount_followup_warn
 smart_power.patches.sp73_station_workflow_masters
 smart_power.patches.sp74_contract_template
 smart_power.patches.sp175_stock_reservation
+smart_power.patches.sp114_payment_method_third_party

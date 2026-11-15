@@ -60,6 +60,14 @@ def next_due(schedule: list, covered: float) -> tuple:
 	return None, 0.0
 
 
+def pending_payments(station: str) -> float:
+	"""Recorded customer payments waiting for the admin's confirmation (SP-114)."""
+	rows = frappe.get_all(
+		"SP Customer Payment", {"station": station, "status": "Pending", "docstatus": 1}, pluck="amount"
+	)
+	return sum(flt(r) for r in rows)
+
+
 def compute(doc) -> dict:
 	agreed, schedule = _agreed_and_schedule(doc)
 	paid = confirmed_payments(doc.project)
@@ -68,6 +76,7 @@ def compute(doc) -> dict:
 	return {
 		"agreed_amount": agreed,
 		"paid_amount": paid,
+		"pending_amount": pending_payments(doc.name),
 		"remaining_amount": max(agreed - paid - written_off, 0.0),
 		"next_due_date": due_date,
 		"next_due_amount": due_amount,

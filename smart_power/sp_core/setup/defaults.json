@@ -192,6 +192,7 @@
 		{"list_name": "Payment Method", "code": "POST", "value_ar": "البريد", "value_en": "Post", "sort_order": 4},
 		{"list_name": "Payment Method", "code": "VODAFONE_CASH", "value_ar": "فودافون كاش", "value_en": "Vodafone Cash", "sort_order": 5},
 		{"list_name": "Payment Method", "code": "POSTAL_CHEQUE", "value_ar": "شيك بريد", "value_en": "Postal cheque", "sort_order": 6},
+		{"list_name": "Payment Method", "code": "THIRD_PARTY", "value_ar": "مدفوع لطرف ثالث", "value_en": "Paid to third party", "sort_order": 99},
 		{"list_name": "System Type", "code": "CONCRETE", "value_ar": "خرسانة", "value_en": "Concrete", "sort_order": 12, "_source": "SP-32"},
 		{"list_name": "Job Type", "code": "PUMP_DOWN", "value_ar": "تنزيل طلمبة", "value_en": "Pump down", "sort_order": 1, "_source": "SP-32"},
 		{"list_name": "Job Type", "code": "PUMP_UP", "value_ar": "رفع طلمبة", "value_en": "Pump up", "sort_order": 2, "_source": "SP-32"},
