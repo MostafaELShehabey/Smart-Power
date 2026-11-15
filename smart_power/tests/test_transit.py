@@ -47,6 +47,7 @@ class TestTransit(IntegrationTestCase):
 		for name in frappe.get_all("GL Entry", {"account": self.cash, "is_cancelled": 0}, pluck="voucher_no"):
 			je = frappe.get_doc("Journal Entry", name)
 			if je.docstatus == 1:
+				je.flags.sp_allow_cancel = True  # test cleanup: entries are never cancelled by hand (SP-119)
 				je.cancel()
 
 	def alerts(self):

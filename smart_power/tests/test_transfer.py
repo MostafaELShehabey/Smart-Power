@@ -45,6 +45,7 @@ class TestTransfer(IntegrationTestCase):
 		):
 			je = frappe.get_doc("Journal Entry", voucher)
 			if je.docstatus == 1:
+				je.flags.sp_allow_cancel = True  # test cleanup: entries are never cancelled by hand (SP-119)
 				je.cancel()
 
 	def tearDown(self):
