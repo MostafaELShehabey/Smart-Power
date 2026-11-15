@@ -1,0 +1,306 @@
+{
+ "actions": [],
+ "creation": "2026-11-17 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "modified": "2026-11-17 18:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Custody Settlement",
+ "owner": "Administrator",
+ "autoname": "CST-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "search_fields": "holder_name,status",
+ "title_field": "holder_name",
+ "field_order": [
+  "custody",
+  "holder",
+  "holder_name",
+  "company",
+  "custody_account",
+  "column_break_head",
+  "status",
+  "period_from",
+  "period_to",
+  "total",
+  "lines_section",
+  "lines",
+  "leftover_section",
+  "leftover_action",
+  "return_to_account",
+  "column_break_leftover",
+  "approved_total",
+  "returned_amount",
+  "review_section",
+  "recorded_by",
+  "confirmed_by",
+  "reject_reason",
+  "journal_entry",
+  "return_entry",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "custody",
+   "fieldtype": "Link",
+   "label": "Custody",
+   "options": "SP Custody",
+   "reqd": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "holder",
+   "fieldtype": "Link",
+   "label": "Holder",
+   "options": "User",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "holder_name",
+   "fieldtype": "Data",
+   "label": "Holder Name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custody_account",
+   "fieldtype": "Link",
+   "label": "Custody Account",
+   "options": "Account",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nPending\nApproved\nRejected",
+   "default": "Draft",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "no_copy": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "period_from",
+   "fieldtype": "Date",
+   "label": "From",
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_to",
+   "fieldtype": "Date",
+   "label": "To",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "lines_section",
+   "fieldtype": "Section Break",
+   "label": "Expenses"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "label": "Expenses",
+   "options": "SP Custody Settlement Line",
+   "allow_on_submit": 1,
+   "cannot_add_rows": 1,
+   "cannot_delete_rows": 1
+  },
+  {
+   "fieldname": "leftover_section",
+   "fieldtype": "Section Break",
+   "label": "Leftover"
+  },
+  {
+   "fieldname": "leftover_action",
+   "fieldtype": "Select",
+   "label": "Leftover Cash",
+   "options": "Carry\nReturn",
+   "default": "Carry",
+   "reqd": 1,
+   "description": "Carry: it stays with the holder for the next period. Return: it goes back to an official account when the admin approves."
+  },
+  {
+   "fieldname": "return_to_account",
+   "fieldtype": "Link",
+   "label": "Return To",
+   "options": "Account",
+   "depends_on": "eval:doc.leftover_action==\"Return\"",
+   "mandatory_depends_on": "eval:doc.leftover_action==\"Return\""
+  },
+  {
+   "fieldname": "column_break_leftover",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_total",
+   "fieldtype": "Currency",
+   "label": "Approved",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "returned_amount",
+   "fieldtype": "Currency",
+   "label": "Returned",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "review_section",
+   "fieldtype": "Section Break",
+   "label": "Review"
+  },
+  {
+   "fieldname": "recorded_by",
+   "fieldtype": "Link",
+   "label": "Recorded By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "confirmed_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "reject_reason",
+   "fieldtype": "Small Text",
+   "label": "Reject Reason",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Expense Entry",
+   "options": "Journal Entry",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "return_entry",
+   "fieldtype": "Link",
+   "label": "Return Entry",
+   "options": "Journal Entry",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "SP Custody Settlement",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 0,
+   "delete": 0,
+   "permlevel": 0,
+   "if_owner": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 0,
+   "delete": 0,
+   "permlevel": 0,
+   "if_owner": 0
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "delete": 0,
+   "permlevel": 0,
+   "if_owner": 0
+  },
+  {
+   "role": "SP Custody Holder",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 0,
+   "amend": 0,
+   "delete": 0,
+   "permlevel": 0,
+   "if_owner": 0
+  }
+ ]
+}

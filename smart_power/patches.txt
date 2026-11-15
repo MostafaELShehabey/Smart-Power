@@ -36,3 +36,4 @@ smart_power.patches.sp118_cheque_settings
 smart_power.patches.sp121_advance_account_map
 smart_power.patches.sp81_installment_settings
 smart_power.patches.sp27_cost_centers
+smart_power.patches.sp122_custody_setup

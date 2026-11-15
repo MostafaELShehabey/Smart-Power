@@ -101,6 +101,7 @@ fixtures = [
 sp_confirmation_sources = {
 	"SP Customer Payment": "smart_power.sp_finance.customer_payment",
 	"SP Transfer": "smart_power.sp_finance.transfer",  # SP-117
+	"SP Custody Settlement": "smart_power.sp_finance.custody",  # SP-122
 }
 
 # Business rules (SP-128): modules whose @rule functions register at first use.
@@ -214,6 +215,9 @@ permission_query_conditions = {
 	"GL Entry": "smart_power.sp_finance.accounts.gl_query_conditions",
 	# a collection officer sees only the stations they collect (SP-120)
 	"SP Station": "smart_power.sp_finance.balances.station_query_conditions",
+	# a custody holder sees only their own custody and settlements (SP-122)
+	"SP Custody": "smart_power.sp_finance.custody.custody_query",
+	"SP Custody Settlement": "smart_power.sp_finance.custody.settlement_query",
 }
 has_permission = {
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
@@ -222,6 +226,8 @@ has_permission = {
 	"Account": "smart_power.sp_finance.accounts.account_has_permission",
 	"Journal Entry": "smart_power.sp_finance.journal.has_permission",
 	"SP Station": "smart_power.sp_finance.balances.station_has_permission",
+	"SP Custody": "smart_power.sp_finance.custody.has_permission",
+	"SP Custody Settlement": "smart_power.sp_finance.custody.has_permission",
 }
 
 # ERPNext's "Update Items" is refused on a case's sent quote (SP-61)
