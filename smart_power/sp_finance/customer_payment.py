@@ -525,12 +525,13 @@ def preview(name: str) -> list[dict]:
 				"cost_center": r.get("cost_center")
 				or frappe.get_cached_value("Company", doc.company, "cost_center"),
 				"project": r.get("project"),
+				"station": doc.station if r.get("project") else None,
 			}
 			for r in entry.accounts
 		]
 	pe = _build_payment_entry(doc)
 	center = pe.get("cost_center") or frappe.get_cached_value("Company", doc.company, "cost_center")
 	return [
-		{"account": pe.paid_to, "debit": flt(pe.paid_amount), "credit": 0, "party": None, "cost_center": center, "project": pe.project},
-		{"account": pe.paid_from, "debit": 0, "credit": flt(pe.paid_amount), "party": pe.party, "cost_center": center, "project": pe.project},
+		{"account": pe.paid_to, "debit": flt(pe.paid_amount), "credit": 0, "party": None, "cost_center": center, "project": pe.project, "station": doc.station},
+		{"account": pe.paid_from, "debit": 0, "credit": flt(pe.paid_amount), "party": pe.party, "cost_center": center, "project": pe.project, "station": doc.station},
 	]  # fmt: skip

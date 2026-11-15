@@ -113,8 +113,13 @@ class TestConfirmations(IntegrationTestCase):
 		self.assertTrue(credit["party"])
 		self.assertTrue(debit["cost_center"])
 		self.assertEqual({line["project"] for line in lines}, {project})
+		self.assertEqual({line["station"] for line in lines}, {self.station})  # shown by its number
 
 	def test_only_the_admin(self):
 		frappe.set_user(self.amira)
 		with self.assertRaises(frappe.PermissionError):
 			pending()
+
+	def test_the_page_is_for_the_admin(self):
+		roles = {r.role for r in frappe.get_doc("Page", "sp-confirmations").roles}
+		self.assertEqual(roles, {"SP Admin", "System Manager"})
