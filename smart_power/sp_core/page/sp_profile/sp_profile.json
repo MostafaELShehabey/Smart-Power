@@ -1,0 +1,16 @@
+{
+ "creation": "2026-11-17 20:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "users",
+ "idx": 0,
+ "modified": "2026-11-17 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "sp-profile",
+ "owner": "Administrator",
+ "page_name": "sp-profile",
+ "roles": [],
+ "standard": "Yes",
+ "title": "My Profile"
+}

@@ -56,6 +56,17 @@ jinja = {
 	],
 }
 
+# G6 Profile (SP-42) in the user menu
+standard_navbar_items = [
+	{
+		"item_label": "My Profile",
+		"item_type": "Route",
+		"route": "/app/sp-profile",
+		"is_standard": 1,
+		"icon": "users",
+	},
+]
+
 website_context = {
 	"favicon": "/assets/smart_power/images/sp_favicon.png",
 	"splash_image": "/assets/smart_power/images/sp_logo.png",

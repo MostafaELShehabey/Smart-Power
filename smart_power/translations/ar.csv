@@ -128,6 +128,7 @@ BTB (Companies),BTB (الشركات)
 BTC,BTC
 BTC (Individuals),BTC (الأفراد)
 Bulk confirmation,تأكيد جماعي
+By email,بالبريد الإلكتروني
 C,C
 Calculate,احسب
 Calculate the quote from its template first.,احسب العرض من قالبه أولًا.
@@ -163,6 +164,7 @@ Case {0} is {1}; its quotes are not discounted any more.,الحالة {0} {1}؛ 
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
 Cash,نقدي
 Cash and Locks,الكاش والقفل
+Cash held,نقدية معك
 Cash Held Limit (days),حد الاحتفاظ بالنقدية (أيام)
 Cash held too long,نقدية محتفظ بها مدة طويلة
 "Cash in a person's transit account longer than its Max Days Held (or Cash Held Limit in Smart Power Settings) alerts the holder and the admin every day until it is deposited. A warning, never a block.",النقدية في حساب نقدية شخص أطول من أقصى أيام الاحتفاظ (أو حد الاحتفاظ بالنقدية في الإعدادات) تنبّه الحائز والمدير يوميًا حتى تُودع. تحذير، وليس منعًا.
@@ -179,6 +181,7 @@ Change %,نسبة التغيير %
 Change a Line,تعديل سطر
 Change Order,أمر تغيير
 Change orders,أوامر التغيير
+Change Password,تغيير كلمة المرور
 Changed By,تم التغيير بواسطة
 Changed by {0},غيّره {0}
 "Changes the quote creator made to the calculated lines, by line key.",تعديلات مُعدّ العرض على السطور المحسوبة، حسب مفتاح السطر.
@@ -203,6 +206,7 @@ Cheque {0} is {1}; it cannot become {2}.,الشيك {0} حالته {1}؛ لا ي
 Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
 Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبلغ {1} يستحق في {2}؛ أودعه في البريد
 Choose an item or a category.,اختر صنفاً أو فئة.
+Choose Arabic or English.,اختر العربية أو الإنجليزية.
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the account the money came into.,اختر الحساب الذي دخلت إليه الأموال.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
@@ -242,6 +246,7 @@ Completed By,تم بواسطة
 Completed On,تم في
 Confirm,تأكيد
 Confirm Collected Cheques at Once,تأكيد الشيكات المحصلة فورًا
+Confirm New Password,تأكيد كلمة المرور الجديدة
 Confirm selected,تأكيد المحدد
 Confirm the transfer of {0} from {1},تأكيد تحويل {0} من {1}
 Confirm {0} from {1} ({2}),تأكيد {0} من {1} ({2})
@@ -286,6 +291,7 @@ Credit Center,مركز الدائن
 Credit Cost Center,مركز تكلفة الدائن
 Credit side,جانب الدائن
 Current,الحالي
+Current Password,كلمة المرور الحالية
 Custody,عهدة
 Custody Account,حساب العهدة
 Custody balance,رصيد العهدة
@@ -506,6 +512,7 @@ Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
 In person,شخصيًا
 In settlement,في التسوية
+In the app,داخل البرنامج
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
 Indirect Pool Center,مركز التكاليف غير المباشرة
 Indirect Split,توزيع غير مباشر
@@ -542,6 +549,7 @@ Key Data,البيانات الأساسية
 Kind,النوع
 kw,القدرة (كيلووات)
 Label,الاسم
+Language,اللغة
 Large Payment (alert the admin above),دفعة كبيرة (تنبيه المدير فوقها)
 Large payment: {0},دفعة كبيرة: {0}
 Last Action,آخر إجراء
@@ -559,6 +567,7 @@ Legal Name (Arabic),الاسم القانوني (عربي)
 Level,المستوى
 Light,خفيف
 Light: phone entry for the winch and car (decision 44).,خفيف: تسجيل من الموبايل للونش والعربية (قرار 44).
+limit {0},الحد {0}
 Limits,الحدود
 Limits and Scope,الحدود والنطاق
 "Limits must be a JSON object, for example {""max_days"": 3}.","يجب أن تكون الحدود كائن JSON، مثلاً {""max_days"": 3}."
@@ -655,6 +664,8 @@ MPPT Min (V),أدنى MPPT (فولت)
 My cash,نقديتي
 My custody,عهدتي
 My Custody,عهدتي
+My custody and cash held,عهدتي والنقدية التي معي
+My Profile,ملفي
 Name,الاسم
 Name the third party the customer paid.,اذكر الطرف الثالث الذي دفع له العميل.
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
@@ -667,6 +678,7 @@ Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
 New Option,خيار جديد
+New Password,كلمة المرور الجديدة
 New price,السعر الجديد
 New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Transfer,تحويل جديد
@@ -702,6 +714,7 @@ No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 No quote yet.,لا يوجد عرض بعد.
+No roles,لا توجد صلاحيات
 No sent quote yet.,لم يُرسل عرض بعد.
 No stations are assigned to you.,لا توجد محطات مسندة لك
 No.,رقم
@@ -715,6 +728,7 @@ Note,ملاحظة
 Notes,ملاحظات
 Nothing to review here.,لا شيء للمراجعة هنا.
 Nothing waiting for confirmation.,لا شيء في انتظار التأكيد.
+Notifications,الإشعارات
 of,من
 Off,متوقف
 Offer Type,نوع العرض
@@ -803,6 +817,7 @@ Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
 Partly repaid,مسددة جزئيًا
 Pass-through,بسعر التكلفة
+Password changed,تم تغيير كلمة المرور
 Payee,المستفيد
 Payee Type,نوع المستفيد
 Payment,الدفعة
@@ -988,6 +1003,7 @@ Review: {0},مراجعة: {0}
 Reviewed,تمت المراجعة
 Reviewed By,راجعه
 Reviewed On,تاريخ المراجعة
+Roles are set by the admin.,الصلاحيات يحددها المدير.
 Round Derived Prices To,تقريب الأسعار المحسوبة إلى
 Round Price,تقريب السعر
 Row,الصف
@@ -1064,6 +1080,7 @@ Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أي
 Showroom Center,مركز المعرض
 Showroom Deposit,إيداع المعرض
 "Showroom sales, cash box and showroom costs.",مبيعات المعرض والخزنة وتكاليف المعرض.
+Sign in first.,سجّل الدخول أولًا.
 Simple Record Type,نوع التسجيل البسيط
 Site,موقع
 Site Stage,مرحلة الموقع
@@ -1271,6 +1288,7 @@ The mobile app's id for an expense entered offline (M11); the same id is saved o
 "The name formulas use, e.g. depth or hp (letters, digits and _).",الاسم الذي تستخدمه المعادلات، مثل depth أو hp (حروف وأرقام و _).
 "The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
+The new passwords do not match.,كلمتا المرور الجديدتان غير متطابقتين.
 The next call cannot be before this call.,لا يمكن أن تكون المكالمة التالية قبل هذه المكالمة.
 The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
 The official account the advance is paid from.,الحساب الرسمي الذي دُفعت منه السلفة.
@@ -1431,6 +1449,7 @@ You cannot change cost prices.,لا يمكنك تغيير أسعار التكل�
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
 You do not record customer payments.,أنت لا تسجل دفعات العملاء.
 You have been given custody of {0},سُلّمت إليك عهدة بمبلغ {0}
+You hold no company money.,لا توجد معك أموال للشركة.
 You hold no money account to transfer from.,ليس لديك حساب مالي للتحويل منه.
 You see only your own custody.,ترى عهدتك فقط.
 Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
