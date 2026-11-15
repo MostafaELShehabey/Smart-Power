@@ -55,6 +55,7 @@ Add Value to {0},إضافة قيمة إلى {0}
 Address (Arabic),العنوان (عربي)
 Addresses,العناوين
 Addresses and Phones,العناوين والتليفونات
+Advances (Agri Bank),سلف (البنك الزراعي)
 Age,العمر
 Aging,يقترب من القدم
 Agreed,المتفق عليه
@@ -227,6 +228,7 @@ Consignment Owner,صاحب أمانة
 Contract,العقد
 Contract (Sales Order),العقد (أمر البيع)
 Contract Date,تاريخ العقد
+Contract {0},عقد {0}
 Coordinates,الإحداثيات
 "Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
 Cost,التكلفة
@@ -258,6 +260,7 @@ Customer,العميل
 Customer Advance,سلفة عميل
 Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
+Customer Balances,أرصدة العملاء
 Customer Name,اسم العميل
 Customer payment,دفعة عميل
 Customer Payment,دفعة العميل
@@ -606,6 +609,7 @@ No call yet.,لا توجد مكالمات بعد.
 No cases here.,لا توجد حالات هنا.
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No default supplier for: {0},لا يوجد مورد افتراضي لـ: {0}
+No entries yet.,لا توجد قيود بعد.
 No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
 No item in {0} covers {1}.,لا يوجد صنف في {0} يغطي {1}.
 "No item, so no cost.",لا يوجد صنف، فلا توجد تكلفة.
@@ -709,6 +713,7 @@ Payment,الدفعة
 Payment Entry,سند الدفع
 Payment Method,طريقة الدفع
 Payment Schedule,جدول السداد
+Payment {0},دفعة {0}
 "Payment {0} is {1}, not pending.",الدفعة {0} حالتها {1}، وليست قيد الانتظار.
 PDF,ملف PDF
 Pending,قيد التأكيد
@@ -750,6 +755,7 @@ Prices changed or the quote expired before the deposit: make a new version at to
 Pricing,التسعير
 Pricing rule,قاعدة تسعير
 Pricing Rules,قواعد التسعير
+Print,طباعة
 Print Format,نموذج الطباعة
 Print Group,مجموعة الطباعة
 Print Sample,نموذج الطباعة
@@ -970,8 +976,10 @@ SP Company Settings,بيانات الشركة
 SP Contract Cheque,شيك العقد
 SP Contract Manager,العقود
 SP Custody Holder,صاحب عهدة
+SP Customer Balances,أرصدة العملاء
 SP Customer Followup,متابعة العملاء
 SP Customer Payment,دفعة عميل
+SP Customer Statement,كشف حساب العميل
 SP Document Block,فقرة مستند
 SP Document Template,قالب مستند
 SP Driver,سواق العربية
@@ -1255,6 +1263,7 @@ Write what is missing.,اكتب ما هو ناقص.
 Write-off,شطب
 Write-off of {0} on station {1}: {2},شطب {0} على المحطة {1}: {2}
 Write-off on station {0}: {1},شطب على المحطة {0}: {1}
+Write-off {0},شطب {0}
 Write-offs,الشطب
 Written Off,المشطوب
 Wrong customer,عميل غير مطابق

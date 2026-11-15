@@ -51,6 +51,8 @@ jinja = {
 		"smart_power.sp_quotes.quote_print.quote_print",
 		# The contract PDF (SP-74)
 		"smart_power.sp_stations.contract_print.contract_print",
+		# The customer statement (SP-120)
+		"smart_power.sp_finance.balances.customer_statement",
 	],
 }
 
@@ -206,6 +208,8 @@ permission_query_conditions = {
 	# money accounts: others see only their own transit and custody (SP-26)
 	"Account": "smart_power.sp_finance.accounts.account_query_conditions",
 	"GL Entry": "smart_power.sp_finance.accounts.gl_query_conditions",
+	# a collection officer sees only the stations they collect (SP-120)
+	"SP Station": "smart_power.sp_finance.balances.station_query_conditions",
 }
 has_permission = {
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
@@ -213,6 +217,7 @@ has_permission = {
 	"SP Case": "smart_power.permissions.case_has_permission",
 	"Account": "smart_power.sp_finance.accounts.account_has_permission",
 	"Journal Entry": "smart_power.sp_finance.journal.has_permission",
+	"SP Station": "smart_power.sp_finance.balances.station_has_permission",
 }
 
 # ERPNext's "Update Items" is refused on a case's sent quote (SP-61)
