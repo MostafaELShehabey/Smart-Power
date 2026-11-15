@@ -1,6 +1,6 @@
 // A3 Treasury (SP-116): every money account; who holds company cash and for how long. Days held
 // past the limit are red. Each account opens its statement; an official account opens the bank
-// reconciliation. Transfers (A4) come with SP-117. The rules are on the server
+// reconciliation; New Transfer / Deposit open A4 (SP-117). The rules are on the server
 // (smart_power.sp_finance.treasury).
 
 frappe.pages["sp-treasury"].on_page_load = function (wrapper) {
@@ -29,6 +29,10 @@ class SPTreasury {
 	constructor(page) {
 		this.page = page;
 		this.page.add_inner_button(__("Refresh"), () => this.refresh());
+		// A4 (SP-117)
+		this.page.add_inner_button(__("New Transfer"), () =>
+			smart_power.transfer_dialog({}, () => this.refresh())
+		);
 		this.$body = $('<div class="sp-tr-body"></div>').appendTo(this.page.main);
 		this.refresh();
 	}
@@ -77,6 +81,14 @@ class SPTreasury {
 					.text(__("Statement"))
 					.on("click", () => this.statement(row.account))
 					.appendTo($act);
+				if (row.days_held !== undefined && row.balance > 0) {
+					$(`<button class="btn btn-xs btn-default mr-1"></button>`)
+						.text(__("Deposit"))
+						.on("click", () =>
+							smart_power.transfer_dialog({ from_account: row.account }, () => this.refresh())
+						)
+						.appendTo($act);
+				}
 				if (row.bank_account) {
 					$(`<button class="btn btn-xs btn-default"></button>`)
 						.text(__("Reconcile"))

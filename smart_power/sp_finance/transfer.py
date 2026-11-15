@@ -270,7 +270,8 @@ def pending_items(filters: dict) -> list[dict]:
 			"amount": flt(r.amount),
 			"photo": r.receipt_photo,
 			"station": None,
-			"party": _("from {0}").format(r.from_account),
+			# the page reads "<amount> from <party>": the source account is the party
+			"party": frappe.db.get_value("Account", r.from_account, "account_name") or r.from_account,
 		}
 		for r in rows
 	]
@@ -291,3 +292,54 @@ def preview(name: str) -> list[dict]:
 		}
 		for r in _build_entry(doc).accounts
 	]
+
+
+# --- the A4 dialog -------------------------------------------------------------------------------
+
+
+def _company() -> str | None:
+	from smart_power.sp_core.services.company import COMPANY_SETTINGS
+
+	return frappe.db.get_single_value(COMPANY_SETTINGS, "company") or frappe.db.get_single_value(
+		"Global Defaults", "default_company"
+	)
+
+
+@frappe.whitelist()
+def transfer_options() -> dict:
+	"""What the Transfer dialog offers this user: the sources (with balances) and destinations."""
+	from erpnext.accounts.utils import get_balance_on
+
+	company = _company()
+	names = sources(company)
+	rows = frappe.get_all(
+		"Account",
+		filters={"name": ("in", sorted(set(names) | set(destinations(company))) or [""])},
+		fields=["name", "account_name", "sp_account_kind"],
+		order_by="sp_account_kind asc, account_name asc",
+	)
+	label = {r.name: r.account_name for r in rows}
+	return {
+		"company": company,
+		"is_admin": is_admin(),
+		"sources": [
+			{
+				"value": n,
+				"label": label.get(n, n),
+				"balance": flt(get_balance_on(n, company=company, ignore_account_permission=True)),
+			}
+			for n in names
+		],
+		"destinations": [{"value": r.name, "label": r.account_name} for r in rows],
+	}
+
+
+@frappe.whitelist(methods=["POST"])
+def record_transfer(values: str | dict) -> str:
+	"""Record and submit a transfer from the dialog: pending, or posted for the admin's own."""
+	values = frappe.parse_json(values)
+	allowed = ("from_account", "to_account", "amount", "work_date", "reference_no", "receipt_photo")
+	doc = frappe.get_doc({"doctype": TRANSFER, **{k: values.get(k) for k in allowed if values.get(k)}})
+	doc.insert()
+	doc.submit()
+	return doc.name
