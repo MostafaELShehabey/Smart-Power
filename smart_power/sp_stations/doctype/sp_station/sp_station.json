@@ -1,0 +1,485 @@
+{
+ "actions": [],
+ "creation": "2026-11-15 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "modified": "2026-11-15 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stations",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "name": "SP Station",
+ "autoname": ".YYYY.-.###",
+ "naming_rule": "Expression (old style)",
+ "title_field": "customer_name",
+ "show_title_field_in_link": 1,
+ "search_fields": "customer_name,status,collection_owner",
+ "track_changes": 1,
+ "field_order": [
+  "customer",
+  "customer_name",
+  "case",
+  "quotation_accepted",
+  "sales_order",
+  "column_break_head",
+  "status",
+  "project",
+  "site_warehouse",
+  "company",
+  "money_section",
+  "agreed_amount",
+  "paid_amount",
+  "write_off_amount",
+  "column_break_money",
+  "remaining_amount",
+  "next_due_date",
+  "next_due_amount",
+  "systems_section",
+  "systems",
+  "capacity_kw_total",
+  "site_section",
+  "location_text",
+  "geo",
+  "column_break_site",
+  "region",
+  "financing_type",
+  "bank_branch",
+  "owners_section",
+  "sales_owner",
+  "execution_owner",
+  "column_break_owners",
+  "collection_owner",
+  "dates_section",
+  "contract_date",
+  "operation_date",
+  "column_break_dates",
+  "tech_closed_on",
+  "fin_closed_on",
+  "cost_section",
+  "commission_amount",
+  "estimated_cost_snapshot",
+  "history_section",
+  "owner_history"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "fetch_from": "customer.customer_name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "case",
+   "fieldtype": "Link",
+   "label": "Case",
+   "options": "SP Case",
+   "search_index": 1
+  },
+  {
+   "fieldname": "quotation_accepted",
+   "fieldtype": "Link",
+   "label": "Accepted Quotation",
+   "options": "Quotation"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Contract (Sales Order)",
+   "options": "Sales Order",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nPurchasing\nInstalling\nTechnically closed\nFinancially closed\nCancelled",
+   "default": "Open",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "Made when the station opens; the station's accounting dimension."
+  },
+  {
+   "fieldname": "site_warehouse",
+   "fieldtype": "Link",
+   "label": "Site Warehouse",
+   "options": "Warehouse",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "money_section",
+   "fieldtype": "Section Break",
+   "label": "Money"
+  },
+  {
+   "fieldname": "agreed_amount",
+   "fieldtype": "Currency",
+   "label": "Agreed",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "paid_amount",
+   "fieldtype": "Currency",
+   "label": "Paid (confirmed)",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "write_off_amount",
+   "fieldtype": "Currency",
+   "label": "Written Off",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_money",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remaining_amount",
+   "fieldtype": "Currency",
+   "label": "Remaining",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "next_due_date",
+   "fieldtype": "Date",
+   "label": "Next Due",
+   "read_only": 1,
+   "no_copy": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "next_due_amount",
+   "fieldtype": "Currency",
+   "label": "Next Due Amount",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "systems_section",
+   "fieldtype": "Section Break",
+   "label": "Systems"
+  },
+  {
+   "fieldname": "systems",
+   "fieldtype": "Table",
+   "label": "Systems",
+   "options": "SP Station System"
+  },
+  {
+   "fieldname": "capacity_kw_total",
+   "fieldtype": "Float",
+   "label": "Total Capacity (kW)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "site_section",
+   "fieldtype": "Section Break",
+   "label": "Site"
+  },
+  {
+   "fieldname": "location_text",
+   "fieldtype": "Small Text",
+   "label": "Location"
+  },
+  {
+   "fieldname": "geo",
+   "fieldtype": "Data",
+   "label": "Coordinates"
+  },
+  {
+   "fieldname": "column_break_site",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "region",
+   "fieldtype": "Link",
+   "label": "Region",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Region\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
+  },
+  {
+   "fieldname": "financing_type",
+   "fieldtype": "Select",
+   "label": "Financing",
+   "options": "\nCash\nInstallments\nAgri Bank"
+  },
+  {
+   "fieldname": "bank_branch",
+   "fieldtype": "Data",
+   "label": "Bank Branch",
+   "depends_on": "eval:doc.financing_type=='Agri Bank'"
+  },
+  {
+   "fieldname": "owners_section",
+   "fieldtype": "Section Break",
+   "label": "Owners"
+  },
+  {
+   "fieldname": "sales_owner",
+   "fieldtype": "Link",
+   "label": "Sales Owner",
+   "options": "User",
+   "description": "The case's follow-up owner; fixed once the contract exists."
+  },
+  {
+   "fieldname": "execution_owner",
+   "fieldtype": "Link",
+   "label": "Execution Owner",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_owners",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "collection_owner",
+   "fieldtype": "Link",
+   "label": "Collection Owner",
+   "options": "User",
+   "search_index": 1,
+   "description": "The execution owner by default; the admin switches it from a date."
+  },
+  {
+   "fieldname": "dates_section",
+   "fieldtype": "Section Break",
+   "label": "Dates"
+  },
+  {
+   "fieldname": "contract_date",
+   "fieldtype": "Date",
+   "label": "Contract Date"
+  },
+  {
+   "fieldname": "operation_date",
+   "fieldtype": "Date",
+   "label": "Operation Date"
+  },
+  {
+   "fieldname": "column_break_dates",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tech_closed_on",
+   "fieldtype": "Date",
+   "label": "Technically Closed On",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "fin_closed_on",
+   "fieldtype": "Date",
+   "label": "Financially Closed On",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "cost_section",
+   "fieldtype": "Section Break",
+   "label": "Cost",
+   "permlevel": 2,
+   "collapsible": 1
+  },
+  {
+   "fieldname": "commission_amount",
+   "fieldtype": "Currency",
+   "label": "Referrer Commission",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "estimated_cost_snapshot",
+   "fieldtype": "JSON",
+   "label": "Estimated Cost (frozen)",
+   "permlevel": 2,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "history_section",
+   "fieldtype": "Section Break",
+   "label": "Owner History",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "owner_history",
+   "fieldtype": "Table",
+   "label": "Owner History",
+   "options": "SP Owner History",
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Installation Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Customer Followup",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Followup All",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 2
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 2
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 2
+  }
+ ]
+}

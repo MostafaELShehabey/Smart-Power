@@ -7,6 +7,7 @@ A,A
 A cancelled quote cannot be discounted.,لا يمكن الخصم على عرض ملغي.
 A cancelled quote cannot be sent.,لا يمكن إرسال عرض ملغى.
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
+A closed station cannot be cancelled.,لا يمكن إلغاء محطة مغلقة.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
 "A last-minute ask (العشم) is the customer's final request, printed as its own line under the total.",العشم هو آخر طلب للعميل، ويُطبع في سطر مستقل تحت الإجمالي.
 A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
@@ -29,6 +30,7 @@ A site warehouse needs its station's project.,مخزن الموقع يحتاج �
 A template needs at least one block before it is published.,القالب يحتاج فقرة واحدة على الأقل قبل نشره.
 A template needs at least one line before it is published.,القالب يحتاج سطرًا واحدًا على الأقل قبل نشره.
 A value cannot be its own parent.,لا يمكن أن تكون القيمة أصلاً لنفسها.
+A write-off needs a reason.,الشطب يحتاج سببًا.
 Abnormal,غير طبيعي
 Abnormal flags,التنبيهات غير الطبيعية
 Accepted Quotation,العرض المعتمد
@@ -47,6 +49,8 @@ Addresses,العناوين
 Addresses and Phones,العناوين والتليفونات
 Age,العمر
 Aging,يقترب من القدم
+Agreed,المتفق عليه
+Agri Bank,البنك الزراعي
 All,الكل
 AM,ص
 Amber,أصفر
@@ -65,6 +69,7 @@ Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
 B,B
+Bank Branch,فرع البنك
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
 battery_ah,سعة البطارية (أمبير ساعة)
 Becomes a call task for the follow-up owner.,تصبح مهمة اتصال لمسئول المتابعة.
@@ -95,7 +100,9 @@ Call {0},اتصل بـ {0}
 Call {0} about quote {1},اتصل بـ {0} بخصوص العرض {1}
 Calls,المكالمات
 Can Never Block,لا يمنع أبداً
+Cancel Station,إلغاء المحطة
 Cancelled,ملغي
+Capacity (kW),القدرة (ك.وات)
 Capacity Spec,مواصفة القدرة
 Case,الحالة
 Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
@@ -108,6 +115,7 @@ Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا �
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Case {0} is {1}; its quotes are not discounted any more.,الحالة {0} {1}؛ لا يتم الخصم على عروضها بعد الآن.
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
+Cash,نقدي
 Cash and Locks,الكاش والقفل
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
 Catalogue (PDF),الكتالوج (PDF)
@@ -118,6 +126,7 @@ Change a Line,تعديل سطر
 Change Order,أمر تغيير
 Change orders,أوامر التغيير
 Changed By,تم التغيير بواسطة
+Changed by {0},غيّره {0}
 "Changes the quote creator made to the calculated lines, by line key.",تعديلات مُعدّ العرض على السطور المحسوبة، حسب مفتاح السطر.
 Channel,القناة
 Chassis,الشاسيه
@@ -134,6 +143,8 @@ Choose the case this quote belongs to.,اختر الحالة التي يتبعه
 Choose the system type first.,اختر نوع النظام أولاً.
 Clear,مسح
 Click to change,اضغط للتغيير
+Close Financially,إغلاق مالي
+Close Technically,إغلاق فني
 Code,الكود
 Code or name,الكود أو الاسم
 Code {0} already exists in the list {1}.,الكود {0} موجود بالفعل في القائمة {1}.
@@ -152,6 +163,9 @@ Consignment Conversion,تحويل أمانة
 Consignment conversions,تحويلات الأمانة
 Consignment Owner,صاحب أمانة
 Contract,العقد
+Contract (Sales Order),العقد (أمر البيع)
+Contract Date,تاريخ العقد
+Coordinates,الإحداثيات
 "Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
 Cost,التكلفة
 Cost (manual lines),التكلفة (السطور اليدوية)
@@ -182,6 +196,7 @@ Customer Name,اسم العميل
 Customer Statement,كشف حساب العميل
 Data,نص
 Date,التاريخ
+Dates,التواريخ
 Day Hours,ساعات النهار
 Deactivate instead,أوقفها بدلاً من الحذف
 debit,المدين
@@ -240,6 +255,7 @@ Enter the customer's name: this mobile is new.,اكتب اسم العميل: ه�
 Entry Mode,طريقة التسجيل
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
+Estimated Cost (frozen),التكلفة التقديرية (مثبتة)
 Event,الحدث
 Events,الأحداث
 Excel File,ملف إكسل
@@ -264,6 +280,9 @@ File,الملف
 Fill from,املأ من
 Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
 Financial Center,المركز المالي
+Financially closed,مغلقة ماليًا
+Financially Closed On,تاريخ الإغلاق المالي
+Financing,التمويل
 Financing Type,نوع التمويل
 Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
 First in stock,أول صنف متوفر بالمخزن
@@ -334,6 +353,8 @@ Individual,فرد
 Individual (BTC) or company (BTB). Sets the customer type.,فرد (BTC) أو شركة (BTB). يحدد نوع العميل.
 Input {0},المدخل {0}
 Inputs,المدخلات
+Installing,قيد التركيب
+Installments,أقساط
 Int,رقم صحيح
 Invalid mobile,رقم موبايل غير صحيح
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
@@ -399,6 +420,7 @@ Logo and Stamp,الشعار والختم
 Lost,خسارة
 Lost Note,ملاحظة الخسارة
 Lost Reason,سبب الخسارة
+Made when the station opens; the station's accounting dimension.,يُنشأ عند فتح المحطة؛ وهو البُعد المحاسبي للمحطة.
 Main,رئيسي
 Main Supplier,المورد الرئيسي
 Making the PDF…,جارٍ إنشاء ملف PDF…
@@ -438,7 +460,9 @@ Mobile,الموبايل
 Mobile Device ID,معرّف جهاز الموبايل
 Mobile is required: it is how a returning customer is found.,الموبايل مطلوب: به نتعرف على العميل عند عودته.
 Module {0} is reserved for developer changes. Use {1}.,الموديول {0} محجوز لتعديلات المطور. استخدم {1}.
+Money,الأموال
 Money and Postings,الفلوس والقيود
+Money remaining,مبلغ متبقٍ
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
 MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
@@ -459,6 +483,8 @@ New Version,نسخة جديدة
 New version {0}: send it to the customer.,إصدار جديد {0}: أرسله للعميل.
 Next,التالي
 Next Call,المكالمة التالية
+Next Due,الاستحقاق التالي
+Next Due Amount,مبلغ الاستحقاق التالي
 Next Number,الرقم التالي
 Night Hours,ساعات الليل
 No,لا
@@ -509,7 +535,9 @@ Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
 Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
+Only the admin changes the {0}.,فقط المدير يغيّر {0}.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
+Only the admin records a write-off.,فقط المدير يسجل الشطب.
 Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
 "Only the case's follow-up owner, its quote creator or the admin can give a discount.",فقط مسئول متابعة الحالة أو معد العرض أو المدير يمكنه إعطاء خصم.
@@ -518,6 +546,7 @@ Only the quote creator and the cost roles price a quote.,تسعير العرض �
 Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
+Operation Date,تاريخ التشغيل
 Option,الخيار
 Option taken,الخيار مستخدم
 Option {0} is already another alternative on case {1} ({2}).,الخيار {0} مستخدم لبديل آخر في الحالة {1} ({2}).
@@ -541,6 +570,7 @@ Owners,المسؤولون
 P1 Cost,تكلفة P1
 P1 price,سعر P1
 Page,صفحة
+Paid (confirmed),المدفوع (المؤكد)
 Panel Specs,مواصفات اللوح
 Parent Value,القيمة الأم
 Pass-through,بسعر التكلفة
@@ -601,6 +631,7 @@ Pump,الطلمبة
 Pump Specs,مواصفات الطلمبة
 Purchase Order,أمر الشراء
 Purchase orders sent,أوامر الشراء المرسلة
+Purchasing,قيد الشراء
 Qty,العدد
 Qty Formula,معادلة الكمية
 Quotation,عرض سعر
@@ -642,10 +673,12 @@ Received by,المستلم
 Record,السجل
 Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
+Referrer Commission,عمولة الوسيط
 Refresh,تحديث
 Refund,رد مبلغ
 Region,المنطقة
 Registered with {0},مسجل لدى {0}
+Remaining,المتبقي
 Remove,إزالة
 Rename,إعادة تسمية
 Reopen,إعادة فتح
@@ -685,6 +718,7 @@ Rule Key,مفتاح القاعدة
 Rule overrides,تجاوزات القواعد
 Rule Warning,تنبيه قاعدة
 Rule warnings,تحذيرات القواعد
+Sales Owner,مسئول المبيعات
 Save,حفظ
 Save Request,حفظ الطلب
 Save to see the placeholders of this document.,احفظ لعرض متغيرات هذا المستند.
@@ -734,6 +768,7 @@ Site Stage,مرحلة الموقع
 Site Survey,معاينة موقع
 Site survey for {0},معاينة موقع لـ {0}
 Site Visit Needed,يحتاج معاينة موقع
+Site Warehouse,مخزن الموقع
 Smart Power,سمارت باور
 Smart Power Settings,إعدادات سمارت باور
 Smart Power's cost. Visible to cost roles only (SP-35).,تكلفة سمارت باور. تظهر لأدوار التكلفة فقط (SP-35).
@@ -805,6 +840,8 @@ SP Showroom Sales,مبيعات المعرض
 SP Showroom Store Keeper,أمين مخزن المعرض
 SP Site Receiver,استلام الموقع
 SP Site Survey,معاينة الموقع
+SP Station,المحطة
+SP Station System,نظام المحطة
 SP Store and Installations,تركيبات وأمين مخازن
 SP Supplier Accounts,حسابات الموردين
 SP System Designer,مصمم الأنظمة
@@ -821,8 +858,12 @@ Stale Price on a Quote,سعر قديم في عرض سعر
 Stale prices never block a quote (SP-63).,الأسعار القديمة لا تمنع عرض السعر أبداً (SP-63).
 Stamp,الختم
 Start Follow-up,بدء المتابعة
+Start Installing,بدء التركيب
+Start Purchasing,بدء الشراء
 Start the Quote,بدء عرض السعر
+Station opened,تم فتح المحطة
 Station Project,مشروع المحطة
+"Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
 Status,الحالة
 Subject,الموضوع
 Submit the quote before approving it.,اعتمد (Submit) العرض أولاً قبل اعتماد النسخة.
@@ -839,6 +880,7 @@ Supply only,توريد فقط
 System,النظام
 System Type,نوع النظام
 System Types,أنواع الأنظمة
+Systems,الأنظمة
 Take,استلام
 Take Request,استلام الطلب
 Taken by {0},أخذه {0}
@@ -849,6 +891,8 @@ Taxes,الضرائب
 Technical,فني
 Technical Annex,الملحق الفني
 Technical Review,مراجعة فنية
+Technically closed,مغلقة فنيًا
+Technically Closed On,تاريخ الإغلاق الفني
 Template,القالب
 Template Code,كود القالب
 Template Line,سطر القالب
@@ -863,6 +907,7 @@ The answers to the system type's request fields.,إجابات حقول الطل�
 The case is already yours.,الحالة لك بالفعل.
 The case is handed over.,تم تسليم الحالة.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
+The case's follow-up owner; fixed once the contract exists.,مسئول متابعة الحالة؛ ثابت بعد وجود العقد.
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
 The code is empty.,الكود فارغ.
 The customer,العميل
@@ -871,6 +916,7 @@ The desk is for office users.,شاشات المكتب لمستخدمي المك�
 The discounts are more than the quote total.,الخصومات أكبر من إجمالي العرض.
 The document that posted this entry. Cancelling it cancels this entry.,المستند الذي رحّل هذا القيد. إلغاؤه يلغي هذا القيد.
 The ERPNext company these details print for.,الشركة في النظام التي تُطبع لها هذه البيانات.
+The execution owner by default; the admin switches it from a date.,مسئول التنفيذ افتراضيًا؛ ويغيّره المدير من تاريخ.
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
 The file has no price column.,الملف لا يحتوي على عمود سعر.
 The file is empty.,الملف فارغ.
@@ -898,6 +944,7 @@ the quote total,إجمالي العرض
 The requester was asked,تم سؤال صاحب الطلب
 The row has no price.,السطر لا يحتوي على سعر.
 The sales case this quote belongs to. Its customer must be the case's customer.,الحالة التي يتبعها هذا العرض. عميله يجب أن يكون عميل الحالة.
+The sales owner is fixed once the contract exists.,مسئول المبيعات ثابت بعد وجود العقد.
 "The smallest capacity accepted, e.g. hp.",أقل قدرة مقبولة، مثل hp.
 "The Smart Power event this entry was posted for (Account Map, SP-113).",حدث سمارت باور الذي رُحّل له هذا القيد (خريطة الحسابات).
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
@@ -927,6 +974,7 @@ To,إلى
 "To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
 Took the request,استلم الطلب
 Total,الإجمالي
+Total Capacity (kW),إجمالي القدرة (ك.وات)
 Total Cost,إجمالي التكلفة
 Total cost {0} · Total sale {1} · Profit {2} · Margin {3}%,إجمالي التكلفة {0} · إجمالي البيع {1} · الربح {2} · الهامش {3}%
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
@@ -992,11 +1040,16 @@ Winch Internal Charge,تحميل داخلي للونش
 Winch Line,سطر الونش
 Won,تم الكسب
 Won On,تاريخ الكسب
+Write off between 0 and the remaining {0}.,اشطب مبلغًا بين 0 والمتبقي {0}.
 Write the comment first.,اكتب التعليق أولًا.
 Write what is missing.,اكتب ما هو ناقص.
 Write-off,شطب
+Write-off of {0} on station {1}: {2},شطب {0} على المحطة {1}: {2}
+Write-off on station {0}: {1},شطب على المحطة {0}: {1}
 Write-offs,الشطب
+Written Off,المشطوب
 Wrong customer,عميل غير مطابق
+Wrote off {0}: {1},تم شطب {0}: {1}
 Yearly reset,يبدأ كل سنة
 Yes,نعم
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.

@@ -24,12 +24,14 @@ def after_install() -> None:
 	from smart_power.sp_sales.case_workflow import ensure_workflow_masters
 	from smart_power.sp_sales.quote_request import seed_request_fields
 	from smart_power.sp_sales.setup import allow_repeated_items, apply_customer_naming
+	from smart_power.sp_stations.station_workflow import ensure_workflow_masters as station_masters
 	from smart_power.sp_stock.prices import seed_price_lists
 	from smart_power.sp_stock.warehouses import seed_warehouse_types
 
 	ensure_admin_module()
 	# before fixtures sync: the SP Case workflow fixture needs its states and actions (SP-46)
 	ensure_workflow_masters()
+	station_masters()  # and the SP Station workflow's (SP-73)
 	apply_locale()
 	apply_branding()
 	seed_list_values()

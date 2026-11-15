@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "creation": "2026-11-15 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "modified": "2026-11-15 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stations",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "name": "SP Station System",
+ "istable": 1,
+ "editable_grid": 1,
+ "field_order": [
+  "system_type",
+  "capacity_kw",
+  "hp",
+  "qty",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "system_type",
+   "fieldtype": "Link",
+   "label": "System Type",
+   "options": "SP List Value",
+   "in_list_view": 1,
+   "reqd": 1,
+   "columns": 3,
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"System Type\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
+  },
+  {
+   "fieldname": "capacity_kw",
+   "fieldtype": "Float",
+   "label": "Capacity (kW)",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "hp",
+   "fieldtype": "Float",
+   "label": "Power (HP)",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Qty",
+   "default": "1",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes",
+   "in_list_view": 1,
+   "columns": 3
+  }
+ ],
+ "permissions": []
+}
