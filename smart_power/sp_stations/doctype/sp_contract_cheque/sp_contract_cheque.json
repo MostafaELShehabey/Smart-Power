@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "creation": "2026-11-15 18:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "istable": 1,
+ "editable_grid": 1,
+ "modified": "2026-11-15 18:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stations",
+ "name": "SP Contract Cheque",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "permissions": [],
+ "field_order": [
+  "cheque_no",
+  "bank",
+  "due_date",
+  "amount",
+  "holder",
+  "note"
+ ],
+ "fields": [
+  {
+   "fieldname": "cheque_no",
+   "fieldtype": "Data",
+   "label": "Cheque No.",
+   "in_list_view": 1,
+   "reqd": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "bank",
+   "fieldtype": "Data",
+   "label": "Bank",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "label": "Due Date",
+   "in_list_view": 1,
+   "reqd": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "in_list_view": 1,
+   "reqd": 1,
+   "columns": 2,
+   "description": "May differ from the instalment it pays."
+  },
+  {
+   "fieldname": "holder",
+   "fieldtype": "Link",
+   "label": "Holder",
+   "options": "User",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Data",
+   "label": "Note"
+  }
+ ]
+}

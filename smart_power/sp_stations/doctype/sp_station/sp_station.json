@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-15 16:00:00.000000",
+ "modified": "2026-11-15 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -102,7 +102,8 @@
    "label": "Contract (Sales Order)",
    "options": "Sales Order",
    "read_only": 1,
-   "no_copy": 1
+   "no_copy": 1,
+   "search_index": 1
   },
   {
    "fieldname": "column_break_head",
@@ -241,15 +242,15 @@
   },
   {
    "fieldname": "financing_type",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Financing",
-   "options": "\nCash\nInstallments\nAgri Bank"
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Financing Type\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
   },
   {
    "fieldname": "bank_branch",
    "fieldtype": "Data",
-   "label": "Bank Branch",
-   "depends_on": "eval:doc.financing_type=='Agri Bank'"
+   "label": "Bank Branch"
   },
   {
    "fieldname": "owners_section",

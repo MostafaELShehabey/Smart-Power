@@ -69,6 +69,7 @@ Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
 B,B
+Bank,البنك
 Bank Branch,فرع البنك
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
 battery_ah,سعة البطارية (أمبير ساعة)
@@ -109,7 +110,9 @@ Case Inactivity Alert (days),تنبيه توقف الحالة (أيام)
 Case of {0} reassigned from {1} to {2},حالة {0} أُعيد إسنادها من {1} إلى {2}
 Case opened,فتح الحالة
 Case {0} already has options {1}.,الحالة {0} لديها بالفعل الخيارات {1}.
+Case {0} already has the contract {1}.,الحالة {0} لها العقد {1} بالفعل.
 Case {0} cannot move from {1} to {2}.,لا يمكن نقل الحالة {0} من {1} إلى {2}.
+Case {0} has no approved quote version. Approve the version the customer accepted first.,الحالة {0} ليس لها إصدار عرض معتمد. اعتمد الإصدار الذي قبله العميل أولًا.
 Case {0} is closed; reopen it before logging calls.,الحالة {0} مغلقة؛ أعد فتحها قبل تسجيل المكالمات.
 Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا مفتوحًا.
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
@@ -138,6 +141,7 @@ Check the template,راجع القالب
 Cheque,شيك
 Cheque Bounce,ارتداد شيك
 Cheque Deposit,إيداع شيك
+Cheque No.,رقم الشيك
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
 Choose the system type first.,اختر نوع النظام أولاً.
@@ -256,6 +260,7 @@ Enter the customer's name: this mobile is new.,اكتب اسم العميل: ه�
 Entry Mode,طريقة التسجيل
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
+Estimate Frozen On,تاريخ تثبيت التقدير
 Estimated Cost (frozen),التكلفة التقديرية (مثبتة)
 Event,الحدث
 Events,الأحداث
@@ -317,6 +322,7 @@ Fresh,حديث
 From,من
 From Date,من تاريخ
 From document,من المستند
+From the approved quote's line.,من سطر العرض المعتمد.
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
 Full,كامل
 Give a discount,إعطاء خصم
@@ -336,6 +342,7 @@ Hidden on Print,مخفي في الطباعة
 Highlight,تمييز
 History,السجل
 Hit At,وقت التنبيه
+Holder,الحائز
 Home Page Variant,شكل الصفحة الرئيسية
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
 "How print formats find this block, e.g. warranty (a-z, 0-9 and _).",الاسم الذي تجد به نماذج الطباعة هذه الفقرة، مثل warranty (حروف a-z وأرقام و _).
@@ -453,6 +460,7 @@ Max Price Age (days),أقصى عمر للسعر (أيام)
 Max Total Discount: Follow-up Owner,أقصى خصم على الإجمالي: مسئول المتابعة
 Max Total Discount: Quote Creator,أقصى خصم على الإجمالي: صاحب العرض
 Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
+May differ from the instalment it pays.,قد تختلف عن القسط الذي تسدده.
 Message,الرسالة
 Min Margin %,أقل ربح %
 Mine,طلباتي
@@ -544,6 +552,7 @@ Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
 "Only the case's follow-up owner, its quote creator or the admin can give a discount.",فقط مسئول متابعة الحالة أو معد العرض أو المدير يمكنه إعطاء خصم.
 "Only the case's follow-up owner, its quote creator or the admin can send a quote.",يرسل العرض مسئول متابعة الحالة أو مُعدّ العرض أو المدير فقط.
+Only the contracts manager or the admin makes the contract.,فقط مسئول العقود أو المدير ينشئ العقد.
 Only the quote creator and the cost roles price a quote.,تسعير العرض لمُعدّ العرض وأدوار التكلفة فقط.
 Open,مفتوح
 Open as List,فتح كقائمة
@@ -591,6 +600,7 @@ Placeholders,المتغيرات
 Placeholders you can use,المتغيرات المتاحة
 PM,م
 PO Sent,تم إرسال أمر التوريد
+Postal Cheques,الشيكات البريدية
 Posting Event,حدث القيد
 Posting {0}: the amount must be above zero.,ترحيل {0}: يجب أن يكون المبلغ أكبر من صفر.
 "Posting {0}: the {1} side has no cost center. Set it in Smart Power Settings > Account Map, or on the document.",ترحيل {0}: جانب {1} بلا مركز تكلفة. حدده في إعدادات سمارت باور > خريطة الحسابات، أو على المستند.
@@ -617,6 +627,7 @@ Print Format,نموذج الطباعة
 Print Group,مجموعة الطباعة
 Print Sample,نموذج الطباعة
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
+Printed on the contract per component (SP-74).,تُطبع في العقد لكل مكون.
 "Printed under the total with their own price. Never added to the total, the cost or the margin (SP-59).",تُطبع تحت الإجمالي بسعرها الخاص، ولا تُضاف أبدًا للإجمالي أو التكلفة أو الهامش (SP-59).
 Priority,الأولوية
 Profit,الربح
@@ -724,6 +735,7 @@ Rule overrides,تجاوزات القواعد
 Rule Warning,تنبيه قاعدة
 Rule warnings,تحذيرات القواعد
 Sales,المبيعات
+Sales Order {0} already belongs to station {1}.,أمر البيع {0} يخص المحطة {1} بالفعل.
 Sales Owner,مسئول المبيعات
 Save,حفظ
 Save Request,حفظ الطلب
@@ -801,6 +813,7 @@ SP Commission Manager,العمولات
 SP Commissioning Programmer,البرمجة والتشغيل
 SP Company Address,عنوان الشركة
 SP Company Settings,بيانات الشركة
+SP Contract Cheque,شيك العقد
 SP Contract Manager,العقود
 SP Custody Holder,صاحب عهدة
 SP Customer Followup,متابعة العملاء
@@ -867,6 +880,7 @@ Start Follow-up,بدء المتابعة
 Start Installing,بدء التركيب
 Start Purchasing,بدء الشراء
 Start the Quote,بدء عرض السعر
+Station,المحطة
 Station opened,تم فتح المحطة
 Station Project,مشروع المحطة
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
@@ -932,6 +946,7 @@ The four ERPNext price lists that the price list screen (I2) and the quotes use.
 The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
 "The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
 The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
+"The lump sum agreed with the referrer: a hidden cost of the station, never printed.",المبلغ المقطوع المتفق عليه مع الوسيط: تكلفة مخفية للمحطة، لا تُطبع أبدًا.
 The markup cannot be changed on a quote. Locked BTC lines are always locked.,لا يمكن تغيير نسبة الربح في العرض. سطور BTC المقفلة مقفلة دائمًا.
 "The name formulas use, e.g. depth or hp (letters, digits and _).",الاسم الذي تستخدمه المعادلات، مثل depth أو hp (حروف وأرقام و _).
 "The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
@@ -1027,6 +1042,7 @@ Warned,تم التنبيه
 Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
+Warranty (years),الضمان (سنوات)
 Warranty Certificate,شهادة الضمان
 watt,القدرة (وات)
 Watts,وات
@@ -1035,6 +1051,7 @@ What is missing?,ما الناقص؟
 WhatsApp,واتساب
 When,متى
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
+When the deposit was confirmed: the station's estimated cost is frozen then (SP-74).,عند تأكيد العربون: تُثبت التكلفة التقديرية للمحطة حينها.
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
 Where a marketing request came from (X4 Lead Source list); required for the Marketing channel.,من أين جاء طلب التسويق (قائمة مصادر العملاء في X4)؛ مطلوب لقناة التسويق.
 "Which side carries the document's project (the station), e.g. a station's cost on the debit side.",أي جانب يحمل مشروع المستند (المحطة)، مثل تكلفة المحطة في جانب المدين.
