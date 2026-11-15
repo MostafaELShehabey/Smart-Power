@@ -96,6 +96,7 @@ class TestStation(IntegrationTestCase):
 			(st.customer, st.quotation_accepted, st.sales_owner),
 			(case.customer, self.quote.name, case.follow_up_owner),
 		)
+		self.assertEqual(st.customer_name, case.customer_name)  # found in the browser check
 		self.assertEqual((st.execution_owner, st.collection_owner), (self.amira, self.amira))
 		self.assertEqual(
 			{r.role_kind for r in st.owner_history},
