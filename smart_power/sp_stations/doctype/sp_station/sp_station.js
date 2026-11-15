@@ -12,6 +12,11 @@ frappe.ui.form.on("SP Station", {
 		if (frm.is_new()) return;
 		sp_station_chips(frm);
 		const admin = SP_ST_ADMIN_ROLES.some((r) => frappe.user.has_role(r));
+		if (frm.doc.status !== "Cancelled") {
+			frm.add_custom_button(__("Record Payment"), () =>
+				smart_power.record_payment_dialog({ station: frm.doc.name }, () => frm.reload_doc())
+			);
+		}
 		if (admin && frm.doc.remaining_amount > 0 && frm.doc.status !== "Cancelled") {
 			frm.add_custom_button(__("Record Write-off"), () => sp_station_write_off(frm));
 		}
@@ -34,6 +39,9 @@ function sp_station_chips(frm) {
 		: __("None");
 	frm.dashboard.add_indicator(`${__("Agreed")}: ${money(frm.doc.agreed_amount)}`, "blue");
 	frm.dashboard.add_indicator(`${__("Paid")}: ${money(frm.doc.paid_amount)}`, "green");
+	if (frm.doc.pending_amount > 0) {
+		frm.dashboard.add_indicator(`${__("Pending")}: ${money(frm.doc.pending_amount)}`, "yellow");
+	}
 	frm.dashboard.add_indicator(
 		`${__("Remaining")}: ${money(frm.doc.remaining_amount)}`,
 		frm.doc.remaining_amount > 0 ? "orange" : "green"

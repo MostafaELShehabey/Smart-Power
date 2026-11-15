@@ -212,3 +212,33 @@ class TestCustomerPayment(IntegrationTestCase):
 		)
 		self.assertEqual(flt(station.paid_amount), 20000)
 		self.assertEqual(frappe.db.get_value("SP Case", q.sp_case, "status"), "Won")
+
+	def test_the_dialog_records_a_pending_payment(self):
+		from smart_power.sp_finance.customer_payment import payment_options, record_payment
+
+		frappe.set_user(self.camelia)
+		try:
+			opts = payment_options(station=self.station)
+			self.assertIn(self.camelia_cash, [a["value"] for a in opts["accounts"]])
+			self.assertEqual(opts["due"], 200000)
+			name = record_payment(
+				{
+					"station": self.station,
+					"amount": 5000,
+					"work_date": today(),
+					"method": "Payment Method-CASH",
+					"receiving_account": self.camelia_cash,
+				}
+			)
+		finally:
+			frappe.set_user("Administrator")
+		self.assertEqual(frappe.db.get_value("SP Customer Payment", name, "status"), "Pending")
+
+	def test_cancelling_a_confirmed_payment_reverses_its_entry(self):
+		doc = self.record(self.amira, 25000, "Payment Method-INSTAPAY", self.instapay)
+		frappe.set_user(self.admin)
+		pe = confirm(doc.name)
+		frappe.get_doc("SP Customer Payment", doc.name).cancel()
+		frappe.set_user("Administrator")
+		self.assertEqual(frappe.db.get_value("Payment Entry", pe, "docstatus"), 2)
+		self.assertEqual(flt(self.station_money().paid_amount), 0)

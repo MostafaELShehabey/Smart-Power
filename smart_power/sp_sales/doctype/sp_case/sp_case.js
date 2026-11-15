@@ -289,6 +289,12 @@ async function sp_contract_buttons(frm, case_name) {
 	if (info.station && frm.doctype !== "SP Station") {
 		frm.add_custom_button(__("Station"), () => frappe.set_route("Form", "SP Station", info.station), __("View"));
 	}
+	if (!info.station && info.approved && frm.doctype === "SP Case" && frm.doc.status !== "Lost") {
+		// SP-114: the deposit, before the station exists; confirming it makes both (SP-175)
+		frm.add_custom_button(__("Record Deposit"), () =>
+			smart_power.record_payment_dialog({ case_name, is_deposit: true }, () => frm.reload_doc())
+		);
+	}
 	if (!info.sales_order && info.approved && info.can_make) {
 		frm.add_custom_button(__("Make Contract"), () =>
 			frappe.confirm(__("Make the contract (Sales Order) and the station from the approved version {0}?", [info.approved]), async () => {
