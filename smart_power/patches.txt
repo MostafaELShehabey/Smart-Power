@@ -25,3 +25,4 @@ smart_power.patches.sp62_letterhead_sizes
 smart_power.patches.sp62_desk_default_print_format
 smart_power.patches.sp68_discount_followup_warn
 smart_power.patches.sp73_station_workflow_masters
+smart_power.patches.sp74_contract_template

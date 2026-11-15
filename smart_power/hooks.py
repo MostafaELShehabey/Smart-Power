@@ -45,6 +45,8 @@ jinja = {
 		"smart_power.sp_core.documents.sp_blocks",
 		# The customer quote PDF (SP-62)
 		"smart_power.sp_quotes.quote_print.quote_print",
+		# The contract PDF (SP-74)
+		"smart_power.sp_stations.contract_print.contract_print",
 	],
 }
 

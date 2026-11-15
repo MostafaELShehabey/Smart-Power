@@ -217,3 +217,51 @@ def seed_quote_template() -> None:
 		}
 	).insert(ignore_permissions=True)
 	doc.publish_now()
+
+
+# --- the starting contract template (SP-74) -----------------------------------------------------
+
+CONTRACT_BLOCKS = (
+	(
+		"preamble",
+		"",
+		"<p>إنه في يوم {date} تم الاتفاق بين {company_name} (الطرف الأول) والسيد / {customer_name} "
+		"(الطرف الثاني) على توريد وتركيب المحطة رقم {station_no} بإجمالي {total} ({total_words}).</p>",
+	),
+	(
+		"supply_period",
+		"مدة التوريد",
+		"<p>يتم التوريد خلال المدة المتفق عليها من تاريخ استلام الدفعة المقدمة.</p>",
+	),
+	(
+		"installation_period",
+		"مدة التركيب",
+		"<p>يتم التركيب خلال المدة المتفق عليها من تاريخ اكتمال التوريد وتجهيز الموقع.</p>",
+	),
+	(
+		"warranty",
+		"الضمان",
+		"<p>تسري مدة ضمان كل مكون كما هو مبين في جدول المكونات، من تاريخ التشغيل.</p>",
+	),
+	(
+		"ownership",
+		"الملكية",
+		"<p>تظل ملكية المعدات للطرف الأول حتى سداد كامل قيمة العقد.</p>",
+	),
+)
+
+
+def seed_contract_template() -> None:
+	"""Publish a first contract template once, so the contract PDF has text; then the admin's."""
+	if frappe.db.exists(TEMPLATE, {"document": "Contract"}):
+		return
+	doc = frappe.get_doc(
+		{
+			"doctype": TEMPLATE,
+			"document": "Contract",
+			"blocks": [
+				{"block_key": key, "title": title, "body": body} for key, title, body in CONTRACT_BLOCKS
+			],
+		}
+	).insert(ignore_permissions=True)
+	doc.publish_now()
