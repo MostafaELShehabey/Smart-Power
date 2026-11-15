@@ -7,6 +7,7 @@
  "field_order": [
   "case",
   "customer_name",
+  "station",
   "call_time",
   "column_break_call",
   "result",
@@ -82,11 +83,19 @@
    "fieldname": "voice_note",
    "fieldtype": "Attach",
    "label": "Voice Note"
+  },
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "search_index": 1,
+   "description": "A collection call on a station (SP-81)."
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-15 10:00:00.000000",
+ "modified": "2026-11-17 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Call Log",
@@ -149,6 +158,30 @@
    "read": 1,
    "report": 1,
    "role": "SP Lead Intake"
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "role": "SP Collection Officer",
+   "delete": 0
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "role": "SP Project Manager",
+   "delete": 0
   }
  ],
  "row_format": "Dynamic",

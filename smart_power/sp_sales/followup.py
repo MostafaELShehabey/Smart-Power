@@ -16,7 +16,7 @@ from frappe.utils import get_fullname, now_datetime
 
 from smart_power.sp_sales.case import touch
 
-CASE, TASK, CALL = "SP Case", "SP Task", "SP Call Log"
+CASE, TASK, CALL, STATION = "SP Case", "SP Task", "SP Call Log", "SP Station"
 CALL_TASK, TASK_OPEN, TASK_DONE, TASK_CANCELLED = "Follow-up Call", "Open", "Done", "Cancelled"
 RESULTS = "Call Result"
 WANTS_REVISION, LOST = "WANTS_REVISION", "LOST"
@@ -30,7 +30,13 @@ def _code(result: str | None) -> str | None:
 def validate_call(doc) -> None:
 	if frappe.db.get_value("SP List Value", doc.result, "list_name") != RESULTS:
 		frappe.throw(_("{0} is not a call result.").format(frappe.bold(doc.result)))
-	if frappe.db.get_value(CASE, doc.case, "status") in CLOSED and doc.is_new():
+	if doc.get("station"):
+		# a collection call on a station (SP-81): its case is won already
+		station = frappe.db.get_value(STATION, doc.station, ["case", "customer_name"], as_dict=True)
+		if station:
+			doc.case = doc.case or station.case
+			doc.customer_name = doc.customer_name or station.customer_name
+	elif frappe.db.get_value(CASE, doc.case, "status") in CLOSED and doc.is_new():
 		frappe.throw(_("Case {0} is closed; reopen it before logging calls.").format(doc.case))
 	if doc.next_call_at and frappe.utils.get_datetime(doc.next_call_at) < frappe.utils.get_datetime(
 		doc.call_time
@@ -40,6 +46,9 @@ def validate_call(doc) -> None:
 
 
 def after_call(doc) -> None:
+	if doc.get("station"):
+		_after_station_call(doc)
+		return
 	case = frappe.get_doc(CASE, doc.case)
 	_close_call_tasks(case.name)
 	if doc.next_call_at and case.follow_up_owner:
@@ -69,6 +78,40 @@ def after_call(doc) -> None:
 			case.quote_creator,
 			_("{0} wants the quote revised: {1}").format(case.customer_name or case.customer, doc.note or ""),
 		)
+
+
+def _after_station_call(doc) -> None:
+	"""A collection call: the station's open call task closes; a next call date makes a new one
+	for the collection owner."""
+	for name in frappe.get_all(
+		TASK,
+		{
+			"reference_doctype": STATION,
+			"reference_name": doc.station,
+			"task_type": CALL_TASK,
+			"status": TASK_OPEN,
+		},
+		pluck="name",
+	):
+		frappe.db.set_value(
+			TASK,
+			name,
+			{"status": TASK_DONE, "completed_by": frappe.session.user, "completed_on": now_datetime()},
+		)
+	owner = frappe.db.get_value(STATION, doc.station, "collection_owner")
+	if doc.next_call_at and owner:
+		frappe.get_doc(
+			{
+				"doctype": TASK,
+				"subject": _("Collection call: {0}").format(doc.customer_name or doc.station),
+				"task_type": CALL_TASK,
+				"assigned_to": owner,
+				"due_at": doc.next_call_at,
+				"reference_doctype": STATION,
+				"reference_name": doc.station,
+				"description": doc.note,
+			}
+		).insert(ignore_permissions=True)
 
 
 def _close_call_tasks(case: str) -> None:
