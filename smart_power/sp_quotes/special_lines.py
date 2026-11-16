@@ -28,6 +28,15 @@ def service_items() -> dict:
 	return {row["kind"]: row["item_code"] for row in defaults()["service_items"]["items"]}
 
 
+def service_item(kind: str) -> str:
+	"""The service item of a line kind, seeded first on a site set up before SP-58 (or a fresh
+	test site, where the catalogue setup has not run)."""
+	item_code = service_items()[kind]
+	if not frappe.db.exists("Item", item_code):
+		seed_service_items()
+	return item_code
+
+
 def seed_service_items() -> None:
 	"""The service items of the special lines and their item group, where missing."""
 	spec = defaults()["service_items"]

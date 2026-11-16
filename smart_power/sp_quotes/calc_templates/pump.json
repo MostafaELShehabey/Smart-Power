@@ -1,0 +1,374 @@
+{
+ "_source": "SP-56: Mohamed's pump offer sheet (energy + submersible), the analysis tab of 'نموذج عرض سعر طاقة + غاطس' (40 HP, 18-5-2026) and of the 100 HP offer (1-11-2026). Defaults follow the newer 100 HP file. Every number is template data the admin and the quote creator can change, never code. Lines priced from the catalogue pick their item by group and capacity (panels by watt, inverter by kW, combiner panel, motor and pump by HP); pipes, cable, well fittings and rope wait for the admin to set their default items once the catalogue is imported. Service lines (chassis, installation, transport, lowering …) go on the quote with their own text.",
+ "template_key": "PUMP",
+ "template_name": "طلمبات: طاقة + غاطس",
+ "offer_type": [
+  "System Type",
+  "PUMP"
+ ],
+ "description": "محطة طاقة شمسية لتغذية طلمبة غاطسة، مع الغاطس (موتور، طلمبة، مواسير، كابل، مشتملات البئر).",
+ "inputs": [
+  {
+   "input_key": "hp",
+   "label": "قدرة الطلمبة (حصان)",
+   "input_type": "Float",
+   "reqd": 1
+  },
+  {
+   "input_key": "pump_depth",
+   "label": "عمق الغاطس (متر)",
+   "input_type": "Float",
+   "reqd": 1
+  },
+  {
+   "input_key": "strings",
+   "label": "عدد الاسترنجات",
+   "input_type": "Int",
+   "default_value": "0",
+   "help": "صفر: يُحسب من نسبة المحطة إلى الطلمبة"
+  },
+  {
+   "input_key": "panels_per_string",
+   "label": "عدد الألواح في الاسترنج",
+   "input_type": "Int",
+   "default_value": "15"
+  },
+  {
+   "input_key": "panel_watt",
+   "label": "قدرة اللوح (وات)",
+   "input_type": "Float",
+   "default_value": "625",
+   "help": "يُختار أصغر لوح بهذه القدرة أو أكبر، من الماركة صاحبة الأولوية"
+  },
+  {
+   "input_key": "plant_ratio",
+   "label": "نسبة المحطة إلى الطلمبة",
+   "input_type": "Float",
+   "default_value": "1.5",
+   "help": "كيلو وات من الألواح لكل كيلو وات من قدرة الطلمبة (الحصان = 0.746 كيلو وات)، عندما يكون عدد الاسترنجات صفرًا"
+  },
+  {
+   "input_key": "pipe_type",
+   "label": "نوع مواسير الغاطس",
+   "input_type": "Select",
+   "options": "بلاستيك\nحديد",
+   "default_value": "بلاستيك"
+  },
+  {
+   "input_key": "plastic_pipe_m",
+   "label": "طول الماسورة البلاستيك (متر)",
+   "input_type": "Float",
+   "default_value": "3"
+  },
+  {
+   "input_key": "steel_pipe_m",
+   "label": "طول الماسورة الحديد (متر)",
+   "input_type": "Float",
+   "default_value": "6"
+  },
+  {
+   "input_key": "cable_allowance",
+   "label": "زيادة كابل الغاطس (متر)",
+   "input_type": "Float",
+   "default_value": "25"
+  },
+  {
+   "input_key": "cable_lower_m",
+   "label": "طول القطاع الثاني من الكابل (متر)",
+   "input_type": "Float",
+   "default_value": "0",
+   "help": "عند تقسيم الكابل على قطاعين: طول الجزء الذي يأخذ القطاع الثاني"
+  },
+  {
+   "input_key": "rope_allowance",
+   "label": "زيادة الحبل (متر)",
+   "input_type": "Float",
+   "default_value": "30"
+  },
+  {
+   "input_key": "dc_cable_per_string",
+   "label": "سلك DC لكل استرنج (متر)",
+   "input_type": "Float",
+   "default_value": "50"
+  },
+  {
+   "input_key": "pipes_2in_per_string",
+   "label": "مواسير 2 بوصة لكل استرنج",
+   "input_type": "Float",
+   "default_value": "2"
+  },
+  {
+   "input_key": "strings_per_flex_roll",
+   "label": "استرنجات لكل لفة فليكسبل",
+   "input_type": "Float",
+   "default_value": "3"
+  }
+ ],
+ "lines": [
+  {
+   "line_key": "panels",
+   "section": "الطاقة",
+   "description": "ألواح شمسية (بالوات)",
+   "item_group": "ألواح شمسية",
+   "selection_rule": "Brand priority",
+   "capacity_field": "watt",
+   "need_formula": "panel_watt",
+   "qty_formula": "panels_per_string * (strings or ceil(hp * 0.746 * plant_ratio * 1000 / ((item.watt or panel_watt) * panels_per_string))) * (item.watt or panel_watt)",
+   "cost_source": "P1 price",
+   "pricing_method": "Cost x Markup",
+   "default_markup": 9,
+   "rounding": "2 decimals"
+  },
+  {
+   "line_key": "inverter",
+   "section": "الطاقة",
+   "description": "انفرتر",
+   "item_group": "إنفرترات ودرايفات",
+   "selection_rule": "Brand priority",
+   "capacity_field": "kw",
+   "need_formula": "hp * 0.746",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Fixed list price"
+  },
+  {
+   "line_key": "chassis",
+   "section": "الطاقة",
+   "description": "شاسيهات ثابتة من الحديد المجلفن على الساخن سمك 3 مم مثبتة في الأرض بقواعد خرسانية (لكل كيلو وات)",
+   "qty_formula": "panels.qty / 1000",
+   "cost_source": "Per-kW default",
+   "cost_default": 1250,
+   "pricing_method": "Cost x Markup",
+   "default_markup": 12,
+   "rounding": "Nearest 10"
+  },
+  {
+   "line_key": "combiner",
+   "section": "الطاقة",
+   "description": "لوحة تجميع",
+   "item_group": "لوحات تجميع",
+   "selection_rule": "Brand priority",
+   "capacity_field": "hp",
+   "need_formula": "hp",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Cost x Markup",
+   "default_markup": 10,
+   "rounding": "Nearest 10"
+  },
+  {
+   "line_key": "dc_cable",
+   "section": "الطاقة",
+   "description": "سلك DC قطاع 4 مم (متر)",
+   "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string)) * dc_cable_per_string",
+   "cost_source": "Manual",
+   "cost_default": 55,
+   "pricing_method": "Cost x Markup",
+   "default_markup": 25,
+   "rounding": "Nearest 5"
+  },
+  {
+   "line_key": "mc4",
+   "section": "الطاقة",
+   "description": "MC4",
+   "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string))",
+   "cost_source": "Manual",
+   "cost_default": 40,
+   "pricing_method": "Cost x Markup",
+   "default_markup": 50,
+   "rounding": "Nearest 10"
+  },
+  {
+   "line_key": "pipes_2in",
+   "section": "الطاقة",
+   "description": "مواسير 2 بوصة",
+   "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string)) * pipes_2in_per_string",
+   "cost_source": "Manual",
+   "cost_default": 200,
+   "pricing_method": "Cost x Markup",
+   "default_markup": 15,
+   "rounding": "Nearest 10"
+  },
+  {
+   "line_key": "flex",
+   "section": "الطاقة",
+   "description": "فليكسبل حراري (لفة)",
+   "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string)) / strings_per_flex_roll",
+   "cost_source": "Manual",
+   "cost_default": 350,
+   "pricing_method": "Cost x Markup",
+   "default_markup": 20,
+   "rounding": "Nearest 10"
+  },
+  {
+   "line_key": "fittings",
+   "section": "الطاقة",
+   "description": "كيعان + حزامات + جلاندات + مشتملات تركيب",
+   "qty_formula": "1",
+   "cost_source": "Formula",
+   "cost_formula": "pipes_2in.amount / 4",
+   "pricing_method": "Cost x Markup",
+   "default_markup": 100,
+   "rounding": "Nearest 10"
+  },
+  {
+   "line_key": "installation",
+   "section": "الطاقة",
+   "description": "تركيب وبرمجة (لكل كيلو وات)",
+   "qty_formula": "round(panels.qty / 1000)",
+   "cost_source": "Manual",
+   "cost_default": 300,
+   "pricing_method": "Cost x Markup",
+   "default_markup": 25,
+   "rounding": "Nearest 5"
+  },
+  {
+   "line_key": "transport",
+   "section": "الطاقة",
+   "description": "نقل (لكل كيلو وات)",
+   "qty_formula": "panels.qty / 1000",
+   "cost_source": "Manual",
+   "cost_default": 240,
+   "pricing_method": "Pass-through"
+  },
+  {
+   "line_key": "motor",
+   "section": "الغاطس",
+   "description": "موتور غاطس",
+   "item_group": "مواتير غاطس",
+   "selection_rule": "Brand priority",
+   "capacity_field": "hp",
+   "need_formula": "hp",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "pump",
+   "section": "الغاطس",
+   "description": "طلمبة غاطسة",
+   "item_group": "طلمبات غاطس",
+   "selection_rule": "Brand priority",
+   "capacity_field": "hp",
+   "need_formula": "hp",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "column_pipes",
+   "section": "الغاطس",
+   "description": "مواسير الغاطس",
+   "item_group": "مواسير",
+   "qty_formula": "ceil(pump_depth / (plastic_pipe_m if pipe_type == 'بلاستيك' else steel_pipe_m))",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "cable",
+   "section": "الغاطس",
+   "description": "كابل بحري",
+   "item_group": "كابلات",
+   "qty_formula": "pump_depth + cable_allowance - cable_lower_m",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "cable_lower",
+   "section": "الغاطس",
+   "description": "كابل بحري (القطاع الثاني)",
+   "item_group": "كابلات",
+   "qty_formula": "cable_lower_m",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "well_start",
+   "section": "الغاطس",
+   "description": "بداية",
+   "item_group": "مشتملات البئر",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "well_end",
+   "section": "الغاطس",
+   "description": "نهاية",
+   "item_group": "مشتملات البئر",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "elbow",
+   "section": "الغاطس",
+   "description": "كوع",
+   "item_group": "مشتملات البئر",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "flange",
+   "section": "الغاطس",
+   "description": "فلنشة وش بئر",
+   "item_group": "مشتملات البئر",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price"
+  },
+  {
+   "line_key": "welding",
+   "section": "الغاطس",
+   "description": "وصلة لحام ريكم + لحام الكابل",
+   "qty_formula": "1",
+   "cost_source": "Manual",
+   "cost_default": 750,
+   "pricing_method": "Cost x Markup",
+   "default_markup": 20,
+   "rounding": "Nearest 10"
+  },
+  {
+   "line_key": "rope",
+   "section": "الغاطس",
+   "description": "حبل حرير 16 مم (متر)",
+   "item_group": "إكسسوارات",
+   "qty_formula": "pump_depth * 2 + rope_allowance",
+   "cost_source": "P1 price",
+   "pricing_method": "Cost x Markup",
+   "default_markup": 20,
+   "rounding": "Nearest 10"
+  },
+  {
+   "line_key": "lowering",
+   "section": "الغاطس",
+   "description": "تركيب وتنزيل الغاطس",
+   "qty_formula": "1",
+   "cost_source": "Manual",
+   "cost_default": 10000,
+   "pricing_method": "Pass-through"
+  },
+  {
+   "line_key": "winch",
+   "section": "الغاطس",
+   "description": "ونش",
+   "qty_formula": "1",
+   "cost_source": "Manual",
+   "cost_default": 0,
+   "pricing_method": "Manual",
+   "manual_rate": 0,
+   "is_winch_line": 1
+  },
+  {
+   "line_key": "stainless_motor",
+   "section": "الغاطس",
+   "description": "موتور استانلس بالكامل (بديل)",
+   "item_group": "مواتير غاطس",
+   "qty_formula": "1",
+   "cost_source": "P1 price",
+   "pricing_method": "Locked BTC price",
+   "is_optional": 1
+  }
+ ]
+}

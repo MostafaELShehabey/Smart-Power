@@ -31,12 +31,25 @@ class TestQuoteCalc(IntegrationTestCase):
 		doc, rows = self.rows()
 		self.assertEqual(doc.sp_calc_template, self.template.name)  # the published one for PUMP
 		self.assertEqual(frappe.parse_json(doc.sp_design_inputs)["depth"], 99)
-		self.assertEqual(set(rows), {"motor", "pipes", "cable", "rope", "panels", "_Test Item"})
+		self.assertEqual(
+			set(rows), {"motor", "pipes", "cable", "rope", "panels", "installation", "winch", "_Test Item"}
+		)
 		self.assertEqual((rows["pipes"].qty, rows["pipes"].rate, rows["pipes"].sp_cost), (33, 360, 300))
 		self.assertEqual((rows["motor"].item_code, rows["motor"].sp_lock_markup), ("SPT-MOTOR-A50", 1))
 		self.assertEqual(rows["panels"].rate, 2690)
+		# SP-56: a line with no item but its own text reaches the quote on its kind's service item
+		self.assertEqual(
+			(
+				rows["installation"].item_code,
+				rows["installation"].item_name,
+				rows["installation"].sp_line_kind,
+			),
+			("SP-MANUAL", "تركيب وبرمجة", "Manual"),
+		)
+		self.assertEqual((rows["winch"].item_code, rows["winch"].sp_line_kind), ("SP-WINCH", "Winch"))
+		self.assertEqual((rows["installation"].rate, rows["installation"].sp_cost), (8000, 5000))
 		skipped = {r["line_key"] for r in result.rule_results if r["level"] == "info"}
-		self.assertEqual(skipped, {"installation", "winch"})
+		self.assertEqual(skipped, set())
 		# the optional line goes under the total, not into it (SP-59)
 		self.assertEqual(
 			[(r.line_key, r.item_code, r.amount) for r in doc.sp_optional_lines],
@@ -122,3 +135,41 @@ class TestQuoteCalc(IntegrationTestCase):
 		calculate_quote(self.quote.name, self.data["inputs"])
 		pipes = [row for row in self.rows()[0].items if row.item_code == "SPT-PIPE"]
 		self.assertEqual(len(pipes), 2)  # the template's pipes line and the hand row
+
+	def test_a_fractional_service_line_goes_as_one_lump(self):
+		# SP-56: 65.625 kW of chassis on the Manual item (Nos, a whole unit): one lump, same money
+		template = make_template(
+			inputs=[{"input_key": "kw", "label": "kW", "default_value": "65.625"}],
+			lines=[
+				{
+					"line_key": "chassis",
+					"description": "شاسيهات (لكل كيلو وات)",
+					"qty_formula": "kw",
+					"cost_source": "Per-kW default",
+					"cost_default": 1300,
+					"default_markup": 12,
+					"rounding": "Nearest 10",
+				},
+				{
+					"line_key": "installation",
+					"description": "تركيب وبرمجة",
+					"qty_formula": "round(kw)",
+					"cost_source": "Manual",
+					"cost_default": 200,
+					"default_markup": 25,
+					"rounding": "Nearest 5",
+				},
+			],
+		)
+		template.publish()
+		calculate_quote(self.quote.name, {}, template.name)
+		_, rows = self.rows()
+		chassis = rows["chassis"]
+		self.assertEqual(
+			(chassis.item_code, chassis.qty, chassis.rate), ("SP-MANUAL", 1, 95812.5)
+		)  # 65.625 x 1460
+		self.assertEqual((chassis.sp_cost, chassis.item_name), (85312.5, "شاسيهات (لكل كيلو وات) x 65.625"))
+		installation = rows["installation"]  # a whole quantity stays as it is
+		self.assertEqual(
+			(installation.qty, installation.rate, installation.item_name), (66, 250, "تركيب وبرمجة")
+		)
