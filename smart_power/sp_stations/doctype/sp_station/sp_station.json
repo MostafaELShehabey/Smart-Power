@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-17 12:00:00.000000",
+ "modified": "2026-11-18 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -78,6 +78,10 @@
   "column_break_dates",
   "tech_closed_on",
   "fin_closed_on",
+  "winch_section",
+  "winch_expected_amount",
+  "column_break_winch",
+  "winch_status",
   "cost_section",
   "commission_amount",
   "estimated_cost_snapshot",
@@ -339,6 +343,31 @@
    "fieldname": "fin_closed_on",
    "fieldtype": "Date",
    "label": "Financially Closed On",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "winch_section",
+   "fieldtype": "Section Break",
+   "label": "Winch"
+  },
+  {
+   "fieldname": "winch_expected_amount",
+   "fieldtype": "Currency",
+   "label": "Expected Winch Job",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "The winch line of the accepted quote: winch income and station cost when the job is done (SP-58)."
+  },
+  {
+   "fieldname": "column_break_winch",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "winch_status",
+   "fieldtype": "Select",
+   "label": "Winch Job",
+   "options": "\nExpected\nDone",
    "read_only": 1,
    "no_copy": 1
   },

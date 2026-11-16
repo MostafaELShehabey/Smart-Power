@@ -52,7 +52,8 @@ def print_lines(rows, names=None) -> list[dict]:
 			continue
 		lines.append(
 			{
-				"description": names.get(row.get("item_code"))
+				# a special line (SP-58) prints its own text, not its service item's name
+				"description": (None if row.get("sp_line_kind") else names.get(row.get("item_code")))
 				or row.get("item_name")
 				or row.get("description"),
 				"uom": row.get("uom") or row.get("stock_uom"),

@@ -22,7 +22,10 @@ from frappe import _
 from frappe.model.docstatus import DocStatus
 from frappe.utils import flt, getdate, now_datetime, today
 
+from smart_power.sp_quotes.special_lines import COMMISSION, WINCH, kind_total
+
 CASE, SO, STATION, QUOTE = "SP Case", "Sales Order", "SP Station", "Quotation"
+WINCH_EXPECTED, WINCH_DONE = "Expected", "Done"
 # the contracts role (Sales User underneath): أميرة holds it in the Projects Manager profile
 CONTRACT_ROLES = ("SP Contract Manager", "SP Admin", "System Manager")
 
@@ -59,6 +62,7 @@ def ensure_contract(case: str, at_deposit: bool = False) -> dict:
 		so_name, created = _build_order(doc).name, True
 	station = _station_for(doc, so_name)
 	_link(so_name, station)
+	_carry_special_lines(so_name, station, doc.accepted_quotation)
 	if at_deposit:
 		freeze_estimate(so_name)
 	from smart_power.sp_stations.money import refresh
@@ -86,6 +90,13 @@ def _build_order(case):
 		row.delivery_date = row.delivery_date or so.delivery_date
 		if main:
 			row.warehouse = main
+	# the commission is cost only: it goes to the contract as the station's commission (SP-58)
+	commission = {r.name for r in quote.items if r.get("sp_line_kind") == COMMISSION}
+	if commission:
+		so.set("items", [r for r in so.items if r.get("quotation_item") not in commission])
+		so.sp_referrer_commission = flt(so.get("sp_referrer_commission")) or kind_total(
+			quote, COMMISSION, cost=True
+		)
 	warranty = {r.name: r.get("sp_warranty_years") for r in quote.items}
 	for row in so.items:
 		if row.get("quotation_item") in warranty:
@@ -126,6 +137,23 @@ def _station_for(case, so_name: str) -> str:
 	doc.flags.ignore_permissions = True
 	doc.insert()
 	return doc.name
+
+
+def _carry_special_lines(so_name: str, station: str, quote: str | None) -> None:
+	"""The quote's winch line becomes the station's expected winch job; its commission the
+	station's commission (SP-58). A job already done is left as it is."""
+	if not quote:
+		return
+	quote = frappe.get_doc(QUOTE, quote)
+	values = {}
+	winch = kind_total(quote, WINCH)
+	if winch and frappe.db.get_value(STATION, station, "winch_status") != WINCH_DONE:
+		values.update(winch_expected_amount=winch, winch_status=WINCH_EXPECTED)
+	commission = flt(frappe.db.get_value(SO, so_name, "sp_referrer_commission"))
+	if commission and not flt(frappe.db.get_value(STATION, station, "commission_amount")):
+		values["commission_amount"] = commission
+	if values:
+		frappe.db.set_value(STATION, station, values, update_modified=False)
 
 
 def _link(so_name: str, station: str) -> None:

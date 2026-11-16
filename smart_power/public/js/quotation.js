@@ -287,3 +287,19 @@ function sp_whatsapp_number(mobile) {
 	const digits = (mobile || "").replace(/\D/g, "");
 	return digits.startsWith("0") ? `2${digits}` : digits; // sp-allow-number: Egypt country code
 }
+
+// Special lines (SP-58): picking a line kind puts its service item on the row; the line's own text
+// replaces the name. A commission is cost only: its amount (typed as Cost, or as Rate) moves to
+// the cost on save, and it is never printed (smart_power.sp_quotes.special_lines).
+frappe.ui.form.on("Quotation Item", {
+	async sp_line_kind(frm, cdt, cdn) {
+		const row = locals[cdt][cdn];
+		if (!row.sp_line_kind) return;
+		frappe.provide("smart_power");
+		smart_power._service_items ??= await frappe.xcall(
+			"smart_power.sp_quotes.special_lines.get_service_items"
+		);
+		const item = smart_power._service_items[row.sp_line_kind];
+		if (item && row.item_code !== item) await frappe.model.set_value(cdt, cdn, "item_code", item);
+	},
+});

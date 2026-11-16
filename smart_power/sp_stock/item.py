@@ -51,3 +51,6 @@ def seed_item_groups() -> None:
 
 	seed_price_categories()
 	seed_group_codes()  # SP-165
+	from smart_power.sp_quotes.special_lines import seed_service_items
+
+	seed_service_items()  # SP-58
