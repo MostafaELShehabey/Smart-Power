@@ -26,12 +26,8 @@ frappe.ui.form.on("Quotation", {
 			frm.disable_form();
 		}
 
-		if (frm.doc.docstatus < 2) { // sp-allow-number: docstatus cancelled
-			frm.add_custom_button(
-				frm.doc.docstatus === 0 ? __("Send to Customer") : __("Send Again"),
-				() => sp_quote_send(frm)
-			);
-		}
+		// a draft's primary button sends it (SP-45); a sent one can be sent again
+		if (frm.doc.docstatus === 1) frm.add_custom_button(__("Send Again"), () => sp_quote_send(frm));
 
 		if (frm.doc.docstatus < 2) { // sp-allow-number: docstatus cancelled
 			frm.add_custom_button(__("Give Discount"), () =>
@@ -73,20 +69,35 @@ frappe.ui.form.on("Quotation", {
 			}
 		}
 
-		if (frm.doc.docstatus === 1 && !frm.doc.sp_is_approved && !frm.doc.sp_needs_repricing) {
-			frm.add_custom_button(__("Approve Version"), () =>
-				frappe.confirm(__("Mark this version as the one the customer accepted?"), async () => {
-					await frappe.call({
-						method: `${API}.approve_version`,
-						args: { quotation: frm.doc.name },
-						freeze: true,
-					});
-					frm.reload_doc();
-				})
-			);
+		// a sent version's primary button marks it won (SP-45); an expired one keeps this button
+		const approvable = frm.doc.docstatus === 1 && !frm.doc.sp_is_approved && !frm.doc.sp_needs_repricing;
+		if (approvable && frm.doc.sp_status !== "Sent") {
+			frm.add_custom_button(__("Approve Version"), () => sp_quote_approve(frm));
 		}
 	},
 });
+
+function sp_quote_approve(frm) {
+	frappe.confirm(__("Mark this version as the one the customer accepted?"), async () => {
+		await frappe.call({
+			method: "smart_power.sp_sales.quotation.approve_version",
+			args: { quotation: frm.doc.name },
+			freeze: true,
+		});
+		frm.reload_doc();
+	});
+}
+
+// The record pattern's primary button (SP-45): Draft → Send quote, Sent → Mark won.
+sp.form.register_primary(
+	"Quotation",
+	"sp_status",
+	{
+		Draft: { label: __("Send quote"), action: sp_quote_send },
+		Sent: { label: __("Mark won"), action: sp_quote_approve },
+	},
+	(frm) => frm.doc.sp_case
+);
 
 const SP_QC_API = "smart_power.sp_quotes.quote_calc";
 const SP_QC_TYPES = { Float: "Float", Int: "Int", Check: "Check", Select: "Select", Data: "Data" };

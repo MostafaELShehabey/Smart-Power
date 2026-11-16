@@ -179,3 +179,16 @@ body .es-button[data-variant="solid"] {
 .sp-home-card.indicator-border-orange { border-inline-start-color: var(--orange-500, #f97316); }
 .sp-home-card.indicator-border-green { border-inline-start-color: var(--green-500, #16a34a); }
 .sp-home-card-value { font-size: 1.4em; font-weight: 600; margin: 6px 0 2px; }
+
+/* Record pattern (SP-45): the status bar's steps, the current one in gold */
+/* gaps without Bootstrap gap utilities */
+.sp-steps .sp-step, .sp-owners .sp-owner-chip { margin: 0 4px 4px 0; }
+.sp-owner-popover { max-width: min(640px, 92vw); }
+.sp-owner-popover .popover-body { overflow-x: auto; padding: 4px 12px 8px; }
+.sp-owner-history th { white-space: nowrap; border-top: 0; }
+.sp-voice-note { max-width: 280px; height: 32px; }
+.sp-step { padding: 2px 10px; border-radius: 12px; font-size: 12px; border: 1px solid var(--border-color, #e2e8f0); }
+.sp-step-current { background: var(--sp-gold); border-color: var(--sp-gold); color: var(--sp-navy); font-weight: 600; }
+.sp-step-next { cursor: pointer; background: var(--fg-color, #fff); }
+.sp-step-next:hover { border-color: var(--sp-gold); background: var(--sp-gold-soft); }
+.sp-step-off { color: var(--text-muted, #8d99a6); }

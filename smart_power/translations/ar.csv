@@ -758,6 +758,7 @@ Mark selected reviewed,تمييز المحدد كمُراجع
 Mark this version as the one the customer accepted?,اعتماد هذه النسخة كالتي وافق عليها العميل؟
 Mark Unpaid,تمييز كغير مسددة
 Mark Won,تسجيل الكسب
+Mark won,تسجيل الفوز
 Mark {0} items reviewed?,تمييز {0} عناصر كمُراجعة؟
 Marked as a featured customer.,تم تمييز العميل كعميل مميز.
 Marketing,تسويق
@@ -849,6 +850,7 @@ No,لا
 No account is mapped for {0}. The admin adds it in Smart Power Settings > Account Map.,لا يوجد حساب مربوط لـ {0}. يضيفه المدير في إعدادات سمارت باور > خريطة الحسابات.
 No call yet.,لا توجد مكالمات بعد.
 No cases here.,لا توجد حالات هنا.
+No change yet: the first owner still holds it.,لا تغيير بعد: المسؤول الأول ما زال يتولاها.
 "No code: fill the code, or the brand (with a Code) and the model.",لا يوجد كود: املأ الكود، أو الماركة (ولها كود) والموديل.
 No contact yet,لا يوجد تواصل بعد
 No contract schedule yet,لا يوجد جدول سداد للعقد بعد
@@ -1286,6 +1288,7 @@ Select the items you checked against the statement.,حدد العناصر الت
 Send,إرسال
 Send a quote before marking the case won.,أرسل عرضًا قبل تسجيل الحالة كمكسوبة.
 Send Again,إرسال مرة أخرى
+Send quote,إرسال عرض السعر
 Send to Customer,إرسال للعميل
 Send to the admin,إرسال إلى المدير
 Sending freezes this version: it cannot be edited afterwards.,الإرسال يثبّت هذا الإصدار: لا يمكن تعديله بعد ذلك.
@@ -1861,6 +1864,8 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0}: brand priority needs an item group, a capacity spec and a need formula.",{0}: أولوية الماركة تحتاج مجموعة أصناف ومواصفة قدرة ومعادلة احتياج.
 {0}: first in stock needs an item group.,{0}: أول صنف متوفر يحتاج مجموعة أصناف.
 {0}: give a reason for changing the {1} price.,{0}: اكتب سبب تغيير سعر {1}.
+{0}: history,{0}: السجل
+{0}: move to {1}?,{0}: الانتقال إلى {1}؟
 {0}: price is {1} days old.,{0}: عمر السعر {1} يوم.
 {0}: the default {1} is not a number.,{0}: القيمة الافتراضية {1} ليست رقمًا.
 {0}: the default {1} is not one of the options.,{0}: القيمة الافتراضية {1} ليست من الاختيارات.
