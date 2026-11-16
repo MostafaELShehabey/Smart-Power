@@ -15,7 +15,7 @@ with its receipt, and the admin confirms it against the bank or the cash.
   deposit (on a case) is a deposit Payment Entry, which runs the deposit automation (SP-175).
 - On reject: no entry; the payment is cancelled with the reason, the recorder is told and can
   amend it.
-- The admin has a "Receipt to Confirm" task with the photo; a payment above Large Payment
+- The admin has a "Payment to Confirm" task with the photo; a payment above Large Payment
   (Smart Power Settings) is highlighted and alerted.
 """
 
@@ -23,13 +23,14 @@ import frappe
 from frappe import _
 from frappe.utils import flt, now_datetime
 
+from smart_power.sp_core.inbox import HIGH, NORMAL, close_tasks, create_task
 from smart_power.sp_finance.accounts import mode_for_method
 
 PAYMENT, STATION, CASE, TASK = "SP Customer Payment", "SP Station", "SP Case", "SP Task"
 DRAFT, PENDING, CONFIRMED, REJECTED = "Draft", "Pending", "Confirmed", "Rejected"
 OFFICIAL, TRANSIT = "Official", "Transit"
 CASH, THIRD_PARTY = "Payment Method-CASH", "Payment Method-THIRD_PARTY"
-CONFIRM_TASK, TASK_OPEN, TASK_DONE = "Receipt to Confirm", "Open", "Done"
+CONFIRM_TASK = "Payment to Confirm"  # in the admin's inbox (SP-39)
 ADMIN_ROLE, ADMIN_ROLES = "SP Admin", ("SP Admin", "System Manager")
 
 
@@ -129,18 +130,16 @@ def _confirm_task(doc) -> None:
 	subject = _("Confirm {0} from {1} ({2})").format(
 		frappe.format(doc.amount, "Currency"), doc.customer_name, doc.station or doc.case
 	)
-	for admin in admins:
-		frappe.get_doc(
-			{
-				"doctype": TASK,
-				"subject": ("⚠ " if large else "") + subject,
-				"task_type": CONFIRM_TASK,
-				"assigned_to": admin,
-				"reference_doctype": PAYMENT,
-				"reference_name": doc.name,
-				"description": doc.receipt_photo or "",
-			}
-		).insert(ignore_permissions=True)
+	create_task(
+		CONFIRM_TASK,
+		PAYMENT,
+		doc.name,
+		admins,
+		("⚠ " if large else "") + subject,
+		amount=flt(doc.amount),
+		image=doc.receipt_photo,
+		priority=HIGH if large else NORMAL,
+	)
 	if large:
 		_notify(doc, admins, _("Large payment: {0}").format(subject), "large_payment")
 
@@ -366,16 +365,7 @@ def _build_third_party_entry(doc):
 
 
 def _close_tasks(doc) -> None:
-	for name in frappe.get_all(
-		TASK,
-		{"reference_doctype": PAYMENT, "reference_name": doc.name, "status": TASK_OPEN},
-		pluck="name",
-	):
-		frappe.db.set_value(
-			TASK,
-			name,
-			{"status": TASK_DONE, "completed_by": frappe.session.user, "completed_on": now_datetime()},
-		)
+	close_tasks(PAYMENT, doc.name)
 
 
 def _refresh(doc) -> None:

@@ -227,6 +227,8 @@ doc_events = {
 }
 
 scheduler_events = {
+	# a snoozed task whose time has passed comes back to the inbox (SP-39)
+	"hourly": ["smart_power.sp_core.inbox.unsnooze"],
 	"cron": {
 		# 24 h quote clock: amber and overdue alerts every 15 minutes (SP-48)
 		"*/15 * * * *": ["smart_power.sp_sales.quote_alerts.check_quote_clock"],  # sp-allow-number: cron

@@ -106,11 +106,13 @@ class TestCustomerPayment(IntegrationTestCase):
 		self.assertEqual((flt(money.paid_amount), flt(money.pending_amount)), (0, 25000))
 		task = frappe.get_all(
 			"SP Task",
-			{"reference_name": doc.name, "task_type": "Receipt to Confirm", "status": "Open"},
-			["assigned_to", "description"],
+			{"reference_name": doc.name, "task_type": "Payment to Confirm", "status": "Open"},
+			["assigned_to", "image", "amount"],
 		)
 		self.assertEqual(task[0].assigned_to, self.admin)
-		self.assertEqual(task[0].description, PHOTO)
+		self.assertEqual(
+			(task[0].image, flt(task[0].amount)), (PHOTO, 25000)
+		)  # the inbox's thumbnail (SP-39)
 
 	def test_confirm_posts_to_the_account_and_pays_the_oldest_instalment(self):
 		doc = self.record(self.amira, 25000, "Payment Method-INSTAPAY", self.instapay)

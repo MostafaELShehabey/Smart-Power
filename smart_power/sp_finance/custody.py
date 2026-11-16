@@ -22,6 +22,7 @@ from frappe import _
 from frappe.model.docstatus import DocStatus
 from frappe.utils import flt, getdate, now_datetime, today
 
+from smart_power.sp_core.inbox import close_tasks, create_task
 from smart_power.sp_finance.accounts import CUSTODY, OFFICIAL
 
 CUS, LINE, SETTLEMENT, TASK = "SP Custody", "SP Custody Line", "SP Custody Settlement", "SP Task"
@@ -42,7 +43,7 @@ OPEN = (GIVEN, SPENDING, SUBMITTED, APPROVED, CARRIED)
 ADMIN_ROLE, ADMIN_ROLES = "SP Admin", ("SP Admin", "System Manager")
 SEES_ALL = (*ADMIN_ROLES, "SP Accountant", "Accounts Manager")
 PETTY_ACCOUNT = "Petty Cash Expenses"
-CONFIRM_TASK, TASK_OPEN, TASK_DONE = "Receipt to Confirm", "Open", "Done"
+CONFIRM_TASK = "Settlement to Approve"  # in the admin's inbox (SP-39)
 EXPENSE_EVENT = "Custody Expense"
 KIND = "Custody settlement"
 ROUNDING = 0.005  # sp-allow-number: half a piastre
@@ -300,19 +301,16 @@ def on_settlement_submit(doc) -> None:
 		doc, IN_SETTLEMENT, settlement=doc.name, reasons={}
 	)  # a resubmitted expense drops its old reason
 	frappe.db.set_value(CUS, doc.custody, "status", SUBMITTED)
-	for admin in _users_with(ADMIN_ROLE) or ["Administrator"]:
-		frappe.get_doc(
-			{
-				"doctype": TASK,
-				"subject": _("Approve the custody settlement of {0}: {1}").format(
-					doc.holder_name or doc.holder, _money(doc.total)
-				),
-				"task_type": CONFIRM_TASK,
-				"assigned_to": admin,
-				"reference_doctype": SETTLEMENT,
-				"reference_name": doc.name,
-			}
-		).insert(ignore_permissions=True)
+	create_task(
+		CONFIRM_TASK,
+		SETTLEMENT,
+		doc.name,
+		_users_with(ADMIN_ROLE) or ["Administrator"],
+		_("Approve the custody settlement of {0}: {1}").format(
+			doc.holder_name or doc.holder, _money(doc.total)
+		),
+		amount=flt(doc.total),
+	)
 
 
 def on_settlement_cancel(doc) -> None:
@@ -513,14 +511,7 @@ def _task(doc, subject: str, description: str) -> None:
 
 
 def _close_tasks(doc) -> None:
-	for task in frappe.get_all(
-		TASK, {"reference_doctype": SETTLEMENT, "reference_name": doc.name, "status": TASK_OPEN}, pluck="name"
-	):
-		frappe.db.set_value(
-			TASK,
-			task,
-			{"status": TASK_DONE, "completed_by": frappe.session.user, "completed_on": now_datetime()},
-		)
+	close_tasks(SETTLEMENT, doc.name)
 
 
 def _money(value) -> str:
