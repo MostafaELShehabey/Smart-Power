@@ -98,6 +98,7 @@ Approve the custody settlement of {0}: {1},وافق على تسوية عهدة {
 Approve Version,اعتماد النسخة
 Approve {0}? Every expense posts to its center.,الموافقة على {0}؟ كل مصروف يُرحّل إلى مركزه.
 Approve {0}? {1} expense(s) go back to the holder.,الموافقة على {0}؟ {1} مصروف يعود لصاحب العهدة.
+Approve: {0}?,اعتماد: {0}؟
 Approved,معتمد
 Approved By,وافق عليها
 Approved Version,النسخة المعتمدة
@@ -110,6 +111,7 @@ Assigned To,مسند إلى
 Attach the receipt photo.,أرفق صورة الإيصال.
 Available,المتاح
 B,B
+Back to Waiting,العودة إلى المنتظرة
 Balance,الرصيد
 Balanced: debit {0} = credit {1},متوازن: المدين {0} = الدائن {1}
 Bank,البنك
@@ -534,6 +536,7 @@ Give a reason for each warning to continue.,اكتب سبباً لكل تنبي�
 Give a Temporary Password,إعطاء كلمة مرور مؤقتة
 Give Discount,إعطاء خصم
 Give discount,إعطاء الخصم
+Give the reason for rejecting.,اكتب سبب الرفض.
 Give the reason for the rejection.,اذكر سبب الرفض.
 Give this password to {0}. They must change it when they sign in.,أعطِ كلمة المرور هذه إلى {0}. يجب تغييرها عند الدخول.
 Given,مُسلّمة
@@ -757,6 +760,7 @@ My Custody,عهدتي
 My custody and cash held,عهدتي والنقدية التي معي
 My Leads,عملائي المحتملون
 My Profile,ملفي
+My Tasks,مهامي
 Name,الاسم
 Name the customer or the station.,اذكر اسم العميل أو المحطة.
 Name the third party the customer paid.,اذكر الطرف الثالث الذي دفع له العميل.
@@ -823,8 +827,10 @@ Not read yet,غير مقروءة
 Not sent,لم يُرسل
 Note,ملاحظة
 Notes,ملاحظات
+Nothing snoozed.,لا توجد مهام مؤجلة.
 Nothing to review here.,لا شيء للمراجعة هنا.
 Nothing waiting for confirmation.,لا شيء في انتظار التأكيد.
+Nothing waiting for you.,لا يوجد ما ينتظرك.
 Notification Preferences,تفضيلات الإشعارات
 Notifications,الإشعارات
 of,من
@@ -1239,6 +1245,11 @@ Smart Power,سمارت باور
 Smart Power Money,أموال سمارت باور
 Smart Power Settings,إعدادات سمارت باور
 Smart Power's cost. Visible to cost roles only (SP-35).,تكلفة سمارت باور. تظهر لأدوار التكلفة فقط (SP-35).
+Snooze,تأجيل
+Snooze until,تأجيل حتى
+Snooze until a time that is still to come.,أجّل إلى وقت لم يأتِ بعد.
+Snoozed,مؤجلة
+Snoozed Tasks,المهام المؤجلة
 Snoozed Until,مؤجل حتى
 Sort Order,الترتيب
 Source,المصدر
@@ -1506,6 +1517,8 @@ This request is already handled.,تمت معالجة هذا الطلب من قب
 This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 "This sample shows the Smart Power letterhead, the Arabic font and the shared print helpers.",يعرض هذا النموذج ورق سمارت باور الرسمي والخط العربي وأدوات الطباعة المشتركة.
+This task is already {0}.,هذه المهمة {0} بالفعل.
+This task is not yours.,هذه المهمة ليست لك.
 This version expired on {0}. Make a new version.,هذه النسخة انتهت صلاحيتها في {0}. اعمل نسخة جديدة.
 This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
 This version was sent: the discount makes a new version.,هذا الإصدار أُرسل: الخصم ينشئ إصدارًا جديدًا.
@@ -1554,6 +1567,7 @@ Unpaid - overdue,غير مسددة - متأخرة
 Unpaid advance,سلفة غير مسددة
 Unpublish,إلغاء النشر
 Unpublished,أُلغي النشر
+Until,حتى
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
 Use the {0} dialog to close a case.,استخدم نافذة {0} لإغلاق الحالة.
@@ -1576,6 +1590,7 @@ Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
 Voice Note,ملاحظة صوتية
 Waiting for quote,في انتظار العرض
+Wake Now,إعادتها الآن
 Warehouse {0} is not {1}'s.,المخزن {0} ليس تابعًا لـ {1}.
 Warn,تنبيه
 Warned,تم التنبيه
@@ -1689,6 +1704,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
 {0} is not an open reservation on this container.,{0} ليس حجزًا مفتوحًا على هذه الحاوية.
 {0} is not confirmed here.,{0} لا يُؤكد هنا.
+{0} is not done from the inbox; open the record.,{0} لا تُنفَّذ من صندوق المهام؛ افتح السجل.
 {0} is not in the list {1}.,{0} ليست ضمن القائمة {1}.
 {0} is repeated: it is already in row {1}.,{0} مكرر: موجود بالفعل في السطر {1}.
 {0} is required for this system type.,{0} مطلوب لهذا النوع من الأنظمة.
@@ -1701,8 +1717,10 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} recorded.,تم تسجيل {0}.
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
 {0} reviewed {1}: {2},{0} راجع {1}: {2}
+{0} snoozed,{0} مؤجلة
 {0} unread,{0} غير مقروءة
 {0} W x {1} per W,{0} وات × {1} للوات
+{0} waiting,{0} منتظرة
 {0} waiting · {1},{0} في الانتظار · {1}
 {0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
 {0} x {1} from consignment at {2} per W ({3}),{0} × {1} من الأمانة بسعر {2} للوات ({3})
