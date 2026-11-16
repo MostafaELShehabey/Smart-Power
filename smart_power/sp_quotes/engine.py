@@ -8,8 +8,9 @@ For each template line, in order:
    the first item of the group with stock; Brand priority: the top-priority brand's smallest
    item whose capacity spec covers the need), else the default item;
 2. the quantity: the override (kept as manual), else the line's formula;
-3. the unit cost: P1 price, the valuation rate (after landed cost), or the line's default
-   (per kW or manual);
+3. the unit cost: P1 price, the valuation rate (after landed cost), the line's default
+   (per kW or manual), or the line's cost formula (SP-56, e.g. an allowance that is a share
+   of another line);
 4. the unit price: cost x markup, the locked BTC price, the cost (pass-through), the fixed list
    price, or the line's manual price; then the line's rounding.
 
@@ -34,7 +35,7 @@ TEMPLATE = "SP Calc Template"
 PCT = 100
 # selection rules, cost sources and pricing methods (the template's Select options)
 MANUAL, FIRST_IN_STOCK, BRAND_PRIORITY = "Manual", "First in stock", "Brand priority"
-P1_COST, VALUATION, PER_KW = "P1 price", "Valuation rate", "Per-kW default"
+P1_COST, VALUATION, PER_KW, COST_FORMULA = "P1 price", "Valuation rate", "Per-kW default", "Formula"
 COST_X_MARKUP, LOCKED_BTC, PASS_THROUGH, FIXED_LIST = (
 	"Cost x Markup",
 	"Locked BTC price",
@@ -71,7 +72,9 @@ def calculate(template, inputs: dict | None = None, overrides: dict | None = Non
 			if manual_qty
 			else formulas.evaluate(row.qty_formula or "1", {**namespace, formulas.ITEM: item}, where)
 		)
-		cost, cost_date = unit_cost(row, item_code, override, on_date, results)
+		cost, cost_date = unit_cost(
+			row, item_code, override, on_date, results, {**namespace, formulas.ITEM: item}
+		)
 		markup = flt(override["markup"]) if "markup" in override else flt(row.default_markup)
 		rate, rate_date = unit_rate(row, item_code, cost, markup, override, on_date, results)
 		rate = round_rate(rate, row.rounding)
@@ -236,9 +239,12 @@ def by_brand_priority(item_group: str, capacity_field: str, need: float) -> str 
 # --- cost and price ---------------------------------------------------------------------------
 
 
-def unit_cost(row, item_code, override, on_date, results) -> tuple[float, object]:
+def unit_cost(row, item_code, override, on_date, results, namespace=None) -> tuple[float, object]:
 	if "cost" in override:
 		return flt(override["cost"]), None
+	if row.cost_source == COST_FORMULA:
+		where = _("Line {0}").format(row.line_key)
+		return formulas.evaluate(row.cost_formula, namespace or {}, where), None
 	if row.cost_source in (PER_KW, MANUAL):
 		return flt(row.cost_default), None
 	if not item_code:
@@ -297,7 +303,7 @@ def round_rate(rate: float, rounding: str | None) -> float:
 	step = cint(number.group()) if number else 0
 	if rounding.startswith("Nearest"):
 		return formulas.mround(rate, step)
-	return round(rate, step)
+	return formulas.excel_round(rate, step)
 
 
 def check_age(row, item_code, dates, on_date, results) -> None:

@@ -331,6 +331,7 @@ Cost (manual lines),التكلفة (السطور اليدوية)
 Cost and Profit,التكلفة والربح
 Cost Center,المركز المالي
 Cost Centers,المراكز المالية
+Cost Formula,معادلة التكلفة
 Cost Source,مصدر التكلفة
 Cost x Markup,التكلفة × نسبة الربح
 Count Difference,فرق جرد
@@ -555,6 +556,7 @@ For Station,لمحطة
 Forgot password,نسيت كلمة المرور
 Format,الصيغة
 Formats with .YYYY. restart every year. ERPNext documents change their format in Document Naming Settings.,الصيغ التي تحتوي .YYYY. يبدأ ترقيمها من جديد كل سنة. صيغ مستندات ERPNext تُغيَّر من إعدادات تسمية المستندات.
+Formula,معادلة
 Forward,تحويل
 Forwarded.,تم التحويل.
 Fresh,حديث
@@ -1617,6 +1619,7 @@ The supplier's own payment terms in words. The Payment Terms Template sets the d
 The template section of the line (e.g. Energy). Discounts apply to a section or the quote total (SP-68).,قسم السطر في القالب (مثل الطاقة). تُطبق الخصومات على قسم أو على إجمالي العرض.
 The template version this quote was calculated from (set by Calculate).,إصدار القالب الذي حُسب منه هذا العرض (يُضبط عند الحساب).
 The treasury is the admin's.,الخزينة خاصة بالمدير.
+"The unit cost from the inputs and the lines above, e.g. pipes_2in.amount / 4",تكلفة الوحدة من المدخلات والبنود السابقة، مثل pipes_2in.amount / 4
 The UOM is missing.,الوحدة ناقصة.
 The value is the same.,القيمة كما هي.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
@@ -1859,6 +1862,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} x {1} from consignment at {2} per W ({3}),{0} × {1} من الأمانة بسعر {2} للوات ({3})
 {0} {1} does not exist.,{0} {1} غير موجود.
 {0} {1} is not known; add it or one of its spellings first.,{0} {1} غير معروف؛ أضفه أو إحدى طرق كتابته أولًا.
+{0}: a formula cost needs its cost formula.,{0}: التكلفة بالمعادلة تحتاج إلى معادلة التكلفة.
 {0}: a Select input needs its options.,{0}: مدخل القائمة يحتاج اختياراته.
 {0}: a {1} price needs a supplier.,{0}: سعر {1} يحتاج مورداً.
 "{0}: brand priority needs an item group, a capacity spec and a need formula.",{0}: أولوية الماركة تحتاج مجموعة أصناف ومواصفة قدرة ومعادلة احتياج.
