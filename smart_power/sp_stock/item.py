@@ -56,6 +56,9 @@ def seed_item_groups() -> None:
 	from smart_power.sp_quotes.special_lines import seed_service_items
 
 	seed_service_items()  # SP-58
+	from smart_power.sp_quotes.calc_templates import seed_calc_templates
+
+	seed_calc_templates()  # SP-56: its lines pick items from these groups
 
 
 def seed_child_groups(children: dict[str, list[str]]) -> None:

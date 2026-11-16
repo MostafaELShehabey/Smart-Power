@@ -1,0 +1,1077 @@
+{
+ "about": "SP-56 golden file: the pump template (smart_power/sp_quotes/calc_templates/pump.json) run on the two cases of Mohamed's sheets. The item prices are disguised (the sheets' prices scaled by an undisclosed factor and rounded), since the repository is public; the template's markups and defaults are the real ones. 'sheet' is the sheet's own formulas, cell by cell, run on these prices (checked, before disguising, to reproduce both real sheets exactly); 'expected' is what the template must give (an independent re-computation). Every line agrees with the sheet within its rounding (the sheet rounds some line totals to 10), except the lines under 'differences', each with its reason. Item codes are test codes; 'overrides' are the edits the quote creator made on that quote.",
+ "tolerance": 10,
+ "cases": {
+  "40hp": {
+   "about": "نموذج عرض سعر طاقة + غاطس 18-5-2026: 40 HP, 7 strings of 15 panels, submersible at 72 m, plastic pipes",
+   "brand": "GLD Brand 40HP",
+   "inputs": {
+    "hp": 40,
+    "pump_depth": 72,
+    "strings": 7
+   },
+   "items": [
+    {
+     "code": "GLD40-PNL-625",
+     "group": "ألواح شمسية",
+     "watt": 625,
+     "cost": 8.95
+    },
+    {
+     "code": "GLD40-INV-30",
+     "group": "إنفرترات ودرايفات",
+     "kw": 30,
+     "cost": 28820,
+     "list": 35610
+    },
+    {
+     "code": "GLD40-CMB-40",
+     "group": "لوحات تجميع",
+     "hp": 40,
+     "cost": 8430
+    },
+    {
+     "code": "GLD40-MTR-40",
+     "group": "مواتير غاطس",
+     "hp": 40,
+     "cost": 70130,
+     "btc": 79030
+    },
+    {
+     "code": "GLD40-MTR-40-SS",
+     "group": "مواتير غاطس",
+     "hp": 40,
+     "btc": 88900
+    },
+    {
+     "code": "GLD40-PMP-40",
+     "group": "طلمبات غاطس",
+     "hp": 40,
+     "btc": 47190
+    },
+    {
+     "code": "GLD40-PMP-100",
+     "group": "طلمبات غاطس",
+     "hp": 100,
+     "cost": 89640,
+     "btc": 101020
+    },
+    {
+     "code": "GLD40-PIPE-5-17",
+     "group": "مواسير",
+     "cost": 3110,
+     "btc": 3310
+    },
+    {
+     "code": "GLD40-CBL-3X25",
+     "group": "كابلات",
+     "cost": 940,
+     "btc": 990
+    },
+    {
+     "code": "GLD40-WFT-START-5",
+     "group": "مشتملات البئر",
+     "cost": 4710,
+     "btc": 5520
+    },
+    {
+     "code": "GLD40-WFT-END-5",
+     "group": "مشتملات البئر",
+     "cost": 1280,
+     "btc": 1570
+    },
+    {
+     "code": "GLD40-WFT-ELBOW-5",
+     "group": "مشتملات البئر",
+     "cost": 1160,
+     "btc": 1400
+    },
+    {
+     "code": "GLD40-WFT-FLANGE-50",
+     "group": "مشتملات البئر",
+     "cost": 1340,
+     "btc": 2090
+    },
+    {
+     "code": "GLD40-ROPE-16",
+     "group": "إكسسوارات",
+     "cost": 26.0
+    }
+   ],
+   "overrides": {
+    "column_pipes": {
+     "item_code": "GLD40-PIPE-5-17"
+    },
+    "cable": {
+     "item_code": "GLD40-CBL-3X25"
+    },
+    "well_start": {
+     "item_code": "GLD40-WFT-START-5"
+    },
+    "well_end": {
+     "item_code": "GLD40-WFT-END-5"
+    },
+    "elbow": {
+     "item_code": "GLD40-WFT-ELBOW-5"
+    },
+    "flange": {
+     "item_code": "GLD40-WFT-FLANGE-50"
+    },
+    "rope": {
+     "item_code": "GLD40-ROPE-16"
+    },
+    "stainless_motor": {
+     "item_code": "GLD40-MTR-40-SS"
+    },
+    "chassis": {
+     "cost": 1300
+    },
+    "installation": {
+     "cost": 200
+    },
+    "transport": {
+     "cost": 200
+    },
+    "welding": {
+     "cost": 500
+    },
+    "lowering": {
+     "cost": 4000
+    }
+   },
+   "expected": {
+    "lines": {
+     "panels": {
+      "item_code": "GLD40-PNL-625",
+      "qty": 65625.0,
+      "cost": 8.95,
+      "rate": 9.76,
+      "amount": 640500.0,
+      "cost_amount": 587343.75,
+      "is_optional": 0
+     },
+     "inverter": {
+      "item_code": "GLD40-INV-30",
+      "qty": 1.0,
+      "cost": 28820.0,
+      "rate": 35610.0,
+      "amount": 35610.0,
+      "cost_amount": 28820.0,
+      "is_optional": 0
+     },
+     "chassis": {
+      "item_code": null,
+      "qty": 65.625,
+      "cost": 1300.0,
+      "rate": 1460.0,
+      "amount": 95812.5,
+      "cost_amount": 85312.5,
+      "is_optional": 0
+     },
+     "combiner": {
+      "item_code": "GLD40-CMB-40",
+      "qty": 1.0,
+      "cost": 8430.0,
+      "rate": 9270.0,
+      "amount": 9270.0,
+      "cost_amount": 8430.0,
+      "is_optional": 0
+     },
+     "dc_cable": {
+      "item_code": null,
+      "qty": 350.0,
+      "cost": 55.0,
+      "rate": 70.0,
+      "amount": 24500.0,
+      "cost_amount": 19250.0,
+      "is_optional": 0
+     },
+     "mc4": {
+      "item_code": null,
+      "qty": 7.0,
+      "cost": 40.0,
+      "rate": 60.0,
+      "amount": 420.0,
+      "cost_amount": 280.0,
+      "is_optional": 0
+     },
+     "pipes_2in": {
+      "item_code": null,
+      "qty": 14.0,
+      "cost": 200.0,
+      "rate": 230.0,
+      "amount": 3220.0,
+      "cost_amount": 2800.0,
+      "is_optional": 0
+     },
+     "flex": {
+      "item_code": null,
+      "qty": 2.333333,
+      "cost": 350.0,
+      "rate": 420.0,
+      "amount": 980.0,
+      "cost_amount": 816.666667,
+      "is_optional": 0
+     },
+     "fittings": {
+      "item_code": null,
+      "qty": 1.0,
+      "cost": 805.0,
+      "rate": 1610.0,
+      "amount": 1610.0,
+      "cost_amount": 805.0,
+      "is_optional": 0
+     },
+     "installation": {
+      "item_code": null,
+      "qty": 66.0,
+      "cost": 200.0,
+      "rate": 250.0,
+      "amount": 16500.0,
+      "cost_amount": 13200.0,
+      "is_optional": 0
+     },
+     "transport": {
+      "item_code": null,
+      "qty": 65.625,
+      "cost": 200.0,
+      "rate": 200.0,
+      "amount": 13125.0,
+      "cost_amount": 13125.0,
+      "is_optional": 0
+     },
+     "motor": {
+      "item_code": "GLD40-MTR-40",
+      "qty": 1.0,
+      "cost": 70130.0,
+      "rate": 79030.0,
+      "amount": 79030.0,
+      "cost_amount": 70130.0,
+      "is_optional": 0
+     },
+     "pump": {
+      "item_code": "GLD40-PMP-40",
+      "qty": 1.0,
+      "cost": 0.0,
+      "rate": 47190.0,
+      "amount": 47190.0,
+      "cost_amount": 0.0,
+      "is_optional": 0
+     },
+     "column_pipes": {
+      "item_code": "GLD40-PIPE-5-17",
+      "qty": 24.0,
+      "cost": 3110.0,
+      "rate": 3310.0,
+      "amount": 79440.0,
+      "cost_amount": 74640.0,
+      "is_optional": 0
+     },
+     "cable": {
+      "item_code": "GLD40-CBL-3X25",
+      "qty": 97.0,
+      "cost": 940.0,
+      "rate": 990.0,
+      "amount": 96030.0,
+      "cost_amount": 91180.0,
+      "is_optional": 0
+     },
+     "cable_lower": {
+      "item_code": null,
+      "qty": 0.0,
+      "cost": 0.0,
+      "rate": 0.0,
+      "amount": 0.0,
+      "cost_amount": 0.0,
+      "is_optional": 0
+     },
+     "well_start": {
+      "item_code": "GLD40-WFT-START-5",
+      "qty": 1.0,
+      "cost": 4710.0,
+      "rate": 5520.0,
+      "amount": 5520.0,
+      "cost_amount": 4710.0,
+      "is_optional": 0
+     },
+     "well_end": {
+      "item_code": "GLD40-WFT-END-5",
+      "qty": 1.0,
+      "cost": 1280.0,
+      "rate": 1570.0,
+      "amount": 1570.0,
+      "cost_amount": 1280.0,
+      "is_optional": 0
+     },
+     "elbow": {
+      "item_code": "GLD40-WFT-ELBOW-5",
+      "qty": 1.0,
+      "cost": 1160.0,
+      "rate": 1400.0,
+      "amount": 1400.0,
+      "cost_amount": 1160.0,
+      "is_optional": 0
+     },
+     "flange": {
+      "item_code": "GLD40-WFT-FLANGE-50",
+      "qty": 1.0,
+      "cost": 1340.0,
+      "rate": 2090.0,
+      "amount": 2090.0,
+      "cost_amount": 1340.0,
+      "is_optional": 0
+     },
+     "welding": {
+      "item_code": null,
+      "qty": 1.0,
+      "cost": 500.0,
+      "rate": 600.0,
+      "amount": 600.0,
+      "cost_amount": 500.0,
+      "is_optional": 0
+     },
+     "rope": {
+      "item_code": "GLD40-ROPE-16",
+      "qty": 174.0,
+      "cost": 26.0,
+      "rate": 30.0,
+      "amount": 5220.0,
+      "cost_amount": 4524.0,
+      "is_optional": 0
+     },
+     "lowering": {
+      "item_code": null,
+      "qty": 1.0,
+      "cost": 4000.0,
+      "rate": 4000.0,
+      "amount": 4000.0,
+      "cost_amount": 4000.0,
+      "is_optional": 0
+     },
+     "winch": {
+      "item_code": null,
+      "qty": 1.0,
+      "cost": 0.0,
+      "rate": 0.0,
+      "amount": 0.0,
+      "cost_amount": 0.0,
+      "is_optional": 0
+     },
+     "stainless_motor": {
+      "item_code": "GLD40-MTR-40-SS",
+      "qty": 1.0,
+      "cost": 0.0,
+      "rate": 88900.0,
+      "amount": 88900.0,
+      "cost_amount": 0.0,
+      "is_optional": 1
+     }
+    },
+    "totals": {
+     "cost": 1013646.9167,
+     "sell": 1163637.5
+    },
+    "cost_warnings": [
+     "pump",
+     "stainless_motor"
+    ]
+   },
+   "sheet": {
+    "lines": {
+     "panels": {
+      "qty": 65100,
+      "cost": 8.95,
+      "rate": 9.76,
+      "cost_amount": 582650.0,
+      "amount": 635380.0
+     },
+     "inverter": {
+      "qty": 1,
+      "cost": 28820,
+      "rate": 35610,
+      "cost_amount": 28820,
+      "amount": 35610
+     },
+     "chassis": {
+      "qty": 65.1,
+      "cost": 1300,
+      "rate": 1460.0,
+      "cost_amount": 84630.0,
+      "amount": 95050.0
+     },
+     "combiner": {
+      "qty": 1,
+      "cost": 8430,
+      "rate": 9270.0,
+      "cost_amount": 8430,
+      "amount": 9270.0
+     },
+     "dc_cable": {
+      "qty": 350,
+      "cost": 55,
+      "rate": 70.0,
+      "cost_amount": 19250,
+      "amount": 24500.0
+     },
+     "mc4": {
+      "qty": 7,
+      "cost": 40,
+      "rate": 60.0,
+      "cost_amount": 280,
+      "amount": 420.0
+     },
+     "pipes_2in": {
+      "qty": 14,
+      "cost": 200,
+      "rate": 230.0,
+      "cost_amount": 2800,
+      "amount": 3220.0
+     },
+     "flex": {
+      "qty": 2.3333333333333335,
+      "cost": 350,
+      "rate": 420.0,
+      "cost_amount": 820.0,
+      "amount": 980.0000000000001
+     },
+     "fittings": {
+      "qty": 1,
+      "cost": 805.0,
+      "rate": 1610.0,
+      "cost_amount": 805.0,
+      "amount": 1610.0
+     },
+     "installation": {
+      "qty": 65.0,
+      "cost": 200,
+      "rate": 250.0,
+      "cost_amount": 13000.0,
+      "amount": 16250.0
+     },
+     "transport": {
+      "qty": 1,
+      "cost": 13020.0,
+      "rate": 13020.0,
+      "cost_amount": 13020.0,
+      "amount": 13020.0
+     },
+     "motor": {
+      "qty": 1,
+      "cost": 70130,
+      "rate": 79030,
+      "cost_amount": 70130,
+      "amount": 79030
+     },
+     "pump": {
+      "qty": 1,
+      "cost": 89640,
+      "rate": 101020,
+      "cost_amount": 89640,
+      "amount": 101020
+     },
+     "well_start": {
+      "qty": 1,
+      "cost": 4710,
+      "rate": 5520,
+      "cost_amount": 4710,
+      "amount": 5520
+     },
+     "well_end": {
+      "qty": 1,
+      "cost": 1280,
+      "rate": 1570,
+      "cost_amount": 1280,
+      "amount": 1570
+     },
+     "elbow": {
+      "qty": 1,
+      "cost": 1160,
+      "rate": 1400,
+      "cost_amount": 1160,
+      "amount": 1400
+     },
+     "flange": {
+      "qty": 1,
+      "cost": 1340,
+      "rate": 2090,
+      "cost_amount": 1340,
+      "amount": 2090
+     },
+     "column_pipes": {
+      "qty": 24.0,
+      "cost": 3110,
+      "rate": 3310,
+      "cost_amount": 74640.0,
+      "amount": 79440.0
+     },
+     "cable": {
+      "qty": 97,
+      "cost": 940,
+      "rate": 990,
+      "cost_amount": 91180,
+      "amount": 96030
+     },
+     "welding": {
+      "qty": 1,
+      "cost": 500,
+      "rate": 600.0,
+      "cost_amount": 500,
+      "amount": 600.0
+     },
+     "rope": {
+      "qty": 174,
+      "cost": 26.0,
+      "rate": 30.0,
+      "cost_amount": 4524.0,
+      "amount": 5220.0
+     },
+     "lowering": {
+      "qty": 1,
+      "cost": 4000,
+      "rate": 4000,
+      "cost_amount": 4000,
+      "amount": 4000
+     }
+    },
+    "totals": {
+     "cost": 1097609.0,
+     "sell": 1211230.0
+    }
+   },
+   "differences": {
+    "panels": "The sheet's panel power cell says 620 W but its panel is the 625 W JA Bifacial, so the sheet counts 65,100 W; the template uses the picked panel's 625 W: 65,625 W. The plant kW follows (chassis, installation, transport).",
+    "chassis": "Follows the panels: 65.625 kW instead of 65.1 kW.",
+    "installation": "Follows the panels: 66 kW instead of 65 kW.",
+    "transport": "Follows the panels; the sheet's one lump of round(kW x 200) is the template's kW x 200.",
+    "pump": "The sheet prices a 100 HP pump (SP 120/07) under a 40 HP motor; its own alternatives list the 40 HP pump (SP 96/05). The template picks the pump by HP: the 40 HP pump. The sheet gives only that pump's sale price, so its cost is missing here and the engine warns."
+   }
+  },
+  "100hp": {
+   "about": "the 100 HP offer (1-11-2026): 100 HP, 12 strings of 15 panels, submersible at 129 m, plastic pipes",
+   "brand": "GLD Brand 100HP",
+   "inputs": {
+    "hp": 100,
+    "pump_depth": 129,
+    "strings": 12
+   },
+   "items": [
+    {
+     "code": "GLD100-PNL-625",
+     "group": "ألواح شمسية",
+     "watt": 625,
+     "cost": 8.95
+    },
+    {
+     "code": "GLD100-INV-45",
+     "group": "إنفرترات ودرايفات",
+     "kw": 45,
+     "cost": 56660,
+     "list": 63760
+    },
+    {
+     "code": "GLD100-CMB-125",
+     "group": "لوحات تجميع",
+     "hp": 125,
+     "cost": 21220
+    },
+    {
+     "code": "GLD100-MTR-110",
+     "group": "مواتير غاطس",
+     "hp": 110,
+     "cost": 121810,
+     "btc": 137280
+    },
+    {
+     "code": "GLD100-MTR-110-SS",
+     "group": "مواتير غاطس",
+     "hp": 110,
+     "btc": 157050
+    },
+    {
+     "code": "GLD100-PMP-100",
+     "group": "طلمبات غاطس",
+     "hp": 100,
+     "cost": 103410,
+     "btc": 116560
+    },
+    {
+     "code": "GLD100-PIPE-5-27",
+     "group": "مواسير",
+     "cost": 5410,
+     "btc": 6110
+    },
+    {
+     "code": "GLD100-CBL-3X50",
+     "group": "كابلات",
+     "cost": 1900,
+     "btc": 1970
+    },
+    {
+     "code": "GLD100-WFT-START-6",
+     "group": "مشتملات البئر",
+     "cost": 6980,
+     "btc": 8140
+    },
+    {
+     "code": "GLD100-WFT-END-5",
+     "group": "مشتملات البئر",
+     "cost": 1280,
+     "btc": 1570
+    },
+    {
+     "code": "GLD100-WFT-ELBOW-5",
+     "group": "مشتملات البئر",
+     "cost": 1160,
+     "btc": 1400
+    },
+    {
+     "code": "GLD100-WFT-FLANGE-50",
+     "group": "مشتملات البئر",
+     "cost": 1340,
+     "btc": 2090
+    },
+    {
+     "code": "GLD100-ROPE-16",
+     "group": "إكسسوارات",
+     "cost": 26.0
+    }
+   ],
+   "overrides": {
+    "inverter": {
+     "item_code": "GLD100-INV-45"
+    },
+    "column_pipes": {
+     "item_code": "GLD100-PIPE-5-27"
+    },
+    "cable": {
+     "item_code": "GLD100-CBL-3X50",
+     "qty": 130
+    },
+    "well_start": {
+     "item_code": "GLD100-WFT-START-6"
+    },
+    "well_end": {
+     "item_code": "GLD100-WFT-END-5"
+    },
+    "elbow": {
+     "item_code": "GLD100-WFT-ELBOW-5"
+    },
+    "flange": {
+     "item_code": "GLD100-WFT-FLANGE-50"
+    },
+    "rope": {
+     "item_code": "GLD100-ROPE-16"
+    },
+    "stainless_motor": {
+     "item_code": "GLD100-MTR-110-SS"
+    },
+    "welding": {
+     "qty": 2
+    }
+   },
+   "expected": {
+    "lines": {
+     "panels": {
+      "item_code": "GLD100-PNL-625",
+      "qty": 112500.0,
+      "cost": 8.95,
+      "rate": 9.76,
+      "amount": 1098000.0,
+      "cost_amount": 1006875.0,
+      "is_optional": 0
+     },
+     "inverter": {
+      "item_code": "GLD100-INV-45",
+      "qty": 1.0,
+      "cost": 56660.0,
+      "rate": 63760.0,
+      "amount": 63760.0,
+      "cost_amount": 56660.0,
+      "is_optional": 0
+     },
+     "chassis": {
+      "item_code": null,
+      "qty": 112.5,
+      "cost": 1250.0,
+      "rate": 1400.0,
+      "amount": 157500.0,
+      "cost_amount": 140625.0,
+      "is_optional": 0
+     },
+     "combiner": {
+      "item_code": "GLD100-CMB-125",
+      "qty": 1.0,
+      "cost": 21220.0,
+      "rate": 23340.0,
+      "amount": 23340.0,
+      "cost_amount": 21220.0,
+      "is_optional": 0
+     },
+     "dc_cable": {
+      "item_code": null,
+      "qty": 600.0,
+      "cost": 55.0,
+      "rate": 70.0,
+      "amount": 42000.0,
+      "cost_amount": 33000.0,
+      "is_optional": 0
+     },
+     "mc4": {
+      "item_code": null,
+      "qty": 12.0,
+      "cost": 40.0,
+      "rate": 60.0,
+      "amount": 720.0,
+      "cost_amount": 480.0,
+      "is_optional": 0
+     },
+     "pipes_2in": {
+      "item_code": null,
+      "qty": 24.0,
+      "cost": 200.0,
+      "rate": 230.0,
+      "amount": 5520.0,
+      "cost_amount": 4800.0,
+      "is_optional": 0
+     },
+     "flex": {
+      "item_code": null,
+      "qty": 4.0,
+      "cost": 350.0,
+      "rate": 420.0,
+      "amount": 1680.0,
+      "cost_amount": 1400.0,
+      "is_optional": 0
+     },
+     "fittings": {
+      "item_code": null,
+      "qty": 1.0,
+      "cost": 1380.0,
+      "rate": 2760.0,
+      "amount": 2760.0,
+      "cost_amount": 1380.0,
+      "is_optional": 0
+     },
+     "installation": {
+      "item_code": null,
+      "qty": 113.0,
+      "cost": 300.0,
+      "rate": 375.0,
+      "amount": 42375.0,
+      "cost_amount": 33900.0,
+      "is_optional": 0
+     },
+     "transport": {
+      "item_code": null,
+      "qty": 112.5,
+      "cost": 240.0,
+      "rate": 240.0,
+      "amount": 27000.0,
+      "cost_amount": 27000.0,
+      "is_optional": 0
+     },
+     "motor": {
+      "item_code": "GLD100-MTR-110",
+      "qty": 1.0,
+      "cost": 121810.0,
+      "rate": 137280.0,
+      "amount": 137280.0,
+      "cost_amount": 121810.0,
+      "is_optional": 0
+     },
+     "pump": {
+      "item_code": "GLD100-PMP-100",
+      "qty": 1.0,
+      "cost": 103410.0,
+      "rate": 116560.0,
+      "amount": 116560.0,
+      "cost_amount": 103410.0,
+      "is_optional": 0
+     },
+     "column_pipes": {
+      "item_code": "GLD100-PIPE-5-27",
+      "qty": 43.0,
+      "cost": 5410.0,
+      "rate": 6110.0,
+      "amount": 262730.0,
+      "cost_amount": 232630.0,
+      "is_optional": 0
+     },
+     "cable": {
+      "item_code": "GLD100-CBL-3X50",
+      "qty": 130.0,
+      "cost": 1900.0,
+      "rate": 1970.0,
+      "amount": 256100.0,
+      "cost_amount": 247000.0,
+      "is_optional": 0
+     },
+     "cable_lower": {
+      "item_code": null,
+      "qty": 0.0,
+      "cost": 0.0,
+      "rate": 0.0,
+      "amount": 0.0,
+      "cost_amount": 0.0,
+      "is_optional": 0
+     },
+     "well_start": {
+      "item_code": "GLD100-WFT-START-6",
+      "qty": 1.0,
+      "cost": 6980.0,
+      "rate": 8140.0,
+      "amount": 8140.0,
+      "cost_amount": 6980.0,
+      "is_optional": 0
+     },
+     "well_end": {
+      "item_code": "GLD100-WFT-END-5",
+      "qty": 1.0,
+      "cost": 1280.0,
+      "rate": 1570.0,
+      "amount": 1570.0,
+      "cost_amount": 1280.0,
+      "is_optional": 0
+     },
+     "elbow": {
+      "item_code": "GLD100-WFT-ELBOW-5",
+      "qty": 1.0,
+      "cost": 1160.0,
+      "rate": 1400.0,
+      "amount": 1400.0,
+      "cost_amount": 1160.0,
+      "is_optional": 0
+     },
+     "flange": {
+      "item_code": "GLD100-WFT-FLANGE-50",
+      "qty": 1.0,
+      "cost": 1340.0,
+      "rate": 2090.0,
+      "amount": 2090.0,
+      "cost_amount": 1340.0,
+      "is_optional": 0
+     },
+     "welding": {
+      "item_code": null,
+      "qty": 2.0,
+      "cost": 750.0,
+      "rate": 900.0,
+      "amount": 1800.0,
+      "cost_amount": 1500.0,
+      "is_optional": 0
+     },
+     "rope": {
+      "item_code": "GLD100-ROPE-16",
+      "qty": 288.0,
+      "cost": 26.0,
+      "rate": 30.0,
+      "amount": 8640.0,
+      "cost_amount": 7488.0,
+      "is_optional": 0
+     },
+     "lowering": {
+      "item_code": null,
+      "qty": 1.0,
+      "cost": 10000.0,
+      "rate": 10000.0,
+      "amount": 10000.0,
+      "cost_amount": 10000.0,
+      "is_optional": 0
+     },
+     "winch": {
+      "item_code": null,
+      "qty": 1.0,
+      "cost": 0.0,
+      "rate": 0.0,
+      "amount": 0.0,
+      "cost_amount": 0.0,
+      "is_optional": 0
+     },
+     "stainless_motor": {
+      "item_code": "GLD100-MTR-110-SS",
+      "qty": 1.0,
+      "cost": 0.0,
+      "rate": 157050.0,
+      "amount": 157050.0,
+      "cost_amount": 0.0,
+      "is_optional": 1
+     }
+    },
+    "totals": {
+     "cost": 2061938.0,
+     "sell": 2270965.0
+    },
+    "cost_warnings": [
+     "stainless_motor"
+    ]
+   },
+   "sheet": {
+    "lines": {
+     "panels": {
+      "qty": 112500,
+      "cost": 8.95,
+      "rate": 9.76,
+      "cost_amount": 1006870.0,
+      "amount": 1098000.0
+     },
+     "inverter": {
+      "qty": 1,
+      "cost": 56660,
+      "rate": 63760,
+      "cost_amount": 56660,
+      "amount": 63760
+     },
+     "chassis": {
+      "qty": 112.5,
+      "cost": 1250,
+      "rate": 1400.0,
+      "cost_amount": 140630.0,
+      "amount": 157500.0
+     },
+     "combiner": {
+      "qty": 1,
+      "cost": 21220,
+      "rate": 23340.0,
+      "cost_amount": 21220,
+      "amount": 23340.0
+     },
+     "dc_cable": {
+      "qty": 600,
+      "cost": 55,
+      "rate": 70.0,
+      "cost_amount": 33000,
+      "amount": 42000.0
+     },
+     "mc4": {
+      "qty": 12,
+      "cost": 40,
+      "rate": 60.0,
+      "cost_amount": 480,
+      "amount": 720.0
+     },
+     "pipes_2in": {
+      "qty": 24,
+      "cost": 200,
+      "rate": 230.0,
+      "cost_amount": 4800,
+      "amount": 5520.0
+     },
+     "flex": {
+      "qty": 4.0,
+      "cost": 350,
+      "rate": 420.0,
+      "cost_amount": 1400.0,
+      "amount": 1680.0
+     },
+     "fittings": {
+      "qty": 1,
+      "cost": 1380.0,
+      "rate": 2760.0,
+      "cost_amount": 1380.0,
+      "amount": 2760.0
+     },
+     "installation": {
+      "qty": 113.0,
+      "cost": 300,
+      "rate": 375.0,
+      "cost_amount": 33900.0,
+      "amount": 42375.0
+     },
+     "transport": {
+      "qty": 1,
+      "cost": 27000.0,
+      "rate": 27000.0,
+      "cost_amount": 27000.0,
+      "amount": 27000.0
+     },
+     "motor": {
+      "qty": 1,
+      "cost": 121810,
+      "rate": 137280,
+      "cost_amount": 121810,
+      "amount": 137280
+     },
+     "pump": {
+      "qty": 1,
+      "cost": 103410,
+      "rate": 116560,
+      "cost_amount": 103410,
+      "amount": 116560
+     },
+     "well_start": {
+      "qty": 1,
+      "cost": 6980,
+      "rate": 8140,
+      "cost_amount": 6980,
+      "amount": 8140
+     },
+     "well_end": {
+      "qty": 1,
+      "cost": 1280,
+      "rate": 1570,
+      "cost_amount": 1280,
+      "amount": 1570
+     },
+     "elbow": {
+      "qty": 1,
+      "cost": 1160,
+      "rate": 1400,
+      "cost_amount": 1160,
+      "amount": 1400
+     },
+     "flange": {
+      "qty": 1,
+      "cost": 1340,
+      "rate": 2090,
+      "cost_amount": 1340,
+      "amount": 2090
+     },
+     "column_pipes": {
+      "qty": 43.0,
+      "cost": 5410,
+      "rate": 6110,
+      "cost_amount": 232630.0,
+      "amount": 262730.0
+     },
+     "cable": {
+      "qty": 130,
+      "cost": 1900,
+      "rate": 1970,
+      "cost_amount": 247000,
+      "amount": 256100
+     },
+     "welding": {
+      "qty": 2,
+      "cost": 750,
+      "rate": 900.0,
+      "cost_amount": 1500,
+      "amount": 1800.0
+     },
+     "rope": {
+      "qty": 288,
+      "cost": 26.0,
+      "rate": 30.0,
+      "cost_amount": 7488.0,
+      "amount": 8640.0
+     },
+     "lowering": {
+      "qty": 1,
+      "cost": 10000,
+      "rate": 10000,
+      "cost_amount": 10000,
+      "amount": 10000
+     }
+    },
+    "totals": {
+     "cost": 2061938.0,
+     "sell": 2270965.0
+    }
+   },
+   "differences": {
+    "inverter": "The sheet's inverter is 45 kW for a 110 HP (82 kW) motor: smaller than the motor, the error SP-169's rule is for. The template asks for at least 100 HP x 0.746 = 74.6 kW; no item in this file covers it, so the case keeps the sheet's inverter as the quote creator's pick (an override) to reproduce the quote.",
+    "cable": "The sheet types 130 m instead of its formula (depth + 25 = 154 m): a manual quantity, kept as an override.",
+    "transport": "The sheet's one lump of round(kW x 240) is the template's kW x 240 (same amount)."
+   }
+  }
+ }
+}

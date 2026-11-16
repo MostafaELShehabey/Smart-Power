@@ -22,10 +22,11 @@ from smart_power.permissions import sees_quote_internals
 from smart_power.sp_core.services.audit import log_edit
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC, published_template
 from smart_power.sp_quotes.engine import INFO, OVERRIDABLE, calculate
-from smart_power.sp_quotes.special_lines import COMMISSION, WINCH
+from smart_power.sp_quotes.special_lines import COMMISSION, MANUAL, WINCH, service_items
 
 QUOTATION, TEMPLATE, CASE = "Quotation", "SP Calc Template", "SP Case"
 DRAFT = 0
+QTY_DIGITS = 3  # sp-allow-number: a service quantity shown to 3 decimals (65.625 kW)
 
 
 @frappe.whitelist(methods=["POST"])
@@ -126,19 +127,43 @@ def write_lines(doc, result) -> None:
 	doc.set("items", [])
 	doc.set("sp_optional_lines", [])
 	for line in result.lines:
-		if not line.item_code:
+		kind = COMMISSION if line.is_hidden else WINCH if line.is_winch_line else None
+		item_code, text = line.item_code, None
+		if not item_code and not line.item_group and line.item_name:
+			# a service line (installation, transport, chassis per kW, the winch …): its own text
+			# on its kind's service item, as a typed special line would be (SP-56)
+			kind = kind or MANUAL
+			item_code, text = service_items()[kind], line.item_name
+		if not item_code:
 			result.rule_results.append(
 				{"line_key": line.line_key, "level": INFO, "message": _("Not on the quote: no item yet.")}
+			)
+			continue
+		qty, rate, cost = line.qty, line.rate, line.cost
+		if text and not flt(qty, QTY_DIGITS).is_integer():
+			# a service line's unit is a whole number (Nos): 65.625 kW of chassis goes as one
+			# lump of its amount, the quantity in its text, so the money stays exact
+			text = f"{text} x {flt(qty, QTY_DIGITS):g}"
+			qty, rate, cost = 1, flt(line.amount), flt(line.cost_amount)
+		if not flt(line.qty) or not (flt(line.rate) or flt(line.cost)):
+			# an unused line (a second cable size of 0 m, a winch line with no amount yet)
+			result.rule_results.append(
+				{
+					"line_key": line.line_key,
+					"level": INFO,
+					"message": _("Not on the quote: nothing to charge."),
+				}
 			)
 			continue
 		if line.is_optional:
 			doc.append(
 				"sp_optional_lines",
 				{
-					"item_code": line.item_code,
-					"qty": line.qty,
-					"rate": line.rate,
-					"sp_cost": line.cost,
+					"item_code": item_code,
+					"item_name": text,
+					"qty": qty,
+					"rate": rate,
+					"sp_cost": cost,
 					"line_key": line.line_key,
 				},
 			)
@@ -146,10 +171,11 @@ def write_lines(doc, result) -> None:
 		doc.append(
 			"items",
 			{
-				"item_code": line.item_code,
-				"qty": line.qty,
-				"rate": line.rate,
-				"sp_cost": line.cost,
+				"item_code": item_code,
+				"item_name": text,
+				"qty": qty,
+				"rate": rate,
+				"sp_cost": cost,
 				"sp_line_key": line.line_key,
 				"sp_markup_pct": line.markup,
 				"sp_is_manual_qty": line.is_manual_qty,
@@ -157,7 +183,7 @@ def write_lines(doc, result) -> None:
 				"sp_lock_markup": 1 if line.lock_markup or line.pricing_method == LOCKED_BTC else 0,
 				"sp_line_section": line.section,
 				# SP-58: a hidden template line is the commission (cost only); a print group merges
-				"sp_line_kind": COMMISSION if line.is_hidden else WINCH if line.is_winch_line else None,
+				"sp_line_kind": kind,
 				"sp_merge_group": line.print_group,
 			},
 		)
