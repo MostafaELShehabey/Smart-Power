@@ -124,6 +124,9 @@ _RULE_EVENTS = {
 }
 
 doc_events = {
+	# after the contract: "Read-only — now with أميرة" (SP-35)
+	"SP Case": {"onload": "smart_power.permissions.set_read_only_banner"},
+	"SP Station": {"onload": "smart_power.permissions.set_read_only_banner"},
 	"*": {
 		**_RULE_EVENTS,
 		# a cancelled source cancels the Journal Entries it posted (SP-113)
@@ -138,6 +141,7 @@ doc_events = {
 	"Item": {"validate": "smart_power.sp_stock.item.validate"},
 	# Quotation belongs to an SP Case (SP-54)
 	"Quotation": {
+		"onload": "smart_power.permissions.set_read_only_banner",
 		"before_insert": "smart_power.sp_sales.quotation.before_insert",
 		"before_validate": [
 			# what the user was not shown (cost, hidden lines) is kept (SP-35)
@@ -235,7 +239,7 @@ permission_query_conditions = {
 	"Account": "smart_power.sp_finance.accounts.account_query_conditions",
 	"GL Entry": "smart_power.sp_finance.accounts.gl_query_conditions",
 	# a collection officer sees only the stations they collect (SP-120)
-	"SP Station": "smart_power.sp_finance.balances.station_query_conditions",
+	"SP Station": "smart_power.permissions.station_query_conditions",
 	# a custody holder sees only their own custody and settlements (SP-122)
 	"SP Custody": "smart_power.sp_finance.custody.custody_query",
 	"SP Custody Settlement": "smart_power.sp_finance.custody.settlement_query",
@@ -247,7 +251,7 @@ has_permission = {
 	"Quotation": "smart_power.permissions.quote_has_permission",
 	"Account": "smart_power.sp_finance.accounts.account_has_permission",
 	"Journal Entry": "smart_power.sp_finance.journal.has_permission",
-	"SP Station": "smart_power.sp_finance.balances.station_has_permission",
+	"SP Station": "smart_power.permissions.station_has_permission",
 	"SP Custody": "smart_power.sp_finance.custody.has_permission",
 	"SP Custody Settlement": "smart_power.sp_finance.custody.has_permission",
 }

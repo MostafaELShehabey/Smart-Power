@@ -10,6 +10,7 @@ profit and hidden lines are for its own creator and the admin only.
 """
 
 import frappe
+from frappe import _
 
 from smart_power.sp_core.setup.role_catalogue import COST_ROLES
 
@@ -54,6 +55,8 @@ def item_price_has_permission(doc, ptype: str | None = None, user: str | None = 
 CASE_SEES_ALL = ("SP Admin", "System Manager", "SP Followup All")
 QUOTE_CREATOR = "SP Quote Creator"
 OPEN_REQUEST = "Quote request"
+# The contracts team: sees the cases with an approved version, and keeps them after the contract.
+CONTRACT_ROLES = ("SP Contract Manager", "SP Project Manager")
 
 
 def _case_sees_all(user: str) -> bool:
@@ -68,19 +71,30 @@ def case_query_conditions(user: str | None = None) -> str:
 		return ""
 	u = frappe.db.escape(user)
 	cond = f"(`tabSP Case`.follow_up_owner = {u} or `tabSP Case`.requested_by = {u} or `tabSP Case`.quote_creator = {u}"
-	if QUOTE_CREATOR in frappe.get_roles(user):
+	roles = frappe.get_roles(user)
+	if QUOTE_CREATOR in roles:
 		cond += f" or (`tabSP Case`.status = {frappe.db.escape(OPEN_REQUEST)} and ifnull(`tabSP Case`.quote_creator, '') = '')"
+	if set(CONTRACT_ROLES) & set(roles):
+		# the contracts team takes a case once a version is approved (أميرة)
+		cond += " or ifnull(`tabSP Case`.accepted_quotation, '') != ''"
 	return cond + ")"
 
 
 def case_has_permission(doc, ptype: str | None = None, user: str | None = None) -> bool:
-	"""has_permission for SP Case, the same rule for one document."""
+	"""has_permission for SP Case, the same rule for one document; read-only after the contract."""
 	user = user or frappe.session.user
-	if _case_sees_all(user) or doc.is_new():
+	if doc.is_new():
+		return True
+	if ptype not in READ_PTYPES and read_only_after_contract(doc.name, user):
+		return False
+	if _case_sees_all(user):
 		return True
 	if user in (doc.follow_up_owner, doc.requested_by, doc.quote_creator):
 		return True
-	if QUOTE_CREATOR not in frappe.get_roles(user):
+	roles = frappe.get_roles(user)
+	if set(CONTRACT_ROLES) & set(roles) and frappe.db.get_value("SP Case", doc.name, "accepted_quotation"):
+		return True
+	if QUOTE_CREATOR not in roles:
 		return False
 	# "Unclaimed" is judged on the saved case: while a quote creator takes a request, the
 	# document being saved already says Draft, before its quote creator is filled in.
@@ -123,6 +137,97 @@ QUOTE_COST_KEYS = ("sp_total_cost", "sp_profit", "sp_margin_pct")
 QUOTE_LINE_COST_KEYS = ("sp_cost", "sp_line_profit")
 
 
+# --- After the contract: the case, its quotes and its station are read-only for sales ----------
+
+# What a read-only user may still do.
+READ_PTYPES = (None, "read", "select", "print", "email", "report", "export", "share")
+# Who keeps working on a case once it has its contract (أميرة's roles, and the admin).
+AFTER_CONTRACT_WRITERS = ("SP Admin", "System Manager", "SP Contract Manager", "SP Project Manager")
+STATION, CANCELLED = "SP Station", "Cancelled"
+
+
+def contract_station(case: str | None) -> str | None:
+	"""The case's station once the case is won (its contract made), else None."""
+	if not case or frappe.db.get_value("SP Case", case, "status") != "Won":
+		return None
+	return frappe.db.get_value(STATION, {"case": case, "status": ("!=", CANCELLED)})
+
+
+def read_only_after_contract(case: str | None, user: str | None = None) -> bool:
+	user = user or frappe.session.user
+	if user == "Administrator" or set(AFTER_CONTRACT_WRITERS) & set(frappe.get_roles(user)):
+		return False
+	return bool(contract_station(case))
+
+
+def read_only_banner(case: str | None, user: str | None = None) -> str | None:
+	"""'Read-only — now with أميرة': who the case is with after its contract."""
+	if not read_only_after_contract(case, user):
+		return None
+	station = frappe.db.get_value(
+		STATION, contract_station(case), ["execution_owner", "sales_order"], as_dict=True
+	)
+	holder = station.execution_owner or (
+		station.sales_order and frappe.db.get_value("Sales Order", station.sales_order, "owner")
+	)
+	name = frappe.utils.get_fullname(holder) if holder else _("the projects team")
+	return _("Read-only — now with {0}").format(name)
+
+
+def set_read_only_banner(doc, method=None) -> None:
+	"""onload of SP Case, Quotation and SP Station: the banner text for the form."""
+	case = doc.name if doc.doctype == "SP Case" else doc.get("sp_case") or doc.get("case")
+	banner = read_only_banner(case)
+	if banner:
+		doc.set_onload("sp_read_only", banner)
+
+
+# --- SP Station: whoever is assigned to it -------------------------------------------------------
+
+# Roles that see every station.
+STATION_SEES_ALL = (
+	"System Manager",
+	"SP Admin",
+	"SP Project Manager",
+	"SP Installation Manager",
+	"SP Followup All",
+	"SP Accountant",
+)
+
+
+def _station_sees_all(user: str) -> bool:
+	return user == "Administrator" or bool(set(STATION_SEES_ALL) & set(frappe.get_roles(user)))
+
+
+def station_query_conditions(user: str | None = None, doctype: str | None = None) -> str:
+	"""permission_query_conditions for SP Station: its execution, collection and sales owners, and
+	(read-only) its case's quote creator and follow-up owner."""
+	user = user or frappe.session.user
+	if _station_sees_all(user):
+		return ""
+	u = frappe.db.escape(user)
+	t = "`tabSP Station`"
+	return (
+		f"({t}.execution_owner = {u} or {t}.collection_owner = {u} or {t}.sales_owner = {u}"
+		f" or {t}.`case` in (select name from `tabSP Case` where quote_creator = {u} or follow_up_owner = {u}))"
+	)
+
+
+def station_has_permission(doc, ptype: str | None = None, user: str | None = None) -> bool:
+	"""has_permission for SP Station, the same rule for one station. Its sales owner and its
+	case's quote creator and follow-up owner only read it."""
+	user = user or frappe.session.user
+	if doc.is_new() or _station_sees_all(user):
+		return True
+	if user in (doc.execution_owner, doc.collection_owner):
+		return True
+	owners = (
+		frappe.db.get_value("SP Case", doc.case, ["quote_creator", "follow_up_owner"]) if doc.case else None
+	)
+	reader = user == doc.sales_owner or user in (owners or ())
+	return reader and ptype in READ_PTYPES
+
+
 # --- Quotation: rows follow the case; cost and hidden lines for its creator and the admin ------
 
 # Roles that see the cost, the profit and the hidden lines of every quote.
@@ -153,9 +258,13 @@ def quote_query_conditions(user: str | None = None) -> str:
 
 
 def quote_has_permission(doc, ptype: str | None = None, user: str | None = None) -> bool:
-	"""has_permission for Quotation, the same rule for one quote."""
+	"""has_permission for Quotation, the same rule for one quote; read-only after the contract."""
 	user = user or frappe.session.user
-	if doc.is_new() or not doc.get("sp_case") or _case_sees_all(user):
+	if doc.is_new() or not doc.get("sp_case"):
+		return True
+	if ptype not in READ_PTYPES and read_only_after_contract(doc.sp_case, user):
+		return False
+	if _case_sees_all(user):
 		return True
 	return case_has_permission(frappe.get_doc("SP Case", doc.sp_case), "read", user)
 

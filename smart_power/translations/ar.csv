@@ -1025,6 +1025,7 @@ Quote {0} sent to {1},تم إرسال العرض {0} إلى {1}
 Quotes,عروض الأسعار
 Raised By,سُجّل بواسطة
 Rate,السعر
+Read-only — now with {0},للقراءة فقط — الآن مع {0}
 Ready: {0} · Duplicates: {1} · Errors: {2},جاهز: {0} · مكرر: {1} · أخطاء: {2}
 Reason,السبب
 Reason Given,السبب المكتوب
@@ -1424,6 +1425,7 @@ The owner is notified.,تم إبلاغ المسئول.
 "The person holds a custody: an account ""Custody of ..."" under Custody, with them as holder (SP-26).","الشخص يحمل عهدة: حساب ""عهدة ..."" تحت العهد، وهو الحائز."
 The person who holds this money; they see its balance. A channel's transit account (the showroom safe) may have none.,الشخص الذي يحمل هذا المال؛ يرى رصيده. حساب نقدية القناة (خزنة المعرض) قد يكون بلا حائز.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
+the projects team,فريق المشروعات
 The quantity must be above zero.,يجب أن تكون الكمية أكبر من صفر.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
