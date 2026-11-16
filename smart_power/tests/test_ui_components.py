@@ -189,3 +189,22 @@ class TestDatesAndPickers(IntegrationTestCase):
 			"Account", {"company": COMPANY, "sp_account_kind": "Official", "is_group": 0}, pluck="name"
 		)
 		self.assertTrue(set(official) <= offered)
+
+
+class TestPasteIntoTheGrid(IntegrationTestCase):
+	def test_ten_codes_pasted_from_excel_match_ten_items(self):
+		from smart_power.sp_stock.paste import match_items
+
+		codes = frappe.get_all(
+			"Item",
+			filters={"disabled": 0, "has_variants": 0},
+			pluck="item_code",
+			order_by="creation asc",
+			limit=10,
+		)
+		self.assertEqual(len(codes), 10)  # sp-allow-number: the acceptance check's ten rows
+		typed = [c.lower() if i % 2 else c for i, c in enumerate(codes)]  # any case
+		result = match_items([*typed, "NO-SUCH-CODE-404"])
+		self.assertEqual(len(result["found"]), 10)
+		self.assertEqual([result["found"][t] for t in typed], codes)
+		self.assertEqual(result["missing"], ["NO-SUCH-CODE-404"])
