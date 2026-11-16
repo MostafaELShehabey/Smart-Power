@@ -130,6 +130,8 @@ doc_events = {
 		"on_cancel": "smart_power.sp_finance.posting.cancel_postings",
 	},
 	"SP Rule Setting": {"on_update": "smart_power.rules.clear_cache"},
+	# Daily workers (SP-33): a daily wage, no login
+	"Employee": {"validate": "smart_power.sp_core.workers.validate"},
 	# Customer master (SP-31): one customer per mobile.
 	"Customer": {"validate": "smart_power.sp_sales.customer.validate"},
 	# Item catalogue (SP-29): specs that cannot be true are refused.

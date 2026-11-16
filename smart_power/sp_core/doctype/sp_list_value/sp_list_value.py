@@ -32,6 +32,7 @@ class SPListValue(Document):
 			"Site Stage",
 			"Inverter Brand",
 			"Lead Source",
+			"Worker Skill",
 		]
 		meta_json: DF.JSON | None
 		parent_value: DF.Link | None

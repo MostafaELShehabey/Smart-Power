@@ -11,6 +11,7 @@ A closed station cannot be cancelled.,لا يمكن إلغاء محطة مغلق
 A collection call on a station (SP-81).,مكالمة تحصيل على محطة.
 A consignment container at or under this many panels alerts the admin and the main store keeper (SP-91).,حاوية الأمانة عند هذا العدد من الألواح أو أقل تنبّه المدير وأمين المخزن الرئيسي.
 A customer payment above this amount is flagged to the admin when it is recorded (SP-114).,دفعة العميل فوق هذا المبلغ تُنبَّه للمدير عند تسجيلها.
+A daily worker has no login; untick Daily Worker for staff who sign in.,"العامل باليومية ليس له حساب دخول؛ ألغِ ""عامل باليومية"" للموظفين الذين يسجلون الدخول."
 "A deposit is received by Smart Power, not paid to a third party.",العربون تستلمه سمارت باور، ولا يُدفع لطرف ثالث.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
 "A last-minute ask (العشم) is the customer's final request, printed as its own line under the total.",العشم هو آخر طلب للعميل، ويُطبع في سطر مستقل تحت الإجمالي.
@@ -338,6 +339,8 @@ Customer payment {0},دفعة عميل {0}
 Customer Phone,تليفون العميل
 Customer Statement,كشف حساب العميل
 Customer {0} paid {1} directly ({2}),العميل {0} دفع لـ {1} مباشرة ({2})
+Daily Wage,اليومية
+Daily Worker,عامل باليومية
 Data,نص
 Date,التاريخ
 Dates,التواريخ
@@ -400,6 +403,7 @@ E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Edit,تعديل
 Edits with reason,التعديلات بسبب
 "Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
+Employee {0} not found.,الموظف {0} غير موجود.
 Empty,فارغة
 Empty for a deposit before the station exists: then the case.,فارغ لعربون قبل وجود المحطة: وحينها الحالة.
 Empty goes back to the template.,اتركه فارغًا للرجوع لقيمة القالب.
@@ -413,6 +417,7 @@ Empty uses the published template of the case's system type.,اتركه فارغ
 Enter at least one price.,أدخل سعراً واحداً على الأقل.
 "Enter the amount repaid, the fee, or both.",أدخل المبلغ المسدد أو العمولة أو كليهما.
 Enter the customer's name: this mobile is new.,اكتب اسم العميل: هذا الموبايل جديد.
+Enter the daily wage of {0}.,أدخل يومية {0}.
 Enter the pallets and the panels per pallet.,أدخل عدد البالتات وعدد الألواح في كل بالتة.
 Enter the panel's watts (or set Power (W) on item {0}).,أدخل قدرة اللوح بالوات (أو حدد القدرة (وات) على الصنف {0}).
 Enter the quantity and the day's watt price.,أدخل الكمية وسعر الوات في يومه.
@@ -864,6 +869,7 @@ Page,صفحة
 Paid,المدفوع
 Paid (allocated),المدفوع (الموزع)
 Paid (confirmed),المدفوع (المؤكد)
+Paid by the day and has no login; picked by name on site logs and field entries (SP-33).,يُدفع له باليوم وليس له حساب دخول؛ يُختار بالاسم في يوميات الموقع والإدخالات الميدانية.
 Paid From,مدفوعة من
 Paid into an official account,مدفوعة في حساب رسمي
 Paid On,تاريخ الدفع
@@ -1164,6 +1170,7 @@ Site Survey,معاينة موقع
 Site survey for {0},معاينة موقع لـ {0}
 Site Visit Needed,يحتاج معاينة موقع
 Site Warehouse,مخزن الموقع
+Skill,المهارة
 Smart Power,سمارت باور
 Smart Power Money,أموال سمارت باور
 Smart Power Settings,إعدادات سمارت باور
@@ -1407,6 +1414,7 @@ The template section of the line (e.g. Energy). Discounts apply to a section or 
 The template version this quote was calculated from (set by Calculate).,إصدار القالب الذي حُسب منه هذا العرض (يُضبط عند الحساب).
 The treasury is the admin's.,الخزينة خاصة بالمدير.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
+The wage a log line starts with; it can be changed on the line.,اليومية التي يبدأ بها سطر اليومية؛ يمكن تعديلها على السطر.
 There are no expenses to settle.,لا توجد مصروفات للتسوية.
 There is no published calculation template for this case's system type.,لا يوجد قالب حساب منشور لنوع نظام هذه الحالة.
 This advance is repaid.,هذه السلفة مسددة.
@@ -1529,6 +1537,7 @@ Withdrawn into company stock,تم السحب إلى مخزون الشركة
 Won,تم الكسب
 Won On,تاريخ الكسب
 Won: the deposit was confirmed.,مكسوبة: تم تأكيد العربون.
+Worker Skill,مهارة العامل
 Write a note: why is it unpaid?,اكتب ملاحظة: لماذا لم تُسدد؟
 Write off between 0 and the remaining {0}.,اشطب مبلغًا بين 0 والمتبقي {0}.
 Write the comment first.,اكتب التعليق أولًا.
@@ -1547,6 +1556,7 @@ Yesterday,أمس
 You can move money only from your own transit account.,يمكنك نقل المال فقط من حساب النقدية الخاص بك.
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.
 You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا يمكنك استيراد أسعار التكلفة. احذف عمودي سعر اللستة وتكلفة P1.
+You do not pick crew.,لا يمكنك اختيار طاقم العمل.
 You do not record customer payments.,أنت لا تسجل دفعات العملاء.
 You have been given custody of {0},سُلّمت إليك عهدة بمبلغ {0}
 You hold no company money.,لا توجد معك أموال للشركة.
