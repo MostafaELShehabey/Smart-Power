@@ -197,3 +197,18 @@ class TestCalcTemplateNewVersion(IntegrationTestCase):
 		self.assertTrue(frappe.db.get_value("SP Calc Template", published.name, "is_published"))
 		draft.lines[0].qty_formula = "depth / 6"
 		draft.save()  # not frozen
+
+
+class TestExcelRounding(IntegrationTestCase):
+	def test_halves_go_up_as_in_the_sheets(self):
+		# SP-56: Mohamed's sheet rounds 112.5 kW of installation to 113, not 112
+		from smart_power.sp_quotes import formulas
+
+		self.assertEqual(formulas.excel_round(112.5), 113)
+		self.assertEqual(formulas.excel_round(2006.5), 2007)
+		self.assertEqual(formulas.excel_round(8.393, 2), 8.39)
+		self.assertEqual(formulas.excel_round(20075, -1), 20080)
+		self.assertEqual(formulas.excel_round(-2.5), -3)  # away from zero
+		self.assertEqual(formulas.mround(20065, 10), 20070)
+		self.assertEqual(formulas.mround(68.75, 5), 70)
+		self.assertEqual(formulas.evaluate("round(depth / 2)", {"depth": 5}, "Line x"), 3)

@@ -18,14 +18,22 @@ and not on a customer's quote.
 import ast
 import math
 import re
+from decimal import ROUND_HALF_UP, Decimal
 
 import frappe
 from frappe import _
 
 
+def excel_round(value, digits=0):
+	"""Excel's ROUND: halves go away from zero (Python's round sends them to the even number,
+	so 112.5 would give 112 where Mohamed's sheet gives 113). digits may be negative."""
+	quantum = Decimal(1).scaleb(-int(digits))
+	return float(Decimal(str(value)).quantize(quantum, rounding=ROUND_HALF_UP))
+
+
 def mround(value, step):
-	"""Round to the nearest multiple of step (Excel's MROUND)."""
-	return round(value / step) * step if step else value
+	"""Round to the nearest multiple of step (Excel's MROUND, halves up)."""
+	return excel_round(value / step) * step if step else value
 
 
 def nearest_divisible(value, divisor):
@@ -41,7 +49,7 @@ HELPERS = {
 	"min": min,
 	"max": max,
 	"abs": abs,
-	"round": round,
+	"round": excel_round,  # as in the sheets formulas are copied from
 	"int": int,
 	"float": float,
 }
@@ -103,7 +111,8 @@ def check(formula: str, known: set[str], where: str) -> None:
 def evaluate(formula: str, namespace: dict, where: str) -> float:
 	"""Run a formula with the given names (and the helpers). Errors name the line."""
 	try:
-		value = frappe.safe_eval((formula or "").strip(), {**HELPERS, **namespace})
+		# as locals, so the helpers win over safe_eval's own globals (its round is Python's)
+		value = frappe.safe_eval((formula or "").strip(), None, {**HELPERS, **namespace})
 	except ZeroDivisionError:
 		frappe.throw(_("{0}: the formula {1} divides by zero.").format(where, frappe.bold(formula)))
 	except (NameError, AttributeError, TypeError, ValueError, SyntaxError) as e:

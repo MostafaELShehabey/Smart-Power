@@ -303,7 +303,7 @@ def round_rate(rate: float, rounding: str | None) -> float:
 	step = cint(number.group()) if number else 0
 	if rounding.startswith("Nearest"):
 		return formulas.mround(rate, step)
-	return round(rate, step)
+	return formulas.excel_round(rate, step)
 
 
 def check_age(row, item_code, dates, on_date, results) -> None:
