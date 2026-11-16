@@ -8,6 +8,7 @@ A,A
 A cancelled quote cannot be discounted.,لا يمكن الخصم على عرض ملغي.
 A cancelled quote cannot be sent.,لا يمكن إرسال عرض ملغى.
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
+A case needs its customer.,الحالة تحتاج العميل.
 A closed station cannot be cancelled.,لا يمكن إلغاء محطة مغلقة.
 A collection call on a station (SP-81).,مكالمة تحصيل على محطة.
 A consignment container at or under this many panels alerts the admin and the main store keeper (SP-91).,حاوية الأمانة عند هذا العدد من الألواح أو أقل تنبّه المدير وأمين المخزن الرئيسي.
@@ -152,7 +153,9 @@ Bulk confirmation,تأكيد جماعي
 By email,بالبريد الإلكتروني
 C,C
 Calculate,احسب
+Calculate the indicative price first.,احسب السعر الاسترشادي أولاً.
 Calculate the quote from its template first.,احسب العرض من قالبه أولًا.
+Calculating…,جارٍ الحساب…
 Calculation Notes,ملاحظات الحساب
 Calculation Template,قالب الحساب
 Calculation Templates,قوالب الحساب
@@ -248,6 +251,7 @@ Choose the account the money came into.,اختر الحساب الذي دخلت 
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
 Choose the center or the station.,اختر المركز أو المحطة.
 Choose the center.,اختر المركز.
+Choose the channel.,اختر القناة.
 Choose the company warehouse the panels go to.,اختر مخزن الشركة الذي تذهب إليه الألواح.
 Choose the expense type.,اختر نوع المصروف.
 Choose the official account the fee was paid into.,اختر الحساب الرسمي الذي دُفعت فيه الرسوم.
@@ -261,8 +265,10 @@ Clear,مسح
 Cleared,تمت تصفيته
 Click to change,اضغط للتغيير
 Client ID,معرّف التطبيق
+Close as Price Check,إغلاق كاستفسار سعر
 Close Financially,إغلاق مالي
 Close Technically,إغلاق فني
+Closed as price check: {0},أُغلقت كاستفسار سعر: {0}
 Code,الكود
 Code or name,الكود أو الاسم
 Code Prefix,بادئة الكود
@@ -564,6 +570,7 @@ From Date,من تاريخ
 From document,من المستند
 From the approved quote's line.,من سطر العرض المعتمد.
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
+From the indicative price: the price given is kept on the case.,من السعر الاسترشادي: السعر الذي أُعطي للعميل يُحفظ على الحالة.
 Full,كامل
 Full Name,الاسم الكامل
 Give a discount,إعطاء خصم
@@ -626,6 +633,8 @@ In person,شخصيًا
 In settlement,في التسوية
 In the app,داخل البرنامج
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
+Indicative Price,السعر الاسترشادي
+Indicative sale price,سعر البيع الاسترشادي
 Indirect Pool Center,مركز التكاليف غير المباشرة
 Indirect Split,توزيع غير مباشر
 Individual,فرد
@@ -735,6 +744,7 @@ Main,رئيسي
 Main Supplier,المورد الرئيسي
 Make a reversing entry of {0}?,إنشاء قيد عكسي لـ {0}؟
 Make Contract,إنشاء العقد
+Make Quote Request,عمل طلب عرض سعر
 Make the contract (Sales Order) and the station from the approved version {0}?,إنشاء العقد (أمر البيع) والمحطة من الإصدار المعتمد {0}؟
 Make the contract (Sales Order) from the case's approved version?,إنشاء العقد (أمر البيع) من الإصدار المعتمد للحالة؟
 Making the PDF…,جارٍ إنشاء ملف PDF…
@@ -879,11 +889,13 @@ No roles,لا توجد صلاحيات
 No sent quote yet.,لم يُرسل عرض بعد.
 No simple records yet,لا توجد سجلات بسيطة
 No stations are assigned to you.,لا توجد محطات مسندة لك
+No template,لا يوجد قالب
 no value changed,لم تتغير أي قيمة
 No.,رقم
 None,لا شيء
 Normal,عادي
 Nos,عدد
+Not a quote: the formal quote is made from a quote request.,ليس عرض سعر: عرض السعر الرسمي يُعمل من طلب عرض سعر.
 Not allowed,غير مسموح
 "Not balanced: debit {0}, credit {1}, difference {2}",غير متوازن: المدين {0}، الدائن {1}، الفرق {2}
 Not found,غير موجود
@@ -925,6 +937,7 @@ Only,فقط
 Only a deposit is recorded on a case; other payments go on the station.,العربون فقط يُسجل على الحالة؛ باقي الدفعات على المحطة.
 Only a draft or rejected expense is removed.,يُحذف المصروف المسودة أو المرفوض فقط.
 Only a draft version can be calculated. Make a new version.,لا يُحسب إلا الإصدار المسودة. أنشئ إصدارًا جديدًا.
+Only a follow-up user can close a price check. Make a quote request instead.,إغلاق استفسار السعر لمستخدم المتابعة فقط. اعمل طلب عرض سعر بدلاً منه.
 Only a posted entry is reversed.,يُعكس القيد المرحّل فقط.
 Only a quote linked to a case can be the approved version.,فقط العرض المرتبط بحالة يمكن أن يكون النسخة المعتمدة.
 Only a quote linked to a case has options.,الخيارات متاحة فقط للعرض المرتبط بحالة.
@@ -1065,11 +1078,17 @@ Previous Version,النسخة السابقة
 Price,السعر
 Price (manual lines),السعر (السطور اليدوية)
 Price Category,فئة السعر
+Price Check Only,استفسار عن السعر فقط
+Price check only,استفسار عن السعر فقط
 Price date,تاريخ السعر
 Price history: {0},سجل أسعار: {0}
 Price List,لستة الأسعار
 Price Lists,لستات الأسعار
 Price lists are not set,لستات الأسعار غير محددة
+Price per kW,السعر لكل كيلووات
+Priced By,حُسب بواسطة
+Priced On,تاريخ الحساب
+Priced Specs,المواصفات المحسوبة
 prices changed,تغيرت الأسعار
 Prices changed or the quote expired before the deposit: make a new version at today's prices (SP-170).,تغيرت الأسعار أو انتهت صلاحية العرض قبل المقدم: اعمل نسخة جديدة بأسعار اليوم (SP-170).
 Pricing,التسعير
@@ -1217,6 +1236,7 @@ Requests & Customers,الطلبات والعملاء
 Requests waiting,طلبات منتظرة
 Required,مطلوب
 Required Specs,المواصفات المطلوبة
+"Required, except for a price check closed from the indicative price (SP-49).",مطلوب، إلا في استفسار السعر المغلق من السعر الاسترشادي (SP-49).
 Reservation,الحجز
 Reserve,حجز
 Reserved,محجوز
@@ -1354,6 +1374,7 @@ Snooze until a time that is still to come.,أجّل إلى وقت لم يأتِ 
 Snoozed,مؤجلة
 Snoozed Tasks,المهام المؤجلة
 Snoozed Until,مؤجل حتى
+"Some lines have no price, so the total is low:",بعض السطور بدون سعر، لذلك الإجمالي أقل من الحقيقي:
 Sort Order,الترتيب
 Source,المصدر
 Source Type,نوع المصدر
@@ -1555,6 +1576,7 @@ The desk is for office users.,شاشات المكتب لمستخدمي المك�
 The discounts are more than the quote total.,الخصومات أكبر من إجمالي العرض.
 The document that posted this entry. Cancelling it cancels this entry.,المستند الذي رحّل هذا القيد. إلغاؤه يلغي هذا القيد.
 The email or mobile typed on the Forgot password form.,البريد أو الموبايل المكتوب في نموذج نسيت كلمة المرور.
+The enquiry is closed as lost: price check only. Name and mobile are optional.,يُغلق الاستفسار كخسارة: استفسار عن السعر فقط. الاسم والموبايل اختياريان.
 The ERPNext company these details print for.,الشركة في النظام التي تُطبع لها هذه البيانات.
 The execution owner by default; the admin switches it from a date.,مسئول التنفيذ افتراضيًا؛ ويغيّره المدير من تاريخ.
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
@@ -1567,9 +1589,11 @@ The follow-up owner can give a discount on the total up to the limit in Smart Po
 "The follow-up owner can give a discount on the total up to the limit in Smart Power Settings; above it the discount is kept and the admin is flagged. There is no approval gate (decision 67), so it never blocks.",يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد في إعدادات سمارت باور؛ وفوقه يُحفظ الخصم ويُنبَّه المدير. لا توجد بوابة موافقة، لذا لا يمنع أبدًا.
 The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
 The holder's custody account after the approved expenses (carried amounts included).,حساب عهدة صاحبها بعد المصروفات الموافق عليها (شاملًا المُرحّل).
+The indicative price was for another system type.,السعر الاسترشادي كان لنوع نظام آخر.
 The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
 "The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
 The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
+The lost reason {0} is missing or inactive.,سبب الخسارة {0} غير موجود أو غير مفعّل.
 "The lump sum agreed with the referrer: a hidden cost of the station, never printed.",المبلغ المقطوع المتفق عليه مع الوسيط: تكلفة مخفية للمحطة، لا تُطبع أبدًا.
 The markup cannot be changed on a quote. Locked BTC lines are always locked.,لا يمكن تغيير نسبة الربح في العرض. سطور BTC المقفلة مقفلة دائمًا.
 The mobile app's id for an expense entered offline (M11); the same id is saved once.,معرّف تطبيق الموبايل لمصروف أُدخل دون اتصال؛ يُحفظ المعرّف نفسه مرة واحدة.
@@ -1602,6 +1626,7 @@ The receipt or photo to look at (shown as a thumbnail in the inbox).,الإيص�
 The requester was asked,تم سؤال صاحب الطلب
 The reservation this hand-over clears.,الحجز الذي يصفّيه هذا التسليم.
 The row has no price.,السطر لا يحتوي على سعر.
+The sale price given from IP1 before the quote (SP-49).,سعر البيع المُعطى من شاشة السعر الاسترشادي قبل عرض السعر (SP-49).
 The sales case this quote belongs to. Its customer must be the case's customer.,الحالة التي يتبعها هذا العرض. عميله يجب أن يكون عميل الحالة.
 The sales owner is fixed once the contract exists.,مسئول المبيعات ثابت بعد وجود العقد.
 The second party (the customer),الطرف الثاني (العميل)
@@ -1628,6 +1653,7 @@ These codes match no item: {0},هذه الأكواد لا تطابق أي صنف
 This advance is repaid.,هذه السلفة مسددة.
 This customer is followed up by a colleague. Ask the admin to reassign them.,هذا العميل يتابعه زميل. اطلب من المدير نقله.
 This customer is followed up by {0}. Ask the admin to reassign them.,هذا العميل يتابعه {0}. اطلب من المدير نقله.
+This indicative price has expired. Calculate it again.,انتهت صلاحية هذا السعر الاسترشادي. احسبه مرة أخرى.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This is not your custody.,هذه ليست عهدتك.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
@@ -1814,6 +1840,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} h,{0} ساعة
 {0} has held {1} for {2} days (limit {3}).,{0} محتفظ بـ {1} منذ {2} أيام (الحد {3}).
 {0} has no P1 cost.,{0} ليس له تكلفة P1.
+"{0} has no published calculation template, so it has no indicative price yet.",{0} ليس له قالب حساب منشور، لذلك لا يوجد له سعر استرشادي بعد.
 {0} has no valuation rate.,{0} ليس له سعر تقييم.
 {0} has no {1} price.,{0} ليس له سعر {1}.
 {0} holds {1}; the transfer is {2}.,{0} رصيده {1}؛ والتحويل {2}.
@@ -1841,10 +1868,12 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is required for this system type.,{0} مطلوب لهذا النوع من الأنظمة.
 {0} is required.,{0} مطلوب.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
+{0} kW,{0} كيلووات
 {0} lines added,تمت إضافة {0} بند
 {0} marked reviewed.,تم تمييز {0} كمُراجعة.
 {0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
 "{0} must be an official account (a bank, the Post, InstaPay …).",يجب أن يكون {0} حسابًا رسميًا (بنك، البريد، إنستاباي …).
+{0} must be more than zero.,{0} يجب أن يكون أكبر من صفر.
 {0} of {1} items,{0} من {1} صنف
 {0} recorded.,تم تسجيل {0}.
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
@@ -1866,6 +1895,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0}: give a reason for changing the {1} price.,{0}: اكتب سبب تغيير سعر {1}.
 {0}: history,{0}: السجل
 {0}: move to {1}?,{0}: الانتقال إلى {1}؟
+{0}: price is {1} days old,{0}: عمر السعر {1} يوم
 {0}: price is {1} days old.,{0}: عمر السعر {1} يوم.
 {0}: the default {1} is not a number.,{0}: القيمة الافتراضية {1} ليست رقمًا.
 {0}: the default {1} is not one of the options.,{0}: القيمة الافتراضية {1} ليست من الاختيارات.

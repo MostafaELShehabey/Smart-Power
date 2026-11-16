@@ -10,8 +10,9 @@ For each template line, in order:
 2. the quantity: the override (kept as manual), else the line's formula;
 3. the unit cost: P1 price, the valuation rate (after landed cost), or the line's default
    (per kW or manual);
-4. the unit price: cost x markup, the locked BTC price, the cost (pass-through), the fixed list
-   price, or the line's manual price; then the line's rounding.
+4. the unit price: cost x markup, the locked BTC price (BTB for a company, when the caller
+   asks for it: the indicative price, SP-49), the cost (pass-through), the fixed list price, or
+   the line's manual price; then the line's rounding.
 
 Optional lines are listed but stay out of the totals (SP-59). Problems that do not stop the
 calculation (no price, a stale price, no item for the rule) come back as rule results.
@@ -48,8 +49,11 @@ WARN, INFO = "warn", "info"
 OVERRIDABLE = ("qty", "item_code", "markup", "rate", "cost")
 
 
-def calculate(template, inputs: dict | None = None, overrides: dict | None = None, on_date=None) -> dict:
-	"""Price a template. overrides: {line_key: {qty, item_code, markup, rate, cost}}."""
+def calculate(
+	template, inputs: dict | None = None, overrides: dict | None = None, on_date=None, sale_key: str = BTC
+) -> dict:
+	"""Price a template. overrides: {line_key: {qty, item_code, markup, rate, cost}}.
+	sale_key: the sale price list the locked lines read (BTC, or BTB for a company)."""
 	doc = template if isinstance(template, Document) else frappe.get_doc(TEMPLATE, template)
 	on_date = getdate(on_date or today())
 	overrides = overrides or {}
@@ -73,7 +77,7 @@ def calculate(template, inputs: dict | None = None, overrides: dict | None = Non
 		)
 		cost, cost_date = unit_cost(row, item_code, override, on_date, results)
 		markup = flt(override["markup"]) if "markup" in override else flt(row.default_markup)
-		rate, rate_date = unit_rate(row, item_code, cost, markup, override, on_date, results)
+		rate, rate_date = unit_rate(row, item_code, cost, markup, override, on_date, results, sale_key)
 		rate = round_rate(rate, row.rounding)
 		check_age(row, item_code, (cost_date, rate_date), on_date, results)
 
@@ -267,7 +271,7 @@ def valuation_rate(item_code: str) -> float:
 	return flt(frappe.get_cached_value("Item", item_code, "valuation_rate"))
 
 
-def unit_rate(row, item_code, cost, markup, override, on_date, results) -> tuple[float, object]:
+def unit_rate(row, item_code, cost, markup, override, on_date, results, sale_key=BTC) -> tuple[float, object]:
 	method = row.pricing_method
 	if method == MANUAL:
 		return flt(override.get("rate", row.manual_rate)), None
@@ -275,7 +279,7 @@ def unit_rate(row, item_code, cost, markup, override, on_date, results) -> tuple
 		return cost * (1 + markup / PCT), None
 	if method == PASS_THROUGH:
 		return cost, None
-	key = BTC if method == LOCKED_BTC else LIST
+	key = sale_key if method == LOCKED_BTC else LIST
 	if not item_code:
 		results.append(rule(row, WARN, _("No item, so no price.")))
 		return 0.0, None
@@ -307,7 +311,16 @@ def check_age(row, item_code, dates, on_date, results) -> None:
 		return
 	age = date_diff(on_date, min(dates))
 	if age_status(age, category_of(item_code)) == STALE:
-		results.append(rule(row, WARN, _("{0}: price is {1} days old.").format(item_code, age), stale=1))
+		results.append(
+			rule(
+				row,
+				WARN,
+				_("{0}: price is {1} days old.").format(item_code, age),
+				stale=1,
+				item_code=item_code,
+				age_days=age,
+			)
+		)
 
 
 def check_override(row, override: dict, where: str) -> None:

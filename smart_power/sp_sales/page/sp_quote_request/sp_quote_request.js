@@ -1,6 +1,8 @@
 // C3 Quote request (SP-47): system type first, then only that type's fields; the mobile
 // finds a returning customer instead of making a duplicate. Saving opens the case.
 // The rules are on the server (smart_power.sp_sales.quote_request).
+// From IP1 (SP-49) the system type, the size and the tier come pre-filled, and the indicative
+// price shown there is kept on the case.
 
 const SP_QR_API = "smart_power.sp_sales.quote_request";
 
@@ -13,6 +15,10 @@ frappe.pages["sp-quote-request"].on_page_load = function (wrapper) {
 	wrapper.sp_quote_request = new SPQuoteRequest(page);
 };
 
+frappe.pages["sp-quote-request"].on_page_show = function (wrapper) {
+	wrapper.sp_quote_request && wrapper.sp_quote_request.apply_route_options();
+};
+
 class SPQuoteRequest {
 	constructor(page) {
 		this.page = page;
@@ -20,7 +26,24 @@ class SPQuoteRequest {
 		this.page.set_primary_action(__("Save Request"), () => this.save(), "save");
 		this.page.add_inner_button(__("Clear"), () => this.reset());
 		this.$main = $('<div class="sp-quote-request"></div>').appendTo(this.page.main);
-		this.make();
+		this.ready = this.make();
+		this.apply_route_options();
+	}
+
+	// IP1 "Make Quote Request": system type, size and tier, and the indicative price shown
+	async apply_route_options() {
+		const options = frappe.route_options;
+		if (!options || !options.indicative_run) return;
+		frappe.route_options = null;
+		await this.ready;
+		this.indicative = options;
+		this.prefill = options.details || {};
+		$(`<div class="alert alert-info sp-qr-indicative"></div>`)
+			.text(__("From the indicative price: the price given is kept on the case."))
+			.prependTo(this.$main);
+		if (options.tier) await this.form.set_value("tier", options.tier);
+		await this.form.set_value("system_type", options.system_type);
+		await this.load_request_fields();
 	}
 
 	async make() {
@@ -123,11 +146,15 @@ class SPQuoteRequest {
 	}
 
 	async load_request_fields() {
+		// only the latest load builds the fields (a change and a pre-fill can both ask)
+		const token = (this.load_token = (this.load_token || 0) + 1);
 		const area = this.form.get_field("details_area").$wrapper.empty();
 		this.details = null;
 		const system_type = this.form.get_value("system_type");
 		if (!system_type) return;
 		const { message: fields } = await frappe.call(`${SP_QR_API}.get_request_fields`, { system_type });
+		if (token !== this.load_token) return;
+		area.empty();
 		if (!fields || !fields.length) return;
 		const arabic = frappe.boot.lang === "ar";
 		const label = (f) => (arabic && f.label_ar ? f.label_ar : __(f.label || f.fieldname));
@@ -160,6 +187,11 @@ class SPQuoteRequest {
 			),
 		});
 		this.details.make();
+		if (this.prefill) {
+			const known = Object.keys(this.prefill).filter((key) => this.details.fields_dict[key]);
+			await this.details.set_values(Object.fromEntries(known.map((key) => [key, this.prefill[key]])));
+			this.prefill = null;
+		}
 	}
 
 	async check_mobile() {
@@ -228,7 +260,15 @@ class SPQuoteRequest {
 		delete details.loads;
 		const { message: r } = await frappe.call({
 			method: `${SP_QR_API}.create_quote_request`,
-			args: { request: { ...values, details, loads, photos: this.photos.map((f) => f.name) } },
+			args: {
+				request: {
+					...values,
+					details,
+					loads,
+					photos: this.photos.map((f) => f.name),
+					indicative_run: this.indicative ? this.indicative.indicative_run : undefined,
+				},
+			},
 			freeze: true,
 			freeze_message: __("Saving the request…"),
 		});
@@ -278,6 +318,8 @@ class SPQuoteRequest {
 	reset() {
 		this.$main.empty();
 		this.existing = null;
-		this.make();
+		this.indicative = null;
+		this.prefill = null;
+		this.ready = this.make();
 	}
 }

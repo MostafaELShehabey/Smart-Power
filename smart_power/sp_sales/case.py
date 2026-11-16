@@ -6,6 +6,9 @@ and writes the history row (from, to, date, reason, by). Only the admin reassign
 hand-over between follow-up owners comes with SP-69.
 `touch` marks the last action, for the case-inactivity rule (SP-71); calls (SP-67) and
 quotes (SP-54) call it as they land.
+A case needs its customer, except a price check closed from the indicative price (SP-49),
+where the name and mobile are optional. The indicative price on a case is written only by
+the server (smart_power.sp_quotes.indicative.record_on_case).
 """
 
 import frappe
@@ -19,6 +22,14 @@ DOCTYPE = "SP Case"
 QUOTE_REQUEST, DRAFT, WON, LOST = "Quote request", "Draft", "Won", "Lost"
 SYSTEM_TYPE_LIST = "System Type"
 LOST_REASON_LIST = "Lost Reason"
+PRICE_CHECK_CODE = "PRICE_CHECK_ONLY"
+INDICATIVE_FIELDS = (
+	"indicative_price",
+	"indicative_on",
+	"indicative_by",
+	"indicative_template",
+	"indicative_specs",
+)
 REASSIGN_ROLES = ("SP Admin", "System Manager")
 # owner field → its label in the owner history
 OWNER_FIELDS = {
@@ -29,6 +40,8 @@ OWNER_FIELDS = {
 
 
 def validate(doc) -> None:
+	check_customer(doc)
+	keep_indicative(doc)
 	if not doc.follow_up_owner:
 		frappe.throw(_("A case always has a follow-up owner."), frappe.MandatoryError)
 	if doc.status == LOST and not doc.lost_reason:
@@ -50,6 +63,40 @@ def validate(doc) -> None:
 		doc.last_action_at = now_datetime()
 		if doc.status == WON and not doc.won_on:
 			doc.won_on = today()
+
+
+def check_customer(doc) -> None:
+	"""Only a price check may have no customer, and only while it stays closed."""
+	if doc.customer:
+		return
+	if is_price_check(doc.lost_reason) and (doc.is_new() or doc.status == LOST):
+		return
+	frappe.throw(_("A case needs its customer."), frappe.MandatoryError)
+
+
+def is_price_check(lost_reason: str | None) -> bool:
+	if not lost_reason:
+		return False
+	value = frappe.db.get_value("SP List Value", lost_reason, ["list_name", "code"], as_dict=True)
+	return bool(value) and (value.list_name, value.code) == (LOST_REASON_LIST, PRICE_CHECK_CODE)
+
+
+def price_check_reason() -> str | None:
+	"""The "Price check only" lost reason (SP-32), if it is active."""
+	return frappe.db.get_value(
+		"SP List Value", {"list_name": LOST_REASON_LIST, "code": PRICE_CHECK_CODE, "is_active": 1}
+	)
+
+
+def keep_indicative(doc) -> None:
+	"""The indicative price is what the user was shown; nobody types it."""
+	if doc.flags.sp_indicative:
+		return
+	before = None if doc.is_new() else doc.get_doc_before_save()
+	if not doc.is_new() and not before:
+		return
+	for fieldname in INDICATIVE_FIELDS:
+		doc.set(fieldname, before.get(fieldname) if before else None)
 
 
 def record_first_owners(doc) -> None:

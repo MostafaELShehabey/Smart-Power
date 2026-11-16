@@ -252,7 +252,12 @@ doc_events = {
 		"on_update": "smart_power.sp_finance.accounts.on_user_update",
 	},
 	# Price list (SP-30): every price has a date and buying prices a supplier.
-	"Item Price": {"validate": "smart_power.sp_stock.prices.validate_item_price"},
+	"Item Price": {
+		"validate": "smart_power.sp_stock.prices.validate_item_price",
+		# a price change makes the cached indicative prices old (SP-49)
+		"on_update": "smart_power.sp_quotes.indicative.prices_changed",
+		"on_trash": "smart_power.sp_quotes.indicative.prices_changed",
+	},
 	# Warehouses by location (SP-28): one site warehouse per station.
 	"Warehouse": {"validate": "smart_power.sp_stock.warehouses.validate_warehouse"},
 	**{
