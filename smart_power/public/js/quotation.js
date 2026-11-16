@@ -20,6 +20,8 @@ frappe.ui.form.on("Quotation", {
 				"red"
 			);
 		}
+		// after the contract: read-only, with whom the case is now (SP-35)
+		if (frm.doc.__onload?.sp_read_only) frm.set_intro(frm.doc.__onload.sp_read_only, "orange");
 
 		if (frm.doc.docstatus < 2) { // sp-allow-number: docstatus cancelled
 			frm.add_custom_button(

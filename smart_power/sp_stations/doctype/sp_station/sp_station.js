@@ -10,6 +10,8 @@ const SP_ST_ADMIN_ROLES = ["SP Admin", "System Manager"];
 frappe.ui.form.on("SP Station", {
 	refresh(frm) {
 		if (frm.is_new()) return;
+		// read-only for sales after the contract (SP-35)
+		if (frm.doc.__onload?.sp_read_only) frm.set_intro(frm.doc.__onload.sp_read_only, "orange");
 		sp_station_chips(frm);
 		const admin = SP_ST_ADMIN_ROLES.some((r) => frappe.user.has_role(r));
 		if (frm.doc.status !== "Cancelled") {

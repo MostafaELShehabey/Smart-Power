@@ -8,8 +8,8 @@
   and write-off (credit), with the running balance; it ends at the station's Remaining. (The
   agreed amount reaches the ledger only with the final invoice, SP-80, so a ledger-only statement
   would not show what is owed.)
-- A collection officer sees only the stations they collect (SP Station permission hooks); the
-  admin, the accountant and the station roles see all.
+- A collection officer sees only the stations they collect (SP Station row rule, permissions.py);
+  the admin, the accountant and the station roles see all.
 """
 
 import frappe
@@ -20,40 +20,6 @@ from smart_power.sp_stations.money import _agreed_and_schedule
 
 STATION = "SP Station"
 ADVANCES_ACCOUNT = "Customer Advances - Agri Bank"
-COLLECTOR = "SP Collection Officer"
-# the roles that read every station (SP Station's own permissions)
-ALL_STATIONS = (
-	"System Manager",
-	"SP Admin",
-	"SP Project Manager",
-	"SP Installation Manager",
-	"SP Customer Followup",
-	"SP Followup All",
-	"SP Accountant",
-)
-
-
-def own_stations_only(user: str | None = None) -> bool:
-	"""A collection officer with no other station role sees only the stations they collect."""
-	user = user or frappe.session.user
-	if user == "Administrator":
-		return False
-	roles = set(frappe.get_roles(user))
-	return COLLECTOR in roles and not roles & set(ALL_STATIONS)
-
-
-def station_query_conditions(user: str | None = None, doctype: str | None = None) -> str:
-	"""SP Station permission_query_conditions."""
-	user = user or frappe.session.user
-	if not own_stations_only(user):
-		return ""
-	return f"`tabSP Station`.`collection_owner` = {frappe.db.escape(user)}"
-
-
-def station_has_permission(doc, ptype: str | None = None, user: str | None = None) -> bool:
-	"""SP Station has_permission: the same rule for one station."""
-	user = user or frappe.session.user
-	return not own_stations_only(user) or doc.collection_owner == user
 
 
 def overdue(doc) -> float:
