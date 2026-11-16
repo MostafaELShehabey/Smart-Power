@@ -171,3 +171,11 @@ body .es-button[data-variant="solid"] {
 	text-align: center;
 }
 .sp-new-menu { z-index: 1050; min-width: 200px; }
+
+/* Home (SP-38): the number cards */
+.sp-home-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.sp-home-card { padding: 14px; cursor: pointer; border-inline-start: 4px solid var(--gray-300, #d1d5db); }
+.sp-home-card.indicator-border-red { border-inline-start-color: var(--red-500, #e03636); }
+.sp-home-card.indicator-border-orange { border-inline-start-color: var(--orange-500, #f97316); }
+.sp-home-card.indicator-border-green { border-inline-start-color: var(--green-500, #16a34a); }
+.sp-home-card-value { font-size: 1.4em; font-weight: 600; margin: 6px 0 2px; }

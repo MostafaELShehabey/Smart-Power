@@ -157,6 +157,7 @@ Call Time,وقت المكالمة
 Call {0},اتصل بـ {0}
 Call {0} about quote {1},اتصل بـ {0} بخصوص العرض {1}
 Calls,المكالمات
+Calls due today,مكالمات مستحقة اليوم
 Can Never Block,لا يمنع أبداً
 Cancel Station,إلغاء المحطة
 Cancelled,ملغي
@@ -188,6 +189,7 @@ Cash held too long,نقدية محتفظ بها مدة طويلة
 "Cash in a person's transit account longer than its Max Days Held (or Cash Held Limit in Smart Power Settings) alerts the holder and the admin every day until it is deposited. A warning, never a block.",النقدية في حساب نقدية شخص أطول من أقصى أيام الاحتفاظ (أو حد الاحتفاظ بالنقدية في الإعدادات) تنبّه الحائز والمدير يوميًا حتى تُودع. تحذير، وليس منعًا.
 Cash may stay here this many days before the holder and the admin are alerted; empty uses the setting (SP-116).,يمكن أن تبقى النقدية هنا هذا العدد من الأيام قبل تنبيه الحائز والمدير؛ الفارغ يستخدم الإعداد.
 Cash may stay with a person this many days; after that the holder and the admin are alerted daily until it is deposited. An account's own Max Days Held overrides it (SP-116).,يمكن أن تبقى النقدية مع شخص هذا العدد من الأيام؛ بعدها يُنبَّه الحائز والمدير يوميًا حتى تُودع. أقصى أيام الاحتفاظ للحساب نفسه يتجاوزه.
+Cash on hand,النقدية معي
 Cash with people,النقدية مع الأشخاص
 Cash with {0},نقدية مع {0}
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
@@ -579,6 +581,7 @@ Hit At,وقت التنبيه
 Holder,الحائز
 Holder Name,اسم الحائز
 Holder's Custody Balance,رصيد عهدة صاحبها
+Home,الصفحة الرئيسية
 Home Page Variant,شكل الصفحة الرئيسية
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
 "How print formats find this block, e.g. warranty (a-z, 0-9 and _).",الاسم الذي تجد به نماذج الطباعة هذه الفقرة، مثل warranty (حروف a-z وأرقام و _).
@@ -775,6 +778,8 @@ My Custody,عهدتي
 My custody and cash held,عهدتي والنقدية التي معي
 My Leads,عملائي المحتملون
 My Profile,ملفي
+My queue,قائمة أعمالي
+My requests waiting for a quote,طلباتي المنتظرة لعرض سعر
 My Tasks,مهامي
 Name,الاسم
 Name the customer or the station.,اذكر اسم العميل أو المحطة.
@@ -824,6 +829,7 @@ No items match these filters.,لا توجد أصناف مطابقة.
 No limit,بدون حد
 no more,لا غير
 No notifications yet.,لا توجد إشعارات بعد.
+No numbers for your work yet.,لا توجد أرقام لعملك بعد.
 No open custody.,لا توجد عهدة مفتوحة.
 No open requests here.,لا توجد طلبات مفتوحة هنا.
 No price,بدون سعر
@@ -864,6 +870,7 @@ Official accounts,الحسابات الرسمية
 OK,سليم
 Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
+Oldest: {0} h,أقدم: {0} س
 On time,في الموعد
 On: a collected postal cheque posts its payment at once. Off: the payment waits for the admin in Confirmations (SP-118).,مفعل: الشيك المحصل يُرحّل دفعته فورًا. غير مفعل: تنتظر الدفعة المدير في التأكيدات.
 One choice per line.,اختيار واحد في كل سطر.
@@ -934,6 +941,7 @@ Outstanding,المتبقي
 Outstanding: {0},المتبقي: {0}
 Overdue,متأخر
 Overdue Alert Sent,أُرسل تنبيه التأخير
+Overdue call-backs,مكالمات متأخرة
 Overdue: {0} of {1} (station {2}) was due on {3},متأخر: {0} على {1} (المحطة {2}) كان مستحقًا في {3}
 Overridden,تم التخطي بسبب
 Override,تخطي
@@ -1080,6 +1088,7 @@ Quote within 24 hours,العرض خلال 24 ساعة
 Quote {0} is not on case {1}.,العرض {0} ليس على الحالة {1}.
 Quote {0} sent to {1},تم إرسال العرض {0} إلى {1}
 Quotes,عروض الأسعار
+Quotes expiring in 48 h,عروض تنتهي خلال 48 ساعة
 Raised By,سُجّل بواسطة
 Rate,السعر
 Read-only — now with {0},للقراءة فقط — الآن مع {0}
@@ -1148,6 +1157,7 @@ Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Requested On,تاريخ الطلب
 Requests & Customers,الطلبات والعملاء
+Requests waiting,طلبات منتظرة
 Required,مطلوب
 Required Specs,المواصفات المطلوبة
 Reservation,الحجز
@@ -1701,6 +1711,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} cannot review; forward it to the admin.,{0} لا يمكنه المراجعة؛ حوّلها إلى المدير.
 "{0} confirmed, {1} failed.",تم تأكيد {0}، وفشل {1}.
 {0} days,{0} يوم
+{0} days held,محتفظ بها {0} يوم
 {0} does not follow customers up; hand the case to a colleague who does.,{0} لا يتابع العملاء؛ سلّم الحالة لزميل يتابعهم.
 {0} does not keep goods with us on consignment.,{0} ليس لديه بضاعة أمانة عندنا.
 {0} expenses,{0} مصروفات
