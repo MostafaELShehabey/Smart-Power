@@ -161,9 +161,21 @@ doc_events = {
 	# Daily workers (SP-33): a daily wage, no login
 	"Employee": {"validate": "smart_power.sp_core.workers.validate"},
 	# Customer master (SP-31): one customer per mobile.
-	"Customer": {"validate": "smart_power.sp_sales.customer.validate"},
+	"Customer": {
+		"validate": [
+			"smart_power.sp_sales.customer.validate",
+			# one searchable spelling of its name and mobiles (SP-41)
+			"smart_power.sp_core.search_key.set_customer_key",
+		]
+	},
 	# Item catalogue (SP-29): specs that cannot be true are refused.
-	"Item": {"validate": "smart_power.sp_stock.item.validate"},
+	"Item": {
+		"validate": [
+			"smart_power.sp_stock.item.validate",
+			# one searchable spelling of its code and names (SP-41)
+			"smart_power.sp_core.search_key.set_item_key",
+		]
+	},
 	# Quotation belongs to an SP Case (SP-54)
 	"Quotation": {
 		"onload": "smart_power.permissions.set_read_only_banner",
