@@ -192,3 +192,8 @@ body .es-button[data-variant="solid"] {
 .sp-step-next { cursor: pointer; background: var(--fg-color, #fff); }
 .sp-step-next:hover { border-color: var(--sp-gold); background: var(--sp-gold-soft); }
 .sp-step-off { color: var(--text-muted, #8d99a6); }
+
+/* Indicative price (SP-49): the total, and the clock when a price used is old */
+.sp-indicative-result { margin: 0 var(--padding-md, 15px); }
+.sp-indicative-total { font-size: 1.8em; font-weight: 600; }
+.sp-stale-clock { color: var(--red-500, #e03636); cursor: help; }

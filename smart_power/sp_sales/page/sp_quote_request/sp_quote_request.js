@@ -13,6 +13,14 @@ frappe.pages["sp-quote-request"].on_page_load = function (wrapper) {
 	wrapper.sp_quote_request = new SPQuoteRequest(page);
 };
 
+// From the indicative price (SP-49): the system type and its specs come pre-filled.
+frappe.pages["sp-quote-request"].on_page_show = function (wrapper) {
+	const opts = frappe.route_options;
+	if (!opts || !opts.system_type || !wrapper.sp_quote_request) return;
+	frappe.route_options = null;
+	wrapper.sp_quote_request.prefill(opts);
+};
+
 class SPQuoteRequest {
 	constructor(page) {
 		this.page = page;
@@ -120,9 +128,42 @@ class SPQuoteRequest {
 		this.form.make();
 		this.make_photos();
 		this.details = null;
+		this.indicative_inputs = null;
+		this.ready = true;
+		if (this.pending) this.prefill(this.pending);
 	}
 
-	async load_request_fields() {
+	// SP-49: the type and the specs priced on the indicative page. A spec fills the request
+	// field of the same name (or the same name in metres, e.g. pump_depth → pump_depth_m).
+	async prefill({ system_type, indicative_inputs }) {
+		if (!this.ready) {
+			this.pending = { system_type, indicative_inputs };
+			return;
+		}
+		this.pending = null;
+		// route options come through the URL in v16: the specs may arrive as JSON text
+		const specs = typeof indicative_inputs === "string" ? JSON.parse(indicative_inputs) : indicative_inputs;
+		await this.form.set_value("system_type", system_type); // its change loads the fields
+		await this.loading;
+		indicative_inputs = specs;
+		this.indicative_inputs = indicative_inputs || null;
+		if (!this.details || !indicative_inputs) return;
+		const values = {};
+		for (const [key, value] of Object.entries(indicative_inputs)) {
+			for (const name of [key, `${key}_m`]) {
+				if (this.details.fields_dict[name]) values[name] = value;
+			}
+		}
+		this.details.set_values(values);
+	}
+
+	load_request_fields() {
+		// remembered, so a pre-fill can wait for the load its own change started
+		this.loading = this._load_request_fields();
+		return this.loading;
+	}
+
+	async _load_request_fields() {
 		const area = this.form.get_field("details_area").$wrapper.empty();
 		this.details = null;
 		const system_type = this.form.get_value("system_type");
@@ -228,7 +269,15 @@ class SPQuoteRequest {
 		delete details.loads;
 		const { message: r } = await frappe.call({
 			method: `${SP_QR_API}.create_quote_request`,
-			args: { request: { ...values, details, loads, photos: this.photos.map((f) => f.name) } },
+			args: {
+				request: {
+					...values,
+					details,
+					loads,
+					photos: this.photos.map((f) => f.name),
+					indicative_inputs: this.indicative_inputs,
+				},
+			},
 			freeze: true,
 			freeze_message: __("Saving the request…"),
 		});

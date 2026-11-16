@@ -23,7 +23,9 @@ PUMP = "System Type-PUMP"
 TEN_HP = {"hp": 10, "pump_depth": 60}
 
 
-class TestIndicativePrice(IntegrationTestCase):
+class PumpTemplateCase(IntegrationTestCase):
+	"""The golden pump items and a published pump template made from the shipped one."""
+
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()
@@ -39,6 +41,8 @@ class TestIndicativePrice(IntegrationTestCase):
 	def setUp(self):
 		frappe.cache.delete_keys("sp_indicative:")
 
+
+class TestIndicativePrice(PumpTemplateCase):
 	def test_form_asks_the_required_inputs(self):
 		form = indicative.indicative_form(PUMP)
 		self.assertEqual(form["template"], self.template.name)
@@ -126,3 +130,45 @@ class TestIndicativePrice(IntegrationTestCase):
 				indicative.indicative_price(PUMP, TEN_HP)
 		finally:
 			frappe.set_user("Administrator")
+
+
+class TestIndicativePage(PumpTemplateCase):
+	"""IP1 and its hand-over to C3 (SP-49); the pump template set up as above."""
+
+	def test_page_is_for_the_people_who_take_enquiries(self):
+		roles = {r.role for r in frappe.get_doc("Page", "sp-indicative-price").roles}
+		self.assertEqual(
+			roles,
+			{"SP Lead Intake", "SP Customer Followup", "SP Marketing Agent", "SP Admin", "System Manager"},
+		)
+
+	def test_new_menu_offers_it_to_intake(self):
+		from smart_power.shell import get_new_menu
+
+		intake = make_user("sp.indicative.menu@example.com", ("lead_intake",))
+		frappe.set_user(intake)
+		try:
+			keys = [row["key"] for row in get_new_menu()]
+		finally:
+			frappe.set_user("Administrator")
+		self.assertIn("indicative_price", keys)
+
+	def test_quote_request_records_the_indicative_price(self):
+		from smart_power.sp_sales.quote_request import create_quote_request
+
+		details = {"hp": 10, "well_depth_m": 120, "water_level_m": 30, "pump_depth_m": 60}
+		r = create_quote_request(
+			{
+				"system_type": PUMP,
+				"mobile": "01004900050",
+				"customer_name": "عميل من السعر الاسترشادي",
+				"channel": "Showroom",
+				"details": details,
+				"indicative_inputs": TEN_HP,
+			}
+		)
+		case = frappe.get_doc("SP Case", r["case"])
+		self.assertEqual(case.status, "Quote request")
+		self.assertEqual(case.indicative_price, indicative.indicative_price(PUMP, TEN_HP)["total_sell"])
+		self.assertEqual(frappe.parse_json(case.indicative_specs), TEN_HP)
+		self.assertEqual(case.indicative_template, self.template.name)
