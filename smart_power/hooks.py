@@ -240,6 +240,9 @@ permission_query_conditions = {
 	"GL Entry": "smart_power.sp_finance.accounts.gl_query_conditions",
 	# a collection officer sees only the stations they collect (SP-120)
 	"SP Station": "smart_power.permissions.station_query_conditions",
+	# a customer payment: its recorder, its collector and the admin (SP-35)
+	"Payment Entry": "smart_power.permissions.payment_query_conditions",
+	"SP Customer Payment": "smart_power.permissions.customer_payment_query_conditions",
 	# a custody holder sees only their own custody and settlements (SP-122)
 	"SP Custody": "smart_power.sp_finance.custody.custody_query",
 	"SP Custody Settlement": "smart_power.sp_finance.custody.settlement_query",
@@ -252,6 +255,8 @@ has_permission = {
 	"Account": "smart_power.sp_finance.accounts.account_has_permission",
 	"Journal Entry": "smart_power.sp_finance.journal.has_permission",
 	"SP Station": "smart_power.permissions.station_has_permission",
+	"Payment Entry": "smart_power.permissions.payment_has_permission",
+	"SP Customer Payment": "smart_power.permissions.customer_payment_has_permission",
 	"SP Custody": "smart_power.sp_finance.custody.has_permission",
 	"SP Custody Settlement": "smart_power.sp_finance.custody.has_permission",
 }
