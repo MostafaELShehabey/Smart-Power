@@ -26,6 +26,8 @@ boot_session = [
 	# the doctypes with fields changed by edit-with-reason, and those with rules (SP-44)
 	"smart_power.audit.boot",
 	"smart_power.rules.boot",
+	# the saved-view tabs of the lists (SP-45)
+	"smart_power.lists.boot",
 ]
 
 required_apps = ["frappe", "erpnext"]
@@ -50,6 +52,8 @@ app_include_js = [
 	"/assets/smart_power/js/sp_shell.js",
 	# Shared form components: edit with reason, rule banner, confirm, pickers, grid (SP-44)
 	"/assets/smart_power/js/sp_ui.js",
+	# List and record patterns: saved-view tabs, totals, status bar, owner chips (SP-45)
+	"/assets/smart_power/js/sp_list.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).

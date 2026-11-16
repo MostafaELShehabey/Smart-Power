@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-18 13:00:00.000000",
+ "modified": "2026-11-17 00:10:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -178,7 +178,8 @@
    "fieldtype": "Currency",
    "label": "Agreed",
    "read_only": 1,
-   "no_copy": 1
+   "no_copy": 1,
+   "in_list_view": 1
   },
   {
    "fieldname": "paid_amount",
@@ -211,7 +212,8 @@
    "fieldtype": "Currency",
    "label": "Remaining",
    "read_only": 1,
-   "no_copy": 1
+   "no_copy": 1,
+   "in_list_view": 1
   },
   {
    "fieldname": "next_due_date",

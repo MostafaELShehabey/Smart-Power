@@ -37,6 +37,24 @@
 		"_source": "SP-36 (G1): sign in with mobile or email; Frappe's password policy at score 2; no login by email link (no self-service email). The lock after failed tries is Smart Power's own (login_lock_attempts), not Frappe's timed lock.",
 		"system_settings": {"allow_login_using_mobile_number": 1, "enable_password_policy": 1, "minimum_password_score": "2", "login_with_email_link": 0}
 	},
+	"list_views": {
+		"_source": "SP-45: the saved-view tabs of the main lists; {user} is the person looking. The admin adds or changes them in SP List View.",
+		"views": [
+			{"list_doctype": "SP Station", "label": "Mine", "sort_order": 1, "filters": [["execution_owner", "=", "{user}"]]},
+			{"list_doctype": "SP Station", "label": "Still Open", "sort_order": 2, "filters": [["status", "not in", ["Financially closed", "Cancelled"]]]},
+			{"list_doctype": "SP Station", "label": "Overdue", "sort_order": 3, "filters": [["has_overdue", "=", 1]]},
+			{"list_doctype": "SP Station", "label": "All", "sort_order": 4, "filters": []},
+			{"list_doctype": "SP Case", "label": "Mine", "sort_order": 1, "filters": [["follow_up_owner", "=", "{user}"]]},
+			{"list_doctype": "SP Case", "label": "Still Open", "sort_order": 2, "filters": [["status", "not in", ["Won", "Lost"]]]},
+			{"list_doctype": "SP Case", "label": "All", "sort_order": 3, "filters": []},
+			{"list_doctype": "Quotation", "label": "Mine", "sort_order": 1, "filters": [["sp_quote_creator", "=", "{user}"]]},
+			{"list_doctype": "Quotation", "label": "Sent", "sort_order": 2, "filters": [["sp_status", "=", "Sent"]]},
+			{"list_doctype": "Quotation", "label": "All", "sort_order": 3, "filters": []},
+			{"list_doctype": "SP Customer Payment", "label": "Mine", "sort_order": 1, "filters": [["recorded_by", "=", "{user}"]]},
+			{"list_doctype": "SP Customer Payment", "label": "Pending", "sort_order": 2, "filters": [["status", "=", "Pending"]]},
+			{"list_doctype": "SP Customer Payment", "label": "All", "sort_order": 3, "filters": []}
+		]
+	},
 	"service_items": {
 		"_source": "SP-58: the special quote lines are non-stock service items, so they reach the contract; the line's own text replaces the name. The admin can rename them.",
 		"group": "خدمات",

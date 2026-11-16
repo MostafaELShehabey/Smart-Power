@@ -3,6 +3,7 @@
 1 decimal,رقم عشري واحد
 1 is picked first.,رقم 1 يُختار أولاً.
 2 decimals,رقمان عشريان
+"[[field, operator, value], ...]; {user} is the person looking. Empty: all.",[[الحقل، المعامل، القيمة]، ...]؛ {user} هو الشخص الذي يعرض. فارغ: الكل.
 A,A
 A cancelled quote cannot be discounted.,لا يمكن الخصم على عرض ملغي.
 A cancelled quote cannot be sent.,لا يمكن إرسال عرض ملغى.
@@ -273,6 +274,7 @@ Collection,التحصيل
 Collection call: {0},مكالمة تحصيل: {0}
 Collection Owner,مسؤول التحصيل
 Collections,التحصيل
+Comma-separated roles that see the tab; empty: everyone who sees the list.,الأدوار التي ترى التبويب، مفصولة بفواصل؛ فارغ: كل من يرى القائمة.
 Comment,تعليق
 Comment to the owner,تعليق للمسئول
 Commercial,تجاري
@@ -512,6 +514,8 @@ Field names starting with {0} are reserved for developer fields.,أسماء ال
 File,الملف
 Fill from,املأ من
 Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
+Filters,فلاتر
+"Filters are a list of [field, operator, value].",الفلاتر قائمة من [الحقل، المعامل، القيمة].
 Finance,المالية
 Financial Center,المركز المالي
 Financial Centers,المراكز المالية
@@ -1040,6 +1044,7 @@ Placeholders,المتغيرات
 Placeholders you can use,المتغيرات المتاحة
 PM,م
 PO Sent,تم إرسال أمر التوريد
+Position,الترتيب
 Post Repayment,ترحيل السداد
 Postal Cheque,شيك بريدي
 Postal Cheques,الشيكات البريدية
@@ -1398,6 +1403,7 @@ SP Installations Manager,مدير التركيبات
 SP Jumbo Driver,سواق العربية (جامبو)
 SP Lead Intake,استقبال العملاء
 SP List Value,قيمة قائمة
+SP List View,تبويب قائمة
 SP Load Line,بند حمل
 SP Main Store Keeper,أمين المخزن الرئيسي
 SP Margin Range,نطاق الربح
@@ -1467,6 +1473,7 @@ Stations,المحطات
 Stations late: {0},محطات متأخرة: {0}
 Stations with overdue instalments,محطات عليها أقساط متأخرة
 Status,الحالة
+Still Open,المفتوحة
 Stock Movements,حركات المخزون
 Storage Fee,رسوم التخزين
 Storage fee for consignment container {0},رسوم تخزين حاوية الأمانة {0}
@@ -1492,6 +1499,7 @@ System,النظام
 System Type,نوع النظام
 System Types,أنواع الأنظمة
 Systems,الأنظمة
+Tab Name,اسم التبويب
 Take,استلام
 Take Request,استلام الطلب
 Take the first quote request.,استلم أول طلب عرض سعر.
@@ -1549,6 +1557,7 @@ The execution owner by default; the admin switches it from a date.,مسئول ا
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
 The file has no price column.,الملف لا يحتوي على عمود سعر.
 The file is empty.,الملف فارغ.
+The filters are not valid JSON.,الفلاتر ليست JSON صالحًا.
 "The first part of item codes in this group, e.g. PNL in PNL-JA-625 (SP-165).",الجزء الأول من أكواد أصناف هذه المجموعة، مثل PNL في PNL-JA-625.
 The first party (Smart Power),الطرف الأول (سمارت باور)
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
@@ -1601,6 +1610,7 @@ The station this site warehouse belongs to. One site warehouse per station.,ال
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's customer (reserve or hand over).,عميل المورد (حجز أو تسليم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
+"The tab's name, e.g. Mine, Open, Overdue, All.",اسم التبويب، مثل: الخاصة بي، المفتوحة، المتأخرة، الكل.
 The template section of the line (e.g. Energy). Discounts apply to a section or the quote total (SP-68).,قسم السطر في القالب (مثل الطاقة). تُطبق الخصومات على قسم أو على إجمالي العرض.
 The template version this quote was calculated from (set by Calculate).,إصدار القالب الذي حُسب منه هذا العرض (يُضبط عند الحساب).
 The treasury is the admin's.,الخزينة خاصة بالمدير.
@@ -1644,6 +1654,7 @@ Total Cost,إجمالي التكلفة
 Total cost {0} · Total sale {1} · Profit {2} · Margin {3}%,إجمالي التكلفة {0} · إجمالي البيع {1} · الربح {2} · الهامش {3}%
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
+Totals,الإجماليات
 Transfer / deposit,تحويل / إيداع
 Transfer / Deposit,تحويل / إيداع
 Transfer above the transit balance,تحويل أكبر من رصيد النقدية
