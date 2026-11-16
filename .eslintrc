@@ -27,6 +27,7 @@
 	"globals": {
 		"frappe": true,
 		"smart_power": true,
+		"sp": true,
 		"Vue": true,
 		"SetVueGlobals": true,
 		"__": true,
