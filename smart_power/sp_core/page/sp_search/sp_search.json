@@ -1,0 +1,16 @@
+{
+ "creation": "2026-11-16 22:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "search",
+ "idx": 0,
+ "modified": "2026-11-16 22:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "sp-search",
+ "owner": "Administrator",
+ "page_name": "sp-search",
+ "roles": [],
+ "standard": "Yes",
+ "title": "Search"
+}

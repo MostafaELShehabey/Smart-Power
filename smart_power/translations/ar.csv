@@ -361,6 +361,7 @@ Customer already exists,العميل موجود
 Customer already exists: {0} has the mobile {1}.,العميل موجود: {0} مسجل بالموبايل {1}.
 Customer Balances,أرصدة العملاء
 Customer Name,اسم العميل
+"Customer or mobile, station, request or quote, PO, item code, cheque no.",عميل أو موبايل، محطة، طلب أو عرض، أمر شراء، كود صنف، رقم شيك
 Customer payment,دفعة عميل
 Customer Payment,دفعة العميل
 Customer payment {0},دفعة عميل {0}
@@ -510,6 +511,7 @@ Financially closed,مغلقة ماليًا
 Financially Closed On,تاريخ الإغلاق المالي
 Financing,التمويل
 Financing Type,نوع التمويل
+Find {0} in Smart Power,ابحث عن {0} في سمارت باور
 Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
 First in stock,أول صنف متوفر بالمخزن
 First Version,النسخة الأولى
@@ -859,6 +861,7 @@ Not read yet,غير مقروءة
 Not sent,لم يُرسل
 Note,ملاحظة
 Notes,ملاحظات
+Nothing found for {0}.,لا توجد نتائج لـ {0}.
 Nothing snoozed.,لا توجد مهام مؤجلة.
 Nothing to review here.,لا شيء للمراجعة هنا.
 Nothing to start here.,لا يوجد ما تبدؤه هنا.
@@ -1168,6 +1171,7 @@ Request {0} is yours,الطلب {0} أصبح لك
 Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Requested On,تاريخ الطلب
+Requests,الطلبات
 Requests & Customers,الطلبات والعملاء
 Requests waiting,طلبات منتظرة
 Required,مطلوب
@@ -1231,6 +1235,7 @@ Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون ت�
 Saving the request…,جارٍ حفظ الطلب…
 Schedule and cheques,جدول السداد والشيكات
 Scope,النطاق
+Search,البحث
 Search Key,مفتاح البحث
 Second Mobile,موبايل إضافي
 Section,القسم
@@ -1274,6 +1279,7 @@ Setup is complete but there is no company named {0}.,الإعداد مكتمل �
 "Short key used by reports and code, e.g. PUMP.",مفتاح قصير للتقارير والكود، مثلاً PUMP.
 "Short key used by reports and code, e.g. PUMP. Fixed once saved: it is part of the record name.",مفتاح قصير تستخدمه التقارير والنظام، مثل PUMP. لا يتغير بعد الحفظ لأنه جزء من اسم السجل.
 Show,عرض
+Show all,عرض الكل
 Showroom,المعرض
 Showroom Cash Limit (amount),حد كاش المعرض (مبلغ)
 Showroom Cash Limit (days since the last deposit),حد كاش المعرض (أيام من آخر إيداع)
