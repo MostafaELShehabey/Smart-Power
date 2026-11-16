@@ -22,7 +22,7 @@ from smart_power.permissions import sees_quote_internals
 from smart_power.sp_core.services.audit import log_edit
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC, published_template
 from smart_power.sp_quotes.engine import INFO, OVERRIDABLE, calculate
-from smart_power.sp_quotes.special_lines import COMMISSION, MANUAL, WINCH, service_items
+from smart_power.sp_quotes.special_lines import COMMISSION, MANUAL, WINCH, service_item
 
 QUOTATION, TEMPLATE, CASE = "Quotation", "SP Calc Template", "SP Case"
 DRAFT = 0
@@ -133,7 +133,7 @@ def write_lines(doc, result) -> None:
 			# a service line (installation, transport, chassis per kW, the winch …): its own text
 			# on its kind's service item, as a typed special line would be (SP-56)
 			kind = kind or MANUAL
-			item_code, text = service_items()[kind], line.item_name
+			item_code, text = service_item(kind), line.item_name
 		if not item_code:
 			result.rule_results.append(
 				{"line_key": line.line_key, "level": INFO, "message": _("Not on the quote: no item yet.")}
