@@ -380,6 +380,7 @@ Daily Wage,اليومية
 Daily Worker,عامل باليومية
 Data,نص
 Date,التاريخ
+Date in the future,تاريخ في المستقبل
 Dates,التواريخ
 Day Hours,ساعات النهار
 Days Held,أيام الاحتفاظ
@@ -1525,6 +1526,7 @@ The cost center each source posts to (SP-27). A station is never a cost center: 
 The customer,العميل
 "The customer's deposit on a case: confirming it makes the contract, the station, draft purchase orders and reservations (SP-175).",عربون العميل على حالة: تأكيده ينشئ العقد والمحطة وأوامر الشراء المبدئية والحجوزات.
 The customer's deposit: confirming it makes the contract and the station (SP-175).,عربون العميل: تأكيده ينشئ العقد والمحطة.
+The date {0} is still to come: record what has already happened.,التاريخ {0} لم يأتِ بعد: سجّل ما حدث بالفعل.
 The day the money was received.,يوم استلام المبلغ.
 The default price category for items in this group.,فئة السعر الافتراضية لأصناف هذه المجموعة.
 The deposit slip or transfer screenshot.,إيصال الإيداع أو صورة التحويل.

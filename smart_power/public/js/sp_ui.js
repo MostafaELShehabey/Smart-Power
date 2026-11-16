@@ -2,6 +2,8 @@
 //   sp.ui.edit_with_reason(frm, fieldname)   change a saved number with a reason (History + RV2)
 //   sp.ui.rule_banner(frm, result)           the business rules a form hits: warn / block
 //   sp.ui.confirm_irreversible(title, html, on_yes)   show exactly what will change, then do it
+//   sp.ui.center_picker(frm, field) / sp.ui.account_picker(frm, field)   what those fields offer
+// Work date vs entry time is the server's (smart_power.sp_core.dated.SPDatedDocument).
 // The server side is smart_power.audit (the fields registered there get the button by themselves).
 window.sp = window.sp || {};
 sp.ui = sp.ui || {};
@@ -137,3 +139,23 @@ $(document).on("app_ready", () => {
 		})
 	);
 });
+
+// --- Pickers (SP-44, components 5 and 6) -------------------------------------------------------
+// A center field offers the company's financial centers only; a money account field the official
+// accounts and the user's own transit and custody accounts (smart_power.sp_finance.queries).
+
+sp.ui.center_picker = function (frm, fieldname, table) {
+	const query = () => ({
+		query: "smart_power.sp_finance.queries.center_picker",
+		filters: { company: frm.doc.company },
+	});
+	table ? frm.set_query(fieldname, table, query) : frm.set_query(fieldname, query);
+};
+
+sp.ui.account_picker = function (frm, fieldname, table) {
+	const query = () => ({
+		query: "smart_power.sp_finance.queries.account_picker",
+		filters: { company: frm.doc.company },
+	});
+	table ? frm.set_query(fieldname, table, query) : frm.set_query(fieldname, query);
+};
