@@ -141,3 +141,29 @@ class TestEditWithReason(SimpleRecordCase):
 	def test_a_change_needs_its_reason(self):
 		with self.assertRaises(frappe.ValidationError):
 			self.amend(self.record(), amount=1100)
+
+
+class TestSubmitPreview(SimpleRecordCase):
+	def test_the_confirmation_shows_the_entry_before_it_posts(self):
+		doc = frappe.get_doc(
+			{
+				"doctype": "SP Simple Record",
+				"company": COMPANY,
+				"work_date": today(),
+				"record_type": STORAGE_FEE,
+				"amount": 1500,
+				"direction": "Money In",
+				"account": self.bank,
+				"cost_center": self.showroom,
+			}
+		)
+		frappe.set_user(self.accountant)
+		lines = simple_record.preview(doc.as_dict())
+		frappe.set_user("Administrator")
+		self.assertEqual(
+			{line["account"]: (line["debit"], line["credit"]) for line in lines},
+			{self.bank: (1500, 0), account("Storage Fee Income"): (0, 1500)},
+		)
+		self.assertFalse(
+			frappe.db.exists("SP Simple Record", {"amount": 1500, "docstatus": 1})
+		)  # nothing saved

@@ -23,8 +23,9 @@ add_to_apps_screen = [
 # each user sees only the module groups they work in (SP-37)
 boot_session = [
 	"smart_power.shell.apply_to_boot",
-	# the doctypes with fields changed by edit-with-reason (SP-44)
+	# the doctypes with fields changed by edit-with-reason, and those with rules (SP-44)
 	"smart_power.audit.boot",
+	"smart_power.rules.boot",
 ]
 
 required_apps = ["frappe", "erpnext"]

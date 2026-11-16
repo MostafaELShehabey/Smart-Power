@@ -7,6 +7,11 @@ frappe.ui.form.on("SP Simple Record", {
 			filters: { company: frm.doc.company, is_group: 0, root_type: ["in", ["Asset", "Liability"]] },
 		}));
 		frm.set_query("cost_center", () => ({ filters: { company: frm.doc.company, is_group: 0 } }));
+		// Submit posts money: show exactly the entry first (SP-44)
+		frm.savesubmit = async function () {
+			const lines = await frappe.xcall("smart_power.sp_finance.simple_record.preview", { doc: frm.doc });
+			sp.ui.confirm_irreversible(__("Submit and post"), sp.ui.entry_preview_html(lines), () => frm.save("Submit"));
+		};
 	},
 	async record_type(frm) {
 		if (!frm.doc.record_type) return;
