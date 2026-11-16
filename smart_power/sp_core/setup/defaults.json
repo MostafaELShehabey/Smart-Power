@@ -33,6 +33,15 @@
 		"fy_end_date": "2027-12-31",
 		"enable_telemetry": 0
 	},
+	"service_items": {
+		"_source": "SP-58: the special quote lines are non-stock service items, so they reach the contract; the line's own text replaces the name. The admin can rename them.",
+		"group": "خدمات",
+		"items": [
+			{"kind": "Manual", "item_code": "SP-MANUAL", "item_name": "بند يدوي"},
+			{"kind": "Winch", "item_code": "SP-WINCH", "item_name": "خدمة ونش"},
+			{"kind": "Commission", "item_code": "SP-COMMISSION", "item_name": "عمولة المحطة"}
+		]
+	},
 	"item_groups": {
 		"_source": "SP-29: the catalogue categories (panels, inverters/drives, pumps, cables, pipes, structures, batteries, lighting, accessories). Arabic names because the team works in Arabic; the admin can rename them. Seeded once under ERPNext's root item group.",
 		"names": ["ألواح شمسية", "إنفرترات ودرايفات", "طلمبات", "كابلات", "مواسير", "شاسيهات وهياكل", "بطاريات", "إنارة", "إكسسوارات"],

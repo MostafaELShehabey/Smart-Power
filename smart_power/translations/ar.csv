@@ -257,6 +257,7 @@ Comment to the owner,تعليق للمسئول
 Commercial,تجاري
 Commercial Register,السجل التجاري
 Commercial Register No.,رقم السجل التجاري
+Commission,عمولة
 Company,شركة
 Company {0} has no account group {1}.,الشركة {0} ليس لديها مجموعة الحسابات {1}.
 Company {0} has no cost center group.,الشركة {0} ليس لها مجموعة مراكز تكلفة.
@@ -443,6 +444,8 @@ Every event always appears here in the app. Tick the ones that should also push 
 Excel File,ملف إكسل
 Execution,التنفيذ
 Execution Owner,مسؤول التنفيذ
+Expected,مُتوقع
+Expected Winch Job,مهمة ونش متوقعة
 Expense,مصروف
 Expense Entry,قيد المصروفات
 Expense Row,صف المصروف
@@ -535,6 +538,7 @@ Head (m),الرفع (متر)
 head_m,الرفع (متر)
 Hello {0},أهلاً {0}
 Help,مساعدة
+Hidden Line,بند مخفي
 Hidden on Print,مخفي في الطباعة
 Highlight,تمييز
 History,السجل
@@ -628,12 +632,14 @@ Limits and Scope,الحدود والنطاق
 Limits must be valid JSON.,يجب أن تكون الحدود JSON صحيحاً.
 Line,السطر
 Line Key,مفتاح السطر
+Line Kind,نوع البند
 Line Overrides,تعديلات السطور
 Line Profit,ربح البند
 Line {0},السطر {0}
 Line {0} is locked: its markup cannot change.,السطر {0} مقفل: لا يمكن تغيير نسبة الربح.
 Line {0} is not in template {1}.,السطر {0} غير موجود في القالب {1}.
 Lines,السطور
+Lines with the same print group print as one lump-sum line (مقطوعية) with their total.,البنود ذات مجموعة الطباعة نفسها تُطبع بندًا واحدًا (مقطوعية) بإجماليها.
 List,القائمة
 List Price,سعر اللستة
 List view,عرض القائمة
@@ -673,6 +679,7 @@ Manual Entry,إدخال يدوي
 Manual entry {0}: {1},قيد يدوي {0}: {1}
 Manual Prices,أسعار يدوية
 Manual Qty,كمية يدوية
+"Manual: a free-text line (e.g. transport). Winch: the winch amount for this station, winch income after the contract. Commission: the station commission, cost only and never printed (SP-58).",يدوي: بند بنص حر (مثل النقل). ونش: مبلغ الونش لهذه المحطة، يصبح إيراد ونش بعد التعاقد. عمولة: عمولة المحطة، تكلفة فقط ولا تُطبع أبدًا (SP-58).
 Margin,هامش الربح
 Margin %,الربح %
 Margin on sale,هامش من البيع
@@ -739,6 +746,7 @@ Needs Repricing,يحتاج إعادة تسعير
 Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
+Never printed: the station commission (SP-58).,لا يُطبع أبدًا: عمولة المحطة (SP-58).
 New Option,خيار جديد
 New Password,كلمة المرور الجديدة
 New price,السعر الجديد
@@ -1442,6 +1450,7 @@ The treasury is the admin's.,الخزينة خاصة بالمدير.
 The UOM is missing.,الوحدة ناقصة.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
 The wage a log line starts with; it can be changed on the line.,اليومية التي يبدأ بها سطر اليومية؛ يمكن تعديلها على السطر.
+The winch line of the accepted quote: winch income and station cost when the job is done (SP-58).,بند الونش في العرض المقبول: إيراد ونش وتكلفة على المحطة عند تنفيذ المهمة (SP-58).
 There are no expenses to settle.,لا توجد مصروفات للتسوية.
 There is no published calculation template for this case's system type.,لا يوجد قالب حساب منشور لنوع نظام هذه الحالة.
 This advance is repaid.,هذه السلفة مسددة.
@@ -1550,9 +1559,11 @@ Who follows up this customer now. Changes through the case and hand-over.,من �
 Who physically has the cheque now.,من يحمل الشيك فعليًا الآن.
 Who usually gets it; the preferences list it to them first.,من يصله عادةً؛ يظهر لهم أولًا في التفضيلات.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
+Winch,ونش
 Winch Center,مركز الونش
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
 Winch Internal Charge,تحميل داخلي للونش
+Winch Job,مهمة الونش
 Winch jobs and costs (each vehicle may get its own child center).,شغل وتكاليف الونش (لكل مركبة مركز فرعي خاص بها عند الحاجة).
 Winch Line,سطر الونش
 With lawyer,مع المحامي

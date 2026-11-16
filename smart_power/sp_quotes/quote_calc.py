@@ -22,6 +22,7 @@ from smart_power.permissions import can_see_cost
 from smart_power.sp_core.services.audit import log_edit
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC, published_template
 from smart_power.sp_quotes.engine import INFO, OVERRIDABLE, calculate
+from smart_power.sp_quotes.special_lines import COMMISSION, WINCH
 
 QUOTATION, TEMPLATE, CASE = "Quotation", "SP Calc Template", "SP Case"
 DRAFT = 0
@@ -155,6 +156,9 @@ def write_lines(doc, result) -> None:
 				# a BTC price is locked too: no markup edit, no discount on its own (SP-68)
 				"sp_lock_markup": 1 if line.lock_markup or line.pricing_method == LOCKED_BTC else 0,
 				"sp_line_section": line.section,
+				# SP-58: a hidden template line is the commission (cost only); a print group merges
+				"sp_line_kind": COMMISSION if line.is_hidden else WINCH if line.is_winch_line else None,
+				"sp_merge_group": line.print_group,
 			},
 		)
 	for row in manual_rows:
