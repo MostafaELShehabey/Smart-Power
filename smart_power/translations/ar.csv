@@ -412,6 +412,7 @@ E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Edit,تعديل
 Edits with reason,التعديلات بسبب
 "Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
+Email or mobile,البريد الإلكتروني أو الموبايل
 Employee {0} not found.,الموظف {0} غير موجود.
 Empty,فارغة
 Empty for a deposit before the station exists: then the case.,فارغ لعربون قبل وجود المحطة: وحينها الحالة.
@@ -508,6 +509,7 @@ For chassis templates: one per factory.,لقوالب الشاسيه: قالب ل
 For off-grid and hybrid requests: each device with its watts and day / night hours.,لطلبات الأوف جريد والهايبرد: كل جهاز بقدرته بالوات وساعات تشغيله نهاراً وليلاً.
 For Smart Power,عن سمارت باور
 For Station,لمحطة
+Forgot password,نسيت كلمة المرور
 Format,الصيغة
 Formats with .YYYY. restart every year. ERPNext documents change their format in Document Naming Settings.,الصيغ التي تحتوي .YYYY. يبدأ ترقيمها من جديد كل سنة. صيغ مستندات ERPNext تُغيَّر من إعدادات تسمية المستندات.
 Forward,تحويل
@@ -520,13 +522,16 @@ From document,من المستند
 From the approved quote's line.,من سطر العرض المعتمد.
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
 Full,كامل
+Full Name,الاسم الكامل
 Give a discount,إعطاء خصم
 Give a percent or an amount.,أدخل نسبة أو مبلغًا.
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
 "Give a reason, for example the supplier's new price list.",اكتب السبب، مثلاً لستة المورد الجديدة.
+Give a Temporary Password,إعطاء كلمة مرور مؤقتة
 Give Discount,إعطاء خصم
 Give discount,إعطاء الخصم
 Give the reason for the rejection.,اذكر سبب الرفض.
+Give this password to {0}. They must change it when they sign in.,أعطِ كلمة المرور هذه إلى {0}. يجب تغييرها عند الدخول.
 Given,مُسلّمة
 Given By,أعطاه
 Given On,تاريخ الإعطاء
@@ -537,6 +542,8 @@ Hand over,تسليم
 Hand Over,تسليم
 Handed Over,المسلَّم
 "Handed over on behalf of {0}, from goods kept with Smart Power on consignment.",سُلّمت نيابةً عن {0}، من بضاعة الأمانة المحفوظة لدى سمارت باور.
+Handled By,تمت المعالجة بواسطة
+Handled On,تاريخ المعالجة
 Has Overdue,عليها متأخرات
 Head (m),الرفع (متر)
 head_m,الرفع (متر)
@@ -857,6 +864,7 @@ Only the admin or bank financing records an advance.,المدير أو التم�
 Only the admin or purchasing withdraws from consignment.,المدير أو المشتريات فقط يسحب من الأمانة.
 Only the admin or the accountant records a storage fee.,المدير أو المحاسب فقط يسجّل رسوم التخزين.
 Only the admin records a write-off.,فقط المدير يسجل الشطب.
+Only the admin resets a password.,المدير فقط يعيد تعيين كلمة المرور.
 Only the admin unlocks an account.,المدير فقط يفتح الحساب المقفل.
 Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
@@ -1098,6 +1106,7 @@ Request Revision,طلب تعديل
 Request {0} is yours,الطلب {0} أصبح لك
 Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
+Requested On,تاريخ الطلب
 Required,مطلوب
 Required Specs,المواصفات المطلوبة
 Reservation,الحجز
@@ -1168,6 +1177,7 @@ Send,إرسال
 Send a quote before marking the case won.,أرسل عرضًا قبل تسجيل الحالة كمكسوبة.
 Send Again,إرسال مرة أخرى
 Send to Customer,إرسال للعميل
+Send to the admin,إرسال إلى المدير
 Sending freezes this version: it cannot be edited afterwards.,الإرسال يثبّت هذا الإصدار: لا يمكن تعديله بعد ذلك.
 Sends,مرات الإرسال
 Sent,أُرسل
@@ -1279,6 +1289,7 @@ SP Marketing and Quotes,ماركتنج وإعداد عروض
 SP Notification Event,حدث إشعار
 SP Owner and Admin,المدير وصاحب الشركة
 SP Owner History,سجل المسؤولين
+SP Password Reset Request,طلب إعادة تعيين كلمة المرور
 SP Price Category,فئة سعر
 SP Price Rule,قاعدة تسعير
 SP Pricing Manager,لستة الأسعار
@@ -1376,6 +1387,7 @@ Template Code,كود القالب
 Template Line,سطر القالب
 Template Name,اسم القالب
 Template {0} is not published.,القالب {0} غير منشور.
+Temporary Password,كلمة مرور مؤقتة
 Terms Note,ملاحظة الشروط
 Test with Sample Inputs,تجربة بمدخلات نموذجية
 Text,النص
@@ -1405,6 +1417,7 @@ The deposit slip or transfer screenshot.,إيصال الإيداع أو صورة
 The desk is for office users.,شاشات المكتب لمستخدمي المكتب.
 The discounts are more than the quote total.,الخصومات أكبر من إجمالي العرض.
 The document that posted this entry. Cancelling it cancels this entry.,المستند الذي رحّل هذا القيد. إلغاؤه يلغي هذا القيد.
+The email or mobile typed on the Forgot password form.,البريد أو الموبايل المكتوب في نموذج نسيت كلمة المرور.
 The ERPNext company these details print for.,الشركة في النظام التي تُطبع لها هذه البيانات.
 The execution owner by default; the admin switches it from a date.,مسئول التنفيذ افتراضيًا؛ ويغيّره المدير من تاريخ.
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
@@ -1476,6 +1489,7 @@ This is not your custody.,هذه ليست عهدتك.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
 This move is not allowed.,هذا النقل غير مسموح.
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
+This request is already handled.,تمت معالجة هذا الطلب من قبل.
 This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 "This sample shows the Smart Power letterhead, the Arabic font and the shared print helpers.",يعرض هذا النموذج ورق سمارت باور الرسمي والخط العربي وأدوات الطباعة المشتركة.
@@ -1507,6 +1521,7 @@ Transit,في الطريق
 Transit Account,الحساب الوسيط
 Treasury,الخزينة
 Type,النوع
+Typed at Login,المكتوب عند الدخول
 Unclaimed,غير مستلَم
 Unit,الوحدة
 Unit Price,سعر الوحدة
@@ -1620,6 +1635,7 @@ You see only your own custody.,ترى عهدتك فقط.
 Your events,أحداثك
 Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
 "Your own transit account, or (the admin) any money account.",حساب النقدية الخاص بك، أو (للمدير) أي حساب مالي.
+"Your request was sent to the admin, who will give you a new password.",تم إرسال طلبك إلى المدير، وسيعطيك كلمة مرور جديدة.
 {0} (yours),{0} (خاصتك)
 {0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}
 {0} cannot be changed here.,لا يمكن تعديل {0} هنا.
@@ -1632,6 +1648,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} does not keep goods with us on consignment.,{0} ليس لديه بضاعة أمانة عندنا.
 {0} expenses,{0} مصروفات
 "{0} expenses, {1}. The admin approves them in Confirmations.",{0} مصروفات، {1}. يوافق عليها المدير في التأكيدات.
+{0} forgot their password.,{0} نسي كلمة المرور.
 {0} gave you the case of {1}: {2},{0} سلّمك حالة {1}: {2}
 {0} gave {1} off {2} on quote {3} ({4}),{0} أعطى خصم {1} على {2} في العرض {3} ({4})
 {0} h,{0} ساعة
