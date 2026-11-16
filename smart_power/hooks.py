@@ -90,7 +90,11 @@ doctype_list_js = {
 
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
 role_home_page = {role: "sp-field" for role in LIGHT_ENTRY_ROLES}
-before_request = ["smart_power.sp_core.web.redirect_light_users"]
+before_request = [
+	"smart_power.sp_core.web.redirect_light_users",
+	# a user who must change their password reaches nothing else first (SP-36)
+	"smart_power.sp_core.login.guard_first_login",
+]
 # Login (SP-36): a mobile typed in any form finds the user; a locked account is refused
 before_login = ["smart_power.sp_core.login.before_login"]
 on_login = ["smart_power.sp_core.login.on_login"]
@@ -197,6 +201,9 @@ doc_events = {
 	"Activity Log": {"after_insert": "smart_power.sp_core.login.on_failed_login"},
 	"User": {
 		# the mobile in its local form, for mobile login (SP-36)
+		# a password given by the admin is changed at the first login (SP-36); before Frappe's
+		# validate, which clears the new password
+		"before_validate": "smart_power.sp_core.login.set_must_change",
 		"validate": "smart_power.sp_core.login.validate_user",
 		"on_update": "smart_power.sp_finance.accounts.on_user_update",
 	},
@@ -275,6 +282,8 @@ extend_doctype_class = {"Quotation": ["smart_power.sp_sales.quotation_class.SPQu
 
 # ERPNext's "Update Items" is refused on a case's sent quote (SP-61)
 override_whitelisted_methods = {
+	# a changed password clears Must Change Password (SP-36)
+	"frappe.core.doctype.user.user.update_password": "smart_power.sp_core.login.update_password",
 	"erpnext.controllers.accounts_controller.update_child_qty_rate": (
 		"smart_power.sp_sales.quotation.update_child_qty_rate"
 	),

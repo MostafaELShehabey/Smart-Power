@@ -6,6 +6,8 @@ password change at the first login.
 - Failed sign-ins are counted on the user; Login Lock Attempts (5) in a row lock the account
   until the admin unlocks it, and the admins get an alert. The lock is kept on the user, not
   Frappe's timed cache lock, which would also lock a shared office IP.
+- A password someone else gave (a new user, the admin's reset) must be changed at the first
+  login: until then every page leads to /update-password and the API refuses.
 """
 
 import frappe
@@ -49,6 +51,7 @@ def before_login(login_manager=None) -> None:
 
 LOCK_SETTING, LOCK_DEFAULT = "login_lock_attempts", 5  # sp-allow-number: the seed's value, if unset
 ADMIN_ROLES = ("SP Admin", "System Manager")
+HTTP_GONE = 410  # sp-allow-number: Frappe's answer to a wrong old password or an expired key
 
 
 def lock_attempts() -> int:
@@ -109,3 +112,66 @@ def unlock_login(user: str) -> None:
 	if frappe.session.user != "Administrator" and not set(ADMIN_ROLES) & set(frappe.get_roles()):
 		frappe.throw(_("Only the admin unlocks an account."), frappe.PermissionError)
 	frappe.db.set_value("User", user, {"sp_login_locked": 0, "sp_failed_logins": 0})
+
+
+# --- the password change at the first login ----------------------------------------------------
+
+UPDATE_PASSWORD = "/update-password"
+# what a user who must change their password may still reach
+OPEN_PATHS = (
+	UPDATE_PASSWORD,
+	"/api/method/frappe.core.doctype.user.user.update_password",
+	"/api/method/frappe.core.doctype.user.user.test_password_strength",
+	"/api/method/login",
+	"/api/method/logout",
+	"/login",
+	"/assets/",
+	"/files/",
+	"/website_script.js",
+)
+
+
+def set_must_change(doc, method=None) -> None:
+	"""User before_validate: a password given by someone else (a new user, the admin's reset) is
+	temporary; the user's own new password is not."""
+	if doc.name in frappe.STANDARD_USERS or doc.get("user_type") == "Website User":
+		return
+	if doc.is_new():
+		doc.sp_must_change_password = 1
+	elif doc.get("new_password"):
+		doc.sp_must_change_password = 0 if frappe.session.user == doc.name else 1
+
+
+def must_change(user: str | None = None) -> bool:
+	user = user or frappe.session.user
+	if not user or user in frappe.STANDARD_USERS:
+		return False
+	return bool(frappe.get_cached_value("User", user, "sp_must_change_password"))
+
+
+def guard_first_login() -> None:
+	"""before_request: until they change their password, a user reaches nothing else."""
+	from werkzeug.routing import RequestRedirect
+
+	request = getattr(frappe.local, "request", None)
+	if not request or not must_change() or request.path.startswith(OPEN_PATHS):
+		return
+	if request.path.startswith("/api/"):
+		frappe.throw(_("Change your password first."), frappe.PermissionError)
+	raise RequestRedirect(UPDATE_PASSWORD)
+
+
+# Guest, as Frappe's own update_password is (the reset-key flow); it only delegates to it.
+@frappe.whitelist(allow_guest=True, methods=["POST"])  # nosemgrep
+def update_password(
+	new_password: str, logout_all_sessions: int = 0, key: str | None = None, old_password: str | None = None
+):
+	"""Frappe's update_password; a successful change clears Must Change Password."""
+	from frappe.core.doctype.user.user import update_password as frappe_update_password
+
+	result = frappe_update_password(new_password, logout_all_sessions, key, old_password)
+	user = frappe.session.user
+	if frappe.local.response.get("http_status_code") != HTTP_GONE and must_change(user):
+		frappe.db.set_value("User", user, "sp_must_change_password", 0)
+		frappe.clear_document_cache("User", user)
+	return result

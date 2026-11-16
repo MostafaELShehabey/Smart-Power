@@ -1,11 +1,12 @@
-"""Login (SP-36, G1): mobile or email; the lock after failed tries."""
+"""Login (SP-36, G1): mobile or email; the lock after failed tries; the first-login password change."""
 
 import frappe
 from frappe.auth import CookieManager, LoginManager
 from frappe.tests import IntegrationTestCase
 from frappe.utils import set_request
+from werkzeug.routing import RequestRedirect
 
-from smart_power.sp_core.login import apply_login_settings, unlock_login
+from smart_power.sp_core.login import apply_login_settings, guard_first_login, unlock_login, update_password
 from smart_power.tests.utils import set_setting
 
 PASSWORD = "Sp-36 login test 7391"  # a test value for this test user only
@@ -18,7 +19,7 @@ def login(usr: str, pwd: str = PASSWORD) -> str:
 	frappe.local.request_ip = "127.0.0.1"
 	frappe.local.cookie_manager = CookieManager()
 	frappe.form_dict.update({"cmd": "login", "usr": usr, "pwd": pwd})
-	LoginManager()  # signs in on the login path
+	frappe.local.login_manager = LoginManager()  # signs in on the login path
 	return frappe.session.user
 
 
@@ -107,3 +108,37 @@ class TestLoginLock(LoginCase):
 		frappe.set_user(self.user)
 		with self.assertRaises(frappe.PermissionError):
 			unlock_login(self.user)
+
+
+class TestFirstLogin(LoginCase):
+	EMAIL = "sp.login.first@example.com"
+
+	def request(self, path: str):
+		set_request(path=path)
+		frappe.set_user(self.user)
+		try:
+			guard_first_login()
+		finally:
+			frappe.set_user("Administrator")
+
+	def test_a_new_user_must_set_a_new_password_before_any_other_page(self):
+		self.assertTrue(frappe.db.get_value("User", self.user, "sp_must_change_password"))
+		with self.assertRaises(RequestRedirect) as redirect:
+			self.request("/desk")
+		self.assertIn("/update-password", redirect.exception.new_url)
+		with self.assertRaises(frappe.PermissionError):
+			self.request("/api/method/frappe.client.get_list")
+		self.request("/update-password")  # the one page left open
+		self.request("/api/method/frappe.core.doctype.user.user.test_password_strength")
+		login(MOBILE)  # signed in, as on the update-password page
+		update_password("A brand new SP-36 phrase 5280", old_password=PASSWORD)
+		frappe.set_user("Administrator")
+		self.assertFalse(frappe.db.get_value("User", self.user, "sp_must_change_password"))
+		self.request("/desk")  # no longer sent away
+
+	def test_a_password_the_admin_sets_is_temporary(self):
+		frappe.db.set_value("User", self.user, "sp_must_change_password", 0)
+		user = frappe.get_doc("User", self.user)
+		user.new_password = "Admin given SP-36 phrase 6614"
+		user.save(ignore_permissions=True)
+		self.assertTrue(frappe.db.get_value("User", self.user, "sp_must_change_password"))
