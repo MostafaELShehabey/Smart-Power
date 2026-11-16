@@ -153,6 +153,8 @@ NEW_ACTIONS = (
 	),
 	("payment", "Payment on a Station", "dialog", "payment", "SP Customer Payment", None),
 	("transfer", "Deposit or Transfer", "dialog", "transfer", "SP Transfer", None),
+	# a one-off record with its own simple entry: a storage fee, a small income (SP-43)
+	("simple_record", "Simple Record", "new", "SP Simple Record", "SP Simple Record", None),
 	("customer", "Customer", "new", "Customer", "Customer", None),
 	(
 		"purchase_order",

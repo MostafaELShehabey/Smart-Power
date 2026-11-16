@@ -239,6 +239,9 @@
 		{"list_name": "Worker Skill", "code": "WELDER", "value_ar": "لحام", "value_en": "Welder", "sort_order": 4, "_source": "SP-33: crew skills"},
 		{"list_name": "Worker Skill", "code": "DRIVER", "value_ar": "سائق", "value_en": "Driver", "sort_order": 5, "_source": "SP-33: crew skills"},
 		{"list_name": "Worker Skill", "code": "CRANE_OPERATOR", "value_ar": "سائق ونش", "value_en": "Crane operator", "sort_order": 6, "_source": "SP-33: crew skills"},
+		{"list_name": "Simple Record Type", "code": "STORAGE_FEE", "value_ar": "رسوم تخزين", "value_en": "Storage fee", "sort_order": 1, "meta_json": "{\"account\": \"Storage Fee Income\", \"direction\": \"In\"}", "_source": "SP-43: simple record types; meta account = what the record posts against, direction = In or Out"},
+		{"list_name": "Simple Record Type", "code": "OTHER_INCOME", "value_ar": "إيراد متنوع", "value_en": "Other income", "sort_order": 2, "meta_json": "{\"account\": \"Other Income\", \"direction\": \"In\"}", "_source": "SP-43"},
+		{"list_name": "Simple Record Type", "code": "OTHER_EXPENSE", "value_ar": "مصروف متنوع", "value_en": "Other expense", "sort_order": 3, "meta_json": "{\"account\": \"Miscellaneous Expenses\", \"direction\": \"Out\"}", "_source": "SP-43"},
 		{"list_name": "Expense Type", "code": "FUEL", "value_ar": "وقود", "value_en": "Fuel", "sort_order": 1, "meta_json": "{\"account\": \"Travel Expenses\"}", "_source": "SP-122: custody expense types; meta account = the expense account"},
 		{"list_name": "Expense Type", "code": "TRANSPORT", "value_ar": "مواصلات ونقل", "value_en": "Transport", "sort_order": 2, "meta_json": "{\"account\": \"Travel Expenses\"}", "_source": "SP-122: custody expense types; meta account = the expense account"},
 		{"list_name": "Expense Type", "code": "TOOLS", "value_ar": "عدد وأدوات", "value_en": "Tools", "sort_order": 3, "meta_json": "{\"account\": \"Miscellaneous Expenses\"}", "_source": "SP-122: custody expense types; meta account = the expense account"},
@@ -325,6 +328,8 @@
 			{"account_name": "Projects Revenue", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
 			{"account_name": "Showroom Sales", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
 			{"account_name": "Winch Income", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
+		{"account_name": "Storage Fee Income", "parent": "Indirect Income", "account_type": "Income Account", "kind": "Other", "_source": "SP-43: the storage-fee simple record"},
+		{"account_name": "Other Income", "parent": "Indirect Income", "account_type": "Income Account", "kind": "Other", "_source": "SP-43: a small income simple record"},
 			{"account_name": "Jumbo Income", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
 			{"account_name": "Storage Fees", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
 			{"account_name": "Advance Fees", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"}

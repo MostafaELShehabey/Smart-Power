@@ -111,6 +111,7 @@ Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
 Attach the receipt photo.,أرفق صورة الإيصال.
+Attachment,مرفق
 Audit Log,سجل التدقيق
 Available,المتاح
 B,B
@@ -240,6 +241,7 @@ Choose per event,اختر لكل حدث
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the account the money came into.,اختر الحساب الذي دخلت إليه الأموال.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
+Choose the center or the station.,اختر المركز أو المحطة.
 Choose the center.,اختر المركز.
 Choose the company warehouse the panels go to.,اختر مخزن الشركة الذي تذهب إليه الألواح.
 Choose the expense type.,اختر نوع المصروف.
@@ -533,6 +535,7 @@ Follow-up Owner,مسؤول المتابعة
 Following up,قيد المتابعة
 For,لصالح
 For a line with no item yet.,لسطر ليس له صنف بعد.
+For a station: its Projects center and its project follow.,للمحطة: يتبعها مركز المشروعات ومشروعها.
 For chassis templates: one per factory.,لقوالب الشاسيه: قالب لكل مصنع.
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
 "For full alternative quotes on the same case (A/B/C, SP-59).",للعروض البديلة الكاملة على نفس الحالة (A/B/C، SP-59).
@@ -770,7 +773,12 @@ Model,الموديل
 Module {0} is reserved for developer changes. Use {1}.,الموديول {0} محجوز لتعديلات المطور. استخدم {1}.
 Money,الأموال
 Money and Postings,الفلوس والقيود
+Money In,وارد
+"Money In: it came into the account. Money Out: it left it. None: a note only, nothing posts.",وارد: دخلت الحساب. صادر: خرجت منه. لا شيء: ملاحظة فقط، لا يُرحّل شيء.
 Money Kind,نوع المال
+Money moved: choose the account it moved through.,تحركت أموال: اختر الحساب الذي تحركت من خلاله.
+Money moved: enter the amount.,تحركت أموال: أدخل المبلغ.
+Money Out,صادر
 Money Records,سجلات الأموال
 Money remaining,مبلغ متبقٍ
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
@@ -1260,6 +1268,7 @@ Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (
 Set Counter,ضبط العداد
 Set Counter: {0},ضبط العداد: {0}
 Set the account of expense type {0} (Lists) or the Custody Expense row of the Account Map.,حدد حساب نوع المصروف {0} (القوائم) أو صف مصروف العهدة في خريطة الحسابات.
+Set the account of the type {0} in Lists (its meta: account).,حدد حساب النوع {0} في القوائم (البيانات الإضافية: account).
 Set the company to post to.,حدد الشركة للترحيل إليها.
 Set the Postal Cheque account of {0} (Mode of Payment).,حدد حساب الشيك البريدي لـ {0} (طريقة الدفع).
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
@@ -1287,7 +1296,10 @@ Showroom Center,مركز المعرض
 Showroom Deposit,إيداع المعرض
 "Showroom sales, cash box and showroom costs.",مبيعات المعرض والخزنة وتكاليف المعرض.
 Sign in first.,سجّل الدخول أولًا.
+Simple Record,سجل بسيط
+Simple record,سجل بسيط
 Simple Record Type,نوع التسجيل البسيط
+Simple Records,السجلات البسيطة
 Site,موقع
 Site Stage,مرحلة الموقع
 Site Survey,معاينة موقع
@@ -1387,6 +1399,7 @@ SP Showroom and Winch,مبيعات المعرض والونش
 SP Showroom Cashier,خزنة المعرض
 SP Showroom Sales,مبيعات المعرض
 SP Showroom Store Keeper,أمين مخزن المعرض
+SP Simple Record,سجل بسيط
 SP Site Receiver,استلام الموقع
 SP Site Survey,معاينة الموقع
 SP Station,المحطة
@@ -1474,6 +1487,7 @@ Test with Sample Inputs,تجربة بمدخلات نموذجية
 Text,النص
 Text Blocks,فقرات النص
 That many wrong passwords in a row lock the account until the admin unlocks it (SP-36).,هذا العدد من كلمات المرور الخاطئة المتتالية يقفل الحساب حتى يفتحه المدير (SP-36).
+The account {0} is not {1}'s.,الحساب {0} لا يخص {1}.
 The admin has been asked,تم إرسال الطلب للمدير
 The amount must be above zero.,يجب أن يكون المبلغ أكبر من صفر.
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
@@ -1670,10 +1684,12 @@ What the contract's instalments already due still lack (SP-81).,ما تبقى م
 WhatsApp,واتساب
 When,متى
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
+When it was entered; the date above is when it happened.,وقت الإدخال؛ التاريخ أعلاه هو وقت الحدوث.
 When the deposit was confirmed: the station's estimated cost is frozen then (SP-74).,عند تأكيد العربون: تُثبت التكلفة التقديرية للمحطة حينها.
 When the holder is not a system user.,عندما لا يكون الحائز مستخدمًا في النظام.
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
 Where a marketing request came from (X4 Lead Source list); required for the Marketing channel.,من أين جاء طلب التسويق (قائمة مصادر العملاء في X4)؛ مطلوب لقناة التسويق.
+"Where the money came in or went out (a bank, a cash box ...).",الحساب الذي دخلت إليه الأموال أو خرجت منه (بنك، خزنة ...).
 Where the panels physically are. This is not a stock warehouse: consignment never enters company stock.,مكان الألواح فعليًا. ليس مخزنًا في المخزون: الأمانة لا تدخل مخزون الشركة أبدًا.
 "Which side carries the document's project (the station), e.g. a station's cost on the debit side.",أي جانب يحمل مشروع المستند (المحطة)، مثل تكلفة المحطة في جانب المدين.
 Who,مَن
@@ -1762,6 +1778,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is not a quote print format.,{0} ليس نموذج طباعة للعروض.
 {0} is not a region. Pick a value from the Region list.,{0} ليست منطقة. اختر قيمة من قائمة المناطق.
 {0} is not a section of this quote. Discount a section or the quote total.,{0} ليس قسمًا في هذا العرض. اخصم على قسم أو على إجمالي العرض.
+{0} is not a simple record type.,{0} ليس نوع سجل بسيط.
 {0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
 {0} is not an open reservation on this container.,{0} ليس حجزًا مفتوحًا على هذه الحاوية.
