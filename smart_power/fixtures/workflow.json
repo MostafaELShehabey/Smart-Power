@@ -9,7 +9,7 @@
   "send_email_alert": 0,
   "enable_action_confirmation": 1,
   "workflow_state_field": "status",
-  "modified": "2026-11-11 12:30:00.000000",
+  "modified": "2026-11-17 03:00:00.000000",
   "docstatus": 0,
   "workflow_data": null,
   "states": [
@@ -319,6 +319,42 @@
     "allowed": "SP Admin",
     "allow_self_approval": 1,
     "condition": null,
+    "send_email_to_creator": 0
+   },
+   {
+    "doctype": "Workflow Transition",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Quote request",
+    "action": "Price Check Only",
+    "next_state": "Lost",
+    "allowed": "SP Lead Intake",
+    "allow_self_approval": 1,
+    "condition": "doc.lost_reason == 'Lost Reason-PRICE_CHECK_ONLY'",
+    "send_email_to_creator": 0
+   },
+   {
+    "doctype": "Workflow Transition",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Quote request",
+    "action": "Price Check Only",
+    "next_state": "Lost",
+    "allowed": "SP Customer Followup",
+    "allow_self_approval": 1,
+    "condition": "doc.lost_reason == 'Lost Reason-PRICE_CHECK_ONLY'",
+    "send_email_to_creator": 0
+   },
+   {
+    "doctype": "Workflow Transition",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Quote request",
+    "action": "Price Check Only",
+    "next_state": "Lost",
+    "allowed": "SP Admin",
+    "allow_self_approval": 1,
+    "condition": "doc.lost_reason == 'Lost Reason-PRICE_CHECK_ONLY'",
     "send_email_to_creator": 0
    }
   ]

@@ -21,6 +21,13 @@
   "request_notes",
   "column_break_request",
   "request_details",
+  "indicative_section",
+  "indicative_price",
+  "indicative_on",
+  "indicative_by",
+  "column_break_indicative",
+  "indicative_specs",
+  "indicative_template",
   "owners_section",
   "requested_by",
   "quote_creator",
@@ -49,9 +56,10 @@
    "fieldtype": "Link",
    "label": "Customer",
    "options": "Customer",
-   "reqd": 1,
    "in_standard_filter": 1,
-   "search_index": 1
+   "search_index": 1,
+   "mandatory_depends_on": "eval:doc.lost_reason!='Lost Reason-PRICE_CHECK_ONLY'",
+   "description": "Optional only on a case closed as a price check."
   },
   {
    "fieldname": "customer_name",
@@ -162,6 +170,51 @@
    "fieldtype": "JSON",
    "label": "Request Details",
    "description": "The answers to the system type's request fields."
+  },
+  {
+   "collapsible": 1,
+   "depends_on": "eval:doc.indicative_price",
+   "fieldname": "indicative_section",
+   "fieldtype": "Section Break",
+   "label": "Indicative Price"
+  },
+  {
+   "fieldname": "indicative_price",
+   "fieldtype": "Currency",
+   "label": "Indicative Price",
+   "read_only": 1,
+   "description": "The quick price given to the customer (IP1): the same template and engine as a quote, sale price only."
+  },
+  {
+   "fieldname": "indicative_on",
+   "fieldtype": "Datetime",
+   "label": "Indicative Price On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "indicative_by",
+   "fieldtype": "Link",
+   "options": "User",
+   "label": "Indicative Price By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_indicative",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "indicative_specs",
+   "fieldtype": "JSON",
+   "label": "Indicative Specs",
+   "read_only": 1,
+   "description": "The inputs the price was given for (e.g. HP, pump depth)."
+  },
+  {
+   "fieldname": "indicative_template",
+   "fieldtype": "Link",
+   "options": "SP Calc Template",
+   "label": "Indicative Template",
+   "read_only": 1
   },
   {
    "fieldname": "owners_section",
@@ -321,7 +374,7 @@
    "link_fieldname": "case"
   }
  ],
- "modified": "2026-11-14 23:30:00.000000",
+ "modified": "2026-11-17 03:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

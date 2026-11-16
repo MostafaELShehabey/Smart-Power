@@ -249,6 +249,7 @@ Choose the case this quote belongs to.,اختر الحالة التي يتبعه
 Choose the center or the station.,اختر المركز أو المحطة.
 Choose the center.,اختر المركز.
 Choose the company warehouse the panels go to.,اختر مخزن الشركة الذي تذهب إليه الألواح.
+Choose the customer.,اختر العميل.
 Choose the expense type.,اختر نوع المصروف.
 Choose the official account the fee was paid into.,اختر الحساب الرسمي الذي دُفعت فيه الرسوم.
 Choose the station or the case.,اختر المحطة أو الحالة.
@@ -628,6 +629,11 @@ In person,شخصيًا
 In settlement,في التسوية
 In the app,داخل البرنامج
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
+Indicative Price,السعر الاسترشادي
+Indicative Price By,السعر الاسترشادي بواسطة
+Indicative Price On,تاريخ السعر الاسترشادي
+Indicative Specs,مواصفات السعر الاسترشادي
+Indicative Template,قالب السعر الاسترشادي
 Indirect Pool Center,مركز التكاليف غير المباشرة
 Indirect Split,توزيع غير مباشر
 Individual,فرد
@@ -977,6 +983,7 @@ Optional,اختياري
 Optional additions (not included in the total),إضافات اختيارية (غير محسوبة في الإجمالي)
 Optional Lines,السطور الاختيارية
 Optional Lines (not in the total),السطور الاختيارية (خارج الإجمالي)
+Optional only on a case closed as a price check.,اختياري فقط في حالة أُغلقت كاستفسار عن السعر.
 Options,الاختيارات
 Or Into,أو إلى
 Order saved,تم حفظ الترتيب
@@ -1068,6 +1075,7 @@ Previous Version,النسخة السابقة
 Price,السعر
 Price (manual lines),السعر (السطور اليدوية)
 Price Category,فئة السعر
+Price Check Only,استفسار عن السعر فقط
 Price date,تاريخ السعر
 Price history: {0},سجل أسعار: {0}
 Price List,لستة الأسعار
@@ -1570,6 +1578,7 @@ The follow-up owner can give a discount on the total up to the limit in Smart Po
 "The follow-up owner can give a discount on the total up to the limit in Smart Power Settings; above it the discount is kept and the admin is flagged. There is no approval gate (decision 67), so it never blocks.",يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد في إعدادات سمارت باور؛ وفوقه يُحفظ الخصم ويُنبَّه المدير. لا توجد بوابة موافقة، لذا لا يمنع أبدًا.
 The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
 The holder's custody account after the approved expenses (carried amounts included).,حساب عهدة صاحبها بعد المصروفات الموافق عليها (شاملًا المُرحّل).
+"The inputs the price was given for (e.g. HP, pump depth).",المدخلات التي أُعطي السعر عليها (مثل القدرة بالحصان وعمق الغاطس).
 The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
 "The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
 The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
@@ -1595,6 +1604,7 @@ The person who holds this money; they see its balance. A channel's transit accou
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 the projects team,فريق المشروعات
 The quantity must be above zero.,يجب أن تكون الكمية أكبر من صفر.
+"The quick price given to the customer (IP1): the same template and engine as a quote, sale price only.",السعر السريع الذي أُعطي للعميل (IP1): نفس القالب ومحرك الحساب لعرض السعر، بسعر البيع فقط.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
@@ -1628,6 +1638,7 @@ The wage a log line starts with; it can be changed on the line.,اليومية �
 The winch line of the accepted quote: winch income and station cost when the job is done (SP-58).,بند الونش في العرض المقبول: إيراد ونش وتكلفة على المحطة عند تنفيذ المهمة (SP-58).
 There are no expenses to settle.,لا توجد مصروفات للتسوية.
 There is no published calculation template for this case's system type.,لا يوجد قالب حساب منشور لنوع نظام هذه الحالة.
+There is no published calculation template for this system type.,لا يوجد قالب حساب منشور لنوع النظام هذا.
 These codes match no item: {0},هذه الأكواد لا تطابق أي صنف: {0}
 This advance is repaid.,هذه السلفة مسددة.
 This customer is followed up by a colleague. Ask the admin to reassign them.,هذا العميل يتابعه زميل. اطلب من المدير نقله.
