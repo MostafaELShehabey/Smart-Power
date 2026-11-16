@@ -1,4 +1,5 @@
-"""Login (SP-36, G1): mobile or email; the lock after failed tries; the first-login password change."""
+"""Login (SP-36, G1): mobile or email, the lock after failed tries, the first-login password
+change, and Forgot password through the admin."""
 
 import frappe
 from frappe.auth import CookieManager, LoginManager
@@ -6,7 +7,14 @@ from frappe.tests import IntegrationTestCase
 from frappe.utils import set_request
 from werkzeug.routing import RequestRedirect
 
-from smart_power.sp_core.login import apply_login_settings, guard_first_login, unlock_login, update_password
+from smart_power.sp_core.login import (
+	apply_login_settings,
+	give_temporary_password,
+	guard_first_login,
+	request_password_reset,
+	unlock_login,
+	update_password,
+)
 from smart_power.tests.utils import set_setting
 
 PASSWORD = "Sp-36 login test 7391"  # a test value for this test user only
@@ -43,6 +51,7 @@ def make_login_user(email: str, mobile: str | None = None) -> str:
 def drop_user(email: str) -> None:
 	frappe.set_user("Administrator")
 	frappe.db.delete("Sessions", {"user": email})
+	frappe.db.delete("SP Password Reset Request", {"user": email})
 	frappe.delete_doc("User", email, force=True, ignore_permissions=True)
 	frappe.db.commit()
 
@@ -142,3 +151,45 @@ class TestFirstLogin(LoginCase):
 		user.new_password = "Admin given SP-36 phrase 6614"
 		user.save(ignore_permissions=True)
 		self.assertTrue(frappe.db.get_value("User", self.user, "sp_must_change_password"))
+
+
+class TestForgotPassword(LoginCase):
+	EMAIL = "sp.login.forgot@example.com"
+
+	def setUp(self):
+		super().setUp()
+		from smart_power.tests.utils import make_user
+
+		self.admin = make_user("sp.login.admin@example.com", ("admin",))
+		frappe.db.set_value("User", self.user, "sp_must_change_password", 0)
+		frappe.cache.delete_value("rl:request_password_reset")
+
+	def test_forgot_password_sends_a_request_to_the_admin_who_gives_a_temporary_password(self):
+		frappe.set_user("Guest")
+		request_password_reset(" " + MOBILE)  # by mobile, with stray spaces
+		request_password_reset(self.EMAIL)  # a second ask joins the open request
+		request_password_reset("nobody@example.com")  # an unknown account: the same answer
+		frappe.set_user("Administrator")
+		requests = frappe.get_all("SP Password Reset Request", {"user": self.user}, ["name", "status"])
+		self.assertEqual([r.status for r in requests], ["Open"])
+		self.assertTrue(
+			frappe.db.exists("Notification Log", {"for_user": self.admin, "document_name": requests[0].name})
+		)
+		frappe.db.set_value("User", self.user, {"sp_login_locked": 1, "sp_failed_logins": 5})
+		frappe.set_user(self.admin)
+		password = give_temporary_password(requests[0].name)
+		frappe.set_user("Administrator")
+		self.assertEqual(frappe.db.get_value("SP Password Reset Request", requests[0].name, "status"), "Done")
+		user = frappe.db.get_value(
+			"User", self.user, ["sp_login_locked", "sp_must_change_password"], as_dict=True
+		)
+		self.assertEqual((user.sp_login_locked, user.sp_must_change_password), (0, 1))
+		self.assertEqual(login(MOBILE, password), self.user)  # unlocked, signs in with it
+
+	def test_only_the_admin_gives_a_password(self):
+		frappe.set_user("Guest")
+		request_password_reset(self.EMAIL)
+		frappe.set_user(self.user)
+		name = frappe.db.get_value("SP Password Reset Request", {"user": self.user})
+		with self.assertRaises(frappe.PermissionError):
+			give_temporary_password(name)

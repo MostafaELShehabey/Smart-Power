@@ -34,8 +34,8 @@
 		"enable_telemetry": 0
 	},
 	"login": {
-		"_source": "SP-36 (G1): sign in with mobile or email; Frappe's password policy at score 2. The lock after failed tries is Smart Power's own (login_lock_attempts), not Frappe's timed lock.",
-		"system_settings": {"allow_login_using_mobile_number": 1, "enable_password_policy": 1, "minimum_password_score": "2"}
+		"_source": "SP-36 (G1): sign in with mobile or email; Frappe's password policy at score 2; no login by email link (no self-service email). The lock after failed tries is Smart Power's own (login_lock_attempts), not Frappe's timed lock.",
+		"system_settings": {"allow_login_using_mobile_number": 1, "enable_password_policy": 1, "minimum_password_score": "2", "login_with_email_link": 0}
 	},
 	"service_items": {
 		"_source": "SP-58: the special quote lines are non-stock service items, so they reach the contract; the line's own text replaces the name. The admin can rename them.",
@@ -295,7 +295,8 @@
 		{"key": "custody", "label_ar": "العهدة: تسليم وتسوية", "label_en": "Custody given or settled", "default_push": 1, "roles": "SP Custody Holder"},
 		{"key": "consignment_low", "label_ar": "حاوية أمانة قاربت على النفاد", "label_en": "Consignment container low", "default_push": 1, "roles": "SP Admin, SP Main Store Keeper"},
 		{"key": "review_comment", "label_ar": "تعليق مراجعة", "label_en": "Review comment", "default_push": 0, "roles": "SP Admin"},
-		{"key": "login_locked", "label_ar": "حساب مقفل بعد محاولات دخول خاطئة", "label_en": "Account locked after failed sign-ins", "default_push": 1, "roles": "SP Admin"}
+		{"key": "login_locked", "label_ar": "حساب مقفل بعد محاولات دخول خاطئة", "label_en": "Account locked after failed sign-ins", "default_push": 1, "roles": "SP Admin"},
+		{"key": "password_reset", "label_ar": "طلب إعادة تعيين كلمة المرور", "label_en": "Password reset request", "default_push": 1, "roles": "SP Admin"}
 	],
 	"cost_centers": {
 		"_source": "SP-27, decisions 34-36 and 39-41: five financial centers under the company group; each station is its Project, never a cost center",

@@ -8,10 +8,13 @@ password change at the first login.
   Frappe's timed cache lock, which would also lock a shared office IP.
 - A password someone else gave (a new user, the admin's reset) must be changed at the first
   login: until then every page leads to /update-password and the API refuses.
+- Forgot password (email or mobile) sends a request to the admin, never an email: the admin
+  gives a temporary password from the request, which also unlocks the account.
 """
 
 import frappe
 from frappe import _
+from frappe.rate_limiter import rate_limit
 from frappe.utils import cint
 
 from smart_power.sp_core.setup.seed import defaults
@@ -175,3 +178,75 @@ def update_password(
 		frappe.db.set_value("User", user, "sp_must_change_password", 0)
 		frappe.clear_document_cache("User", user)
 	return result
+
+
+# --- Forgot password: a request to the admin --------------------------------------------------
+
+RESET_REQUEST = "SP Password Reset Request"
+RESET_LIMIT, RESET_WINDOW = 5, 60 * 60  # sp-allow-number: requests per hour from one address
+GROUP, GROUPS = 4, 3  # sp-allow-number: the temporary password's shape (3 groups of 4)
+
+
+# Guest: the login page's Forgot password, before anyone is signed in; rate-limited.
+@frappe.whitelist(allow_guest=True, methods=["POST"])  # nosemgrep
+@rate_limit(limit=RESET_LIMIT, seconds=RESET_WINDOW)
+def request_password_reset(user: str) -> None:
+	"""Forgot password (email or mobile): a request to the admin, who gives a temporary password.
+
+	The answer is the same whether or not the account exists, so it tells nothing about it."""
+	name = find_user((user or "").strip())
+	if name and name not in frappe.STANDARD_USERS and frappe.db.get_value("User", name, "enabled"):
+		open_request = frappe.db.exists(RESET_REQUEST, {"user": name, "status": "Open"})
+		if not open_request:
+			doc = frappe.get_doc(
+				{
+					"doctype": RESET_REQUEST,
+					"user": name,
+					"typed": user,
+					"requested_on": frappe.utils.now_datetime(),
+				}
+			).insert(ignore_permissions=True)
+			_notify_reset(doc)
+	frappe.msgprint(
+		_("Your request was sent to the admin, who will give you a new password."),
+		title=_("Forgot password"),
+	)
+
+
+def _notify_reset(doc) -> None:
+	from smart_power.notify import send
+	from smart_power.sp_sales.quote_request import _users_with
+
+	admins = {u for role in ADMIN_ROLES for u in _users_with(role)} - {"Administrator"}
+	subject = _("{0} forgot their password.").format(frappe.utils.get_fullname(doc.user))
+	send("password_reset", admins, RESET_REQUEST, doc.name, subject)
+
+
+@frappe.whitelist(methods=["POST"])
+def give_temporary_password(request: str) -> str:
+	"""The admin gives a temporary password: the account is unlocked, the user changes the password
+	at their next sign-in. The password is returned once, for the admin to pass on."""
+	if frappe.session.user != "Administrator" and not set(ADMIN_ROLES) & set(frappe.get_roles()):
+		frappe.throw(_("Only the admin resets a password."), frappe.PermissionError)
+	doc = frappe.get_doc(RESET_REQUEST, request)
+	if doc.status != "Open":
+		frappe.throw(_("This request is already handled."))
+	password = temporary_password()
+	user = frappe.get_doc("User", doc.user)
+	user.new_password = password  # given by the admin: Must Change Password follows (set_must_change)
+	user.sp_login_locked, user.sp_failed_logins = 0, 0
+	user.save(ignore_permissions=True)
+	doc.db_set(
+		{"status": "Done", "handled_by": frappe.session.user, "handled_on": frappe.utils.now_datetime()}
+	)
+	return password
+
+
+def temporary_password() -> str:
+	"""Readable and strong enough for the password policy: e.g. Sp-4kq9-x2mf-7tbw."""
+	import secrets
+	import string
+
+	alphabet = string.ascii_lowercase + string.digits
+	groups = ("".join(secrets.choice(alphabet) for _i in range(GROUP)) for _g in range(GROUPS))
+	return "Sp-" + "-".join(groups)

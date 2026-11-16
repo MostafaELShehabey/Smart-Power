@@ -14,6 +14,8 @@ required_apps = ["frappe", "erpnext"]
 # Desk shell (SP-22): theme and font. Business logic never lives in client scripts.
 app_include_css = ["/assets/smart_power/css/sp_theme.css"]
 web_include_css = ["/assets/smart_power/css/sp_theme.css"]
+# The login page's Forgot password: email or mobile, a request to the admin (SP-36)
+web_include_js = ["/assets/smart_power/js/sp_login.js"]
 # Display formats only (12-hour clock with ص/م); stored values are unchanged.
 app_include_js = [
 	"/assets/smart_power/js/sp_locale.js",
@@ -284,6 +286,8 @@ extend_doctype_class = {"Quotation": ["smart_power.sp_sales.quotation_class.SPQu
 override_whitelisted_methods = {
 	# a changed password clears Must Change Password (SP-36)
 	"frappe.core.doctype.user.user.update_password": "smart_power.sp_core.login.update_password",
+	# Forgot password goes to the admin, never an email (SP-36)
+	"frappe.core.doctype.user.user.reset_password": "smart_power.sp_core.login.request_password_reset",
 	"erpnext.controllers.accounts_controller.update_child_qty_rate": (
 		"smart_power.sp_sales.quotation.update_child_qty_rate"
 	),
