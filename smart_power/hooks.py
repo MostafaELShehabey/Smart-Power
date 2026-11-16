@@ -91,6 +91,8 @@ doctype_list_js = {
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
 role_home_page = {role: "sp-field" for role in LIGHT_ENTRY_ROLES}
 before_request = ["smart_power.sp_core.web.redirect_light_users"]
+# Login (SP-36): a mobile typed in any form finds the user
+before_login = ["smart_power.sp_core.login.before_login"]
 
 # Install and migrate
 after_install = "smart_power.sp_core.setup.install.after_install"
@@ -190,7 +192,11 @@ doc_events = {
 		"on_cancel": "smart_power.sp_stations.money.on_payment",
 	},
 	# Ticked on the User form: the person's transit / custody account is made (SP-26)
-	"User": {"on_update": "smart_power.sp_finance.accounts.on_user_update"},
+	"User": {
+		# the mobile in its local form, for mobile login (SP-36)
+		"validate": "smart_power.sp_core.login.validate_user",
+		"on_update": "smart_power.sp_finance.accounts.on_user_update",
+	},
 	# Price list (SP-30): every price has a date and buying prices a supplier.
 	"Item Price": {"validate": "smart_power.sp_stock.prices.validate_item_price"},
 	# Warehouses by location (SP-28): one site warehouse per station.

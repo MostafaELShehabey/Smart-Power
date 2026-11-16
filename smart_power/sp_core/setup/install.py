@@ -35,6 +35,9 @@ def after_install() -> None:
 	station_masters()  # and the SP Station workflow's (SP-73)
 	apply_locale()
 	apply_branding()
+	from smart_power.sp_core.login import apply_login_settings
+
+	apply_login_settings()  # SP-36
 	seed_list_values()
 	seed_request_fields()
 	seed_settings()
