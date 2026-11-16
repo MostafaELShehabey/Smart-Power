@@ -3,9 +3,14 @@ password change at the first login.
 
 - A user signs in with their email or their mobile (01xxxxxxxxx, also typed as +20 or 0020).
   The mobile is stored in that local form, so it matches; Frappe keeps it unique.
+- Failed sign-ins are counted on the user; Login Lock Attempts (5) in a row lock the account
+  until the admin unlocks it, and the admins get an alert. The lock is kept on the user, not
+  Frappe's timed cache lock, which would also lock a shared office IP.
 """
 
 import frappe
+from frappe import _
+from frappe.utils import cint
 
 from smart_power.sp_core.setup.seed import defaults
 from smart_power.sp_sales.customer import is_valid_mobile, normalize_mobile
@@ -32,7 +37,75 @@ def login_name(value: str | None) -> str | None:
 
 
 def before_login(login_manager=None) -> None:
-	"""before_login: a mobile typed as +20 or with spaces still finds the user."""
+	"""before_login: a mobile typed as +20 or with spaces still finds the user; a locked account
+	is refused before its password is even checked."""
 	usr = frappe.form_dict.get("usr")
 	if usr:
 		frappe.form_dict.usr = login_name(usr)
+		check_not_locked(frappe.form_dict.usr)
+
+
+# --- the lock after failed tries ---------------------------------------------------------------
+
+LOCK_SETTING, LOCK_DEFAULT = "login_lock_attempts", 5  # sp-allow-number: the seed's value, if unset
+ADMIN_ROLES = ("SP Admin", "System Manager")
+
+
+def lock_attempts() -> int:
+	from smart_power.sp_core.services.settings import get_value
+
+	return cint(get_value(LOCK_SETTING, LOCK_DEFAULT)) or LOCK_DEFAULT
+
+
+def find_user(login: str | None) -> str | None:
+	"""The user an email or mobile signs in as."""
+	if not login:
+		return None
+	return frappe.db.get_value("User", login) or frappe.db.get_value("User", {"mobile_no": login_name(login)})
+
+
+def check_not_locked(login: str | None) -> None:
+	user = find_user(login)
+	if user and frappe.db.get_value("User", user, "sp_login_locked"):
+		frappe.throw(_("Account locked — contact the admin"), frappe.AuthenticationError)
+
+
+def on_failed_login(doc, method=None) -> None:
+	"""Activity Log after_insert: a failed sign-in counts; that many in a row lock the account."""
+	if doc.operation != "Login" or doc.status != "Failed":
+		return
+	user = doc.user
+	if not user or user in frappe.STANDARD_USERS or not frappe.db.exists("User", user):
+		return
+	failed = cint(frappe.db.get_value("User", user, "sp_failed_logins")) + 1
+	values = {"sp_failed_logins": failed}
+	locked = failed >= lock_attempts() and not frappe.db.get_value("User", user, "sp_login_locked")
+	if locked:
+		values["sp_login_locked"] = 1
+	frappe.db.set_value("User", user, values, update_modified=False)
+	if locked:
+		_alert_admins(user, failed)
+
+
+def _alert_admins(user: str, failed: int) -> None:
+	from smart_power.notify import send
+	from smart_power.sp_sales.quote_request import _users_with
+
+	admins = {u for role in ADMIN_ROLES for u in _users_with(role)} - {"Administrator"}
+	subject = _("{0} is locked after {1} failed sign-ins.").format(frappe.utils.get_fullname(user), failed)
+	send("login_locked", admins, "User", user, subject)
+
+
+def on_login(login_manager=None) -> None:
+	"""on_login: a successful sign-in clears the failed count."""
+	user = getattr(login_manager, "user", None) or frappe.session.user
+	if user and cint(frappe.db.get_value("User", user, "sp_failed_logins")):
+		frappe.db.set_value("User", user, "sp_failed_logins", 0, update_modified=False)
+
+
+@frappe.whitelist(methods=["POST"])
+def unlock_login(user: str) -> None:
+	"""The admin unlocks an account locked by failed sign-ins."""
+	if frappe.session.user != "Administrator" and not set(ADMIN_ROLES) & set(frappe.get_roles()):
+		frappe.throw(_("Only the admin unlocks an account."), frappe.PermissionError)
+	frappe.db.set_value("User", user, {"sp_login_locked": 0, "sp_failed_logins": 0})

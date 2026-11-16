@@ -49,6 +49,7 @@ Abnormal,غير طبيعي
 Abnormal flags,التنبيهات غير الطبيعية
 Accepted Quotation,العرض المعتمد
 Account,الحساب
+Account locked — contact the admin,الحساب مقفل — تواصل مع المدير
 Account Map,خريطة الحسابات
 Account {0} is not an account of {1}.,الحساب {0} ليس من حسابات {1}.
 Action,الإجراء
@@ -456,6 +457,8 @@ Expires In,ينتهي خلال
 Extra Data,بيانات إضافية
 "Extra settings for this value as JSON, e.g. the calculation template of a system type.",إعدادات إضافية لهذه القيمة بصيغة JSON، مثل قالب الحساب لنوع النظام.
 Factory,المصنع
+Failed Sign-ins,محاولات الدخول الفاشلة
+Failed sign-ins since the last successful one.,محاولات الدخول الفاشلة منذ آخر دخول ناجح.
 Featured,مميز
 Fee,العمولة
 Fee Entry,قيد العمولة
@@ -650,7 +653,10 @@ Loads,الأحمال
 Location,الموقع
 Location and Payment,الموقع وطريقة الدفع
 Location Pin,تحديد الموقع على الخريطة
+Lock Login After (failed tries),قفل الدخول بعد (محاولات خاطئة)
 Locked,مقفل
+Locked after too many failed sign-ins (SP-36). Only the admin unlocks it.,مقفل بعد محاولات دخول خاطئة كثيرة (SP-36). المدير فقط يفتحه.
+Locked after {0} failed sign-ins. Only the admin unlocks it.,مقفل بعد {0} محاولات دخول خاطئة. المدير فقط يفتحه.
 Locked BTC price,سعر BTC مقفل
 Locked for quote creators.,مقفل على أصحاب العروض.
 Locked line,سطر مقفل
@@ -659,6 +665,7 @@ Log call,تسجيل مكالمة
 Log Cheque,تسجيل شيك
 Log out,تسجيل الخروج
 Logged By,سجّلها
+Login Locked,الدخول مقفل
 Logo,الشعار
 Logo and Stamp,الشعار والختم
 Lost,خسارة
@@ -848,6 +855,7 @@ Only the admin or bank financing records an advance.,المدير أو التم�
 Only the admin or purchasing withdraws from consignment.,المدير أو المشتريات فقط يسحب من الأمانة.
 Only the admin or the accountant records a storage fee.,المدير أو المحاسب فقط يسجّل رسوم التخزين.
 Only the admin records a write-off.,فقط المدير يسجل الشطب.
+Only the admin unlocks an account.,المدير فقط يفتح الحساب المقفل.
 Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
 "Only the case's follow-up owner, its quote creator or the admin can give a discount.",فقط مسئول متابعة الحالة أو معد العرض أو المدير يمكنه إعطاء خصم.
@@ -1369,6 +1377,7 @@ Terms Note,ملاحظة الشروط
 Test with Sample Inputs,تجربة بمدخلات نموذجية
 Text,النص
 Text Blocks,فقرات النص
+That many wrong passwords in a row lock the account until the admin unlocks it (SP-36).,هذا العدد من كلمات المرور الخاطئة المتتالية يقفل الحساب حتى يفتحه المدير (SP-36).
 The admin has been asked,تم إرسال الطلب للمدير
 The amount must be above zero.,يجب أن يكون المبلغ أكبر من صفر.
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
@@ -1506,6 +1515,8 @@ Unknown list {0}.,قائمة غير معروفة {0}.
 Unknown notification event {0}.,حدث إشعار غير معروف {0}.
 Unknown owner {0}.,مسؤول غير معروف {0}.
 Unknown review tab {0}.,تبويب مراجعة غير معروف {0}.
+Unlock Login,فتح الدخول
+Unlocked,تم الفتح
 Unpaid - overdue,غير مسددة - متأخرة
 Unpaid advance,سلفة غير مسددة
 Unpublish,إلغاء النشر
@@ -1630,6 +1641,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is already used up to {1}: the counter cannot go below {1}.,{0} مستخدم حتى الرقم {1}: لا يمكن أن يقل العداد عن {1}.
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.
+{0} is locked after {1} failed sign-ins.,تم قفل حساب {0} بعد {1} محاولات دخول خاطئة.
 {0} is locked: its markup cannot change.,{0} مقفل: لا يمكن تغيير نسبة الربح.
 {0} is neither an official account nor your own transit account.,{0} ليس حسابًا رسميًا ولا حساب العهدة الخاص بك.
 {0} is not a call result.,{0} ليست نتيجة مكالمة.

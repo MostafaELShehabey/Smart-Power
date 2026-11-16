@@ -42,3 +42,4 @@ smart_power.patches.sp33_worker_skills
 smart_power.patches.sp165_group_codes
 smart_power.patches.sp58_service_items
 smart_power.patches.sp36_login_settings
+smart_power.patches.sp36_login_lock

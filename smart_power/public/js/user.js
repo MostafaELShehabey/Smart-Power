@@ -25,3 +25,18 @@ frappe.ui.form.on("User", {
 		}
 	},
 });
+
+// SP-36: an account locked by failed sign-ins; only the admin unlocks it.
+frappe.ui.form.on("User", {
+	refresh(frm) {
+		if (frm.is_new() || !frm.doc.sp_login_locked) return;
+		frm.set_intro(__("Locked after {0} failed sign-ins. Only the admin unlocks it.", [frm.doc.sp_failed_logins]), "red");
+		const admin = ["SP Admin", "System Manager"].some((r) => frappe.user.has_role(r));
+		if (!admin) return;
+		frm.add_custom_button(__("Unlock Login"), async () => {
+			await frappe.xcall("smart_power.sp_core.login.unlock_login", { user: frm.doc.name });
+			frappe.show_alert({ message: __("Unlocked"), indicator: "green" });
+			frm.reload_doc();
+		});
+	},
+});
