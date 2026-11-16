@@ -827,7 +827,9 @@ New Option,خيار جديد
 New Password,كلمة المرور الجديدة
 New price,السعر الجديد
 New Quote Request,طلب عرض سعر جديد
+New quote request,طلب عرض سعر جديد
 New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
+New simple record,سجل بسيط جديد
 New Transfer,تحويل جديد
 New Value,القيمة الجديدة
 New value,القيمة الجديدة
@@ -861,12 +863,15 @@ No notifications yet.,لا توجد إشعارات بعد.
 No numbers for your work yet.,لا توجد أرقام لعملك بعد.
 No open custody.,لا توجد عهدة مفتوحة.
 No open requests here.,لا توجد طلبات مفتوحة هنا.
+No payments yet,لا توجد مدفوعات
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 No quote yet.,لا يوجد عرض بعد.
+No requests yet,لا توجد طلبات
 No roles,لا توجد صلاحيات
 No sent quote yet.,لم يُرسل عرض بعد.
+No simple records yet,لا توجد سجلات بسيطة
 No stations are assigned to you.,لا توجد محطات مسندة لك
 no value changed,لم تتغير أي قيمة
 No.,رقم
@@ -875,6 +880,7 @@ Normal,عادي
 Nos,عدد
 Not allowed,غير مسموح
 "Not balanced: debit {0}, credit {1}, difference {2}",غير متوازن: المدين {0}، الدائن {1}، الفرق {2}
+Not found,غير موجود
 Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
 Not read yet,غير مقروءة
 Not sent,لم يُرسل
@@ -1150,9 +1156,12 @@ Receives Customer Money,يستلم أموال العملاء
 Receiving Account,الحساب المستلم
 Reconcile,مطابقة
 Record,السجل
+Record a payment,سجّل دفعة
+"Record a storage fee, a small income or a one-off expense.",سجّل رسوم تخزين أو إيرادًا صغيرًا أو مصروفًا لمرة واحدة.
 Record Deposit,تسجيل عربون
 Record Payment,تسجيل دفعة
 Record the Agri Bank advance for station {0} ({1}),سجّل سلفة البنك الزراعي للمحطة {0} ({1})
+Record the first payment.,سجّل أول دفعة.
 Record Write-off,تسجيل شطب
 Recorded,المسجل
 Recorded By,سجّلها
@@ -1485,6 +1494,7 @@ System Types,أنواع الأنظمة
 Systems,الأنظمة
 Take,استلام
 Take Request,استلام الطلب
+Take the first quote request.,استلم أول طلب عرض سعر.
 Taken by {0},أخذه {0}
 Task Type,نوع المهمة
 Tax Card,البطاقة الضريبية
@@ -1601,6 +1611,7 @@ The wage a log line starts with; it can be changed on the line.,اليومية �
 The winch line of the accepted quote: winch income and station cost when the job is done (SP-58).,بند الونش في العرض المقبول: إيراد ونش وتكلفة على المحطة عند تنفيذ المهمة (SP-58).
 There are no expenses to settle.,لا توجد مصروفات للتسوية.
 There is no published calculation template for this case's system type.,لا يوجد قالب حساب منشور لنوع نظام هذه الحالة.
+These codes match no item: {0},هذه الأكواد لا تطابق أي صنف: {0}
 This advance is repaid.,هذه السلفة مسددة.
 This customer is followed up by a colleague. Ask the admin to reassign them.,هذا العميل يتابعه زميل. اطلب من المدير نقله.
 This customer is followed up by {0}. Ask the admin to reassign them.,هذا العميل يتابعه {0}. اطلب من المدير نقله.
@@ -1816,6 +1827,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is required for this system type.,{0} مطلوب لهذا النوع من الأنظمة.
 {0} is required.,{0} مطلوب.
 "{0} is used by {1} {2}, so it cannot be deleted. Untick Active to hide it from pickers instead.",{0} مستخدمة في {1} {2} ولا يمكن حذفها. ألغِ علامة فعال لإخفائها من الاختيارات بدلاً من ذلك.
+{0} lines added,تمت إضافة {0} بند
 {0} marked reviewed.,تم تمييز {0} كمُراجعة.
 {0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
 "{0} must be an official account (a bank, the Post, InstaPay …).",يجب أن يكون {0} حسابًا رسميًا (بنك، البريد، إنستاباي …).
