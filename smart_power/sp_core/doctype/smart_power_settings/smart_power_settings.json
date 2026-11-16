@@ -38,6 +38,7 @@
   "cheque_due_lead_days",
   "cheque_auto_confirm",
   "installment_due_lead_days",
+  "consignment_low_balance",
   "large_payment_threshold",
   "column_break_cash",
   "field_entry_lock_days",
@@ -320,13 +321,19 @@
    "options": "Cost Center",
    "label": "Indirect Pool Center",
    "description": "Salaries, rent and general costs; split into stations monthly (SP-124)."
+  },
+  {
+   "fieldname": "consignment_low_balance",
+   "fieldtype": "Int",
+   "label": "Consignment Low Balance (panels)",
+   "description": "A consignment container at or under this many panels alerts the admin and the main store keeper (SP-91)."
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-17 14:00:00.000000",
+ "modified": "2026-11-18 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

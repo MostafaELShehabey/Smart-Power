@@ -9,6 +9,7 @@ A cancelled quote cannot be sent.,لا يمكن إرسال عرض ملغى.
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
 A closed station cannot be cancelled.,لا يمكن إلغاء محطة مغلقة.
 A collection call on a station (SP-81).,مكالمة تحصيل على محطة.
+A consignment container at or under this many panels alerts the admin and the main store keeper (SP-91).,حاوية الأمانة عند هذا العدد من الألواح أو أقل تنبّه المدير وأمين المخزن الرئيسي.
 A customer payment above this amount is flagged to the admin when it is recorded (SP-114).,دفعة العميل فوق هذا المبلغ تُنبَّه للمدير عند تسجيلها.
 "A deposit is received by Smart Power, not paid to a third party.",العربون تستلمه سمارت باور، ولا يُدفع لطرف ثالث.
 A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسبة.
@@ -28,6 +29,8 @@ A reason is needed,مطلوب سبب
 A reason is needed to change a counter.,تغيير العداد يحتاج سببًا.
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
+A reservation cannot clear another reservation.,الحجز لا يصفّي حجزًا آخر.
+A reservation is Open until handed over (Cleared) or cancelled.,الحجز مفتوح حتى يُسلَّم (تمت تصفيته) أو يُلغى.
 A sent version cannot be cancelled. Make a new version instead.,لا يمكن إلغاء نسخة مُرسلة. اعمل نسخة جديدة بدلاً من ذلك.
 A settlement needs at least one expense.,التسوية تحتاج مصروفًا واحدًا على الأقل.
 A site survey is already asked for this request.,تم طلب معاينة الموقع لهذا الطلب بالفعل.
@@ -101,6 +104,7 @@ Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
 Attach the receipt photo.,أرفق صورة الإيصال.
+Available,المتاح
 B,B
 Balance,الرصيد
 Balanced: debit {0} = credit {1},متوازن: المدين {0} = الدائن {1}
@@ -211,11 +215,13 @@ Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبل�
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose Arabic or English.,اختر العربية أو الإنجليزية.
 Choose per event,اختر لكل حدث
+"Choose Reserve, Hand over or Return to supplier.",اختر حجز أو تسليم أو إرجاع للمورد.
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the account the money came into.,اختر الحساب الذي دخلت إليه الأموال.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
 Choose the center.,اختر المركز.
 Choose the expense type.,اختر نوع المصروف.
+Choose the official account the fee was paid into.,اختر الحساب الرسمي الذي دُفعت فيه الرسوم.
 Choose the station or the case.,اختر المحطة أو الحالة.
 "Choose the station, or the case for a deposit before the station exists.",اختر المحطة، أو الحالة لعربون قبل وجود المحطة.
 Choose the station.,اختر المحطة.
@@ -223,6 +229,7 @@ Choose the system type first.,اختر نوع النظام أولاً.
 Choose two different accounts.,اختر حسابين مختلفين.
 "Choose where the expense lands: a station, a center or petty cash.",اختر أين يُحمّل المصروف: محطة أو مركز أو نثريات.
 Clear,مسح
+Cleared,تمت تصفيته
 Click to change,اضغط للتغيير
 Client ID,معرّف التطبيق
 Close Financially,إغلاق مالي
@@ -246,6 +253,7 @@ Company,شركة
 Company {0} has no account group {1}.,الشركة {0} ليس لديها مجموعة الحسابات {1}.
 Company {0} has no cost center group.,الشركة {0} ليس لها مجموعة مراكز تكلفة.
 Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
+Company {0} has no {1} account.,الشركة {0} ليس لها حساب {1}.
 Completed By,تم بواسطة
 Completed On,تم في
 Confirm,تأكيد
@@ -266,9 +274,13 @@ Confirmed.,تم التأكيد.
 Confirmed: transfer of {0},تم التأكيد: تحويل {0}
 Confirmed: {0} from {1},تم التأكيد: {0} من {1}
 Confirming,جارٍ التأكيد
+Consignment container {0} ({1}) is down to {2} panels,حاوية الأمانة {0} ({1}) بقي بها {2} لوح
 Consignment Conversion,تحويل أمانة
 Consignment conversions,تحويلات الأمانة
+Consignment Low Balance (panels),حد انخفاض رصيد الأمانة (ألواح)
 Consignment Owner,صاحب أمانة
+Container,الحاوية
+Container No.,رقم الحاوية
 Contract,العقد
 Contract (Sales Order),العقد (أمر البيع)
 Contract Date,تاريخ العقد
@@ -319,6 +331,7 @@ Customer Name,اسم العميل
 Customer payment,دفعة عميل
 Customer Payment,دفعة العميل
 Customer payment {0},دفعة عميل {0}
+Customer Phone,تليفون العميل
 Customer Statement,كشف حساب العميل
 Customer {0} paid {1} directly ({2}),العميل {0} دفع لـ {1} مباشرة ({2})
 Data,نص
@@ -334,6 +347,7 @@ Debit Center,مركز المدين
 Debit Cost Center,مركز تكلفة المدين
 Debit side,جانب المدين
 Decision,القرار
+Deducted from the supplier's balance,خصم من رصيد المورد
 Default,الافتراضي
 Default Cost,التكلفة الافتراضية
 Default Item,الصنف الافتراضي
@@ -382,6 +396,7 @@ E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Edit,تعديل
 Edits with reason,التعديلات بسبب
 "Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
+Empty,فارغة
 Empty for a deposit before the station exists: then the case.,فارغ لعربون قبل وجود المحطة: وحينها الحالة.
 Empty goes back to the template.,اتركه فارغًا للرجوع لقيمة القالب.
 Empty means all offer types.,فارغ يعني كل أنواع العروض.
@@ -394,6 +409,7 @@ Empty uses the published template of the case's system type.,اتركه فارغ
 Enter at least one price.,أدخل سعراً واحداً على الأقل.
 "Enter the amount repaid, the fee, or both.",أدخل المبلغ المسدد أو العمولة أو كليهما.
 Enter the customer's name: this mobile is new.,اكتب اسم العميل: هذا الموبايل جديد.
+Enter the pallets and the panels per pallet.,أدخل عدد البالتات وعدد الألواح في كل بالتة.
 Entered At,وقت الإدخال
 Entry it will post,القيد الذي سيُرحّل
 Entry Mode,طريقة التسجيل
@@ -460,6 +476,7 @@ Follow-up Call,مكالمة متابعة
 Follow-up Call After (days),مكالمة المتابعة بعد (أيام)
 Follow-up Owner,مسؤول المتابعة
 Following up,قيد المتابعة
+For,لصالح
 For a line with no item yet.,لسطر ليس له صنف بعد.
 For chassis templates: one per factory.,لقوالب الشاسيه: قالب لكل مصنع.
 "For example: Kharga head office, Al-Muneera branch.",مثلاً: المقر الرئيسي بالخارجة، فرع المنيرة.
@@ -491,6 +508,9 @@ Given On,تاريخ الإعطاء
 Given {0} on {1},سُلّمت {0} في {1}
 Hand cheque {0} to the lawyer?,تسليم الشيك {0} للمحامي؟
 Hand over,تسليم
+Hand Over,تسليم
+Handed Over,المسلَّم
+"Handed over on behalf of {0}, from goods kept with Smart Power on consignment.",سُلّمت نيابةً عن {0}، من بضاعة الأمانة المحفوظة لدى سمارت باور.
 Has Overdue,عليها متأخرات
 Head (m),الرفع (متر)
 head_m,الرفع (متر)
@@ -550,6 +570,7 @@ Job Type,نوع الشغلانة
 Journal Entry,قيد يومية
 Jumbo car jobs and costs.,شغل وتكاليف عربية الجامبو.
 Jumbo Center,مركز الجامبو
+Kept At,مكان الحفظ
 Key,المفتاح
 Key Data,البيانات الأساسية
 Kind,النوع
@@ -612,6 +633,7 @@ Logo and Stamp,الشعار والختم
 Lost,خسارة
 Lost Note,ملاحظة الخسارة
 Lost Reason,سبب الخسارة
+Low,منخفض
 Made when the station opens; the station's accounting dimension.,يُنشأ عند فتح المحطة؛ وهو البُعد المحاسبي للمحطة.
 Main,رئيسي
 Main Supplier,المورد الرئيسي
@@ -668,6 +690,9 @@ Money and Postings,الفلوس والقيود
 Money Kind,نوع المال
 Money remaining,مبلغ متبقٍ
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
+More has left this container than it received.,خرج من هذه الحاوية أكثر مما استلمت.
+Move,حركة
+Movement,الحركة
 MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
 My cash,نقديتي
@@ -676,6 +701,7 @@ My Custody,عهدتي
 My custody and cash held,عهدتي والنقدية التي معي
 My Profile,ملفي
 Name,الاسم
+Name the customer or the station.,اذكر اسم العميل أو المحطة.
 Name the third party the customer paid.,اذكر الطرف الثالث الذي دفع له العميل.
 "Names starting with ""{0}"" are reserved for developer records. Choose another name.","الأسماء التي تبدأ بـ ""{0}"" محجوزة لسجلات المطور. اختر اسماً آخر."
 Nearest 10,أقرب 10
@@ -742,9 +768,11 @@ Nothing waiting for confirmation.,لا شيء في انتظار التأكيد.
 Notification Preferences,تفضيلات الإشعارات
 Notifications,الإشعارات
 of,من
+Of a reservation: handed over so far.,للحجز: ما سُلّم حتى الآن.
 Off,متوقف
 Offer Type,نوع العرض
 Official,رسمي
+Official Account,الحساب الرسمي
 Official accounts,الحسابات الرسمية
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: cash one person or channel holds until it reaches an official account. Custody: the custody given to a person (SP-26).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة نقدية: نقدية يحملها شخص أو قناة حتى تصل لحساب رسمي. عهدة: العهدة المعطاة لشخص.
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: the money one person holds until it reaches an official account (SP-114, SP-116).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة: المال الذي يحمله شخص حتى يصل لحساب رسمي.
@@ -779,6 +807,7 @@ Only the admin gives custody.,المدير فقط يسلّم العهدة.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
 Only the admin or bank financing changes an advance.,المدير أو التمويل البنكي فقط يعدّل السلفة.
 Only the admin or bank financing records an advance.,المدير أو التمويل البنكي فقط يسجّل السلفة.
+Only the admin or the accountant records a storage fee.,المدير أو المحاسب فقط يسجّل رسوم التخزين.
 Only the admin records a write-off.,فقط المدير يسجل الشطب.
 Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
 "Only the case's follow-up owner, its quote creator or the admin can approve a version.",فقط مسؤول متابعة الحالة أو معد العرض أو الأدمن يمكنه اعتماد نسخة.
@@ -788,6 +817,7 @@ Only the contracts manager or the admin makes the contract.,فقط مسئول ا
 Only the quote creator and the cost roles price a quote.,تسعير العرض لمُعدّ العرض وأدوار التكلفة فقط.
 Only the station's collection owner logs its calls.,مسئول تحصيل المحطة فقط يسجّل مكالماتها.
 Only {0} is outstanding on this advance.,المتبقي على هذه السلفة {0} فقط.
+Only {0} panels are available in {1} ({2} reserved).,المتاح {0} لوح فقط في {1} ({2} محجوز).
 Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
@@ -824,10 +854,14 @@ Paid,المدفوع
 Paid (allocated),المدفوع (الموزع)
 Paid (confirmed),المدفوع (المؤكد)
 Paid From,مدفوعة من
+Paid into an official account,مدفوعة في حساب رسمي
 Paid On,تاريخ الدفع
 Paid to a Third Party,مدفوع لطرف ثالث
+Pallets,البالتات
 Panel Specs,مواصفات اللوح
+Panels per Pallet,ألواح في البالتة
 Parent Value,القيمة الأم
+Part of this reservation was handed over; cancel that hand-over first.,سُلّم جزء من هذا الحجز؛ ألغِ التسليم أولًا.
 Partly repaid,مسددة جزئيًا
 Pass-through,بسعر التكلفة
 Password changed,تم تغيير كلمة المرور
@@ -909,6 +943,7 @@ Pump Specs,مواصفات الطلمبة
 Purchase for station {0},شراء للمحطة {0}
 Purchase Order,أمر الشراء
 Purchase orders sent,أوامر الشراء المرسلة
+Purchase Receipt,إيصال الشراء
 Purchasing,قيد الشراء
 Push by Default,إرسال للموبايل افتراضيًا
 Push Settings,إعدادات الموبايل
@@ -916,6 +951,8 @@ Push to Mobile,إرسال للموبايل
 "Push to the phone unless the user turns it off (the mobile app, SP-149).",يُرسل للموبايل ما لم يوقفه المستخدم (تطبيق الموبايل).
 Qty,العدد
 Qty Formula,معادلة الكمية
+Quantities,الكميات
+Quantity,الكمية
 Quotation,عرض سعر
 Quotations,عروض الأسعار
 Quote,العرض
@@ -954,6 +991,7 @@ Receipt Photo,صورة الإيصال
 Receipt to Confirm,استلام محتاج تأكيد
 Received,مستلم
 Received by,المستلم
+Received On,تاريخ الاستلام
 Receives Customer Money,يستلم أموال العملاء
 Receiving Account,الحساب المستلم
 Reconcile,مطابقة
@@ -1003,6 +1041,9 @@ Request {0} is yours,الطلب {0} أصبح لك
 Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Required,مطلوب
+Reservation,الحجز
+Reserve,حجز
+Reserved,محجوز
 Result,النتيجة
 Return,إرجاع
 Return Entry,قيد الإرجاع
@@ -1010,7 +1051,10 @@ Return Note,إذن المرتجع
 Return the leftover to an official account.,أرجع المتبقي إلى حساب رسمي.
 Return To,إرجاع إلى
 Return to an official account,إرجاع إلى حساب رسمي
+Return to Supplier,إرجاع للمورد
+Return to supplier,إرجاع للمورد
 Returned,مُرجعة
+Returned to Supplier,المرتجع للمورد
 Reversal of {0},عكس {0}
 Reversal {0} of {1},القيد العكسي {0} لـ {1}
 Reverse,عكس القيد
@@ -1083,6 +1127,7 @@ Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعد�
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
+Settled By,طريقة السداد
 Settlement,التسوية
 Settlement submitted,أُرسلت التسوية
 "Settlement {0} is {1}, not pending.",التسوية {0} حالتها {1}، وليست معلقة.
@@ -1136,6 +1181,9 @@ SP Commission Manager,العمولات
 SP Commissioning Programmer,البرمجة والتشغيل
 SP Company Address,عنوان الشركة
 SP Company Settings,بيانات الشركة
+SP Consignment Container,حاوية أمانة
+SP Consignment Fee,رسوم تخزين أمانة
+SP Consignment Movement,حركة أمانة
 SP Contract Cheque,شيك العقد
 SP Contract Manager,العقود
 SP Custody,العهدة
@@ -1225,6 +1273,9 @@ Station {0} not found.,المحطة {0} غير موجودة.
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
 Stations late: {0},محطات متأخرة: {0}
 Status,الحالة
+Storage Fee,رسوم التخزين
+Storage fee for consignment container {0},رسوم تخزين حاوية الأمانة {0}
+Storage Fees,رسوم التخزين
 Subject,الموضوع
 Submit,اعتماد
 Submit Settlement,إرسال التسوية
@@ -1321,12 +1372,14 @@ The owner is notified.,تم إبلاغ المسئول.
 "The person holds a custody: an account ""Custody of ..."" under Custody, with them as holder (SP-26).","الشخص يحمل عهدة: حساب ""عهدة ..."" تحت العهد، وهو الحائز."
 The person who holds this money; they see its balance. A channel's transit account (the showroom safe) may have none.,الشخص الذي يحمل هذا المال؛ يرى رصيده. حساب نقدية القناة (خزنة المعرض) قد يكون بلا حائز.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
+The quantity must be above zero.,يجب أن تكون الكمية أكبر من صفر.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
 The quote needs a site survey first (survey tasks come with SP-95).,العرض يحتاج معاينة للموقع أولاً (مهام المعاينة تأتي مع SP-95).
 the quote total,إجمالي العرض
 The requester was asked,تم سؤال صاحب الطلب
+The reservation this hand-over clears.,الحجز الذي يصفّيه هذا التسليم.
 The row has no price.,السطر لا يحتوي على سعر.
 The sales case this quote belongs to. Its customer must be the case's customer.,الحالة التي يتبعها هذا العرض. عميله يجب أن يكون عميل الحالة.
 The sales owner is fixed once the contract exists.,مسئول المبيعات ثابت بعد وجود العقد.
@@ -1336,6 +1389,7 @@ The second party (the customer),الطرف الثاني (العميل)
 The station this project is (SP-27): its money and costs carry this project.,المحطة التي يمثلها هذا المشروع: أموالها وتكاليفها تحمل هذا المشروع.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
+The supplier's customer (reserve or hand over).,عميل المورد (حجز أو تسليم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
 The template section of the line (e.g. Energy). Discounts apply to a section or the quote total (SP-68).,قسم السطر في القالب (مثل الطاقة). تُطبق الخصومات على قسم أو على إجمالي العرض.
 The template version this quote was calculated from (set by Calculate).,إصدار القالب الذي حُسب منه هذا العرض (يُضبط عند الحساب).
@@ -1438,6 +1492,7 @@ When the deposit was confirmed: the station's estimated cost is frozen then (SP-
 When the holder is not a system user.,عندما لا يكون الحائز مستخدمًا في النظام.
 When the quote should be sent: the request time plus Quote Due Within (Smart Power Settings).,موعد إرسال العرض: وقت الطلب مضافاً إليه مدة استحقاق العرض (إعدادات سمارت باور).
 Where a marketing request came from (X4 Lead Source list); required for the Marketing channel.,من أين جاء طلب التسويق (قائمة مصادر العملاء في X4)؛ مطلوب لقناة التسويق.
+Where the panels physically are. This is not a stock warehouse: consignment never enters company stock.,مكان الألواح فعليًا. ليس مخزنًا في المخزون: الأمانة لا تدخل مخزون الشركة أبدًا.
 "Which side carries the document's project (the station), e.g. a station's cost on the debit side.",أي جانب يحمل مشروع المستند (المحطة)، مثل تكلفة المحطة في جانب المدين.
 Who,مَن
 "Who brought the request in (showroom, call or marketing).",من جاء بالطلب (المعرض أو المكالمة أو التسويق).
@@ -1451,6 +1506,9 @@ Winch Internal Charge,تحميل داخلي للونش
 Winch jobs and costs (each vehicle may get its own child center).,شغل وتكاليف الونش (لكل مركبة مركز فرعي خاص بها عند الحاجة).
 Winch Line,سطر الونش
 With lawyer,مع المحامي
+Withdraw by PO,سحب بأمر شراء
+"Withdraw from the container with Withdraw by PO, so the panels are bought into company stock.","اسحب من الحاوية بـ ""سحب بأمر شراء"" حتى تُشترى الألواح إلى مخزون الشركة."
+Withdrawn by PO,المسحوب بأمر شراء
 Won,تم الكسب
 Won On,تاريخ الكسب
 Won: the deposit was confirmed.,مكسوبة: تم تأكيد العربون.
@@ -1489,6 +1547,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0} confirmed, {1} failed.",تم تأكيد {0}، وفشل {1}.
 {0} days,{0} يوم
 {0} does not follow customers up; hand the case to a colleague who does.,{0} لا يتابع العملاء؛ سلّم الحالة لزميل يتابعهم.
+{0} does not keep goods with us on consignment.,{0} ليس لديه بضاعة أمانة عندنا.
 {0} expenses,{0} مصروفات
 "{0} expenses, {1}. The admin approves them in Confirmations.",{0} مصروفات، {1}. يوافق عليها المدير في التأكيدات.
 {0} gave you the case of {1}: {2},{0} سلّمك حالة {1}: {2}
@@ -1513,6 +1572,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is not a section of this quote. Discount a section or the quote total.,{0} ليس قسمًا في هذا العرض. اخصم على قسم أو على إجمالي العرض.
 {0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
+{0} is not an open reservation on this container.,{0} ليس حجزًا مفتوحًا على هذه الحاوية.
 {0} is not confirmed here.,{0} لا يُؤكد هنا.
 {0} is not in the list {1}.,{0} ليست ضمن القائمة {1}.
 {0} is repeated: it is already in row {1}.,{0} مكرر: موجود بالفعل في السطر {1}.
