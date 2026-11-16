@@ -172,3 +172,18 @@ class TestIndicativePage(PumpTemplateCase):
 		self.assertEqual(case.indicative_price, indicative.indicative_price(PUMP, TEN_HP)["total_sell"])
 		self.assertEqual(frappe.parse_json(case.indicative_specs), TEN_HP)
 		self.assertEqual(case.indicative_template, self.template.name)
+
+
+class TestQuoteShowsTheIndicativePrice(IntegrationTestCase):
+	def test_quote_onload_carries_the_difference(self):
+		from smart_power.tests.utils import make_quotation, make_test_case
+
+		case = make_test_case()
+		frappe.db.set_value("SP Case", case, {"indicative_price": 1500, "indicative_by": "Administrator"})
+		quote = make_quotation(case=case, rate=1000)  # one _Test Item at 1000
+		indicative.quote_onload(quote)
+		shown = quote.get_onload().sp_indicative
+		self.assertEqual((shown["price"], shown["difference"]), (1500, quote.grand_total - 1500))
+		other = make_quotation(case=make_test_case())
+		indicative.quote_onload(other)
+		self.assertIsNone(other.get_onload().get("sp_indicative"))  # no indicative price, no line
