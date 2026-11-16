@@ -9,8 +9,8 @@ app_email = "mostafashraf2120@gmail.com"
 app_license = "custom"
 app_logo_url = "/assets/smart_power/images/sp_logo.png"
 # App shell (SP-37): Smart Power on the apps screen, with its own dock of module-group sidebars
-# (smart_power/dock, <module>/sidebar); everyone lands here (System Settings default app).
-app_home = "/desk/smart-power/sp-task-inbox"
+# (smart_power/dock, <module>/sidebar); everyone lands on Home (System Settings default app, SP-38).
+app_home = "/desk/smart-power/sp-home"
 add_to_apps_screen = [
 	{
 		"name": app_name,
