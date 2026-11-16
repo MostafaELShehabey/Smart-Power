@@ -29,6 +29,11 @@ OWNER_FIELDS = {
 
 
 def validate(doc) -> None:
+	from smart_power.sp_quotes.indicative import is_price_check
+
+	if not doc.customer and not is_price_check(doc):
+		# only an enquiry closed as a price check may have no customer (SP-49)
+		frappe.throw(_("Choose the customer."), frappe.MandatoryError)
 	if not doc.follow_up_owner:
 		frappe.throw(_("A case always has a follow-up owner."), frappe.MandatoryError)
 	if doc.status == LOST and not doc.lost_reason:
