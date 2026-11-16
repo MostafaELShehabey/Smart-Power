@@ -151,6 +151,15 @@ NEW_ACTIONS = (
 		None,
 		("SP Lead Intake", "SP Customer Followup", "SP Marketing Agent", *ADMIN),
 	),
+	# a quick sale price for a walk-in or a caller (SP-49)
+	(
+		"indicative_price",
+		"Indicative Price",
+		"page",
+		"sp-indicative-price",
+		None,
+		("SP Lead Intake", "SP Customer Followup", "SP Marketing Agent", *ADMIN),
+	),
 	("payment", "Payment on a Station", "dialog", "payment", "SP Customer Payment", None),
 	("transfer", "Deposit or Transfer", "dialog", "transfer", "SP Transfer", None),
 	# a one-off record with its own simple entry: a storage fee, a small income (SP-43)

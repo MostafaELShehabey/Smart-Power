@@ -242,8 +242,10 @@ def create_quote_request(request: dict | str) -> dict:
 
 	request: system_type, mobile, customer_name, tier, region (new customers), channel,
 	follow_up_owner, location_text, geo, payment_method, site_visit_needed, request_notes,
-	details ({fieldname: value}), loads ([{device, qty, watts, day_hours, night_hours}]) and
-	photos (optional: names of image Files the user has just uploaded, attached to the case).
+	details ({fieldname: value}), loads ([{device, qty, watts, day_hours, night_hours}]),
+	photos (optional: names of image Files the user has just uploaded, attached to the case) and
+	indicative_inputs (optional, SP-49: the specs priced on the indicative page, recorded with
+	their price on the case).
 	"""
 	frappe.has_permission(CASE, "create", throw=True)
 	request = frappe.parse_json(request) if isinstance(request, str) else frappe._dict(request)
@@ -306,7 +308,13 @@ def create_quote_request(request: dict | str) -> dict:
 				"payment_method": request.get("payment_method") or None,
 				"loads": request.get("loads") or [],
 			}
-		).insert()
+		)
+		if request.get("indicative_inputs"):
+			# priced first on the indicative page (SP-49): the value, date and specs go on the case
+			from smart_power.sp_quotes.indicative import record
+
+			record(case, request.system_type, frappe.parse_json(request.indicative_inputs))
+		case.insert()
 		attach_photos(case, request.get("photos"))
 	except Exception:
 		frappe.db.rollback(save_point="sp_quote_request")

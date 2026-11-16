@@ -262,8 +262,10 @@ Clear,مسح
 Cleared,تمت تصفيته
 Click to change,اضغط للتغيير
 Client ID,معرّف التطبيق
+Close as price check,إغلاق كاستفسار عن السعر
 Close Financially,إغلاق مالي
 Close Technically,إغلاق فني
+Closed as a price check: {0},أُغلقت كاستفسار عن السعر: {0}
 Code,الكود
 Code or name,الكود أو الاسم
 Code Prefix,بادئة الكود
@@ -632,6 +634,7 @@ Inactive values are hidden from pickers but still show on old records.,القي�
 Indicative Price,السعر الاسترشادي
 Indicative Price By,السعر الاسترشادي بواسطة
 Indicative Price On,تاريخ السعر الاسترشادي
+Indicative sale price,سعر البيع الاسترشادي
 Indicative Specs,مواصفات السعر الاسترشادي
 Indicative Template,قالب السعر الاسترشادي
 Indirect Pool Center,مركز التكاليف غير المباشرة
@@ -743,6 +746,7 @@ Main,رئيسي
 Main Supplier,المورد الرئيسي
 Make a reversing entry of {0}?,إنشاء قيد عكسي لـ {0}؟
 Make Contract,إنشاء العقد
+Make quote request,عمل طلب عرض سعر
 Make the contract (Sales Order) and the station from the approved version {0}?,إنشاء العقد (أمر البيع) والمحطة من الإصدار المعتمد {0}؟
 Make the contract (Sales Order) from the case's approved version?,إنشاء العقد (أمر البيع) من الإصدار المعتمد للحالة؟
 Making the PDF…,جارٍ إنشاء ملف PDF…
@@ -897,6 +901,7 @@ Not allowed,غير مسموح
 Not found,غير موجود
 Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
 Not on the quote: nothing to charge.,غير مضاف للعرض: لا يوجد مبلغ.
+Not priced yet: {0},لم تُسعّر بعد: {0}
 Not read yet,غير مقروءة
 Not sent,لم يُرسل
 Note,ملاحظة
@@ -922,7 +927,7 @@ Official accounts,الحسابات الرسمية
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: cash one person or channel holds until it reaches an official account. Custody: the custody given to a person (SP-26).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة نقدية: نقدية يحملها شخص أو قناة حتى تصل لحساب رسمي. عهدة: العهدة المعطاة لشخص.
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: the money one person holds until it reaches an official account (SP-114, SP-116).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة: المال الذي يحمله شخص حتى يصل لحساب رسمي.
 OK,سليم
-Old price: {0},السعر القديم: {0}
+Old price: {0},سعر قديم: {0}
 Old Value,القيمة القديمة
 Oldest: {0} h,أقدم: {0} س
 On time,في الموعد
@@ -984,6 +989,7 @@ Optional additions (not included in the total),إضافات اختيارية (غ
 Optional Lines,السطور الاختيارية
 Optional Lines (not in the total),السطور الاختيارية (خارج الإجمالي)
 Optional only on a case closed as a price check.,اختياري فقط في حالة أُغلقت كاستفسار عن السعر.
+Optional: for the conversion statistics.,اختياري: لإحصائيات التحويل.
 Options,الاختيارات
 Or Into,أو إلى
 Order saved,تم حفظ الترتيب
@@ -1076,6 +1082,7 @@ Price,السعر
 Price (manual lines),السعر (السطور اليدوية)
 Price Category,فئة السعر
 Price Check Only,استفسار عن السعر فقط
+Price check only,استفسار عن السعر فقط
 Price date,تاريخ السعر
 Price history: {0},سجل أسعار: {0}
 Price List,لستة الأسعار
@@ -1861,6 +1868,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} moved the case of {1} to {2}: {3},{0} نقل حالة {1} إلى {2}: {3}
 "{0} must be an official account (a bank, the Post, InstaPay …).",يجب أن يكون {0} حسابًا رسميًا (بنك، البريد، إنستاباي …).
 {0} of {1} items,{0} من {1} صنف
+"{0} per kW, for {1} kW",{0} لكل كيلو وات، لـ {1} كيلو وات
 {0} recorded.,تم تسجيل {0}.
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
 {0} replaces {1}: {2},{0} يحل محل {1}: {2}
