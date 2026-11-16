@@ -38,6 +38,7 @@ def after_install() -> None:
 	from smart_power.sp_core.login import apply_login_settings
 
 	apply_login_settings()  # SP-36
+	frappe.db.set_single_value("System Settings", "default_app", "smart_power")  # SP-37
 	seed_list_values()
 	seed_request_fields()
 	seed_settings()

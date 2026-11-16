@@ -66,6 +66,7 @@ Add Value to {0},إضافة قيمة إلى {0}
 Address (Arabic),العنوان (عربي)
 Addresses,العناوين
 Addresses and Phones,العناوين والتليفونات
+Admin Studio,استوديو الإدارة
 Advance,السلفة
 Advance Amount,مبلغ السلفة
 Advance Fee,عمولة السلفة
@@ -109,6 +110,7 @@ Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
 Attach the receipt photo.,أرفق صورة الإيصال.
+Audit Log,سجل التدقيق
 Available,المتاح
 B,B
 Back to Waiting,العودة إلى المنتظرة
@@ -148,6 +150,7 @@ Calculate,احسب
 Calculate the quote from its template first.,احسب العرض من قالبه أولًا.
 Calculation Notes,ملاحظات الحساب
 Calculation Template,قالب الحساب
+Calculation Templates,قوالب الحساب
 Call,مكالمة
 Call Result,نتيجة المكالمة
 Call Time,وقت المكالمة
@@ -176,6 +179,7 @@ Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا �
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Case {0} is {1}; its quotes are not discounted any more.,الحالة {0} {1}؛ لا يتم الخصم على عروضها بعد الآن.
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
+Cases,الحالات
 Cash,نقدي
 Cash and Locks,الكاش والقفل
 Cash held,نقدية معك
@@ -221,6 +225,7 @@ Cheque {0} is already registered as {1}.,الشيك {0} مسجل بالفعل ب
 Cheque {0} is {1}; it cannot become {2}.,الشيك {0} حالته {1}؛ لا يمكن أن يصبح {2}.
 Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
 Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبلغ {1} يستحق في {2}؛ أودعه في البريد
+Cheques,الشيكات
 Choose a station or a warehouse.,اختر محطة أو مخزنًا.
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose Arabic or English.,اختر العربية أو الإنجليزية.
@@ -263,6 +268,7 @@ Commercial Register,السجل التجاري
 Commercial Register No.,رقم السجل التجاري
 Commission,عمولة
 Company,شركة
+Company Settings,إعدادات الشركة
 Company {0} has no account group {1}.,الشركة {0} ليس لديها مجموعة الحسابات {1}.
 Company {0} has no cost center group.,الشركة {0} ليس لها مجموعة مراكز تكلفة.
 Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
@@ -289,9 +295,11 @@ Confirmed: {0} from {1},تم التأكيد: {0} من {1}
 Confirming,جارٍ التأكيد
 Consignment Container,حاوية الأمانة
 Consignment container {0} ({1}) is down to {2} panels,حاوية الأمانة {0} ({1}) بقي بها {2} لوح
+Consignment Containers,حاويات الأمانة
 Consignment Conversion,تحويل أمانة
 Consignment conversions,تحويلات الأمانة
 Consignment Low Balance (panels),حد انخفاض رصيد الأمانة (ألواح)
+Consignment Movements,حركات الأمانة
 Consignment Owner,صاحب أمانة
 Container,الحاوية
 Container No.,رقم الحاوية
@@ -299,6 +307,7 @@ Contract,العقد
 Contract (Sales Order),العقد (أمر البيع)
 Contract Date,تاريخ العقد
 Contract {0},عقد {0}
+Contracts,العقود
 Coordinates,الإحداثيات
 "Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
 Cost,التكلفة
@@ -335,6 +344,7 @@ Custody settlement approved: {0},تمت الموافقة على تسوية ال�
 Custody settlement rejected: {0},رُفضت تسوية العهدة: {0}
 Custody settlement {0} of {1},تسوية العهدة {0} لـ {1}
 Custody settlement {0} rejected: {1},رُفضت تسوية العهدة {0}: {1}
+Custody Settlements,تسويات العهد
 Custody {0} is closed.,العهدة {0} مغلقة.
 Custody {0} to {1},العهدة {0} إلى {1}
 Customer,العميل
@@ -346,6 +356,7 @@ Customer Name,اسم العميل
 Customer payment,دفعة عميل
 Customer Payment,دفعة العميل
 Customer payment {0},دفعة عميل {0}
+Customer Payments,مدفوعات العملاء
 Customer Phone,تليفون العميل
 Customer Statement,كشف حساب العميل
 Customer {0} paid {1} directly ({2}),العميل {0} دفع لـ {1} مباشرة ({2})
@@ -401,6 +412,7 @@ Discounts already given,الخصومات المعطاة
 Document,المستند
 Document Naming Settings,إعدادات تسمية المستندات
 Document Numbering,ترقيم المستندات
+Document Templates,قوالب المستندات
 Done,تم
 Download the template,تحميل النموذج
 Download the template of {0},تنزيل نموذج {0}
@@ -482,6 +494,7 @@ Field names starting with {0} are reserved for developer fields.,أسماء ال
 File,الملف
 Fill from,املأ من
 Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
+Finance,المالية
 Financial Center,المركز المالي
 Financial Centers,المراكز المالية
 Financially closed,مغلقة ماليًا
@@ -746,6 +759,7 @@ Module {0} is reserved for developer changes. Use {1}.,الموديول {0} مح
 Money,الأموال
 Money and Postings,الفلوس والقيود
 Money Kind,نوع المال
+Money Records,سجلات الأموال
 Money remaining,مبلغ متبقٍ
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
 More has left this container than it received.,خرج من هذه الحاوية أكثر مما استلمت.
@@ -777,6 +791,7 @@ Never printed: the station commission (SP-58).,لا يُطبع أبدًا: عم�
 New Option,خيار جديد
 New Password,كلمة المرور الجديدة
 New price,السعر الجديد
+New Quote Request,طلب عرض سعر جديد
 New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Transfer,تحويل جديد
 New Value,القيمة الجديدة
@@ -833,6 +848,7 @@ Nothing waiting for confirmation.,لا شيء في انتظار التأكيد.
 Nothing waiting for you.,لا يوجد ما ينتظرك.
 Notification Preferences,تفضيلات الإشعارات
 Notifications,الإشعارات
+Numbering,الترقيم
 of,من
 Of a reservation: handed over so far.,للحجز: ما سُلّم حتى الآن.
 Off,متوقف
@@ -943,6 +959,7 @@ Partly repaid,مسددة جزئيًا
 Pass-through,بسعر التكلفة
 Password changed,تم تغيير كلمة المرور
 Password Reset,إعادة تعيين كلمة المرور
+Password Reset Requests,طلبات إعادة تعيين كلمة المرور
 Payee,المستفيد
 Payee Type,نوع المستفيد
 Payment,الدفعة
@@ -955,6 +972,7 @@ Payment {0},دفعة {0}
 PDF,ملف PDF
 Pending,قيد التأكيد
 Pending Confirmation,قيد التأكيد
+People,الأشخاص
 Per event: the in-app feed is always on; push to mobile is the user's choice (SP-40).,لكل حدث: إشعارات البرنامج مفعّلة دائمًا؛ الإرسال للموبايل حسب اختيار المستخدم.
 "Per unit, from the P1 Cost price list when left empty.",للوحدة، من قائمة تكلفة P1 إذا تُركت فارغة.
 Per-kW default,افتراضي لكل كيلووات
@@ -1043,6 +1061,7 @@ Quote due soon: {0} ({1}),عرض يقترب موعده: {0} ({1})
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
 Quote History,سجل العروض
 Quote margin within its range,هامش العرض داخل نطاقه
+Quote Queue,قائمة طلبات العروض
 Quote Request,طلب عرض
 Quote request,طلب عرض
 Quote Request Queue,قائمة طلبات العروض
@@ -1070,6 +1089,7 @@ Reassignments,إعادات الإسناد
 Receipt,إيصال الاستلام
 Receipt Photo,صورة الإيصال
 Receipt to Confirm,استلام محتاج تأكيد
+Receive Goods,استلام البضاعة
 Received,مستلم
 Received by,المستلم
 Received On,تاريخ الاستلام
@@ -1123,6 +1143,7 @@ Request {0} is yours,الطلب {0} أصبح لك
 Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Requested On,تاريخ الطلب
+Requests & Customers,الطلبات والعملاء
 Required,مطلوب
 Required Specs,المواصفات المطلوبة
 Reservation,الحجز
@@ -1366,8 +1387,10 @@ Station Project,مشروع المحطة
 Station {0},المحطة {0}
 Station {0} not found.,المحطة {0} غير موجودة.
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
+Stations,المحطات
 Stations late: {0},محطات متأخرة: {0}
 Status,الحالة
+Stock Movements,حركات المخزون
 Storage Fee,رسوم التخزين
 Storage fee for consignment container {0},رسوم تخزين حاوية الأمانة {0}
 Storage Fees,رسوم التخزين
