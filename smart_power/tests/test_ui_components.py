@@ -196,7 +196,11 @@ class TestPasteIntoTheGrid(IntegrationTestCase):
 		from smart_power.sp_stock.paste import match_items
 
 		codes = frappe.get_all(
-			"Item", filters={"disabled": 0, "has_variants": 0}, pluck="item_code", order_by="creation asc", limit=10
+			"Item",
+			filters={"disabled": 0, "has_variants": 0},
+			pluck="item_code",
+			order_by="creation asc",
+			limit=10,
 		)
 		self.assertEqual(len(codes), 10)  # sp-allow-number: the acceptance check's ten rows
 		typed = [c.lower() if i % 2 else c for i, c in enumerate(codes)]  # any case
