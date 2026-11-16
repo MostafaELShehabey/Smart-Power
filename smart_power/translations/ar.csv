@@ -634,6 +634,7 @@ Inactive values are hidden from pickers but still show on old records.,القي�
 Indicative Price,السعر الاسترشادي
 Indicative Price By,السعر الاسترشادي بواسطة
 Indicative Price On,تاريخ السعر الاسترشادي
+Indicative price {0} given on {1} by {2}.,أُعطي السعر الاسترشادي {0} يوم {1} بواسطة {2}.
 Indicative sale price,سعر البيع الاسترشادي
 Indicative Specs,مواصفات السعر الاسترشادي
 Indicative Template,قالب السعر الاسترشادي
@@ -1662,6 +1663,9 @@ This rule can only warn; it can never block (decisions 47 and 67).,هذه الق
 This task is already {0}.,هذه المهمة {0} بالفعل.
 This task is not yours.,هذه المهمة ليست لك.
 This version expired on {0}. Make a new version.,هذه النسخة انتهت صلاحيتها في {0}. اعمل نسخة جديدة.
+This version is the same.,هذه النسخة بنفس السعر.
+This version is {0} higher.,هذه النسخة أعلى بمقدار {0}.
+This version is {0} lower.,هذه النسخة أقل بمقدار {0}.
 This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
 This version was sent: the discount makes a new version.,هذا الإصدار أُرسل: الخصم ينشئ إصدارًا جديدًا.
 This Year's Prefix,بادئة هذه السنة

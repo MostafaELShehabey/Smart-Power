@@ -10,6 +10,8 @@ profit ever leaves the server.
     record(case, system_type, inputs)       saves the value, date, specs and user on a case
     price_check_only(...)                   closes the enquiry as a Lost case, reason
                                             "Price check only"; the customer is optional
+    quote_onload(doc)                       a quote of the case shows the indicative price and
+                                            its difference from the quote's total
 
 Results are cached per template version, inputs and price version (the newest price change),
 so a repeated enquiry answers at once.
@@ -182,3 +184,24 @@ def price_check_only(
 	case.insert()
 	# opened and closed at once: the workflow's own action, allowed to whoever takes enquiries
 	return apply_workflow(case, PRICE_CHECK_ACTION).name
+
+
+def quote_onload(doc, method=None) -> None:
+	"""Quotation onload: when its case was given an indicative price, the form shows it and how
+	far this version's total is from it (the formal quote is made to the same value, decision 76)."""
+	if not doc.get("sp_case"):
+		return
+	case = frappe.db.get_value(
+		CASE, doc.sp_case, ["indicative_price", "indicative_on", "indicative_by"], as_dict=True
+	)
+	if not case or not flt(case.indicative_price):
+		return
+	doc.set_onload(
+		"sp_indicative",
+		{
+			"price": flt(case.indicative_price),
+			"on": case.indicative_on,
+			"by": frappe.utils.get_fullname(case.indicative_by) if case.indicative_by else None,
+			"difference": flt(doc.grand_total) - flt(case.indicative_price),
+		},
+	)

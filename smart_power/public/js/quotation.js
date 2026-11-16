@@ -20,6 +20,22 @@ frappe.ui.form.on("Quotation", {
 				"red"
 			);
 		}
+		// the indicative price given first, and how far this version is from it (SP-49)
+		const indicative = frm.doc.__onload?.sp_indicative;
+		if (indicative) {
+			const money = (v) => format_currency(v, frm.doc.currency);
+			const diff = indicative.difference;
+			const args = [money(indicative.price), frappe.datetime.str_to_user(indicative.on), indicative.by || ""];
+			const given = __("Indicative price {0} given on {1} by {2}.", args); // sp-allow-number: placeholders
+			const same = Math.abs(diff) < 0.5; // sp-allow-number: under half a pound is the same price
+			const versus = same
+				? __("This version is the same.")
+				: diff > 0
+				? __("This version is {0} higher.", [money(diff)])
+				: __("This version is {0} lower.", [money(-diff)]);
+			// the headline, so the version note above it stays
+			frm.dashboard.add_comment(frappe.utils.escape_html(`${given} ${versus}`), same ? "green" : "orange", true);
+		}
 		// after the contract: read-only, with whom the case is now (SP-35)
 		if (frm.doc.__onload?.sp_read_only) {
 			frm.set_intro(frm.doc.__onload.sp_read_only, "orange");
