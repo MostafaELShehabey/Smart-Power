@@ -305,3 +305,194 @@ def record_fee(
 	doc.flags.ignore_permissions = True
 	doc.save()
 	return je.name
+
+
+# --- withdraw by PO (SP-92) -------------------------------------------------------------------------
+
+WITHDRAW_ROLES = ("SP Admin", "System Manager", "SP Purchase Officer")
+
+
+@frappe.whitelist(methods=["POST"])
+def withdraw(
+	container: str,
+	qty: int,
+	watt_price: float,
+	warehouse: str | None = None,
+	station: str | None = None,
+	price_date: str | None = None,
+	reservation: str | None = None,
+	panel_watts: float | None = None,
+) -> dict:
+	"""Buy panels out of the container into company stock, at the day's watt price.
+
+	A Purchase Order (a consignment conversion) at watt price x panel watts, its Purchase Receipt
+	into the company warehouse (a station's site warehouse, with its project), and the Purchase
+	Invoice that makes the supplier payable; the container balance drops by the withdrawal."""
+	from erpnext.buying.doctype.purchase_order.purchase_order import make_purchase_receipt
+
+	from smart_power.sp_core.review_centre import raise_item
+	from smart_power.sp_stock.warehouses import site_warehouse
+
+	if frappe.session.user != "Administrator" and not set(WITHDRAW_ROLES) & set(frappe.get_roles()):
+		frappe.throw(_("Only the admin or purchasing withdraws from consignment."), frappe.PermissionError)
+	doc = frappe.get_doc(CONTAINER, container)
+	qty, watt_price = cint(qty), flt(watt_price)
+	watts = flt(panel_watts) or flt(frappe.db.get_value("Item", doc.item, "sp_watt"))
+	if qty <= 0 or watt_price <= 0:
+		frappe.throw(_("Enter the quantity and the day's watt price."))
+	if watts <= 0:
+		frappe.throw(_("Enter the panel's watts (or set Power (W) on item {0}).").format(doc.item))
+	reserved_here = 0
+	if reservation:
+		res = frappe.db.get_value(MOVEMENT, reservation, ["qty", "cleared_qty", "container"], as_dict=True)
+		reserved_here = cint(res.qty) - cint(res.cleared_qty) if res and res.container == doc.name else 0
+	if qty > cint(doc.available_qty) + reserved_here:
+		frappe.throw(
+			_("Only {0} panels are available in {1}.").format(
+				cint(doc.available_qty) + reserved_here, doc.container_no or doc.name
+			)
+		)
+	project = None
+	if station:
+		project = frappe.db.get_value("SP Station", station, "project")
+		warehouse = warehouse or site_warehouse(project)
+	if not warehouse:
+		frappe.throw(_("Choose the company warehouse the panels go to."))
+	if frappe.db.get_value("Warehouse", warehouse, "company") != doc.company:
+		frappe.throw(_("Warehouse {0} is not {1}'s.").format(warehouse, doc.company))
+	when = price_date or today()
+	rate = watt_price * watts
+	po = frappe.get_doc(
+		{
+			"doctype": "Purchase Order",
+			"supplier": doc.supplier,
+			"company": doc.company,
+			# the watt price is in the company's own currency
+			"currency": frappe.get_cached_value("Company", doc.company, "default_currency"),
+			"conversion_rate": 1,
+			"disable_rounded_total": 1,  # the supplier is owed exactly panels x watts x price
+			"transaction_date": when,
+			"schedule_date": when,
+			"set_warehouse": warehouse,
+			"project": project,
+			"sp_is_consignment_conversion": 1,
+			"sp_consignment_container": doc.name,
+			"sp_watt_price": watt_price,
+			"sp_price_date": when,
+			"items": [
+				{
+					"item_code": doc.item,
+					"qty": qty,
+					"rate": rate,
+					"warehouse": warehouse,
+					"schedule_date": when,
+					"project": project,
+				}
+			],
+		}
+	)
+	po.flags.ignore_permissions = True
+	po.insert()
+	po.submit()
+	movement = frappe.get_doc(
+		{
+			"doctype": MOVEMENT,
+			"container": doc.name,
+			"movement_type": WITHDRAW,
+			"qty": qty,
+			"movement_date": when,
+			"station": station,
+			"reservation": reservation,
+			"purchase_order": po.name,
+			"note": _("{0} W x {1} per W").format(watts, watt_price),
+		}
+	)
+	movement.flags.sp_from_po = True
+	movement.flags.ignore_permissions = True
+	movement.insert()
+	movement.submit()
+	pr = make_purchase_receipt(po.name)
+	pr.posting_date = when
+	pr.set_posting_time = 1
+	pr.flags.ignore_permissions = True
+	pr.insert()
+	pr.submit()  # until receipt confirmation (P4, SP-85) adds its own step
+	movement.db_set("purchase_receipt", pr.name)
+	pi = _invoice_from_receipt(pr, po, when)
+	raise_item(
+		"Consignment Conversion",
+		po,
+		_("{0} x {1} from consignment at {2} per W ({3})").format(
+			qty, doc.item_name or doc.item, watt_price, doc.supplier
+		),
+		amount=flt(po.grand_total),
+	)
+	return {
+		"purchase_order": po.name,
+		"purchase_receipt": pr.name,
+		"purchase_invoice": pi.name,
+		"movement": movement.name,
+		"amount": flt(po.grand_total),
+	}
+
+
+def _invoice_from_receipt(pr, po, when):
+	"""The supplier's bill for the receipt: the purchasing user may not create invoices
+	themselves (ERPNext's mapper checks), so it is built from the receipt's rows."""
+	srbnb = frappe.get_cached_value("Company", pr.company, "stock_received_but_not_billed")
+	pi = frappe.get_doc(
+		{
+			"doctype": "Purchase Invoice",
+			"supplier": pr.supplier,
+			"company": pr.company,
+			"posting_date": when,
+			"set_posting_time": 1,
+			"bill_no": po.name,
+			"bill_date": when,
+			"disable_rounded_total": 1,
+			"project": pr.get("project"),
+			"currency": pr.currency,
+			"conversion_rate": pr.conversion_rate,
+			"buying_price_list": pr.buying_price_list,
+			"items": [
+				{
+					"item_code": row.item_code,
+					"qty": row.qty,
+					"rate": row.rate,
+					"uom": row.uom,
+					"stock_uom": row.stock_uom,
+					"conversion_factor": row.conversion_factor,
+					"warehouse": row.warehouse,
+					"project": row.project,
+					"cost_center": row.cost_center,
+					# a received stock item is billed against Stock Received But Not Billed
+					"expense_account": srbnb,
+					"purchase_receipt": pr.name,
+					"pr_detail": row.name,
+					"purchase_order": row.purchase_order,
+					"po_detail": row.purchase_order_item,
+				}
+				for row in pr.items
+			],
+		}
+	)
+	pi.flags.ignore_permissions = True  # checked by withdraw: the admin or purchasing
+	pi.set_missing_values()
+	pi.insert()
+	pi.submit()
+	return pi
+
+
+@frappe.whitelist()
+def withdraw_options(container: str) -> dict:
+	"""What the Withdraw dialog offers: the panel's watts and the company's stock warehouses."""
+	from smart_power.sp_stock.warehouses import MAIN, SHOWROOM, warehouse_of
+
+	doc = frappe.get_doc(CONTAINER, container)
+	return {
+		"panel_watts": flt(frappe.db.get_value("Item", doc.item, "sp_watt")),
+		"warehouses": [
+			w for w in (warehouse_of(doc.company, MAIN), warehouse_of(doc.company, SHOWROOM)) if w
+		],
+		"company": doc.company,
+	}
