@@ -28,6 +28,8 @@ boot_session = [
 	"smart_power.rules.boot",
 	# the saved-view tabs of the lists (SP-45)
 	"smart_power.lists.boot",
+	# the owners shown as chips on the record pages (SP-45)
+	"smart_power.records.boot",
 ]
 
 required_apps = ["frappe", "erpnext"]
@@ -54,6 +56,7 @@ app_include_js = [
 	"/assets/smart_power/js/sp_ui.js",
 	# List and record patterns: saved-view tabs, totals, status bar, owner chips (SP-45)
 	"/assets/smart_power/js/sp_list.js",
+	"/assets/smart_power/js/sp_form.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).
