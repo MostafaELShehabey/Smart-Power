@@ -91,8 +91,9 @@ doctype_list_js = {
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
 role_home_page = {role: "sp-field" for role in LIGHT_ENTRY_ROLES}
 before_request = ["smart_power.sp_core.web.redirect_light_users"]
-# Login (SP-36): a mobile typed in any form finds the user
+# Login (SP-36): a mobile typed in any form finds the user; a locked account is refused
 before_login = ["smart_power.sp_core.login.before_login"]
+on_login = ["smart_power.sp_core.login.on_login"]
 
 # Install and migrate
 after_install = "smart_power.sp_core.setup.install.after_install"
@@ -192,6 +193,8 @@ doc_events = {
 		"on_cancel": "smart_power.sp_stations.money.on_payment",
 	},
 	# Ticked on the User form: the person's transit / custody account is made (SP-26)
+	# a failed sign-in counts towards the lock (SP-36)
+	"Activity Log": {"after_insert": "smart_power.sp_core.login.on_failed_login"},
 	"User": {
 		# the mobile in its local form, for mobile login (SP-36)
 		"validate": "smart_power.sp_core.login.validate_user",

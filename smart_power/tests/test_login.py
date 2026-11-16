@@ -1,11 +1,12 @@
-"""Login (SP-36, G1): mobile or email."""
+"""Login (SP-36, G1): mobile or email; the lock after failed tries."""
 
 import frappe
 from frappe.auth import CookieManager, LoginManager
 from frappe.tests import IntegrationTestCase
 from frappe.utils import set_request
 
-from smart_power.sp_core.login import apply_login_settings
+from smart_power.sp_core.login import apply_login_settings, unlock_login
+from smart_power.tests.utils import set_setting
 
 PASSWORD = "Sp-36 login test 7391"  # a test value for this test user only
 MOBILE = "01012345678"
@@ -67,3 +68,42 @@ class TestMobileLogin(LoginCase):
 		self.assertEqual(login(self.EMAIL), self.user)
 		with self.assertRaises(frappe.AuthenticationError):
 			login(MOBILE, "wrong password")
+
+
+class TestLoginLock(LoginCase):
+	EMAIL = "sp.login.locked@example.com"
+
+	def setUp(self):
+		super().setUp()
+		from smart_power.tests.utils import make_user
+
+		self.admin = make_user("sp.login.admin@example.com", ("admin",))
+		set_setting(login_lock_attempts=5)
+
+	def test_five_wrong_passwords_lock_the_account_until_the_admin_unlocks_it(self):
+		for _attempt in range(5):  # sp-allow-number: the acceptance check's five tries
+			with self.assertRaises(frappe.AuthenticationError):
+				login(MOBILE, "wrong password")
+		self.assertTrue(frappe.db.get_value("User", self.user, "sp_login_locked"))
+		with self.assertRaises(frappe.AuthenticationError) as refused:
+			login(MOBILE)  # the 6th try, even with the right password
+		self.assertIn("contact the admin", str(refused.exception))
+		alert = frappe.db.exists(
+			"Notification Log",
+			{"for_user": self.admin, "document_name": self.user, "sp_event": "login_locked"},
+		)
+		self.assertTrue(alert, "the admin sees a lock alert")
+		frappe.set_user(self.admin)
+		unlock_login(self.user)
+		frappe.set_user("Administrator")
+		self.assertEqual(login(MOBILE), self.user)
+
+	def test_a_success_clears_the_count_and_only_the_admin_unlocks(self):
+		with self.assertRaises(frappe.AuthenticationError):
+			login(MOBILE, "wrong password")
+		self.assertEqual(frappe.db.get_value("User", self.user, "sp_failed_logins"), 1)
+		login(MOBILE)
+		self.assertEqual(frappe.db.get_value("User", self.user, "sp_failed_logins"), 0)
+		frappe.set_user(self.user)
+		with self.assertRaises(frappe.PermissionError):
+			unlock_login(self.user)
