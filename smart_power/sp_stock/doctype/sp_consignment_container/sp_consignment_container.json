@@ -1,0 +1,297 @@
+{
+ "actions": [],
+ "creation": "2026-11-18 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "modified": "2026-11-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "name": "SP Consignment Container",
+ "owner": "Administrator",
+ "autoname": "CNT-.YYYY.-.####",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "search_fields": "item_name,container_no,status",
+ "title_field": "item_name",
+ "links": [
+  {
+   "link_doctype": "SP Consignment Movement",
+   "link_fieldname": "container",
+   "group": "Movements"
+  }
+ ],
+ "field_order": [
+  "supplier",
+  "item",
+  "item_name",
+  "container_no",
+  "company",
+  "column_break_head",
+  "received_on",
+  "location",
+  "status",
+  "quantities_section",
+  "pallets",
+  "per_pallet",
+  "received_qty",
+  "column_break_qty",
+  "withdrawn_qty",
+  "handed_over_qty",
+  "returned_qty",
+  "column_break_balance",
+  "balance_qty",
+  "reserved_qty",
+  "available_qty",
+  "fees_section",
+  "fees",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "link_filters": "[[\"Supplier\",\"sp_is_consignment_owner\",\"=\",1]]"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "fetch_from": "item.item_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "container_no",
+   "fieldtype": "Data",
+   "label": "Container No.",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "received_on",
+   "fieldtype": "Date",
+   "label": "Received On",
+   "reqd": 1,
+   "default": "Today"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Kept At",
+   "default": "مخزن أرض السلام",
+   "description": "Where the panels physically are. This is not a stock warehouse: consignment never enters company stock."
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nLow\nEmpty",
+   "default": "Open",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "quantities_section",
+   "fieldtype": "Section Break",
+   "label": "Quantities"
+  },
+  {
+   "fieldname": "pallets",
+   "fieldtype": "Int",
+   "label": "Pallets",
+   "reqd": 1
+  },
+  {
+   "fieldname": "per_pallet",
+   "fieldtype": "Int",
+   "label": "Panels per Pallet",
+   "reqd": 1
+  },
+  {
+   "fieldname": "received_qty",
+   "fieldtype": "Int",
+   "label": "Received",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_qty",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "withdrawn_qty",
+   "fieldtype": "Int",
+   "label": "Withdrawn by PO",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "handed_over_qty",
+   "fieldtype": "Int",
+   "label": "Handed Over",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "returned_qty",
+   "fieldtype": "Int",
+   "label": "Returned to Supplier",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_balance",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "balance_qty",
+   "fieldtype": "Int",
+   "label": "Balance",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_list_view": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "reserved_qty",
+   "fieldtype": "Int",
+   "label": "Reserved",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "available_qty",
+   "fieldtype": "Int",
+   "label": "Available",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "fees_section",
+   "fieldtype": "Section Break",
+   "label": "Storage Fees",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "fees",
+   "fieldtype": "Table",
+   "label": "Storage Fees",
+   "options": "SP Consignment Fee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Main Store Keeper",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Purchase Officer",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 1,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 0
+  }
+ ]
+}

@@ -161,6 +161,7 @@
 		"cheque_due_lead_days": {"value": 7, "_source": "SP-118 (the story's example: 7-day lead)"},
 		"cheque_auto_confirm": {"value": 1, "_source": "SP-118: collected cheques post at once by default"},
 		"installment_due_lead_days": {"value": 3, "_source": "SP-81: the collection owner is told 3 days before an instalment falls due"},
+		"consignment_low_balance": {"value": 33, "_source": "SP-91: about one pallet left (594 panels = 18 pallets × 33)"},
 		"field_entry_lock_days": {"value": 3, "_source": "decision 44 (3-day rule)"},
 		"default_rounding_step": {"value": 0, "_source": "no rounding until the templates set their own"}
 	},
@@ -260,6 +261,7 @@
 		{"key": "margin_breach", "label_ar": "هامش ربح خارج الحدود", "label_en": "Margin out of range", "default_push": 0, "roles": "SP Admin"},
 		{"key": "transfer_decided", "label_ar": "قرار على تحويل", "label_en": "Transfer confirmed or rejected", "default_push": 0, "roles": "SP Custody Holder, SP Showroom Cashier, SP Winch Manager"},
 		{"key": "custody", "label_ar": "العهدة: تسليم وتسوية", "label_en": "Custody given or settled", "default_push": 1, "roles": "SP Custody Holder"},
+		{"key": "consignment_low", "label_ar": "حاوية أمانة قاربت على النفاد", "label_en": "Consignment container low", "default_push": 1, "roles": "SP Admin, SP Main Store Keeper"},
 		{"key": "review_comment", "label_ar": "تعليق مراجعة", "label_en": "Review comment", "default_push": 0, "roles": "SP Admin"}
 	],
 	"cost_centers": {
