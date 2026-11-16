@@ -217,6 +217,7 @@ Channel,القناة
 Charged To,يُحمّل على
 Chassis,الشاسيه
 Check,اختيار (نعم/لا)
+Check before you continue,راجع قبل المتابعة
 "Check the amount, or record the missing receipts first.",راجع المبلغ، أو سجّل الإيصالات الناقصة أولًا.
 Check the placeholders,راجع المتغيرات
 Check the prices and the discount before the next version.,راجع الأسعار والخصم قبل الإصدار التالي.
@@ -315,6 +316,7 @@ Consignment Movements,حركات الأمانة
 Consignment Owner,صاحب أمانة
 Container,الحاوية
 Container No.,رقم الحاوية
+Continue,استمر
 Contract,العقد
 Contract (Sales Order),العقد (أمر البيع)
 Contract Date,تاريخ العقد
@@ -574,6 +576,7 @@ Given,مُسلّمة
 Given By,أعطاه
 Given On,تاريخ الإعطاء
 Given {0} on {1},سُلّمت {0} في {1}
+Go Back,رجوع
 "Goes to the station's site warehouse, on its project.",تذهب إلى مخزن موقع المحطة، على مشروعها.
 Hand cheque {0} to the lawyer?,تسليم الشيك {0} للمحامي؟
 Hand over,تسليم
@@ -877,6 +880,7 @@ Not sent,لم يُرسل
 Note,ملاحظة
 Notes,ملاحظات
 Nothing found for {0}.,لا توجد نتائج لـ {0}.
+Nothing posts.,لن يُرحَّل شيء.
 Nothing snoozed.,لا توجد مهام مؤجلة.
 Nothing to review here.,لا شيء للمراجعة هنا.
 Nothing to start here.,لا يوجد ما تبدؤه هنا.
@@ -1459,6 +1463,7 @@ Storage fee for consignment container {0},رسوم تخزين حاوية الأ�
 Storage Fees,رسوم التخزين
 Subject,الموضوع
 Submit,اعتماد
+Submit and post,اعتماد وترحيل
 Submit Settlement,إرسال التسوية
 Submit the advance first.,اعتمد السلفة أولًا.
 Submit the quote before approving it.,اعتمد (Submit) العرض أولاً قبل اعتماد النسخة.
@@ -1745,6 +1750,7 @@ Wrong customer,عميل غير مطابق
 Wrote off {0}: {1},تم شطب {0}: {1}
 Yearly reset,يبدأ كل سنة
 Yes,نعم
+"Yes, go ahead",نعم، تابع
 Yesterday,أمس
 You can move money only from your own transit account.,يمكنك نقل المال فقط من حساب النقدية الخاص بك.
 You cannot change cost prices.,لا يمكنك تغيير أسعار التكلفة.

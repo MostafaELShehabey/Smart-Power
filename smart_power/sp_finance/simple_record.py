@@ -217,3 +217,26 @@ def log_change(doc) -> None:
 def _shown(doc, fieldname: str, value) -> str:
 	"""A value as the form shows it (1,500.00 rather than 1500.0)."""
 	return frappe.format(value, doc.meta.get_field(fieldname)) if value not in (None, "") else "—"
+
+
+@frappe.whitelist()
+def preview(doc: str | dict) -> list[dict]:
+	"""The entry the record will post, for the confirmation before Submit (nothing is saved)."""
+	from smart_power.sp_finance.posting import preview as posting_preview
+
+	doc = frappe.get_doc(frappe.parse_json(doc) if isinstance(doc, str) else doc)
+	frappe.has_permission(doc.doctype, "submit", throw=True)
+	validate(doc)
+	if doc.direction == NONE or flt(doc.amount) <= 0:
+		return []
+	debit, credit = entry_accounts(doc)
+	return posting_preview(
+		EVENT,
+		doc,
+		flt(doc.amount),
+		posting_date=doc.work_date,
+		cost_center=doc.cost_center,
+		project=doc.project,
+		debit_account=debit,
+		credit_account=credit,
+	)

@@ -457,3 +457,29 @@ def sync_rule_settings() -> None:
 		)
 		doc.insert(ignore_permissions=True)
 	clear_cache()
+
+
+# --- the rule banner (SP-44): the form asks before it saves ----------------------------------------
+
+
+@frappe.whitelist()
+def check(doc: str | dict, event: str = "validate") -> dict:
+	"""The rules a form's current values would hit, without saving or enforcing anything:
+	{hits: [{rule, title, level, message, suggestion, needs_reason}], can_override}."""
+	doc = frappe.get_doc(frappe.parse_json(doc) if isinstance(doc, str) else doc)
+	if doc.is_new():
+		frappe.has_permission(doc.doctype, "create", throw=True)
+	else:
+		frappe.has_permission(doc.doctype, "read", doc=doc.name, throw=True)
+	hits = evaluate(doc, event) if _has_rules_for(doc.doctype, event) else []
+	return {"hits": [_as_payload(h) for h in hits], "can_override": can_override()}
+
+
+def rule_doctypes() -> list[str]:
+	"""The doctypes with rules, for the forms that show the banner."""
+	return sorted({dt for spec in registry().values() for dt in spec.doctypes})
+
+
+def boot(bootinfo) -> None:
+	"""boot_session: the forms that show the rule banner."""
+	bootinfo.sp_rule_doctypes = rule_doctypes()

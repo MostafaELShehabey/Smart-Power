@@ -105,3 +105,34 @@ class TestEditWithReason(IntegrationTestCase):
 		frappe.set_user(self.collector)
 		self.assertEqual(audit.editable_fields(doc.doctype, doc.name), [])
 		frappe.set_user("Administrator")
+
+
+class TestRuleBannerAndConfirm(IntegrationTestCase):
+	def setUp(self):
+		from smart_power.tests.utils import set_rule
+
+		set_setting(validity_days=3, max_validity_days=0)
+		set_rule("quote_validity", "Block")
+		self.creator = make_user("sp.ui.creator@example.com", ("quote_creator",))
+
+	def tearDown(self):
+		frappe.set_user("Administrator")
+
+	def test_a_rule_at_block_names_itself_and_cannot_be_overridden_by_a_user(self):
+		from smart_power.rules import check
+
+		q = make_quotation(valid_days=10, save=False)  # longer than the 3 days allowed
+		frappe.set_user(self.creator)
+		result = check(q.as_dict())
+		frappe.set_user("Administrator")
+		blocked = [h for h in result["hits"] if h["level"] == "Block"]
+		self.assertEqual([h["rule"] for h in blocked], ["quote_validity"])
+		self.assertTrue(blocked[0]["title"])  # the banner names the rule
+		self.assertFalse(result["can_override"])  # so the form's primary button is off
+		ok = check(make_quotation(valid_days=3, save=False).as_dict())
+		self.assertFalse([h for h in ok["hits"] if h["rule"] == "quote_validity"])
+
+	def test_the_forms_with_rules_are_known_to_the_desk(self):
+		from smart_power.rules import rule_doctypes
+
+		self.assertTrue({"Quotation", "SP Case", "SP Transfer"} <= set(rule_doctypes()))
