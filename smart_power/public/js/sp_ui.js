@@ -136,7 +136,14 @@ sp.ui.entry_preview_html = function (lines) {
 $(document).on("app_ready", () => {
 	(frappe.boot.sp_rule_doctypes || []).forEach((doctype) =>
 		frappe.ui.form.on(doctype, {
-			refresh: (frm) => sp.ui.check_rules(frm),
+			refresh: (frm) => {
+				sp.ui.check_rules(frm);
+				// a changed value re-checks the rules, once the typing stops
+				if (!frm.sp_rule_watch) {
+					frm.sp_rule_watch = frappe.utils.debounce(() => sp.ui.check_rules(frm), 400); // sp-allow-number: ms
+					frm.$wrapper.on("change", () => frm.sp_rule_watch());
+				}
+			},
 			validate: (frm) => sp.ui.ask_rule_reasons(frm),
 		})
 	);
