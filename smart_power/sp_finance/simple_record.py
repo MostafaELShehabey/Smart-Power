@@ -55,6 +55,7 @@ def type_account(record_type: str, company: str) -> str:
 
 
 def validate(doc) -> None:
+	validate_reason(doc)
 	if frappe.db.get_value("SP List Value", doc.record_type, "list_name") != LIST:
 		frappe.throw(_("{0} is not a simple record type.").format(frappe.bold(doc.record_type)))
 	if doc.station:
@@ -136,3 +137,83 @@ def seed_account_map(company: str) -> None:
 	)
 	settings.flags.ignore_permissions = True
 	settings.save()
+
+
+# --- changed with a reason: reverse the old entry, post the new one ------------------------------
+
+# what an amended record compares with the record it replaces
+WATCHED = ("work_date", "record_type", "amount", "direction", "account", "cost_center", "station")
+
+
+def validate_reason(doc) -> None:
+	if doc.amended_from and not (doc.edit_reason or "").strip():
+		frappe.throw(
+			_("Give the reason for changing {0}.").format(doc.amended_from), title=_("Reason needed")
+		)
+
+
+def reverse_record(doc) -> str | None:
+	"""on_cancel: its entry stays as posted; a new entry with the sides swapped reverses it."""
+	if not doc.journal_entry or frappe.db.get_value("Journal Entry", doc.journal_entry, "docstatus") != 1:
+		return None
+	old = frappe.get_doc("Journal Entry", doc.journal_entry)
+	reversal = frappe.get_doc(
+		{
+			"doctype": "Journal Entry",
+			"voucher_type": "Journal Entry",
+			"company": old.company,
+			"posting_date": frappe.utils.nowdate(),
+			"reversal_of": old.name,
+			"user_remark": _("Reverses {0}: {1} cancelled").format(old.name, doc.name),
+			"sp_posting_event": EVENT,
+			"sp_source_doctype": doc.doctype,
+			"sp_source_name": doc.name,
+			"accounts": [
+				{
+					"account": line.account,
+					"debit_in_account_currency": flt(line.credit_in_account_currency),
+					"credit_in_account_currency": flt(line.debit_in_account_currency),
+					"cost_center": line.cost_center,
+					"project": line.project,
+					"party_type": line.party_type,
+					"party": line.party,
+				}
+				for line in old.accounts
+			],
+		}
+	)
+	reversal.flags.ignore_permissions = True
+	reversal.flags.ignore_links = True  # its source is the record being cancelled, on purpose
+	reversal.insert()
+	reversal.submit()
+	doc.db_set("reversal_entry", reversal.name)
+	return reversal.name
+
+
+def log_change(doc) -> None:
+	"""on_submit of an amended record: each changed value with the reason (SP Edit Reason Log),
+	in the record's history, and for the admin's review (Edits with reason)."""
+	if not doc.amended_from:
+		return
+	from smart_power.sp_core.review_centre import raise_item
+	from smart_power.sp_core.services.audit import log_edit
+
+	old = frappe.get_doc(doc.doctype, doc.amended_from)
+	changes = [(f, old.get(f), doc.get(f)) for f in WATCHED if str(old.get(f) or "") != str(doc.get(f) or "")]
+	for field, before, after in changes:
+		log_edit(doc, field, before, after, doc.edit_reason)
+	summary = _("{0} replaces {1}: {2}").format(
+		doc.name,
+		old.name,
+		"; ".join(
+			f"{_(doc.meta.get_label(f))} {_shown(doc, f, b)} → {_shown(doc, f, a)}" for f, b, a in changes
+		)
+		or _("no value changed"),
+	)
+	doc.add_comment("Info", f"{summary}. {_('Reason')}: {doc.edit_reason}")
+	raise_item("Edit", doc, f"{summary}. {doc.edit_reason}", amount=flt(doc.amount))
+
+
+def _shown(doc, fieldname: str, value) -> str:
+	"""A value as the form shows it (1,500.00 rather than 1500.0)."""
+	return frappe.format(value, doc.meta.get_field(fieldname)) if value not in (None, "") else "—"

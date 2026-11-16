@@ -563,6 +563,7 @@ Give a reason for each warning to continue.,اكتب سبباً لكل تنبي�
 Give a Temporary Password,إعطاء كلمة مرور مؤقتة
 Give Discount,إعطاء خصم
 Give discount,إعطاء الخصم
+Give the reason for changing {0}.,اكتب سبب تغيير {0}.
 Give the reason for rejecting.,اكتب سبب الرفض.
 Give the reason for the rejection.,اذكر سبب الرفض.
 Give this password to {0}. They must change it when they sign in.,أعطِ كلمة المرور هذه إلى {0}. يجب تغييرها عند الدخول.
@@ -858,6 +859,7 @@ No quote yet.,لا يوجد عرض بعد.
 No roles,لا توجد صلاحيات
 No sent quote yet.,لم يُرسل عرض بعد.
 No stations are assigned to you.,لا توجد محطات مسندة لك
+no value changed,لم تتغير أي قيمة
 No.,رقم
 None,لا شيء
 Normal,عادي
@@ -1025,6 +1027,7 @@ Postal Cheque,شيك بريدي
 Postal Cheques,الشيكات البريدية
 "Posted by hand, not by a document; listed in the review centre (SP-119).",مرحّل يدويًا، وليس من مستند؛ مدرج في مركز المراجعة.
 Posted by {0} {1}. Correct or cancel that document; its entry follows.,رحّله {0} {1}. صحّح أو ألغِ ذلك المستند؛ وقيده يتبعه.
+"Posted when the record was cancelled: its entry reversed, never edited.",يُرحَّل عند إلغاء السجل: قيده يُعكس ولا يُعدَّل.
 Posting Event,حدث القيد
 Posting {0}: the amount must be above zero.,ترحيل {0}: يجب أن يكون المبلغ أكبر من صفر.
 "Posting {0}: the {1} side has no cost center. Set it in Smart Power Settings > Account Map, or on the document.",ترحيل {0}: جانب {1} بلا مركز تكلفة. حدده في إعدادات سمارت باور > خريطة الحسابات، أو على المستند.
@@ -1117,7 +1120,9 @@ Rate,السعر
 Read-only — now with {0},للقراءة فقط — الآن مع {0}
 Ready: {0} · Duplicates: {1} · Errors: {2},جاهز: {0} · مكرر: {1} · أخطاء: {2}
 Reason,السبب
+Reason for the Change,سبب التغيير
 Reason Given,السبب المكتوب
+Reason needed,السبب مطلوب
 Reassign,إعادة إسناد
 Reassign Request,طلب تحويل
 Reassignment,تحويل
@@ -1198,10 +1203,12 @@ Return to Supplier,إرجاع للمورد
 Return to supplier,إرجاع للمورد
 Returned,مُرجعة
 Returned to Supplier,المرتجع للمورد
+Reversal Entry,قيد عكسي
 Reversal of {0},عكس {0}
 Reversal {0} of {1},القيد العكسي {0} لـ {1}
 Reverse,عكس القيد
 "Reverse, never cancel",اعكس، لا تلغِ
+Reverses {0}: {1} cancelled,يعكس {0}: تم إلغاء {1}
 Review,المراجعة
 Review Centre,مركز المراجعة
 Review: {0},مراجعة: {0}
@@ -1698,6 +1705,7 @@ Who follows up this customer now. Changes through the case and hand-over.,من �
 Who physically has the cheque now.,من يحمل الشيك فعليًا الآن.
 Who usually gets it; the preferences list it to them first.,من يصله عادةً؛ يظهر لهم أولًا في التفضيلات.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
+Why this record replaces the cancelled one; it goes to the review (Edits with reason).,لماذا يحل هذا السجل محل السجل الملغى؛ يذهب إلى المراجعة (تعديلات بسبب).
 Winch,ونش
 Winch Center,مركز الونش
 Winch Debt Age Alert (months),تنبيه عمر مديونية الونش (شهور)
@@ -1795,6 +1803,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} of {1} items,{0} من {1} صنف
 {0} recorded.,تم تسجيل {0}.
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
+{0} replaces {1}: {2},{0} يحل محل {1}: {2}
 {0} reviewed {1}: {2},{0} راجع {1}: {2}
 {0} snoozed,{0} مؤجلة
 {0} unread,{0} غير مقروءة

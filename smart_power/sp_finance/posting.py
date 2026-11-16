@@ -153,6 +153,8 @@ def cancel_postings(doc, method=None) -> None:
 	"""on_cancel of any document: its posted entries are cancelled with it."""
 	if doc.doctype == JE or not frappe.db.has_column(JE, "sp_source_name"):
 		return
+	if doc.flags.get("sp_keep_postings"):  # the document reverses its entries itself (SP-43)
+		return
 	from smart_power.sp_finance.journal import allow_cancel
 
 	for name in postings(doc):

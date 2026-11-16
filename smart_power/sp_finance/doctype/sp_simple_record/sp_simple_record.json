@@ -4,7 +4,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "is_submittable": 1,
- "modified": "2026-11-16 23:00:00.000000",
+ "modified": "2026-11-16 23:30:00.000000",
  "modified_by": "Administrator",
  "module": "SP Finance",
  "name": "SP Simple Record",
@@ -32,11 +32,13 @@
   "project",
   "company",
   "details_section",
+  "edit_reason",
   "note",
   "attachment",
   "column_break_details",
   "entry_time",
   "journal_entry",
+  "reversal_entry",
   "amended_from"
  ],
  "fields": [
@@ -123,6 +125,15 @@
    "label": "Details"
   },
   {
+   "fieldname": "edit_reason",
+   "fieldtype": "Small Text",
+   "label": "Reason for the Change",
+   "depends_on": "eval:doc.amended_from",
+   "mandatory_depends_on": "eval:doc.amended_from",
+   "no_copy": 1,
+   "description": "Why this record replaces the cancelled one; it goes to the review (Edits with reason)."
+  },
+  {
    "fieldname": "note",
    "fieldtype": "Small Text",
    "label": "Note"
@@ -151,6 +162,15 @@
    "options": "Journal Entry",
    "read_only": 1,
    "no_copy": 1
+  },
+  {
+   "fieldname": "reversal_entry",
+   "fieldtype": "Link",
+   "label": "Reversal Entry",
+   "options": "Journal Entry",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "Posted when the record was cancelled: its entry reversed, never edited."
   },
   {
    "fieldname": "amended_from",
