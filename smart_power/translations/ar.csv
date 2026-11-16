@@ -32,6 +32,7 @@ A reason is needed,مطلوب سبب
 A reason is needed to change a counter.,تغيير العداد يحتاج سببًا.
 A reason is needed to reassign.,مطلوب سبب لإعادة الإسناد.
 A reason is required to change {0}.,يجب كتابة سبب لتعديل {0}.
+A reason is required.,السبب مطلوب.
 A reservation cannot clear another reservation.,الحجز لا يصفّي حجزًا آخر.
 A reservation is Open until handed over (Cleared) or cancelled.,الحجز مفتوح حتى يُسلَّم (تمت تصفيته) أو يُلغى.
 A sent version cannot be cancelled. Make a new version instead.,لا يمكن إلغاء نسخة مُرسلة. اعمل نسخة جديدة بدلاً من ذلك.
@@ -207,6 +208,8 @@ Change Order,أمر تغيير
 Change orders,أوامر التغيير
 Change Password,تغيير كلمة المرور
 Change your password first.,غيّر كلمة المرور أولاً.
+Change {0},تغيير {0}
+Change {0} (with reason),تغيير {0} (مع السبب)
 Changed By,تم التغيير بواسطة
 Changed by {0},غيّره {0}
 "Changes the quote creator made to the calculated lines, by line key.",تعديلات مُعدّ العرض على السطور المحسوبة، حسب مفتاح السطر.
@@ -635,6 +638,7 @@ Invoice,الفاتورة
 Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
 Issuer,الساحب
+It goes to the document's history and to the admin's review.,يُسجَّل في سجل المستند وفي مراجعة المدير.
 Item,الصنف
 Item Group,مجموعة الأصناف
 Item group {0} does not exist.,مجموعة الأصناف {0} غير موجودة.
@@ -822,6 +826,7 @@ New Quote Request,طلب عرض سعر جديد
 New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
 New Transfer,تحويل جديد
 New Value,القيمة الجديدة
+New value,القيمة الجديدة
 New Version,نسخة جديدة
 New version {0}: send it to the customer.,إصدار جديد {0}: أرسله للعميل.
 Next,التالي
@@ -879,6 +884,7 @@ Nothing waiting for confirmation.,لا شيء في انتظار التأكيد.
 Nothing waiting for you.,لا يوجد ما ينتظرك.
 Notification Preferences,تفضيلات الإشعارات
 Notifications,الإشعارات
+Now,الآن
 Numbering,الترقيم
 of,من
 Of a reservation: handed over so far.,للحجز: ما سُلّم حتى الآن.
@@ -1004,6 +1010,7 @@ Payment Schedule,جدول السداد
 Payment to Confirm,دفعة للتأكيد
 Payment {0},دفعة {0}
 "Payment {0} is {1}, not pending.",الدفعة {0} حالتها {1}، وليست قيد الانتظار.
+Payment {0} is {1}; its amount cannot change.,الدفعة {0} حالتها {1}؛ لا يمكن تغيير مبلغها.
 PDF,ملف PDF
 Pending,قيد التأكيد
 Pending Confirmation,قيد التأكيد
@@ -1581,6 +1588,7 @@ The template section of the line (e.g. Energy). Discounts apply to a section or 
 The template version this quote was calculated from (set by Calculate).,إصدار القالب الذي حُسب منه هذا العرض (يُضبط عند الحساب).
 The treasury is the admin's.,الخزينة خاصة بالمدير.
 The UOM is missing.,الوحدة ناقصة.
+The value is the same.,القيمة كما هي.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
 The wage a log line starts with; it can be changed on the line.,اليومية التي يبدأ بها سطر اليومية؛ يمكن تعديلها على السطر.
 The winch line of the accepted quote: winch income and station cost when the job is done (SP-58).,بند الونش في العرض المقبول: إيراد ونش وتكلفة على المحطة عند تنفيذ المهمة (SP-58).
@@ -1746,6 +1754,7 @@ You do not record customer payments.,أنت لا تسجل دفعات العمل�
 You have been given custody of {0},سُلّمت إليك عهدة بمبلغ {0}
 You hold no company money.,لا توجد معك أموال للشركة.
 You hold no money account to transfer from.,ليس لديك حساب مالي للتحويل منه.
+You may not change this value.,لا يحق لك تغيير هذه القيمة.
 You see only your own custody.,ترى عهدتك فقط.
 Your events,أحداثك
 Your limit is {0}% of the total; above it the discount is kept and the admin is told.,حدك {0}% من الإجمالي؛ وفوقه يُحفظ الخصم ويُبلَّغ المدير.
@@ -1754,9 +1763,11 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} (yours),{0} (خاصتك)
 {0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}
 {0} cannot be changed here.,لا يمكن تعديل {0} هنا.
+{0} cannot be changed this way.,لا يمكن تغيير {0} بهذه الطريقة.
 {0} cannot be higher than {1}.,{0} لا يمكن أن يكون أعلى من {1}.
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} cannot review; forward it to the admin.,{0} لا يمكنه المراجعة؛ حوّلها إلى المدير.
+{0} changed,تم تغيير {0}
 "{0} confirmed, {1} failed.",تم تأكيد {0}، وفشل {1}.
 {0} days,{0} يوم
 {0} days held,محتفظ بها {0} يوم
@@ -1840,6 +1851,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0}: {1} is a reserved name.,{0}: {1} اسم محجوز.
 {0}: {1} is not one of the choices.,{0}: {1} ليست من الاختيارات.
 {0}: {1} is not one of the options.,{0}: {1} ليس من الاختيارات.
+{0}: {1} {2} → {3}. {4},{0}: {1} {2} ← {3}. {4}
 "{0}; {1} expense(s) rejected, see the reasons",{0}؛ رُفض {1} مصروف، راجع الأسباب
 {0}d {1}h,{0}ي {1}س
 {0}h {1}m,{0}س {1}د

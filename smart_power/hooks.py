@@ -21,7 +21,11 @@ add_to_apps_screen = [
 	}
 ]
 # each user sees only the module groups they work in (SP-37)
-boot_session = ["smart_power.shell.apply_to_boot"]
+boot_session = [
+	"smart_power.shell.apply_to_boot",
+	# the doctypes with fields changed by edit-with-reason (SP-44)
+	"smart_power.audit.boot",
+]
 
 required_apps = ["frappe", "erpnext"]
 
@@ -43,6 +47,8 @@ app_include_js = [
 	"/assets/smart_power/js/sp_transfer.js",
 	# App shell: "+ New" and My Tasks in the dock (SP-37)
 	"/assets/smart_power/js/sp_shell.js",
+	# Shared form components: edit with reason, rule banner, confirm, pickers, grid (SP-44)
+	"/assets/smart_power/js/sp_ui.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).

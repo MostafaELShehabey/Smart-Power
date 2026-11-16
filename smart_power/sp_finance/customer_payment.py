@@ -540,3 +540,42 @@ def preview(name: str) -> list[dict]:
 		{"account": pe.paid_to, "debit": flt(pe.paid_amount), "credit": 0, "party": None, "cost_center": center, "project": pe.project, "station": doc.station},
 		{"account": pe.paid_from, "debit": 0, "credit": flt(pe.paid_amount), "party": pe.party, "cost_center": center, "project": pe.project, "station": doc.station},
 	]  # fmt: skip
+
+
+def change_amount(doc, amount) -> None:
+	"""Edit with reason (SP-44): a pending payment just takes the new amount; a confirmed one has
+	its entry reversed (cancelled) and posted again for the new amount."""
+	amount = flt(amount)
+	if amount <= 0:
+		frappe.throw(_("The amount must be above zero."))
+	if doc.status not in (PENDING, CONFIRMED):
+		frappe.throw(_("Payment {0} is {1}; its amount cannot change.").format(doc.name, _(doc.status)))
+	if doc.status == PENDING:
+		doc.db_set("amount", amount, update_modified=True)
+		for task in frappe.get_all(
+			"SP Task",
+			{"reference_doctype": PAYMENT, "reference_name": doc.name, "status": "Open"},
+			pluck="name",
+		):
+			frappe.db.set_value("SP Task", task, "amount", amount)
+		_refresh(doc)
+		return
+	for field, doctype in (("payment_entry", "Payment Entry"), ("journal_entry", "Journal Entry")):
+		name = doc.get(field)
+		if name and frappe.db.get_value(doctype, name, "docstatus") == 1:
+			doc.db_set(field, None)  # the payment stays submitted: its link must not stop the cancel
+			entry = frappe.get_doc(doctype, name)
+			entry.flags.ignore_permissions = True
+			entry.flags.sp_allow_cancel = True  # the payment's own entry (SP-119)
+			entry.cancel()
+	doc.db_set("amount", amount, update_modified=True)
+	doc.reload()
+	frappe.flags.sp_system_posting = True
+	try:
+		if doc.method == THIRD_PARTY:
+			doc.db_set("journal_entry", _third_party_entry(doc))
+		else:
+			doc.db_set("payment_entry", _payment_entry(doc))
+	finally:
+		frappe.flags.sp_system_posting = False
+	_refresh(doc)
