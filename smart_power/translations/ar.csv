@@ -21,6 +21,8 @@ A new PDF is made and logged for this send.,يُنشأ ملف PDF جديد وي�
 A percent of the total it applies to; leave empty to give an amount.,نسبة من الإجمالي الذي يُطبق عليه؛ اتركها فارغة لإعطاء مبلغ.
 "A postal cheque becomes Due this many days before its due date, and its holder, the collection owner and the admin are alerted (SP-118).",يصبح الشيك البريدي مستحقًا قبل تاريخه بهذا العدد من الأيام، ويُنبَّه حائزه ومسئول التحصيل والمدير.
 A posted entry is never cancelled. Use Reverse to post a reversing entry.,القيد المرحّل لا يُلغى أبدًا. استخدم عكس القيد لترحيل قيد عكسي.
+A price needs its date.,السعر يحتاج تاريخه.
+A price needs its supplier.,السعر يحتاج مورده.
 A price older than this is stale: red chip and clock icon. Empty means no limit.,السعر الأقدم من ذلك يعتبر قديماً: علامة حمراء وأيقونة ساعة. فارغ يعني بدون حد.
 A price older than this shows amber. Empty means no amber step.,السعر الأقدم من ذلك يظهر بالأصفر. فارغ يعني بدون مرحلة صفراء.
 A quote cannot be valid for longer than the maximum validity days in Smart Power Settings (or the default validity when no maximum is set).,لا يمكن أن تزيد صلاحية العرض عن أقصى صلاحية في إعدادات سمارت باور (أو الصلاحية الافتراضية إذا لم يُحدد حد أقصى).
@@ -203,6 +205,7 @@ Check the placeholders,راجع المتغيرات
 Check the prices and the discount before the next version.,راجع الأسعار والخصم قبل الإصدار التالي.
 Check the specs,راجع المواصفات
 Check the template,راجع القالب
+Checking…,جارٍ الفحص…
 Cheque,شيك
 Cheque Bounce,ارتداد شيك
 Cheque bounced,شيك مرتجع
@@ -240,6 +243,7 @@ Close Financially,إغلاق مالي
 Close Technically,إغلاق فني
 Code,الكود
 Code or name,الكود أو الاسم
+Code Prefix,بادئة الكود
 Code {0} already exists in the list {1}.,الكود {0} موجود بالفعل في القائمة {1}.
 Code {0} is repeated: it is already in row {1}.,الكود {0} مكرر: موجود بالفعل في الصف {1}.
 Collected,تم التحصيل
@@ -392,12 +396,14 @@ Document Naming Settings,إعدادات تسمية المستندات
 Document Numbering,ترقيم المستندات
 Done,تم
 Download the template,تحميل النموذج
+Download the template of {0},تنزيل نموذج {0}
 Draft,مسودة
 Drag to reorder,اسحب لتغيير الترتيب
 Due,مستحق
 Due Alert Sent,أُرسل تنبيه الاستحقاق
 Due At,الميعاد
 Due Date,تاريخ الاستحقاق
+Duplicate,مكرر
 "E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round.",مثل ceil(depth / pipe_m). الأسماء المتاحة: المدخلات، مفاتيح السطور السابقة (pipes.qty)، item (مواصفات الصنف المختار)، settings؛ والدوال ceil وfloor وmround وnearest_divisible وmin وmax وabs وround.
 E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Edit,تعديل
@@ -542,10 +548,13 @@ Home Page Variant,شكل الصفحة الرئيسية
 hp,القدرة (حصان)
 Imp (A),Imp (أمبير)
 Import,استيراد
+Import by Group,استيراد حسب المجموعة
 Import from Excel,استيراد من إكسل
+Import Items by Group,استيراد الأصناف حسب المجموعة
 Import Items from Excel,استيراد الأصناف من إكسل
 Import Prices from Excel,استيراد الأسعار من إكسل
 Import: {0},استيراد: {0}
+Imported: {0} · Duplicates: {1} · Errors: {2},تم استيراد: {0} · مكرر: {1} · أخطاء: {2}
 Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
 In App,داخل البرنامج
@@ -575,7 +584,9 @@ Isc (A),Isc (أمبير)
 Issuer,الساحب
 Item,الصنف
 Item Group,مجموعة الأصناف
+Item group {0} does not exist.,مجموعة الأصناف {0} غير موجودة.
 Item Name,اسم الصنف
+"Item saved, but its price was not: {0}",حُفظ الصنف لكن لم يُحفظ سعره: {0}
 Item Selection,اختيار الصنف
 Item {0} does not exist.,الصنف {0} غير موجود.
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
@@ -602,6 +613,7 @@ Last-minute discount,خصم العشم
 Late and reopened field entries,الإدخالات الميدانية المتأخرة والمعاد فتحها
 Late Entry,تسجيل متأخر
 Lead Source,مصدر العميل المحتمل
+"Leave the code empty: it is made from the group, the brand and the model.",اترك الكود فارغًا: يُكوَّن من المجموعة والماركة والموديل.
 Left,المتبقي
 Leftover,المتبقي
 Leftover Cash,النقدية المتبقية
@@ -694,9 +706,11 @@ Min Margin %,أقل ربح %
 Mine,طلباتي
 Missing data for {0}: {1},بيانات ناقصة لـ {0}: {1}
 Missing Fields,الحقول الناقصة
+Missing specs for this group: {0}.,مواصفات ناقصة لهذه المجموعة: {0}.
 Mobile,الموبايل
 Mobile Device ID,معرّف جهاز الموبايل
 Mobile is required: it is how a returning customer is found.,الموبايل مطلوب: به نتعرف على العميل عند عودته.
+Model,الموديل
 Module {0} is reserved for developer changes. Use {1}.,الموديول {0} محجوز لتعديلات المطور. استخدم {1}.
 Money,الأموال
 Money and Postings,الفلوس والقيود
@@ -743,6 +757,7 @@ No,لا
 No account is mapped for {0}. The admin adds it in Smart Power Settings > Account Map.,لا يوجد حساب مربوط لـ {0}. يضيفه المدير في إعدادات سمارت باور > خريطة الحسابات.
 No call yet.,لا توجد مكالمات بعد.
 No cases here.,لا توجد حالات هنا.
+"No code: fill the code, or the brand (with a Code) and the model.",لا يوجد كود: املأ الكود، أو الماركة (ولها كود) والموديل.
 No contact yet,لا يوجد تواصل بعد
 No contract schedule yet,لا يوجد جدول سداد للعقد بعد
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
@@ -789,6 +804,7 @@ Official Account,الحساب الرسمي
 Official accounts,الحسابات الرسمية
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: cash one person or channel holds until it reaches an official account. Custody: the custody given to a person (SP-26).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة نقدية: نقدية يحملها شخص أو قناة حتى تصل لحساب رسمي. عهدة: العهدة المعطاة لشخص.
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: the money one person holds until it reaches an official account (SP-114, SP-116).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة: المال الذي يحمله شخص حتى يصل لحساب رسمي.
+OK,سليم
 Old price: {0},السعر القديم: {0}
 Old Value,القيمة القديمة
 On time,في الموعد
@@ -851,6 +867,9 @@ Or Into,أو إلى
 Order saved,تم حفظ الترتيب
 Other,أخرى
 Other events,أحداث أخرى
+Other Spellings,كتابات أخرى
+"Other ways the brand is written in price lists, comma separated; the import maps them to this brand.",طرق أخرى لكتابة الماركة في قوائم الأسعار، مفصولة بفواصل؛ الاستيراد يحوّلها لهذه الماركة.
+"Other ways the supplier is written (e.g. PM TECH, بي ام تك), comma separated; the import maps them to this supplier (SP-165).",طرق أخرى لكتابة المورد (مثل PM TECH، بي ام تك)، مفصولة بفواصل؛ الاستيراد يحوّلها لهذا المورد.
 Outcome,النتيجة
 Outstanding,المتبقي
 Outstanding: {0},المتبقي: {0}
@@ -998,6 +1017,7 @@ Quote {0} sent to {1},تم إرسال العرض {0} إلى {1}
 Quotes,عروض الأسعار
 Raised By,سُجّل بواسطة
 Rate,السعر
+Ready: {0} · Duplicates: {1} · Errors: {2},جاهز: {0} · مكرر: {1} · أخطاء: {2}
 Reason,السبب
 Reason Given,السبب المكتوب
 Reassign,إعادة إسناد
@@ -1059,6 +1079,7 @@ Request {0} is yours,الطلب {0} أصبح لك
 Request {0} saved,تم حفظ الطلب {0}
 Requested By,طالب العرض
 Required,مطلوب
+Required Specs,المواصفات المطلوبة
 Reservation,الحجز
 Reserve,حجز
 Reserved,محجوز
@@ -1108,6 +1129,7 @@ Rule warnings,تحذيرات القواعد
 Sales,المبيعات
 Sales Order {0} already belongs to station {1}.,أمر البيع {0} يخص المحطة {1} بالفعل.
 Sales Owner,مسئول المبيعات
+Same item as row {0} ({1}): only that row is imported.,نفس صنف الصف {0} ({1}): يُستورد ذلك الصف فقط.
 Save,حفظ
 Save Request,حفظ الطلب
 Save to see the placeholders of this document.,احفظ لعرض متغيرات هذا المستند.
@@ -1340,6 +1362,7 @@ Text Blocks,فقرات النص
 The admin has been asked,تم إرسال الطلب للمدير
 The amount must be above zero.,يجب أن يكون المبلغ أكبر من صفر.
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
+"The brand part of item codes, e.g. JA in PNL-JA-625 (SP-165).",جزء الماركة في أكواد الأصناف، مثل JA في PNL-JA-625.
 The case is already yours.,الحالة لك بالفعل.
 The case is handed over.,تم تسليم الحالة.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
@@ -1365,6 +1388,7 @@ The execution owner by default; the admin switches it from a date.,مسئول ا
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
 The file has no price column.,الملف لا يحتوي على عمود سعر.
 The file is empty.,الملف فارغ.
+"The first part of item codes in this group, e.g. PNL in PNL-JA-625 (SP-165).",الجزء الأول من أكواد أصناف هذه المجموعة، مثل PNL في PNL-JA-625.
 The first party (Smart Power),الطرف الأول (سمارت باور)
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 "The follow-up owner can give a discount on the total up to the limit in Smart Power Settings; above it the discount is kept and the admin is flagged. There is no approval gate (decision 67), so it never blocks.",يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد في إعدادات سمارت باور؛ وفوقه يُحفظ الخصم ويُنبَّه المدير. لا توجد بوابة موافقة، لذا لا يمنع أبدًا.
@@ -1376,6 +1400,7 @@ The item spec compared with the need.,مواصفة الصنف التي تُقا�
 "The lump sum agreed with the referrer: a hidden cost of the station, never printed.",المبلغ المقطوع المتفق عليه مع الوسيط: تكلفة مخفية للمحطة، لا تُطبع أبدًا.
 The markup cannot be changed on a quote. Locked BTC lines are always locked.,لا يمكن تغيير نسبة الربح في العرض. سطور BTC المقفلة مقفلة دائمًا.
 The mobile app's id for an expense entered offline (M11); the same id is saved once.,معرّف تطبيق الموبايل لمصروف أُدخل دون اتصال؛ يُحفظ المعرّف نفسه مرة واحدة.
+"The model part of the item code, e.g. 625 in PNL-JA-625 (SP-165).",جزء الموديل في كود الصنف، مثل 625 في PNL-JA-625.
 "The name formulas use, e.g. depth or hp (letters, digits and _).",الاسم الذي تستخدمه المعادلات، مثل depth أو hp (حروف وأرقام و _).
 "The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
@@ -1405,6 +1430,7 @@ The sales owner is fixed once the contract exists.,مسئول المبيعات �
 The second party (the customer),الطرف الثاني (العميل)
 "The smallest capacity accepted, e.g. hp.",أقل قدرة مقبولة، مثل hp.
 "The Smart Power event this entry was posted for (Account Map, SP-113).",حدث سمارت باور الذي رُحّل له هذا القيد (خريطة الحسابات).
+"The spec fields every item of this group must have, comma separated (e.g. sp_watt, sp_voc). The import template shows them as columns.","حقول المواصفات المطلوبة لكل صنف في هذه المجموعة، مفصولة بفواصل (مثل sp_watt, sp_voc). نموذج الاستيراد يعرضها كأعمدة."
 The station this project is (SP-27): its money and costs carry this project.,المحطة التي يمثلها هذا المشروع: أموالها وتكاليفها تحمل هذا المشروع.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
@@ -1413,6 +1439,7 @@ The supplier's own payment terms in words. The Payment Terms Template sets the d
 The template section of the line (e.g. Energy). Discounts apply to a section or the quote total (SP-68).,قسم السطر في القالب (مثل الطاقة). تُطبق الخصومات على قسم أو على إجمالي العرض.
 The template version this quote was calculated from (set by Calculate).,إصدار القالب الذي حُسب منه هذا العرض (يُضبط عند الحساب).
 The treasury is the admin's.,الخزينة خاصة بالمدير.
+The UOM is missing.,الوحدة ناقصة.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
 The wage a log line starts with; it can be changed on the line.,اليومية التي يبدأ بها سطر اليومية؛ يمكن تعديلها على السطر.
 There are no expenses to settle.,لا توجد مصروفات للتسوية.
@@ -1619,6 +1646,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
 {0} x {1} from consignment at {2} per W ({3}),{0} × {1} من الأمانة بسعر {2} للوات ({3})
 {0} {1} does not exist.,{0} {1} غير موجود.
+{0} {1} is not known; add it or one of its spellings first.,{0} {1} غير معروف؛ أضفه أو إحدى طرق كتابته أولًا.
 {0}: a Select input needs its options.,{0}: مدخل القائمة يحتاج اختياراته.
 {0}: a {1} price needs a supplier.,{0}: سعر {1} يحتاج مورداً.
 "{0}: brand priority needs an item group, a capacity spec and a need formula.",{0}: أولوية الماركة تحتاج مجموعة أصناف ومواصفة قدرة ومعادلة احتياج.
