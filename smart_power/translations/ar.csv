@@ -306,6 +306,7 @@ Cost Center,المركز المالي
 Cost Centers,المراكز المالية
 Cost Source,مصدر التكلفة
 Cost x Markup,التكلفة × نسبة الربح
+Count Difference,فرق جرد
 Countdown,العد التنازلي
 Counter,العداد
 Counter saved,تم حفظ العداد
@@ -387,6 +388,7 @@ Difference,الفرق
 Discount,خصم
 Discount given,تم إعطاء خصم
 Discount on {0},خصم على {0}
+Discount Request,طلب خصم
 Discount {0} given. New total: {1}.,تم إعطاء خصم {0}. الإجمالي الجديد: {1}.
 Discount {0}% ({1}) on quote {2},خصم {0}% ({1}) على العرض {2}
 Discount {0}% is above the follow-up owner's limit of {1}%.,الخصم {0}% أعلى من حد مسئول المتابعة ({1}%).
@@ -435,6 +437,7 @@ Entered At,وقت الإدخال
 Entry it will post,القيد الذي سيُرحّل
 Entry Mode,طريقة التسجيل
 Entry Time,وقت الإدخال
+Entry to Review,إدخال للمراجعة
 Entry {0} comes from {1} {2}: cancel or correct that document instead.,القيد {0} صادر من {1} {2}: ألغِ أو صحّح ذلك المستند بدلًا منه.
 ERPNext setup did not finish: {0},إعداد النظام لم يكتمل: {0}
 Error,خطأ
@@ -487,6 +490,7 @@ Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
 First in stock,أول صنف متوفر بالمخزن
 First Version,النسخة الأولى
 Fiscal Year Start,بداية السنة المالية
+Fix Rejected Sync,إصلاح مزامنة مرفوضة
 Fix the rejected custody expenses of {0},عدّل مصروفات العهدة المرفوضة في {0}
 Fixed,ثابت
 Fixed list price,سعر القائمة الثابت
@@ -551,6 +555,7 @@ Hello {0},أهلاً {0}
 Help,مساعدة
 Hidden Line,بند مخفي
 Hidden on Print,مخفي في الطباعة
+High,مستوى عالي
 Highlight,تمييز
 History,السجل
 Hit At,وقت التنبيه
@@ -561,6 +566,7 @@ Home Page Variant,شكل الصفحة الرئيسية
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
 "How print formats find this block, e.g. warranty (a-z, 0-9 and _).",الاسم الذي تجد به نماذج الطباعة هذه الفقرة، مثل warranty (حروف a-z وأرقام و _).
 hp,القدرة (حصان)
+Image,صورة
 Imp (A),Imp (أمبير)
 Import,استيراد
 Import by Group,استيراد حسب المجموعة
@@ -808,6 +814,7 @@ No sent quote yet.,لم يُرسل عرض بعد.
 No stations are assigned to you.,لا توجد محطات مسندة لك
 No.,رقم
 None,لا شيء
+Normal,عادي
 Nos,عدد
 Not allowed,غير مسموح
 "Not balanced: debit {0}, credit {1}, difference {2}",غير متوازن: المدين {0}، الدائن {1}، الفرق {2}
@@ -929,12 +936,14 @@ Part of this reservation was handed over; cancel that hand-over first.,سُلّ�
 Partly repaid,مسددة جزئيًا
 Pass-through,بسعر التكلفة
 Password changed,تم تغيير كلمة المرور
+Password Reset,إعادة تعيين كلمة المرور
 Payee,المستفيد
 Payee Type,نوع المستفيد
 Payment,الدفعة
 Payment Entry,سند الدفع
 Payment Method,طريقة الدفع
 Payment Schedule,جدول السداد
+Payment to Confirm,دفعة للتأكيد
 Payment {0},دفعة {0}
 "Payment {0} is {1}, not pending.",الدفعة {0} حالتها {1}، وليست قيد الانتظار.
 PDF,ملف PDF
@@ -1092,6 +1101,7 @@ Remove,إزالة
 Remove this expense?,حذف هذا المصروف؟
 Rename,إعادة تسمية
 Reopen,إعادة فتح
+Reopen Request,طلب إعادة فتح
 Repaid,مسددة
 Repayment Entry,قيد السداد
 Repayment of {0},سداد {0}
@@ -1201,6 +1211,7 @@ Sets the price age limit and the pricing rules. Empty takes the item group's cat
 Settled By,طريقة السداد
 Settlement,التسوية
 Settlement submitted,أُرسلت التسوية
+Settlement to Approve,تسوية للاعتماد
 "Settlement {0} is {1}, not pending.",التسوية {0} حالتها {1}، وليست معلقة.
 Settlements,التسويات
 Setup failed,فشل الإعداد
@@ -1436,6 +1447,7 @@ The item spec compared with the need.,مواصفة الصنف التي تُقا�
 The markup cannot be changed on a quote. Locked BTC lines are always locked.,لا يمكن تغيير نسبة الربح في العرض. سطور BTC المقفلة مقفلة دائمًا.
 The mobile app's id for an expense entered offline (M11); the same id is saved once.,معرّف تطبيق الموبايل لمصروف أُدخل دون اتصال؛ يُحفظ المعرّف نفسه مرة واحدة.
 "The model part of the item code, e.g. 625 in PNL-JA-625 (SP-165).",جزء الموديل في كود الصنف، مثل 625 في PNL-JA-625.
+"The money the task is about (a payment, a transfer, a settlement).",المبلغ الذي تخصه المهمة (دفعة أو تحويل أو تسوية).
 "The name formulas use, e.g. depth or hp (letters, digits and _).",الاسم الذي تستخدمه المعادلات، مثل depth أو hp (حروف وأرقام و _).
 "The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
@@ -1458,6 +1470,7 @@ The quote creator can approve a discount on the total up to the limit in Smart P
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
 The quote needs a site survey first (survey tasks come with SP-95).,العرض يحتاج معاينة للموقع أولاً (مهام المعاينة تأتي مع SP-95).
 the quote total,إجمالي العرض
+The receipt or photo to look at (shown as a thumbnail in the inbox).,الإيصال أو الصورة المطلوب مراجعتها (تظهر مصغرة في صندوق المهام).
 The requester was asked,تم سؤال صاحب الطلب
 The reservation this hand-over clears.,الحجز الذي يصفّيه هذا التسليم.
 The row has no price.,السطر لا يحتوي على سعر.
@@ -1515,6 +1528,8 @@ Transfer / deposit,تحويل / إيداع
 Transfer / Deposit,تحويل / إيداع
 Transfer above the transit balance,تحويل أكبر من رصيد النقدية
 Transfer Note,إذن التحويل
+Transfer to Confirm,تحويل للتأكيد
+Transfer to Issue,تحويل مخزني للصرف
 Transfer {0},تحويل {0}
 "Transfer {0} is {1}, not pending.",التحويل {0} حالته {1}، وليس قيد الانتظار.
 Transit,في الطريق

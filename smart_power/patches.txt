@@ -44,3 +44,4 @@ smart_power.patches.sp58_service_items
 smart_power.patches.sp36_login_settings
 smart_power.patches.sp36_login_lock
 smart_power.patches.sp36_no_email_link
+smart_power.patches.sp39_task_types

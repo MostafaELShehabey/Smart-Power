@@ -215,11 +215,13 @@ def request_password_reset(user: str) -> None:
 
 def _notify_reset(doc) -> None:
 	from smart_power.notify import send
+	from smart_power.sp_core.inbox import create_task
 	from smart_power.sp_sales.quote_request import _users_with
 
 	admins = {u for role in ADMIN_ROLES for u in _users_with(role)} - {"Administrator"}
 	subject = _("{0} forgot their password.").format(frappe.utils.get_fullname(doc.user))
 	send("password_reset", admins, RESET_REQUEST, doc.name, subject)
+	create_task("Password Reset", RESET_REQUEST, doc.name, admins or ["Administrator"], subject)
 
 
 @frappe.whitelist(methods=["POST"])
@@ -239,6 +241,9 @@ def give_temporary_password(request: str) -> str:
 	doc.db_set(
 		{"status": "Done", "handled_by": frappe.session.user, "handled_on": frappe.utils.now_datetime()}
 	)
+	from smart_power.sp_core.inbox import close_tasks
+
+	close_tasks(RESET_REQUEST, doc.name)
 	return password
 
 

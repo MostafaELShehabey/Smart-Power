@@ -15,12 +15,13 @@ import frappe
 from frappe import _
 from frappe.utils import flt, now_datetime
 
+from smart_power.sp_core.inbox import close_tasks, create_task
 from smart_power.sp_finance.accounts import OFFICIAL, TRANSIT
 
 TRANSFER, TASK = "SP Transfer", "SP Task"
 DRAFT, PENDING, CONFIRMED, REJECTED = "Draft", "Pending", "Confirmed", "Rejected"
 MONEY_KINDS = (OFFICIAL, TRANSIT)
-CONFIRM_TASK, TASK_OPEN, TASK_DONE = "Receipt to Confirm", "Open", "Done"
+CONFIRM_TASK = "Transfer to Confirm"  # in the admin's inbox (SP-39)
 ADMIN_ROLE, ADMIN_ROLES = "SP Admin", ("SP Admin", "System Manager")
 KIND = "Transfer / deposit"
 
@@ -107,20 +108,17 @@ def on_submit(doc) -> None:
 	doc.db_set("status", PENDING)
 	from smart_power.sp_sales.quote_request import _users_with
 
-	for admin in _users_with(ADMIN_ROLE) or ["Administrator"]:
-		frappe.get_doc(
-			{
-				"doctype": TASK,
-				"subject": _("Confirm the transfer of {0} from {1}").format(
-					frappe.format(doc.amount, "Currency"), _account(doc.from_account).account_name
-				),
-				"task_type": CONFIRM_TASK,
-				"assigned_to": admin,
-				"reference_doctype": TRANSFER,
-				"reference_name": doc.name,
-				"description": doc.receipt_photo or "",
-			}
-		).insert(ignore_permissions=True)
+	create_task(
+		CONFIRM_TASK,
+		TRANSFER,
+		doc.name,
+		_users_with(ADMIN_ROLE) or ["Administrator"],
+		_("Confirm the transfer of {0} from {1}").format(
+			frappe.format(doc.amount, "Currency"), _account(doc.from_account).account_name
+		),
+		amount=flt(doc.amount),
+		image=doc.receipt_photo,
+	)
 
 
 def _build_entry(doc):
@@ -211,14 +209,7 @@ def on_cancel(doc) -> None:
 
 
 def _close_tasks(doc) -> None:
-	for name in frappe.get_all(
-		TASK, {"reference_doctype": TRANSFER, "reference_name": doc.name, "status": TASK_OPEN}, pluck="name"
-	):
-		frappe.db.set_value(
-			TASK,
-			name,
-			{"status": TASK_DONE, "completed_by": frappe.session.user, "completed_on": now_datetime()},
-		)
+	close_tasks(TRANSFER, doc.name)
 
 
 def _notify(doc, users, subject: str) -> None:
