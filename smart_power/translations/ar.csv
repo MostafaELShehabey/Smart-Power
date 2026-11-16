@@ -103,6 +103,7 @@ Approve: {0}?,اعتماد: {0}؟
 Approved,معتمد
 Approved By,وافق عليها
 Approved Version,النسخة المعتمدة
+"Approved, waiting for the contract",معتمدة تنتظر العقد
 Arabic Name,الاسم العربي
 Ask for a Site Survey,طلب معاينة موقع
 Ask for Missing Data,طلب البيانات الناقصة
@@ -134,6 +135,7 @@ Both accounts must belong to the same company.,يجب أن يتبع الحساب
 Both sides,الجانبان
 Bought out of a consignment container at the day's watt price (SP-92).,مشترى من حاوية أمانة بسعر الوات في يومه.
 Bounced,مرتجع
+Bounced cheques,شيكات مرتجعة
 Bounced On,تاريخ الارتجاع
 Branch,الفرع
 Brand,الماركة
@@ -187,6 +189,7 @@ Cash held,نقدية معك
 Cash Held Limit (days),حد الاحتفاظ بالنقدية (أيام)
 Cash held too long,نقدية محتفظ بها مدة طويلة
 "Cash in a person's transit account longer than its Max Days Held (or Cash Held Limit in Smart Power Settings) alerts the holder and the admin every day until it is deposited. A warning, never a block.",النقدية في حساب نقدية شخص أطول من أقصى أيام الاحتفاظ (أو حد الاحتفاظ بالنقدية في الإعدادات) تنبّه الحائز والمدير يوميًا حتى تُودع. تحذير، وليس منعًا.
+Cash in transit (all holders),نقدية في الطريق (كل الحائزين)
 Cash may stay here this many days before the holder and the admin are alerted; empty uses the setting (SP-116).,يمكن أن تبقى النقدية هنا هذا العدد من الأيام قبل تنبيه الحائز والمدير؛ الفارغ يستخدم الإعداد.
 Cash may stay with a person this many days; after that the holder and the admin are alerted daily until it is deposited. An account's own Max Days Held overrides it (SP-116).,يمكن أن تبقى النقدية مع شخص هذا العدد من الأيام؛ بعدها يُنبَّه الحائز والمدير يوميًا حتى تُودع. أقصى أيام الاحتفاظ للحساب نفسه يتجاوزه.
 Cash on hand,النقدية معي
@@ -228,6 +231,7 @@ Cheque {0} is {1}; it cannot become {2}.,الشيك {0} حالته {1}؛ لا ي
 Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
 Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبلغ {1} يستحق في {2}؛ أودعه في البريد
 Cheques,الشيكات
+Cheques due,شيكات مستحقة
 Choose a station or a warehouse.,اختر محطة أو مخزنًا.
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose Arabic or English.,اختر العربية أو الإنجليزية.
@@ -298,6 +302,7 @@ Confirming,جارٍ التأكيد
 Consignment Container,حاوية الأمانة
 Consignment container {0} ({1}) is down to {2} panels,حاوية الأمانة {0} ({1}) بقي بها {2} لوح
 Consignment Containers,حاويات الأمانة
+Consignment containers running low,حاويات أمانة قاربت على النفاد
 Consignment Conversion,تحويل أمانة
 Consignment conversions,تحويلات الأمانة
 Consignment Low Balance (panels),حد انخفاض رصيد الأمانة (ألواح)
@@ -347,6 +352,7 @@ Custody settlement rejected: {0},رُفضت تسوية العهدة: {0}
 Custody settlement {0} of {1},تسوية العهدة {0} لـ {1}
 Custody settlement {0} rejected: {1},رُفضت تسوية العهدة {0}: {1}
 Custody Settlements,تسويات العهد
+Custody settlements to approve,تسويات عهد للاعتماد
 Custody {0} is closed.,العهدة {0} مغلقة.
 Custody {0} to {1},العهدة {0} إلى {1}
 Customer,العميل
@@ -773,14 +779,17 @@ MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
 Must Change Password,يجب تغيير كلمة المرور
 My cash,نقديتي
+My collections this month,تحصيلاتي هذا الشهر
 My custody,عهدتي
 My Custody,عهدتي
 My custody and cash held,عهدتي والنقدية التي معي
 My Leads,عملائي المحتملون
+My new leads this week,عملائي المحتملون الجدد هذا الأسبوع
 My Profile,ملفي
 My queue,قائمة أعمالي
 My requests waiting for a quote,طلباتي المنتظرة لعرض سعر
 My Tasks,مهامي
+My won cases,حالاتي المكسوبة
 Name,الاسم
 Name the customer or the station.,اذكر اسم العميل أو المحطة.
 Name the third party the customer paid.,اذكر الطرف الثالث الذي دفع له العميل.
@@ -918,6 +927,7 @@ Only {0} panels are available in {1}.,المتاح {0} لوح فقط في {1}.
 Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
+Open stations,المحطات المفتوحة
 Operation Date,تاريخ التشغيل
 Option,الخيار
 Option taken,الخيار مستخدم
@@ -1089,6 +1099,8 @@ Quote {0} is not on case {1}.,العرض {0} ليس على الحالة {1}.
 Quote {0} sent to {1},تم إرسال العرض {0} إلى {1}
 Quotes,عروض الأسعار
 Quotes expiring in 48 h,عروض تنتهي خلال 48 ساعة
+Quotes received today,عروض استلمها العملاء اليوم
+Quotes sent today,عروض أُرسلت اليوم
 Raised By,سُجّل بواسطة
 Rate,السعر
 Read-only — now with {0},للقراءة فقط — الآن مع {0}
@@ -1273,6 +1285,7 @@ Site,موقع
 Site Stage,مرحلة الموقع
 Site Survey,معاينة موقع
 Site survey for {0},معاينة موقع لـ {0}
+Site survey tasks,مهام معاينة الموقع
 Site Visit Needed,يحتاج معاينة موقع
 Site Warehouse,مخزن الموقع
 Skill,المهارة
@@ -1397,12 +1410,14 @@ Statement,كشف حساب
 Station,المحطة
 "Station documents (payments, write-offs, advances, purchases for a station) post here, with the station's project.",مستندات المحطة (المدفوعات والشطب والسلف والمشتريات) تُرحّل هنا، مع مشروع المحطة.
 Station opened,تم فتح المحطة
+Station payments today,مدفوعات المحطات اليوم
 Station Project,مشروع المحطة
 Station {0},المحطة {0}
 Station {0} not found.,المحطة {0} غير موجودة.
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
 Stations,المحطات
 Stations late: {0},محطات متأخرة: {0}
+Stations with overdue instalments,محطات عليها أقساط متأخرة
 Status,الحالة
 Stock Movements,حركات المخزون
 Storage Fee,رسوم التخزين
@@ -1626,6 +1641,7 @@ View,عرض
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
 Voice Note,ملاحظة صوتية
+Waiting for confirmation,بانتظار التأكيد
 Waiting for quote,في انتظار العرض
 Wake Now,إعادتها الآن
 Warehouse {0} is not {1}'s.,المخزن {0} ليس تابعًا لـ {1}.

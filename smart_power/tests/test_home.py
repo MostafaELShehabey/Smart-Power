@@ -93,3 +93,28 @@ class TestHome(IntegrationTestCase):
 		titles = [r["title"] for r in rows]
 		self.assertEqual(titles[0], "مهمة عاجلة")
 		self.assertTrue({"مهمة عادية", "تذكير يدوي"} <= set(titles))
+
+
+class TestRoleCards(IntegrationTestCase):
+	def test_every_profile_gets_its_cards_and_each_card_opens_somewhere(self):
+		from smart_power.sp_core.setup.role_catalogue import PROFILES
+
+		for profile in PROFILES:
+			if not any(cards.variants_of_roles(profile.roles())):
+				continue
+			user = make_user(f"sp.home.{profile.name.lower().replace(' ', '.')}@example.com", profile.keys)
+			home = home_of(user)
+			self.assertTrue(home, profile.name)
+			for key, c in home.items():
+				self.assertTrue(c.get("route"), (profile.name, key))
+				self.assertIn(c["indicator"], ("red", "orange", "green", "gray"), (profile.name, key))
+
+	def test_each_variant_sees_its_own_cards(self):
+		finance = home_of(make_user("sp.home.finance@example.com", ("accountant",)))
+		self.assertTrue({"waiting_confirmation", "cash_in_transit", "bounced_cheques"} <= set(finance))
+		self.assertNotIn("requests_waiting", finance)
+		store = home_of(make_user("sp.home.store@example.com", ("main_store_keeper",)))
+		self.assertIn("consignment_low", store)
+		self.assertNotIn("waiting_confirmation", store)
+		projects = home_of(make_user("sp.home.projects@example.com", ("project_manager",)))
+		self.assertTrue({"waiting_contract", "open_stations", "overdue_installments"} <= set(projects))
