@@ -40,7 +40,8 @@ def seed_item_groups() -> None:
 	root = get_root_of("Item Group")
 	if not root:
 		return
-	for name in defaults()["item_groups"]["names"]:
+	spec = defaults()["item_groups"]
+	for name in spec["names"]:
 		if frappe.db.exists("Item Group", name):
 			continue
 		frappe.get_doc(
@@ -50,7 +51,33 @@ def seed_item_groups() -> None:
 	from smart_power.sp_stock.prices import seed_price_categories
 
 	seed_price_categories()
+	seed_child_groups(spec.get("children") or {})  # after the categories they share
 	seed_group_codes()  # SP-165
 	from smart_power.sp_quotes.special_lines import seed_service_items
 
 	seed_service_items()  # SP-58
+
+
+def seed_child_groups(children: dict[str, list[str]]) -> None:
+	"""SP-56: groups under a category (motors and pumps under pumps …). The parent becomes a
+	group; a child shares its parent's price category."""
+	for parent, names in children.items():
+		if not frappe.db.exists("Item Group", parent):
+			continue
+		if not frappe.db.get_value("Item Group", parent, "is_group"):
+			group = frappe.get_doc("Item Group", parent)
+			group.is_group = 1
+			group.save(ignore_permissions=True)
+		for name in names:
+			if not frappe.db.exists("Item Group", name):
+				frappe.get_doc(
+					{
+						"doctype": "Item Group",
+						"item_group_name": name,
+						"parent_item_group": parent,
+						"is_group": 0,
+					}
+				).insert(ignore_permissions=True)
+			category = frappe.db.get_value("Item Group", parent, "sp_price_age_category")
+			if category and not frappe.db.get_value("Item Group", name, "sp_price_age_category"):
+				frappe.db.set_value("Item Group", name, "sp_price_age_category", category)
