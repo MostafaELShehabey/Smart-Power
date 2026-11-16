@@ -18,7 +18,7 @@ import frappe
 from frappe import _
 from frappe.utils import flt
 
-from smart_power.permissions import can_see_cost
+from smart_power.permissions import sees_quote_internals
 from smart_power.sp_core.services.audit import log_edit
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC, published_template
 from smart_power.sp_quotes.engine import INFO, OVERRIDABLE, calculate
@@ -92,7 +92,7 @@ def template_for_quote(quotation: str, template: str | None = None) -> dict:
 	picked, else the one the quote used, else the published one for the case's system type."""
 	doc = frappe.get_doc(QUOTATION, quotation)
 	doc.check_permission("read")
-	if not can_see_cost():
+	if not sees_quote_internals(doc):
 		frappe.throw(_("Only the quote creator and the cost roles price a quote."), frappe.PermissionError)
 	name = template or doc.get("sp_calc_template") or default_template(doc)
 	if not name:
@@ -170,7 +170,7 @@ def write_lines(doc, result) -> None:
 def quote_for_edit(name: str):
 	doc = frappe.get_doc(QUOTATION, name)
 	doc.check_permission("write")
-	if not can_see_cost():
+	if not sees_quote_internals(doc):
 		frappe.throw(_("Only the quote creator and the cost roles price a quote."), frappe.PermissionError)
 	if doc.docstatus != DRAFT:
 		frappe.throw(_("Only a draft version can be calculated. Make a new version."))

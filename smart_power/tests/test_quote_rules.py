@@ -55,6 +55,7 @@ class TestDiscountRules(IntegrationTestCase):
 	def test_unchanged_discount_does_not_block_a_later_save(self):
 		frappe.set_user(self.aya)
 		q = make_quotation(discount_pct=3)
+		frappe.db.set_value("SP Case", q.sp_case, "follow_up_owner", self.camelia)  # her case (SP-35)
 		frappe.set_user(self.camelia)
 		q.reload()
 		q.order_type = q.order_type or "Sales"
