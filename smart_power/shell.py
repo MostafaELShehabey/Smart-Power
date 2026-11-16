@@ -8,9 +8,15 @@ group to almost everyone. A group is therefore shown only to the roles that work
 only: what a user may open is still decided by the permissions.
 
     apply_to_boot(bootinfo)   boot_session: drop the groups and items this user does not work in
+    get_new_menu()            "+ New": only what the user may start (NEW_ACTIONS)
+    get_counts()              unread notifications and waiting tasks, for the dock
+
+sp_shell.js puts "+ New" and My Tasks (with its count) in the dock; the count follows every task
+change at once (realtime sp_tasks).
 """
 
 import frappe
+from frappe import _
 
 APP = "smart_power"
 ADMIN = ("SP Admin", "System Manager")
@@ -129,3 +135,57 @@ def apply_to_boot(bootinfo) -> None:
 		if isinstance(shells, dict):
 			for entity in [e for e, shell in shells.items() if shell in hidden]:
 				shells.pop(entity)
+
+
+# --- "+ New" and the counts ------------------------------------------------------------------------
+
+# What "+ New" can start, in order: (key, label, kind, target, doctype checked for create, roles).
+# kind: page (open it), new (a new document), dialog (the module's own dialog, in sp_shell.js).
+# Showroom sale, expense and winch booking join here when those stories land.
+NEW_ACTIONS = (
+	(
+		"quote_request",
+		"Quote Request",
+		"page",
+		"sp-quote-request",
+		None,
+		("SP Lead Intake", "SP Customer Followup", "SP Marketing Agent", *ADMIN),
+	),
+	("payment", "Payment on a Station", "dialog", "payment", "SP Customer Payment", None),
+	("transfer", "Deposit or Transfer", "dialog", "transfer", "SP Transfer", None),
+	("customer", "Customer", "new", "Customer", "Customer", None),
+	(
+		"purchase_order",
+		"Purchase Order",
+		"new",
+		"Purchase Order",
+		"Purchase Order",
+		("SP Purchase Officer", *ADMIN),
+	),
+)
+
+
+@frappe.whitelist()
+def get_new_menu() -> list[dict]:
+	"""The "+ New" menu: only what this user may start."""
+	user = frappe.session.user
+	roles = set(frappe.get_roles(user))
+	menu = []
+	for key, label, kind, target, doctype, action_roles in NEW_ACTIONS:
+		if action_roles and user != "Administrator" and not set(action_roles) & roles:
+			continue
+		if doctype and not (
+			frappe.db.exists("DocType", doctype) and frappe.has_permission(doctype, "create", user=user)
+		):
+			continue
+		menu.append({"key": key, "label": _(label), "kind": kind, "target": target})
+	return menu
+
+
+@frappe.whitelist()
+def get_counts() -> dict:
+	"""The shell's counts: unread notifications and the tasks waiting now."""
+	from smart_power.notify import unread
+	from smart_power.sp_core.inbox import open_count
+
+	return {"notifications": unread(frappe.session.user), "tasks": open_count()}

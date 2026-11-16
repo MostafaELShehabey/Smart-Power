@@ -1,11 +1,11 @@
-"""The app shell (SP-37): Smart Power's dock of module-group sidebars, filtered by role."""
+"""The app shell (SP-37): Smart Power's dock of module-group sidebars by role, "+ New", the counts."""
 
 import frappe
 from frappe.boot import get_module_sidebars
 from frappe.desk.doctype.dock.dock import resolve_dock
 from frappe.tests import IntegrationTestCase
 
-from smart_power.shell import apply_to_boot
+from smart_power.shell import apply_to_boot, get_counts, get_new_menu
 from smart_power.sp_core.setup.role_catalogue import PROFILES
 from smart_power.tests.utils import make_user
 
@@ -63,3 +63,49 @@ class TestShell(IntegrationTestCase):
 		self.assertIn("Requests & Customers", groups)
 		self.assertIn("Follow-up", groups)
 		self.assertFalse({"Admin Studio", "Inventory", "Purchasing", "Finance"} & set(groups))
+
+
+class TestNewMenuAndCounts(IntegrationTestCase):
+	def menu(self, user):
+		frappe.set_user(user)
+		try:
+			return [a["key"] for a in get_new_menu()]
+		finally:
+			frappe.set_user("Administrator")
+
+	def test_new_offers_only_what_the_user_may_start(self):
+		# محمد حسين: showroom and winch (showroom sale and winch booking join when built)
+		hussein = make_user("sp.shell.hussein@example.com", profile_keys("SP Showroom and Winch"))
+		keys = self.menu(hussein)
+		self.assertIn("quote_request", keys)
+		self.assertIn("payment", keys)
+		self.assertNotIn("purchase_order", keys)
+		jaber = make_user("sp.shell.jaber@example.com", profile_keys("SP Store and Installations"))
+		self.assertFalse({"quote_request", "payment", "purchase_order"} & set(self.menu(jaber)))
+		amira = make_user("sp.shell.amira@example.com", profile_keys("SP Projects Manager"))
+		self.assertIn("purchase_order", self.menu(amira))
+
+	def test_the_counts_follow_the_inbox(self):
+		from smart_power.sp_core.inbox import create_task
+
+		aya = make_user("sp.shell.aya@example.com", ("quote_creator",))
+		frappe.set_user(aya)
+		before = get_counts()["tasks"]
+		frappe.set_user("Administrator")
+		create_task("Other", "User", aya, aya, "مهمة للعدّاد")
+		frappe.set_user(aya)
+		self.assertEqual(get_counts()["tasks"], before + 1)
+		frappe.set_user("Administrator")
+
+	def test_a_new_task_is_pushed_to_its_assignee_at_once(self):
+		# the dock's count and the open inbox listen to this (realtime needs socket.io, not up in tests)
+		from unittest.mock import patch
+
+		from smart_power.sp_core.inbox import REALTIME_EVENT, create_task
+
+		aya = make_user("sp.shell.aya@example.com", ("quote_creator",))
+		with patch("frappe.publish_realtime") as push:
+			create_task("Other", "User", "Guest", aya, "مهمة تُدفع فورًا")
+		self.assertTrue(
+			any(c.args[0] == REALTIME_EVENT and c.kwargs.get("user") == aya for c in push.call_args_list)
+		)

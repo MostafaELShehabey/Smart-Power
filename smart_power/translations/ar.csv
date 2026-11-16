@@ -389,6 +389,7 @@ Deposit,عربون
 "Deposit confirmed for {0}: station {1}, contract {2}",تم تأكيد عربون {0}: المحطة {1}، العقد {2}
 Deposit it into an official account.,أودعها في حساب رسمي.
 Deposit my cash,إيداع نقديتي
+Deposit or Transfer,إيداع أو تحويل
 Deposit the cash: {0},أودع النقدية: {0}
 Deposit: drafted by the deposit automation for the lines not in stock (SP-175).,عربون: أنشأه تأكيد العربون للأصناف غير المتوفرة بالمخزن.
 Deposited,مودع
@@ -788,6 +789,7 @@ Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
 Never printed: the station commission (SP-58).,لا يُطبع أبدًا: عمولة المحطة (SP-58).
+New,جديد
 New Option,خيار جديد
 New Password,كلمة المرور الجديدة
 New price,السعر الجديد
@@ -844,6 +846,7 @@ Note,ملاحظة
 Notes,ملاحظات
 Nothing snoozed.,لا توجد مهام مؤجلة.
 Nothing to review here.,لا شيء للمراجعة هنا.
+Nothing to start here.,لا يوجد ما تبدؤه هنا.
 Nothing waiting for confirmation.,لا شيء في انتظار التأكيد.
 Nothing waiting for you.,لا يوجد ما ينتظرك.
 Notification Preferences,تفضيلات الإشعارات
@@ -965,6 +968,7 @@ Payee Type,نوع المستفيد
 Payment,الدفعة
 Payment Entry,سند الدفع
 Payment Method,طريقة الدفع
+Payment on a Station,دفعة على محطة
 Payment Schedule,جدول السداد
 Payment to Confirm,دفعة للتأكيد
 Payment {0},دفعة {0}

@@ -41,6 +41,8 @@ app_include_js = [
 	"/assets/smart_power/js/sp_payment.js",
 	# A4 Transfer / deposit, from the Treasury and the holder's profile (SP-117)
 	"/assets/smart_power/js/sp_transfer.js",
+	# App shell: "+ New" and My Tasks in the dock (SP-37)
+	"/assets/smart_power/js/sp_shell.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).
