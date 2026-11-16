@@ -136,3 +136,56 @@ class TestRuleBannerAndConfirm(IntegrationTestCase):
 		from smart_power.rules import rule_doctypes
 
 		self.assertTrue({"Quotation", "SP Case", "SP Transfer"} <= set(rule_doctypes()))
+
+
+class TestDatesAndPickers(IntegrationTestCase):
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		from smart_power.sp_finance.accounts import seed_accounts
+
+		seed_accounts(COMPANY)
+
+	def setUp(self):
+		from smart_power.sp_finance import centers
+
+		self.centers = centers.seed_centers(COMPANY)
+		set_setting(**{f"center_{k}": v for k, v in self.centers.items()})
+		self.holder = make_user("sp.ui.holder@example.com", ("custody_holder", "collection_officer"))
+		self.other = make_user("sp.ui.other@example.com", ("custody_holder", "collection_officer"))
+
+	def tearDown(self):
+		frappe.set_user("Administrator")
+
+	def test_a_work_date_may_be_back_dated_but_never_in_the_future(self):
+		from frappe.utils import add_days, today
+
+		from smart_power.sp_core.dated import set_dates
+
+		doc = frappe._dict(work_date=add_days(today(), -3), entry_time=None)
+		set_dates(doc)
+		self.assertTrue(doc.entry_time)  # stamped once, when entered
+		with self.assertRaises(frappe.ValidationError):
+			set_dates(frappe._dict(work_date=add_days(today(), 1), entry_time=None))
+
+	def test_the_center_picker_offers_the_financial_centers_only(self):
+		from smart_power.sp_finance.queries import center_picker
+
+		offered = {r[0] for r in center_picker("Cost Center", "", "name", 0, 20, {"company": COMPANY})}
+		self.assertEqual(offered, set(self.centers.values()))
+
+	def test_the_account_picker_offers_the_official_and_my_own_accounts(self):
+		from smart_power.sp_finance.accounts import holder_account
+		from smart_power.sp_finance.queries import account_picker
+
+		mine = holder_account(self.holder, "Transit", COMPANY)
+		theirs = holder_account(self.other, "Transit", COMPANY)
+		frappe.set_user(self.holder)
+		offered = {r[0] for r in account_picker("Account", "", "name", 0, 50, {"company": COMPANY})}
+		frappe.set_user("Administrator")
+		self.assertIn(mine, offered)
+		self.assertNotIn(theirs, offered)
+		official = frappe.get_all(
+			"Account", {"company": COMPANY, "sp_account_kind": "Official", "is_group": 0}, pluck="name"
+		)
+		self.assertTrue(set(official) <= offered)

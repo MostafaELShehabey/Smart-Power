@@ -4,15 +4,14 @@ a small income, a one-off expense). When money moved it posts a simple Journal E
 entry is reversed by a new entry, never edited, and the new record posts its own."""
 
 import frappe
-from frappe.model.document import Document
-from frappe.utils import now_datetime
+
+from smart_power.sp_core.dated import SPDatedDocument
 
 
-class SPSimpleRecord(Document):
+class SPSimpleRecord(SPDatedDocument):  # work date vs entry time (SP-44)
 	def validate(self):
 		from smart_power.sp_finance import simple_record
 
-		self.entry_time = self.entry_time or now_datetime()
 		simple_record.validate(self)
 
 	def on_submit(self):
