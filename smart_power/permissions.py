@@ -107,29 +107,35 @@ def case_has_permission(doc, ptype: str | None = None, user: str | None = None) 
 # Cost fields on the quote live at permlevel 2 (Cost, Line Profit, Total Cost, Profit, Margin).
 # ERPNext already uses permlevel 1 on Quotation and gives it to Sales User, so 2 is ours.
 COST_PERMLEVEL = 2  # sp-allow-number: Frappe permission level, not a business value
-COST_DOCTYPES = ("Quotation",)
-# Of the cost roles, these may also type a cost on a quote line.
-COST_WRITE_ROLES = ("SP Admin", "SP Quote Creator", "SP System Designer")
+# Supplier prices on purchase orders: the purchase officer (أميرة), the admin, the accountant and
+# supplier accounts; the purchase officer and the admin also type them.
+PO_COST_ROLES = ("SP Admin", "SP Purchase Officer", "SP Accountant", "SP Supplier Accounts")
+# {doctype: (roles that read the cost permlevel, roles that also write it)}
+COST_DOCTYPES = {
+	"Quotation": (COST_ROLES, ("SP Admin", "SP Quote Creator", "SP System Designer")),
+	"Purchase Order": (PO_COST_ROLES, ("SP Admin", "SP Purchase Officer")),
+}
 
 
 def sync_cost_permissions() -> None:
-	"""Give the cost roles read (and some write) at the cost permlevel on Quotation; never remove rows.
+	"""Give the cost roles read (and some write) at the cost permlevel on Quotation and Purchase
+	Order; never remove rows.
 
 	Uses Frappe's own add_permission, which copies the standard rules into Role Permissions
 	the first time (as the Role Permissions Manager does). Rows the admin changed are kept.
 	"""
 	from frappe.permissions import add_permission, update_permission_property
 
-	for doctype in COST_DOCTYPES:
-		for role in COST_ROLES:
+	for doctype, (readers, writers) in COST_DOCTYPES.items():
+		for role in readers:
 			if not frappe.db.exists("Role", role):
 				continue
 			key = {"parent": doctype, "role": role, "permlevel": COST_PERMLEVEL, "if_owner": 0}
 			if not frappe.db.exists("Custom DocPerm", key):
 				add_permission(doctype, role, COST_PERMLEVEL)
-				if role in COST_WRITE_ROLES:
+				if role in writers:
 					update_permission_property(doctype, role, COST_PERMLEVEL, "write", 1, validate=False)
-	frappe.clear_cache(doctype="Quotation")
+		frappe.clear_cache(doctype=doctype)
 
 
 # Quote cost and profit keys (permlevel COST_PERMLEVEL): header and line.
@@ -337,3 +343,57 @@ def get_quote_view(name: str) -> dict:
 			for key in QUOTE_LINE_COST_KEYS:
 				row.pop(key, None)
 	return data
+
+
+# --- Payment Entry: a customer payment is seen by its recorder, its collector and the admin ----
+
+# Roles that see every customer payment (they confirm and post them).
+PAYMENT_SEES_ALL = ("SP Admin", "System Manager", "SP Accountant")
+
+
+def _payment_sees_all(user: str) -> bool:
+	return user == "Administrator" or bool(set(PAYMENT_SEES_ALL) & set(frappe.get_roles(user)))
+
+
+def payment_query_conditions(user: str | None = None) -> str:
+	"""permission_query_conditions for Payment Entry: a payment on a case is seen by whoever
+	recorded it and by the collection owner of the case's station (SP-35); others stay as ERPNext has them."""
+	user = user or frappe.session.user
+	if _payment_sees_all(user):
+		return ""
+	u = frappe.db.escape(user)
+	t = "`tabPayment Entry`"
+	return (
+		f"(ifnull({t}.sp_case, '') = '' or {t}.owner = {u}"
+		f" or {t}.sp_case in (select `case` from `tabSP Station` where collection_owner = {u}))"
+	)
+
+
+def payment_has_permission(doc, ptype: str | None = None, user: str | None = None) -> bool:
+	"""has_permission for Payment Entry, the same rule for one payment."""
+	user = user or frappe.session.user
+	if doc.is_new() or not doc.get("sp_case") or _payment_sees_all(user) or doc.owner == user:
+		return True
+	return bool(frappe.db.exists(STATION, {"case": doc.sp_case, "collection_owner": user}))
+
+
+def customer_payment_query_conditions(user: str | None = None) -> str:
+	"""permission_query_conditions for SP Customer Payment: its recorder, the collection owner of
+	its station, and the admin and accountant (SP-35)."""
+	user = user or frappe.session.user
+	if _payment_sees_all(user):
+		return ""
+	u = frappe.db.escape(user)
+	t = "`tabSP Customer Payment`"
+	return (
+		f"({t}.owner = {u} or {t}.recorded_by = {u}"
+		f" or {t}.station in (select name from `tabSP Station` where collection_owner = {u}))"
+	)
+
+
+def customer_payment_has_permission(doc, ptype: str | None = None, user: str | None = None) -> bool:
+	"""has_permission for SP Customer Payment, the same rule for one payment."""
+	user = user or frappe.session.user
+	if doc.is_new() or _payment_sees_all(user) or user in (doc.owner, doc.get("recorded_by")):
+		return True
+	return bool(doc.station) and frappe.db.get_value(STATION, doc.station, "collection_owner") == user
