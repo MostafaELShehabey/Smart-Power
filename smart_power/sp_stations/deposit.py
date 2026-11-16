@@ -319,24 +319,19 @@ def mark_won(case: str, so) -> None:
 
 
 def _notify(station, so, pe) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
-
+	from smart_power.notify import send
 	from smart_power.sp_sales.quote_request import _users_with
 
 	users = sorted({u for u in [station.execution_owner, *_users_with(ADMIN_ROLE)] if u})
 	if not users:
 		return
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				"document_type": STATION,
-				"document_name": station.name,
-				"subject": _("Deposit confirmed for {0}: station {1}, contract {2}").format(
-					station.customer_name or station.customer, station.name, so.name
-				),
-				"from_user": frappe.session.user,
-			}
-		),
+	send(
+		"won_case",
 		users,
+		STATION,
+		station.name,
+		_("Deposit confirmed for {0}: station {1}, contract {2}").format(
+			station.customer_name or station.customer, station.name, so.name
+		),
+		from_user=frappe.session.user,
 	)

@@ -143,25 +143,19 @@ def mark_case_sent(case) -> None:
 
 
 def notify(doc, case) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+	from smart_power.notify import send
 
 	users = sorted({u for u in (case.get("requested_by"), case.get("follow_up_owner")) if u})
 	if not users:
 		return
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				# linked to the case: the requester may open the case but not the quote
-				"document_type": CASE,
-				"document_name": case.name,
-				"subject": _("Quote {0} sent to {1}").format(
-					doc.name, doc.get("customer_name") or doc.party_name
-				),
-				"from_user": frappe.session.user,
-			}
-		),
+	send(
+		"quote_sent",
 		users,
+		# linked to the case: the requester may open the case but not the quote
+		CASE,
+		case.name,
+		_("Quote {0} sent to {1}").format(doc.name, doc.get("customer_name") or doc.party_name),
+		from_user=frappe.session.user,
 	)
 
 

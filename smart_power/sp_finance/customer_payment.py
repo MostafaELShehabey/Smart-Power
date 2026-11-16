@@ -142,7 +142,7 @@ def _confirm_task(doc) -> None:
 			}
 		).insert(ignore_permissions=True)
 	if large:
-		_notify(doc, admins, _("Large payment: {0}").format(subject))
+		_notify(doc, admins, _("Large payment: {0}").format(subject), "large_payment")
 
 
 # --- confirm / reject ------------------------------------------------------------------------------
@@ -187,6 +187,7 @@ def post_confirmed(doc) -> str:
 		doc,
 		[doc.recorded_by, owner],
 		_("Confirmed: {0} from {1}").format(frappe.format(doc.amount, "Currency"), doc.customer_name),
+		"payment_confirmed",
 	)
 	return entry
 
@@ -207,7 +208,7 @@ def reject(name: str, reason: str) -> str:
 	subject = _("Rejected: {0} from {1}: {2}").format(
 		frappe.format(doc.amount, "Currency"), doc.customer_name, reason
 	)
-	_notify(doc, [doc.recorded_by], subject)
+	_notify(doc, [doc.recorded_by], subject, "receipt_rejected")
 	if doc.recorded_by:
 		# the recorder fixes it: amend the payment with what the admin asked (SP-115)
 		frappe.get_doc(
@@ -384,22 +385,18 @@ def _refresh(doc) -> None:
 		refresh(doc.station)
 
 
-def _notify(doc, users, subject: str) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+def _notify(doc, users, subject: str, event: str) -> None:
+	from smart_power.notify import send
 
 	users = sorted({u for u in users if u})
 	if users:
-		make_notification_logs(
-			frappe._dict(
-				{
-					"type": "Alert",
-					"document_type": PAYMENT,
-					"document_name": doc.name,
-					"subject": subject,
-					"from_user": frappe.session.user,
-				}
-			),
+		send(
+			event,
 			users,
+			PAYMENT,
+			doc.name,
+			subject,
+			from_user=frappe.session.user,
 		)
 
 

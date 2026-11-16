@@ -131,7 +131,7 @@ def _admins() -> list[str]:
 
 
 def _alert(doc, row: dict, event: str, users: list) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+	from smart_power.notify import send
 
 	customer = doc.customer_name or doc.customer
 	left = frappe.format(row["left"], "Currency")
@@ -144,17 +144,13 @@ def _alert(doc, row: dict, event: str, users: list) -> None:
 		)
 	users = sorted({u for u in users if u})
 	if users:
-		make_notification_logs(
-			frappe._dict(
-				{
-					"type": "Alert",
-					"document_type": STATION,
-					"document_name": doc.name,
-					"subject": subject,
-					"from_user": "Administrator",
-				}
-			),
+		send(
+			event,
 			users,
+			STATION,
+			doc.name,
+			subject,
+			from_user="Administrator",
 		)
 	for fn in frappe.get_hooks("sp_installment_events"):
 		frappe.get_attr(fn)(event, doc, row)

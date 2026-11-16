@@ -77,6 +77,7 @@ def after_call(doc) -> None:
 			case,
 			case.quote_creator,
 			_("{0} wants the quote revised: {1}").format(case.customer_name or case.customer, doc.note or ""),
+			"revision_requested",
 		)
 
 
@@ -127,20 +128,16 @@ def _close_call_tasks(case: str) -> None:
 		)
 
 
-def _notify(case, user: str, subject: str) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+def _notify(case, user: str, subject: str, event: str) -> None:
+	from smart_power.notify import send
 
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				"document_type": CASE,
-				"document_name": case.name,
-				"subject": subject,
-				"from_user": frappe.session.user,
-			}
-		),
+	send(
+		event,
 		[user],
+		CASE,
+		case.name,
+		subject,
+		from_user=frappe.session.user,
 	)
 
 
@@ -281,12 +278,18 @@ def owner_changed(case, old_owner: str | None) -> None:
 	by = get_fullname(frappe.session.user)
 	customer = case.customer_name or case.customer
 	if new_owner:
-		_notify(case, new_owner, _("{0} gave you the case of {1}: {2}").format(by, customer, reason))
+		_notify(
+			case,
+			new_owner,
+			_("{0} gave you the case of {1}: {2}").format(by, customer, reason),
+			"case_handed_over",
+		)
 	if old_owner and old_owner != frappe.session.user:
 		_notify(
 			case,
 			old_owner,
 			_("{0} moved the case of {1} to {2}: {3}").format(by, customer, get_fullname(new_owner), reason),
+			"case_handed_over",
 		)
 	if not case.flags.sp_hand_over:  # the admin's reassign is listed for review (RV2)
 		from smart_power.sp_core.services.review import open_review_item

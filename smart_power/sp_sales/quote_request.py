@@ -331,20 +331,16 @@ def after_request(case) -> None:
 	"""A saved request: tell the admins and quote creators, give each quote creator a
 	"Quote Request" task (the first to take it closes the others, SP-48), and ask the
 	installation managers for a site survey when one is needed (SP-95 adds the survey)."""
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+	from smart_power.notify import send
 
 	subject = _("New quote request: {0} ({1})").format(case.customer_name or case.customer, case.name)
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				"document_type": CASE,
-				"document_name": case.name,
-				"subject": subject,
-				"from_user": frappe.session.user,
-			}
-		),
+	send(
+		"new_request",
 		sorted(set(_users_with(ADMIN_ROLE)) | set(_users_with(QUOTE_CREATOR_ROLE))),
+		CASE,
+		case.name,
+		subject,
+		from_user=frappe.session.user,
 	)
 	for user in _users_with(QUOTE_CREATOR_ROLE):
 		_task(

@@ -208,20 +208,16 @@ def forward(name: str, to_user: str, note: str | None = None) -> str:
 
 
 def _notify(doc, user: str, subject: str) -> None:
-	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
+	from smart_power.notify import send
 
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				# the link opens the record the owner can read, not the review item
-				"document_type": doc.reference_doctype or ITEM,
-				"document_name": doc.reference_name or doc.name,
-				"subject": subject,
-				"from_user": frappe.session.user,
-			}
-		),
+	# the link opens the record the owner can read, not the review item
+	send(
+		"review_comment",
 		[user],
+		doc.reference_doctype or ITEM,
+		doc.reference_name or doc.name,
+		subject,
+		from_user=frappe.session.user,
 	)
 
 
