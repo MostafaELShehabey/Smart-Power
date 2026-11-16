@@ -8,6 +8,20 @@ app_description = "Smart Power ERP: the custom app for Smart Power (solar energy
 app_email = "mostafashraf2120@gmail.com"
 app_license = "custom"
 app_logo_url = "/assets/smart_power/images/sp_logo.png"
+# App shell (SP-37): Smart Power on the apps screen, with its own dock of module-group sidebars
+# (smart_power/dock, <module>/sidebar); everyone lands here (System Settings default app).
+app_home = "/desk/smart-power/sp-task-inbox"
+add_to_apps_screen = [
+	{
+		"name": app_name,
+		"logo": app_logo_url,
+		"title": app_title,
+		"route": app_home,
+		"sequence_id": 0,
+	}
+]
+# each user sees only the module groups they work in (SP-37)
+boot_session = ["smart_power.shell.apply_to_boot"]
 
 required_apps = ["frappe", "erpnext"]
 

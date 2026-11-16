@@ -1,0 +1,95 @@
+{
+ "app": "smart_power",
+ "creation": "2026-11-16 19:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Dock",
+ "idx": 0,
+ "items": [
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "house",
+   "link_to": "Smart Power",
+   "link_type": "Sidebar",
+   "title": "Smart Power"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "inbox",
+   "link_to": "Requests & Customers",
+   "link_type": "Sidebar",
+   "title": "Requests & Customers"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "phone",
+   "link_to": "Follow-up",
+   "link_type": "Sidebar",
+   "title": "Follow-up"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "file-text",
+   "link_to": "Quotes",
+   "link_type": "Sidebar",
+   "title": "Quotes"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "zap",
+   "link_to": "Stations",
+   "link_type": "Sidebar",
+   "title": "Stations"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "shopping-cart",
+   "link_to": "Purchasing",
+   "link_type": "Sidebar",
+   "title": "Purchasing"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "package",
+   "link_to": "Inventory",
+   "link_type": "Sidebar",
+   "title": "Inventory"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "landmark",
+   "link_to": "Finance",
+   "link_type": "Sidebar",
+   "title": "Finance"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "chart-bar",
+   "link_to": "Reports",
+   "link_type": "Sidebar",
+   "title": "Reports"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
+   "icon": "settings",
+   "link_to": "Admin Studio",
+   "link_type": "Sidebar",
+   "title": "Admin Studio"
+  }
+ ],
+ "modified": "2026-11-16 19:00:00.000000",
+ "modified_by": "Administrator",
+ "name": "smart_power",
+ "owner": "Administrator",
+ "standard": 1,
+ "user": ""
+}
