@@ -21,6 +21,10 @@ frappe.ui.form.on("SP Consignment Container", {
 			frm.add_custom_button(__("Hand Over"), () => sp_cn_move(frm, "Hand over"), __("Move"));
 			frm.add_custom_button(__("Return to Supplier"), () => sp_cn_move(frm, "Return to supplier"), __("Move"));
 		}
+		if (frm.doc.balance_qty > 0 && ["SP Admin", "System Manager", "SP Purchase Officer"].some((r) => frappe.user.has_role(r))) {
+			// buy panels into company stock at the day's watt price (SP-92)
+			frm.add_custom_button(__("Withdraw by PO"), () => sp_cn_withdraw(frm)).addClass("btn-primary");
+		}
 		if (["SP Admin", "System Manager", "SP Accountant"].some((r) => frappe.user.has_role(r))) {
 			frm.add_custom_button(__("Storage Fee"), () => sp_cn_fee(frm));
 		}
@@ -92,6 +96,82 @@ async function sp_cn_move(frm, movement_type) {
 		},
 	});
 	d.show();
+}
+
+async function sp_cn_withdraw(frm) {
+	const { message: opts } = await frappe.call(`${SP_CN_API}.withdraw_options`, { container: frm.doc.name });
+	const reservations = (await frappe.call(`${SP_CN_API}.open_reservations`, { container: frm.doc.name })).message || [];
+	const total = () => {
+		const v = d.get_values(true);
+		return (v.qty || 0) * (v.watt_price || 0) * (v.panel_watts || 0);
+	};
+	const show_total = () => d.set_df_property("total", "options", `<b>${__("Total")}: ${format_currency(total())}</b>`);
+	const d = new frappe.ui.Dialog({
+		title: `${__("Withdraw by PO")} · ${__("Available")}: ${frm.doc.available_qty}`,
+		fields: [
+			{ fieldname: "qty", fieldtype: "Int", label: __("Quantity"), reqd: 1, change: () => show_total() },
+			{ fieldname: "watt_price", fieldtype: "Float", label: __("Watt Price (per W)"), reqd: 1, precision: 4, change: () => show_total() }, // sp-allow-number: price decimals
+			{ fieldname: "price_date", fieldtype: "Date", label: __("Watt Price Date"), default: "Today", reqd: 1 },
+			{ fieldname: "panel_watts", fieldtype: "Float", label: __("Panel Watts"), default: opts.panel_watts, reqd: 1, change: () => show_total() },
+			{ fieldname: "total", fieldtype: "HTML" },
+			{ fieldname: "col", fieldtype: "Column Break" },
+			{
+				fieldname: "station",
+				fieldtype: "Link",
+				options: "SP Station",
+				label: __("For Station"),
+				description: __("Goes to the station's site warehouse, on its project."),
+				get_query: () => ({ filters: { company: opts.company, status: ["!=", "Cancelled"] } }),
+			},
+			{
+				fieldname: "warehouse",
+				fieldtype: "Select",
+				label: __("Or Into"),
+				options: ["", ...opts.warehouses],
+				depends_on: "eval:!doc.station",
+			},
+			...(reservations.length
+				? [
+						{
+							fieldname: "reservation",
+							fieldtype: "Select",
+							label: __("Reservation"),
+							options: [
+								{ value: "", label: __("None") },
+								...reservations.map((r) => ({ value: r.name, label: `${r.customer_name || r.station} · ${r.qty - r.cleared_qty}` })),
+							],
+						},
+				  ]
+				: []),
+		],
+		primary_action_label: __("Withdraw"),
+		async primary_action(values) {
+			if (!values.station && !values.warehouse) {
+				frappe.msgprint(__("Choose a station or a warehouse."));
+				return;
+			}
+			const { message } = await frappe.call({
+				method: `${SP_CN_API}.withdraw`,
+				args: { container: frm.doc.name, ...values },
+				freeze: true,
+			});
+			d.hide();
+			frm.reload_doc();
+			frappe.msgprint({
+				title: __("Withdrawn into company stock"),
+				indicator: "green",
+				message: [
+					["Purchase Order", message.purchase_order],
+					["Purchase Receipt", message.purchase_receipt],
+					["Purchase Invoice", message.purchase_invoice],
+				]
+					.map(([dt, name]) => `${__(dt)}: <a href="/app/${frappe.router.slug(dt)}/${encodeURIComponent(name)}">${frappe.utils.escape_html(name)}</a>`)
+					.join("<br>") + `<br><b>${format_currency(message.amount)}</b>`,
+			});
+		},
+	});
+	d.show();
+	show_total();
 }
 
 function sp_cn_fee(frm) {

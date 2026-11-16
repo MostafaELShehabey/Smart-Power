@@ -124,6 +124,7 @@ Blocks,الفقرات
 Board view,عرض اللوحة
 Both accounts must belong to the same company.,يجب أن يتبع الحسابان نفس الشركة.
 Both sides,الجانبان
+Bought out of a consignment container at the day's watt price (SP-92).,مشترى من حاوية أمانة بسعر الوات في يومه.
 Bounced,مرتجع
 Bounced On,تاريخ الارتجاع
 Branch,الفرع
@@ -212,6 +213,7 @@ Cheque {0} is already registered as {1}.,الشيك {0} مسجل بالفعل ب
 Cheque {0} is {1}; it cannot become {2}.,الشيك {0} حالته {1}؛ لا يمكن أن يصبح {2}.
 Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
 Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبلغ {1} يستحق في {2}؛ أودعه في البريد
+Choose a station or a warehouse.,اختر محطة أو مخزنًا.
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose Arabic or English.,اختر العربية أو الإنجليزية.
 Choose per event,اختر لكل حدث
@@ -220,6 +222,7 @@ Choose the account that received the money.,اختر الحساب الذي اس�
 Choose the account the money came into.,اختر الحساب الذي دخلت إليه الأموال.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
 Choose the center.,اختر المركز.
+Choose the company warehouse the panels go to.,اختر مخزن الشركة الذي تذهب إليه الألواح.
 Choose the expense type.,اختر نوع المصروف.
 Choose the official account the fee was paid into.,اختر الحساب الرسمي الذي دُفعت فيه الرسوم.
 Choose the station or the case.,اختر المحطة أو الحالة.
@@ -274,6 +277,7 @@ Confirmed.,تم التأكيد.
 Confirmed: transfer of {0},تم التأكيد: تحويل {0}
 Confirmed: {0} from {1},تم التأكيد: {0} من {1}
 Confirming,جارٍ التأكيد
+Consignment Container,حاوية الأمانة
 Consignment container {0} ({1}) is down to {2} panels,حاوية الأمانة {0} ({1}) بقي بها {2} لوح
 Consignment Conversion,تحويل أمانة
 Consignment conversions,تحويلات الأمانة
@@ -410,6 +414,8 @@ Enter at least one price.,أدخل سعراً واحداً على الأقل.
 "Enter the amount repaid, the fee, or both.",أدخل المبلغ المسدد أو العمولة أو كليهما.
 Enter the customer's name: this mobile is new.,اكتب اسم العميل: هذا الموبايل جديد.
 Enter the pallets and the panels per pallet.,أدخل عدد البالتات وعدد الألواح في كل بالتة.
+Enter the panel's watts (or set Power (W) on item {0}).,أدخل قدرة اللوح بالوات (أو حدد القدرة (وات) على الصنف {0}).
+Enter the quantity and the day's watt price.,أدخل الكمية وسعر الوات في يومه.
 Entered At,وقت الإدخال
 Entry it will post,القيد الذي سيُرحّل
 Entry Mode,طريقة التسجيل
@@ -483,6 +489,7 @@ For chassis templates: one per factory.,لقوالب الشاسيه: قالب ل
 "For full alternative quotes on the same case (A/B/C, SP-59).",للعروض البديلة الكاملة على نفس الحالة (A/B/C، SP-59).
 For off-grid and hybrid requests: each device with its watts and day / night hours.,لطلبات الأوف جريد والهايبرد: كل جهاز بقدرته بالوات وساعات تشغيله نهاراً وليلاً.
 For Smart Power,عن سمارت باور
+For Station,لمحطة
 Format,الصيغة
 Formats with .YYYY. restart every year. ERPNext documents change their format in Document Naming Settings.,الصيغ التي تحتوي .YYYY. يبدأ ترقيمها من جديد كل سنة. صيغ مستندات ERPNext تُغيَّر من إعدادات تسمية المستندات.
 Forward,تحويل
@@ -506,6 +513,7 @@ Given,مُسلّمة
 Given By,أعطاه
 Given On,تاريخ الإعطاء
 Given {0} on {1},سُلّمت {0} في {1}
+"Goes to the station's site warehouse, on its project.",تذهب إلى مخزن موقع المحطة، على مشروعها.
 Hand cheque {0} to the lawyer?,تسليم الشيك {0} للمحامي؟
 Hand over,تسليم
 Hand Over,تسليم
@@ -807,6 +815,7 @@ Only the admin gives custody.,المدير فقط يسلّم العهدة.
 Only the admin manages document numbering.,ترقيم المستندات من صلاحية المدير فقط.
 Only the admin or bank financing changes an advance.,المدير أو التمويل البنكي فقط يعدّل السلفة.
 Only the admin or bank financing records an advance.,المدير أو التمويل البنكي فقط يسجّل السلفة.
+Only the admin or purchasing withdraws from consignment.,المدير أو المشتريات فقط يسحب من الأمانة.
 Only the admin or the accountant records a storage fee.,المدير أو المحاسب فقط يسجّل رسوم التخزين.
 Only the admin records a write-off.,فقط المدير يسجل الشطب.
 Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,فقط مسئول متابعة الحالة يمكنه تسليمها. اطلب من المدير إعادة إسنادها.
@@ -818,6 +827,7 @@ Only the quote creator and the cost roles price a quote.,تسعير العرض �
 Only the station's collection owner logs its calls.,مسئول تحصيل المحطة فقط يسجّل مكالماتها.
 Only {0} is outstanding on this advance.,المتبقي على هذه السلفة {0} فقط.
 Only {0} panels are available in {1} ({2} reserved).,المتاح {0} لوح فقط في {1} ({2} محجوز).
+Only {0} panels are available in {1}.,المتاح {0} لوح فقط في {1}.
 Open,مفتوح
 Open as List,فتح كقائمة
 Open cases: {0},حالات مفتوحة: {0}
@@ -832,6 +842,7 @@ Optional additions (not included in the total),إضافات اختيارية (غ
 Optional Lines,السطور الاختيارية
 Optional Lines (not in the total),السطور الاختيارية (خارج الإجمالي)
 Options,الاختيارات
+Or Into,أو إلى
 Order saved,تم حفظ الترتيب
 Other,أخرى
 Other events,أحداث أخرى
@@ -859,6 +870,7 @@ Paid On,تاريخ الدفع
 Paid to a Third Party,مدفوع لطرف ثالث
 Pallets,البالتات
 Panel Specs,مواصفات اللوح
+Panel Watts,قدرة اللوح (وات)
 Panels per Pallet,ألواح في البالتة
 Parent Value,القيمة الأم
 Part of this reservation was handed over; cancel that hand-over first.,سُلّم جزء من هذا الحجز؛ ألغِ التسليم أولًا.
@@ -1473,6 +1485,7 @@ Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
 Voice Note,ملاحظة صوتية
 Waiting for quote,في انتظار العرض
+Warehouse {0} is not {1}'s.,المخزن {0} ليس تابعًا لـ {1}.
 Warn,تنبيه
 Warned,تم التنبيه
 Warning,تنبيه
@@ -1481,6 +1494,8 @@ Warning Needs a Reason,التنبيه يحتاج سبباً
 Warranty (years),الضمان (سنوات)
 Warranty Certificate,شهادة الضمان
 watt,القدرة (وات)
+Watt Price (per W),سعر الوات
+Watt Price Date,تاريخ سعر الوات
 Watts,وات
 "What changes if the customer adds it, e.g. a full stainless motor instead of a stainless body with a cast-iron cap.",ما الذي يتغير لو أضافه العميل، مثل موتور استانلس كامل بدل جسم استانلس بغطاء زهر.
 What is missing?,ما الناقص؟
@@ -1506,9 +1521,11 @@ Winch Internal Charge,تحميل داخلي للونش
 Winch jobs and costs (each vehicle may get its own child center).,شغل وتكاليف الونش (لكل مركبة مركز فرعي خاص بها عند الحاجة).
 Winch Line,سطر الونش
 With lawyer,مع المحامي
+Withdraw,سحب
 Withdraw by PO,سحب بأمر شراء
 "Withdraw from the container with Withdraw by PO, so the panels are bought into company stock.","اسحب من الحاوية بـ ""سحب بأمر شراء"" حتى تُشترى الألواح إلى مخزون الشركة."
 Withdrawn by PO,المسحوب بأمر شراء
+Withdrawn into company stock,تم السحب إلى مخزون الشركة
 Won,تم الكسب
 Won On,تاريخ الكسب
 Won: the deposit was confirmed.,مكسوبة: تم تأكيد العربون.
@@ -1587,8 +1604,10 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.
 {0} reviewed {1}: {2},{0} راجع {1}: {2}
 {0} unread,{0} غير مقروءة
+{0} W x {1} per W,{0} وات × {1} للوات
 {0} waiting · {1},{0} في الانتظار · {1}
 {0} wants the quote revised: {1},{0} يريد تعديل العرض: {1}
+{0} x {1} from consignment at {2} per W ({3}),{0} × {1} من الأمانة بسعر {2} للوات ({3})
 {0} {1} does not exist.,{0} {1} غير موجود.
 {0}: a Select input needs its options.,{0}: مدخل القائمة يحتاج اختياراته.
 {0}: a {1} price needs a supplier.,{0}: سعر {1} يحتاج مورداً.

@@ -22,20 +22,25 @@ def stock_value() -> float:
 	return sum(flt(r.stock_value_difference) for r in rows)
 
 
+def ensure_supplier() -> None:
+	"""A consignment-owner supplier, and the accounts (Storage Fees) on the test company."""
+	seed_accounts(COMPANY)
+	if not frappe.db.exists("Supplier", SUPPLIER):
+		frappe.get_doc(
+			{
+				"doctype": "Supplier",
+				"supplier_name": SUPPLIER,
+				"supplier_group": frappe.db.get_value("Supplier Group", {"is_group": 0}),
+				"sp_is_consignment_owner": 1,
+			}
+		).insert()
+
+
 class TestConsignment(IntegrationTestCase):
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()
-		seed_accounts(COMPANY)
-		if not frappe.db.exists("Supplier", SUPPLIER):
-			frappe.get_doc(
-				{
-					"doctype": "Supplier",
-					"supplier_name": SUPPLIER,
-					"supplier_group": frappe.db.get_value("Supplier Group", {"is_group": 0}),
-					"sp_is_consignment_owner": 1,
-				}
-			).insert()
+		ensure_supplier()
 
 	def setUp(self):
 		set_setting(consignment_low_balance=33)
