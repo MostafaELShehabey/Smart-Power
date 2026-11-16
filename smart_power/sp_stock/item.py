@@ -46,6 +46,8 @@ def seed_item_groups() -> None:
 		frappe.get_doc(
 			{"doctype": "Item Group", "item_group_name": name, "parent_item_group": root, "is_group": 0}
 		).insert(ignore_permissions=True)
+	from smart_power.sp_stock.item_codes import seed_group_codes
 	from smart_power.sp_stock.prices import seed_price_categories
 
 	seed_price_categories()
+	seed_group_codes()  # SP-165

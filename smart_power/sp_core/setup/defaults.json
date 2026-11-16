@@ -35,7 +35,19 @@
 	},
 	"item_groups": {
 		"_source": "SP-29: the catalogue categories (panels, inverters/drives, pumps, cables, pipes, structures, batteries, lighting, accessories). Arabic names because the team works in Arabic; the admin can rename them. Seeded once under ERPNext's root item group.",
-		"names": ["ألواح شمسية", "إنفرترات ودرايفات", "طلمبات", "كابلات", "مواسير", "شاسيهات وهياكل", "بطاريات", "إنارة", "إكسسوارات"]
+		"names": ["ألواح شمسية", "إنفرترات ودرايفات", "طلمبات", "كابلات", "مواسير", "شاسيهات وهياكل", "بطاريات", "إنارة", "إكسسوارات"],
+		"_codes_source": "SP-165: the code prefix (GROUP-BRAND-MODEL) and the specs every item of the group must have; the admin edits them on the Item Group",
+		"codes": {
+			"ألواح شمسية": {"prefix": "PNL", "specs": ["sp_watt", "sp_vmp", "sp_voc", "sp_imp", "sp_isc"]},
+			"إنفرترات ودرايفات": {"prefix": "INV", "specs": ["sp_kw"]},
+			"طلمبات": {"prefix": "PMP", "specs": ["sp_hp"]},
+			"كابلات": {"prefix": "CBL", "specs": []},
+			"مواسير": {"prefix": "PIP", "specs": []},
+			"شاسيهات وهياكل": {"prefix": "STR", "specs": []},
+			"بطاريات": {"prefix": "BAT", "specs": ["sp_battery_ah"]},
+			"إنارة": {"prefix": "LGT", "specs": ["sp_watt"]},
+			"إكسسوارات": {"prefix": "ACC", "specs": []}
+		}
 	},
 	"warehouses": {
 		"_source": "SP-28 and ERD 7.3: main store, showroom store and a Sites group (one warehouse per station). Arabic names; the admin can rename them. ERPNext's default stores are disabled while empty.",
