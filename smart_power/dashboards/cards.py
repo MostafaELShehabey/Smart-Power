@@ -56,11 +56,15 @@ def card(key: str, label: str, variants: tuple[str, ...]):
 	return register
 
 
+def variants_of_roles(roles) -> list[str]:
+	roles = set(roles)
+	return [v for v, v_roles in VARIANTS.items() if roles & set(v_roles)]
+
+
 def variants_of(user: str) -> list[str]:
 	if user == "Administrator":
 		return list(VARIANTS)
-	roles = set(frappe.get_roles(user))
-	return [v for v, v_roles in VARIANTS.items() if roles & set(v_roles)]
+	return variants_of_roles(frappe.get_roles(user))
 
 
 @frappe.whitelist()
@@ -219,3 +223,208 @@ def quotes_expiring(user: str) -> dict:
 		"indicator": ORANGE if count else GREEN,
 		**_list("Quotation", sp_status="Sent", valid_till=["between", [nowdate(), str(soon)]]),
 	}
+
+
+def _month_start() -> str:
+	return str(getdate(nowdate()).replace(day=1))
+
+
+def _today_range() -> list[str]:
+	return [nowdate(), f"{nowdate()} 23:59:59"]
+
+
+def _count(doctype: str, filters: dict, indicator_if_any: str = ORANGE, **route) -> dict:
+	"""A plain count card: the list behind it uses the same filters."""
+	count = frappe.db.count(doctype, filters)
+	return {
+		"value": count,
+		"indicator": indicator_if_any if count else GREEN,
+		**_list(doctype, **(route or filters)),
+	}
+
+
+def _sum(doctype: str, field: str, filters: dict) -> float:
+	return sum(flt(v) for v in frappe.get_all(doctype, filters=filters, pluck=field))
+
+
+EVERYONE_WITH_ACCOUNTS = tuple(VARIANTS)
+
+
+# --- intake / follow-up (more) -----------------------------------------------------------------
+
+
+@card("quotes_received_today", "Quotes received today", ("intake",))
+def quotes_received_today(user: str) -> dict:
+	filters = {"requested_by": user, "quote_sent_at": ("between", _today_range())}
+	data = _count("SP Case", filters, GREEN)
+	data["indicator"] = GREEN if data["value"] else GRAY
+	return data
+
+
+@card("my_collections_month", "My collections this month", ("intake", "showroom"))
+def my_collections_month(user: str) -> dict:
+	filters = {"recorded_by": user, "status": "Confirmed", "work_date": (">=", _month_start())}
+	return {
+		"value": _sum("SP Customer Payment", "amount", filters),
+		"fieldtype": CURRENCY,
+		"indicator": GRAY,
+		**_list(
+			"SP Customer Payment", recorded_by=user, status="Confirmed", work_date=[">=", _month_start()]
+		),
+	}
+
+
+# --- marketing ---------------------------------------------------------------------------------
+
+
+@card("my_leads_week", "My new leads this week", ("marketing",))
+def my_leads_week(user: str) -> dict:
+	since = str(add_days(getdate(nowdate()), -6))  # sp-allow-number: the last 7 days
+	filters = {"requested_by": user, "creation": (">=", since)}
+	data = _count("SP Case", filters, GREEN, requested_by=user, creation=[">=", since])
+	data["indicator"] = GREEN if data["value"] else GRAY
+	return data
+
+
+@card("my_won", "My won cases", ("marketing",))
+def my_won(user: str) -> dict:
+	data = _count("SP Case", {"requested_by": user, "status": "Won"}, GREEN)
+	data["indicator"] = GREEN if data["value"] else GRAY
+	return data
+
+
+# --- technical office (more) -----------------------------------------------------------------
+
+
+@card("quotes_sent_today", "Quotes sent today", ("tech_office",))
+def quotes_sent_today(user: str) -> dict:
+	filters = {"quote_creator": user, "quote_sent_at": ("between", _today_range())}
+	data = _count("SP Case", filters, GREEN)
+	data["indicator"] = GREEN if data["value"] else GRAY
+	return data
+
+
+# --- projects ----------------------------------------------------------------------------------
+
+
+@card("waiting_contract", "Approved, waiting for the contract", ("projects",))
+def waiting_contract(user: str) -> dict:
+	filters = {"accepted_quotation": ("is", "set"), "status": ("not in", ["Won", "Lost"])}
+	return _count(
+		"SP Case", filters, ORANGE, accepted_quotation=["is", "set"], status=["not in", ["Won", "Lost"]]
+	)
+
+
+@card("open_stations", "Open stations", ("projects", "installations"))
+def open_stations(user: str) -> dict:
+	closed = ["Financially closed", "Cancelled"]
+	from collections import Counter
+
+	by_status = Counter(frappe.get_all("SP Station", filters={"status": ("not in", closed)}, pluck="status"))
+	return {
+		"value": sum(by_status.values()),
+		"indicator": GRAY,
+		"note": " · ".join(f"{_(status)} {n}" for status, n in by_status.items()),
+		**_list("SP Station", status=["not in", closed]),
+	}
+
+
+@card("overdue_installments", "Stations with overdue instalments", ("projects", "finance"))
+def overdue_installments(user: str) -> dict:
+	return _count("SP Station", {"has_overdue": 1}, RED)
+
+
+@card("cheques_due", "Cheques due", ("projects", "finance"))
+def cheques_due(user: str) -> dict:
+	return _count("SP Cheque", {"status": "Due"}, ORANGE)
+
+
+# --- installations -----------------------------------------------------------------------------
+
+
+@card("survey_tasks", "Site survey tasks", ("installations",))
+def survey_tasks(user: str) -> dict:
+	return _count("SP Task", {"task_type": "Site Survey", "status": "Open", "assigned_to": user}, ORANGE)
+
+
+@card("my_custody", "My custody", EVERYONE_WITH_ACCOUNTS)
+def my_custody(user: str) -> dict | None:
+	"""What is left of the custody I hold; only for someone who holds one."""
+	from smart_power.sp_finance.accounts import my_balances
+
+	rows = [r for r in my_balances() if r["sp_account_kind"] == "Custody"]
+	if not rows:
+		return None
+	return {
+		"value": sum(flt(r["balance"]) for r in rows),
+		"fieldtype": CURRENCY,
+		"indicator": GRAY,
+		"route": ["sp-my-custody"],
+	}
+
+
+# --- store -------------------------------------------------------------------------------------
+
+
+@card("consignment_low", "Consignment containers running low", ("store",))
+def consignment_low(user: str) -> dict:
+	return _count("SP Consignment Container", {"status": "Low"}, ORANGE)
+
+
+# --- showroom ----------------------------------------------------------------------------------
+
+
+@card("payments_today", "Station payments today", ("showroom",))
+def payments_today(user: str) -> dict:
+	filters = {"recorded_by": user, "work_date": nowdate(), "docstatus": 1}
+	return {
+		"value": _sum("SP Customer Payment", "amount", filters),
+		"fieldtype": CURRENCY,
+		"indicator": GRAY,
+		**_list("SP Customer Payment", recorded_by=user, work_date=nowdate()),
+	}
+
+
+# --- finance -----------------------------------------------------------------------------------
+
+
+@card("waiting_confirmation", "Waiting for confirmation", ("finance",))
+def waiting_confirmation(user: str) -> dict:
+	"""Customer payments and money transfers the admin has not confirmed yet: count and amount."""
+	pending = {"status": "Pending"}
+	count = frappe.db.count("SP Customer Payment", pending) + frappe.db.count("SP Transfer", pending)
+	amount = _sum("SP Customer Payment", "amount", pending) + _sum("SP Transfer", "amount", pending)
+	return {
+		"value": count,
+		"indicator": ORANGE if count else GREEN,
+		"note": frappe.format(amount, "Currency") if count else "",
+		"route": ["sp-confirmations"],
+	}
+
+
+@card("cash_in_transit", "Cash in transit (all holders)", ("finance",))
+def cash_in_transit(user: str) -> dict:
+	from erpnext.accounts.utils import get_balance_on
+
+	from smart_power.sp_finance.transit import transit_accounts
+
+	total = sum(
+		flt(get_balance_on(a.name, company=a.company, ignore_account_permission=True))
+		for a in transit_accounts()
+	)
+	return {
+		"value": total,
+		"fieldtype": CURRENCY,
+		"indicator": ORANGE if total else GREEN,
+		"route": ["sp-treasury"],
+	}
+
+
+@card("bounced_cheques", "Bounced cheques", ("finance",))
+def bounced_cheques(user: str) -> dict:
+	return _count("SP Cheque", {"status": "Bounced"}, RED)
+
+
+@card("settlements_pending", "Custody settlements to approve", ("finance",))
+def settlements_pending(user: str) -> dict:
+	return _count("SP Custody Settlement", {"status": "Pending"}, ORANGE)
