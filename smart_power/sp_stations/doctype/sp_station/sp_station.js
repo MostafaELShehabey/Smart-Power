@@ -10,8 +10,8 @@ const SP_ST_ADMIN_ROLES = ["SP Admin", "System Manager"];
 frappe.ui.form.on("SP Station", {
 	refresh(frm) {
 		if (frm.is_new()) return;
-		// read-only for sales after the contract (SP-35)
-		if (frm.doc.__onload?.sp_read_only) frm.set_intro(frm.doc.__onload.sp_read_only, "orange");
+		// read-only for sales after the contract (SP-35); the banner leads the owners line
+		if (frm.doc.__onload?.sp_read_only) frm.disable_form();
 		sp_station_chips(frm);
 		const admin = SP_ST_ADMIN_ROLES.some((r) => frappe.user.has_role(r));
 		if (frm.doc.status !== "Cancelled") {
@@ -63,9 +63,10 @@ function sp_station_chips(frm) {
 		owner("Execution", frm.doc.execution_owner),
 		owner("Collection", frm.doc.collection_owner),
 	].filter(Boolean);
-	if (owners.length) {
-		frm.dashboard.set_headline(owners.map((o) => frappe.utils.escape_html(o)).join(" · "));
-	}
+	const parts = owners.map((o) => frappe.utils.escape_html(o));
+	const read_only = frm.doc.__onload?.sp_read_only;
+	if (read_only) parts.unshift(`<b>${frappe.utils.escape_html(read_only)}</b>`);
+	if (parts.length) frm.dashboard.set_headline(parts.join(" · "), read_only ? "orange" : undefined);
 }
 
 function sp_station_write_off(frm) {

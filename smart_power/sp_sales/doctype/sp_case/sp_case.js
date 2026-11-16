@@ -13,7 +13,10 @@ const SP_OWNERS = [
 frappe.ui.form.on("SP Case", {
 	refresh(frm) {
 		// after the contract: read-only, with whom the case is now (SP-35)
-		if (frm.doc.__onload?.sp_read_only) frm.set_intro(frm.doc.__onload.sp_read_only, "orange");
+		if (frm.doc.__onload?.sp_read_only) {
+			frm.set_intro(frm.doc.__onload.sp_read_only, "orange");
+			frm.disable_form();
+		}
 		sp_quote_history(frm);
 		sp_followup_view(frm);
 		sp_hand_over_button(frm);
