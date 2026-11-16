@@ -88,3 +88,28 @@ smart_power.shell = {
 
 $(document).on("app_ready", () => smart_power.shell.init());
 $(document).on("page-change", () => smart_power.shell.init());
+
+// Global search (SP-41): Frappe's search box also offers "Find … in Smart Power", which opens
+// the grouped results (sp-search) for what was typed.
+$(document).on("app_ready", () => {
+	const AwesomeBar = frappe.search && frappe.search.AwesomeBar;
+	if (!AwesomeBar || AwesomeBar.prototype.sp_search_added) return;
+	const add_defaults = AwesomeBar.prototype.add_defaults;
+	AwesomeBar.prototype.add_defaults = function (txt) {
+		add_defaults.call(this, txt);
+		if (!txt || txt.trim().length < 2 || txt.charAt(0) === "#") return; // sp-allow-number: minimum
+		const safe = frappe.utils.xss_sanitise(txt);
+		this.options.push({
+			label: `<span class="ellipsis">${__("Find {0} in Smart Power", [safe.bold()])}</span>`,
+			value: __("Find {0} in Smart Power", [safe]),
+			match: txt,
+			index: 110, // sp-allow-number: above Frappe's own "Search for" (100)
+			default: "Search",
+			onclick: () => {
+				frappe.route_options = { q: txt };
+				frappe.set_route("sp-search");
+			},
+		});
+	};
+	AwesomeBar.prototype.sp_search_added = true;
+});
