@@ -194,6 +194,7 @@ Change a Line,تعديل سطر
 Change Order,أمر تغيير
 Change orders,أوامر التغيير
 Change Password,تغيير كلمة المرور
+Change your password first.,غيّر كلمة المرور أولاً.
 Changed By,تم التغيير بواسطة
 Changed by {0},غيّره {0}
 "Changes the quote creator made to the calculated lines, by line key.",تعديلات مُعدّ العرض على السطور المحسوبة، حسب مفتاح السطر.
@@ -736,6 +737,7 @@ Move,حركة
 Movement,الحركة
 MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
+Must Change Password,يجب تغيير كلمة المرور
 My cash,نقديتي
 My custody,عهدتي
 My Custody,عهدتي
@@ -1183,6 +1185,7 @@ Set the company to post to.,حدد الشركة للترحيل إليها.
 Set the Postal Cheque account of {0} (Mode of Payment).,حدد حساب الشيك البريدي لـ {0} (طريقة الدفع).
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
+"Set when the admin gives the password (a new user, a reset); the user changes it before any other page (SP-36).",يُفعَّل عندما يعطي المدير كلمة المرور (مستخدم جديد أو إعادة تعيين)؛ يغيّرها المستخدم قبل أي صفحة أخرى (SP-36).
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
 Settled By,طريقة السداد
