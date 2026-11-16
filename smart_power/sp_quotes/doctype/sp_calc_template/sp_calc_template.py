@@ -21,6 +21,7 @@ from smart_power.sp_quotes import formulas
 
 BRAND_PRIORITY, FIRST_IN_STOCK = "Brand priority", "First in stock"
 LOCKED_BTC = "Locked BTC price"
+COST_FORMULA = "Formula"
 NUMBER_INPUTS = ("Float", "Int")
 # Edits allowed on a published version
 STATUS_FIELDS = ("is_published", "published_on", "description")
@@ -75,6 +76,10 @@ class SPCalcTemplate(Document):
 				)
 			# a line's formulas see the inputs, the lines above it and its own picked item
 			formulas.check(row.qty_formula or "1", known | {formulas.ITEM}, where)
+			if row.cost_source == COST_FORMULA:
+				if not (row.cost_formula or "").strip():
+					frappe.throw(_("{0}: a formula cost needs its cost formula.").format(where))
+				formulas.check(row.cost_formula, known | {formulas.ITEM}, where)
 			if row.selection_rule == BRAND_PRIORITY:
 				if not (row.item_group and row.capacity_field and row.need_formula):
 					frappe.throw(

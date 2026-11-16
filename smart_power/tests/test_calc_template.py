@@ -67,6 +67,16 @@ class TestCalcTemplate(IntegrationTestCase):
 		self.assertIn("fittings", str(ctx.exception))
 		self.assertIn("elbows", str(ctx.exception))
 
+	def test_cost_formula_is_checked(self):
+		# SP-56: a formula cost needs its formula, and its names are checked like a quantity's
+		line = {"line_key": "fittings", "cost_source": "Formula"}
+		with self.assertRaises(frappe.ValidationError):
+			make_template(lines=[*sample_lines(), line])
+		with self.assertRaises(frappe.ValidationError) as ctx:
+			make_template(lines=[*sample_lines(), {**line, "cost_formula": "pipes.amount / elbows"}])
+		self.assertIn("elbows", str(ctx.exception))
+		make_template(lines=[*sample_lines(), {**line, "cost_formula": "pipes.amount / 4"}])
+
 	def test_a_line_sees_only_the_lines_above_it(self):
 		lines = [
 			{"line_key": "rope", "qty_formula": "cable.qty * 2"},

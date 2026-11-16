@@ -192,3 +192,32 @@ class TestCalcEngine(IntegrationTestCase):
 			],
 		)
 		self.assertEqual(calculate(template.name).lines[1].qty, 11)  # 50 - 40 + 1
+
+	def test_cost_formula_reads_earlier_lines(self):
+		# SP-56: the fittings cost a quarter of the 2" pipes' sale, as in Mohamed's sheet
+		template = make_template(
+			inputs=[{"input_key": "strings", "label": "Strings", "input_type": "Int", "default_value": "7"}],
+			lines=[
+				{
+					"line_key": "pipes_2in",
+					"item_code": "SPT-PIPE",
+					"qty_formula": "strings * 2",
+					"cost_source": "Manual",
+					"cost_default": 200,
+					"default_markup": 15,
+					"rounding": "Nearest 10",
+				},
+				{
+					"line_key": "fittings",
+					"item_code": "SPT-ROPE",
+					"cost_source": "Formula",
+					"cost_formula": "pipes_2in.amount / 4",
+					"default_markup": 100,
+					"rounding": "Nearest 10",
+				},
+			],
+		)
+		fittings = calculate(template.name).lines[1]
+		self.assertEqual((fittings.cost, fittings.rate), (805, 1610))  # 14 x 230 / 4, then x 2
+		# an override still wins over the formula
+		self.assertEqual(calculate(template.name, overrides={"fittings": {"cost": 900}}).lines[1].cost, 900)
