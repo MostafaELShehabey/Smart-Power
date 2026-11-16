@@ -140,7 +140,9 @@ doc_events = {
 	"Quotation": {
 		"before_insert": "smart_power.sp_sales.quotation.before_insert",
 		"before_validate": [
-			# special lines first: a commission is cost only (SP-58)
+			# what the user was not shown (cost, hidden lines) is kept (SP-35)
+			"smart_power.permissions.keep_quote_internals",
+			# then the special lines: a commission is cost only (SP-58)
 			"smart_power.sp_quotes.special_lines.before_validate",
 			"smart_power.sp_quotes.discounts.check_locked_lines",
 		],
@@ -227,6 +229,8 @@ permission_query_conditions = {
 	"Item Price": "smart_power.permissions.item_price_query_conditions",
 	# A case is seen by its owners; كاميليا and the admin see all (SP-35, SP-46).
 	"SP Case": "smart_power.permissions.case_query_conditions",
+	# a case's quotes follow the case (SP-35)
+	"Quotation": "smart_power.permissions.quote_query_conditions",
 	# money accounts: others see only their own transit and custody (SP-26)
 	"Account": "smart_power.sp_finance.accounts.account_query_conditions",
 	"GL Entry": "smart_power.sp_finance.accounts.gl_query_conditions",
@@ -240,12 +244,16 @@ has_permission = {
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
 	"Item Price": "smart_power.permissions.item_price_has_permission",
 	"SP Case": "smart_power.permissions.case_has_permission",
+	"Quotation": "smart_power.permissions.quote_has_permission",
 	"Account": "smart_power.sp_finance.accounts.account_has_permission",
 	"Journal Entry": "smart_power.sp_finance.journal.has_permission",
 	"SP Station": "smart_power.sp_finance.balances.station_has_permission",
 	"SP Custody": "smart_power.sp_finance.custody.has_permission",
 	"SP Custody Settlement": "smart_power.sp_finance.custody.has_permission",
 }
+
+# the quote's cost and hidden lines leave the server only for its creator and the admin (SP-35)
+extend_doctype_class = {"Quotation": ["smart_power.sp_sales.quotation_class.SPQuotation"]}
 
 # ERPNext's "Update Items" is refused on a case's sent quote (SP-61)
 override_whitelisted_methods = {
