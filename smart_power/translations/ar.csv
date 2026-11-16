@@ -1231,6 +1231,7 @@ Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون ت�
 Saving the request…,جارٍ حفظ الطلب…
 Schedule and cheques,جدول السداد والشيكات
 Scope,النطاق
+Search Key,مفتاح البحث
 Second Mobile,موبايل إضافي
 Section,القسم
 Select,قائمة اختيار
@@ -1534,6 +1535,7 @@ The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمد�
 The quote needs a site survey first (survey tasks come with SP-95).,العرض يحتاج معاينة للموقع أولاً (مهام المعاينة تأتي مع SP-95).
 the quote total,إجمالي العرض
 The receipt or photo to look at (shown as a thumbnail in the inbox).,الإيصال أو الصورة المطلوب مراجعتها (تظهر مصغرة في صندوق المهام).
+"The record's names, codes and mobiles in one searchable spelling (SP-41).",أسماء السجل وأكواده وأرقام موبايله بتهجئة واحدة قابلة للبحث (SP-41).
 The requester was asked,تم سؤال صاحب الطلب
 The reservation this hand-over clears.,الحجز الذي يصفّيه هذا التسليم.
 The row has no price.,السطر لا يحتوي على سعر.
