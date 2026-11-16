@@ -47,3 +47,4 @@ smart_power.patches.sp36_no_email_link
 smart_power.patches.sp39_task_types
 smart_power.patches.sp37_default_app
 smart_power.patches.sp41_search_keys
+smart_power.patches.sp43_simple_record
