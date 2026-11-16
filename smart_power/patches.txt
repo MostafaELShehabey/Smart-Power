@@ -49,3 +49,4 @@ smart_power.patches.sp37_default_app
 smart_power.patches.sp41_search_keys
 smart_power.patches.sp43_simple_record
 smart_power.patches.sp45_list_views
+smart_power.patches.sp56_item_groups

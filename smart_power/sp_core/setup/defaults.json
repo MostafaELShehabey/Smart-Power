@@ -67,6 +67,12 @@
 	"item_groups": {
 		"_source": "SP-29: the catalogue categories (panels, inverters/drives, pumps, cables, pipes, structures, batteries, lighting, accessories). Arabic names because the team works in Arabic; the admin can rename them. Seeded once under ERPNext's root item group.",
 		"names": ["ألواح شمسية", "إنفرترات ودرايفات", "طلمبات", "كابلات", "مواسير", "شاسيهات وهياكل", "بطاريات", "إنارة", "إكسسوارات"],
+		"_children_source": "SP-56: the pump template picks the motor, the pump and the combiner panel by HP, so each has its own group under its category (a group's items include its children's); the well fittings are grouped too. Each child shares its parent's price category.",
+		"children": {
+			"طلمبات": ["مواتير غاطس", "طلمبات غاطس"],
+			"إنفرترات ودرايفات": ["لوحات تجميع"],
+			"مواسير": ["مشتملات البئر"]
+		},
 		"_codes_source": "SP-165: the code prefix (GROUP-BRAND-MODEL) and the specs every item of the group must have; the admin edits them on the Item Group",
 		"codes": {
 			"ألواح شمسية": {"prefix": "PNL", "specs": ["sp_watt", "sp_vmp", "sp_voc", "sp_imp", "sp_isc"]},
@@ -77,7 +83,11 @@
 			"شاسيهات وهياكل": {"prefix": "STR", "specs": []},
 			"بطاريات": {"prefix": "BAT", "specs": ["sp_battery_ah"]},
 			"إنارة": {"prefix": "LGT", "specs": ["sp_watt"]},
-			"إكسسوارات": {"prefix": "ACC", "specs": []}
+			"إكسسوارات": {"prefix": "ACC", "specs": []},
+			"مواتير غاطس": {"prefix": "MTR", "specs": ["sp_hp"]},
+			"طلمبات غاطس": {"prefix": "PMP", "specs": ["sp_hp"]},
+			"لوحات تجميع": {"prefix": "CMB", "specs": ["sp_hp"]},
+			"مشتملات البئر": {"prefix": "WFT", "specs": []}
 		}
 	},
 	"warehouses": {

@@ -60,3 +60,20 @@ class TestItemFields(IntegrationTestCase):
 			frappe.db.count("Item Group", {"name": ("in", defaults()["item_groups"]["names"])}),
 			len(defaults()["item_groups"]["names"]),
 		)
+
+	def test_child_groups_for_the_pump_template(self):
+		# SP-56: motors and pumps are told apart by group, and share the pumps' price category
+		seed_item_groups()
+		for parent, names in defaults()["item_groups"]["children"].items():
+			self.assertTrue(frappe.db.get_value("Item Group", parent, "is_group"), parent)
+			for name in names:
+				group = frappe.db.get_value(
+					"Item Group",
+					name,
+					["parent_item_group", "sp_price_age_category", "sp_code_prefix"],
+					as_dict=True,
+				)
+				self.assertEqual(group.parent_item_group, parent, name)
+				self.assertEqual(group.sp_price_age_category, parent, name)
+				self.assertTrue(group.sp_code_prefix, name)
+		self.assertEqual(frappe.db.get_value("Item Group", "مواتير غاطس", "sp_required_specs"), "sp_hp")
