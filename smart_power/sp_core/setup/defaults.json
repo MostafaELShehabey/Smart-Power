@@ -52,7 +52,10 @@
 			{"list_doctype": "Quotation", "label": "All", "sort_order": 3, "filters": []},
 			{"list_doctype": "SP Customer Payment", "label": "Mine", "sort_order": 1, "filters": [["recorded_by", "=", "{user}"]]},
 			{"list_doctype": "SP Customer Payment", "label": "Pending", "sort_order": 2, "filters": [["status", "=", "Pending"]]},
-			{"list_doctype": "SP Customer Payment", "label": "All", "sort_order": 3, "filters": []}
+			{"list_doctype": "SP Customer Payment", "label": "All", "sort_order": 3, "filters": []},
+			{"list_doctype": "Customer", "label": "Mine", "sort_order": 1, "filters": [["sp_owner_user", "=", "{user}"]], "_source": "SP-50"},
+			{"list_doctype": "Customer", "label": "Featured", "sort_order": 2, "filters": [["sp_featured", "=", 1]]},
+			{"list_doctype": "Customer", "label": "All", "sort_order": 3, "filters": [], "roles": "SP Admin, System Manager"}
 		]
 	},
 	"service_items": {

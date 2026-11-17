@@ -188,6 +188,71 @@ def set_read_only_banner(doc, method=None) -> None:
 		doc.set_onload("sp_read_only", banner)
 
 
+# --- Customer: featured for all, the rest for their owners (SP-50) -------------------------------
+
+# Roles that work with every customer: the admin, the follow-up lead, and the money and
+# execution roles that serve every station's customer.
+CUSTOMER_SEES_ALL = (
+	"SP Admin",
+	"System Manager",
+	"SP Followup All",
+	"SP Accountant",
+	"SP Collection Officer",
+	"SP Contract Manager",
+	"SP Project Manager",
+	"SP Bank Financing",
+	"SP Showroom Cashier",
+	"SP Commission Manager",
+)
+
+
+def _customer_sees_all(user: str) -> bool:
+	return user == "Administrator" or bool(set(CUSTOMER_SEES_ALL) & set(frappe.get_roles(user)))
+
+
+def customer_query_conditions(user: str | None = None) -> str:
+	"""permission_query_conditions for Customer: a featured customer (one with a won deal) is seen
+	by everyone; any other by its owner, by whoever works on one of its cases, and, while it has
+	neither owner nor case, by everyone."""
+	user = user or frappe.session.user
+	if _customer_sees_all(user):
+		return ""
+	u = frappe.db.escape(user)
+	cases = (
+		"select 1 from `tabSP Case` c where c.customer = `tabCustomer`.name and "
+		f"(c.follow_up_owner = {u} or c.requested_by = {u} or c.quote_creator = {u})"
+	)
+	any_case = "select 1 from `tabSP Case` c where c.customer = `tabCustomer`.name"
+	return (
+		f"(ifnull(`tabCustomer`.sp_featured, 0) = 1 or `tabCustomer`.sp_owner_user = {u} or exists ({cases})"
+		f" or (ifnull(`tabCustomer`.sp_owner_user, '') = '' and not exists ({any_case})))"
+	)
+
+
+def customer_is_mine(customer: str, user: str) -> bool:
+	"""The owner, or someone working on one of its cases, or no one's customer yet."""
+	owner = frappe.db.get_value("Customer", customer, "sp_owner_user")
+	if owner == user:
+		return True
+	cases = frappe.get_all(
+		"SP Case", {"customer": customer}, ["follow_up_owner", "requested_by", "quote_creator"]
+	)
+	if any(user in (c.follow_up_owner, c.requested_by, c.quote_creator) for c in cases):
+		return True
+	return not owner and not cases
+
+
+def customer_has_permission(doc, ptype: str | None = None, user: str | None = None) -> bool:
+	"""has_permission for Customer: the same rule for one customer. A featured customer of
+	someone else is read-only (its overview, never its edits)."""
+	user = user or frappe.session.user
+	if doc.is_new() or _customer_sees_all(user):
+		return True
+	if customer_is_mine(doc.name, user):
+		return True
+	return bool(doc.get("sp_featured")) and ptype in READ_PTYPES
+
+
 # --- SP Station: whoever is assigned to it -------------------------------------------------------
 
 # Roles that see every station.
