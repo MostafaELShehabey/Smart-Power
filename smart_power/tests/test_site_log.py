@@ -49,6 +49,12 @@ class TestSiteLog(IntegrationTestCase):
 		getattr(frappe.local, "enable_perpetual_inventory", {}).pop(COMPANY, None)
 		super().tearDownClass()
 		frappe.clear_cache(doctype="Company")
+		# the rollback drops the File rows; the photos they wrote stay on disk
+		import os
+
+		for path in getattr(cls, "disk", ()):
+			if os.path.exists(path):
+				os.remove(path)
 
 	def setUp(self):
 		center = frappe.get_cached_value("Company", COMPANY, "cost_center")
@@ -162,7 +168,7 @@ class TestSiteLog(IntegrationTestCase):
 			content = png.getvalue()
 		else:
 			content = b"receipt"
-		return frappe.get_doc(
+		f = frappe.get_doc(
 			{
 				"doctype": "File",
 				"file_name": file_name,
@@ -172,6 +178,8 @@ class TestSiteLog(IntegrationTestCase):
 				"is_private": 1,
 			}
 		).insert()
+		type(self).disk = {*getattr(type(self), "disk", set()), f.get_full_path()}
+		return f
 
 	def test_photos_tagged_for_marketing(self):
 		log = self.log(materials=0)
