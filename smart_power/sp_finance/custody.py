@@ -167,6 +167,13 @@ def _check_line(values: dict, company: str) -> dict:
 		"note": values.get("note"),
 		"client_uuid": values.get("client_uuid"),
 	}
+	campaign = values.get("campaign")
+	if campaign:
+		# a marketing spend (SP-52): the campaign must be one the holder may see
+		if not frappe.db.exists("SP Campaign", campaign):
+			frappe.throw(_("Choose the campaign."))
+		frappe.get_doc("SP Campaign", campaign).check_permission("read")
+		row["campaign"] = campaign
 	if on == STATION:
 		station = frappe.db.get_value("SP Station", values.get("station"), ["name", "company"], as_dict=True)
 		if not station or station.company != company:
@@ -414,6 +421,11 @@ def confirm(name: str) -> str | None:
 			{"status": LINE_REJECTED, "reject_reason": r.reject_reason, "settlement": None},
 			update_modified=False,
 		)
+	# a marketing spend counts in its campaign once approved (SP-52)
+	from smart_power.sp_sales.campaigns import on_custody_lines
+
+	lines = [r.line for r in doc.lines] or [""]
+	on_custody_lines({c for c in frappe.get_all(LINE, {"name": ("in", lines)}, pluck="campaign") if c})
 	returned, return_entry = 0.0, None
 	if doc.leftover_action == RETURN:
 		returned = _balance(doc.custody_account, doc.company)

@@ -242,7 +242,7 @@ def create_quote_request(request: dict | str) -> dict:
 
 	request: system_type, mobile, customer_name, tier, region (new customers), channel,
 	follow_up_owner, location_text, geo, payment_method, site_visit_needed, request_notes,
-	details ({fieldname: value}), loads ([{device, qty, watts, day_hours, night_hours}]),
+	campaign (SP-52), details ({fieldname: value}), loads ([{device, qty, watts, day_hours, night_hours}]),
 	photos (optional: names of image Files the user has just uploaded, attached to the case) and
 	indicative_inputs (optional, SP-49: the specs priced on the indicative page, recorded with
 	their price on the case).
@@ -299,6 +299,7 @@ def create_quote_request(request: dict | str) -> dict:
 				"requested_by": frappe.session.user,
 				"follow_up_owner": request.get("follow_up_owner") or _default_followup_owner(),
 				"source": request.get("source") or None,
+				"campaign": request.get("campaign") or None,
 				"system_types": [{"system_type": request.system_type}],
 				"request_details": details,
 				"site_visit_needed": cint(request.get("site_visit_needed")),
