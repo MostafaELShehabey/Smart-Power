@@ -51,11 +51,29 @@ def size_of(details, design_inputs=None) -> str | None:
 
 
 def set_list_fields(doc, method=None) -> None:
-	"""Quotation validate: the case's follow-up owner, system and size."""
+	"""Quotation validate: the case's follow-up owner, system and size, and whether this is the
+	newest version of its chain (set here too, so a later save never writes a stale flag)."""
 	values = _case_values(doc.get("sp_case"))
 	if not values["sp_size"]:
 		values["sp_size"] = size_of(None, doc.get("sp_design_inputs"))
 	doc.update(values)
+	doc.sp_is_latest = 0 if _newer_version(doc) else 1
+
+
+def _newer_version(doc) -> bool:
+	if not doc.get("sp_root"):
+		return False  # the first version of a new chain
+	return bool(
+		frappe.db.exists(
+			QUOTATION,
+			{
+				"sp_root": doc.sp_root,
+				"docstatus": ("<", CANCELLED),
+				"sp_version": (">", doc.get("sp_version") or 0),
+				"name": ("!=", doc.name or ""),
+			},
+		)
+	)
 
 
 def refresh_latest(root: str | None, leaving: str | None = None) -> None:

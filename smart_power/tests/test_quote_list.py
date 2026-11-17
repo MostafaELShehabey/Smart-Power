@@ -50,6 +50,8 @@ class TestQuoteList(IntegrationTestCase):
 	def test_only_the_latest_version_is_latest(self):
 		v1 = quote_for(self.case(self.aya))
 		v1.submit()
+		# a save after the insert (here the submit) keeps the flag
+		self.assertEqual(frappe.db.get_value("Quotation", v1.name, "sp_is_latest"), 1)
 		v2 = frappe.get_doc("Quotation", new_version(v1.name))
 		latest = lambda: {  # noqa: E731
 			n: frappe.db.get_value("Quotation", n, "sp_is_latest") for n in (v1.name, v2.name)
