@@ -17,7 +17,7 @@ frappe.pages["sp-quote-request"].on_page_load = function (wrapper) {
 // customer's record (SP-50: the mobile, which finds the customer).
 frappe.pages["sp-quote-request"].on_page_show = function (wrapper) {
 	const opts = frappe.route_options;
-	if (!opts || !(opts.system_type || opts.mobile) || !wrapper.sp_quote_request) return;
+	if (!opts || !(opts.system_type || opts.mobile || opts.lead) || !wrapper.sp_quote_request) return;
 	frappe.route_options = null;
 	wrapper.sp_quote_request.prefill(opts);
 };
@@ -144,23 +144,32 @@ class SPQuoteRequest {
 
 	// SP-49: the type and the specs priced on the indicative page. A spec fills the request
 	// field of the same name (or the same name in metres, e.g. pump_depth → pump_depth_m).
-	async prefill({ system_type, indicative_inputs, mobile }) {
+	async prefill(opts) {
+		const { system_type, indicative_inputs, mobile, lead } = opts;
 		if (!this.ready) {
-			this.pending = { system_type, indicative_inputs, mobile };
+			this.pending = opts;
 			return;
 		}
 		this.pending = null;
+		if (lead) {
+			// from a marketing lead (SP-51): its name, channel, source, campaign and owner
+			this.lead = lead;
+			const values = {};
+			for (const f of ["customer_name", "channel", "source", "campaign", "follow_up_owner"]) {
+				if (opts[f]) values[f] = opts[f];
+			}
+			await this.form.set_values(values);
+		}
 		if (mobile) await this.form.set_value("mobile", mobile); // its change looks the customer up
 		if (!system_type) return;
 		// route options come through the URL in v16: the specs may arrive as JSON text
 		const specs = typeof indicative_inputs === "string" ? JSON.parse(indicative_inputs) : indicative_inputs;
 		await this.form.set_value("system_type", system_type); // its change loads the fields
 		await this.loading;
-		indicative_inputs = specs;
-		this.indicative_inputs = indicative_inputs || null;
-		if (!this.details || !indicative_inputs) return;
+		this.indicative_inputs = specs || null;
+		if (!this.details || !specs) return;
 		const values = {};
-		for (const [key, value] of Object.entries(indicative_inputs)) {
+		for (const [key, value] of Object.entries(specs)) {
 			for (const name of [key, `${key}_m`]) {
 				if (this.details.fields_dict[name]) values[name] = value;
 			}
@@ -287,6 +296,7 @@ class SPQuoteRequest {
 					loads,
 					photos: this.photos.map((f) => f.name),
 					indicative_inputs: this.indicative_inputs,
+					lead: this.lead,
 				},
 			},
 			freeze: true,

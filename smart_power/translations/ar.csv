@@ -344,6 +344,7 @@ Contract {0},عقد {0}
 Contracted Value,القيمة المتعاقد عليها
 Contracted value: {0} · Spend: {1},القيمة المتعاقد عليها: {0} · المصروف: {1}
 Contracts,العقود
+Convert to request,تحويل إلى طلب
 Coordinates,الإحداثيات
 "Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
 Cost,التكلفة
@@ -470,6 +471,7 @@ E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Edit,تعديل
 Edits with reason,التعديلات بسبب
 "Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
+Egyptian mobile; one lead or customer per mobile.,موبايل مصري؛ عميل محتمل أو عميل واحد لكل رقم.
 Email or mobile,البريد الإلكتروني أو الموبايل
 Employee {0} not found.,الموظف {0} غير موجود.
 Empty,فارغة
@@ -709,6 +711,7 @@ Last-minute ask,العشم
 Last-minute discount,خصم العشم
 Late and reopened field entries,الإدخالات الميدانية المتأخرة والمعاد فتحها
 Late Entry,تسجيل متأخر
+Lead,عميل محتمل
 Lead Source,مصدر العميل المحتمل
 Leads,العملاء المحتملون
 "Leave the code empty: it is made from the group, the brand and the model.",اترك الكود فارغًا: يُكوَّن من المجموعة والماركة والموديل.
@@ -843,6 +846,7 @@ My custody,عهدتي
 My Custody,عهدتي
 My custody and cash held,عهدتي والنقدية التي معي
 My Leads,عملائي المحتملون
+My leads with no request after 24 h,عملائي المحتملون بلا طلب بعد 24 ساعة
 My new leads this week,عملائي المحتملون الجدد هذا الأسبوع
 My Profile,ملفي
 My queue,قائمة أعمالي
@@ -1662,6 +1666,7 @@ The quote clock stops here (Sent to customer).,يتوقف عداد العرض ه
 The quote creator can approve a discount on the total up to the limit in Smart Power Settings; above it the admin is flagged.,يمكن لصاحب العرض اعتماد خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور، وما فوقه يُبلّغ به الأدمن.
 The quote is valid for {0} days; the maximum is {1}.,العرض صالح لمدة {0} يوماً، والحد الأقصى {1}.
 The quote needs a site survey first (survey tasks come with SP-95).,العرض يحتاج معاينة للموقع أولاً (مهام المعاينة تأتي مع SP-95).
+The quote request this lead became.,طلب عرض السعر الذي تحول إليه هذا العميل المحتمل.
 the quote total,إجمالي العرض
 The receipt or photo to look at (shown as a thumbnail in the inbox).,الإيصال أو الصورة المطلوب مراجعتها (تظهر مصغرة في صندوق المهام).
 "The record's names, codes and mobiles in one searchable spelling (SP-41).",أسماء السجل وأكواده وأرقام موبايله بتهجئة واحدة قابلة للبحث (SP-41).
@@ -1698,7 +1703,10 @@ This customer is followed up by a colleague. Ask the admin to reassign them.,ه�
 This customer is followed up by {0}. Ask the admin to reassign them.,هذا العميل يتابعه {0}. اطلب من المدير نقله.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This is not your custody.,هذه ليست عهدتك.
+This lead is already request {0}.,هذا العميل المحتمل أصبح بالفعل الطلب {0}.
+This lead is request {0}.,هذا العميل المحتمل هو الطلب {0}.
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
+This mobile is already {0} {1}.,هذا الرقم مسجل بالفعل كـ {0} {1}.
 This move is not allowed.,هذا النقل غير مسموح.
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
 This request is already handled.,تمت معالجة هذا الطلب من قبل.
@@ -1814,6 +1822,7 @@ Who,مَن
 "Who brought the request in (showroom, call or marketing).",من جاء بالطلب (المعرض أو المكالمة أو التسويق).
 Who follows up this customer now. Changes through the case and hand-over.,من يتابع هذا العميل الآن. يتغير من خلال الحالة والتسليم.
 Who physically has the cheque now.,من يحمل الشيك فعليًا الآن.
+Who takes the request once the lead becomes one (the follow-up lead by default).,من يتسلم الطلب عند تحويل العميل المحتمل (مسؤولة المتابعة افتراضيًا).
 Who usually gets it; the preferences list it to them first.,من يصله عادةً؛ يظهر لهم أولًا في التفضيلات.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
 Whose campaign it is (the marketing agent who runs it).,صاحب الحملة (مسؤول التسويق الذي يديرها).

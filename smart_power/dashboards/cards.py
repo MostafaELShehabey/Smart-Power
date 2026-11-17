@@ -286,6 +286,13 @@ def my_leads_week(user: str) -> dict:
 	return data
 
 
+@card("my_leads_waiting", "My leads with no request after 24 h", ("marketing",))
+def my_leads_waiting(user: str) -> dict:
+	from smart_power.sp_sales.leads import waiting_filters
+
+	return _count("Lead", waiting_filters(user), ORANGE)
+
+
 @card("my_won", "My won cases", ("marketing",))
 def my_won(user: str) -> dict:
 	data = _count("SP Case", {"requested_by": user, "status": "Won"}, GREEN)
