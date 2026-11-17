@@ -81,6 +81,8 @@ GROUP_ROLES = {
 # (group, item label) → the roles that see that item inside its group
 ITEM_ROLES = {
 	("Requests & Customers", "Campaigns"): ("SP Marketing Agent", "SP Followup All", *ADMIN),
+	("Requests & Customers", "Leads"): ("SP Marketing Agent", "SP Lead Intake", "SP Followup All", *ADMIN),
+	("Requests & Customers", "Import Leads"): ("SP Marketing Agent", "SP Lead Intake", *ADMIN),
 	("Purchasing", "Purchase Orders"): ("SP Purchase Officer", "SP Supplier Accounts", *ADMIN),
 	("Purchasing", "Suppliers"): ("SP Purchase Officer", "SP Supplier Accounts", *ADMIN),
 	("Purchasing", "Consignment Containers"): ("SP Purchase Officer", "SP Main Store Keeper", *ADMIN),
