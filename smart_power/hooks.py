@@ -111,6 +111,8 @@ doctype_js = {
 	"Quotation": "public/js/quotation.js",
 	# C2 customer record: overview, requests and quotes, calls, stations, documents (SP-50)
 	"Customer": "public/js/customer.js",
+	# "Convert to request" opens C3 from the lead (SP-51)
+	"Lead": "public/js/lead.js",
 	# your own transit and custody balances on your profile (SP-26)
 	"User": "public/js/user.js",
 	# A6 / A6b: source, Reverse, the live balanced check (SP-119)
@@ -174,6 +176,8 @@ doc_events = {
 	},
 	# a lead counts in its campaign (SP-52)
 	"Lead": {
+		# mobile, duplicates and the follow-up owner (SP-51)
+		"validate": "smart_power.sp_sales.leads.validate",
 		"after_insert": "smart_power.sp_sales.campaigns.on_lead_change",
 		"on_update": "smart_power.sp_sales.campaigns.on_lead_change",
 		"on_trash": "smart_power.sp_sales.campaigns.on_lead_change",
@@ -315,6 +319,8 @@ scheduler_events = {
 permission_query_conditions = {
 	# a marketing agent sees her own campaigns (SP-52)
 	"SP Campaign": "smart_power.sp_sales.campaigns.query_conditions",
+	# leads: one's own, made, owned or to follow up (SP-51)
+	"Lead": "smart_power.sp_sales.leads.query_conditions",
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.get_permission_query_conditions",
 	# Buying prices (List Price, P1 Cost) for cost roles only (SP-35).
 	"Item Price": "smart_power.permissions.item_price_query_conditions",
@@ -338,6 +344,7 @@ permission_query_conditions = {
 }
 has_permission = {
 	"SP Campaign": "smart_power.sp_sales.campaigns.has_permission",
+	"Lead": "smart_power.sp_sales.leads.has_permission",
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
 	"Item Price": "smart_power.permissions.item_price_has_permission",
 	"SP Case": "smart_power.permissions.case_has_permission",

@@ -1,5 +1,7 @@
 """Marketing campaigns (SP-52): the funnel counts, spend from custody, who sees which."""
 
+import itertools
+
 import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, flt, today
@@ -27,10 +29,15 @@ def make_campaign(name="معرض صحارى", owner=None, **kw):
 	).insert()
 
 
+MOBILES = itertools.count(1)
+
+
 def lead(campaign, n):
-	return frappe.get_doc({"doctype": "Lead", "lead_name": f"عميل معرض {n}", "sp_campaign": campaign}).insert(
-		ignore_permissions=True
-	)
+	# a lead needs its own mobile (SP-51)
+	mobile = f"0106{next(MOBILES):07d}"
+	return frappe.get_doc(
+		{"doctype": "Lead", "lead_name": f"عميل معرض {n}", "sp_campaign": campaign, "sp_mobile": mobile}
+	).insert(ignore_permissions=True)
 
 
 class TestCampaignResults(IntegrationTestCase):

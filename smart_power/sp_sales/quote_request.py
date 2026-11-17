@@ -242,7 +242,7 @@ def create_quote_request(request: dict | str) -> dict:
 
 	request: system_type, mobile, customer_name, tier, region (new customers), channel,
 	follow_up_owner, location_text, geo, payment_method, site_visit_needed, request_notes,
-	campaign (SP-52), details ({fieldname: value}), loads ([{device, qty, watts, day_hours, night_hours}]),
+	campaign (SP-52), lead (SP-51: the lead it came from), details ({fieldname: value}), loads ([{device, qty, watts, day_hours, night_hours}]),
 	photos (optional: names of image Files the user has just uploaded, attached to the case) and
 	indicative_inputs (optional, SP-49: the specs priced on the indicative page, recorded with
 	their price on the case).
@@ -317,6 +317,10 @@ def create_quote_request(request: dict | str) -> dict:
 			record(case, request.system_type, frappe.parse_json(request.indicative_inputs))
 		case.insert()
 		attach_photos(case, request.get("photos"))
+		# from a marketing lead (SP-51): the lead points to its request
+		from smart_power.sp_sales.leads import link_request
+
+		link_request(request.get("lead"), case)
 	except Exception:
 		frappe.db.rollback(save_point="sp_quote_request")
 		raise
