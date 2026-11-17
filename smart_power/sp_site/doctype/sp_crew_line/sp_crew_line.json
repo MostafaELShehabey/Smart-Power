@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "creation": "2026-11-17 16:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "is_daily_worker",
+  "days",
+  "wage",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Worker",
+   "options": "Employee",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "fetch_from": "employee.employee_name",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "is_daily_worker",
+   "fieldtype": "Check",
+   "label": "Daily Worker",
+   "fetch_from": "employee.sp_is_daily_worker",
+   "read_only": 1
+  },
+  {
+   "fieldname": "days",
+   "fieldtype": "Float",
+   "label": "Days",
+   "default": "1",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "A part of a day is a fraction, e.g. 0.5."
+  },
+  {
+   "fieldname": "wage",
+   "fieldtype": "Currency",
+   "label": "Daily Wage",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "The worker's daily wage unless changed for this day."
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-17 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Site",
+ "name": "SP Crew Line",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

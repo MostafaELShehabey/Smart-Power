@@ -54,3 +54,4 @@ smart_power.patches.sp56_pump_template
 smart_power.patches.sp49_price_check_action
 smart_power.patches.sp50_customer_views
 smart_power.patches.sp52_campaign_lists
+smart_power.patches.sp96_site_log
