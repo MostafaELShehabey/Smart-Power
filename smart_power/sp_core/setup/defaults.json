@@ -315,7 +315,14 @@
 		{"list_name": "Site Stage", "code": "DC_WIRING", "value_ar": "توصيلات DC", "value_en": "DC wiring", "sort_order": 4, "_source": "SP-32"},
 		{"list_name": "Site Stage", "code": "PUMP_LOWERING", "value_ar": "تنزيل الطلمبة", "value_en": "Pump lowering", "sort_order": 5, "_source": "SP-32"},
 		{"list_name": "Site Stage", "code": "PANEL_INVERTER", "value_ar": "تركيب اللوحة والإنفرتر", "value_en": "Panel and inverter", "sort_order": 6, "_source": "SP-32"},
-		{"list_name": "Site Stage", "code": "TESTING", "value_ar": "الاختبار والتشغيل", "value_en": "Testing", "sort_order": 7, "_source": "SP-32"}
+		{"list_name": "Site Stage", "code": "TESTING", "value_ar": "الاختبار والتشغيل", "value_en": "Testing", "sort_order": 7, "_source": "SP-32"},
+		{"list_name": "Inverter Brand", "code": "ABB", "value_ar": "ABB", "value_en": "ABB", "sort_order": 1, "_source": "SP-97/SP-98 story: the brands named; the rest come with the SETTING folder import"},
+		{"list_name": "Inverter Brand", "code": "INVT", "value_ar": "INVT", "value_en": "INVT", "sort_order": 2, "_source": "SP-97/SP-98 story: the brands named; the rest come with the SETTING folder import"},
+		{"list_name": "Inverter Brand", "code": "FRECON", "value_ar": "Frecon", "value_en": "Frecon", "sort_order": 3, "_source": "SP-97/SP-98 story: the brands named; the rest come with the SETTING folder import"},
+		{"list_name": "Inverter Brand", "code": "VEICHI", "value_ar": "Veichi", "value_en": "Veichi", "sort_order": 4, "_source": "SP-97/SP-98 story: the brands named; the rest come with the SETTING folder import"},
+		{"list_name": "Inverter Brand", "code": "SANCH", "value_ar": "SANCH", "value_en": "SANCH", "sort_order": 5, "_source": "SP-97/SP-98 story: the brands named; the rest come with the SETTING folder import"},
+		{"list_name": "Inverter Brand", "code": "SOLIS", "value_ar": "Solis", "value_en": "Solis", "sort_order": 6, "_source": "SP-97/SP-98 story: the brands named; the rest come with the SETTING folder import"},
+		{"list_name": "Inverter Brand", "code": "YASKAWA", "value_ar": "Yaskawa", "value_en": "Yaskawa", "sort_order": 7, "_source": "SP-97/SP-98 story: the brands named; the rest come with the SETTING folder import"}
 	],
 	"notification_events": [
 		{"key": "new_request", "label_ar": "طلب عرض سعر جديد", "label_en": "New quote request", "default_push": 1, "roles": "SP Admin, SP Quote Creator"},
