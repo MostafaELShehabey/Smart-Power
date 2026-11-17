@@ -21,6 +21,7 @@ A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسب
 A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
 A marketing request needs its source.,طلب التسويق يحتاج إلى مصدره.
 A marketing spend: once approved it counts in the campaign's spend (SP-52).,مصروف تسويق: بعد اعتماده يُحسب في مصروف الحملة.
+A new case is opened for this customer with a draft copy of {0}.,تُفتح حالة جديدة لهذا العميل بمسودة منسوخة من {0}.
 A new PDF is made and logged for this send.,يُنشأ ملف PDF جديد ويُسجَّل لهذا الإرسال.
 "A part of a day is a fraction, e.g. 0.5.",جزء اليوم يُكتب كسرًا، مثل 0.5.
 A percent of the total it applies to; leave empty to give an amount.,نسبة من الإجمالي الذي يُطبق عليه؛ اتركها فارغة لإعطاء مبلغ.
@@ -208,6 +209,7 @@ Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا �
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Case {0} is {1}; its quotes are not discounted any more.,الحالة {0} {1}؛ لا يتم الخصم على عروضها بعد الآن.
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
+Case {0} opened with draft {1}.,تم فتح الحالة {0} بالمسودة {1}.
 Cases,الحالات
 Cases of this campaign that got a sent quote.,حالات هذه الحملة التي أُرسل لها عرض سعر.
 Cash,نقدي
@@ -428,6 +430,7 @@ Customer payment {0},دفعة عميل {0}
 Customer Payments,مدفوعات العملاء
 Customer Phone,تليفون العميل
 Customer Statement,كشف حساب العميل
+Customer {0} not found.,العميل {0} غير موجود.
 Customer {0} paid {1} directly ({2}),العميل {0} دفع لـ {1} مباشرة ({2})
 Daily Wage,اليومية
 Daily Worker,عامل باليومية
@@ -499,6 +502,7 @@ Due Alert Sent,أُرسل تنبيه الاستحقاق
 Due At,الميعاد
 Due Date,تاريخ الاستحقاق
 Duplicate,مكرر
+Duplicate for Customer,نسخ لعميل آخر
 Duplicates,مكررات
 "E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round.",مثل ceil(depth / pipe_m). الأسماء المتاحة: المدخلات، مفاتيح السطور السابقة (pipes.qty)، item (مواصفات الصنف المختار)، settings؛ والدوال ceil وfloor وmround وnearest_divisible وmin وmax وabs وround.
 E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
@@ -1058,6 +1062,7 @@ Only a quote linked to a case has options.,الخيارات متاحة فقط ل
 Only a quote linked to a case has versions.,فقط العرض المرتبط بحالة له نسخ.
 Only a quote linked to a case is discounted here.,يتم الخصم هنا فقط على عرض مرتبط بحالة.
 Only a quote linked to a case is sent from here.,يُرسل من هنا فقط العرض المرتبط بحالة.
+Only a quote of a case can be duplicated for another customer.,يمكن نسخ عرض تابع لحالة فقط لعميل آخر.
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
@@ -1443,6 +1448,7 @@ Search model or notes,ابحث بالموديل أو الملاحظات
 Second Mobile,موبايل إضافي
 Section,القسم
 Select,قائمة اختيار
+Select one quote to duplicate.,اختر عرضًا واحدًا لنسخه.
 Select the items to mark reviewed.,حدد العناصر لتمييزها كمُراجعة.
 Select the items you checked against the statement.,حدد العناصر التي راجعتها مع الكشف.
 Send,إرسال

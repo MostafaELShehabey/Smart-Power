@@ -69,6 +69,11 @@ frappe.ui.form.on("Quotation", {
 			)
 		);
 
+		// the same quote for another customer, in a new case (Q1, SP-64)
+		if (frappe.model.can_create("Quotation")) {
+			frm.add_custom_button(__("Duplicate for Customer"), () => sp.sales.duplicate_quote(frm.doc.name));
+		}
+
 		frm.add_custom_button(__("New Version"), async () => {
 			const { message: name } = await frappe.call({
 				method: `${API}.new_version`,

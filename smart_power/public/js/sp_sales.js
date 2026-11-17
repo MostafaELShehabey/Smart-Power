@@ -72,3 +72,33 @@ sp.sales.lost_dialog = function (case_name, note, on_done) {
 	dialog.show();
 	return dialog;
 };
+
+// Q1 "Duplicate for Customer" (SP-64): the quote's lines into a new case for another customer,
+// as its first draft version. From the quote form and the quotes list.
+sp.sales.duplicate_quote = function (quotation) {
+	const d = new frappe.ui.Dialog({
+		title: __("Duplicate for Customer"),
+		fields: [
+			{
+				fieldname: "customer",
+				label: __("Customer"),
+				fieldtype: "Link",
+				options: "Customer",
+				reqd: 1,
+				description: __("A new case is opened for this customer with a draft copy of {0}.", [quotation]),
+			},
+		],
+		primary_action_label: __("Duplicate for Customer"),
+		primary_action: async ({ customer }) => {
+			const { message } = await frappe.call({
+				method: "smart_power.sp_sales.quote_list.duplicate_for_customer",
+				args: { name: quotation, customer },
+				freeze: true,
+			});
+			d.hide();
+			frappe.show_alert({ message: __("Case {0} opened with draft {1}.", [message.case, message.quotation]), indicator: "green" });
+			frappe.set_route("Form", "Quotation", message.quotation);
+		},
+	});
+	d.show();
+};
