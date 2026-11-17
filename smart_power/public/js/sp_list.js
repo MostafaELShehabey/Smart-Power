@@ -18,7 +18,9 @@ sp.list.tab_filters = function (doctype, view) {
 };
 
 sp.list.same = function (a, b) {
-	const key = (rows) => JSON.stringify((rows || []).map((r) => r.slice(1, 4)).sort()); // sp-allow-number: a filter row is [doctype, field, op, value]
+	// the filter area writes some operators capitalised ("Between")
+	const key = (rows) =>
+		JSON.stringify((rows || []).map((r) => [r[1], String(r[2]).toLowerCase(), r[3]]).sort()); // sp-allow-number: a filter row is [doctype, field, op, value]
 	return key(a) === key(b);
 };
 

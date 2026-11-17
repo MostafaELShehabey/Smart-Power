@@ -105,6 +105,9 @@ def after_migrate() -> None:
 	sync_role_profiles()
 	sync_rule_settings()
 	sync_cost_permissions()
+	from smart_power.sp_sales.quote_list import sync_export_permissions
+
+	sync_export_permissions()  # Q1 export (SP-64)
 	from smart_power.notify import sync_events
 
 	sync_events()  # the notification event catalogue (SP-40)

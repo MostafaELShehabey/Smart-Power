@@ -133,3 +133,32 @@ def backfill() -> None:
 		frappe.db.set_value(QUOTATION, q.name, row, update_modified=False)
 	for root in frappe.get_all(QUOTATION, {"sp_root": ("is", "set")}, pluck="sp_root", distinct=True):
 		refresh_latest(root)
+
+
+# --- export ---------------------------------------------------------------------------------------
+
+# Q1's actions include export: the quote creators and the follow-up roles export the list (the
+# follow-up export leaves the cost permlevel out, as the list does).
+EXPORT_ROLES = (
+	"SP Quote Creator",
+	"SP System Designer",
+	"SP Customer Followup",
+	"SP Followup All",
+	"SP Admin",
+)
+
+
+def sync_export_permissions() -> None:
+	"""Give the Q1 roles Export on Quotation (permlevel 0); rows the admin changed are kept."""
+	from frappe.permissions import add_permission, update_permission_property
+
+	for role in EXPORT_ROLES:
+		if not frappe.db.exists("Role", role):
+			continue
+		key = {"parent": QUOTATION, "role": role, "permlevel": 0, "if_owner": 0}
+		if frappe.db.exists("Custom DocPerm", key):
+			continue
+		add_permission(QUOTATION, role, 0)
+		for ptype in ("export", "report"):
+			update_permission_property(QUOTATION, role, 0, ptype, 1, validate=False)
+	frappe.clear_cache(doctype=QUOTATION)

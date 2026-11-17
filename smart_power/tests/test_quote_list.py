@@ -18,6 +18,7 @@ class TestQuoteList(IntegrationTestCase):
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()
+		quote_list.sync_export_permissions()
 		cls.aya = make_user("sp.q1.aya@example.com", ("quote_creator",))
 		cls.amira = make_user("sp.q1.amira@example.com", ("quote_creator",))
 		cls.camelia = make_user("sp.q1.camelia@example.com", ("followup_all",))
@@ -122,3 +123,26 @@ class TestQuoteList(IntegrationTestCase):
 		quote_list.backfill()
 		self.assertEqual(frappe.db.get_value("Quotation", v2.name, ["sp_is_latest", "sp_size"]), (1, "20 HP"))
 		self.assertEqual(frappe.db.get_value("Quotation", v1.name, "sp_is_latest"), 0)
+
+	def test_follow_up_export_has_no_cost(self):
+		"""Q1's export: the follow-up roles may export, and the cost columns stay out."""
+		from frappe.desk.reportview import export_query
+
+		quote_for(self.case(self.aya))
+		fields = ["`tabQuotation`.`name`", *(f"`tabQuotation`.`{f}`" for f in COST_FIELDS)]
+		frappe.set_user(self.camelia)
+		try:
+			frappe.local.form_dict = frappe._dict(
+				doctype="Quotation",
+				file_format_type="CSV",
+				title="Quotation",
+				fields=frappe.as_json(fields),
+				filters=frappe.as_json([["Quotation", "sp_is_latest", "=", 1]]),
+			)
+			export_query()
+			header = frappe.safe_decode(frappe.response["filecontent"]).splitlines()[0]
+		finally:
+			frappe.set_user("Administrator")
+		self.assertIn("ID", header)
+		for label in ("Margin", "Total Cost", "Profit"):
+			self.assertNotIn(label, header)
