@@ -299,6 +299,8 @@ permission_query_conditions = {
 	"Item Price": "smart_power.permissions.item_price_query_conditions",
 	# A case is seen by its owners; كاميليا and the admin see all (SP-35, SP-46).
 	"SP Case": "smart_power.permissions.case_query_conditions",
+	# featured customers for all, the rest for their owners (SP-50)
+	"Customer": "smart_power.permissions.customer_query_conditions",
 	# a case's quotes follow the case (SP-35)
 	"Quotation": "smart_power.permissions.quote_query_conditions",
 	# money accounts: others see only their own transit and custody (SP-26)
@@ -317,6 +319,7 @@ has_permission = {
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
 	"Item Price": "smart_power.permissions.item_price_has_permission",
 	"SP Case": "smart_power.permissions.case_has_permission",
+	"Customer": "smart_power.permissions.customer_has_permission",
 	"Quotation": "smart_power.permissions.quote_has_permission",
 	"Account": "smart_power.sp_finance.accounts.account_has_permission",
 	"Journal Entry": "smart_power.sp_finance.journal.has_permission",

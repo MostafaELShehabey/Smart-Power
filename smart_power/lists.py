@@ -55,6 +55,7 @@ def seed_list_views() -> None:
 				"label": row["label"],
 				"sort_order": row["sort_order"],
 				"filters": json.dumps(row["filters"], ensure_ascii=False),
+				"roles": row.get("roles"),
 				"is_active": 1,
 			}
 		).insert(ignore_permissions=True)
