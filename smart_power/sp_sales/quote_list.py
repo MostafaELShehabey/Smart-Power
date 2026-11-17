@@ -11,8 +11,9 @@
 import json
 
 import frappe
+from frappe import _
 from frappe.model.docstatus import DocStatus
-from frappe.utils import flt
+from frappe.utils import flt, today
 
 QUOTATION, CASE = "Quotation", "SP Case"
 CANCELLED = DocStatus.cancelled()
@@ -162,3 +163,94 @@ def sync_export_permissions() -> None:
 		for ptype in ("export", "report"):
 			update_permission_property(QUOTATION, role, 0, ptype, 1, validate=False)
 	frappe.clear_cache(doctype=QUOTATION)
+
+
+# --- duplicate for another customer -------------------------------------------------------------
+
+QUOTE_CREATOR_ROLES = ("SP Quote Creator", "SP System Designer")
+CASE_COPY_FIELDS = ("channel", "source", "campaign", "payment_method", "request_details", "request_notes")
+
+
+@frappe.whitelist(methods=["POST"])
+def duplicate_for_customer(name: str, customer: str) -> dict:
+	"""Copy a quote into a new case for another customer, as its first draft version (Q1).
+
+	The case takes the source case's system types, request answers and loads (a starting point to
+	edit); its follow-up owner is the customer's own (so no colleague's customer is taken), else
+	the source case's. Whoever duplicates must be able to read the customer. The quote keeps the
+	lines and design inputs, never the source's versions, approval or discounts. Returns
+	{"case", "quotation"}."""
+	from smart_power.sp_sales.quote_request import customer_owner
+
+	source = frappe.get_doc(QUOTATION, name)
+	source.check_permission("read")
+	if not source.get("sp_case"):
+		frappe.throw(_("Only a quote of a case can be duplicated for another customer."))
+	# the quote creators duplicate their own work; the case is opened for them (they do not
+	# create cases themselves)
+	frappe.has_permission(QUOTATION, "create", throw=True)
+	if not frappe.db.exists("Customer", customer):
+		frappe.throw(_("Customer {0} not found.").format(customer), frappe.DoesNotExistError)
+	frappe.get_doc("Customer", customer).check_permission("read")
+	old_case = frappe.get_doc(CASE, source.sp_case)
+	creator = (
+		frappe.session.user
+		if set(QUOTE_CREATOR_ROLES) & set(frappe.get_roles())
+		else old_case.quote_creator or source.get("sp_quote_creator")
+	)
+	case = frappe.get_doc(
+		{
+			"doctype": CASE,
+			"customer": customer,
+			"requested_by": frappe.session.user,
+			"follow_up_owner": customer_owner(customer) or old_case.follow_up_owner,
+			"quote_creator": creator,
+			"system_types": [{"system_type": r.system_type} for r in old_case.system_types],
+			"loads": [
+				{
+					k: v
+					for k, v in r.as_dict().items()
+					if k not in ("name", "parent", "parentfield", "parenttype", "idx")
+				}
+				for r in old_case.loads
+			],
+			**{f: old_case.get(f) for f in CASE_COPY_FIELDS},
+		}
+	).insert(ignore_permissions=True)
+
+	doc = frappe.copy_doc(source, ignore_no_copy=False)
+	doc.docstatus = 0
+	for row in doc.get_all_children():
+		row.docstatus = 0
+	doc.update(
+		{
+			"party_name": customer,
+			"customer_name": frappe.db.get_value("Customer", customer, "customer_name"),
+			"sp_case": case.name,
+			"sp_quote_creator": creator,
+			"sp_root": None,
+			"sp_previous_version": None,
+			"sp_version": None,
+			"sp_option_label": None,
+			"sp_is_approved": 0,
+			"sp_superseded": 0,
+			"sp_needs_repricing": 0,
+			"transaction_date": today(),
+			"valid_till": None,
+		}
+	)
+	doc.set("sp_discounts", [])
+	for field in (
+		"customer_address",
+		"address_display",
+		"contact_person",
+		"contact_display",
+		"contact_mobile",
+		"contact_email",
+		"shipping_address_name",
+		"shipping_address",
+	):
+		if doc.meta.has_field(field):
+			doc.set(field, None)
+	doc.insert()
+	return {"case": case.name, "quotation": doc.name}

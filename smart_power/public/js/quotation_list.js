@@ -47,6 +47,16 @@
 	settings.onload = function (listview) {
 		if (erpnext_onload) erpnext_onload(listview);
 		listview.sp_versions_button = listview.page.add_inner_button(__("All Versions"), () => sp_q_toggle_versions(listview));
+		if (frappe.model.can_create("Quotation")) {
+			listview.page.add_action_item(__("Duplicate for Customer"), () => {
+				const selected = listview.get_checked_items(true);
+				if (selected.length !== 1) {
+					frappe.msgprint(__("Select one quote to duplicate."));
+					return;
+				}
+				sp.sales.duplicate_quote(selected[0]);
+			});
+		}
 	};
 
 	const erpnext_refresh = settings.refresh;
