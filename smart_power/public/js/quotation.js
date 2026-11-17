@@ -359,4 +359,6 @@ function sp_quote_margin_chip(frm) {
 	field.$wrapper.html(
 		`<span class="indicator-pill ${check.in_range ? "green" : "orange"}">${frappe.utils.escape_html(label)}</span>`
 	);
+	// out of range: open the (collapsed) Cost and Profit section so the chip is seen
+	if (!check.in_range) frm.fields_dict.sp_cost_section?.collapse(false);
 }
