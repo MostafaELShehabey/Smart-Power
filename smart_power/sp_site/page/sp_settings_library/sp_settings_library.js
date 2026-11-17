@@ -113,8 +113,17 @@ class SPSettingsLibrary {
 					options: "SP List Value",
 					reqd: 1,
 					default: r?.brand,
-					read_only: !!r,
+					hidden: !!r,
 					get_query: () => ({ filters: { list_name: "Inverter Brand", is_active: 1 } }),
+				},
+				// a new version of a listed model shows its brand by name
+				{
+					fieldname: "brand_label",
+					label: __("Inverter Brand"),
+					fieldtype: "Data",
+					read_only: 1,
+					default: r?.brand_label,
+					hidden: !r,
 				},
 				{ fieldname: "model", label: __("Model"), fieldtype: "Data", reqd: 1, default: r?.model, read_only: !!r },
 				{
@@ -127,9 +136,10 @@ class SPSettingsLibrary {
 			],
 			primary_action_label: __("Upload"),
 			primary_action: async (values) => {
+				const { brand, model, file_url, notes } = values;
 				const { message: v } = await frappe.call({
 					method: `${SP_SET_API}.upload`,
-					args: values,
+					args: { brand, model, file_url, notes },
 					freeze: true,
 				});
 				d.hide();
