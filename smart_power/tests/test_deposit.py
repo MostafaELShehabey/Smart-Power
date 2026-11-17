@@ -42,6 +42,20 @@ class TestDeposit(IntegrationTestCase):
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()
+		# the drafted purchase orders convert EGP to the test supplier's INR: a rate on file, so the
+		# test never asks ERPNext's online rate service (a network timeout failed CI before)
+		if not frappe.db.exists("Currency Exchange", {"from_currency": "EGP", "to_currency": "INR"}):
+			frappe.get_doc(
+				{
+					"doctype": "Currency Exchange",
+					"date": "2020-01-01",
+					"from_currency": "EGP",
+					"to_currency": "INR",
+					"exchange_rate": 1.7,
+					"for_buying": 1,
+					"for_selling": 1,
+				}
+			).insert()
 		wh.seed_warehouses(COMPANY)
 		enable_stock_reservation()
 		cls.main = wh.warehouse_of(COMPANY, wh.MAIN)
