@@ -855,7 +855,9 @@ Margin %,الربح %
 Margin on sale,هامش من البيع
 Margin out of range,هامش خارج النطاق
 Margin Ranges,نطاقات الربح
+Margin {0}% in range ({1}),الهامش {0}% داخل النطاق ({1})
 Margin {0}% is outside the range {1}% to {2}% for this offer type.,الهامش {0}% خارج النطاق من {1}% إلى {2}% لهذا النوع من العروض.
+Margin {0}% out of range ({1}),الهامش {0}% خارج النطاق ({1})
 Mark All Read,تمييز الكل كمقروء
 Mark cheque {0} as taken to the Post?,تمييز الشيك {0} كمودع في البريد؟
 Mark Lost,تسجيل الخسارة
@@ -1233,6 +1235,7 @@ Priority,الأولوية
 Profit,الربح
 Profit as a percent of the net total.,الربح كنسبة من صافي الإجمالي.
 Project,المشروع
+Project Scope,نطاق المشروع
 Project {0} already has the site warehouse {1}.,المشروع {0} له مخزن موقع بالفعل: {1}.
 Projects Center,مركز المشروعات
 Proof,الإثبات
@@ -1479,6 +1482,7 @@ Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو 
 "Set when the admin gives the password (a new user, a reset); the user changes it before any other page (SP-36).",يُفعَّل عندما يعطي المدير كلمة المرور (مستخدم جديد أو إعادة تعيين)؛ يغيّرها المستخدم قبل أي صفحة أخرى (SP-36).
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
 Set when the log is first saved.,يُسجل عند أول حفظ لليومية.
+Sets the margin range the quote is held to (Smart Power Settings > Margin Ranges).,يحدد نطاق الهامش الذي يُقاس عليه العرض (إعدادات سمارت باور > نطاقات الهامش).
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
 Settings File,ملف الإعدادات
 Settings file {0} is not for this inverter brand and model.,ملف الإعدادات {0} ليس لماركة وموديل هذا الإنفرتر.
@@ -1972,6 +1976,7 @@ What the site warehouse holds.,رصيد مخزن الموقع.
 WhatsApp,واتساب
 When,متى
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
+"When a quote is sent, its margin should sit inside the range set for its offer type and project scope (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض ونطاق المشروع (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
 When it was entered; the date above is when it happened.,وقت الإدخال؛ التاريخ أعلاه هو وقت الحدوث.
 When the deposit was confirmed: the station's estimated cost is frozen then (SP-74).,عند تأكيد العربون: تُثبت التكلفة التقديرية للمحطة حينها.
 When the holder is not a system user.,عندما لا يكون الحائز مستخدمًا في النظام.

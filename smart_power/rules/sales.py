@@ -52,6 +52,29 @@ def _offer_type(doc) -> str | None:
 	)
 
 
+DEFAULT_SCOPE = "Supply and install"
+
+
+def margin_check(doc) -> dict | None:
+	"""The quote's margin against the range of its offer type and scope (SP-63):
+	{"margin", "min", "max", "in_range"}, or None when no range applies."""
+	from frappe.utils import flt
+
+	from smart_power.sp_core.services.settings import margin_range
+
+	limits = margin_range(_offer_type(doc), doc.get("sp_scope") or DEFAULT_SCOPE)
+	if not limits or not (flt(limits.min_pct) or flt(limits.max_pct)):
+		return None
+	margin = flt(doc.get("sp_margin_pct"))
+	low, high = flt(limits.min_pct), flt(limits.max_pct)
+	return {
+		"margin": round(margin, 1),
+		"min": low,
+		"max": high,
+		"in_range": (not low or margin >= low) and (not high or margin <= high),
+	}
+
+
 @rule(
 	"quote_margin_range",
 	doctypes=("Quotation",),
@@ -61,26 +84,30 @@ def _offer_type(doc) -> str | None:
 	never_block=True,
 	title="Quote margin within its range",
 	description="When a quote is sent, its margin should sit inside the range set for its offer type "
-	"(Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never "
-	"stops a send (decision 58).",
+	"and project scope (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the "
+	"admin. It never stops a send (decision 58).",
 	review_category="Margin",
 )
 def quote_margin_range(doc, ctx: RuleContext):
-	from frappe.utils import flt
-
-	from smart_power.sp_core.services.settings import margin_range
-
-	limits = margin_range(_offer_type(doc), None)
-	if not limits or not (flt(limits.min_pct) or flt(limits.max_pct)):
-		return None
-	margin = flt(doc.get("sp_margin_pct"))
-	low, high = flt(limits.min_pct), flt(limits.max_pct)
-	if (not low or margin >= low) and (not high or margin <= high):
+	check = margin_check(doc)
+	if not check or check["in_range"]:
 		return None
 	return Finding(
 		message=_("Margin {0}% is outside the range {1}% to {2}% for this offer type.").format(
-			round(margin, 1), low, high
+			check["margin"], check["min"], check["max"]
 		),
 		suggestion=_("Check the prices and the discount before the next version."),
 		highlight=True,
 	)
+
+
+def margin_onload(doc, method=None) -> None:
+	"""Quotation onload: the margin chip (in range / out of range) for whoever sees the quote's
+	cost (its creator, the admin); the follow-up roles never see the margin."""
+	from smart_power.permissions import sees_quote_internals
+
+	if not doc.get("sp_case") or not sees_quote_internals(doc):
+		return
+	check = margin_check(doc)
+	if check:
+		doc.set_onload("sp_margin_check", check)

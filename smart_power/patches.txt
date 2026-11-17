@@ -58,3 +58,4 @@ smart_power.patches.sp96_site_log
 smart_power.patches.sp98_settings_library
 smart_power.patches.sp97_commissioning
 smart_power.patches.sp64_quotes_list
+smart_power.patches.sp63_project_scope

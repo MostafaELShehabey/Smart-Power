@@ -20,6 +20,8 @@ frappe.ui.form.on("Quotation", {
 				"red"
 			);
 		}
+		// the margin against its range: orange out of range, never blocking a send (SP-63)
+		sp_quote_margin_chip(frm);
 		// the indicative price given first, and how far this version is from it (SP-49)
 		const indicative = frm.doc.__onload?.sp_indicative;
 		if (indicative) {
@@ -340,3 +342,13 @@ frappe.ui.form.on("Quotation Item", {
 		if (item && row.item_code !== item) await frappe.model.set_value(cdt, cdn, "item_code", item);
 	},
 });
+
+function sp_quote_margin_chip(frm) {
+	const check = frm.doc.__onload?.sp_margin_check;
+	if (!check) return;
+	const range = `${check.min}% – ${check.max}%`;
+	const label = check.in_range
+		? __("Margin {0}% in range ({1})", [check.margin, range])
+		: __("Margin {0}% out of range ({1})", [check.margin, range]);
+	frm.dashboard.add_indicator(label, check.in_range ? "green" : "orange");
+}
