@@ -125,6 +125,8 @@ doctype_list_js = {
 	"Customer": "public/js/customer_list.js",
 	# Item list: import from Excel with Arabic headers (SP-29).
 	"Item": "public/js/item_list.js",
+	# Q1 quotes list: latest versions, all-versions toggle, status indicator (SP-64)
+	"Quotation": "public/js/quotation_list.js",
 }
 
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
@@ -173,8 +175,12 @@ doc_events = {
 	# after the contract: "Read-only — now with أميرة" (SP-35)
 	"SP Case": {
 		"onload": "smart_power.permissions.set_read_only_banner",
-		# its campaign recounts quotes, won and contracted value (SP-52)
-		"on_update": "smart_power.sp_sales.campaigns.on_case_change",
+		"on_update": [
+			# its campaign recounts quotes, won and contracted value (SP-52)
+			"smart_power.sp_sales.campaigns.on_case_change",
+			# its quotes follow the follow-up owner, system and size in the Q1 list (SP-64)
+			"smart_power.sp_sales.quote_list.on_case_change",
+		],
 	},
 	# a lead counts in its campaign (SP-52)
 	"Lead": {
@@ -224,8 +230,16 @@ doc_events = {
 			"smart_power.sp_quotes.special_lines.before_validate",
 			"smart_power.sp_quotes.discounts.check_locked_lines",
 		],
-		"after_insert": "smart_power.sp_sales.quotation.after_insert",
-		"validate": "smart_power.sp_sales.quotation.validate",
+		"after_insert": [
+			"smart_power.sp_sales.quotation.after_insert",
+			# the Q1 list: the newest version of each chain (SP-64)
+			"smart_power.sp_sales.quote_list.on_quote_change",
+		],
+		"validate": [
+			"smart_power.sp_sales.quotation.validate",
+			# the Q1 list: follow-up owner, system and size from the case (SP-64)
+			"smart_power.sp_sales.quote_list.set_list_fields",
+		],
 		"before_cancel": "smart_power.sp_sales.quotation.before_cancel",
 		"before_update_after_submit": "smart_power.sp_sales.quotation.before_update_after_submit",
 		"on_update": [
@@ -237,7 +251,11 @@ doc_events = {
 			"smart_power.sp_sales.quotation.on_update",
 			"smart_power.sp_sales.campaigns.on_quote_change",  # SP-52
 		],
-		"on_cancel": "smart_power.sp_sales.campaigns.on_quote_change",
+		"on_cancel": [
+			"smart_power.sp_sales.campaigns.on_quote_change",
+			"smart_power.sp_sales.quote_list.on_quote_change",
+		],
+		"on_trash": "smart_power.sp_sales.quote_list.on_quote_change",
 	},
 	# The contract (SP-74): one Sales Order per case; the station's money follows it
 	"Sales Order": {
