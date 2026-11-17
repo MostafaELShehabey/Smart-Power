@@ -40,7 +40,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Task Type",
-   "options": "Quote Request\nFollow-up Call\nDiscount Request\nReceipt to Confirm\nPayment to Confirm\nTransfer to Confirm\nEntry to Review\nReopen Request\nMake Contract\nSite Survey\nTransfer to Issue\nSettlement to Approve\nCount Difference\nPassword Reset\nFix Rejected Sync\nReassign Request\nTechnical Review\nAgri Bank Advance\nOther"
+   "options": "Quote Request\nFollow-up Call\nDiscount Request\nReceipt to Confirm\nPayment to Confirm\nTransfer to Confirm\nEntry to Review\nReopen Request\nMake Contract\nSite Survey\nTransfer to Issue\nSettlement to Approve\nCount Difference\nPassword Reset\nFix Rejected Sync\nReassign Request\nTechnical Review\nAgri Bank Advance\nPhoto Request\nOther"
   },
   {
    "default": "Open",
@@ -134,7 +134,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-16 17:00:00.000000",
+ "modified": "2026-11-17 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP Task",

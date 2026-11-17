@@ -47,6 +47,7 @@ class SPTask(Document):
 			"Reassign Request",
 			"Technical Review",
 			"Agri Bank Advance",
+			"Photo Request",
 			"Other",
 		]
 	# end: auto-generated types
