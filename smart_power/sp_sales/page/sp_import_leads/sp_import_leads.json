@@ -1,0 +1,29 @@
+{
+ "creation": "2026-11-17 15:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "upload",
+ "idx": 0,
+ "modified": "2026-11-17 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Sales",
+ "name": "sp-import-leads",
+ "owner": "Administrator",
+ "page_name": "sp-import-leads",
+ "roles": [
+  {
+   "role": "SP Marketing Agent"
+  },
+  {
+   "role": "SP Lead Intake"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Import Leads"
+}
