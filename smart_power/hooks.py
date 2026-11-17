@@ -58,6 +58,8 @@ app_include_js = [
 	"/assets/smart_power/js/sp_list.js",
 	"/assets/smart_power/js/sp_form.js",
 	"/assets/smart_power/js/sp_sales.js",
+	# Site photos tagged usable for marketing, on the site log and the station (SP-96, SP-53)
+	"/assets/smart_power/js/sp_site.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).
