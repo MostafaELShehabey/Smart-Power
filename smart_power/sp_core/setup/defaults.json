@@ -38,7 +38,7 @@
 		"system_settings": {"allow_login_using_mobile_number": 1, "enable_password_policy": 1, "minimum_password_score": "2", "login_with_email_link": 0}
 	},
 	"list_views": {
-		"_source": "SP-45: the saved-view tabs of the main lists; {user} is the person looking. The admin adds or changes them in SP List View.",
+		"_source": "SP-45: the saved-view tabs of the main lists; {user} is the person looking, {today} and {today+N} the date (SP-64). The admin adds or changes them in SP List View.",
 		"views": [
 			{"list_doctype": "SP Station", "label": "Mine", "sort_order": 1, "filters": [["execution_owner", "=", "{user}"]]},
 			{"list_doctype": "SP Station", "label": "Still Open", "sort_order": 2, "filters": [["status", "not in", ["Financially closed", "Cancelled"]]]},
@@ -47,9 +47,11 @@
 			{"list_doctype": "SP Case", "label": "Mine", "sort_order": 1, "filters": [["follow_up_owner", "=", "{user}"]]},
 			{"list_doctype": "SP Case", "label": "Still Open", "sort_order": 2, "filters": [["status", "not in", ["Won", "Lost"]]]},
 			{"list_doctype": "SP Case", "label": "All", "sort_order": 3, "filters": []},
-			{"list_doctype": "Quotation", "label": "Mine", "sort_order": 1, "filters": [["sp_quote_creator", "=", "{user}"]]},
-			{"list_doctype": "Quotation", "label": "Sent", "sort_order": 2, "filters": [["sp_status", "=", "Sent"]]},
-			{"list_doctype": "Quotation", "label": "All", "sort_order": 3, "filters": []},
+			{"list_doctype": "Quotation", "label": "Mine", "sort_order": 1, "filters": [["sp_quote_creator", "=", "{user}"], ["sp_is_latest", "=", 1]], "_source": "SP-64: the latest version of each quote unless the list's toggle shows all versions"},
+			{"list_doctype": "Quotation", "label": "Sent", "sort_order": 2, "filters": [["sp_status", "=", "Sent"], ["sp_is_latest", "=", 1]]},
+			{"list_doctype": "Quotation", "label": "Expiring in 48 h", "sort_order": 3, "filters": [["sp_status", "=", "Sent"], ["valid_till", "between", ["{today}", "{today+2}"]], ["sp_is_latest", "=", 1]], "_source": "SP-64"},
+			{"list_doctype": "Quotation", "label": "Accepted", "sort_order": 4, "filters": [["sp_status", "=", "Approved"]], "_source": "SP-64"},
+			{"list_doctype": "Quotation", "label": "All", "sort_order": 5, "filters": [["sp_is_latest", "=", 1]]},
 			{"list_doctype": "SP Customer Payment", "label": "Mine", "sort_order": 1, "filters": [["recorded_by", "=", "{user}"]]},
 			{"list_doctype": "SP Customer Payment", "label": "Pending", "sort_order": 2, "filters": [["status", "=", "Pending"]]},
 			{"list_doctype": "SP Customer Payment", "label": "All", "sort_order": 3, "filters": []},

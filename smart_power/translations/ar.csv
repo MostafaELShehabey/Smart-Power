@@ -55,6 +55,7 @@ A value cannot be its own parent.,لا يمكن أن تكون القيمة أص�
 A write-off needs a reason.,الشطب يحتاج سببًا.
 Abnormal,غير طبيعي
 Abnormal flags,التنبيهات غير الطبيعية
+Accepted,مقبولة
 Accepted Quotation,العرض المعتمد
 Account,الحساب
 Account locked — contact the admin,الحساب مقفل — تواصل مع المدير
@@ -92,6 +93,7 @@ All,الكل
 All read,كلها مقروءة
 All regions,كل المناطق
 All system types,كل أنواع الأنظمة
+All Versions,كل النسخ
 Already read,مقروءة
 Already {0} {1}.,مسجل بالفعل كـ {0} {1}.
 Always on: the in-app feed is the official record.,دائمًا مفعّل: إشعارات البرنامج هي السجل الرسمي.
@@ -553,6 +555,7 @@ Expense Type,نوع المصروف
 Expenses,المصروفات
 Expired,منتهي الصلاحية
 Expires In,ينتهي خلال
+Expiring in 48 h,تنتهي خلال 48 ساعة
 Extra Data,بيانات إضافية
 "Extra settings for this value as JSON, e.g. the calculation template of a system type.",إعدادات إضافية لهذه القيمة بصيغة JSON، مثل قالب الحساب لنوع النظام.
 Factory,المصنع
@@ -626,6 +629,7 @@ From Date,من تاريخ
 From document,من المستند
 From the approved quote's line.,من سطر العرض المعتمد.
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
+From the case; follows it.,من الحالة، ويتبعها.
 From the item's warranty when empty.,من ضمان الصنف إذا تُرك فارغًا.
 Full,كامل
 Full Name,الاسم الكامل
@@ -747,6 +751,7 @@ Key Data,البيانات الأساسية
 Kind,النوع
 kw,القدرة (كيلووات)
 kW,ك.وات
+kW / HP,ك.وات / حصان
 kW from,من ك.وات
 kW to,إلى ك.وات
 Label,الاسم
@@ -766,6 +771,8 @@ Late and reopened field entries,الإدخالات الميدانية المتأ
 Late Entry,تسجيل متأخر
 Latest,الأحدث
 Latest settings file: {0},أحدث ملف إعدادات: {0}
+Latest Version,أحدث نسخة
+Latest Versions Only,أحدث النسخ فقط
 Lead,عميل محتمل
 Lead Source,مصدر العميل المحتمل
 Leads,العملاء المحتملون
@@ -1774,6 +1781,7 @@ The mobile app's id for an expense entered offline (M11); the same id is saved o
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The new passwords do not match.,كلمتا المرور الجديدتان غير متطابقتين.
 The newest version of this brand and model; uploading a new version moves it.,أحدث نسخة لهذه الماركة والموديل؛ رفع نسخة جديدة ينقلها إليها.
+The newest version of this quote; the quotes list shows only these unless you ask for all versions.,أحدث نسخة من هذا العرض؛ قائمة العروض تعرض هذه فقط ما لم تطلب كل النسخ.
 The next call cannot be before this call.,لا يمكن أن تكون المكالمة التالية قبل هذه المكالمة.
 The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
 The official account the advance is paid from.,الحساب الرسمي الذي دُفعت منه السلفة.

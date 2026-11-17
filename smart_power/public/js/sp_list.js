@@ -4,13 +4,17 @@
 window.sp = window.sp || {};
 sp.list = sp.list || {};
 
+// {user} is the person looking; {today} and {today+N} the date, N days on (SP-64)
+sp.list.placeholder = function (value) {
+	if (Array.isArray(value)) return value.map(sp.list.placeholder);
+	if (value === "{user}") return frappe.session.user;
+	const day = typeof value === "string" && value.match(/^\{today(?:\+(\d+))?\}$/);
+	if (day) return frappe.datetime.add_days(frappe.datetime.get_today(), cint(day[1] || 0));
+	return value;
+};
+
 sp.list.tab_filters = function (doctype, view) {
-	return (view.filters || []).map(([field, op, value]) => [
-		doctype,
-		field,
-		op,
-		value === "{user}" ? frappe.session.user : value,
-	]);
+	return (view.filters || []).map(([field, op, value]) => [doctype, field, op, sp.list.placeholder(value)]);
 };
 
 sp.list.same = function (a, b) {
