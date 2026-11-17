@@ -653,6 +653,7 @@ Hidden on Print,مخفي في الطباعة
 High,مستوى عالي
 Highlight,تمييز
 History,السجل
+History ({0}),السجل ({0})
 Hit At,وقت التنبيه
 Holder,الحائز
 Holder Name,اسم الحائز
@@ -673,6 +674,7 @@ Import Leads,استيراد العملاء المحتملين
 Import Prices from Excel,استيراد الأسعار من إكسل
 Import {0} leads,استيراد {0} عميل محتمل
 Import: {0},استيراد: {0}
+Imported from the SETTING folder,مستورد من مجلد الإعدادات
 Imported: {0} · Duplicates: {1} · Errors: {2},تم استيراد: {0} · مكرر: {1} · أخطاء: {2}
 Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
@@ -748,6 +750,7 @@ Last-minute ask,العشم
 Last-minute discount,خصم العشم
 Late and reopened field entries,الإدخالات الميدانية المتأخرة والمعاد فتحها
 Late Entry,تسجيل متأخر
+Latest,الأحدث
 Lead,عميل محتمل
 Lead Source,مصدر العميل المحتمل
 Leads,العملاء المحتملون
@@ -967,10 +970,12 @@ No request yet.,لا توجد طلبات بعد.
 No requests yet,لا توجد طلبات
 No roles,لا توجد صلاحيات
 No sent quote yet.,لم يُرسل عرض بعد.
+No settings files yet.,لا توجد ملفات إعدادات بعد.
 No simple records yet,لا توجد سجلات بسيطة
 No station yet.,لا توجد محطات بعد.
 No stations are assigned to you.,لا توجد محطات مسندة لك
 no value changed,لم تتغير أي قيمة
+No versions.,لا توجد نسخ.
 No.,رقم
 None,لا شيء
 Normal,عادي
@@ -1406,6 +1411,7 @@ Schedule and cheques,جدول السداد والشيكات
 Scope,النطاق
 Search,البحث
 Search Key,مفتاح البحث
+Search model or notes,ابحث بالموديل أو الملاحظات
 Second Mobile,موبايل إضافي
 Section,القسم
 Select,قائمة اختيار
@@ -1439,6 +1445,8 @@ Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو 
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
 Set when the log is first saved.,يُسجل عند أول حفظ لليومية.
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
+Settings File,ملف الإعدادات
+Settings Library,مكتبة الإعدادات
 Settled By,طريقة السداد
 Settlement,التسوية
 Settlement submitted,أُرسلت التسوية
@@ -1566,6 +1574,7 @@ SP Review Item,بند مراجعة
 SP Rule Hit,تنبيه قاعدة
 SP Rule Override Log,سجل تخطي القواعد
 SP Rule Setting,إعداد قاعدة
+SP Settings File,ملف إعدادات
 SP Showroom and Winch,مبيعات المعرض والونش
 SP Showroom Cashier,خزنة المعرض
 SP Showroom Sales,مبيعات المعرض
@@ -1732,6 +1741,7 @@ The mobile app's id for an expense entered offline (M11); the same id is saved o
 "The name later formulas use for this line, e.g. pipes (pipes.qty).",الاسم الذي تستخدمه المعادلات التالية لهذا السطر، مثل pipes (pipes.qty).
 "The name the team searches and prints, e.g. لوح RISEN 710 وات.",الاسم الذي يبحث به الفريق ويُطبع، مثل لوح RISEN 710 وات.
 The new passwords do not match.,كلمتا المرور الجديدتان غير متطابقتين.
+The newest version of this brand and model; uploading a new version moves it.,أحدث نسخة لهذه الماركة والموديل؛ رفع نسخة جديدة ينقلها إليها.
 The next call cannot be before this call.,لا يمكن أن تكون المكالمة التالية قبل هذه المكالمة.
 The next document gets this number plus one.,المستند التالي يأخذ هذا الرقم زائد واحد.
 The official account the advance is paid from.,الحساب الرسمي الذي دُفعت منه السلفة.
@@ -1857,7 +1867,11 @@ Until,حتى
 UOM,الوحدة
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
+Upload,رفع
 Upload Excel or CSV,رفع ملف Excel أو CSV
+Upload New Version,رفع نسخة جديدة
+Uploaded,تاريخ الرفع
+Uploaded By,رفعها
 Usable for Marketing,صالحة للتسويق
 Usable for marketing,صالحة للتسويق
 Use the {0} dialog to close a case.,استخدم نافذة {0} لإغلاق الحالة.
@@ -1897,6 +1911,7 @@ watt,القدرة (وات)
 Watt Price (per W),سعر الوات
 Watt Price Date,تاريخ سعر الوات
 Watts,وات
+What changed in this version.,ما الذي تغيّر في هذه النسخة.
 "What changes if the customer adds it, e.g. a full stainless motor instead of a stainless body with a cast-iron cap.",ما الذي يتغير لو أضافه العميل، مثل موتور استانلس كامل بدل جسم استانلس بغطاء زهر.
 What is missing?,ما الناقص؟
 What photos do you need?,ما الصور التي تحتاجها؟
@@ -2015,6 +2030,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} is not a simple record type.,{0} ليس نوع سجل بسيط.
 {0} is not a valid Egyptian mobile.,{0} ليس رقم موبايل مصري صحيح.
 "{0} is not a valid Egyptian mobile. Use 11 digits starting with 010, 011, 012 or 015.",{0} ليس رقم موبايل مصري صحيح. اكتب 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015.
+{0} is not an inverter brand.,{0} ليست ماركة إنفرتر.
 {0} is not an open reservation on this container.,{0} ليس حجزًا مفتوحًا على هذه الحاوية.
 {0} is not confirmed here.,{0} لا يُؤكد هنا.
 {0} is not done from the inbox; open the record.,{0} لا تُنفَّذ من صندوق المهام؛ افتح السجل.
@@ -2038,6 +2054,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} reviewed {1}: {2},{0} راجع {1}: {2}
 {0} snoozed,{0} مؤجلة
 {0} unread,{0} غير مقروءة
+{0} uploaded.,تم رفع {0}.
 {0} W x {1} per W,{0} وات × {1} للوات
 {0} waiting,{0} منتظرة
 {0} waiting · {1},{0} في الانتظار · {1}
