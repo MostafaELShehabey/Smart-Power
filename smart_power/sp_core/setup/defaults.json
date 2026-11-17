@@ -448,6 +448,7 @@
 		{"key": "discount_given", "label_ar": "تم إعطاء خصم", "label_en": "Discount given", "default_push": 0, "roles": "SP Admin"},
 		{"key": "case_handed_over", "label_ar": "تم تسليم حالة", "label_en": "Case handed over", "default_push": 1, "roles": "SP Customer Followup, SP Followup All, SP Admin"},
 		{"key": "won_case", "label_ar": "حالة مكسوبة (تأكيد العربون)", "label_en": "Won case (deposit confirmed)", "default_push": 1, "roles": "SP Project Manager, SP Admin"},
+		{"key": "intends_to_proceed", "label_ar": "العميل ينوي التنفيذ", "label_en": "Customer intends to proceed", "default_push": 1, "roles": "SP Project Manager, SP Admin", "_source": "SP-70"},
 		{"key": "payment_confirmed", "label_ar": "تم تأكيد دفعة", "label_en": "Payment confirmed", "default_push": 0, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Project Manager"},
 		{"key": "receipt_rejected", "label_ar": "تم رفض إيصال", "label_en": "Receipt rejected", "default_push": 1, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Showroom Cashier, SP Custody Holder"},
 		{"key": "large_payment", "label_ar": "دفعة كبيرة", "label_en": "Large payment", "default_push": 1, "roles": "SP Admin"},

@@ -24,6 +24,12 @@ frappe.ui.form.on("SP Case", {
 		if (sp_can_log_call(frm)) {
 			frm.add_custom_button(__("Log call"), () => sp_log_call_dialog(frm));
 		}
+		// the customer will go ahead: a review task for the admin; the deposit marks the win (SP-70)
+		const owner_or_admin =
+			frm.doc.follow_up_owner === frappe.session.user || ["SP Admin", "System Manager"].some((r) => frappe.user.has_role(r));
+		if (!frm.is_new() && owner_or_admin && ["Sent to customer", "Follow-up"].includes(frm.doc.status)) {
+			frm.add_custom_button(__("Intends to Proceed"), () => sp.sales.intends_to_proceed(frm.doc.name, () => frm.reload_doc()));
+		}
 		if (frm.is_new() || !SP_REASSIGN_ROLES.some((r) => frappe.user.has_role(r))) return;
 		frm.add_custom_button(__("Reassign"), () => sp_reassign_dialog(frm));
 	},

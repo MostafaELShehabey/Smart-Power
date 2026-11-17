@@ -41,9 +41,11 @@
   "result_section",
   "lost_reason",
   "lost_note",
+  "lost_on",
   "column_break_result",
   "won_on",
   "accepted_quotation",
+  "intends_to_proceed_on",
   "followup_section",
   "followup_html",
   "quote_history_section",
@@ -317,6 +319,15 @@
    "label": "Lost Note"
   },
   {
+   "fieldname": "lost_on",
+   "fieldtype": "Date",
+   "label": "Lost On",
+   "read_only": 1,
+   "no_copy": 1,
+   "depends_on": "eval:doc.status=='Lost'",
+   "description": "Set when the case is marked lost; cleared when the admin reopens it."
+  },
+  {
    "fieldname": "column_break_result",
    "fieldtype": "Column Break"
   },
@@ -334,6 +345,14 @@
    "options": "Quotation",
    "read_only": 1,
    "no_copy": 1
+  },
+  {
+   "fieldname": "intends_to_proceed_on",
+   "fieldtype": "Datetime",
+   "label": "Intends to Proceed On",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "The follow-up owner said the customer will go ahead: the admin has a technical review task. The case is won when the deposit is confirmed."
   },
   {
    "fieldname": "followup_section",
@@ -383,7 +402,7 @@
    "link_fieldname": "case"
   }
  ],
- "modified": "2026-11-17 13:00:00.000000",
+ "modified": "2026-11-18 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

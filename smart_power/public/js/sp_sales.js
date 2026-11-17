@@ -102,3 +102,53 @@ sp.sales.duplicate_quote = function (quotation) {
 	});
 	d.show();
 };
+
+// "Intends to proceed" (SP-70): the option the customer took becomes the approved version, the
+// admin gets a technical review task and the projects managers are told. The case is won when
+// the deposit on that version is confirmed. From the follow-up board (a drop on Won) and the case.
+sp.sales.intends_to_proceed = async function (case_name, on_done) {
+	const { message: options } = await frappe.call("smart_power.sp_sales.board.won_options", { case: case_name });
+	if (!options || !options.length) {
+		frappe.msgprint(__("Send a quote before saying the customer will go ahead."));
+		return;
+	}
+	const label = (q) =>
+		`${q.name} · ${__("Option")} ${q.sp_option_label || "A"} · ${__("Version")} ${q.sp_version || ""} · ${format_currency(
+			q.total,
+			q.currency
+		)}`;
+	const approved = options.find((q) => q.sp_is_approved) || options[0];
+	const dialog = new frappe.ui.Dialog({
+		title: __("Intends to Proceed"),
+		fields: [
+			{
+				fieldname: "quotation",
+				fieldtype: "Select",
+				label: __("The option the customer took"),
+				reqd: 1,
+				options: options.map((q) => ({ value: q.name, label: label(q) })),
+				default: approved.name,
+			},
+			{ fieldname: "note", fieldtype: "Small Text", label: __("Note for the technical review") },
+			{
+				fieldname: "explain",
+				fieldtype: "HTML",
+				options: `<p class="text-muted small">${frappe.utils.escape_html(
+					__("The case is won when the deposit on this version is confirmed.")
+				)}</p>`,
+			},
+		],
+		primary_action_label: __("Intends to Proceed"),
+		primary_action: async (values) => {
+			await frappe.call({
+				method: "smart_power.sp_sales.board.intends_to_proceed",
+				args: { case: case_name, quotation: values.quotation, note: values.note || null },
+				freeze: true,
+			});
+			dialog.hide();
+			frappe.show_alert({ message: __("The admin has a technical review task."), indicator: "green" });
+			if (on_done) on_done();
+		},
+	});
+	dialog.show();
+};

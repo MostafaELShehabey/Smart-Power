@@ -224,41 +224,9 @@ class SPFollowupBoard {
 		this.refresh();
 	}
 
-	async won_dialog(card) {
-		const { message: options } = await frappe.call(`${SP_FB_API}.won_options`, { case: card.name });
-		if (!options || !options.length) {
-			frappe.msgprint(__("Send a quote before marking the case won."));
-			return;
-		}
-		const label = (q) =>
-			`${q.name} · ${__("Option")} ${q.sp_option_label || "A"} · ${__("Version")} ${
-				q.sp_version || ""
-			} · ${format_currency(q.total, q.currency)}`;
-		const approved = options.find((q) => q.sp_is_approved) || options[0];
-		const dialog = new frappe.ui.Dialog({
-			title: __("Mark Won"),
-			fields: [
-				{
-					fieldname: "quotation",
-					fieldtype: "Select",
-					label: __("The option the customer took"),
-					reqd: 1,
-					options: options.map((q) => ({ value: q.name, label: label(q) })),
-					default: approved.name,
-				},
-			],
-			primary_action_label: __("Mark Won"),
-			primary_action: async (values) => {
-				await frappe.call({
-					method: `${SP_FB_API}.mark_won`,
-					args: { case: card.name, quotation: values.quotation },
-					freeze: true,
-				});
-				dialog.hide();
-				this.refresh();
-			},
-		});
-		dialog.show();
+	// a drop on Won: the customer intends to proceed; the deposit marks the win (SP-70)
+	won_dialog(card) {
+		sp.sales.intends_to_proceed(card.name, () => this.refresh());
 	}
 
 	lost_dialog(card) {

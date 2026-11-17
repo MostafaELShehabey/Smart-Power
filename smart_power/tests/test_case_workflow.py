@@ -71,9 +71,9 @@ class TestCaseWorkflow(IntegrationTestCase):
 		self.assertNotIn("Start Follow-up", actions(case, self.other_followup))
 		self.assertEqual(act(case, self.owner, "Start Follow-up").status, "Follow-up")
 
-		# won is for the admin (deposit confirmation, SP-70)
+		# nobody marks won by hand: the confirmed deposit does (SP-70)
 		self.assertNotIn("Mark Won", actions(case, self.owner))
-		self.assertEqual(act(case, self.admin, "Mark Won").status, "Won")
+		self.assertNotIn("Mark Won", actions(case, self.admin))
 
 	def test_revision_goes_back_to_draft(self):
 		case = make_case(follow_up_owner=self.owner, quote_creator=self.aya)

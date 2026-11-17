@@ -9,6 +9,7 @@ A,A
 A cancelled quote cannot be discounted.,لا يمكن الخصم على عرض ملغي.
 A cancelled quote cannot be sent.,لا يمكن إرسال عرض ملغى.
 A case always has a follow-up owner.,كل حالة لها مسؤول متابعة دائماً.
+A case is won when the deposit on its approved version is confirmed.,تُكسب الحالة عند تأكيد العربون على نسختها المعتمدة.
 A closed station cannot be cancelled.,لا يمكن إلغاء محطة مغلقة.
 A collection call on a station (SP-81).,مكالمة تحصيل على محطة.
 A consignment container at or under this many panels alerts the admin and the main store keeper (SP-91).,حاوية الأمانة عند هذا العدد من الألواح أو أقل تنبّه المدير وأمين المخزن الرئيسي.
@@ -207,6 +208,7 @@ Case {0} cannot move from {1} to {2}.,لا يمكن نقل الحالة {0} من
 Case {0} has no approved quote version. Approve the version the customer accepted first.,الحالة {0} ليس لها إصدار عرض معتمد. اعتمد الإصدار الذي قبله العميل أولًا.
 Case {0} is closed; reopen it before logging calls.,الحالة {0} مغلقة؛ أعد فتحها قبل تسجيل المكالمات.
 Case {0} is no longer an open request.,الحالة {0} لم تعد طلبًا مفتوحًا.
+Case {0} is {1}.,الحالة {0} {1}.
 Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ولا يمكن تغيير نسختها المعتمدة.
 Case {0} is {1}; its quotes are not discounted any more.,الحالة {0} {1}؛ لا يتم الخصم على عروضها بعد الآن.
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
@@ -727,6 +729,9 @@ Instalment Due Alert (days before),تنبيه استحقاق القسط (أيا�
 Instalment due: {0} from {1} (station {2}) on {3},قسط مستحق: {0} من {1} (المحطة {2}) في {3}
 Instalment Status,حالة القسط
 Int,رقم صحيح
+Intends to Proceed,ينوي التنفيذ
+Intends to Proceed On,تاريخ نية التنفيذ
+Intends to proceed with {0}{1},ينوي التنفيذ بالعرض {0}{1}
 Invalid mobile,رقم موبايل غير صحيح
 Inverter,الإنفرتر
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
@@ -836,6 +841,7 @@ Logo,الشعار
 Logo and Stamp,الشعار والختم
 Lost,خسارة
 Lost Note,ملاحظة الخسارة
+Lost On,تاريخ الخسارة
 Lost Reason,سبب الخسارة
 Low,منخفض
 Made when the station opens; the station's accounting dimension.,يُنشأ عند فتح المحطة؛ وهو البُعد المحاسبي للمحطة.
@@ -1028,6 +1034,7 @@ Not priced yet: {0},لم تُسعّر بعد: {0}
 Not read yet,غير مقروءة
 Not sent,لم يُرسل
 Note,ملاحظة
+Note for the technical review,ملاحظة للمراجعة الفنية
 Notes,ملاحظات
 Nothing found for {0}.,لا توجد نتائج لـ {0}.
 Nothing posts.,لن يُرحَّل شيء.
@@ -1468,6 +1475,7 @@ Select the items to mark reviewed.,حدد العناصر لتمييزها كمُ
 Select the items you checked against the statement.,حدد العناصر التي راجعتها مع الكشف.
 Send,إرسال
 Send a quote before marking the case won.,أرسل عرضًا قبل تسجيل الحالة كمكسوبة.
+Send a quote before saying the customer will go ahead.,أرسل عرض سعر قبل تسجيل أن العميل سينفذ.
 Send Again,إرسال مرة أخرى
 Send is stopped: update these prices first: {0},الإرسال متوقف: حدّث هذه الأسعار أولًا: {0}
 Send quote,إرسال عرض السعر
@@ -1493,6 +1501,7 @@ Set the Postal Cheque account of {0} (Mode of Payment).,حدد حساب الشي
 Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعدادات سمارت باور.
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 "Set when the admin gives the password (a new user, a reset); the user changes it before any other page (SP-36).",يُفعَّل عندما يعطي المدير كلمة المرور (مستخدم جديد أو إعادة تعيين)؛ يغيّرها المستخدم قبل أي صفحة أخرى (SP-36).
+Set when the case is marked lost; cleared when the admin reopens it.,يُسجل عند خسارة الحالة، ويُمسح عندما يعيد المدير فتحها.
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
 Set when the log is first saved.,يُسجل عند أول حفظ لليومية.
 Sets the margin range the quote is held to (Smart Power Settings > Margin Ranges).,يحدد نطاق الهامش الذي يُقاس عليه العرض (إعدادات سمارت باور > نطاقات الهامش).
@@ -1733,6 +1742,7 @@ Technical Annex,الملحق الفني
 Technical Close,الإغلاق الفني
 Technical Review,مراجعة فنية
 Technical review of station {0},مراجعة فنية للمحطة {0}
+Technical review: {0} intends to proceed ({1}),مراجعة فنية: {0} ينوي التنفيذ ({1})
 Technically closed,مغلقة فنيًا
 Technically Closed On,تاريخ الإغلاق الفني
 Template,القالب
@@ -1749,6 +1759,7 @@ Text Blocks,فقرات النص
 That many wrong passwords in a row lock the account until the admin unlocks it (SP-36).,هذا العدد من كلمات المرور الخاطئة المتتالية يقفل الحساب حتى يفتحه المدير (SP-36).
 That system is not on station {0}.,هذا النظام ليس على المحطة {0}.
 The account {0} is not {1}'s.,الحساب {0} لا يخص {1}.
+The admin has a technical review task.,لدى المدير مهمة مراجعة فنية.
 The admin has been asked,تم إرسال الطلب للمدير
 The amount must be above zero.,يجب أن يكون المبلغ أكبر من صفر.
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
@@ -1757,6 +1768,7 @@ The approved quote of each won case.,عرض السعر المعتمد لكل ح�
 The campaign cannot end before it starts.,لا يمكن أن تنتهي الحملة قبل أن تبدأ.
 The case is already yours.,الحالة لك بالفعل.
 The case is handed over.,تم تسليم الحالة.
+The case is won when the deposit on this version is confirmed.,تُكسب الحالة عند تأكيد العربون على هذه النسخة.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
 The case's follow-up owner; fixed once the contract exists.,مسئول متابعة الحالة؛ ثابت بعد وجود العقد.
 The category's pricing rules never change this item's prices.,قواعد تسعير الفئة لا تغيّر أسعار هذا الصنف أبداً.
@@ -1788,6 +1800,7 @@ The filters are not valid JSON.,الفلاتر ليست JSON صالحًا.
 The first party (Smart Power),الطرف الأول (سمارت باور)
 The follow-up owner can give a discount on the total up to the limit in Smart Power Settings.,يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد المحدد في إعدادات سمارت باور.
 "The follow-up owner can give a discount on the total up to the limit in Smart Power Settings; above it the discount is kept and the admin is flagged. There is no approval gate (decision 67), so it never blocks.",يمكن لمسئول المتابعة إعطاء خصم على الإجمالي حتى الحد في إعدادات سمارت باور؛ وفوقه يُحفظ الخصم ويُنبَّه المدير. لا توجد بوابة موافقة، لذا لا يمنع أبدًا.
+The follow-up owner said the customer will go ahead: the admin has a technical review task. The case is won when the deposit is confirmed.,سجّل مسؤول المتابعة أن العميل سينفذ: لدى المدير مهمة مراجعة فنية. تُكسب الحالة عند تأكيد العربون.
 The four ERPNext price lists that the price list screen (I2) and the quotes use.,لستات أسعار ERPNext الأربع التي تستخدمها شاشة لستة الأسعار (I2) وعروض الأسعار.
 The holder's custody account after the approved expenses (carried amounts included).,حساب عهدة صاحبها بعد المصروفات الموافق عليها (شاملًا المُرحّل).
 "The inputs the price was given for (e.g. HP, pump depth).",المدخلات التي أُعطي السعر عليها (مثل القدرة بالحصان وعمق الغاطس).
@@ -2095,6 +2108,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} has no {1} price.,{0} ليس له سعر {1}.
 {0} holds {1}; the transfer is {2}.,{0} رصيده {1}؛ والتحويل {2}.
 {0} installation manager(s) asked,تم طلب المعاينة من {0} من مديري التركيبات
+{0} intends to proceed with {1},{0} ينوي التنفيذ بالعرض {1}
 {0} is already used up to {1}: the counter cannot go below {1}.,{0} مستخدم حتى الرقم {1}: لا يمكن أن يقل العداد عن {1}.
 {0} is append-only and cannot be deleted.,{0} سجل إضافة فقط ولا يمكن حذفه.
 {0} is append-only and cannot be edited.,{0} سجل إضافة فقط ولا يمكن تعديله.

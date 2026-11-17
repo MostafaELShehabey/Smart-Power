@@ -23,7 +23,6 @@ ACTIONS = (
 	"Send to Customer",
 	"Start Follow-up",
 	"Request Revision",
-	"Mark Won",
 	"Mark Lost",
 	"Reopen",
 	"Price Check Only",  # SP-49: an enquiry closed at once as lost, reason "Price check only"

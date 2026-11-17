@@ -8,7 +8,7 @@ from frappe.utils import add_days, now_datetime, today
 
 from smart_power.sp_core.documents import seed_quote_template
 from smart_power.sp_quotes.quote_send import send_quote
-from smart_power.sp_sales.board import _expiry, board, mark_won, move_case, won_options
+from smart_power.sp_sales.board import _expiry, board, intends_to_proceed, move_case, won_options
 from smart_power.sp_sales.followup import log_call
 from smart_power.tests.test_quote_send import blank_pdf
 from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, set_setting
@@ -82,21 +82,25 @@ class TestBoard(IntegrationTestCase):
 		self.assertIsNone(card(board({"channel": "Showroom"}), self.case))
 		self.assertIsNone(card(board({"system_type": "System Type-PUMP"}), self.case))
 
-	def test_won_through_the_dialog_approves_the_option(self):
-		# the workflow lets the admin mark a case won (from Follow-up)
+	def test_a_drop_on_won_is_intends_to_proceed(self):
+		"""SP-70: Won is never set by hand; the drop approves the option and asks for a review."""
 		move_case(self.case, "follow_up")
 		self.assertEqual([q.name for q in won_options(self.case)], [self.quote.name])
+		self.assertIn("won", card(board(), self.case)["moves"])
 		with self.assertRaises(frappe.ValidationError):
-			move_case(self.case, "won")  # Won goes through its dialog
-		self.assertEqual(mark_won(self.case, self.quote.name), "Won")
+			move_case(self.case, "won")  # no workflow move into Won
+		intends_to_proceed(self.case, self.quote.name, "the customer signs next week")
+		self.assertEqual(frappe.db.get_value("SP Case", self.case, "status"), "Follow-up")
+		self.assertTrue(frappe.db.get_value("SP Case", self.case, "intends_to_proceed_on"))
 		self.assertEqual(frappe.db.get_value("SP Case", self.case, "accepted_quotation"), self.quote.name)
 		self.assertTrue(frappe.db.get_value("Quotation", self.quote.name, "sp_is_approved"))
-		self.assertFalse(  # no more sales calls on a won case
-			frappe.db.exists(
-				"SP Task", {"reference_name": self.case, "task_type": "Follow-up Call", "status": "Open"}
-			)
+		review = frappe.get_all(
+			"SP Task",
+			{"reference_name": self.case, "task_type": "Technical Review", "status": "Open"},
+			["assigned_to", "description"],
 		)
-		self.assertIsNone(card(board(), self.case)["next_call_at"])
+		self.assertTrue(review)
+		self.assertEqual(review[0].description, "the customer signs next week")
 
 	def test_a_case_change_refreshes_the_boards(self):
 		with patch("frappe.publish_realtime") as publish:
@@ -104,13 +108,10 @@ class TestBoard(IntegrationTestCase):
 		events = [c.args[0] for c in publish.call_args_list]
 		self.assertIn("sp_case_update", events)
 
-	def test_the_owner_cannot_mark_won(self):
-		move_case(self.case, "follow_up")
-		frappe.set_user(self.owner)
-		self.assertNotIn("won", card(board(), self.case)["moves"])
+	def test_a_closed_case_cannot_intend(self):
+		frappe.db.set_value("SP Case", self.case, "status", "Lost")
 		with self.assertRaises(frappe.ValidationError):
-			mark_won(self.case, self.quote.name)
-		self.assertEqual(frappe.db.get_value("SP Case", self.case, "status"), "Follow-up")
+			intends_to_proceed(self.case, self.quote.name)
 
 	def test_the_board_page_is_for_the_follow_up_team(self):
 		roles = {r.role for r in frappe.get_doc("Page", "sp-followup-board").roles}

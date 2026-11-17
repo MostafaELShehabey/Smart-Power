@@ -53,8 +53,11 @@ def validate(doc) -> None:
 	quote_clock.on_validate(doc)
 	if doc.is_new() or doc.has_value_changed("status"):
 		doc.last_action_at = now_datetime()
-		if doc.status == WON and not doc.won_on:
-			doc.won_on = today()
+		if doc.status == WON:
+			# the deposit marks the win (SP-70, decision 55): sp_stations.deposit sets it directly
+			frappe.throw(_("A case is won when the deposit on its approved version is confirmed."))
+		# the date it was lost; the admin's reopen clears it (SP-70)
+		doc.lost_on = today() if doc.status == LOST else None
 
 
 def record_first_owners(doc) -> None:
