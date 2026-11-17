@@ -111,3 +111,40 @@ def margin_onload(doc, method=None) -> None:
 	check = margin_check(doc)
 	if check:
 		doc.set_onload("sp_margin_check", check)
+
+
+PRICE_AGE_RULE = "quote_price_age"
+
+
+@rule(
+	PRICE_AGE_RULE,
+	doctypes=("Quotation",),
+	events=(QUOTE_SEND_EVENT,),
+	category="Commercial",
+	default_level=WARN,
+	never_block=True,
+	title="Stale prices on a quote",
+	description="When a quote is sent, a line whose price is older than its price category allows is "
+	"checked at the category's level (Price Categories): Warn asks for a reason, listed for the admin; "
+	"Block stops the send until the price is updated; Off is no check.",
+	review_category="Rule Warning",
+)
+def quote_price_age(doc, ctx: RuleContext):
+	from smart_power.sp_quotes.price_age import describe, stale_lines
+
+	lines = stale_lines(doc)
+	if not lines:
+		return None
+	return Finding(
+		message=_("Stale prices: {0}").format(describe(lines)),
+		suggestion=_("Update the prices in the price list, then make a new version."),
+		highlight=True,
+		data={"lines": lines},
+	)
+
+
+def price_age_hit(doc):
+	"""The stale-price hit for a quote about to be sent, or None (also when the rule is Off)."""
+	from smart_power.rules import evaluate
+
+	return next((h for h in evaluate(doc, QUOTE_SEND_EVENT) if h.spec.key == PRICE_AGE_RULE), None)

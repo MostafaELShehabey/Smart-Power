@@ -87,6 +87,7 @@ Advance {0} for station {1} ({2}),سلفة {0} للمحطة {1} ({2})
 Advances (Agri Bank),سلف (البنك الزراعي)
 Age,العمر
 Aging,يقترب من القدم
+aging,يقترب من القِدم
 Agreed,المتفق عليه
 Agri Bank,البنك الزراعي
 Agri Bank Advance,سلفة البنك الزراعي
@@ -441,6 +442,7 @@ Dates,التواريخ
 Day Hours,ساعات النهار
 Days,الأيام
 Days Held,أيام الاحتفاظ
+Days since the older of the line's sale price and cost (SP-63).,الأيام منذ أقدم سعر بيع أو تكلفة للبند (SP-63).
 Deactivate instead,أوقفها بدلاً من الحذف
 debit,المدين
 Debit,مدين
@@ -627,6 +629,7 @@ Formula,معادلة
 Forward,تحويل
 Forwarded.,تم التحويل.
 Fresh,حديث
+fresh,حديث
 From,من
 From Account,من حساب
 From Date,من تاريخ
@@ -808,6 +811,7 @@ Link,الرابط
 List,القائمة
 List Price,سعر اللستة
 List view,عرض القائمة
+Listed for the admin with the quote.,يُدرج للمدير مع العرض.
 "Listed under the total, not in it (SP-59).",يظهر تحت الإجمالي ولا يدخل فيه (SP-59).
 Lists,القوائم
 Load more,تحميل المزيد
@@ -1007,6 +1011,8 @@ No stations are assigned to you.,لا توجد محطات مسندة لك
 no value changed,لم تتغير أي قيمة
 No versions.,لا توجد نسخ.
 No.,رقم
+no_limit,بلا حد
+no_price,بلا سعر
 None,لا شيء
 Normal,عادي
 Nos,عدد
@@ -1045,6 +1051,8 @@ Official accounts,الحسابات الرسمية
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: the money one person holds until it reaches an official account (SP-114, SP-116).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة: المال الذي يحمله شخص حتى يصل لحساب رسمي.
 OK,سليم
 Old price: {0},سعر قديم: {0}
+Old prices on this quote: {0},أسعار قديمة في هذا العرض: {0}
+Old prices on this quote: {0}. Give a reason to send it anyway.,أسعار قديمة في هذا العرض: {0}. اكتب سببًا لإرساله رغم ذلك.
 Old Value,القيمة القديمة
 Oldest: {0} h,أقدم: {0} س
 On Site,في الموقع
@@ -1212,6 +1220,7 @@ Preview,معاينة
 Previous Version,النسخة السابقة
 Price,السعر
 Price (manual lines),السعر (السطور اليدوية)
+Price Age (days),عمر السعر (أيام)
 Price Category,فئة السعر
 Price Check Only,استفسار عن السعر فقط
 Price check only,استفسار عن السعر فقط
@@ -1220,6 +1229,7 @@ Price history: {0},سجل أسعار: {0}
 Price List,لستة الأسعار
 Price Lists,لستات الأسعار
 Price lists are not set,لستات الأسعار غير محددة
+Price Status,حالة السعر
 prices changed,تغيرت الأسعار
 Prices changed or the quote expired before the deposit: make a new version at today's prices (SP-170).,تغيرت الأسعار أو انتهت صلاحية العرض قبل المقدم: اعمل نسخة جديدة بأسعار اليوم (SP-170).
 Pricing,التسعير
@@ -1302,6 +1312,7 @@ Reason,السبب
 Reason for the Change,سبب التغيير
 Reason Given,السبب المكتوب
 Reason needed,السبب مطلوب
+Reason to send with old prices,سبب الإرسال بأسعار قديمة
 Reassign,إعادة إسناد
 Reassign Request,طلب تحويل
 Reassignment,تحويل
@@ -1458,6 +1469,7 @@ Select the items you checked against the statement.,حدد العناصر الت
 Send,إرسال
 Send a quote before marking the case won.,أرسل عرضًا قبل تسجيل الحالة كمكسوبة.
 Send Again,إرسال مرة أخرى
+Send is stopped: update these prices first: {0},الإرسال متوقف: حدّث هذه الأسعار أولًا: {0}
 Send quote,إرسال عرض السعر
 Send to Customer,إرسال للعميل
 Send to the admin,إرسال إلى المدير
@@ -1649,9 +1661,13 @@ Spending,صرف
 Stage,المرحلة
 Stages Done,المراحل المنجزة
 Stale,قديم
+stale,قديم
 Stale first,القديم أولاً
 Stale Price on a Quote,سعر قديم في عرض سعر
+Stale prices,أسعار قديمة
 Stale prices never block a quote (SP-63).,الأسعار القديمة لا تمنع عرض السعر أبداً (SP-63).
+Stale prices on a quote,أسعار قديمة في عرض سعر
+Stale prices: {0},أسعار قديمة: {0}
 Stamp,الختم
 Start Date,تاريخ البدء
 Start Follow-up,بدء المتابعة
@@ -1919,8 +1935,10 @@ Unpublish,إلغاء النشر
 Unpublished,أُلغي النشر
 Until,حتى
 UOM,الوحدة
+"Update the prices in the price list, then make a new version.",حدّث الأسعار في قائمة الأسعار، ثم اعمل نسخة جديدة.
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
+Update these prices before sending: {0},حدّث هذه الأسعار قبل الإرسال: {0}
 Upload,رفع
 Upload Excel or CSV,رفع ملف Excel أو CSV
 Upload New Version,رفع نسخة جديدة
@@ -1956,6 +1974,7 @@ Waiting for quote,في انتظار العرض
 Wake Now,إعادتها الآن
 Warehouse {0} is not {1}'s.,المخزن {0} ليس تابعًا لـ {1}.
 Warn,تنبيه
+Warn: sending a quote with a stale price of this category asks for a reason. Block: the quote cannot be sent until the price is updated. Off: no check.,تحذير: إرسال عرض بسعر قديم من هذه الفئة يطلب سببًا. منع: لا يُرسل العرض حتى يُحدَّث السعر. إيقاف: بلا فحص.
 Warned,تم التنبيه
 Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
@@ -1976,6 +1995,7 @@ What the contract's instalments already due still lack (SP-81).,ما تبقى م
 What the site warehouse holds.,رصيد مخزن الموقع.
 WhatsApp,واتساب
 When,متى
+"When a quote is sent, a line whose price is older than its price category allows is checked at the category's level (Price Categories): Warn asks for a reason, listed for the admin; Block stops the send until the price is updated; Off is no check.",عند إرسال العرض يُفحص كل بند سعره أقدم مما تسمح به فئة سعره، حسب مستوى الفئة (فئات الأسعار): التحذير يطلب سببًا يُدرج للمدير، والمنع يوقف الإرسال حتى يُحدَّث السعر، والإيقاف بلا فحص.
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
 "When a quote is sent, its margin should sit inside the range set for its offer type and project scope (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض ونطاق المشروع (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
 When it was entered; the date above is when it happened.,وقت الإدخال؛ التاريخ أعلاه هو وقت الحدوث.
@@ -2047,6 +2067,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "Your own transit account, or (the admin) any money account.",حساب النقدية الخاص بك، أو (للمدير) أي حساب مالي.
 "Your request was sent to the admin, who will give you a new password.",تم إرسال طلبك إلى المدير، وسيعطيك كلمة مرور جديدة.
 {0} (yours),{0} (خاصتك)
+"{0} ({1} days, limit {2})",{0} ({1} يوم، الحد {2})
 {0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}
 {0} cannot be changed here.,لا يمكن تعديل {0} هنا.
 {0} cannot be changed this way.,لا يمكن تغيير {0} بهذه الطريقة.
@@ -2057,6 +2078,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0} confirmed, {1} failed.",تم تأكيد {0}، وفشل {1}.
 {0} days,{0} يوم
 {0} days held,محتفظ بها {0} يوم
+"{0} days, limit {1}",{0} يوم، الحد {1}
 {0} does not follow customers up; hand the case to a colleague who does.,{0} لا يتابع العملاء؛ سلّم الحالة لزميل يتابعهم.
 {0} does not keep goods with us on consignment.,{0} ليس لديه بضاعة أمانة عندنا.
 {0} duplicates,{0} مكرر

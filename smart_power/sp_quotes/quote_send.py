@@ -38,7 +38,15 @@ def send_options(quotation: str) -> dict:
 	formats = frappe.get_all(
 		"Print Format", filters={"doc_type": "Quotation", "disabled": 0}, pluck="name", order_by="name asc"
 	)
-	return {"formats": formats, "default": default_print_format(), "channels": list(CHANNELS)}
+	from smart_power.sp_quotes.price_age import send_check
+
+	return {
+		"formats": formats,
+		"default": default_print_format(),
+		"channels": list(CHANNELS),
+		# stale prices: a reason at Warn, no send at Block (SP-63)
+		"price_age": send_check(frappe.get_doc("Quotation", quotation)),
+	}
 
 
 def _check_can_send(doc, case) -> None:
@@ -60,10 +68,17 @@ def _check_can_send(doc, case) -> None:
 
 
 @frappe.whitelist(methods=["POST"])
-def send_quote(quotation: str, print_format: str | None = None, channel: str = "WhatsApp") -> dict:
+def send_quote(
+	quotation: str, print_format: str | None = None, channel: str = "WhatsApp", reason: str | None = None
+) -> dict:
+	"""Send a version. `reason`: why it goes out with stale prices of a Warn category (SP-63)."""
+	from smart_power.rules.sales import price_age_hit
+	from smart_power.sp_quotes.price_age import check_before_send
+
 	doc = frappe.get_doc("Quotation", quotation)
 	case = frappe.get_doc(CASE, doc.sp_case) if doc.get("sp_case") else frappe._dict()
 	_check_can_send(doc, case)
+	check_before_send(doc, price_age_hit(doc), reason)
 	if channel not in CHANNELS:
 		frappe.throw(_("Unknown channel {0}.").format(frappe.bold(channel)))
 	print_format = print_format or default_print_format()
@@ -105,7 +120,7 @@ def send_quote(quotation: str, print_format: str | None = None, channel: str = "
 	mark_case_sent(case)
 	notify(doc, case)
 	call_task(doc, case)
-	warnings = check_margin(doc)
+	warnings = check_margin(doc, reason)
 	return {
 		"file_url": file.file_url,
 		"file_name": file.file_name,
@@ -182,11 +197,14 @@ def call_task(doc, case) -> None:
 	).insert(ignore_permissions=True)
 
 
-def check_margin(doc) -> list[str]:
-	"""A margin outside its range is listed for the admin; the send goes ahead."""
+def check_margin(doc, reason: str | None = None) -> list[str]:
+	"""A margin outside its range, or a stale price sent with a reason (SP-63), is listed for the
+	admin; the send goes ahead."""
+	from smart_power.rules.sales import PRICE_AGE_RULE
+
 	messages = []
 	for hit in evaluate(doc, QUOTE_SEND_EVENT):
-		record_warning(doc, hit)
+		record_warning(doc, hit, reason if hit.spec.key == PRICE_AGE_RULE else None)
 		messages.append(hit.finding.message)
 	return messages
 

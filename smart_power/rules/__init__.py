@@ -367,9 +367,10 @@ def _record(doc, hit: Hit, outcome: str, reason: str | None) -> None:
 	)
 
 
-def record_warning(doc, hit: Hit) -> None:
-	"""Log a hit found outside a save (e.g. by a scheduled check): SP Rule Hit + SP Review Item."""
-	_record(doc, hit, OUTCOME_WARNED, None)
+def record_warning(doc, hit: Hit, reason: str | None = None) -> None:
+	"""Log a hit found outside a save (e.g. by a scheduled check, or when a quote is sent, with the
+	sender's reason): SP Rule Hit + SP Review Item."""
+	_record(doc, hit, OUTCOME_WARNED, reason)
 
 
 def _insert_hit(doc, hit: Hit, outcome: str, reason: str | None) -> None:

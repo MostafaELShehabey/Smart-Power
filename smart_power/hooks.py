@@ -241,6 +241,8 @@ doc_events = {
 			"smart_power.sp_sales.quotation.validate",
 			# the Q1 list: follow-up owner, system and size from the case (SP-64)
 			"smart_power.sp_sales.quote_list.set_list_fields",
+			# each draft line's price age, for the clock on stale lines (SP-63)
+			"smart_power.sp_quotes.price_age.set_line_ages",
 		],
 		"before_cancel": "smart_power.sp_sales.quotation.before_cancel",
 		"before_update_after_submit": "smart_power.sp_sales.quotation.before_update_after_submit",

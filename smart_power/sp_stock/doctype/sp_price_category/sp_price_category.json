@@ -48,11 +48,11 @@
   },
   {
    "default": "Warn",
-   "description": "Stale prices never block a quote (SP-63).",
+   "description": "Warn: sending a quote with a stale price of this category asks for a reason. Block: the quote cannot be sent until the price is updated. Off: no check.",
    "fieldname": "rule_level",
    "fieldtype": "Select",
    "label": "Stale Price on a Quote",
-   "options": "Warn\nOff"
+   "options": "Warn\nOff\nBlock"
   },
   {
    "description": "Empty uses the default rounding step in Smart Power Settings.",
@@ -85,7 +85,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-09 21:11:10.735030",
+ "modified": "2026-11-17 22:30:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stock",
  "name": "SP Price Category",

@@ -3,6 +3,18 @@
 // Calculate / Change a Line price a draft from its calculation template (SP-55,
 // smart_power.sp_quotes.quote_calc); the Quote Builder (SP-57) replaces these dialogs.
 frappe.ui.form.on("Quotation", {
+	setup(frm) {
+		// a clock on the lines whose price is old: red stale, amber aging (SP-63)
+		frm.set_indicator_formatter(
+			"item_code",
+			(doc) => ({ stale: "red", aging: "orange" })[doc.sp_price_status] || "",
+			(doc) =>
+				["stale", "aging"].includes(doc.sp_price_status)
+					? `${doc.item_code} 🕒 ${__("{0} days", [doc.sp_price_age_days])}`
+					: doc.item_code
+		);
+	},
+
 	refresh(frm) {
 		if (!frm.doc.sp_case || frm.is_new()) return;
 		const API = "smart_power.sp_sales.quotation";
@@ -279,13 +291,14 @@ async function sp_quote_send(frm) {
 						: __("A new PDF is made and logged for this send.")
 				)}</p>`,
 			},
+			...sp_quote_price_age_fields(opts.price_age || {}),
 		],
 		primary_action_label: __("Send"),
 		primary_action: async (values) => {
 			dialog.hide();
 			const { message: r } = await frappe.call({
 				method: `${SP_SEND_API}.send_quote`,
-				args: { quotation: frm.doc.name, ...values },
+				args: { quotation: frm.doc.name, ...values, reason: values.reason || null },
 				freeze: true,
 				freeze_message: __("Making the PDF…"),
 			});
@@ -296,6 +309,45 @@ async function sp_quote_send(frm) {
 		},
 	});
 	dialog.show();
+	// a stale price of a Block category: the quote is not sent until the price is updated
+	if ((opts.price_age?.block || []).length) dialog.get_primary_btn().prop("disabled", true);
+}
+
+// stale prices at send (SP-63): a red banner naming them at Block, a reason at Warn
+function sp_quote_price_age_fields(price_age) {
+	const esc = frappe.utils.escape_html;
+	const names = (rows) =>
+		rows.map((r) => `${r.item_name} (${__("{0} days, limit {1}", [r.age_days, r.max_days])})`).join(", ");
+	if ((price_age.block || []).length) {
+		return [
+			{
+				fieldname: "price_block",
+				fieldtype: "HTML",
+				options: `<div class="alert alert-danger small">${esc(
+					__("Send is stopped: update these prices first: {0}", [names(price_age.block)])
+				)}</div>`,
+			},
+		];
+	}
+	if ((price_age.warn || []).length) {
+		return [
+			{
+				fieldname: "price_warn",
+				fieldtype: "HTML",
+				options: `<div class="alert alert-warning small">${esc(
+					__("Old prices on this quote: {0}", [names(price_age.warn)])
+				)}</div>`,
+			},
+			{
+				fieldname: "reason",
+				fieldtype: "Small Text",
+				label: __("Reason to send with old prices"),
+				reqd: 1,
+				description: __("Listed for the admin with the quote."),
+			},
+		];
+	}
+	return [];
 }
 
 async function sp_quote_share(r, channel, frm) {
