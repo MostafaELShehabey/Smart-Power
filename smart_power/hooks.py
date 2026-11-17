@@ -275,6 +275,8 @@ doc_events = {
 			"smart_power.sp_finance.advances.on_contract",
 		],
 		"on_cancel": "smart_power.sp_stations.contract.on_order_change",
+		# a plan's cheque joins the register when its number is filled in (SP-60)
+		"on_update_after_submit": "smart_power.sp_finance.cheques.from_contract",
 	},
 	# A posted entry is reversed, never cancelled; one without a source is a manual entry (SP-119)
 	"Journal Entry": {

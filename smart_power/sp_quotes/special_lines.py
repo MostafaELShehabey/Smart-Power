@@ -20,6 +20,7 @@ from frappe.utils.nestedset import get_root_of
 from smart_power.sp_core.setup.seed import defaults
 
 MANUAL, WINCH, COMMISSION = "Manual", "Winch", "Commission"
+FINANCE = "Finance"  # SP-60: an installment plan's price over the cash price, on the contract
 UOM = "Nos"
 
 

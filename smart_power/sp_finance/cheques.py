@@ -202,10 +202,14 @@ def _alert(doc, users, subject: str, event: str) -> None:
 
 
 def from_contract(so, method=None) -> None:
-	"""Sales Order on_submit: each cheque row of the contract becomes a cheque in the register."""
+	"""Sales Order on_submit and on_update_after_submit: each cheque row of the contract with its
+	number becomes a cheque in the register. A plan's cheques (SP-60) come without a number; each
+	joins the register when its number is filled in on the contract."""
 	if not so.get("sp_station"):
 		return
 	for row in so.get("sp_cheques") or []:
+		if not (row.cheque_no or "").strip():
+			continue
 		if frappe.db.exists(CHEQUE, {"cheque_no": row.cheque_no, "bank_or_post": row.bank or ""}):
 			continue
 		frappe.get_doc(
