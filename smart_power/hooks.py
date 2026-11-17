@@ -221,6 +221,8 @@ doc_events = {
 			"smart_power.permissions.set_read_only_banner",
 			# the case's indicative price, and how far this version is from it (SP-49)
 			"smart_power.sp_quotes.indicative.quote_onload",
+			# the margin chip: in or out of its range, for its creator and the admin (SP-63)
+			"smart_power.rules.sales.margin_onload",
 		],
 		"before_insert": "smart_power.sp_sales.quotation.before_insert",
 		"before_validate": [

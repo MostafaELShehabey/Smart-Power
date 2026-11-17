@@ -20,6 +20,8 @@ frappe.ui.form.on("Quotation", {
 				"red"
 			);
 		}
+		// the margin against its range: orange out of range, never blocking a send (SP-63)
+		sp_quote_margin_chip(frm);
 		// the indicative price given first, and how far this version is from it (SP-49)
 		const indicative = frm.doc.__onload?.sp_indicative;
 		if (indicative) {
@@ -340,3 +342,24 @@ frappe.ui.form.on("Quotation Item", {
 		if (item && row.item_code !== item) await frappe.model.set_value(cdt, cdn, "item_code", item);
 	},
 });
+
+// beside the margin, in the cost section (cost permlevel): its creator and the admin see it
+function sp_quote_margin_chip(frm) {
+	const field = frm.fields_dict.sp_margin_chip;
+	if (!field) return;
+	const check = frm.doc.__onload?.sp_margin_check;
+	if (!check) {
+		field.$wrapper.empty();
+		return;
+	}
+	const range = `${check.min}% – ${check.max}%`;
+	const label = check.in_range
+		? __("Margin {0}% in range ({1})", [check.margin, range])
+		: __("Margin {0}% out of range ({1})", [check.margin, range]);
+	field.$wrapper.html(
+		`<div class="mb-3"><span class="indicator-pill ${check.in_range ? "green" : "orange"}">${frappe.utils.escape_html(label)}</span></div>`
+	);
+	// out of range: open the (collapsed) Cost and Profit section so the chip is seen, once the
+	// form has finished refreshing (the layout sets the sections' collapse after this script)
+	if (!check.in_range) setTimeout(() => frm.fields_dict.sp_cost_section?.collapse(false), 0);
+}
