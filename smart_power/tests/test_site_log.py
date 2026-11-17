@@ -151,35 +151,50 @@ class TestSiteLog(IntegrationTestCase):
 		finally:
 			frappe.set_user("Administrator")
 
-	def test_photos_tagged_for_marketing(self):
-		log = self.log(materials=0)
+	def photo(self, doctype, name, file_name="panels-row.png"):
 		import io
 
 		from PIL import Image
 
-		png = io.BytesIO()
-		Image.new("RGB", (4, 4), "gold").save(png, format="PNG")
-		photo = frappe.get_doc(
+		if file_name.endswith(".png"):
+			png = io.BytesIO()
+			Image.new("RGB", (4, 4), "gold").save(png, format="PNG")
+			content = png.getvalue()
+		else:
+			content = b"receipt"
+		return frappe.get_doc(
 			{
 				"doctype": "File",
-				"file_name": "panels-row.png",
-				"content": png.getvalue(),
-				"attached_to_doctype": "SP Site Daily Log",
-				"attached_to_name": log.name,
+				"file_name": file_name,
+				"content": content,
+				"attached_to_doctype": doctype,
+				"attached_to_name": name,
 				"is_private": 1,
 			}
 		).insert()
-		receipt = frappe.get_doc(
-			{
-				"doctype": "File",
-				"file_name": "receipt.txt",
-				"content": b"receipt",
-				"attached_to_doctype": "SP Site Daily Log",
-				"attached_to_name": log.name,
-				"is_private": 1,
-			}
-		).insert()
+
+	def test_photos_tagged_for_marketing(self):
+		log = self.log(materials=0)
+		photo = self.photo("SP Site Daily Log", log.name)
+		receipt = self.photo("SP Site Daily Log", log.name, "receipt.txt")
 		self.assertEqual([f.name for f in site_log.photos("SP Site Daily Log", log.name)], [photo.name])
 		site_log.set_marketing(photo.name, 1)
 		self.assertEqual(frappe.db.get_value("File", photo.name, "sp_usable_for_marketing"), 1)
 		self.assertFalse(frappe.db.get_value("File", receipt.name, "sp_usable_for_marketing"))
+
+	def test_station_photos_tagged_by_who_edits_the_station(self):
+		"""SP-53: a finished station's own photos are tagged on the station; installations only
+		read the station, so the project manager (or the admin) tags them."""
+		photo = self.photo("SP Station", self.station.name)
+		self.assertEqual([f.name for f in site_log.photos("SP Station", self.station.name)], [photo.name])
+		mostafa = make_user("sp.sl.mostafa@example.com", ("installation_manager",))
+		pm = make_user("sp.sl.pm@example.com", ("project_manager",))
+		try:
+			frappe.set_user(mostafa)
+			with self.assertRaises(frappe.PermissionError):
+				site_log.set_marketing(photo.name, 1)
+			frappe.set_user(pm)
+			site_log.set_marketing(photo.name, 1)
+		finally:
+			frappe.set_user("Administrator")
+		self.assertEqual(frappe.db.get_value("File", photo.name, "sp_usable_for_marketing"), 1)

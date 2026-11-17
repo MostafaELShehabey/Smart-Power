@@ -13,6 +13,8 @@ frappe.ui.form.on("SP Station", {
 		// read-only for sales after the contract (SP-35); the banner leads the owners line
 		if (frm.doc.__onload?.sp_read_only) frm.disable_form();
 		sp_station_chips(frm);
+		// photos of the finished station, tagged usable for marketing (SP-53)
+		smart_power.site_photos(frm, "photos_html", "");
 		const admin = SP_ST_ADMIN_ROLES.some((r) => frappe.user.has_role(r));
 		if (frm.doc.status !== "Cancelled") {
 			frm.add_custom_button(__("Record Payment"), () =>

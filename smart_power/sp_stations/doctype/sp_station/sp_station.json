@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-17 00:10:00.000000",
+ "modified": "2026-11-17 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -72,6 +72,8 @@
   "execution_owner",
   "column_break_owners",
   "collection_owner",
+  "photos_section",
+  "photos_html",
   "dates_section",
   "contract_date",
   "operation_date",
@@ -314,6 +316,17 @@
    "options": "User",
    "search_index": 1,
    "description": "The execution owner by default; the admin switches it from a date."
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "photos_section",
+   "fieldtype": "Section Break",
+   "label": "Photos"
+  },
+  {
+   "fieldname": "photos_html",
+   "fieldtype": "HTML",
+   "label": "Photos"
   },
   {
    "fieldname": "dates_section",
