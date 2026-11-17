@@ -24,7 +24,7 @@ class SPPriceCategory(Document):
 		description: DF.SmallText | None
 		max_age_days: DF.Int
 		rounding_step: DF.Float
-		rule_level: DF.Literal["Warn", "Off"]
+		rule_level: DF.Literal["Warn", "Off", "Block"]
 		rules: DF.Table[SPPriceRule]
 	# end: auto-generated types
 
