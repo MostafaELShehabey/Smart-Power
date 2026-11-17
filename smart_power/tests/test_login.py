@@ -1,6 +1,8 @@
 """Login (SP-36, G1): mobile or email, the lock after failed tries, the first-login password
 change, and Forgot password through the admin."""
 
+from unittest.mock import patch
+
 import frappe
 from frappe.auth import CookieManager, LoginManager
 from frappe.tests import IntegrationTestCase
@@ -32,7 +34,7 @@ def login(usr: str, pwd: str = PASSWORD) -> str:
 
 
 def make_login_user(email: str, mobile: str | None = None) -> str:
-	"""A desk user with a known password. Deleted by the test's cleanup: a failed login commits."""
+	"""A desk user with a known password (rolled back with the rest of the test)."""
 	if not frappe.db.exists("User", email):
 		frappe.get_doc(
 			{
@@ -48,21 +50,25 @@ def make_login_user(email: str, mobile: str | None = None) -> str:
 	return email
 
 
-def drop_user(email: str) -> None:
-	frappe.set_user("Administrator")
-	frappe.db.delete("Sessions", {"user": email})
-	frappe.db.delete("SP Password Reset Request", {"user": email})
-	frappe.delete_doc("User", email, force=True, ignore_permissions=True)
-	frappe.db.commit()
+def roll_back(email: str) -> None:
+	"""Undo the whole test: the user, the reset requests, their tasks, logs and series numbers."""
+	frappe.db.rollback()
+	frappe.db.value_cache.clear()
+	frappe.clear_cache(user=email)
 
 
 class LoginCase(IntegrationTestCase):
 	EMAIL = "sp.login.user@example.com"
 
 	def setUp(self):
+		# A sign-in commits (the session, the failed-login log): kept in the test's transaction
+		# instead, so nothing it made (tasks, notifications, series numbers) outlives the test.
+		no_commit = patch.object(frappe.local.db, "commit")
+		no_commit.start()
+		self.addCleanup(no_commit.stop)
+		self.addCleanup(roll_back, self.EMAIL)
 		apply_login_settings()
 		self.user = make_login_user(self.EMAIL, "+20 101 234 5678")
-		self.addCleanup(drop_user, self.EMAIL)
 
 	def tearDown(self):
 		frappe.set_user("Administrator")
