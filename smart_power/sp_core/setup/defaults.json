@@ -107,6 +107,119 @@
 		"btb": {"name": "BTB", "selling": 1},
 		"btc": {"name": "BTC", "selling": 1}
 	},
+	"commissioning": {
+		"_source": "SP-97 story: test readings flow, voltage, frequency; a commissioning checklist per system type. The items are a proposal to confirm with installations. Stored in each System Type's Extra Data (X4) under commissioning; the admin edits them. \"*\" is every system type without its own.",
+		"*": {
+			"checklist": [
+				{
+					"item": "Panels fixed on the chassis, bolts tightened",
+					"item_ar": "الألواح مثبتة على الشاسيه والمسامير مربوطة"
+				},
+				{
+					"item": "Strings wired, polarity and open-circuit voltage checked",
+					"item_ar": "توصيل السلاسل ومراجعة القطبية وجهد الدائرة المفتوحة"
+				},
+				{
+					"item": "DC and AC breakers and surge protection installed",
+					"item_ar": "قواطع التيار المستمر والمتردد وحماية الصواعق مركبة"
+				},
+				{
+					"item": "Earthing connected and measured",
+					"item_ar": "التأريض موصل ومقاس"
+				},
+				{
+					"item": "Inverter parameters loaded and saved",
+					"item_ar": "تحميل إعدادات الإنفرتر وحفظها"
+				},
+				{
+					"item": "Remote support connected",
+					"item_ar": "الدعم عن بعد متصل"
+				},
+				{
+					"item": "Site cleaned and the customer trained",
+					"item_ar": "تنظيف الموقع وتدريب العميل"
+				}
+			],
+			"readings": [
+				{
+					"param": "Voltage",
+					"param_ar": "الجهد",
+					"unit": "V"
+				},
+				{
+					"param": "Frequency",
+					"param_ar": "التردد",
+					"unit": "Hz"
+				},
+				{
+					"param": "Power",
+					"param_ar": "القدرة",
+					"unit": "kW"
+				}
+			]
+		},
+		"PUMP": {
+			"checklist": [
+				{
+					"item": "Panels fixed on the chassis, bolts tightened",
+					"item_ar": "الألواح مثبتة على الشاسيه والمسامير مربوطة"
+				},
+				{
+					"item": "Strings wired, polarity and open-circuit voltage checked",
+					"item_ar": "توصيل السلاسل ومراجعة القطبية وجهد الدائرة المفتوحة"
+				},
+				{
+					"item": "DC and AC breakers and surge protection installed",
+					"item_ar": "قواطع التيار المستمر والمتردد وحماية الصواعق مركبة"
+				},
+				{
+					"item": "Earthing connected and measured",
+					"item_ar": "التأريض موصل ومقاس"
+				},
+				{
+					"item": "Inverter parameters loaded and saved",
+					"item_ar": "تحميل إعدادات الإنفرتر وحفظها"
+				},
+				{
+					"item": "Pump lowered, rope and cable secured",
+					"item_ar": "الطلمبة منزلة والحبل والكابل مثبتين"
+				},
+				{
+					"item": "Dry-run and water-level protection tested",
+					"item_ar": "اختبار حماية التشغيل على الجاف ومستوى المياه"
+				},
+				{
+					"item": "Flow checked at the outlet",
+					"item_ar": "مراجعة التدفق عند المخرج"
+				},
+				{
+					"item": "Remote support connected",
+					"item_ar": "الدعم عن بعد متصل"
+				},
+				{
+					"item": "Site cleaned and the customer trained",
+					"item_ar": "تنظيف الموقع وتدريب العميل"
+				}
+			],
+			"readings": [
+				{
+					"param": "Flow",
+					"param_ar": "التدفق",
+					"unit": "m³/h"
+				},
+				{
+					"param": "Voltage",
+					"param_ar": "الجهد",
+					"unit": "V"
+				},
+				{
+					"param": "Frequency",
+					"param_ar": "التردد",
+					"unit": "Hz"
+				}
+			]
+		}
+	},
 	"request_fields": {
 		"_source": "SP-47 story: Pumps = HP, well depth, water level, pump depth (required); Off-grid = load table (device, qty, watts, day/night hours); On-grid = kW; Irrigation = feddans and water source. Hybrid (not in the story) gets the load table, not required; Chassis keeps the earlier proposal, not required. Stored in each System Type's Extra Data (X4) under request_fields; the admin edits them (SP-132 X3 gives them a screen).",
 		"PUMP": [
