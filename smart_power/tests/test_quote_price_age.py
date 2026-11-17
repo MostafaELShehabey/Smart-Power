@@ -1,6 +1,8 @@
 """SP-63 stale prices: a clock on stale lines; at Send, Warn asks for a reason (listed for the
 admin), Block stops the send naming the item, Off lets it go."""
 
+from unittest.mock import patch
+
 import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, today
@@ -11,6 +13,7 @@ from smart_power.sp_stock import prices
 from smart_power.sp_stock.prices import BTC, COST
 from smart_power.tests.test_prices import UOM, make_category, make_item
 from smart_power.tests.test_quotation_case import case_for_test_customer
+from smart_power.tests.test_quote_send import blank_pdf
 from smart_power.tests.utils import make_quotation
 
 CATEGORY = "SP63 Panels"
@@ -26,6 +29,16 @@ class TestQuotePriceAge(IntegrationTestCase):
 			make_item(code, sp_price_age_category=CATEGORY)
 			for key, rate in ((BTC, 1000), (COST, 900)):
 				prices.set_price(code, key, rate, price_date=add_days(today(), -days))
+
+	def setUp(self):
+		# CI builds no assets and has no Chromium: the PDF itself is SP-62's (as in test_quote_send)
+		if frappe.utils.get_assets_json() is None:
+			patcher = patch("frappe.utils.get_assets_json", return_value={})
+			patcher.start()
+			self.addCleanup(patcher.stop)
+		pdf = patch("frappe.get_print", return_value=blank_pdf())
+		pdf.start()
+		self.addCleanup(pdf.stop)
 
 	def quote(self, item=STALE_ITEM):
 		q = make_quotation(save=False, case=case_for_test_customer().name)
