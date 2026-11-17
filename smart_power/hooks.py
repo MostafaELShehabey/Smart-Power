@@ -243,6 +243,8 @@ doc_events = {
 			"smart_power.sp_sales.quote_list.set_list_fields",
 			# each draft line's price age, for the clock on stale lines (SP-63)
 			"smart_power.sp_quotes.price_age.set_line_ages",
+			# one installment plan per active template, after the totals and the cost (SP-60)
+			"smart_power.sp_quotes.payment_plans.set_quote_plans",
 		],
 		"before_cancel": "smart_power.sp_sales.quotation.before_cancel",
 		"before_update_after_submit": "smart_power.sp_sales.quotation.before_update_after_submit",

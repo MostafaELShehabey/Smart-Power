@@ -1,0 +1,147 @@
+{
+ "actions": [],
+ "creation": "2026-11-18 11:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "template",
+  "plan_total",
+  "down_payment",
+  "installments",
+  "installment_amount",
+  "cheque_amount",
+  "first_due",
+  "last_due",
+  "schedule",
+  "cost_section",
+  "contribution",
+  "contribution_cost",
+  "net_profit",
+  "net_margin_pct"
+ ],
+ "fields": [
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Plan",
+   "options": "SP Payment Plan Template",
+   "in_list_view": 1,
+   "read_only": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "plan_total",
+   "fieldtype": "Currency",
+   "label": "Installment Price",
+   "in_list_view": 1,
+   "read_only": 1,
+   "columns": 2,
+   "options": "currency"
+  },
+  {
+   "fieldname": "down_payment",
+   "fieldtype": "Currency",
+   "label": "Down Payment",
+   "in_list_view": 1,
+   "read_only": 1,
+   "columns": 2,
+   "options": "currency"
+  },
+  {
+   "fieldname": "installments",
+   "fieldtype": "Int",
+   "label": "Installments",
+   "in_list_view": 1,
+   "read_only": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "installment_amount",
+   "fieldtype": "Currency",
+   "label": "Installment",
+   "in_list_view": 1,
+   "read_only": 1,
+   "columns": 1,
+   "options": "currency"
+  },
+  {
+   "fieldname": "cheque_amount",
+   "fieldtype": "Currency",
+   "label": "Cheque Value",
+   "in_list_view": 1,
+   "read_only": 1,
+   "columns": 2,
+   "options": "currency"
+  },
+  {
+   "fieldname": "first_due",
+   "fieldtype": "Date",
+   "label": "First Installment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_due",
+   "fieldtype": "Date",
+   "label": "Last Installment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "schedule",
+   "fieldtype": "JSON",
+   "label": "Schedule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cost_section",
+   "fieldtype": "Section Break",
+   "label": "Financing Cost",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "contribution",
+   "fieldtype": "Currency",
+   "label": "Company Contribution",
+   "read_only": 1,
+   "permlevel": 2,
+   "options": "currency",
+   "description": "Cost minus the down payment, when positive."
+  },
+  {
+   "fieldname": "contribution_cost",
+   "fieldtype": "Currency",
+   "label": "Contribution Cost",
+   "read_only": 1,
+   "permlevel": 2,
+   "options": "currency",
+   "description": "Contribution x annual cost of money x months / 12."
+  },
+  {
+   "fieldname": "net_profit",
+   "fieldtype": "Currency",
+   "label": "Net Profit",
+   "read_only": 1,
+   "permlevel": 2,
+   "options": "currency"
+  },
+  {
+   "fieldname": "net_margin_pct",
+   "fieldtype": "Percent",
+   "label": "Net Margin %",
+   "read_only": 1,
+   "permlevel": 2
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-18 11:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Quote Payment Plan",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 0,
+ "permissions": []
+}
