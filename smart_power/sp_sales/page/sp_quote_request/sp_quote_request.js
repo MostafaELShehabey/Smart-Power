@@ -13,10 +13,11 @@ frappe.pages["sp-quote-request"].on_page_load = function (wrapper) {
 	wrapper.sp_quote_request = new SPQuoteRequest(page);
 };
 
-// From the indicative price (SP-49): the system type and its specs come pre-filled.
+// Pre-filled from the indicative price (SP-49: the system type and its specs) or from a
+// customer's record (SP-50: the mobile, which finds the customer).
 frappe.pages["sp-quote-request"].on_page_show = function (wrapper) {
 	const opts = frappe.route_options;
-	if (!opts || !opts.system_type || !wrapper.sp_quote_request) return;
+	if (!opts || !(opts.system_type || opts.mobile) || !wrapper.sp_quote_request) return;
 	frappe.route_options = null;
 	wrapper.sp_quote_request.prefill(opts);
 };
@@ -135,12 +136,14 @@ class SPQuoteRequest {
 
 	// SP-49: the type and the specs priced on the indicative page. A spec fills the request
 	// field of the same name (or the same name in metres, e.g. pump_depth → pump_depth_m).
-	async prefill({ system_type, indicative_inputs }) {
+	async prefill({ system_type, indicative_inputs, mobile }) {
 		if (!this.ready) {
-			this.pending = { system_type, indicative_inputs };
+			this.pending = { system_type, indicative_inputs, mobile };
 			return;
 		}
 		this.pending = null;
+		if (mobile) await this.form.set_value("mobile", mobile); // its change looks the customer up
+		if (!system_type) return;
 		// route options come through the URL in v16: the specs may arrive as JSON text
 		const specs = typeof indicative_inputs === "string" ? JSON.parse(indicative_inputs) : indicative_inputs;
 		await this.form.set_value("system_type", system_type); // its change loads the fields
