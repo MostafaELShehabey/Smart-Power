@@ -343,12 +343,20 @@ frappe.ui.form.on("Quotation Item", {
 	},
 });
 
+// beside the margin, in the cost section (cost permlevel): its creator and the admin see it
 function sp_quote_margin_chip(frm) {
+	const field = frm.fields_dict.sp_margin_chip;
+	if (!field) return;
 	const check = frm.doc.__onload?.sp_margin_check;
-	if (!check) return;
+	if (!check) {
+		field.$wrapper.empty();
+		return;
+	}
 	const range = `${check.min}% – ${check.max}%`;
 	const label = check.in_range
 		? __("Margin {0}% in range ({1})", [check.margin, range])
 		: __("Margin {0}% out of range ({1})", [check.margin, range]);
-	frm.dashboard.add_indicator(label, check.in_range ? "green" : "orange");
+	field.$wrapper.html(
+		`<span class="indicator-pill ${check.in_range ? "green" : "orange"}">${frappe.utils.escape_html(label)}</span>`
+	);
 }
