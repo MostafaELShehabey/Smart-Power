@@ -8,8 +8,8 @@ from frappe.tests import IntegrationTestCase
 
 from smart_power.rules.sales import margin_check, margin_onload
 from smart_power.sp_quotes.quote_send import send_quote
-from smart_power.tests.test_quote_send import blank_pdf
 from smart_power.tests.test_quotation_case import case_for_test_customer, quote_for
+from smart_power.tests.test_quote_send import blank_pdf
 from smart_power.tests.utils import make_user, set_setting
 
 PUMP = "System Type-PUMP"
