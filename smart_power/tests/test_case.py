@@ -60,12 +60,24 @@ class TestCase(IntegrationTestCase):
 		with self.assertRaises(frappe.ValidationError):
 			case.save()
 
-	def test_won_sets_the_date(self):
+	def test_won_only_by_the_deposit_and_lost_has_its_date(self):
+		"""SP-70: a save never makes a case Won (the confirmed deposit does); Lost records the day,
+		and the admin's reopen clears it."""
 		case = make_case()
-		for status in ("Draft", "Sent to customer", "Follow-up", "Won"):  # the workflow's path
+		for status in ("Draft", "Sent to customer", "Follow-up"):
 			case.status = status
 			case.save()
-		self.assertTrue(case.won_on)
+		case.status = "Won"
+		with self.assertRaises(frappe.ValidationError):
+			case.save()
+		case.reload()
+		case.status = "Lost"
+		case.lost_reason = by_code("Lost Reason", "PRICE_CHECK_ONLY")
+		case.save()
+		self.assertEqual(str(case.lost_on), frappe.utils.today())
+		case.status = "Follow-up"
+		case.save()
+		self.assertIsNone(case.lost_on)
 
 	def test_touch_marks_the_last_action(self):
 		case = make_case()

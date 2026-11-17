@@ -2,14 +2,15 @@
 
     board(filters) -> {columns, cards, sees_all}
     move_case(case, to_column)         a drag between columns, through the case workflow
-    mark_won(case, quotation)          the "mark won" dialog: the accepted option, then Won
+    intends_to_proceed(case, quotation, note)   a drop on Won: the option taken, a review task (SP-70)
 
 The follow-up lead (SP Followup All), the admin and the system manager see every case; anyone
 else sees the cases they follow up. A card carries what the follow-up owner needs to pick the
 next call: the customer, the quote total at sale price, the last call, the next call and how
 long the quote is still valid. Each card lists the columns it may move to, from the workflow's
 transitions for this user, so the board refuses a drag before asking the server (which checks
-again). Won and Lost open their dialogs on the board (mark_won here, mark_lost in followup).
+again). Lost opens its dialog (mark_lost in followup). Won is never set by hand: the confirmed
+deposit marks it (SP-70); a drop on Won says the customer intends to proceed.
 """
 
 from datetime import timedelta
@@ -25,6 +26,10 @@ from smart_power.sp_sales.followup import _close_call_tasks
 CASE, CALL, TASK, QUOTE = "SP Case", "SP Call Log", "SP Task", "Quotation"
 CALL_TASK, TASK_OPEN = "Follow-up Call", "Open"
 WON, LOST = "Won", "Lost"
+# SP-70: "intends to proceed" asks the admin for a technical review and tells the projects managers
+REVIEW_TASK, ADMIN_ROLE, PROJECT_MANAGER_ROLE = "Technical Review", "SP Admin", "SP Project Manager"
+INTENDS_EVENT = "intends_to_proceed"
+INTEND_FROM = ("Sent to customer", "Follow-up")
 # column → the case statuses it shows; a drag lands on the first one
 COLUMNS = {
 	"waiting": ("Quote request", "Draft"),
@@ -166,7 +171,8 @@ def _cards(rows: list[dict]) -> list[dict]:
 				if row.status in (WON, LOST)
 				else next_calls.get(row.name) or call.get("next_call_at"),
 				**_expiry(quote.get("valid_till"), row.status, now),
-				"moves": _moves(row, transitions),
+				"moves": _moves(row, transitions)
+				+ (["won"] if quote.get("name") and _may_intend(row) else []),
 			}
 		)
 	return cards
@@ -275,6 +281,13 @@ def _transitions() -> list:
 	return [t for t in workflow.transitions if t.allowed in roles or frappe.session.user == "Administrator"]
 
 
+def _may_intend(row) -> bool:
+	"""A drop on Won is "intends to proceed" (SP-70): a sent quote's follow-up owner, or the admin."""
+	if row.status not in INTEND_FROM:
+		return False
+	return frappe.session.user in (row.follow_up_owner, "Administrator") or ADMIN_ROLE in frappe.get_roles()
+
+
 def _moves(row, transitions: list) -> list[str]:
 	"""The columns this user may move the card to (the server checks again on the move)."""
 	moves = []
@@ -315,33 +328,58 @@ def move_case(case: str, to_column: str) -> str:
 	doc = frappe.get_doc(CASE, case)
 	doc.check_permission("write")
 	transition = _transition_to(doc, to_column)
-	if transition.next_state in (WON, LOST):
-		frappe.throw(_("Use the {0} dialog to close a case.").format(_(transition.next_state)))
+	if transition.next_state == LOST:
+		frappe.throw(_("Use the {0} dialog to close a case.").format(_(LOST)))
 	return apply_workflow(doc, transition.action).status
 
 
 @frappe.whitelist(methods=["POST"])
-def mark_won(case: str, quotation: str) -> str:
-	"""The "mark won" dialog: the option the customer took becomes the approved version, then Won."""
-	from frappe.model.workflow import apply_workflow
+def intends_to_proceed(case: str, quotation: str, note: str | None = None) -> dict:
+	"""The customer will go ahead (SP-70): the option they took becomes the approved version, the
+	admin gets a technical review task (it never blocks) and the projects managers are told. The
+	case stays open and the quote usable: it is won when the deposit on that version is confirmed.
+	"""
+	from frappe.utils import now_datetime
 
+	from smart_power.notify import send
+	from smart_power.sp_core.inbox import create_task
 	from smart_power.sp_sales.quotation import approve_version
+	from smart_power.sp_sales.quote_request import _users_with
 
 	doc = frappe.get_doc(CASE, case)
 	doc.check_permission("write")
-	transition = _transition_to(doc, "won")  # refused before anything changes
+	if doc.status in (WON, LOST):
+		frappe.throw(_("Case {0} is {1}.").format(case, _(doc.status)))
 	if frappe.db.get_value(QUOTE, quotation, "sp_case") != case:
 		frappe.throw(_("Quote {0} is not on case {1}.").format(quotation, case))
 	if not frappe.db.get_value(QUOTE, quotation, "sp_is_approved"):
-		approve_version(quotation)
-	status = apply_workflow(frappe.get_doc(CASE, case), transition.action).status
-	_close_call_tasks(case)  # a won case needs no more sales calls (found in the browser check)
-	return status
+		approve_version(quotation)  # its own rule: the follow-up owner, the quote creator, the admin
+	doc.db_set("intends_to_proceed_on", now_datetime())
+	who = doc.customer_name or doc.customer
+	doc.add_comment(
+		"Info", _("Intends to proceed with {0}{1}").format(quotation, f": {note}" if note else "")
+	)
+	tasks = create_task(
+		REVIEW_TASK,
+		CASE,
+		case,
+		_users_with(ADMIN_ROLE) or ["Administrator"],
+		_("Technical review: {0} intends to proceed ({1})").format(who, quotation),
+		description=note,
+	)
+	send(
+		INTENDS_EVENT,
+		_users_with(PROJECT_MANAGER_ROLE),
+		CASE,
+		case,
+		_("{0} intends to proceed with {1}").format(who, quotation),
+	)
+	return {"case": case, "quotation": quotation, "tasks": tasks}
 
 
 @frappe.whitelist()
 def won_options(case: str) -> list[dict]:
-	"""The sent quote versions the "mark won" dialog offers (sale prices only)."""
+	"""The sent quote versions the "intends to proceed" dialog offers (sale prices only)."""
 	frappe.get_doc(CASE, case).check_permission("read")
 	quotes = frappe.get_all(
 		QUOTE,

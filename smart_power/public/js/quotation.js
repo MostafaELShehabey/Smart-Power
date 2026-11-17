@@ -123,13 +123,14 @@ function sp_quote_approve(frm) {
 	});
 }
 
-// The record pattern's primary button (SP-45): Draft → Send quote, Sent → Mark won.
+// The record pattern's primary button (SP-45): Draft → Send quote, Sent → Approve Version (the
+// case is won by the deposit on it, SP-70).
 sp.form.register_primary(
 	"Quotation",
 	"sp_status",
 	{
 		Draft: { label: __("Send quote"), action: sp_quote_send },
-		Sent: { label: __("Mark won"), action: sp_quote_approve },
+		Sent: { label: __("Approve Version"), action: sp_quote_approve },
 	},
 	(frm) => frm.doc.sp_case
 );

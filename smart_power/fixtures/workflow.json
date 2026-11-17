@@ -9,7 +9,7 @@
   "send_email_alert": 0,
   "enable_action_confirmation": 1,
   "workflow_state_field": "status",
-  "modified": "2026-11-17 03:00:00.000000",
+  "modified": "2026-11-18 10:00:00.000000",
   "docstatus": 0,
   "workflow_data": null,
   "states": [
@@ -244,18 +244,6 @@
     "state": "Follow-up",
     "action": "Request Revision",
     "next_state": "Draft",
-    "allowed": "SP Admin",
-    "allow_self_approval": 1,
-    "condition": null,
-    "send_email_to_creator": 0
-   },
-   {
-    "doctype": "Workflow Transition",
-    "parentfield": "transitions",
-    "parenttype": "Workflow",
-    "state": "Follow-up",
-    "action": "Mark Won",
-    "next_state": "Won",
     "allowed": "SP Admin",
     "allow_self_approval": 1,
     "condition": null,
