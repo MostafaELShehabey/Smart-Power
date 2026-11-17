@@ -108,71 +108,10 @@ function sp_can_log_call(frm) {
 	return !frm.is_new() && !SP_CLOSED.includes(frm.doc.status) && frappe.model.can_create("SP Call Log");
 }
 
+// F3 "Log call" and the lost dialog live in sp_sales.js (sp.sales), shared with the customer
+// record (SP-50).
 function sp_log_call_dialog(frm) {
-	const dialog = new frappe.ui.Dialog({
-		title: __("Log call"),
-		fields: [
-			{
-				fieldname: "result",
-				fieldtype: "Link",
-				label: __("Result"),
-				options: "SP List Value",
-				reqd: 1,
-				get_query: () => ({ filters: { list_name: "Call Result", is_active: 1 } }),
-			},
-			{ fieldname: "note", fieldtype: "Small Text", label: __("Note") },
-			{
-				fieldname: "next_call_at",
-				fieldtype: "Datetime",
-				label: __("Next Call"),
-				description: __("Becomes a call task for the follow-up owner."),
-			},
-		],
-		primary_action_label: __("Save"),
-		primary_action: async (values) => {
-			const { message } = await frappe.call({
-				method: "smart_power.sp_sales.followup.log_call",
-				args: { case: frm.doc.name, ...values },
-				freeze: true,
-			});
-			dialog.hide();
-			if (message && message.lost) {
-				sp_lost_dialog(frm, values.note);
-			} else {
-				frm.reload_doc();
-			}
-		},
-	});
-	dialog.show();
-}
-
-function sp_lost_dialog(frm, note) {
-	const dialog = new frappe.ui.Dialog({
-		title: __("Mark Lost"),
-		fields: [
-			{
-				fieldname: "lost_reason",
-				fieldtype: "Link",
-				label: __("Lost Reason"),
-				options: "SP List Value",
-				reqd: 1,
-				get_query: () => ({ filters: { list_name: "Lost Reason", is_active: 1 } }),
-			},
-			{ fieldname: "lost_note", fieldtype: "Small Text", label: __("Lost Note"), default: note },
-		],
-		primary_action_label: __("Mark Lost"),
-		primary_action: async (values) => {
-			await frappe.call({
-				method: "smart_power.sp_sales.followup.mark_lost",
-				args: { case: frm.doc.name, ...values },
-				freeze: true,
-			});
-			dialog.hide();
-			frm.reload_doc();
-		},
-	});
-	dialog.on_hide = () => frm.reload_doc();
-	dialog.show();
+	sp.sales.log_call_dialog(frm.doc.name, () => frm.reload_doc());
 }
 
 async function sp_followup_view(frm) {

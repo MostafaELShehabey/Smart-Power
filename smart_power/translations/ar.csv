@@ -113,6 +113,7 @@ Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
 Attach the receipt photo.,أرفق صورة الإيصال.
+Attached To,مرفق بـ
 Attachment,مرفق
 Audit Log,سجل التدقيق
 Available,المتاح
@@ -149,6 +150,7 @@ BTB (Companies),BTB (الشركات)
 BTC,BTC
 BTC (Individuals),BTC (الأفراد)
 Bulk confirmation,تأكيد جماعي
+By,بواسطة
 By email,بالبريد الإلكتروني
 C,C
 Calculate,احسب
@@ -437,6 +439,7 @@ Document,المستند
 Document Naming Settings,إعدادات تسمية المستندات
 Document Numbering,ترقيم المستندات
 Document Templates,قوالب المستندات
+Documents,المستندات
 Done,تم
 Download the template,تحميل النموذج
 Download the template of {0},تنزيل نموذج {0}
@@ -847,6 +850,7 @@ New price,السعر الجديد
 New Quote Request,طلب عرض سعر جديد
 New quote request,طلب عرض سعر جديد
 New quote request: {0} ({1}),طلب عرض سعر جديد: {0} ({1})
+New request,طلب جديد
 New simple record,سجل بسيط جديد
 New Transfer,تحويل جديد
 New Value,القيمة الجديدة
@@ -869,6 +873,7 @@ No contact yet,لا يوجد تواصل بعد
 No contract schedule yet,لا يوجد جدول سداد للعقد بعد
 No customer has this mobile.,لا يوجد عميل بهذا الموبايل.
 No default supplier for: {0},لا يوجد مورد افتراضي لـ: {0}
+No document yet.,لا توجد مستندات بعد.
 No entries yet.,لا توجد قيود بعد.
 No expenses yet.,لا توجد مصروفات بعد.
 No installation manager to ask.,لا يوجد مدير تركيبات لطلب المعاينة منه.
@@ -887,10 +892,12 @@ No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 No quote yet.,لا يوجد عرض بعد.
+No request yet.,لا توجد طلبات بعد.
 No requests yet,لا توجد طلبات
 No roles,لا توجد صلاحيات
 No sent quote yet.,لم يُرسل عرض بعد.
 No simple records yet,لا توجد سجلات بسيطة
+No station yet.,لا توجد محطات بعد.
 No stations are assigned to you.,لا توجد محطات مسندة لك
 no value changed,لم تتغير أي قيمة
 No.,رقم
@@ -977,6 +984,7 @@ Only {0} panels are available in {1} ({2} reserved).,المتاح {0} لوح ف�
 Only {0} panels are available in {1}.,المتاح {0} لوح فقط في {1}.
 Open,مفتوح
 Open as List,فتح كقائمة
+Open Cases,الحالات المفتوحة
 Open cases: {0},حالات مفتوحة: {0}
 Open stations,المحطات المفتوحة
 Operation Date,تاريخ التشغيل
@@ -1008,6 +1016,7 @@ Overdue call-backs,مكالمات متأخرة
 Overdue: {0} of {1} (station {2}) was due on {3},متأخر: {0} على {1} (المحطة {2}) كان مستحقًا في {3}
 Overridden,تم التخطي بسبب
 Override,تخطي
+Overview,نظرة عامة
 Owner,المسؤول
 Owner History,سجل المسؤولين
 Owner Name,اسم المالك
@@ -1233,6 +1242,7 @@ Requested By,طالب العرض
 Requested On,تاريخ الطلب
 Requests,الطلبات
 Requests & Customers,الطلبات والعملاء
+Requests and Quotes,الطلبات وعروض الأسعار
 Requests waiting,طلبات منتظرة
 Required,مطلوب
 Required Specs,المواصفات المطلوبة
@@ -1284,6 +1294,7 @@ Rule overrides,تجاوزات القواعد
 Rule Warning,تنبيه قاعدة
 Rule warnings,تحذيرات القواعد
 "Salaries, rent and general costs; split into stations monthly (SP-124).",المرتبات والإيجار والمصروفات العامة؛ توزع على المحطات شهريًا.
+Sale Total,إجمالي البيع
 Sales,المبيعات
 Sales Order {0} already belongs to station {1}.,أمر البيع {0} يخص المحطة {1} بالفعل.
 Sales Owner,مسئول المبيعات

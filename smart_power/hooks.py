@@ -57,6 +57,7 @@ app_include_js = [
 	# List and record patterns: saved-view tabs, totals, status bar, owner chips (SP-45)
 	"/assets/smart_power/js/sp_list.js",
 	"/assets/smart_power/js/sp_form.js",
+	"/assets/smart_power/js/sp_sales.js",
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).
@@ -108,6 +109,8 @@ website_context = {
 # Quotation form: New Version / Approve Version (SP-54).
 doctype_js = {
 	"Quotation": "public/js/quotation.js",
+	# C2 customer record: overview, requests and quotes, calls, stations, documents (SP-50)
+	"Customer": "public/js/customer.js",
 	# your own transit and custody balances on your profile (SP-26)
 	"User": "public/js/user.js",
 	# A6 / A6b: source, Reverse, the live balanced check (SP-119)
