@@ -46,6 +46,7 @@ A settlement needs at least one expense.,التسوية تحتاج مصروفً�
 A site survey is already asked for this request.,تم طلب معاينة الموقع لهذا الطلب بالفعل.
 A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
+A task for installations on station {0},مهمة للتركيبات على المحطة {0}
 A template needs at least one block before it is published.,القالب يحتاج فقرة واحدة على الأقل قبل نشره.
 A template needs at least one line before it is published.,القالب يحتاج سطرًا واحدًا على الأقل قبل نشره.
 A transfer from a transit account for more than the account holds. A warning by default (SP-117); the admin can make it a block.,تحويل من حساب نقدية بمبلغ أكبر من رصيده. تحذير افتراضيًا؛ ويمكن للمدير جعله منعًا.
@@ -89,6 +90,8 @@ Agri Bank,البنك الزراعي
 Agri Bank Advance,سلفة البنك الزراعي
 All,الكل
 All read,كلها مقروءة
+All regions,كل المناطق
+All system types,كل أنواع الأنظمة
 Already read,مقروءة
 Already {0} {1}.,مسجل بالفعل كـ {0} {1}.
 Always on: the in-app feed is the official record.,دائمًا مفعّل: إشعارات البرنامج هي السجل الرسمي.
@@ -115,8 +118,11 @@ Approved custody expenses recorded on this campaign.,مصروفات العهدة
 Approved Version,النسخة المعتمدة
 "Approved, waiting for the contract",معتمدة تنتظر العقد
 Arabic Name,الاسم العربي
+Ask,اطلب
 Ask for a Site Survey,طلب معاينة موقع
 Ask for Missing Data,طلب البيانات الناقصة
+Ask for more photos,اطلب صورًا أكثر
+Ask for more photos of {0},اطلب صورًا أكثر للمحطة {0}
 Ask the admin to reassign,اطلب من المدير النقل
 Ask the quote creator to approve a larger discount.,اطلب من صاحب العرض اعتماد خصم أكبر.
 Assigned To,مسند إلى
@@ -470,6 +476,7 @@ Document Numbering,ترقيم المستندات
 Document Templates,قوالب المستندات
 Documents,المستندات
 Done,تم
+Download,تنزيل
 Download the result,تنزيل النتيجة
 Download the template,تحميل النموذج
 Download the template of {0},تنزيل نموذج {0}
@@ -688,6 +695,7 @@ Individual,فرد
 Individual (BTC) or company (BTB). Sets the customer type.,فرد (BTC) أو شركة (BTB). يحدد نوع العميل.
 Input {0},المدخل {0}
 Inputs,المدخلات
+Installations asked for more photos of {0}.,تم طلب صور أكثر للمحطة {0} من التركيبات.
 Installing,قيد التركيب
 Installments,أقساط
 Instalment,القسط
@@ -722,6 +730,9 @@ Key,المفتاح
 Key Data,البيانات الأساسية
 Kind,النوع
 kw,القدرة (كيلووات)
+kW,ك.وات
+kW from,من ك.وات
+kW to,إلى ك.وات
 Label,الاسم
 Label (Arabic),الاسم (عربي)
 Label (English),الاسم (إنجليزي)
@@ -841,6 +852,7 @@ Max Total Discount: Follow-up Owner,أقصى خصم على الإجمالي: م�
 Max Total Discount: Quote Creator,أقصى خصم على الإجمالي: صاحب العرض
 Maximum Quote Validity (days),أقصى صلاحية للعرض (أيام)
 May differ from the instalment it pays.,قد تختلف عن القسط الذي تسدده.
+Media Library,مكتبة الصور
 Message,الرسالة
 Method,طريقة الدفع
 Min Margin %,أقل ربح %
@@ -865,6 +877,8 @@ Money Records,سجلات الأموال
 Money remaining,مبلغ متبقٍ
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
 More has left this container than it received.,خرج من هذه الحاوية أكثر مما استلمت.
+More photos of station {0} for marketing,صور أكثر للمحطة {0} للتسويق
+More photos of {0} are already asked for.,صور المحطة {0} مطلوبة بالفعل.
 More than the site holds,أكثر من رصيد الموقع
 Move,حركة
 Movement,الحركة
@@ -943,6 +957,7 @@ No numbers for your work yet.,لا توجد أرقام لعملك بعد.
 No open custody.,لا توجد عهدة مفتوحة.
 No open requests here.,لا توجد طلبات مفتوحة هنا.
 No payments yet,لا توجد مدفوعات
+No photos match. Installations tag them on the site log or the station.,لا توجد صور مطابقة. تحددها التركيبات من اليومية أو من المحطة.
 No photos yet: attach them in the sidebar.,لا توجد صور بعد: أرفقها من الشريط الجانبي.
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
@@ -1017,6 +1032,7 @@ Only a quote linked to a case is sent from here.,يُرسل من هنا فقط �
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
+Only marketing opens the media library.,مكتبة الصور للتسويق فقط.
 Only photos of a site log or a station are tagged for marketing.,تُعلَّم للتسويق صور يوميات المواقع والمحطات فقط.
 Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
 Only the admin approves a custody settlement.,المدير فقط يوافق على تسوية العهدة.
@@ -1128,6 +1144,7 @@ Percent,النسبة
 Petty cash,نثريات
 Petty cash of {0},نثريات {0}
 Phone,التليفون
+Photo Request,طلب صور
 Photo {0} cannot be added to this request.,لا يمكن إضافة الصورة {0} إلى هذا الطلب.
 Photos,الصور
 Photos (optional),الصور (اختياري)
@@ -1596,6 +1613,7 @@ Station payments today,مدفوعات المحطات اليوم
 Station Project,مشروع المحطة
 Station {0},المحطة {0}
 Station {0} already has the log of {1}: {2}. Add to it instead.,للمحطة {0} يومية بتاريخ {1} بالفعل: {2}. أضف إليها بدلًا من ذلك.
+Station {0} is cancelled.,المحطة {0} ملغاة.
 Station {0} is {1}: it takes no more site logs.,المحطة {0} في حالة {1}: لا تقبل يوميات أخرى.
 Station {0} not found.,المحطة {0} غير موجودة.
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
@@ -1768,6 +1786,7 @@ These codes match no item: {0},هذه الأكواد لا تطابق أي صنف
 This advance is repaid.,هذه السلفة مسددة.
 This customer is followed up by a colleague. Ask the admin to reassign them.,هذا العميل يتابعه زميل. اطلب من المدير نقله.
 This customer is followed up by {0}. Ask the admin to reassign them.,هذا العميل يتابعه {0}. اطلب من المدير نقله.
+This file is not in the media library.,هذا الملف ليس في مكتبة الصور.
 This is not a valid Egyptian mobile.,هذا ليس رقم موبايل مصري صحيح.
 This is not your custody.,هذه ليست عهدتك.
 This lead is already request {0}.,هذا العميل المحتمل أصبح بالفعل الطلب {0}.
@@ -1880,6 +1899,7 @@ Watt Price Date,تاريخ سعر الوات
 Watts,وات
 "What changes if the customer adds it, e.g. a full stainless motor instead of a stainless body with a cast-iron cap.",ما الذي يتغير لو أضافه العميل، مثل موتور استانلس كامل بدل جسم استانلس بغطاء زهر.
 What is missing?,ما الناقص؟
+What photos do you need?,ما الصور التي تحتاجها؟
 What the contract's instalments already due still lack (SP-81).,ما تبقى من أقساط العقد المستحقة بالفعل.
 What the site warehouse holds.,رصيد مخزن الموقع.
 WhatsApp,واتساب
@@ -2010,6 +2030,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0} must be an official account (a bank, the Post, InstaPay …).",يجب أن يكون {0} حسابًا رسميًا (بنك، البريد، إنستاباي …).
 {0} new,{0} جديد
 {0} of {1} items,{0} من {1} صنف
+{0} of {1} photos,{0} من {1} صورة
 "{0} per kW, for {1} kW",{0} لكل كيلو وات، لـ {1} كيلو وات
 {0} recorded.,تم تسجيل {0}.
 {0} recorded: pending the admin's confirmation.,تم تسجيل {0}: في انتظار تأكيد المدير.

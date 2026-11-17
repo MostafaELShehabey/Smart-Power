@@ -296,3 +296,7 @@ def set_marketing(file: str, usable: int) -> None:
 	if doctype == LOG and not frappe.has_permission(LOG, "write"):
 		frappe.throw(_("Not permitted"), frappe.PermissionError)
 	frappe.db.set_value("File", file, "sp_usable_for_marketing", 1 if int(usable) else 0)
+	if int(usable):
+		from smart_power.sp_sales.media import photo_tagged
+
+		photo_tagged(doctype, name)  # the station's photo requests are answered (SP-53)
