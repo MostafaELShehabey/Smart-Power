@@ -1,0 +1,291 @@
+{
+ "actions": [],
+ "autoname": "SDL-.YYYY.-.#####",
+ "creation": "2026-11-17 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "field_order": [
+  "station",
+  "customer_name",
+  "work_date",
+  "entry_time",
+  "column_break_head",
+  "project",
+  "site_warehouse",
+  "company",
+  "work_section",
+  "stages",
+  "crew_section",
+  "crew",
+  "labour_total",
+  "paid_from",
+  "materials_section",
+  "materials",
+  "notes_section",
+  "issues",
+  "voice_note",
+  "photos_html",
+  "posting_section",
+  "stock_entry",
+  "journal_entry",
+  "client_uuid",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer",
+   "fetch_from": "station.customer_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "work_date",
+   "fieldtype": "Date",
+   "label": "Work Date",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "entry_time",
+   "fieldtype": "Datetime",
+   "label": "Entered At",
+   "read_only": 1,
+   "description": "Set when the log is first saved."
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1
+  },
+  {
+   "fieldname": "site_warehouse",
+   "fieldtype": "Link",
+   "label": "Site Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "work_section",
+   "fieldtype": "Section Break",
+   "label": "Work Done"
+  },
+  {
+   "fieldname": "stages",
+   "fieldtype": "Table MultiSelect",
+   "label": "Stages Done",
+   "options": "SP Site Log Stage"
+  },
+  {
+   "fieldname": "crew_section",
+   "fieldtype": "Section Break",
+   "label": "Crew"
+  },
+  {
+   "fieldname": "crew",
+   "fieldtype": "Table",
+   "label": "Crew",
+   "options": "SP Crew Line"
+  },
+  {
+   "fieldname": "labour_total",
+   "fieldtype": "Currency",
+   "label": "Labour",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "paid_from",
+   "fieldtype": "Link",
+   "label": "Wages Paid From",
+   "options": "Account",
+   "description": "Leave empty when the wages are owed (Daily Wages Payable); choose a custody account when they were paid from it."
+  },
+  {
+   "fieldname": "materials_section",
+   "fieldtype": "Section Break",
+   "label": "Materials Used"
+  },
+  {
+   "fieldname": "materials",
+   "fieldtype": "Table",
+   "label": "Materials Used",
+   "options": "SP Material Used"
+  },
+  {
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "label": "Issues and Photos"
+  },
+  {
+   "fieldname": "issues",
+   "fieldtype": "Small Text",
+   "label": "Issues"
+  },
+  {
+   "fieldname": "voice_note",
+   "fieldtype": "Attach",
+   "label": "Voice Note"
+  },
+  {
+   "fieldname": "photos_html",
+   "fieldtype": "HTML",
+   "label": "Photos"
+  },
+  {
+   "fieldname": "posting_section",
+   "fieldtype": "Section Break",
+   "label": "Posting",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "stock_entry",
+   "fieldtype": "Link",
+   "label": "Stock Entry",
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Labour Entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_uuid",
+   "fieldtype": "Data",
+   "label": "Client ID",
+   "hidden": 1,
+   "read_only": 1,
+   "unique": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "SP Site Daily Log",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-17 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Site",
+ "name": "SP Site Daily Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "delete": 1,
+   "amend": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "delete": 1,
+   "amend": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Installation Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "delete": 0,
+   "amend": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "delete": 0,
+   "amend": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Installation Technician",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 0,
+   "report": 1,
+   "print": 1
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "station,work_date",
+ "sort_field": "work_date",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "station",
+ "track_changes": 1
+}

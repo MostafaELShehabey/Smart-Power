@@ -22,6 +22,7 @@ A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب �
 A marketing request needs its source.,طلب التسويق يحتاج إلى مصدره.
 A marketing spend: once approved it counts in the campaign's spend (SP-52).,مصروف تسويق: بعد اعتماده يُحسب في مصروف الحملة.
 A new PDF is made and logged for this send.,يُنشأ ملف PDF جديد ويُسجَّل لهذا الإرسال.
+"A part of a day is a fraction, e.g. 0.5.",جزء اليوم يُكتب كسرًا، مثل 0.5.
 A percent of the total it applies to; leave empty to give an amount.,نسبة من الإجمالي الذي يُطبق عليه؛ اتركها فارغة لإعطاء مبلغ.
 "A postal cheque becomes Due this many days before its due date, and its holder, the collection owner and the admin are alerted (SP-118).",يصبح الشيك البريدي مستحقًا قبل تاريخه بهذا العدد من الأيام، ويُنبَّه حائزه ومسئول التحصيل والمدير.
 A posted entry is never cancelled. Use Reverse to post a reversing entry.,القيد المرحّل لا يُلغى أبدًا. استخدم عكس القيد لترحيل قيد عكسي.
@@ -41,6 +42,7 @@ A reservation cannot clear another reservation.,الحجز لا يصفّي حج�
 A reservation is Open until handed over (Cleared) or cancelled.,الحجز مفتوح حتى يُسلَّم (تمت تصفيته) أو يُلغى.
 A sent version cannot be cancelled. Make a new version instead.,لا يمكن إلغاء نسخة مُرسلة. اعمل نسخة جديدة بدلاً من ذلك.
 A settlement needs at least one expense.,التسوية تحتاج مصروفًا واحدًا على الأقل.
+"A site photo marketing may post (SP-96, SP-53).",صورة موقع يمكن للتسويق نشرها.
 A site survey is already asked for this request.,تم طلب معاينة الموقع لهذا الطلب بالفعل.
 A site warehouse cannot be a group.,مخزن الموقع لا يمكن أن يكون مجموعة.
 A site warehouse needs its station's project.,مخزن الموقع يحتاج مشروع المحطة.
@@ -60,6 +62,7 @@ Account {0} is not an account of {1}.,الحساب {0} ليس من حسابات 
 Action,الإجراء
 Actions,إجراءات
 Active,فعال
+Actual cost of {0},التكلفة الفعلية لـ {0}
 Add,إضافة
 Add Amount,مبلغ إضافي
 Add Expense,إضافة مصروف
@@ -376,6 +379,7 @@ Credit Account,الحساب الدائن
 Credit Center,مركز الدائن
 Credit Cost Center,مركز تكلفة الدائن
 Credit side,جانب الدائن
+Crew,الطاقم
 Current,الحالي
 Current Password,كلمة المرور الحالية
 Custody,عهدة
@@ -415,6 +419,7 @@ Date,التاريخ
 Date in the future,تاريخ في المستقبل
 Dates,التواريخ
 Day Hours,ساعات النهار
+Days,الأيام
 Days Held,أيام الاحتفاظ
 Deactivate instead,أوقفها بدلاً من الحذف
 debit,المدين
@@ -697,6 +702,8 @@ Invoice,الفاتورة
 Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
 Issuer,الساحب
+Issues,المشاكل
+Issues and Photos,المشاكل والصور
 It goes to the document's history and to the admin's review.,يُسجَّل في سجل المستند وفي مراجعة المدير.
 Item,الصنف
 Item Group,مجموعة الأصناف
@@ -718,6 +725,8 @@ kw,القدرة (كيلووات)
 Label,الاسم
 Label (Arabic),الاسم (عربي)
 Label (English),الاسم (إنجليزي)
+Labour,العمالة
+Labour Entry,قيد العمالة
 Language,اللغة
 Large Payment (alert the admin above),دفعة كبيرة (تنبيه المدير فوقها)
 Large payment: {0},دفعة كبيرة: {0}
@@ -731,6 +740,7 @@ Late Entry,تسجيل متأخر
 Lead,عميل محتمل
 Lead Source,مصدر العميل المحتمل
 Leads,العملاء المحتملون
+Leave empty when the wages are owed (Daily Wages Payable); choose a custody account when they were paid from it.,اتركه فارغًا إذا كانت الأجور مستحقة (أجور يومية مستحقة)؛ واختر حساب العهدة إذا دُفعت منه.
 "Leave the code empty: it is made from the group, the brand and the model.",اترك الكود فارغًا: يُكوَّن من المجموعة والماركة والموديل.
 Left,المتبقي
 Leftover,المتبقي
@@ -821,6 +831,8 @@ Markup %,نسبة الربح %
 Markup Basis,أساس المعامل
 Markup on cost,معامل على التكلفة
 Match each field to a column of the file.,اربط كل حقل بعمود من الملف.
+Materials Used,الخامات المستخدمة
+Materials used on site: {0},خامات مستخدمة في الموقع: {0}
 Max Days Held,أقصى أيام الاحتفاظ
 Max DC Voltage (V),أقصى جهد DC (فولت)
 Max Margin %,أقصى ربح %
@@ -853,6 +865,7 @@ Money Records,سجلات الأموال
 Money remaining,مبلغ متبقٍ
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
 More has left this container than it received.,خرج من هذه الحاوية أكثر مما استلمت.
+More than the site holds,أكثر من رصيد الموقع
 Move,حركة
 Movement,الحركة
 MPPT Max (V),أقصى MPPT (فولت)
@@ -930,6 +943,7 @@ No numbers for your work yet.,لا توجد أرقام لعملك بعد.
 No open custody.,لا توجد عهدة مفتوحة.
 No open requests here.,لا توجد طلبات مفتوحة هنا.
 No payments yet,لا توجد مدفوعات
+No photos yet: attach them in the sidebar.,لا توجد صور بعد: أرفقها من الشريط الجانبي.
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
@@ -952,6 +966,7 @@ Not allowed,غير مسموح
 Not found,غير موجود
 Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
 Not on the quote: nothing to charge.,غير مضاف للعرض: لا يوجد مبلغ.
+Not permitted,غير مسموح
 Not priced yet: {0},لم تُسعّر بعد: {0}
 Not read yet,غير مقروءة
 Not sent,لم يُرسل
@@ -981,10 +996,12 @@ OK,سليم
 Old price: {0},سعر قديم: {0}
 Old Value,القيمة القديمة
 Oldest: {0} h,أقدم: {0} س
+On Site,في الموقع
 On time,في الموعد
 On: a collected postal cheque posts its payment at once. Off: the payment waits for the admin in Confirmations (SP-118).,مفعل: الشيك المحصل يُرحّل دفعته فورًا. غير مفعل: تنتظر الدفعة المدير في التأكيدات.
 One choice per line.,اختيار واحد في كل سطر.
 "One line per row: created, duplicate or error, with the reason.",سطر لكل صف: تم الإنشاء أو مكرر أو خطأ، مع السبب.
+One log per site per day,يومية واحدة لكل موقع في اليوم
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only,فقط
@@ -1000,6 +1017,7 @@ Only a quote linked to a case is sent from here.,يُرسل من هنا فقط �
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
+Only photos of a site log or a station are tagged for marketing.,تُعلَّم للتسويق صور يوميات المواقع والمحطات فقط.
 Only quote creators can do this.,هذا الإجراء لمُعدّي عروض الأسعار فقط.
 Only the admin approves a custody settlement.,المدير فقط يوافق على تسوية العهدة.
 Only the admin can reassign a case.,الأدمن فقط يمكنه إعادة إسناد الحالة.
@@ -1113,6 +1131,7 @@ Phone,التليفون
 Photo {0} cannot be added to this request.,لا يمكن إضافة الصورة {0} إلى هذا الطلب.
 Photos,الصور
 Photos (optional),الصور (اختياري)
+Photos are tagged on a site log or a station.,تُعلَّم الصور على يومية موقع أو محطة.
 Placeholders,المتغيرات
 Placeholders you can use,المتغيرات المتاحة
 Platform,المنصة
@@ -1126,6 +1145,7 @@ Postal Cheques,الشيكات البريدية
 "Posted by hand, not by a document; listed in the review centre (SP-119).",مرحّل يدويًا، وليس من مستند؛ مدرج في مركز المراجعة.
 Posted by {0} {1}. Correct or cancel that document; its entry follows.,رحّله {0} {1}. صحّح أو ألغِ ذلك المستند؛ وقيده يتبعه.
 "Posted when the record was cancelled: its entry reversed, never edited.",يُرحَّل عند إلغاء السجل: قيده يُعكس ولا يُعدَّل.
+Posting,القيود
 Posting Event,حدث القيد
 Posting {0}: the amount must be above zero.,ترحيل {0}: يجب أن يكون المبلغ أكبر من صفر.
 "Posting {0}: the {1} side has no cost center. Set it in Smart Power Settings > Account Map, or on the document.",ترحيل {0}: جانب {1} بلا مركز تكلفة. حدده في إعدادات سمارت باور > خريطة الحسابات، أو على المستند.
@@ -1336,10 +1356,13 @@ Row {0}: a price cannot be worked out from itself.,سطر {0}: لا يمكن ح�
 Row {0}: give a discount above zero.,السطر {0}: أدخل خصمًا أكبر من صفر.
 Row {0}: give the reason for rejecting it.,الصف {0}: اذكر سبب الرفض.
 Row {0}: the address {1} is listed twice.,الصف {0}: العنوان {1} مكرر.
+Row {0}: the days must be above zero.,الصف {0}: الأيام يجب أن تكون أكبر من صفر.
 Row {0}: the discount {1} is more than the total it applies to ({2}).,السطر {0}: الخصم {1} أكبر من الإجمالي الذي يُطبق عليه ({2}).
 Row {0}: the minimum margin is higher than the maximum.,سطر {0}: أقل ربح أكبر من أقصى ربح.
+Row {0}: the quantity must be above zero.,الصف {0}: الكمية يجب أن تكون أكبر من صفر.
 Row {0}: this expense is not open for a settlement.,الصف {0}: هذا المصروف غير متاح للتسوية.
 Row {0}: {1} already has a rule.,سطر {0}: {1} له قاعدة بالفعل.
+Row {0}: {1} is already on the crew.,الصف {0}: {1} موجود بالفعل في الطاقم.
 Row {0}: {1} is listed twice for {2}.,سطر {0}: {1} مكررة مرتين في {2}.
 Rule,القاعدة
 Rule Key,مفتاح القاعدة
@@ -1356,6 +1379,7 @@ Sales Owner,مسئول المبيعات
 Same item as row {0} ({1}): only that row is imported.,نفس صنف الصف {0} ({1}): يُستورد ذلك الصف فقط.
 Save,حفظ
 Save Request,حفظ الطلب
+"Save the log, then attach its photos.",احفظ اليومية، ثم أرفق صورها.
 Save to see the placeholders of this document.,احفظ لعرض متغيرات هذا المستند.
 Saved,تم الحفظ
 Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
@@ -1396,6 +1420,7 @@ Set the {0} price list in Smart Power Settings.,حدد لستة {0} في إعد�
 Set Valid Till to {0} or earlier.,اجعل تاريخ الصلاحية {0} أو قبله.
 "Set when the admin gives the password (a new user, a reset); the user changes it before any other page (SP-36).",يُفعَّل عندما يعطي المدير كلمة المرور (مستخدم جديد أو إعادة تعيين)؛ يغيّرها المستخدم قبل أي صفحة أخرى (SP-36).
 Set when the customer's first deal is won. Shows a gold star in lists.,يُفعّل عند كسب أول صفقة للعميل. تظهر نجمة ذهبية في القوائم.
+Set when the log is first saved.,يُسجل عند أول حفظ لليومية.
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
 Settled By,طريقة السداد
 Settlement,التسوية
@@ -1422,6 +1447,8 @@ Simple record,سجل بسيط
 Simple Record Type,نوع التسجيل البسيط
 Simple Records,السجلات البسيطة
 Site,موقع
+Site Labour,عمالة الموقع
+Site labour of {0} on {1},عمالة موقع {0} يوم {1}
 Site Stage,مرحلة الموقع
 Site Survey,معاينة موقع
 Site survey for {0},معاينة موقع لـ {0}
@@ -1470,6 +1497,7 @@ SP Consignment Fee,رسوم تخزين أمانة
 SP Consignment Movement,حركة أمانة
 SP Contract Cheque,شيك العقد
 SP Contract Manager,العقود
+SP Crew Line,سطر الطاقم
 SP Custody,العهدة
 SP Custody Holder,صاحب عهدة
 SP Custody Line,مصروف عهدة
@@ -1500,6 +1528,7 @@ SP Main Store Keeper,أمين المخزن الرئيسي
 SP Margin Range,نطاق الربح
 SP Marketing Agent,التسويق
 SP Marketing and Quotes,ماركتنج وإعداد عروض
+SP Material Used,خامة مستخدمة
 SP Notification Event,حدث إشعار
 SP Owner and Admin,المدير وصاحب الشركة
 SP Owner History,سجل المسؤولين
@@ -1525,6 +1554,8 @@ SP Showroom Cashier,خزنة المعرض
 SP Showroom Sales,مبيعات المعرض
 SP Showroom Store Keeper,أمين مخزن المعرض
 SP Simple Record,سجل بسيط
+SP Site Daily Log,يومية الموقع
+SP Site Log Stage,مرحلة اليومية
 SP Site Receiver,استلام الموقع
 SP Site Survey,معاينة الموقع
 SP Station,المحطة
@@ -1544,6 +1575,8 @@ SP Winch Reviewer,مراجعة الونش
 Spend,المصروف
 Spend recorded. It counts once your custody settlement is approved.,تم تسجيل المصروف. يُحسب بعد اعتماد تسوية عهدتك.
 Spending,صرف
+Stage,المرحلة
+Stages Done,المراحل المنجزة
 Stale,قديم
 Stale first,القديم أولاً
 Stale Price on a Quote,سعر قديم في عرض سعر
@@ -1556,11 +1589,14 @@ Start Purchasing,بدء الشراء
 Start the Quote,بدء عرض السعر
 Statement,كشف حساب
 Station,المحطة
+Station cost,تكلفة المحطة
 "Station documents (payments, write-offs, advances, purchases for a station) post here, with the station's project.",مستندات المحطة (المدفوعات والشطب والسلف والمشتريات) تُرحّل هنا، مع مشروع المحطة.
 Station opened,تم فتح المحطة
 Station payments today,مدفوعات المحطات اليوم
 Station Project,مشروع المحطة
 Station {0},المحطة {0}
+Station {0} already has the log of {1}: {2}. Add to it instead.,للمحطة {0} يومية بتاريخ {1} بالفعل: {2}. أضف إليها بدلًا من ذلك.
+Station {0} is {1}: it takes no more site logs.,المحطة {0} في حالة {1}: لا تقبل يوميات أخرى.
 Station {0} not found.,المحطة {0} غير موجودة.
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
 Stations,المحطات
@@ -1568,6 +1604,7 @@ Stations late: {0},محطات متأخرة: {0}
 Stations with overdue instalments,محطات عليها أقساط متأخرة
 Status,الحالة
 Still Open,المفتوحة
+Stock Entry,حركة مخزون
 Stock Movements,حركات المخزون
 Storage Fee,رسوم التخزين
 Storage fee for consignment container {0},رسوم تخزين حاوية الأمانة {0}
@@ -1634,6 +1671,7 @@ The category's pricing rules never change this item's prices.,قواعد تسع�
 The code is empty.,الكود فارغ.
 The collected cheque this payment is for (SP-118).,الشيك المحصل الذي تخصه هذه الدفعة.
 The collection owner is told this many days before a contract instalment falls due (SP-81).,يُنبَّه مسئول التحصيل قبل استحقاق قسط العقد بهذا العدد من الأيام.
+The company has no {0} account. Run the company setup.,لا يوجد حساب {0} للشركة. شغّل إعداد الشركة.
 "The confirmed deposit Payment Entry that ran the automation (text, so the deposit can still be reversed).",قيد العربون المؤكد الذي شغّل الأتمتة (نص، حتى يمكن عكس العربون).
 The contract's payment-schedule line this cheque pays.,سطر جدول السداد في العقد الذي يسدده هذا الشيك.
 The cost center each source posts to (SP-27). A station is never a cost center: its costs carry its project.,مركز التكلفة الذي يُرحّل إليه كل مصدر. المحطة ليست مركز تكلفة: تكاليفها تحمل مشروعها.
@@ -1664,6 +1702,7 @@ The holder's custody account after the approved expenses (carried amounts includ
 The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
 "The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
 The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
+The log of {0} is locked ({1} days). Ask the admin.,يومية {0} مقفلة ({1} أيام). اطلب من الأدمن.
 "The lump sum agreed with the referrer: a hidden cost of the station, never printed.",المبلغ المقطوع المتفق عليه مع الوسيط: تكلفة مخفية للمحطة، لا تُطبع أبدًا.
 The marketing campaign the enquiry came from; it counts in the campaign's results (SP-52).,الحملة التسويقية التي جاء منها الاستفسار؛ يُحسب في نتائج الحملة.
 The marketing campaign the lead came from (SP-52).,الحملة التسويقية التي جاء منها العميل المحتمل.
@@ -1721,6 +1760,7 @@ The value is the same.,القيمة كما هي.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
 The wage a log line starts with; it can be changed on the line.,اليومية التي يبدأ بها سطر اليومية؛ يمكن تعديلها على السطر.
 The winch line of the accepted quote: winch income and station cost when the job is done (SP-58).,بند الونش في العرض المقبول: إيراد ونش وتكلفة على المحطة عند تنفيذ المهمة (SP-58).
+The worker's daily wage unless changed for this day.,الأجر اليومي للعامل ما لم يُغيَّر لهذا اليوم.
 There are no expenses to settle.,لا توجد مصروفات للتسوية.
 There is no published calculation template for this case's system type.,لا يوجد قالب حساب منشور لنوع نظام هذه الحالة.
 There is no published calculation template for this system type.,لا يوجد قالب حساب منشور لنوع النظام هذا.
@@ -1795,9 +1835,12 @@ Unpaid advance,سلفة غير مسددة
 Unpublish,إلغاء النشر
 Unpublished,أُلغي النشر
 Until,حتى
+UOM,الوحدة
 Update the prices worked out from these ones (pricing rules),تحديث الأسعار المحسوبة من هذه الأسعار (قواعد التسعير)
 Update the prices worked out from this one (pricing rules),تحديث الأسعار المحسوبة من هذا السعر (قواعد التسعير)
 Upload Excel or CSV,رفع ملف Excel أو CSV
+Usable for Marketing,صالحة للتسويق
+Usable for marketing,صالحة للتسويق
 Use the {0} dialog to close a case.,استخدم نافذة {0} لإغلاق الحالة.
 "Use {placeholders} from the list on the template, e.g. {customer_name}.",استخدم {المتغيرات} من القائمة في القالب، مثل {customer_name}.
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
@@ -1805,6 +1848,7 @@ User,المستخدم
 "v1, v2 … per case.",v1، v2 … لكل حالة.
 Valid Till,سارٍ حتى
 Valuation rate,سعر التقييم
+Valuation Rate,سعر التقييم
 Value (Arabic),القيمة (عربي)
 Value (English),القيمة (إنجليزي)
 Version,النسخة
@@ -1817,6 +1861,8 @@ View,عرض
 Vmp (V),Vmp (فولت)
 Voc (V),Voc (فولت)
 Voice Note,ملاحظة صوتية
+Wages are paid from a custody account of the station's company.,تُدفع الأجور من حساب عهدة لشركة المحطة.
+Wages Paid From,الأجور مدفوعة من
 Waiting for confirmation,بانتظار التأكيد
 Waiting for quote,في انتظار العرض
 Wake Now,إعادتها الآن
@@ -1835,6 +1881,7 @@ Watts,وات
 "What changes if the customer adds it, e.g. a full stainless motor instead of a stainless body with a cast-iron cap.",ما الذي يتغير لو أضافه العميل، مثل موتور استانلس كامل بدل جسم استانلس بغطاء زهر.
 What is missing?,ما الناقص؟
 What the contract's instalments already due still lack (SP-81).,ما تبقى من أقساط العقد المستحقة بالفعل.
+What the site warehouse holds.,رصيد مخزن الموقع.
 WhatsApp,واتساب
 When,متى
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
@@ -1871,6 +1918,9 @@ Withdrawn into company stock,تم السحب إلى مخزون الشركة
 Won,تم الكسب
 Won On,تاريخ الكسب
 Won: the deposit was confirmed.,مكسوبة: تم تأكيد العربون.
+Work Date,تاريخ العمل
+Work Done,العمل المنجز
+Worker,العامل
 Worker Skill,مهارة العامل
 Write a note: why is it unpaid?,اكتب ملاحظة: لماذا لم تُسدد؟
 Write off between 0 and the remaining {0}.,اشطب مبلغًا بين 0 والمتبقي {0}.
@@ -2004,6 +2054,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0}: {1} is not one of the choices.,{0}: {1} ليست من الاختيارات.
 {0}: {1} is not one of the options.,{0}: {1} ليس من الاختيارات.
 {0}: {1} rows,{0}: {1} صف
+{0}: {1} used but the site holds {2}.,{0}: استُخدم {1} بينما رصيد الموقع {2}.
 {0}: {1} {2} → {3}. {4},{0}: {1} {2} ← {3}. {4}
 "{0}; {1} expense(s) rejected, see the reasons",{0}؛ رُفض {1} مصروف، راجع الأسباب
 {0}d {1}h,{0}ي {1}س

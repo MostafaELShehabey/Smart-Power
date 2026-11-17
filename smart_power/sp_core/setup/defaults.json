@@ -284,6 +284,13 @@
 		{"list_name": "Lead Source", "code": "FIELD_VISIT", "value_ar": "زيارة ميدانية", "value_en": "Field visit", "sort_order": 2},
 		{"list_name": "Lead Source", "code": "EXHIBITION", "value_ar": "معرض", "value_en": "Exhibition", "sort_order": 3},
 		{"list_name": "Lead Source", "code": "BANK", "value_ar": "بنك", "value_en": "Bank", "sort_order": 4},
+		{"list_name": "Site Stage", "code": "FOUNDATION", "value_ar": "قواعد خرسانية", "value_en": "Foundation", "sort_order": 1, "_source": "SP-96: the stages a site daily log records"},
+		{"list_name": "Site Stage", "code": "MOUNTING", "value_ar": "تركيب الشاسيهات", "value_en": "Mounting", "sort_order": 2},
+		{"list_name": "Site Stage", "code": "PANELS", "value_ar": "تركيب الألواح", "value_en": "Panels", "sort_order": 3},
+		{"list_name": "Site Stage", "code": "DC_WIRING", "value_ar": "توصيلات DC", "value_en": "DC wiring", "sort_order": 4},
+		{"list_name": "Site Stage", "code": "PUMP_LOWERING", "value_ar": "تنزيل الغاطس", "value_en": "Pump lowering", "sort_order": 5},
+		{"list_name": "Site Stage", "code": "PANEL_INVERTER", "value_ar": "اللوحة والانفرتر", "value_en": "Panel / inverter", "sort_order": 6},
+		{"list_name": "Site Stage", "code": "TESTING", "value_ar": "التجربة والتشغيل", "value_en": "Testing", "sort_order": 7},
 		{"list_name": "Field Expense", "code": "FUEL", "value_ar": "وقود", "value_en": "Fuel", "sort_order": 1, "_source": "SP-32"},
 		{"list_name": "Field Expense", "code": "OIL", "value_ar": "زيت (مع قراءة العداد)", "value_en": "Oil (with odometer)", "sort_order": 2, "_source": "SP-32"},
 		{"list_name": "Field Expense", "code": "TIRES", "value_ar": "كاوتش", "value_en": "Tires", "sort_order": 3, "_source": "SP-32"},
@@ -368,7 +375,10 @@
 		{"account_name": "Other Income", "parent": "Indirect Income", "account_type": "Income Account", "kind": "Other", "_source": "SP-43: a small income simple record"},
 			{"account_name": "Jumbo Income", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
 			{"account_name": "Storage Fees", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
-			{"account_name": "Advance Fees", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"}
+			{"account_name": "Advance Fees", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
+			{"account_name": "Project Labour", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-96: daily labour on a site, on the station's project"},
+			{"account_name": "Project Materials", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-96: materials used on a site, on the station's project"},
+			{"account_name": "Daily Wages Payable", "parent": "Current Liabilities", "kind": "Other", "_source": "SP-96: daily workers' wages owed"}
 		],
 		"modes_of_payment": [
 			{"mode": "Cash", "type": "Cash", "account": "Showroom Safe", "method": "CASH"},
