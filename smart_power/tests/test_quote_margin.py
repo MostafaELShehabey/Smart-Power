@@ -1,11 +1,14 @@
 """SP-63 margin range: the quote's project scope picks its range; out of range is an orange chip
 for its creator and the admin, listed for the admin when sent, and never stops the send."""
 
+from unittest.mock import patch
+
 import frappe
 from frappe.tests import IntegrationTestCase
 
 from smart_power.rules.sales import margin_check, margin_onload
 from smart_power.sp_quotes.quote_send import send_quote
+from smart_power.tests.test_quote_send import blank_pdf
 from smart_power.tests.test_quotation_case import case_for_test_customer, quote_for
 from smart_power.tests.utils import make_user, set_setting
 
@@ -26,6 +29,14 @@ class TestQuoteMargin(IntegrationTestCase):
 
 	def setUp(self):
 		set_setting(margin_ranges=RANGES)
+		# CI builds no assets and has no Chromium: the PDF itself is SP-62's (as in test_quote_send)
+		if frappe.utils.get_assets_json() is None:
+			patcher = patch("frappe.utils.get_assets_json", return_value={})
+			patcher.start()
+			self.addCleanup(patcher.stop)
+		pdf = patch("frappe.get_print", return_value=blank_pdf())
+		pdf.start()
+		self.addCleanup(pdf.stop)
 
 	def quote(self, margin_pct, scope=None):
 		case = case_for_test_customer(
