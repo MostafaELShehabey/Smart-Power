@@ -5,7 +5,7 @@
  "editable_grid": 0,
  "engine": "InnoDB",
  "istable": 1,
- "modified": "2026-11-17 18:00:00.000000",
+ "modified": "2026-11-17 13:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Finance",
  "name": "SP Custody Line",
@@ -24,6 +24,7 @@
   "cost_center",
   "column_break_line",
   "receipt_photo",
+  "campaign",
   "note",
   "status",
   "reject_reason",
@@ -84,6 +85,14 @@
    "fieldname": "receipt_photo",
    "fieldtype": "Attach Image",
    "label": "Receipt Photo"
+  },
+  {
+   "fieldname": "campaign",
+   "fieldtype": "Link",
+   "options": "SP Campaign",
+   "label": "Campaign",
+   "in_list_view": 0,
+   "description": "A marketing spend: once approved it counts in the campaign's spend (SP-52)."
   },
   {
    "fieldname": "note",

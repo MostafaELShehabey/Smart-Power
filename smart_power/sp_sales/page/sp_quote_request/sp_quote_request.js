@@ -113,6 +113,14 @@ class SPQuoteRequest {
 					get_query: () => ({ filters: { list_name: "Lead Source", is_active: 1 } }),
 				},
 				{
+					// the marketing campaign it came from: it counts in the campaign's results (SP-52)
+					fieldname: "campaign",
+					fieldtype: "Link",
+					options: "SP Campaign",
+					label: __("Campaign"),
+					get_query: () => ({ filters: { status: "Active" } }),
+				},
+				{
 					fieldname: "follow_up_owner",
 					fieldtype: "Select",
 					label: __("Follow-up Owner"),

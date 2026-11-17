@@ -18,6 +18,7 @@ A fixed amount added after the %.,مبلغ ثابت يُضاف بعد النسب
 "A last-minute ask (العشم) is the customer's final request, printed as its own line under the total.",العشم هو آخر طلب للعميل، ويُطبع في سطر مستقل تحت الإجمالي.
 A lost case needs a lost reason.,الحالة الخاسرة تحتاج سبب الخسارة.
 A marketing request needs its source.,طلب التسويق يحتاج إلى مصدره.
+A marketing spend: once approved it counts in the campaign's spend (SP-52).,مصروف تسويق: بعد اعتماده يُحسب في مصروف الحملة.
 A new PDF is made and logged for this send.,يُنشأ ملف PDF جديد ويُسجَّل لهذا الإرسال.
 A percent of the total it applies to; leave empty to give an amount.,نسبة من الإجمالي الذي يُطبق عليه؛ اتركها فارغة لإعطاء مبلغ.
 "A postal cheque becomes Due this many days before its due date, and its holder, the collection owner and the admin are alerted (SP-118).",يصبح الشيك البريدي مستحقًا قبل تاريخه بهذا العدد من الأيام، ويُنبَّه حائزه ومسئول التحصيل والمدير.
@@ -104,6 +105,7 @@ Approve {0}? {1} expense(s) go back to the holder.,الموافقة على {0}؟
 Approve: {0}?,اعتماد: {0}؟
 Approved,معتمد
 Approved By,وافق عليها
+Approved custody expenses recorded on this campaign.,مصروفات العهدة المعتمدة المسجلة على هذه الحملة.
 Approved Version,النسخة المعتمدة
 "Approved, waiting for the contract",معتمدة تنتظر العقد
 Arabic Name,الاسم العربي
@@ -149,6 +151,7 @@ BTB,BTB
 BTB (Companies),BTB (الشركات)
 BTC,BTC
 BTC (Individuals),BTC (الأفراد)
+Budget,الميزانية
 Bulk confirmation,تأكيد جماعي
 By,بواسطة
 By email,بالبريد الإلكتروني
@@ -165,6 +168,9 @@ Call {0},اتصل بـ {0}
 Call {0} about quote {1},اتصل بـ {0} بخصوص العرض {1}
 Calls,المكالمات
 Calls due today,مكالمات مستحقة اليوم
+Campaign,الحملة
+Campaign Name,اسم الحملة
+Campaigns,الحملات
 Can Never Block,لا يمنع أبداً
 Cancel Station,إلغاء المحطة
 Cancelled,ملغي
@@ -188,6 +194,7 @@ Case {0} is {1}; its approved version cannot change.,الحالة {0} {1}، ول
 Case {0} is {1}; its quotes are not discounted any more.,الحالة {0} {1}؛ لا يتم الخصم على عروضها بعد الآن.
 Case {0} is {1}; its quotes are not sent any more.,الحالة {0} {1}؛ لا تُرسل عروضها بعد الآن.
 Cases,الحالات
+Cases of this campaign that got a sent quote.,حالات هذه الحملة التي أُرسل لها عرض سعر.
 Cash,نقدي
 Cash and Locks,الكاش والقفل
 Cash held,نقدية معك
@@ -247,6 +254,8 @@ Choose per event,اختر لكل حدث
 "Choose Reserve, Hand over or Return to supplier.",اختر حجز أو تسليم أو إرجاع للمورد.
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
 Choose the account the money came into.,اختر الحساب الذي دخلت إليه الأموال.
+Choose the campaign's channel.,اختر قناة الحملة.
+Choose the campaign.,اختر الحملة.
 Choose the case this quote belongs to.,اختر الحالة التي يتبعها هذا العرض.
 Choose the center or the station.,اختر المركز أو المحطة.
 Choose the center.,اختر المركز.
@@ -265,8 +274,11 @@ Cleared,تمت تصفيته
 Click to change,اضغط للتغيير
 Client ID,معرّف التطبيق
 Close as price check,إغلاق كاستفسار عن السعر
+Close campaign,إغلاق الحملة
 Close Financially,إغلاق مالي
 Close Technically,إغلاق فني
+Close this campaign? Its results stay.,إغلاق هذه الحملة؟ تبقى نتائجها.
+Closed,مغلقة
 Closed as a price check: {0},أُغلقت كاستفسار عن السعر: {0}
 Code,الكود
 Code or name,الكود أو الاسم
@@ -323,11 +335,14 @@ Consignment Movements,حركات الأمانة
 Consignment Owner,صاحب أمانة
 Container,الحاوية
 Container No.,رقم الحاوية
+Content,المحتوى
 Continue,استمر
 Contract,العقد
 Contract (Sales Order),العقد (أمر البيع)
 Contract Date,تاريخ العقد
 Contract {0},عقد {0}
+Contracted Value,القيمة المتعاقد عليها
+Contracted value: {0} · Spend: {1},القيمة المتعاقد عليها: {0} · المصروف: {1}
 Contracts,العقود
 Coordinates,الإحداثيات
 "Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
@@ -467,6 +482,7 @@ Empty shows the placeholders as they are.,اتركه فارغًا لعرض ال�
 Empty uses the default rounding step in Smart Power Settings.,فارغ يستخدم خطوة التقريب الافتراضية في إعدادات سمارت باور.
 Empty uses the published template of the case's system type.,اتركه فارغًا لاستخدام القالب المنشور لنوع نظام الحالة.
 "Empty: the quote total. Otherwise a section of the quote (e.g. Energy or Submersible), never one line.",فارغ: إجمالي العرض. وإلا فقسم من العرض (مثل الطاقة أو الغاطس)، وليس سطرًا واحدًا أبدًا.
+End Date,تاريخ الانتهاء
 Enter at least one price.,أدخل سعراً واحداً على الأقل.
 "Enter the amount repaid, the fee, or both.",أدخل المبلغ المسدد أو العمولة أو كليهما.
 Enter the customer's name: this mobile is new.,اكتب اسم العميل: هذا الموبايل جديد.
@@ -574,6 +590,7 @@ From the approved quote's line.,من سطر العرض المعتمد.
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
 Full,كامل
 Full Name,الاسم الكامل
+Funnel,مراحل التحويل
 Give a discount,إعطاء خصم
 Give a percent or an amount.,أدخل نسبة أو مبلغًا.
 Give a reason for each warning to continue.,اكتب سبباً لكل تنبيه للمتابعة.
@@ -693,6 +710,7 @@ Last-minute discount,خصم العشم
 Late and reopened field entries,الإدخالات الميدانية المتأخرة والمعاد فتحها
 Late Entry,تسجيل متأخر
 Lead Source,مصدر العميل المحتمل
+Leads,العملاء المحتملون
 "Leave the code empty: it is made from the group, the brand and the model.",اترك الكود فارغًا: يُكوَّن من المجموعة والماركة والموديل.
 Left,المتبقي
 Leftover,المتبقي
@@ -716,6 +734,7 @@ Line {0} is locked: its markup cannot change.,السطر {0} مقفل: لا يم
 Line {0} is not in template {1}.,السطر {0} غير موجود في القالب {1}.
 Lines,السطور
 Lines with the same print group print as one lump-sum line (مقطوعية) with their total.,البنود ذات مجموعة الطباعة نفسها تُطبع بندًا واحدًا (مقطوعية) بإجماليها.
+Link,الرابط
 List,القائمة
 List Price,سعر اللستة
 List view,عرض القائمة
@@ -1070,9 +1089,11 @@ Photos,الصور
 Photos (optional),الصور (اختياري)
 Placeholders,المتغيرات
 Placeholders you can use,المتغيرات المتاحة
+Platform,المنصة
 PM,م
 PO Sent,تم إرسال أمر التوريد
 Position,الترتيب
+Post Date,تاريخ النشر
 Post Repayment,ترحيل السداد
 Postal Cheque,شيك بريدي
 Postal Cheques,الشيكات البريدية
@@ -1195,12 +1216,14 @@ Record a payment,سجّل دفعة
 "Record a storage fee, a small income or a one-off expense.",سجّل رسوم تخزين أو إيرادًا صغيرًا أو مصروفًا لمرة واحدة.
 Record Deposit,تسجيل عربون
 Record Payment,تسجيل دفعة
+Record spend,تسجيل مصروف
 Record the Agri Bank advance for station {0} ({1}),سجّل سلفة البنك الزراعي للمحطة {0} ({1})
 Record the first payment.,سجّل أول دفعة.
 Record Write-off,تسجيل شطب
 Recorded,المسجل
 Recorded By,سجّلها
 Recorded payments the admin has not confirmed yet; not counted in Paid (SP-114).,دفعات مسجلة لم يؤكدها المدير بعد؛ لا تُحسب في المدفوع.
+Recount,إعادة العد
 Reference,المرجع
 Reference DocType,نوع المستند المرتبط
 Reference Name,المستند المرتبط
@@ -1250,6 +1273,8 @@ Reservation,الحجز
 Reserve,حجز
 Reserved,محجوز
 Result,النتيجة
+Results,النتائج
+Results Updated On,آخر تحديث للنتائج
 Return,إرجاع
 Return Entry,قيد الإرجاع
 Return Note,إذن المرتجع
@@ -1399,6 +1424,8 @@ SP Calc Template Input,مدخل قالب الحساب
 SP Calc Template Line,سطر قالب الحساب
 SP Call Center,كول سنتر ومتابعة العملاء
 SP Call Log,سجل المكالمات
+SP Campaign,حملة تسويقية
+SP Campaign Content,محتوى الحملة
 SP Case,الحالة
 SP Case System Type,نوع نظام الحالة
 SP Catalog Manager,الأصناف والكتالوجات
@@ -1483,12 +1510,15 @@ SP Warranty Service,الضمان والصيانة
 SP Winch Manager,مسئول الونش
 SP Winch Operator,سواق الونش
 SP Winch Reviewer,مراجعة الونش
+Spend,المصروف
+Spend recorded. It counts once your custody settlement is approved.,تم تسجيل المصروف. يُحسب بعد اعتماد تسوية عهدتك.
 Spending,صرف
 Stale,قديم
 Stale first,القديم أولاً
 Stale Price on a Quote,سعر قديم في عرض سعر
 Stale prices never block a quote (SP-63).,الأسعار القديمة لا تمنع عرض السعر أبداً (SP-63).
 Stamp,الختم
+Start Date,تاريخ البدء
 Start Follow-up,بدء المتابعة
 Start Installing,بدء التركيب
 Start Purchasing,بدء الشراء
@@ -1562,7 +1592,9 @@ The account {0} is not {1}'s.,الحساب {0} لا يخص {1}.
 The admin has been asked,تم إرسال الطلب للمدير
 The amount must be above zero.,يجب أن يكون المبلغ أكبر من صفر.
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
+The approved quote of each won case.,عرض السعر المعتمد لكل حالة مكسوبة.
 "The brand part of item codes, e.g. JA in PNL-JA-625 (SP-165).",جزء الماركة في أكواد الأصناف، مثل JA في PNL-JA-625.
+The campaign cannot end before it starts.,لا يمكن أن تنتهي الحملة قبل أن تبدأ.
 The case is already yours.,الحالة لك بالفعل.
 The case is handed over.,تم تسليم الحالة.
 The case owner: follows up with the customer until won or lost. A case always has one.,صاحب الحالة: يتابع مع العميل حتى الكسب أو الخسارة. لكل حالة مسؤول متابعة دائماً.
@@ -1602,6 +1634,8 @@ The inputs the quote was designed from (the calculation template comes with SP-5
 "The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
 The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
 "The lump sum agreed with the referrer: a hidden cost of the station, never printed.",المبلغ المقطوع المتفق عليه مع الوسيط: تكلفة مخفية للمحطة، لا تُطبع أبدًا.
+The marketing campaign the enquiry came from; it counts in the campaign's results (SP-52).,الحملة التسويقية التي جاء منها الاستفسار؛ يُحسب في نتائج الحملة.
+The marketing campaign the lead came from (SP-52).,الحملة التسويقية التي جاء منها العميل المحتمل.
 The markup cannot be changed on a quote. Locked BTC lines are always locked.,لا يمكن تغيير نسبة الربح في العرض. سطور BTC المقفلة مقفلة دائمًا.
 The mobile app's id for an expense entered offline (M11); the same id is saved once.,معرّف تطبيق الموبايل لمصروف أُدخل دون اتصال؛ يُحفظ المعرّف نفسه مرة واحدة.
 "The model part of the item code, e.g. 625 in PNL-JA-625 (SP-165).",جزء الموديل في كود الصنف، مثل 625 في PNL-JA-625.
@@ -1782,6 +1816,7 @@ Who follows up this customer now. Changes through the case and hand-over.,من �
 Who physically has the cheque now.,من يحمل الشيك فعليًا الآن.
 Who usually gets it; the preferences list it to them first.,من يصله عادةً؛ يظهر لهم أولًا في التفضيلات.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
+Whose campaign it is (the marketing agent who runs it).,صاحب الحملة (مسؤول التسويق الذي يديرها).
 Why this record replaces the cancelled one; it goes to the review (Edits with reason).,لماذا يحل هذا السجل محل السجل الملغى؛ يذهب إلى المراجعة (تعديلات بسبب).
 Winch,ونش
 Winch Center,مركز الونش
@@ -1822,6 +1857,7 @@ You cannot import cost prices. Remove the List Price and P1 Cost columns.,لا �
 You do not pick crew.,لا يمكنك اختيار طاقم العمل.
 You do not record customer payments.,أنت لا تسجل دفعات العملاء.
 You have been given custody of {0},سُلّمت إليك عهدة بمبلغ {0}
+You have no open custody to spend from. Ask the admin to give you one.,ليست لديك عهدة مفتوحة للصرف منها. اطلب من الأدمن عهدة.
 You hold no company money.,لا توجد معك أموال للشركة.
 You hold no money account to transfer from.,ليس لديك حساب مالي للتحويل منه.
 You may not change this value.,لا يحق لك تغيير هذه القيمة.

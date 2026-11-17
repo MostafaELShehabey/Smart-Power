@@ -11,6 +11,7 @@
   "status",
   "channel",
   "source",
+  "campaign",
   "system_types",
   "request_section",
   "site_visit_needed",
@@ -110,6 +111,14 @@
    "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Lead Source\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
    "in_standard_filter": 1,
    "description": "Where a marketing request came from (X4 Lead Source list); required for the Marketing channel."
+  },
+  {
+   "fieldname": "campaign",
+   "fieldtype": "Link",
+   "options": "SP Campaign",
+   "label": "Campaign",
+   "in_standard_filter": 1,
+   "description": "The marketing campaign the enquiry came from; it counts in the campaign's results (SP-52)."
   },
   {
    "fieldname": "system_types",
@@ -374,7 +383,7 @@
    "link_fieldname": "case"
   }
  ],
- "modified": "2026-11-17 03:00:00.000000",
+ "modified": "2026-11-17 13:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Sales",
  "name": "SP Case",

@@ -167,7 +167,17 @@ _RULE_EVENTS = {
 
 doc_events = {
 	# after the contract: "Read-only — now with أميرة" (SP-35)
-	"SP Case": {"onload": "smart_power.permissions.set_read_only_banner"},
+	"SP Case": {
+		"onload": "smart_power.permissions.set_read_only_banner",
+		# its campaign recounts quotes, won and contracted value (SP-52)
+		"on_update": "smart_power.sp_sales.campaigns.on_case_change",
+	},
+	# a lead counts in its campaign (SP-52)
+	"Lead": {
+		"after_insert": "smart_power.sp_sales.campaigns.on_lead_change",
+		"on_update": "smart_power.sp_sales.campaigns.on_lead_change",
+		"on_trash": "smart_power.sp_sales.campaigns.on_lead_change",
+	},
 	"SP Station": {"onload": "smart_power.permissions.set_read_only_banner"},
 	"*": {
 		**_RULE_EVENTS,
@@ -217,7 +227,11 @@ doc_events = {
 			# every discount is listed in the review centre (SP-129)
 			"smart_power.sp_core.review_centre.list_quote_discount",
 		],
-		"on_submit": "smart_power.sp_sales.quotation.on_update",
+		"on_submit": [
+			"smart_power.sp_sales.quotation.on_update",
+			"smart_power.sp_sales.campaigns.on_quote_change",  # SP-52
+		],
+		"on_cancel": "smart_power.sp_sales.campaigns.on_quote_change",
 	},
 	# The contract (SP-74): one Sales Order per case; the station's money follows it
 	"Sales Order": {
@@ -283,6 +297,8 @@ scheduler_events = {
 		"*/15 * * * *": ["smart_power.sp_sales.quote_alerts.check_quote_clock"],  # sp-allow-number: cron
 	},
 	"daily": [
+		# campaign results, for what changed outside a doc event (SP-52)
+		"smart_power.sp_sales.campaigns.refresh_active",
 		# sent quote versions past Valid Till become Expired (SP-54)
 		"smart_power.sp_sales.quotation.expire_quotes",
 		# cash held too long in a transit account: the holder and the admin, daily (SP-116)
@@ -297,6 +313,8 @@ scheduler_events = {
 }
 
 permission_query_conditions = {
+	# a marketing agent sees her own campaigns (SP-52)
+	"SP Campaign": "smart_power.sp_sales.campaigns.query_conditions",
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.get_permission_query_conditions",
 	# Buying prices (List Price, P1 Cost) for cost roles only (SP-35).
 	"Item Price": "smart_power.permissions.item_price_query_conditions",
@@ -319,6 +337,7 @@ permission_query_conditions = {
 	"SP Custody Settlement": "smart_power.sp_finance.custody.settlement_query",
 }
 has_permission = {
+	"SP Campaign": "smart_power.sp_sales.campaigns.has_permission",
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
 	"Item Price": "smart_power.permissions.item_price_has_permission",
 	"SP Case": "smart_power.permissions.case_has_permission",
