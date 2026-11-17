@@ -357,8 +357,9 @@ function sp_quote_margin_chip(frm) {
 		? __("Margin {0}% in range ({1})", [check.margin, range])
 		: __("Margin {0}% out of range ({1})", [check.margin, range]);
 	field.$wrapper.html(
-		`<span class="indicator-pill ${check.in_range ? "green" : "orange"}">${frappe.utils.escape_html(label)}</span>`
+		`<div class="mb-3"><span class="indicator-pill ${check.in_range ? "green" : "orange"}">${frappe.utils.escape_html(label)}</span></div>`
 	);
-	// out of range: open the (collapsed) Cost and Profit section so the chip is seen
-	if (!check.in_range) frm.fields_dict.sp_cost_section?.collapse(false);
+	// out of range: open the (collapsed) Cost and Profit section so the chip is seen, once the
+	// form has finished refreshing (the layout sets the sections' collapse after this script)
+	if (!check.in_range) setTimeout(() => frm.fields_dict.sp_cost_section?.collapse(false), 0);
 }
