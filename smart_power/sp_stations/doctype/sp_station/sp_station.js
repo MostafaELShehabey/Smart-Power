@@ -39,6 +39,14 @@ frappe.ui.form.on("SP Station", {
 		if (frm.doc.project) {
 			frm.add_custom_button(__("Project"), () => frappe.set_route("Form", "Project", frm.doc.project), __("View"));
 		}
+		// PR1 programming and the operation date, one per system (SP-97)
+		if (frm.doc.status !== "Cancelled" && frappe.model.can_create("SP Commissioning")) {
+			frm.add_custom_button(
+				__("Commissioning"),
+				() => frappe.new_doc("SP Commissioning", { station: frm.doc.name }),
+				__("Create")
+			);
+		}
 	},
 });
 

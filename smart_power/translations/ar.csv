@@ -138,6 +138,7 @@ Balanced: debit {0} = credit {1},متوازن: المدين {0} = الدائن {
 Bank,البنك
 Bank / Post Office,البنك / مكتب البريد
 Bank Branch,فرع البنك
+Batteries,البطاريات
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
 battery_ah,سعة البطارية (أمبير ساعة)
 Becomes a call task for the collection owner.,تصبح مهمة اتصال لمسئول التحصيل.
@@ -246,6 +247,7 @@ Check the prices and the discount before the next version.,راجع الأسعا
 Check the specs,راجع المواصفات
 Check the template,راجع القالب
 Checking…,جارٍ الفحص…
+Checklist,قائمة الفحص
 Cheque,شيك
 Cheque Bounce,ارتداد شيك
 Cheque bounced,شيك مرتجع
@@ -282,6 +284,7 @@ Choose the station.,اختر المحطة.
 Choose the system type first.,اختر نوع النظام أولاً.
 Choose two different accounts.,اختر حسابين مختلفين.
 "Choose where the expense lands: a station, a center or petty cash.",اختر أين يُحمّل المصروف: محطة أو مركز أو نثريات.
+Choose which of the station's systems this commissioning is for.,اختر نظام المحطة الذي يخصه هذا التشغيل.
 City,المدينة
 Clear,مسح
 Cleared,تمت تصفيته
@@ -290,6 +293,7 @@ Client ID,معرّف التطبيق
 Close as price check,إغلاق كاستفسار عن السعر
 Close campaign,إغلاق الحملة
 Close Financially,إغلاق مالي
+Close station {0} technically: operation date {1},الإغلاق الفني للمحطة {0}: تاريخ التشغيل {1}
 Close Technically,إغلاق فني
 Close this campaign? Its results stay.,إغلاق هذه الحملة؟ تبقى نتائجها.
 Closed,مغلقة
@@ -314,6 +318,7 @@ Commercial,تجاري
 Commercial Register,السجل التجاري
 Commercial Register No.,رقم السجل التجاري
 Commission,عمولة
+Commissioning,التشغيل
 Company,شركة
 Company Settings,إعدادات الشركة
 Company {0} has no account group {1}.,الشركة {0} ليس لديها مجموعة الحسابات {1}.
@@ -322,6 +327,9 @@ Company {0} has no Sites warehouse group. Run the company setup first.,الشر�
 Company {0} has no {1} account.,الشركة {0} ليس لها حساب {1}.
 Completed By,تم بواسطة
 Completed On,تم في
+Component,المكوّن
+Components,المكونات
+Components and Warranty,المكونات والضمان
 Confirm,تأكيد
 Confirm Collected Cheques at Once,تأكيد الشيكات المحصلة فورًا
 Confirm New Password,تأكيد كلمة المرور الجديدة
@@ -375,6 +383,7 @@ Count Difference,فرق جرد
 Countdown,العد التنازلي
 Counter,العداد
 Counter saved,تم حفظ العداد
+Create,إنشاء
 Create Custody Account,إنشاء حساب عهدة
 Create Transit Account,إنشاء حساب نقدية
 Created,تم الإنشاء
@@ -531,6 +540,7 @@ Event,الحدث
 Events,الأحداث
 Every event always appears here in the app. Tick the ones that should also push to your phone.,كل حدث يظهر هنا داخل البرنامج دائمًا. علّم ما تريد أن يصلك أيضًا على الموبايل.
 "Every expense recorded, approved or not.",كل مصروف مسجل، تمت الموافقة عليه أم لا.
+Every item must be done before submitting.,يجب إنجاز كل البنود قبل الاعتماد.
 Excel File,ملف إكسل
 Execution,التنفيذ
 Execution Owner,مسؤول التنفيذ
@@ -616,6 +626,7 @@ From Date,من تاريخ
 From document,من المستند
 From the approved quote's line.,من سطر العرض المعتمد.
 From the case when left empty.,من الحالة إذا تُرك فارغاً.
+From the item's warranty when empty.,من ضمان الصنف إذا تُرك فارغًا.
 Full,كامل
 Full Name,الاسم الكامل
 Funnel,مراحل التحويل
@@ -706,8 +717,11 @@ Instalment due: {0} from {1} (station {2}) on {3},قسط مستحق: {0} من {1
 Instalment Status,حالة القسط
 Int,رقم صحيح
 Invalid mobile,رقم موبايل غير صحيح
+Inverter,الإنفرتر
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
 Inverter Brand,ماركة الإنفرتر
+Inverter Model,موديل الإنفرتر
+Inverter Serial,سيريال الإنفرتر
 Invoice,الفاتورة
 Iron Markup,معامل الحديد
 Isc (A),Isc (أمبير)
@@ -751,6 +765,7 @@ Last-minute discount,خصم العشم
 Late and reopened field entries,الإدخالات الميدانية المتأخرة والمعاد فتحها
 Late Entry,تسجيل متأخر
 Latest,الأحدث
+Latest settings file: {0},أحدث ملف إعدادات: {0}
 Lead,عميل محتمل
 Lead Source,مصدر العميل المحتمل
 Leads,العملاء المحتملون
@@ -883,6 +898,7 @@ More has left this container than it received.,خرج من هذه الحاوية
 More photos of station {0} for marketing,صور أكثر للمحطة {0} للتسويق
 More photos of {0} are already asked for.,صور المحطة {0} مطلوبة بالفعل.
 More than the site holds,أكثر من رصيد الموقع
+Motor,الموتور
 Move,حركة
 Movement,الحركة
 MPPT Max (V),أقصى MPPT (فولت)
@@ -983,6 +999,7 @@ Nos,عدد
 Not a valid Egyptian mobile.,ليس رقم موبايل مصري صحيحًا.
 Not allowed,غير مسموح
 "Not balanced: debit {0}, credit {1}, difference {2}",غير متوازن: المدين {0}، الدائن {1}، الفرق {2}
+Not done yet: {0},لم يتم بعد: {0}
 Not found,غير موجود
 Not on the quote: no item yet.,غير مضاف للعرض: لا يوجد صنف بعد.
 Not on the quote: nothing to charge.,غير مضاف للعرض: لا يوجد مبلغ.
@@ -1119,6 +1136,7 @@ Paid to a Third Party,مدفوع لطرف ثالث
 Pallets,البالتات
 Panel Specs,مواصفات اللوح
 Panel Watts,قدرة اللوح (وات)
+Panels batch,دفعة الألواح
 Panels per Pallet,ألواح في البالتة
 Parent Value,القيمة الأم
 Part of this reservation was handed over; cancel that hand-over first.,سُلّم جزء من هذا الحجز؛ ألغِ التسليم أولًا.
@@ -1261,6 +1279,8 @@ Quotes sent today,عروض أُرسلت اليوم
 Raised By,سُجّل بواسطة
 Rate,السعر
 Read-only — now with {0},للقراءة فقط — الآن مع {0}
+Reading,القراءة
+Readings,القراءات
 Ready: {0} · Duplicates: {1} · Errors: {2},جاهز: {0} · مكرر: {1} · أخطاء: {2}
 Reason,السبب
 Reason for the Change,سبب التغيير
@@ -1312,6 +1332,7 @@ Rejected: transfer of {0}: {1},مرفوض: تحويل {0}: {1}
 Rejected: {0} from {1}: {2},مرفوض: {0} من {1}: {2}
 Remaining,المتبقي
 Remaining: {0},المتبقي: {0}
+Remote Support ID,معرّف الدعم عن بعد
 Remove,إزالة
 Remove this expense?,حذف هذا المصروف؟
 Rename,إعادة تسمية
@@ -1430,6 +1451,7 @@ Sent At,وقت الإرسال
 Sent By,أرسله
 Sent to customer,أُرسل للعميل
 Sent version,إصدار مُرسل
+Serial / Batch,السيريال / الدفعة
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 "Set by the system: sent versions stay valid until approved, superseded, lost or expired.",يحددها النظام: النسخ المرسلة تظل صالحة حتى تُعتمد أو تُستبدل أو تُخسر أو تنتهي صلاحيتها.
@@ -1446,6 +1468,7 @@ Set when the customer's first deal is won. Shows a gold star in lists.,يُفع�
 Set when the log is first saved.,يُسجل عند أول حفظ لليومية.
 Sets the price age limit and the pricing rules. Empty takes the item group's category.,تحدد أقصى عمر للسعر وقواعد التسعير. فارغ يأخذ فئة مجموعة الصنف.
 Settings File,ملف الإعدادات
+Settings file {0} is not for this inverter brand and model.,ملف الإعدادات {0} ليس لماركة وموديل هذا الإنفرتر.
 Settings Library,مكتبة الإعدادات
 Settled By,طريقة السداد
 Settlement,التسوية
@@ -1514,7 +1537,10 @@ SP Catalog Manager,الأصناف والكتالوجات
 SP Cheque,شيك بريدي
 SP Collection Officer,التحصيل
 SP Commission Manager,العمولات
+SP Commissioning,البرمجة والتشغيل
+SP Commissioning Check,بند فحص التشغيل
 SP Commissioning Programmer,البرمجة والتشغيل
+SP Commissioning Reading,قراءة التشغيل
 SP Company Address,عنوان الشركة
 SP Company Settings,بيانات الشركة
 SP Consignment Container,حاوية أمانة
@@ -1585,6 +1611,7 @@ SP Site Log Stage,مرحلة اليومية
 SP Site Receiver,استلام الموقع
 SP Site Survey,معاينة الموقع
 SP Station,المحطة
+SP Station Component,مكوّن المحطة
 SP Station System,نظام المحطة
 SP Store and Installations,تركيبات وأمين مخازن
 SP Supplier Accounts,حسابات الموردين
@@ -1623,6 +1650,7 @@ Station Project,مشروع المحطة
 Station {0},المحطة {0}
 Station {0} already has the log of {1}: {2}. Add to it instead.,للمحطة {0} يومية بتاريخ {1} بالفعل: {2}. أضف إليها بدلًا من ذلك.
 Station {0} is cancelled.,المحطة {0} ملغاة.
+Station {0} is closed; only the admin cancels its commissioning.,المحطة {0} مغلقة؛ إلغاء تشغيلها للمدير فقط.
 Station {0} is {1}: it takes no more site logs.,المحطة {0} في حالة {1}: لا تقبل يوميات أخرى.
 Station {0} not found.,المحطة {0} غير موجودة.
 "Station {0} still has {1} to collect. Collect it, or the admin records a write-off, before the financial close.",المحطة {0} عليها {1} للتحصيل. حصّله، أو يسجل المدير شطبًا، قبل الإغلاق المالي.
@@ -1668,6 +1696,7 @@ Tax Card No.,رقم البطاقة الضريبية
 Taxes,الضرائب
 Technical,فني
 Technical Annex,الملحق الفني
+Technical Close,الإغلاق الفني
 Technical Review,مراجعة فنية
 Technical review of station {0},مراجعة فنية للمحطة {0}
 Technically closed,مغلقة فنيًا
@@ -1679,10 +1708,12 @@ Template Name,اسم القالب
 Template {0} is not published.,القالب {0} غير منشور.
 Temporary Password,كلمة مرور مؤقتة
 Terms Note,ملاحظة الشروط
+Test Readings,قراءات الاختبار
 Test with Sample Inputs,تجربة بمدخلات نموذجية
 Text,النص
 Text Blocks,فقرات النص
 That many wrong passwords in a row lock the account until the admin unlocks it (SP-36).,هذا العدد من كلمات المرور الخاطئة المتتالية يقفل الحساب حتى يفتحه المدير (SP-36).
+That system is not on station {0}.,هذا النظام ليس على المحطة {0}.
 The account {0} is not {1}'s.,الحساب {0} لا يخص {1}.
 The admin has been asked,تم إرسال الطلب للمدير
 The amount must be above zero.,يجب أن يكون المبلغ أكبر من صفر.
@@ -1729,6 +1760,7 @@ The holder's custody account after the approved expenses (carried amounts includ
 The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
 "The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
 The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
+The latest file of the brand and model is suggested.,يُقترح أحدث ملف للماركة والموديل.
 The log of {0} is locked ({1} days). Ask the admin.,يومية {0} مقفلة ({1} أيام). اطلب من الأدمن.
 "The lump sum agreed with the referrer: a hidden cost of the station, never printed.",المبلغ المقطوع المتفق عليه مع الوسيط: تكلفة مخفية للمحطة، لا تُطبع أبدًا.
 The marketing campaign the enquiry came from; it counts in the campaign's results (SP-52).,الحملة التسويقية التي جاء منها الاستفسار؛ يُحسب في نتائج الحملة.
@@ -1775,6 +1807,7 @@ The second party (the customer),الطرف الثاني (العميل)
 "The spec fields every item of this group must have, comma separated (e.g. sp_watt, sp_voc). The import template shows them as columns.","حقول المواصفات المطلوبة لكل صنف في هذه المجموعة، مفصولة بفواصل (مثل sp_watt, sp_voc). نموذج الاستيراد يعرضها كأعمدة."
 The station this project is (SP-27): its money and costs carry this project.,المحطة التي يمثلها هذا المشروع: أموالها وتكاليفها تحمل هذا المشروع.
 The station this site warehouse belongs to. One site warehouse per station.,المحطة التي يتبعها مخزن الموقع. مخزن موقع واحد لكل محطة.
+The station's system this commissioning is for (one each).,نظام المحطة الذي يخصه هذا التشغيل (تشغيل واحد لكل نظام).
 The supplier owns goods kept with us on consignment (for example Africa System).,المورد يملك بضاعة محفوظة لدينا كأمانة (مثل أفريقيا سيستم).
 The supplier's customer (reserve or hand over).,عميل المورد (حجز أو تسليم).
 The supplier's own payment terms in words. The Payment Terms Template sets the due dates.,شروط الدفع الخاصة بالمورد مكتوبة. قالب شروط الدفع يحدد تواريخ الاستحقاق.
@@ -1787,6 +1820,7 @@ The UOM is missing.,الوحدة ناقصة.
 The value is the same.,القيمة كما هي.
 The version the customer accepted; the contract is made from it (SP-74).,النسخة التي وافق عليها العميل، ويُعمل منها العقد (SP-74).
 The wage a log line starts with; it can be changed on the line.,اليومية التي يبدأ بها سطر اليومية؛ يمكن تعديلها على السطر.
+The warranty starts on this date.,يبدأ الضمان من هذا التاريخ.
 The winch line of the accepted quote: winch income and station cost when the job is done (SP-58).,بند الونش في العرض المقبول: إيراد ونش وتكلفة على المحطة عند تنفيذ المهمة (SP-58).
 The worker's daily wage unless changed for this day.,الأجر اليومي للعامل ما لم يُغيَّر لهذا اليوم.
 There are no expenses to settle.,لا توجد مصروفات للتسوية.
@@ -1809,6 +1843,7 @@ This request is already handled.,تمت معالجة هذا الطلب من قب
 This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 "This sample shows the Smart Power letterhead, the Arabic font and the shared print helpers.",يعرض هذا النموذج ورق سمارت باور الرسمي والخط العربي وأدوات الطباعة المشتركة.
+This system is already commissioned in {0}.,هذا النظام تم تشغيله بالفعل في {0}.
 This task is already {0}.,هذه المهمة {0} بالفعل.
 This task is not yours.,هذه المهمة ليست لك.
 This version expired on {0}. Make a new version.,هذه النسخة انتهت صلاحيتها في {0}. اعمل نسخة جديدة.
@@ -1882,6 +1917,7 @@ User,المستخدم
 Valid Till,سارٍ حتى
 Valuation rate,سعر التقييم
 Valuation Rate,سعر التقييم
+Value,القيمة
 Value (Arabic),القيمة (عربي)
 Value (English),القيمة (إنجليزي)
 Version,النسخة
@@ -1905,8 +1941,10 @@ Warned,تم التنبيه
 Warning,تنبيه
 Warning Needs a Reason,التنبيه يحتاج سبباً
 "Warning range for the quote margin, never a block (decisions 47 and 67).",نطاق تنبيه لربح العرض، وليس منعاً أبداً (قرارات 47 و67).
+Warranty (months),الضمان (شهور)
 Warranty (years),الضمان (سنوات)
 Warranty Certificate,شهادة الضمان
+Warranty Ends,ينتهي الضمان
 watt,القدرة (وات)
 Watt Price (per W),سعر الوات
 Watt Price Date,تاريخ سعر الوات

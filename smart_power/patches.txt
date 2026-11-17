@@ -56,3 +56,4 @@ smart_power.patches.sp50_customer_views
 smart_power.patches.sp52_campaign_lists
 smart_power.patches.sp96_site_log
 smart_power.patches.sp98_settings_library
+smart_power.patches.sp97_commissioning

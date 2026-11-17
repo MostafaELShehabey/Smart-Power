@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-17 18:00:00.000000",
+ "modified": "2026-11-17 20:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -26,6 +26,16 @@
    "link_doctype": "SP Customer Advance",
    "link_fieldname": "station",
    "group": "Money"
+  },
+  {
+   "group": "Site",
+   "link_doctype": "SP Site Daily Log",
+   "link_fieldname": "station"
+  },
+  {
+   "group": "Site",
+   "link_doctype": "SP Commissioning",
+   "link_fieldname": "station"
   }
  ],
  "name": "SP Station",

@@ -44,6 +44,9 @@ def after_install() -> None:
 
 	seed_list_views()  # SP-45
 	seed_request_fields()
+	from smart_power.sp_site.commissioning import seed_commissioning_templates
+
+	seed_commissioning_templates()  # SP-97
 	seed_settings()
 	sync_rule_settings()
 	apply_customer_naming()

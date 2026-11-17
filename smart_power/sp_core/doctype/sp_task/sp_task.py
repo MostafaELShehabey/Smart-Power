@@ -48,6 +48,7 @@ class SPTask(Document):
 			"Technical Review",
 			"Agri Bank Advance",
 			"Photo Request",
+			"Technical Close",
 			"Other",
 		]
 	# end: auto-generated types

@@ -1,0 +1,257 @@
+{
+ "actions": [],
+ "creation": "2026-11-17 20:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "station",
+  "customer_name",
+  "system_row",
+  "column_break_head",
+  "operation_date",
+  "system_type",
+  "inverter_section",
+  "inverter_brand",
+  "inverter_model",
+  "inverter_serial",
+  "column_break_inverter",
+  "settings_file",
+  "remote_support_id",
+  "readings_section",
+  "readings",
+  "checklist_section",
+  "checklist",
+  "components_section",
+  "components",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer",
+   "fetch_from": "station.customer_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "system_row",
+   "fieldtype": "Select",
+   "label": "System",
+   "description": "The station's system this commissioning is for (one each)."
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "operation_date",
+   "fieldtype": "Date",
+   "label": "Operation Date",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "The warranty starts on this date."
+  },
+  {
+   "fieldname": "system_type",
+   "fieldtype": "Link",
+   "label": "System Type",
+   "options": "SP List Value",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "inverter_section",
+   "fieldtype": "Section Break",
+   "label": "Inverter"
+  },
+  {
+   "fieldname": "inverter_brand",
+   "fieldtype": "Link",
+   "label": "Inverter Brand",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Inverter Brand\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "inverter_model",
+   "fieldtype": "Data",
+   "label": "Inverter Model"
+  },
+  {
+   "fieldname": "inverter_serial",
+   "fieldtype": "Data",
+   "label": "Inverter Serial"
+  },
+  {
+   "fieldname": "column_break_inverter",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "settings_file",
+   "fieldtype": "Link",
+   "label": "Settings File",
+   "options": "SP Settings File",
+   "description": "The latest file of the brand and model is suggested."
+  },
+  {
+   "fieldname": "remote_support_id",
+   "fieldtype": "Data",
+   "label": "Remote Support ID"
+  },
+  {
+   "fieldname": "readings_section",
+   "fieldtype": "Section Break",
+   "label": "Test Readings"
+  },
+  {
+   "fieldname": "readings",
+   "fieldtype": "Table",
+   "label": "Readings",
+   "options": "SP Commissioning Reading"
+  },
+  {
+   "fieldname": "checklist_section",
+   "fieldtype": "Section Break",
+   "label": "Checklist"
+  },
+  {
+   "fieldname": "checklist",
+   "fieldtype": "Table",
+   "label": "Checklist",
+   "options": "SP Commissioning Check",
+   "description": "Every item must be done before submitting."
+  },
+  {
+   "fieldname": "components_section",
+   "fieldtype": "Section Break",
+   "label": "Components and Warranty"
+  },
+  {
+   "fieldname": "components",
+   "fieldtype": "Table",
+   "label": "Components",
+   "options": "SP Station Component"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "SP Commissioning",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1,
+   "search_index": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-17 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Site",
+ "name": "SP Commissioning",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "operation_date",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "COM-.YYYY.-.#####",
+ "is_submittable": 1,
+ "track_changes": 1,
+ "title_field": "station",
+ "search_fields": "station,operation_date",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "delete": 1,
+   "amend": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "delete": 1,
+   "amend": 1
+  },
+  {
+   "role": "SP Commissioning Programmer",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 0,
+   "delete": 0,
+   "amend": 1
+  },
+  {
+   "role": "SP Installation Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "delete": 0,
+   "amend": 1
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "email": 1,
+   "write": 0,
+   "create": 0,
+   "submit": 0,
+   "cancel": 0,
+   "delete": 0,
+   "amend": 0
+  },
+  {
+   "role": "SP Installation Technician",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "email": 1,
+   "write": 0,
+   "create": 0,
+   "submit": 0,
+   "cancel": 0,
+   "delete": 0,
+   "amend": 0
+  }
+ ]
+}
