@@ -28,6 +28,8 @@ def center_picker(
 	company = _company(filters)
 	settings = frappe.get_cached_doc(SETTINGS_DOCTYPE)
 	names = [settings.get(f) for f in CENTER_FIELDS if settings.get(f)]
+	# a new vehicle's own center joins them (SP-106)
+	names += frappe.get_all("Vehicle", {"sp_cost_center": ("is", "set")}, pluck="sp_cost_center")
 	return frappe.get_all(
 		"Cost Center",
 		filters={"name": ("in", names or [""]), "company": company, "is_group": 0},

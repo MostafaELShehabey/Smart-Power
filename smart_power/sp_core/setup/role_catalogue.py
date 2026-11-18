@@ -40,6 +40,7 @@ ROLES: tuple[RoleDef, ...] = (
 			"Item Manager",
 			"Sales Master Manager",
 			"Purchase Master Manager",
+			"Fleet Manager",
 		),
 		sees_cost=True,
 	),

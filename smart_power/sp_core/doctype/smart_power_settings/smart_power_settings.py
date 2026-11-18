@@ -38,6 +38,8 @@ class SmartPowerSettings(Document):
 		list_price_list: DF.Link | None
 		margin_ranges: DF.Table[SPMarginRange]
 		max_validity_days: DF.Int
+		oil_alert_km: DF.Int
+		oil_interval_km: DF.Int
 		quote_amber_hours: DF.Int
 		quote_due_hours: DF.Int
 		showroom_cash_limit_amount: DF.Currency

@@ -64,6 +64,14 @@
   {
    "added": 0,
    "hidden": 0,
+   "icon": "truck",
+   "link_to": "Winch",
+   "link_type": "Sidebar",
+   "title": "Winch"
+  },
+  {
+   "added": 0,
+   "hidden": 0,
    "icon": "landmark",
    "link_to": "Finance",
    "link_type": "Sidebar",
@@ -86,7 +94,7 @@
    "title": "Admin Studio"
   }
  ],
- "modified": "2026-11-16 19:00:00.000000",
+ "modified": "2026-11-19 15:00:00.000000",
  "modified_by": "Administrator",
  "name": "smart_power",
  "owner": "Administrator",

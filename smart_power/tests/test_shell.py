@@ -17,6 +17,7 @@ GROUPS = (
 	"Stations",
 	"Purchasing",
 	"Inventory",
+	"Winch",
 	"Finance",
 	"Reports",
 	"Admin Studio",

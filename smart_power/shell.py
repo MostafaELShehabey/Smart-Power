@@ -64,6 +64,7 @@ GROUP_ROLES = {
 		"SP Project Manager",
 		*ADMIN,
 	),
+	"Winch": ("SP Winch Manager", "SP Winch Reviewer", *ADMIN),
 	"Finance": (
 		"SP Accountant",
 		"SP Collection Officer",

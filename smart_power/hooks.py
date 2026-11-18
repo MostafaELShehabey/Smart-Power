@@ -125,6 +125,8 @@ doctype_js = {
 	"Purchase Receipt": "public/js/purchase_receipt.js",
 	# the supplier's ledger from their record (SP-86)
 	"Supplier": "public/js/supplier.js",
+	# how far a vehicle is from its oil change (SP-106)
+	"Vehicle": "public/js/vehicle.js",
 }
 
 doctype_list_js = {
@@ -135,6 +137,8 @@ doctype_list_js = {
 	"Quotation": "public/js/quotation_list.js",
 	# P1 purchase orders: the Smart Power status as the indicator (SP-82)
 	"Purchase Order": "public/js/purchase_order_list.js",
+	# W4 vehicles: the kilometres left to the oil change (SP-106)
+	"Vehicle": "public/js/vehicle_list.js",
 }
 
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
@@ -294,6 +298,11 @@ doc_events = {
 		"on_submit": "smart_power.sp_stock.purchase_orders.on_change",
 		"on_cancel": "smart_power.sp_stock.purchase_orders.on_change",
 	},
+	# W4: the center and the next oil change (SP-106)
+	"Vehicle": {
+		"before_validate": "smart_power.sp_winch.vehicles.before_validate",
+		"validate": "smart_power.sp_winch.vehicles.validate",
+	},
 	"Purchase Receipt": {
 		# a receiver's draft waits for the technical office: no edits, no submit until confirmed (SP-84)
 		"validate": "smart_power.sp_stock.goods_receipt.validate",
@@ -388,6 +397,8 @@ scheduler_events = {
 		"smart_power.sp_finance.cheques.check_due",
 		# contract instalments: allocated, Overdue, due and overdue alerts once (SP-81)
 		"smart_power.sp_stations.installments.update_installments",
+		# a vehicle close to its oil change: its driver and the winch manager (SP-106)
+		"smart_power.sp_winch.vehicles.check_oil_due",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],

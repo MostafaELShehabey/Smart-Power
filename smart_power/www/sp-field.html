@@ -3,6 +3,9 @@
 {% block page_content %}
 <div class="sp-field-page" dir="rtl" lang="ar">
 	<h3>{{ _("Hello {0}").format(full_name) }}</h3>
+	{% if oil %}
+	<p class="sp-field-oil{% if oil.overdue %} text-danger{% endif %}"><b>{{ oil.vehicle }}</b>: {{ oil.label }}</p>
+	{% endif %}
 	<p>{{ _("Field entry is done from your phone. The Job, Expense and Money pages open here when they are ready.") }}</p>
 	<p class="text-muted">{{ _("The desk is for office users.") }}</p>
 	<a class="btn btn-default" href="/logout">{{ _("Log out") }}</a>
