@@ -127,7 +127,12 @@ doctype_list_js = {
 	"Item": "public/js/item_list.js",
 	# Q1 quotes list: latest versions, all-versions toggle, status indicator (SP-64)
 	"Quotation": "public/js/quotation_list.js",
+	# P1 purchase orders: the Smart Power status as the indicator (SP-82)
+	"Purchase Order": "public/js/purchase_order_list.js",
 }
+
+# Purchase orders keep their Smart Power status with every ERPNext status change (SP-82)
+override_doctype_class = {"Purchase Order": "smart_power.sp_stock.purchase_orders.SPPurchaseOrder"}
 
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
 role_home_page = {role: "sp-field" for role in LIGHT_ENTRY_ROLES}
@@ -275,6 +280,17 @@ doc_events = {
 			"smart_power.sp_sales.quote_list.on_quote_change",
 		],
 		"on_trash": "smart_power.sp_sales.quote_list.on_quote_change",
+	},
+	# Purchase orders (SP-82): destination, delivery batches and status
+	"Purchase Order": {
+		"before_validate": "smart_power.sp_stock.purchase_orders.before_validate",
+		"validate": "smart_power.sp_stock.purchase_orders.validate",
+		"on_submit": "smart_power.sp_stock.purchase_orders.on_change",
+		"on_cancel": "smart_power.sp_stock.purchase_orders.on_change",
+	},
+	"Purchase Receipt": {
+		"on_submit": "smart_power.sp_stock.purchase_orders.on_receipt_change",
+		"on_cancel": "smart_power.sp_stock.purchase_orders.on_receipt_change",
 	},
 	# The contract (SP-74): one Sales Order per case; the station's money follows it
 	"Sales Order": {

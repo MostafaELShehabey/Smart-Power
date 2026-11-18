@@ -2345,3 +2345,23 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0}h {1}m,{0}س {1}د
 {0}m,{0}د
 ★ Featured,★ مميز
+Batch,الدفعة
+Batch {0} has two delivery dates. Give each date its own batch.,الدفعة {0} لها تاريخا توريد. اجعل لكل تاريخ دفعة مستقلة.
+Check the batches,راجع الدفعات
+Company {0} has no {1} warehouse.,الشركة {0} ليس لها مخزن {1}.
+Delivery Destination,جهة التوريد
+For a purchase shared between stations.,لأمر شراء مشترك بين أكثر من محطة.
+Leave empty for a purchase into the stores.,اتركه فارغًا عند الشراء للمخازن.
+Main store,المخزن الرئيسي
+Next Delivery,التوريد القادم
+Partly received,مستلم جزئيًا
+Purchase Status,حالة الشراء
+Row {0}: a delivery to site needs a station.,الصف {0}: التوريد للموقع يحتاج إلى محطة.
+Rows of one batch arrive on the same date.,صفوف الدفعة الواحدة تصل في نفس التاريخ.
+Sets the receiving warehouse. Site needs a station.,يحدد مخزن الاستلام. الموقع يحتاج إلى محطة.
+The earliest batch not fully received.,أقرب دفعة لم تُستلم بالكامل.
+{0} late,{0} متأخر
+Deliveries due this week,توريدات هذا الأسبوع
+Drafts,المسودات
+Due This Week,مستحق هذا الأسبوع
+Partly Received,مستلم جزئيًا
