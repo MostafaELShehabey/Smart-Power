@@ -43,6 +43,7 @@ A reason is required.,السبب مطلوب.
 A reservation cannot clear another reservation.,الحجز لا يصفّي حجزًا آخر.
 A reservation is Open until handed over (Cleared) or cancelled.,الحجز مفتوح حتى يُسلَّم (تمت تصفيته) أو يُلغى.
 A sent version cannot be cancelled. Make a new version instead.,لا يمكن إلغاء نسخة مُرسلة. اعمل نسخة جديدة بدلاً من ذلك.
+"A sent version whose prices changed or that expired before the deposit needs repricing. Block forces a new version at today's prices. Warn lets the admin honor the old price with a reason, listed for review. Off lets the version be approved.",الإصدار المرسل الذي تغيرت أسعاره أو انتهت صلاحيته قبل العربون يحتاج إعادة تسعير. المنع يفرض إصدارًا جديدًا بأسعار اليوم. التحذير يسمح للمدير باعتماد السعر القديم مع ذكر السبب ويُدرج للمراجعة. الإيقاف يسمح باعتماد الإصدار.
 A settlement needs at least one expense.,التسوية تحتاج مصروفًا واحدًا على الأقل.
 "A site photo marketing may post (SP-96, SP-53).",صورة موقع يمكن للتسويق نشرها.
 A site survey is already asked for this request.,تم طلب معاينة الموقع لهذا الطلب بالفعل.
@@ -129,6 +130,7 @@ Approved By,وافق عليها
 Approved custody expenses recorded on this campaign.,مصروفات العهدة المعتمدة المسجلة على هذه الحملة.
 Approved Version,النسخة المعتمدة
 "Approved, waiting for the contract",معتمدة تنتظر العقد
+Approving a version at its old prices,اعتماد إصدار بأسعاره القديمة
 Arabic Name,الاسم العربي
 Ask,اطلب
 Ask for a Site Survey,طلب معاينة موقع
@@ -598,6 +600,7 @@ Expense Row,صف المصروف
 Expense Type,نوع المصروف
 Expenses,المصروفات
 Expired,منتهي الصلاحية
+expired on {0},انتهت صلاحيته في {0}
 Expires In,ينتهي خلال
 Expiring in 48 h,تنتهي خلال 48 ساعة
 Extra Data,بيانات إضافية
@@ -694,6 +697,7 @@ Give a Temporary Password,إعطاء كلمة مرور مؤقتة
 Give Discount,إعطاء خصم
 Give discount,إعطاء الخصم
 Give the reason for changing {0}.,اكتب سبب تغيير {0}.
+Give the reason for honoring the old price.,اذكر سبب اعتماد السعر القديم.
 Give the reason for rejecting.,اكتب سبب الرفض.
 Give the reason for the rejection.,اذكر سبب الرفض.
 Give this password to {0}. They must change it when they sign in.,أعطِ كلمة المرور هذه إلى {0}. يجب تغييرها عند الدخول.
@@ -905,6 +909,7 @@ Low,منخفض
 Made when the station opens; the station's accounting dimension.,يُنشأ عند فتح المحطة؛ وهو البُعد المحاسبي للمحطة.
 Main,رئيسي
 Main Supplier,المورد الرئيسي
+Make a new version at today's prices.,أنشئ إصدارًا جديدًا بأسعار اليوم.
 Make a reversing entry of {0}?,إنشاء قيد عكسي لـ {0}؟
 Make Contract,إنشاء العقد
 Make quote request,عمل طلب عرض سعر
@@ -1324,6 +1329,7 @@ Price per kW,السعر لكل كيلووات
 Price Status,حالة السعر
 prices changed,تغيرت الأسعار
 Prices changed or the quote expired before the deposit: make a new version at today's prices (SP-170).,تغيرت الأسعار أو انتهت صلاحية العرض قبل المقدم: اعمل نسخة جديدة بأسعار اليوم (SP-170).
+prices changed: {0},تغيرت الأسعار: {0}
 Pricing,التسعير
 Pricing rule,قاعدة تسعير
 Pricing Rules,قواعد التسعير
@@ -1395,6 +1401,7 @@ Quote validity,صلاحية العرض
 Quote Validity (days),صلاحية العرض (أيام)
 Quote within 24 hours,العرض خلال 24 ساعة
 Quote {0} is not on case {1}.,العرض {0} ليس على الحالة {1}.
+Quote {0} needs repricing: {1},العرض {0} يحتاج إعادة تسعير: {1}
 Quote {0} sent to {1},تم إرسال العرض {0} إلى {1}
 Quotes,عروض الأسعار
 Quotes expiring in 48 h,عروض تنتهي خلال 48 ساعة
@@ -2010,6 +2017,7 @@ This version is the same.,هذه النسخة بنفس السعر.
 This version is {0} higher.,هذه النسخة أعلى بمقدار {0}.
 This version is {0} lower.,هذه النسخة أقل بمقدار {0}.
 This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
+This version needs repricing: {0},هذا الإصدار يحتاج إعادة تسعير: {0}
 This version was sent: the discount makes a new version.,هذا الإصدار أُرسل: الخصم ينشئ إصدارًا جديدًا.
 This Year's Prefix,بادئة هذه السنة
 Tier,الفئة
@@ -2201,6 +2209,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "Your request was sent to the admin, who will give you a new password.",تم إرسال طلبك إلى المدير، وسيعطيك كلمة مرور جديدة.
 {0} (yours),{0} (خاصتك)
 "{0} ({1} days, limit {2})",{0} ({1} يوم، الحد {2})
+{0} and {1} more,{0} و{1} أخرى
 {0} asks to take over customer {1} from {2},{0} يطلب نقل العميل {1} من {2}
 {0} cannot be changed here.,لا يمكن تعديل {0} هنا.
 {0} cannot be changed this way.,لا يمكن تغيير {0} بهذه الطريقة.

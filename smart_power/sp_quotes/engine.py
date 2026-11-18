@@ -62,9 +62,11 @@ def calculate(
 	overrides: dict | None = None,
 	on_date=None,
 	brands: dict | None = None,
+	picks: dict | None = None,
 ) -> dict:
 	"""Price a template. overrides: {line_key: {qty, item_code, brand, markup, rate, cost}}.
-	brands: the brand order a quote keeps (SP-168); without it, today's order in the settings."""
+	brands: the brand order a quote keeps (SP-168); without it, today's order in the settings.
+	picks: {line_key: item_code} a sent quote already chose, to reprice the same items (SP-170)."""
 	doc = template if isinstance(template, Document) else frappe.get_doc(TEMPLATE, template)
 	on_date = getdate(on_date or today())
 	overrides = overrides or {}
@@ -78,8 +80,10 @@ def calculate(
 		check_override(row, override, where)
 		namespace = {**values, **refs, formulas.SETTINGS: settings}
 
-		item_code = override.get("item_code") or select_item(
-			row, namespace, where, results, brands, override.get("brand")
+		item_code = (
+			override.get("item_code")
+			or (picks or {}).get(row.line_key)
+			or select_item(row, namespace, where, results, brands, override.get("brand"))
 		)
 		item = specs(item_code)
 		manual_qty = "qty" in override

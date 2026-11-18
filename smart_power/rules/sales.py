@@ -2,7 +2,7 @@
 
 from frappe import _
 
-from smart_power.rules import WARN, Finding, RuleContext, rule
+from smart_power.rules import BLOCK, WARN, Finding, RuleContext, rule
 from smart_power.sp_sales.quote_clock import OVERDUE, clock, due_hours
 
 # The quote clock is checked by an hourly job (sp_sales.quote_alerts), not on save.
@@ -97,6 +97,35 @@ def quote_margin_range(doc, ctx: RuleContext):
 			check["margin"], check["min"], check["max"]
 		),
 		suggestion=_("Check the prices and the discount before the next version."),
+		highlight=True,
+	)
+
+
+# Checked when a version that needs repricing is approved (sp_quotes.repricing), not on every save.
+QUOTE_APPROVE_EVENT = "quote_approve"
+OLD_PRICE_RULE = "quote_old_price_approval"
+
+
+@rule(
+	OLD_PRICE_RULE,
+	doctypes=("Quotation",),
+	events=(QUOTE_APPROVE_EVENT,),
+	category="Commercial",
+	default_level=BLOCK,
+	title="Approving a version at its old prices",
+	description="A sent version whose prices changed or that expired before the deposit needs repricing. "
+	"Block forces a new version at today's prices. Warn lets the admin honor the old price with a reason, "
+	"listed for review. Off lets the version be approved.",
+	review_category="Rule Warning",
+)
+def quote_old_price_approval(doc, ctx: RuleContext):
+	if not doc.get("sp_needs_repricing"):
+		return None
+	return Finding(
+		message=_("This version needs repricing: {0}").format(
+			doc.get("sp_repricing_note") or _("prices changed")
+		),
+		suggestion=_("Make a new version at today's prices."),
 		highlight=True,
 	)
 
