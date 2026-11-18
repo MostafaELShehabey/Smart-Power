@@ -63,3 +63,4 @@ smart_power.patches.sp184_pump_curve_inputs
 smart_power.patches.sp168_pick_rules
 smart_power.patches.sp82_purchase_orders
 smart_power.patches.sp82_po_print_format
+smart_power.patches.sp84_receipts_on_purchase_receipt

@@ -114,6 +114,8 @@ PO_COST_ROLES = ("SP Admin", "SP Purchase Officer", "SP Accountant", "SP Supplie
 COST_DOCTYPES = {
 	"Quotation": (COST_ROLES, ("SP Admin", "SP Quote Creator", "SP System Designer")),
 	"Purchase Order": (PO_COST_ROLES, ("SP Admin", "SP Purchase Officer")),
+	# receivers save the draft receipt and never see what the goods cost (SP-84)
+	"Purchase Receipt": (PO_COST_ROLES, ("SP Admin", "SP Purchase Officer")),
 }
 
 

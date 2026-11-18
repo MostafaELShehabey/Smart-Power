@@ -121,6 +121,8 @@ doctype_js = {
 	"User": "public/js/user.js",
 	# A6 / A6b: source, Reverse, the live balanced check (SP-119)
 	"Journal Entry": "public/js/journal_entry.js",
+	# a recorded goods receipt is read-only until it is confirmed (SP-84)
+	"Purchase Receipt": "public/js/purchase_receipt.js",
 }
 
 doctype_list_js = {
@@ -181,6 +183,8 @@ _RULE_EVENTS = {
 }
 
 doc_events = {
+	# the photos a goods receipt was recorded with stay with it (SP-84)
+	"File": {"on_trash": "smart_power.sp_stock.goods_receipt.keep_evidence"},
 	# after the contract: "Read-only — now with أميرة" (SP-35)
 	"SP Case": {
 		"onload": "smart_power.permissions.set_read_only_banner",
@@ -288,6 +292,9 @@ doc_events = {
 		"on_cancel": "smart_power.sp_stock.purchase_orders.on_change",
 	},
 	"Purchase Receipt": {
+		# a receiver's draft waits for the technical office: no edits, no submit until confirmed (SP-84)
+		"validate": "smart_power.sp_stock.goods_receipt.validate",
+		"before_submit": "smart_power.sp_stock.goods_receipt.before_submit",
 		"on_submit": "smart_power.sp_stock.purchase_orders.on_receipt_change",
 		"on_cancel": "smart_power.sp_stock.purchase_orders.on_receipt_change",
 	},
@@ -375,8 +382,6 @@ scheduler_events = {
 }
 
 permission_query_conditions = {
-	# a receiver sees their own goods receipts; the confirmer and the admin see all (SP-84)
-	"SP Goods Receipt": "smart_power.sp_stock.goods_receipt.query_conditions",
 	# a marketing agent sees her own campaigns (SP-52)
 	"SP Campaign": "smart_power.sp_sales.campaigns.query_conditions",
 	# leads: one's own, made, owned or to follow up (SP-51)
@@ -403,7 +408,6 @@ permission_query_conditions = {
 	"SP Custody Settlement": "smart_power.sp_finance.custody.settlement_query",
 }
 has_permission = {
-	"SP Goods Receipt": "smart_power.sp_stock.goods_receipt.has_permission",
 	"SP Campaign": "smart_power.sp_sales.campaigns.has_permission",
 	"Lead": "smart_power.sp_sales.leads.has_permission",
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
