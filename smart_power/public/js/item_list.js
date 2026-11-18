@@ -11,7 +11,67 @@
 		listview.page.add_inner_button(__("Import from Excel"), () => open_import_dialog(listview));
 		// one template per item group, with its coding scheme and cleansing (SP-165)
 		listview.page.add_inner_button(__("Import by Group"), () => open_group_dialog(listview));
+		// each pump's performance curve (SP-184)
+		listview.page.add_inner_button(__("Import Pump Curves"), () => open_curve_dialog(listview));
 	};
+
+	function open_curve_dialog(listview) {
+		const esc = frappe.utils.escape_html;
+		const CURVES = "smart_power.sp_stock.pump_curve_import";
+		const dialog = new frappe.ui.Dialog({
+			title: __("Import Pump Curves"),
+			fields: [
+				{
+					fieldtype: "HTML",
+					fieldname: "help",
+					options: `<p>${esc(
+						__("One row per curve point. The rows of a pump replace its curve.")
+					)}</p><p><a href="/api/method/${CURVES}.get_import_template">${esc(__("Download the template"))}</a></p>`,
+				},
+				{ fieldtype: "Attach", fieldname: "file", label: __("Excel File"), reqd: 1 },
+				{ fieldtype: "HTML", fieldname: "result" },
+			],
+			primary_action_label: __("Check"),
+			primary_action: (values) => run(values, 1),
+			secondary_action_label: __("Import"),
+			secondary_action: () => {
+				const values = dialog.get_values();
+				if (values) run(values, 0);
+			},
+		});
+		async function run(values, dry_run) {
+			const { message: r } = await frappe.call({
+				method: `${CURVES}.import_curves`,
+				args: { file_url: values.file, dry_run },
+				freeze: true,
+				freeze_message: dry_run ? __("Checking…") : __("Importing curves…"),
+			});
+			const colour = { Error: "red", Skipped: "orange" };
+			const rows = (r.rows || [])
+				.filter((row) => row.status !== "OK")
+				.map(
+					(row) =>
+						`<tr><td>${row.row}</td><td>${esc(row.item_code || "")}</td><td><span class="indicator-pill ${
+							colour[row.status]
+						}">${esc(__(row.status))}</span></td><td>${esc(row.message)}</td></tr>`
+				)
+				.join("");
+			const counts = [r.pumps, r.points, r.errors, r.skipped];
+			const summary = dry_run
+				? __("Ready: {0} pumps, {1} points · Errors: {2} · Skipped: {3}", counts) // sp-allow-number: placeholders
+				: __("Imported: {0} pumps, {1} points · Errors: {2} · Skipped: {3}", counts); // sp-allow-number: placeholders
+			dialog.fields_dict.result.$wrapper.html(
+				`<p><b>${esc(summary)}</b></p>` +
+					(rows
+						? `<table class="table table-bordered table-sm"><thead><tr><th>${esc(__("Row"))}</th><th>${esc(
+								__("Code")
+						  )}</th><th>${esc(__("Status"))}</th><th>${esc(__("Note"))}</th></tr></thead><tbody>${rows}</tbody></table>`
+						: "")
+			);
+			if (!dry_run) listview.refresh();
+		}
+		dialog.show();
+	}
 
 	function open_group_dialog(listview) {
 		const esc = frappe.utils.escape_html;

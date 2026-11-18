@@ -16,6 +16,8 @@ from smart_power.sp_core.services.lists import by_code
 
 TEMPLATE = "SP Calc Template"
 FILES = ("pump.json",)
+PUMP_KEY, PUMP_FILE, DEPTH_INPUT = "PUMP", "pump.json", "pump_depth"
+CURVE_INPUTS = ("required_head_m", "required_flow_m3h")  # SP-184
 
 
 def template_data(file_name: str) -> dict:
@@ -52,3 +54,30 @@ def seed_calc_templates() -> list[str]:
 			doc.publish()
 		created.append(doc.name)
 	return created
+
+
+def add_curve_inputs(template_key: str = PUMP_KEY) -> str | None:
+	"""SP-184: the required head and flow, as a new published version of the pump template. The
+	admin's published version is the base, so their changes stay; quotes keep the version they
+	used. Returns the new version, or None when there is nothing to do."""
+	published = frappe.db.get_value(TEMPLATE, {"template_key": template_key, "is_published": 1}, "name")
+	if not published:
+		return None
+	source = frappe.get_doc(TEMPLATE, published)
+	if set(CURVE_INPUTS) <= {row.input_key for row in source.inputs}:
+		return None
+	doc = frappe.get_doc(TEMPLATE, source.new_version())
+	shipped = {row["input_key"]: row for row in template_data(PUMP_FILE)["inputs"]}
+	have = {row.input_key for row in doc.inputs}
+	for key in CURVE_INPUTS:
+		if key not in have:
+			doc.append("inputs", shipped[key])
+	first = [row for row in doc.inputs if row.input_key not in CURVE_INPUTS]
+	added = [row for row in doc.inputs if row.input_key in CURVE_INPUTS]
+	at = next((i + 1 for i, row in enumerate(first) if row.input_key == DEPTH_INPUT), len(first))
+	doc.inputs = [*first[:at], *added, *first[at:]]
+	for idx, row in enumerate(doc.inputs, start=1):
+		row.idx = idx
+	doc.save(ignore_permissions=True)
+	doc.publish()
+	return doc.name
