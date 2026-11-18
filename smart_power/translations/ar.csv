@@ -643,6 +643,8 @@ Fixed Quote Line,بند ثابت في العرض
 Fixed: the cost center below. From document: the document's own center (e.g. the station's).,ثابت: مركز التكلفة أدناه. من المستند: مركز المستند نفسه (مثل مركز المحطة).
 Float,رقم عشري
 Flow (m³/h),التصرف (م³/ساعة)
+Flow and head must be numbers that are not negative.,يجب أن يكون التصرف والرفع أرقامًا غير سالبة.
+Flow {0} is repeated for this pump.,التصرف {0} مكرر لهذه الطلمبة.
 flow_m3h,التصرف (م³/ساعة)
 Follow-up,متابعة
 Follow-up Board,لوحة المتابعة
@@ -734,10 +736,13 @@ Import Items by Group,استيراد الأصناف حسب المجموعة
 Import Items from Excel,استيراد الأصناف من إكسل
 Import Leads,استيراد العملاء المحتملين
 Import Prices from Excel,استيراد الأسعار من إكسل
+Import Pump Curves,استيراد منحنيات الطلمبات
 Import {0} leads,استيراد {0} عميل محتمل
 Import: {0},استيراد: {0}
 Imported from the SETTING folder,مستورد من مجلد الإعدادات
+"Imported: {0} pumps, {1} points · Errors: {2} · Skipped: {3}",تم الاستيراد: {0} طلمبة، {1} نقطة · أخطاء: {2} · متروك: {3}
 Imported: {0} · Duplicates: {1} · Errors: {2},تم استيراد: {0} · مكرر: {1} · أخطاء: {2}
+Importing curves…,جارٍ استيراد المنحنيات…
 Importing items…,جارٍ استيراد الأصناف…
 Importing prices…,جاري استيراد الأسعار…
 Importing… ({0}),جارٍ الاستيراد… ({0})
@@ -1126,6 +1131,7 @@ One choice per line.,اختيار واحد في كل سطر.
 "One line per row: created, duplicate or error, with the reason.",سطر لكل صف: تم الإنشاء أو مكرر أو خطأ، مع السبب.
 One log per site per day,يومية واحدة لكل موقع في اليوم
 "One option per active plan, worked out on every save of a draft.",خيار لكل خطة مفعّلة، يُحسب عند كل حفظ للمسودة.
+One row per curve point. The rows of a pump replace its curve.,صف لكل نقطة في المنحنى. صفوف الطلمبة تحل محل منحناها الحالي.
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only,فقط
@@ -1338,6 +1344,7 @@ Published: this version cannot change. Make a new version to edit.,منشور: �
 Pump,الطلمبة
 Pump Curve,منحنى الطلمبة
 Pump Specs,مواصفات الطلمبة
+Pump {0} does not exist.,الطلمبة {0} غير موجودة.
 Purchase for station {0},شراء للمحطة {0}
 Purchase Order,أمر الشراء
 Purchase orders sent,أوامر الشراء المرسلة
@@ -1388,6 +1395,7 @@ Rate,السعر
 Read-only — now with {0},للقراءة فقط — الآن مع {0}
 Reading,القراءة
 Readings,القراءات
+"Ready: {0} pumps, {1} points · Errors: {2} · Skipped: {3}",جاهز: {0} طلمبة، {1} نقطة · أخطاء: {2} · متروك: {3}
 Ready: {0} · Duplicates: {1} · Errors: {2},جاهز: {0} · مكرر: {1} · أخطاء: {2}
 Reason,السبب
 Reason for the Change,سبب التغيير
@@ -1879,6 +1887,7 @@ The execution owner by default; the admin switches it from a date.,مسئول ا
 The file has no code column (الكود / Item Code).,الملف لا يحتوي على عمود الكود (الكود / Item Code).
 The file has no price column.,الملف لا يحتوي على عمود سعر.
 The file is empty.,الملف فارغ.
+"The file needs the columns: pump code, flow and head.",يجب أن يحتوي الملف على الأعمدة: كود الطلمبة والتصرف والرفع.
 The filters are not valid JSON.,الفلاتر ليست JSON صالحًا.
 "The first part of item codes in this group, e.g. PNL in PNL-JA-625 (SP-165).",الجزء الأول من أكواد أصناف هذه المجموعة، مثل PNL في PNL-JA-625.
 The first party (Smart Power),الطرف الأول (سمارت باور)
@@ -1921,6 +1930,7 @@ The person who holds this money; they see its balance. A channel's transit accou
 The plan the customer takes; at the deposit it becomes the contract's schedule and postal cheques. Empty: cash.,الخطة التي يختارها العميل؛ عند العربون تصبح جدول العقد وشيكاته البريدية. فارغ: كاش.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 the projects team,فريق المشروعات
+The pump code is empty.,كود الطلمبة فارغ.
 The quantity must be above zero.,يجب أن تكون الكمية أكبر من صفر.
 "The quick price given to the customer (IP1): the same template and engine as a quote, sale price only.",السعر السريع الذي أُعطي للعميل (IP1): نفس القالب ومحرك الحساب لعرض السعر، بسعر البيع فقط.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
@@ -1973,6 +1983,7 @@ This lead is request {0}.,هذا العميل المحتمل هو الطلب {0}
 This list has no values yet. Use Add Value.,هذه القائمة لا تحتوي على قيم بعد. استخدم إضافة قيمة.
 This mobile is already {0} {1}.,هذا الرقم مسجل بالفعل كـ {0} {1}.
 This move is not allowed.,هذا النقل غير مسموح.
+This pump keeps its curve until row {0} is fixed.,تحتفظ هذه الطلمبة بمنحناها حتى يتم إصلاح الصف {0}.
 "This quote is for {0}, but case {1} is for customer {2}.",هذا العرض للعميل {0}، لكن الحالة {1} للعميل {2}.
 This request is already handled.,تمت معالجة هذا الطلب من قبل.
 This request was already taken by {0}.,هذا الطلب استلمه {0} بالفعل.

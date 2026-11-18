@@ -21,6 +21,18 @@
    "reqd": 1
   },
   {
+   "input_key": "required_head_m",
+   "label": "الرفع المطلوب (متر)",
+   "input_type": "Float",
+   "help": "الرفع الكلي الذي يجب أن توفره الطلمبة عند التصرف المطلوب"
+  },
+  {
+   "input_key": "required_flow_m3h",
+   "label": "التصرف المطلوب (م³/ساعة)",
+   "input_type": "Float",
+   "help": "كمية المياه المطلوبة في الساعة"
+  },
+  {
    "input_key": "strings",
    "label": "عدد الاسترنجات",
    "input_type": "Int",
