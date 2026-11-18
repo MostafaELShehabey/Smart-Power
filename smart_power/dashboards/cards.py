@@ -349,6 +349,27 @@ def cheques_due(user: str) -> dict:
 # --- installations -----------------------------------------------------------------------------
 
 
+@card("deliveries_due_week", "Deliveries due this week", ("projects",))
+def deliveries_due_week(user: str) -> dict:
+	"""Open purchase orders whose next batch is due within a week; orange while any is late."""
+	week = add_days(getdate(nowdate()), 7)  # sp-allow-number: the story's week
+	open_orders = {"sp_status": ("in", ("Sent", "Partly received"))}
+	count = frappe.db.count(
+		"Purchase Order", {**open_orders, "sp_next_delivery": ("between", (nowdate(), str(week)))}
+	)
+	late = frappe.db.count("Purchase Order", {**open_orders, "sp_next_delivery": ("<", nowdate())})
+	return {
+		"value": count,
+		"indicator": ORANGE if late else (GREEN if not count else GRAY),
+		"note": _("{0} late").format(late) if late else "",
+		**_list(
+			"Purchase Order",
+			sp_status=["in", ["Sent", "Partly received"]],
+			sp_next_delivery=["between", [nowdate(), str(week)]],
+		),
+	}
+
+
 @card("survey_tasks", "Site survey tasks", ("installations",))
 def survey_tasks(user: str) -> dict:
 	return _count("SP Task", {"task_type": "Site Survey", "status": "Open", "assigned_to": user}, ORANGE)

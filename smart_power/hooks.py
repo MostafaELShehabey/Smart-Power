@@ -127,6 +127,8 @@ doctype_list_js = {
 	"Item": "public/js/item_list.js",
 	# Q1 quotes list: latest versions, all-versions toggle, status indicator (SP-64)
 	"Quotation": "public/js/quotation_list.js",
+	# P1 purchase orders: the Smart Power status as the indicator (SP-82)
+	"Purchase Order": "public/js/purchase_order_list.js",
 }
 
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
@@ -276,6 +278,17 @@ doc_events = {
 		],
 		"on_trash": "smart_power.sp_sales.quote_list.on_quote_change",
 	},
+	# Purchase orders (SP-82): destination, delivery batches and status
+	"Purchase Order": {
+		"before_validate": "smart_power.sp_stock.purchase_orders.before_validate",
+		"validate": "smart_power.sp_stock.purchase_orders.validate",
+		"on_submit": "smart_power.sp_stock.purchase_orders.on_change",
+		"on_cancel": "smart_power.sp_stock.purchase_orders.on_change",
+	},
+	"Purchase Receipt": {
+		"on_submit": "smart_power.sp_stock.purchase_orders.on_receipt_change",
+		"on_cancel": "smart_power.sp_stock.purchase_orders.on_receipt_change",
+	},
 	# The contract (SP-74): one Sales Order per case; the station's money follows it
 	"Sales Order": {
 		"validate": "smart_power.sp_stations.contract.validate_order",
@@ -403,7 +416,11 @@ has_permission = {
 }
 
 # the quote's cost and hidden lines leave the server only for its creator and the admin (SP-35)
-extend_doctype_class = {"Quotation": ["smart_power.sp_sales.quotation_class.SPQuotation"]}
+extend_doctype_class = {
+	"Quotation": ["smart_power.sp_sales.quotation_class.SPQuotation"],
+	# purchase orders keep their Smart Power status with every ERPNext status change (SP-82)
+	"Purchase Order": ["smart_power.sp_stock.purchase_orders.PurchaseOrderStatus"],
+}
 
 # ERPNext's "Update Items" is refused on a case's sent quote (SP-61)
 override_whitelisted_methods = {

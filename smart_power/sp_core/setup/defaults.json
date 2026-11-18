@@ -40,6 +40,11 @@
 	"list_views": {
 		"_source": "SP-45: the saved-view tabs of the main lists; {user} is the person looking, {today} and {today+N} the date (SP-64). The admin adds or changes them in SP List View.",
 		"views": [
+			{"list_doctype": "Purchase Order", "label": "Drafts", "sort_order": 1, "filters": [["sp_status", "=", "Draft"]]},
+			{"list_doctype": "Purchase Order", "label": "Open", "sort_order": 2, "filters": [["sp_status", "in", ["Sent", "Partly received"]]]},
+			{"list_doctype": "Purchase Order", "label": "Due This Week", "sort_order": 3, "filters": [["sp_status", "in", ["Sent", "Partly received"]], ["sp_next_delivery", "between", ["{today}", "{today+7}"]]]},
+			{"list_doctype": "Purchase Order", "label": "Partly Received", "sort_order": 4, "filters": [["sp_status", "=", "Partly received"]]},
+			{"list_doctype": "Purchase Order", "label": "Closed", "sort_order": 5, "filters": [["sp_status", "in", ["Received", "Closed"]]]},
 			{"list_doctype": "SP Station", "label": "Mine", "sort_order": 1, "filters": [["execution_owner", "=", "{user}"]]},
 			{"list_doctype": "SP Station", "label": "Still Open", "sort_order": 2, "filters": [["status", "not in", ["Financially closed", "Cancelled"]]]},
 			{"list_doctype": "SP Station", "label": "Overdue", "sort_order": 3, "filters": [["has_overdue", "=", 1]]},

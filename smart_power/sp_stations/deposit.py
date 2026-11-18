@@ -181,6 +181,7 @@ def draft_purchase_orders(so, station) -> list[str]:
 				"transaction_date": today(),
 				"schedule_date": add_days(today(), 1),
 				"project": station.project,
+				"sp_station": station.name,
 				"sp_source": DEPOSIT_SOURCE,
 				"set_warehouse": rows[0][0].warehouse,
 				"items": [
