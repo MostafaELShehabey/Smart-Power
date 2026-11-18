@@ -88,6 +88,43 @@ class TestQuoteBuilder(IntegrationTestCase):
 		self.assertGreater(deeper["summary"]["sell"], before["summary"]["sell"])
 		self.assertFalse(frappe.db.exists("Quotation Item", {"parent": self.name, "sp_line_key": "cable"}))
 
+	def test_a_line_without_an_item_waits_for_a_pick(self):
+		waiting = {
+			r["line_key"]: r for r in builder.recalc(self.name, {"inputs": self.sample["inputs"]})["pending"]
+		}
+		self.assertIn("cable", waiting)
+		self.assertTrue(waiting["cable"]["item_group"])
+		picked = builder.recalc(self.name, self.data_for(100))
+		self.assertNotIn("cable", {r["line_key"] for r in picked["pending"]})
+		self.assertTrue(self.line(picked, "cable"))
+
+	def test_each_line_says_how_its_price_may_change(self):
+		page = builder.recalc(self.name, self.data_for(100))
+		panels, motor = self.line(page, "panels"), self.line(page, "motor")
+		self.assertEqual((panels["markup_editable"], panels["rate_editable"]), (True, False))
+		self.assertEqual((motor["markup_editable"], motor["rate_editable"]), (False, False))
+
+	def test_stock_beside_each_pick(self):
+		page = builder.recalc(self.name, self.data_for(100))
+		line = self.line(page, "panels")
+		self.assertEqual(set(line["stock"]), {"company", "consignment"})
+		frappe.set_user(self.camelia)
+		try:
+			self.assertFalse([r for r in self.page()["lines"] if "stock" in r])
+		finally:
+			frappe.set_user("Administrator")
+
+	def test_a_print_group_survives_the_next_save(self):
+		modified = self.page()["header"]["modified"]
+		data = {**self.data_for(100), "merge": {"cable": "well set"}}
+		builder.save(self.name, data, modified)
+		page = self.page()
+		self.assertEqual(self.line(page, "cable")["merge"], "well set")
+		# the page sends back what it loaded
+		merge = {r["line_key"]: r["merge"] for r in page["lines"] if r["line_key"]}
+		builder.save(self.name, {**self.data_for(120), "merge": merge}, page["header"]["modified"])
+		self.assertEqual(self.line(self.page(), "cable")["merge"], "well set")
+
 	def test_a_typed_quantity_stays_and_is_tagged(self):
 		modified = self.page()["header"]["modified"]
 		self.assertEqual(

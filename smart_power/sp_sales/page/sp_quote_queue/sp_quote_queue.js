@@ -177,11 +177,7 @@ class SPQuoteQueue {
 			args: { case: name },
 			freeze: true,
 		});
-		if (message.quotation) {
-			frappe.set_route("Form", "Quotation", message.quotation);
-		} else {
-			frappe.new_doc("Quotation", message.new);
-		}
+		frappe.set_route("sp-quote-builder", message.quotation);
 	}
 
 	ask_missing_data(r) {
