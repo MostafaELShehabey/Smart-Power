@@ -1,0 +1,29 @@
+{
+ "creation": "2026-11-19 13:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "book-open",
+ "idx": 0,
+ "modified": "2026-11-19 13:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "sp-supplier-ledger",
+ "owner": "Administrator",
+ "page_name": "sp-supplier-ledger",
+ "roles": [
+  {
+   "role": "SP Supplier Accounts"
+  },
+  {
+   "role": "SP Accountant"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Supplier Ledger"
+}

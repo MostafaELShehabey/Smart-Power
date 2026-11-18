@@ -123,6 +123,8 @@ doctype_js = {
 	"Journal Entry": "public/js/journal_entry.js",
 	# a recorded goods receipt is read-only until it is confirmed (SP-84)
 	"Purchase Receipt": "public/js/purchase_receipt.js",
+	# the supplier's ledger from their record (SP-86)
+	"Supplier": "public/js/supplier.js",
 }
 
 doctype_list_js = {

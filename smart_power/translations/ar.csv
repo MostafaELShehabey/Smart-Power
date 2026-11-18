@@ -2465,3 +2465,27 @@ The admin confirms this payment.,تأكيد هذه الدفعة من اختصا�
 Supplier payment,دفعة مورد
 Consignment withdrawal,سحب من الأمانة
 Supplier dues this week,مستحقات الموردين هذا الأسبوع
+Attach Receipt,إرفاق الإيصال
+Balance Owed,الرصيد المستحق
+Balance brought forward,رصيد مرحّل
+Billed,مفوتر
+Choose a supplier first.,اختر موردًا أولًا.
+Choose a supplier to see their ledger.,اختر موردًا لعرض كشف حسابه.
+Due this week,مستحق هذا الأسبوع
+Leave empty to pay the earliest due invoices.,اتركه فارغًا لسداد الفواتير الأقرب استحقاقًا.
+Ledger,دفتر الأستاذ
+No entries in this period.,لا توجد قيود في هذه الفترة.
+No open invoices.,لا توجد فواتير مفتوحة.
+No station,بدون محطة
+Nothing is owed to this supplier.,لا توجد مستحقات لهذا المورد.
+Open Invoices,الفواتير المفتوحة
+Owed by Station,المستحق حسب المحطة
+Pay From,الدفع من
+Pay Supplier,دفع للمورد
+Pay {0},دفع إلى {0}
+Payment Reference,مرجع الدفع
+Payment sent to the admin for confirmation,تم إرسال الدفعة إلى المدير للتأكيد
+Record Invoice,تسجيل فاتورة
+Send for Confirmation,إرسال للتأكيد
+Supplier Ledger,كشف حساب المورد
+To Date,إلى تاريخ

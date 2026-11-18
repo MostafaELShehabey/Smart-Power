@@ -85,6 +85,7 @@ ITEM_ROLES = {
 	("Requests & Customers", "Import Leads"): ("SP Marketing Agent", "SP Lead Intake", *ADMIN),
 	("Purchasing", "Purchase Orders"): ("SP Purchase Officer", "SP Supplier Accounts", *ADMIN),
 	("Purchasing", "Suppliers"): ("SP Purchase Officer", "SP Supplier Accounts", *ADMIN),
+	("Purchasing", "Supplier Ledger"): ("SP Supplier Accounts", "SP Accountant", *ADMIN),
 	("Purchasing", "Consignment Containers"): ("SP Purchase Officer", "SP Main Store Keeper", *ADMIN),
 	("Stations", "Contracts"): ("SP Contract Manager", "SP Project Manager", "SP Accountant", *ADMIN),
 }

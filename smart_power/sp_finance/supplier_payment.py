@@ -38,9 +38,9 @@ def can_record(user: str | None = None) -> bool:
 
 
 def default_company() -> str | None:
-	return frappe.defaults.get_user_default("Company") or frappe.db.get_single_value(
-		"Global Defaults", "default_company"
-	)
+	from smart_power.sp_stock.consignment import _default_company
+
+	return _default_company()
 
 
 def official_accounts(company: str) -> list[str]:

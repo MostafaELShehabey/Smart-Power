@@ -165,6 +165,7 @@ def supplier_ledger(
 	return {
 		"supplier": supplier,
 		"company": company,
+		"currency": frappe.get_cached_value("Company", company, "default_currency"),
 		"opening": opening,
 		"balance": balance,
 		"rows": rows,
