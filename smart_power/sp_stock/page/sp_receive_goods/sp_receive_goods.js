@@ -70,7 +70,7 @@ class SPReceiveGoods {
 		const rows = receipts
 			.map(
 				(r) => `<tr>
-					<td><a href="/app/sp-goods-receipt/${encodeURIComponent(r.name)}">${esc(r.name)}</a></td>
+					<td><a href="/app/purchase-receipt/${encodeURIComponent(r.name)}">${esc(r.name)}</a></td>
 					<td>${esc(r.supplier_name || r.purchase_order)}</td>
 					<td><span class="indicator-pill ${colors[r.status] || "gray"}">${esc(__(r.status))}</span></td>
 					<td class="small">${esc(r.reject_reason || "")}</td>
@@ -84,11 +84,40 @@ class SPReceiveGoods {
 			</table></div>`).appendTo(this.$main);
 	}
 
+	// a serial-tracked item is recorded one unit per row, with its serial and nameplate photo
+	serial_rows(line, index) {
+		const esc = frappe.utils.escape_html;
+		const units = Array.from({ length: Math.ceil(line.remaining) }, (_, unit) => unit);
+		const rows = units
+			.map(
+				(unit) => `<tr class="sp-gr-unit" data-index="${index}">
+					<td class="small text-muted">${unit + 1}</td>
+					<td><input type="text" class="form-control input-sm sp-gr-serial" placeholder="${esc(__("Serial No"))}"></td>
+					<td><select class="form-control input-sm sp-gr-condition">
+						<option value="OK">${esc(__("OK"))}</option>
+						<option value="Damaged">${esc(__("Damaged"))}</option>
+					</select></td>
+					<td class="text-nowrap">
+						<button type="button" class="btn btn-default btn-xs sp-gr-photo">${esc(__("Nameplate Photo"))}</button>
+						<span class="sp-gr-photo-ok text-success hidden">✓</span>
+					</td>
+				</tr>`
+			)
+			.join("");
+		return `<div class="mb-3">
+			<b>${esc(line.item_name || line.item_code)}</b>
+			<div class="small text-muted mb-1">${esc(__("Still expected: {0}", [line.remaining]))}. ${esc(__("Leave a row empty if the unit did not arrive."))}</div>
+			<div class="table-responsive"><table class="table table-sm"><tbody>${rows}</tbody></table></div>
+		</div>`;
+	}
+
 	line_rows(card) {
 		const esc = frappe.utils.escape_html;
-		const rows = card.lines
+		const plain = card.lines
+			.map((l, i) => ({ l, i }))
+			.filter(({ l }) => !l.serial)
 			.map(
-				(l, i) => `<tr data-index="${i}">
+				({ l, i }) => `<tr class="sp-gr-line" data-index="${i}">
 					<td>${esc(l.item_name || l.item_code)}<div class="small text-muted">${esc(__("Still expected: {0}", [l.remaining]))}</div></td>
 					<td><input type="number" min="0" step="any" class="form-control input-sm sp-gr-good" value="${l.remaining}"></td>
 					<td><input type="number" min="0" step="any" class="form-control input-sm sp-gr-damaged" value="0"></td>
@@ -97,15 +126,37 @@ class SPReceiveGoods {
 				</tr>`
 			)
 			.join("");
-		return `<div class="table-responsive"><table class="table table-sm">
-			<thead><tr><th>${esc(__("Item"))}</th><th>${esc(__("Good"))}</th><th>${esc(__("Damaged"))}</th><th>${esc(__("Short"))}</th><th>${esc(__("Note"))}</th></tr></thead>
-			<tbody>${rows}</tbody>
-		</table></div>`;
+		const table = plain
+			? `<div class="table-responsive"><table class="table table-sm">
+				<thead><tr><th>${esc(__("Item"))}</th><th>${esc(__("Good"))}</th><th>${esc(__("Damaged"))}</th><th>${esc(__("Short"))}</th><th>${esc(__("Note"))}</th></tr></thead>
+				<tbody>${plain}</tbody>
+			</table></div>`
+			: "";
+		const serials = card.lines
+			.map((l, i) => (l.serial ? this.serial_rows(l, i) : ""))
+			.join("");
+		return table + serials;
+	}
+
+	bind_photos(dialog) {
+		dialog.fields_dict.lines.$wrapper.on("click", ".sp-gr-photo", (e) => {
+			const $row = $(e.currentTarget).closest("tr");
+			new frappe.ui.FileUploader({
+				allow_multiple: false,
+				restrictions: { allowed_file_types: ["image/*"] },
+				make_attachments_public: false,
+				on_success: (file) => {
+					$row.data("photo", file.file_url);
+					$row.find(".sp-gr-photo-ok").removeClass("hidden");
+				},
+			});
+		});
 	}
 
 	read_lines(dialog, card) {
 		const lines = [];
-		dialog.fields_dict.lines.$wrapper.find("tbody tr").each((_, tr) => {
+		const $wrapper = dialog.fields_dict.lines.$wrapper;
+		$wrapper.find(".sp-gr-line").each((_, tr) => {
 			const $tr = $(tr);
 			const line = card.lines[$tr.data("index")];
 			const note = $tr.find(".sp-gr-note").val();
@@ -116,6 +167,19 @@ class SPReceiveGoods {
 				lines.push({ ...base, received_qty: good, condition: $tr.find(".sp-gr-short").prop("checked") ? "Short" : "OK" });
 			}
 			if (damaged > 0) lines.push({ ...base, received_qty: damaged, condition: "Damaged" });
+		});
+		$wrapper.find(".sp-gr-unit").each((_, tr) => {
+			const $tr = $(tr);
+			const serial_no = ($tr.find(".sp-gr-serial").val() || "").trim();
+			const serial_photo = $tr.data("photo");
+			if (!serial_no && !serial_photo) return;
+			lines.push({
+				purchase_order_item: card.lines[$tr.data("index")].purchase_order_item,
+				received_qty: 1,
+				condition: $tr.find(".sp-gr-condition").val(),
+				serial_no,
+				serial_photo,
+			});
 		});
 		return lines;
 	}
@@ -152,6 +216,7 @@ class SPReceiveGoods {
 				this.refresh();
 			},
 		});
+		this.bind_photos(dialog);
 		dialog.show();
 	}
 }

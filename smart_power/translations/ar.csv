@@ -2412,3 +2412,15 @@ Receive {0},استلام {0}
 Save Receipt,حفظ الاستلام
 Still expected: {0},المتبقي: {0}
 {0} (received {1}),{0} (تم استلام {1})
+Nameplate Photo,صورة لوحة البيانات
+Receipt Status,حالة الاستلام
+Record deliveries from Receive Goods.,سجّل التوريدات من شاشة استلام البضاعة.
+Row {0}: attach the nameplate photo of {1}.,الصف {0}: أرفق صورة لوحة بيانات {1}.
+Row {0}: enter the serial number of {1}.,الصف {0}: أدخل الرقم التسلسلي لـ {1}.
+Row {0}: record {1} one unit per row.,الصف {0}: سجّل {1} وحدة واحدة في كل صف.
+Serial number {0} is already recorded.,الرقم التسلسلي {0} مسجل بالفعل.
+This receipt is confirmed by the technical office.,يؤكد المكتب الفني هذا الاستلام.
+Leave a row empty if the unit did not arrive.,اترك الصف فارغًا إذا لم تصل الوحدة.
+Serial No,الرقم التسلسلي
+Attach a photo you uploaded yourself.,أرفق صورة قمت برفعها بنفسك.
+The photos of a recorded receipt cannot be removed.,لا يمكن حذف صور إيصال مسجل.
