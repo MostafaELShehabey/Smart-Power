@@ -1,0 +1,26 @@
+{
+ "creation": "2026-11-19 09:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "circle-check",
+ "idx": 0,
+ "modified": "2026-11-19 09:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "name": "sp-confirm-receipts",
+ "owner": "Administrator",
+ "page_name": "sp-confirm-receipts",
+ "roles": [
+  {
+   "role": "SP Receipt Confirmer"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Confirm Receipts"
+}

@@ -2434,3 +2434,14 @@ Receipt Rejected,تم رفض الاستلام
 Receipt {0} is not waiting for confirmation.,الاستلام {0} ليس في انتظار التأكيد.
 "Row {0}: {1} needs its serial and nameplate photo.","الصف {0}: يلزم إدخال الرقم التسلسلي وصورة لوحة البيانات للصنف {1}."
 Some lines are damaged or short. Mark a discrepancy instead.,بعض البنود تالفة أو ناقصة. سجّل فرقًا بدلًا من ذلك.
+Confirm Receipts,تأكيد الاستلامات
+Confirm {0}? Stock and the supplier's payable will post.,تأكيد {0}؟ سيتم ترحيل المخزون ومستحقات المورد.
+Mark Discrepancy,تسجيل فرق
+Mark Discrepancy on {0},تسجيل فرق على {0}
+No receipts are waiting for confirmation.,لا توجد استلامات في انتظار التأكيد.
+Nothing posts. The receiver gets a task with your reason.,لن يتم ترحيل أي شيء. سيتلقى المستلم مهمة بالسبب الذي كتبته.
+Receipt {0} confirmed,تم تأكيد الاستلام {0}
+Receipt {0} updated,تم تحديث الاستلام {0}
+Received by {0} on {1},استلمها {0} بتاريخ {1}
+Reject {0},رفض {0}
+The good quantity posts. The damaged quantity stays open on the order.,يتم ترحيل الكمية السليمة وتظل الكمية التالفة مفتوحة على أمر الشراء.
