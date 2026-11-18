@@ -66,7 +66,8 @@
 		"items": [
 			{"kind": "Manual", "item_code": "SP-MANUAL", "item_name": "بند يدوي"},
 			{"kind": "Winch", "item_code": "SP-WINCH", "item_name": "خدمة ونش"},
-			{"kind": "Commission", "item_code": "SP-COMMISSION", "item_name": "عمولة المحطة"}
+			{"kind": "Commission", "item_code": "SP-COMMISSION", "item_name": "عمولة المحطة"},
+			{"kind": "Finance", "item_code": "SP-FINANCE", "item_name": "رسوم التقسيط", "_source": "SP-60: the installment plan's price over the cash price, on the contract"}
 		]
 	},
 	"item_groups": {

@@ -11,8 +11,9 @@ It is idempotent: a case never gets a second Sales Order; the deposit reuses the
 made and freezes the station's estimated cost then. The order is built from the approved
 version, whichever option it is (SP-59: approve B and the order is B). The case's station is
 opened with it when it has none, and the order, the station and its project link one-to-one.
-The payment schedule comes from the quote and is completed by hand in R1 (the instalment
-generator is SP-60, R2); postal cheques and the referrer's lump sum sit on the order.
+The payment schedule comes from the quote; when the customer chose an installment plan (SP-60)
+the plan's schedule, finance line and postal cheques replace it. Cheques and the referrer's lump
+sum sit on the order.
 """
 
 import json
@@ -23,6 +24,9 @@ from frappe.model.docstatus import DocStatus
 from frappe.utils import flt, getdate, now_datetime, today
 
 from smart_power.sp_quotes.special_lines import COMMISSION, WINCH, kind_total
+
+MONEY_EPSILON = 0.005  # sp-allow-number: half a piastre
+TOTAL_PASSES = 2  # sp-allow-number: the finance line, then one correction for taxes or rounding
 
 CASE, SO, STATION, QUOTE = "SP Case", "Sales Order", "SP Station", "Quotation"
 WINCH_EXPECTED, WINCH_DONE = "Expected", "Done"
@@ -114,9 +118,70 @@ def _build_order(case):
 					"description": row.get("description"),
 				},
 			)
+	apply_plan(so, quote)
 	so.flags.ignore_permissions = True
 	so.insert()
 	return so
+
+
+def apply_plan(so, quote) -> None:
+	"""The customer's chosen installment plan (SP-60) becomes the contract's terms: its price over
+	the cash price as a finance line, its schedule (down payment and installments) and one postal
+	cheque row per installment at the cheque value, the number filled in when it is handed over."""
+	from smart_power.sp_quotes.payment_plans import schedule_of
+	from smart_power.sp_quotes.special_lines import FINANCE, service_item
+
+	chosen = quote.get("sp_payment_plan")
+	plan = next((r for r in quote.get("sp_payment_plans") or [] if r.template == chosen), None)
+	if not plan:
+		return
+	so.run_method("calculate_taxes_and_totals")
+	extra = flt(plan.plan_total) - flt(so.rounded_total or so.grand_total)
+	if extra > 0:
+		so.append(
+			"items",
+			{
+				"item_code": service_item(FINANCE),
+				"qty": 1,
+				"rate": extra,
+				"description": _("Installment plan {0}").format(plan.template),
+				"delivery_date": so.delivery_date,
+			},
+		)
+		# taxes or rounding on the line: one correction lands the total on the plan's
+		for _pass in range(TOTAL_PASSES):
+			so.run_method("calculate_taxes_and_totals")
+			gap = flt(plan.plan_total) - flt(so.rounded_total or so.grand_total)
+			if abs(gap) < MONEY_EPSILON:
+				break
+			so.items[-1].rate = flt(so.items[-1].rate) + gap
+	so.payment_terms_template = None
+	so.set("payment_schedule", [])
+	total = flt(plan.plan_total)
+	rows = schedule_of(plan)
+	for k, row in enumerate(rows):
+		so.append(
+			"payment_schedule",
+			{
+				"due_date": max(getdate(row["due_date"]), getdate(so.transaction_date)),
+				"payment_amount": flt(row["amount"]),
+				"invoice_portion": flt(row["amount"]) / total * 100 if total else 0,
+				"description": _("Down payment")
+				if row.get("kind") == "down"
+				else _("Installment {0}").format(k),
+			},
+		)
+	installments = [r for r in rows if r.get("kind") == "installment"]
+	so.set("sp_cheques", [])
+	for k, row in enumerate(installments, 1):
+		so.append(
+			"sp_cheques",
+			{
+				"due_date": row["due_date"],
+				"amount": flt(plan.cheque_amount),
+				"note": _("{0}: cheque {1} of {2}").format(plan.template, k, len(installments)),
+			},
+		)
 
 
 def _station_for(case, so_name: str) -> str:

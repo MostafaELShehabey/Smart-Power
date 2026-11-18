@@ -5,7 +5,7 @@
  "engine": "InnoDB",
  "istable": 1,
  "editable_grid": 1,
- "modified": "2026-11-15 18:00:00.000000",
+ "modified": "2026-11-18 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "name": "SP Contract Cheque",
@@ -30,15 +30,18 @@
    "fieldtype": "Data",
    "label": "Cheque No.",
    "in_list_view": 1,
-   "reqd": 1,
-   "columns": 2
+   "reqd": 0,
+   "columns": 2,
+   "description": "Filled when the customer hands the cheque over (also on the submitted contract); the cheque joins the register then.",
+   "allow_on_submit": 1
   },
   {
    "fieldname": "bank",
    "fieldtype": "Data",
    "label": "Bank",
    "in_list_view": 1,
-   "columns": 2
+   "columns": 2,
+   "allow_on_submit": 1
   },
   {
    "fieldname": "due_date",
@@ -63,12 +66,14 @@
    "label": "Holder",
    "options": "User",
    "in_list_view": 1,
-   "columns": 2
+   "columns": 2,
+   "allow_on_submit": 1
   },
   {
    "fieldname": "note",
    "fieldtype": "Data",
-   "label": "Note"
+   "label": "Note",
+   "allow_on_submit": 1
   }
  ]
 }

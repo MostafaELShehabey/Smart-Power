@@ -507,6 +507,7 @@ Document Templates,قوالب المستندات
 Documents,المستندات
 Done,تم
 Down Payment,المقدم
+Down payment,المقدم
 Down Payment %,نسبة المقدم %
 Download,تنزيل
 Download the result,تنزيل النتيجة
@@ -601,6 +602,7 @@ Field names starting with {0} are reserved for developer fields.,أسماء ال
 File,الملف
 Fill from,املأ من
 Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
+Filled when the customer hands the cheque over (also on the submitted contract); the cheque joins the register then.,يُملأ عند تسليم العميل للشيك (حتى على العقد المعتمد)؛ ويدخل الشيك السجل حينها.
 Filters,فلاتر
 "Filters are a list of [field, operator, value].",الفلاتر قائمة من [الحقل، المعامل، القيمة].
 Finance,المالية
@@ -743,8 +745,10 @@ Inputs,المدخلات
 Installations asked for more photos of {0}.,تم طلب صور أكثر للمحطة {0} من التركيبات.
 Installing,قيد التركيب
 Installment,القسط
+Installment plan {0},خطة التقسيط {0}
 Installment Plans,خطط التقسيط
 Installment Price,سعر التقسيط
+Installment {0},القسط {0}
 Installments,أقساط
 Instalment,القسط
 Instalment Due Alert (days before),تنبيه استحقاق القسط (أيام قبله)
@@ -2210,6 +2214,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0}: a Select input needs its options.,{0}: مدخل القائمة يحتاج اختياراته.
 {0}: a {1} price needs a supplier.,{0}: سعر {1} يحتاج مورداً.
 "{0}: brand priority needs an item group, a capacity spec and a need formula.",{0}: أولوية الماركة تحتاج مجموعة أصناف ومواصفة قدرة ومعادلة احتياج.
+{0}: cheque {1} of {2},{0}: الشيك {1} من {2}
 {0}: first in stock needs an item group.,{0}: أول صنف متوفر يحتاج مجموعة أصناف.
 {0}: give a reason for changing the {1} price.,{0}: اكتب سبب تغيير سعر {1}.
 {0}: history,{0}: السجل
