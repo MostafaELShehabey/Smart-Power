@@ -1,14 +1,17 @@
 """Repricing (SP-170): a sent quote with no confirmed deposit is flagged when it expires or when
 its prices change, and the approval of a flagged version follows the old-price rule."""
 
+import json
+
 import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, today
 
 from smart_power.rules.sales import OLD_PRICE_RULE
+from smart_power.sp_quotes import builder
 from smart_power.sp_quotes.engine import calculate
 from smart_power.sp_quotes.quote_calc import write_lines
-from smart_power.sp_quotes.repricing import check_quote, check_quotes, differences
+from smart_power.sp_quotes.repricing import check_quote, check_quotes, differences, reprice
 from smart_power.sp_sales.quotation import approve_version, new_version
 from smart_power.sp_stock import prices
 from smart_power.sp_stock.prices import BTC
@@ -189,6 +192,8 @@ class TestRepricing(IntegrationTestCase):
 		self.assertTrue(
 			frappe.db.exists("SP Rule Hit", {"rule": OLD_PRICE_RULE, "reference_name": quote.name})
 		)
+		check_quotes()  # the admin's decision stands: the next daily check leaves it alone
+		self.assertEqual(self.flag(quote), (0, "Approved"))
 
 	def test_warn_is_for_the_admin_only(self):
 		set_rule(OLD_PRICE_RULE, "Warn")
@@ -197,5 +202,47 @@ class TestRepricing(IntegrationTestCase):
 		try:
 			with self.assertRaises(frappe.ValidationError):
 				approve_version(quote.name, reason="عميل قديم")
+		finally:
+			frappe.set_user("Administrator")
+
+	def test_reprice_makes_a_new_version_at_todays_prices(self):
+		quote = self.flagged()
+		result = reprice(quote.name)
+		new = frappe.get_doc("Quotation", result["quotation"])
+		self.assertEqual((new.docstatus, new.sp_previous_version), (0, quote.name))
+		self.assertEqual((new.items[0].item_code, new.items[0].rate), (self.motor, 1200))
+		self.assertEqual(result["difference"], 400)
+		kept = json.loads(new.sp_reprice_diff)
+		self.assertEqual((kept["lines"][0]["old_rate"], kept["lines"][0]["new_rate"]), (1000, 1200))
+		self.assertFalse(new.sp_needs_repricing)
+		self.assertEqual(frappe.db.get_value("Quotation", quote.name, "grand_total"), quote.grand_total)
+
+	def test_the_builder_shows_the_difference(self):
+		quote = self.flagged()
+		sent = builder.load(quote.name)
+		self.assertTrue(sent["can_reprice"])
+		self.assertIn(self.motor, sent["header"]["repricing_note"])
+		page = builder.load(reprice(quote.name)["quotation"])
+		self.assertEqual(page["reprice"]["difference"], 400)
+		self.assertFalse(page["can_reprice"])
+
+	def test_an_expired_quote_reprices_with_no_price_change(self):
+		quote = self.sent()
+		frappe.db.set_value("Quotation", quote.name, "valid_till", ago(1), update_modified=False)
+		check_quote(quote.name)
+		result = reprice(quote.name)
+		self.assertEqual(result["difference"], 0)
+		self.assertEqual(frappe.get_doc("Quotation", result["quotation"]).items[0].rate, 1000)
+
+	def test_a_quote_that_is_not_flagged_is_not_repriced(self):
+		with self.assertRaises(frappe.ValidationError):
+			reprice(self.sent().name)
+
+	def test_only_those_who_see_the_costs_reprice(self):
+		quote = self.flagged()
+		frappe.set_user(self.owner)
+		try:
+			with self.assertRaises(frappe.PermissionError):
+				reprice(quote.name)
 		finally:
 			frappe.set_user("Administrator")

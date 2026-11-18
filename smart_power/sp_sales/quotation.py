@@ -340,13 +340,14 @@ def approve_version(quotation: str, reason: str | None = None) -> str:
 		frappe.throw(
 			_("Case {0} is {1}; its approved version cannot change.").format(doc.sp_case, _(case.status))
 		)
+	honored = doc.get("sp_needs_repricing")  # approved at its old prices: the daily check stops (SP-170)
 	check_can_approve(doc, reason)
 	for other in frappe.get_all(
 		"Quotation", {"sp_case": doc.sp_case, "sp_is_approved": 1, "name": ("!=", doc.name)}, pluck="name"
 	):
 		frappe.db.set_value("Quotation", other, "sp_is_approved", 0)
 		refresh_status(other)
-	doc.db_set({"sp_is_approved": 1, "sp_needs_repricing": 0})
+	doc.db_set({"sp_is_approved": 1, "sp_needs_repricing": 0, "sp_old_price_honored": 1 if honored else 0})
 	refresh_status(doc.name)
 	frappe.db.set_value(CASE, doc.sp_case, "accepted_quotation", doc.name)
 	touch(doc.sp_case)

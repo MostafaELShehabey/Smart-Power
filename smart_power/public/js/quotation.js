@@ -32,6 +32,7 @@ frappe.ui.form.on("Quotation", {
 				"red"
 			);
 		}
+		sp_quote_repricing_buttons(frm);
 		// the margin against its range: orange out of range, never blocking a send (SP-63)
 		sp_quote_margin_chip(frm);
 		// the indicative price given first, and how far this version is from it (SP-49)
@@ -113,6 +114,38 @@ frappe.ui.form.on("Quotation", {
 		}
 	},
 });
+
+// a version that needs repricing (SP-170): a new version at today's prices, or the admin honors the old
+function sp_quote_repricing_buttons(frm) {
+	const repricing = frm.doc.__onload?.sp_repricing;
+	if (!repricing) return;
+	if (repricing.can_reprice) {
+		frm.add_custom_button(__("Reprice"), async () => {
+			const { message } = await frappe.call({
+				method: "smart_power.sp_quotes.repricing.reprice",
+				args: { quotation: frm.doc.name },
+				freeze: true,
+			});
+			frappe.set_route("sp-quote-builder", message.quotation);
+		}).addClass("btn-primary");
+	}
+	if (repricing.can_honor) {
+		frm.add_custom_button(__("Honor the Old Price"), () => {
+			frappe.prompt(
+				[{ fieldname: "reason", fieldtype: "Small Text", label: __("Reason"), reqd: 1 }],
+				async ({ reason }) => {
+					await frappe.call({
+						method: "smart_power.sp_sales.quotation.approve_version",
+						args: { quotation: frm.doc.name, reason },
+						freeze: true,
+					});
+					frm.reload_doc();
+				},
+				__("Honor the Old Price")
+			);
+		});
+	}
+}
 
 function sp_quote_approve(frm) {
 	frappe.confirm(__("Mark this version as the one the customer accepted?"), async () => {

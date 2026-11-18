@@ -733,6 +733,7 @@ Holder Name,اسم الحائز
 Holder's Custody Balance,رصيد عهدة صاحبها
 Home,الصفحة الرئيسية
 Home Page Variant,شكل الصفحة الرئيسية
+Honor the Old Price,اعتماد السعر القديم
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
 "How print formats find this block, e.g. warranty (a-z, 0-9 and _).",الاسم الذي تجد به نماذج الطباعة هذه الفقرة، مثل warranty (حروف a-z وأرقام و _).
 How the Plan is Priced,طريقة تسعير الخطة
@@ -1073,6 +1074,7 @@ No payments yet,لا توجد مدفوعات
 No photos match. Installations tag them on the site log or the station.,لا توجد صور مطابقة. تحددها التركيبات من اليومية أو من المحطة.
 No photos yet: attach them in the sidebar.,لا توجد صور بعد: أرفقها من الشريط الجانبي.
 No price,بدون سعر
+No price changed.,لم يتغير أي سعر.
 No price changes yet.,لا توجد تغييرات أسعار بعد.
 No pump curve covers {0} m at {1} m³/h.,لا يغطي أي منحنى طلمبة رفع {0} متر عند تصرف {1} م³/ساعة.
 No pump here has a curve yet: picked by size.,لا توجد طلمبة لها منحنى بعد: تم الاختيار حسب القدرة.
@@ -1130,6 +1132,7 @@ Official accounts,الحسابات الرسمية
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: cash one person or channel holds until it reaches an official account. Custody: the custody given to a person (SP-26).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة نقدية: نقدية يحملها شخص أو قناة حتى تصل لحساب رسمي. عهدة: العهدة المعطاة لشخص.
 "Official: a company account (Bank Misr, InstaPay, the Post, Vodafone Cash). Transit: the money one person holds until it reaches an official account (SP-114, SP-116).",رسمي: حساب للشركة (بنك مصر، إنستاباي، البريد، فودافون كاش). عهدة: المال الذي يحمله شخص حتى يصل لحساب رسمي.
 OK,سليم
+Old Price Honored,تم اعتماد السعر القديم
 Old price: {0},سعر قديم: {0}
 Old prices on this quote: {0},أسعار قديمة في هذا العرض: {0}
 Old prices on this quote: {0}. Give a reason to send it anyway.,أسعار قديمة في هذا العرض: {0}. اكتب سببًا لإرساله رغم ذلك.
@@ -1186,6 +1189,8 @@ Only the case's follow-up owner can hand it over. Ask the admin to reassign it.,
 "Only the case's follow-up owner, its quote creator or the admin can give a discount.",فقط مسئول متابعة الحالة أو معد العرض أو المدير يمكنه إعطاء خصم.
 "Only the case's follow-up owner, its quote creator or the admin can send a quote.",يرسل العرض مسئول متابعة الحالة أو مُعدّ العرض أو المدير فقط.
 Only the contracts manager or the admin makes the contract.,فقط مسئول العقود أو المدير ينشئ العقد.
+Only the latest version that needs repricing can be repriced.,يمكن إعادة تسعير أحدث إصدار يحتاج إعادة تسعير فقط.
+Only the quote creator and the admin reprice a quote.,يعيد تسعير العرض منشئ العرض أو المدير فقط.
 Only the quote creator and the cost roles price a quote.,تسعير العرض لمُعدّ العرض وأدوار التكلفة فقط.
 Only the station's collection owner logs its calls.,مسئول تحصيل المحطة فقط يسجّل مكالماتها.
 Only {0} is outstanding on this advance.,المتبقي على هذه السلفة {0} فقط.
@@ -1317,6 +1322,7 @@ Price,السعر
 Price (manual lines),السعر (السطور اليدوية)
 Price Age (days),عمر السعر (أيام)
 Price Category,فئة السعر
+Price Changes,تغيرات الأسعار
 Price Check Only,استفسار عن السعر فقط
 Price check only,استفسار عن السعر فقط
 Price date,تاريخ السعر
@@ -1476,6 +1482,7 @@ Repayment Entry,قيد السداد
 Repayment of {0},سداد {0}
 Repayments,السداد
 Repeats row {0}.,يكرر الصف {0}.
+Reprice,إعادة التسعير
 Repricing Note,ملاحظة إعادة التسعير
 Request,الطلب
 Request Details,تفاصيل الطلب
@@ -2018,6 +2025,7 @@ This version is {0} higher.,هذه النسخة أعلى بمقدار {0}.
 This version is {0} lower.,هذه النسخة أقل بمقدار {0}.
 This version needs repricing ({0}). Make a new version at today's prices.,هذه النسخة تحتاج إعادة تسعير ({0}). اعمل نسخة جديدة بأسعار اليوم.
 This version needs repricing: {0},هذا الإصدار يحتاج إعادة تسعير: {0}
+"This version was approved at its old prices, so the daily repricing check leaves it alone.",تم اعتماد هذا الإصدار بأسعاره القديمة، لذلك لا يعيد الفحص اليومي تمييزه.
 This version was sent: the discount makes a new version.,هذا الإصدار أُرسل: الخصم ينشئ إصدارًا جديدًا.
 This Year's Prefix,بادئة هذه السنة
 Tier,الفئة
@@ -2034,6 +2042,7 @@ Total,الإجمالي
 Total Capacity (kW),إجمالي القدرة (ك.وات)
 Total Cost,إجمالي التكلفة
 Total cost {0} · Total sale {1} · Profit {2} · Margin {3}%,إجمالي التكلفة {0} · إجمالي البيع {1} · الربح {2} · الهامش {3}%
+Total Difference,إجمالي الفرق
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
 Total Sell,إجمالي البيع
@@ -2129,6 +2138,7 @@ What is missing?,ما الناقص؟
 What photos do you need?,ما الصور التي تحتاجها؟
 What the contract's instalments already due still lack (SP-81).,ما تبقى من أقساط العقد المستحقة بالفعل.
 What the site warehouse holds.,رصيد مخزن الموقع.
+What today's prices changed when this version was repriced.,ما غيرته أسعار اليوم عند إعادة تسعير هذا الإصدار.
 WhatsApp,واتساب
 When,متى
 "When a quote is sent, a line whose price is older than its price category allows is checked at the category's level (Price Categories): Warn asks for a reason, listed for the admin; Block stops the send until the price is updated; Off is no check.",عند إرسال العرض يُفحص كل بند سعره أقدم مما تسمح به فئة سعره، حسب مستوى الفئة (فئات الأسعار): التحذير يطلب سببًا يُدرج للمدير، والمنع يوقف الإرسال حتى يُحدَّث السعر، والإيقاف بلا فحص.

@@ -223,6 +223,8 @@ doc_events = {
 			"smart_power.sp_quotes.indicative.quote_onload",
 			# the margin chip: in or out of its range, for its creator and the admin (SP-63)
 			"smart_power.rules.sales.margin_onload",
+			# Reprice, and honoring the old price, on a version that needs repricing (SP-170)
+			"smart_power.sp_quotes.repricing.quote_onload",
 		],
 		"before_insert": [
 			"smart_power.sp_sales.quotation.before_insert",

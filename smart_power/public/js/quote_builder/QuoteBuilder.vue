@@ -1,6 +1,9 @@
 <template>
 	<div v-if="data" class="sp-qb">
 		<div class="sp-qb-main">
+			<p v-if="data.header.repricing_note" class="sp-qb-note block">
+				{{ __("Needs repricing") }}: {{ data.header.repricing_note }}
+			</p>
 			<ol class="sp-qb-steps">
 				<li v-for="(s, i) in steps" :key="s" :class="{ active: step === i }">
 					<button class="btn btn-xs" :class="step === i ? 'btn-primary' : 'btn-default'" @click="step = i">
@@ -274,6 +277,21 @@
 				<p class="sp-qb-total">{{ money(data.total) }}</p>
 			</template>
 			<p class="small text-muted sp-qb-state">{{ stateText }}</p>
+			<div v-if="data.reprice" class="sp-qb-reprice">
+				<h5>{{ __("Price Changes") }}</h5>
+				<p v-if="!data.reprice.lines.length" class="small text-muted">{{ __("No price changed.") }}</p>
+				<div v-for="(r, i) in data.reprice.lines" :key="r.line_key || i" class="sp-qb-reprice-line">
+					<div>{{ r.item_name || r.item_code }}</div>
+					<div class="small text-muted">{{ money(r.old_rate) }} → {{ money(r.new_rate) }}</div>
+					<div :class="r.difference > 0 ? 'text-danger' : 'text-success'">{{ signed(r.difference) }}</div>
+				</div>
+				<dl v-if="data.reprice.lines.length">
+					<div>
+						<dt>{{ __("Total Difference") }}</dt>
+						<dd>{{ signed(data.reprice.difference) }}</dd>
+					</div>
+				</dl>
+			</div>
 		</aside>
 	</div>
 </template>
@@ -329,6 +347,7 @@ const facts = computed(() => {
 
 const money = (v) => format_currency(v || 0, data.value?.header.currency);
 const pct = (v) => `${flt(v, 1)}%`;
+const signed = (v) => `${v > 0 ? "+" : ""}${money(v)}`;
 const date = (v) => frappe.datetime.str_to_user(v);
 const optionsOf = (i) => (i.options || "").split("\n").filter(Boolean);
 
@@ -593,6 +612,15 @@ async function send() {
 	sp.sales.send_quote(props.name, data.value.header.docstatus, load);
 }
 
+async function reprice() {
+	const { message } = await frappe.call({
+		method: "smart_power.sp_quotes.repricing.reprice",
+		args: { quotation: props.name },
+		freeze: true,
+	});
+	open(message.quotation);
+}
+
 function markLost() {
 	sp.sales.lost_dialog(data.value.header.case, null, load);
 }
@@ -611,6 +639,8 @@ function actions() {
 	if (canEdit.value) {
 		page.set_primary_action(__("Send"), send);
 		page.set_secondary_action(__("Save Draft"), () => save());
+	} else if (data.value.can_reprice) {
+		page.set_primary_action(__("Reprice"), reprice);
 	} else {
 		page.set_primary_action(__("Send Again"), send);
 	}
@@ -776,6 +806,14 @@ onBeforeUnmount(() => {
 .sp-qb-total {
 	font-size: 20px;
 	font-weight: 600;
+}
+.sp-qb-reprice {
+	margin-top: 12px;
+	padding-top: 12px;
+	border-top: 1px solid var(--border-color);
+}
+.sp-qb-reprice-line {
+	margin-bottom: 8px;
 }
 .sp-qb-state {
 	margin: 12px 0 0;
