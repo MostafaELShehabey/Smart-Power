@@ -34,10 +34,21 @@ class TestReceiptConfirmation(IntegrationTestCase):
 		seed_centers(COMPANY)
 		enable_batches()
 		frappe.db.set_value("Company", COMPANY, PERPETUAL)
-		frappe.clear_document_cache("Company", COMPANY)
+		cls.forget_perpetual_setting()
 		cls.receiver = make_user("sp.rc.mostafa@example.com", ("site_receiver",))
 		cls.confirmer = make_user("sp.rc.aya@example.com", ("receipt_confirmer",))
 		cls.buyer = make_user("sp.rc.amira@example.com", ("purchase_officer",))
+
+	@classmethod
+	def tearDownClass(cls):
+		super().tearDownClass()
+		cls.forget_perpetual_setting()
+
+	@staticmethod
+	def forget_perpetual_setting():
+		"""ERPNext keeps this per company for the whole process, so other tests' value would stay."""
+		frappe.clear_document_cache("Company", COMPANY)
+		getattr(frappe.local, "enable_perpetual_inventory", {}).pop(COMPANY, None)
 
 	def tearDown(self):
 		frappe.set_user("Administrator")
