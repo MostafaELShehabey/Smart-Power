@@ -38,7 +38,7 @@ def _set_party(doc) -> None:
 	if doc.for_kind == FOR_STATION:
 		_required(doc, {"station": "Station"})
 		doc.update({"customer_name": None, "customer_phone": None, "internal_center": None})
-		if not flt(doc.agreed_amount):
+		if not flt(doc.agreed_amount) and doc.source != TRANSFER:
 			doc.agreed_amount = flt(frappe.db.get_value(STATION, doc.station, "winch_expected_amount"))
 	elif doc.for_kind == FOR_OUTSIDE:
 		_required(doc, {"customer_name": "Customer Name", "customer_phone": "Customer Phone"})
@@ -110,6 +110,34 @@ def expect_winch_job(station: str, amount: float) -> str | None:
 	doc.flags.ignore_permissions = True  # the contract's maker opens it, whoever they are
 	doc.insert()
 	return doc.name
+
+
+def expect_transfer_job(transfer: str, station: str, kind: str, day) -> str:
+	"""A transfer order's transport: an Expected booking for the winch manager to assign (SP-88)."""
+	doc = frappe.get_doc(
+		{
+			"doctype": BOOKING,
+			"for_kind": FOR_STATION,
+			"station": station,
+			"vehicle": frappe.db.get_value("Vehicle", {"sp_vehicle_type": kind}),
+			"job_type": frappe.db.get_value(LIST_VALUE, {"list_name": "Job Type", "code": "TRANSPORT"}),
+			"planned_date": day,
+			"agreed_amount": 0,
+			"source": TRANSFER,
+			"transfer_order": transfer,
+		}
+	)
+	doc.flags.ignore_permissions = True  # purchasing opens it with the transfer
+	doc.insert()
+	return doc.name
+
+
+def cancel_transfer_job(transfer: str) -> None:
+	"""A cancelled transfer needs no transport, unless the job has already been done."""
+	for name in frappe.get_all(
+		BOOKING, {"transfer_order": transfer, "status": ("in", (EXPECTED, BOOKED))}, pluck="name"
+	):
+		frappe.db.set_value(BOOKING, name, "status", CANCELLED)
 
 
 def _check_manager() -> None:

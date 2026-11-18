@@ -42,6 +42,8 @@ class SPTask(Document):
 			"Make Contract",
 			"Site Survey",
 			"Transfer to Issue",
+			"Transfer to Receive",
+			"Transfer Difference",
 			"Settlement to Approve",
 			"Count Difference",
 			"Password Reset",
