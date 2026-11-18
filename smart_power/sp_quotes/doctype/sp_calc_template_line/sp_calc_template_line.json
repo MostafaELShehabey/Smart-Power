@@ -70,10 +70,10 @@
    "fieldname": "selection_rule",
    "fieldtype": "Select",
    "label": "Item Selection",
-   "options": "Manual\nFirst in stock\nBrand priority"
+   "options": "Manual\nFirst in stock\nBrand priority\nStock first\nPump curve"
   },
   {
-   "depends_on": "eval:doc.selection_rule=='Brand priority'",
+   "depends_on": "eval:['Brand priority','Stock first','Pump curve'].includes(doc.selection_rule)",
    "fieldname": "capacity_field",
    "fieldtype": "Select",
    "label": "Capacity Spec",
@@ -81,7 +81,7 @@
    "description": "The item spec compared with the need."
   },
   {
-   "depends_on": "eval:doc.selection_rule=='Brand priority'",
+   "depends_on": "eval:['Brand priority','Stock first','Pump curve'].includes(doc.selection_rule)",
    "fieldname": "need_formula",
    "fieldtype": "Small Text",
    "label": "Need Formula",
@@ -192,7 +192,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-17 02:00:00.000000",
+ "modified": "2026-11-18 13:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Quotes",
  "name": "SP Calc Template Line",

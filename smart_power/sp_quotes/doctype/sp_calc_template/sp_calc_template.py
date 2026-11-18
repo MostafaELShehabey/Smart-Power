@@ -20,6 +20,7 @@ from frappe.utils import cint, now_datetime
 from smart_power.sp_quotes import formulas
 
 BRAND_PRIORITY, FIRST_IN_STOCK = "Brand priority", "First in stock"
+SIZED_RULES = (BRAND_PRIORITY, "Stock first", "Pump curve")
 LOCKED_BTC = "Locked BTC price"
 COST_FORMULA = "Formula"
 NUMBER_INPUTS = ("Float", "Int")
@@ -80,7 +81,7 @@ class SPCalcTemplate(Document):
 				if not (row.cost_formula or "").strip():
 					frappe.throw(_("{0}: a formula cost needs its cost formula.").format(where))
 				formulas.check(row.cost_formula, known | {formulas.ITEM}, where)
-			if row.selection_rule == BRAND_PRIORITY:
+			if row.selection_rule in SIZED_RULES:
 				if not (row.item_group and row.capacity_field and row.need_formula):
 					frappe.throw(
 						_(

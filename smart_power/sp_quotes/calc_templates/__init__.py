@@ -18,6 +18,8 @@ TEMPLATE = "SP Calc Template"
 FILES = ("pump.json",)
 PUMP_KEY, PUMP_FILE, DEPTH_INPUT = "PUMP", "pump.json", "pump_depth"
 CURVE_INPUTS = ("required_head_m", "required_flow_m3h")  # SP-184
+BRAND_PRIORITY = "Brand priority"
+PICK_RULES = {"panels": "Stock first", "pump": "Pump curve"}  # SP-168
 
 
 def template_data(file_name: str) -> dict:
@@ -78,6 +80,24 @@ def add_curve_inputs(template_key: str = PUMP_KEY) -> str | None:
 	doc.inputs = [*first[:at], *added, *first[at:]]
 	for idx, row in enumerate(doc.inputs, start=1):
 		row.idx = idx
+	doc.save(ignore_permissions=True)
+	doc.publish()
+	return doc.name
+
+
+def add_pick_rules(template_key: str = PUMP_KEY) -> str | None:
+	"""SP-168: panels from stock first and the pump by its curve, as a new published version. A
+	line the admin moved to another rule keeps it. Returns the new version, or None."""
+	published = frappe.db.get_value(TEMPLATE, {"template_key": template_key, "is_published": 1}, "name")
+	if not published:
+		return None
+	source = frappe.get_doc(TEMPLATE, published)
+	if not any(r.line_key in PICK_RULES and r.selection_rule == BRAND_PRIORITY for r in source.lines):
+		return None
+	doc = frappe.get_doc(TEMPLATE, source.new_version())
+	for row in doc.lines:
+		if row.line_key in PICK_RULES and row.selection_rule == BRAND_PRIORITY:
+			row.selection_rule = PICK_RULES[row.line_key]
 	doc.save(ignore_permissions=True)
 	doc.publish()
 	return doc.name
