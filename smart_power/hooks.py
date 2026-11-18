@@ -76,6 +76,8 @@ jinja = {
 		"smart_power.sp_core.printing.ar_words",
 		"smart_power.sp_core.printing.ar_date",
 		"smart_power.sp_core.printing.signature_block",
+		# The purchase order to the supplier, by delivery batch (SP-82)
+		"smart_power.sp_stock.po_print.po_print",
 		"smart_power.sp_core.printing.qr",
 		"smart_power.sp_core.printing.sp_print_styles",
 		"smart_power.sp_core.printing.embed_image",

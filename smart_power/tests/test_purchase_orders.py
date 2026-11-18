@@ -1,8 +1,11 @@
 """Purchase orders (SP-82): the destination sets the warehouse, batches keep their own date and
 price, the status follows the receipts, and only the cost roles read the supplier's prices."""
 
+from unittest.mock import patch
+
 import frappe
 from erpnext.buying.doctype.purchase_order.purchase_order import make_purchase_receipt
+from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, getdate, today
 
@@ -11,6 +14,7 @@ from smart_power.permissions import COST_PERMLEVEL
 from smart_power.sp_sales.quotation import approve_version
 from smart_power.sp_stations.contract import ensure_contract
 from smart_power.sp_stock import warehouses as wh
+from smart_power.sp_stock.po_print import make_desk_default, po_print
 from smart_power.sp_stock.purchase_orders import (
 	MAIN_STORE,
 	SHOWROOM_STORE,
@@ -171,3 +175,74 @@ class TestPurchaseOrders(IntegrationTestCase):
 		po = order([row(days=3)], sp_destination_type=MAIN_STORE).insert()
 		po.submit()
 		self.assertEqual(deliveries_due_week("Administrator")["value"], before + 1)
+
+
+class TestPurchaseOrderPrint(IntegrationTestCase):
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		wh.seed_warehouses(COMPANY)
+		enable_batches()
+
+	def setUp(self):
+		if frappe.utils.get_assets_json() is None:
+			patcher = patch("frappe.utils.get_assets_json", return_value={})
+			patcher.start()
+			self.addCleanup(patcher.stop)
+		self.po = order([row(2, LATER, 5250), row(1, SOON, 5100)], sp_destination_type=MAIN_STORE).insert()
+
+	def test_two_batches_print_as_two_dated_sections_with_their_prices(self):
+		printed = po_print(self.po)
+		self.assertEqual([b.no for b in printed.batches], [1, 2])
+		self.assertEqual([b.lines[0].rate for b in printed.batches], [5100, 5250])
+		self.assertEqual([b.total for b in printed.batches], [51000, 52500])
+		self.assertNotEqual(printed.batches[0].date, printed.batches[1].date)
+		html = frappe.get_print("Purchase Order", self.po.name, "SP Purchase Order", doc=self.po)
+		for batch in printed.batches:
+			self.assertIn(batch.date, html)
+		self.assertIn("5,250", html)
+
+	def test_the_store_keeper_prints_no_prices(self):
+		keeper = make_user("sp.po.printer@example.com", ("main_store_keeper",))
+		frappe.set_user(keeper)
+		try:
+			printed = po_print(self.po)
+			html = frappe.get_print("Purchase Order", self.po.name, "SP Purchase Order", doc=self.po)
+		finally:
+			frappe.set_user("Administrator")
+		self.assertFalse(printed.show_prices)
+		self.assertFalse(printed.total)
+		self.assertNotIn("rate", printed.batches[0].lines[0])
+		self.assertNotIn("5,250", html)
+
+	def default_format(self):
+		frappe.clear_cache(doctype="Purchase Order")
+		return frappe.get_meta("Purchase Order").default_print_format
+
+	def test_it_replaces_erpnexts_standard_format(self):
+		make_property_setter(
+			"Purchase Order", None, "default_print_format", "Purchase Order Classic", "Data", for_doctype=True
+		)
+		self.assertEqual(self.default_format(), "Purchase Order Classic")
+		make_desk_default()
+		self.assertEqual(self.default_format(), "SP Purchase Order")
+
+	def test_the_admins_own_format_stays(self):
+		own = frappe.get_doc(
+			{
+				"doctype": "Print Format",
+				"name": "SP82 Admin Format",
+				"doc_type": "Purchase Order",
+				"module": "Buying",
+				"custom_format": 1,
+				"print_format_type": "Jinja",
+				"standard": "No",
+				"html": "<p>{{ doc.name }}</p>",
+			}
+		).insert()
+		make_property_setter(
+			"Purchase Order", None, "default_print_format", own.name, "Data", for_doctype=True
+		)
+		self.assertEqual(self.default_format(), own.name)
+		make_desk_default()
+		self.assertEqual(self.default_format(), own.name)
