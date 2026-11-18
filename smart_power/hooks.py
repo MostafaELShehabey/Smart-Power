@@ -164,7 +164,12 @@ sp_confirmation_sources = {
 }
 
 # Business rules (SP-128): modules whose @rule functions register at first use.
-sp_rule_modules = ["smart_power.rules.commercial", "smart_power.rules.sales", "smart_power.rules.finance"]
+sp_rule_modules = [
+	"smart_power.rules.commercial",
+	"smart_power.rules.sales",
+	"smart_power.rules.technical",
+	"smart_power.rules.finance",
+]
 
 _RULE_EVENTS = {
 	"validate": "smart_power.rules.on_doc_event",
@@ -225,6 +230,8 @@ doc_events = {
 			"smart_power.rules.sales.margin_onload",
 			# Reprice, and honoring the old price, on a version that needs repricing (SP-170)
 			"smart_power.sp_quotes.repricing.quote_onload",
+			# inverter against motor, depth against pipe length: a banner on a draft (SP-169)
+			"smart_power.rules.technical.technical_onload",
 		],
 		"before_insert": [
 			"smart_power.sp_sales.quotation.before_insert",

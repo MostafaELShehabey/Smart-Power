@@ -371,7 +371,14 @@ def _rules(doc) -> list[dict]:
 	if cint(doc.docstatus) != 0:
 		return []
 	return [
-		{"key": h.spec.key, "level": h.level, "message": h.finding.message}
+		{
+			"key": h.spec.key,
+			"level": h.level,
+			"message": h.finding.message,
+			"suggestion": h.finding.suggestion,
+			"input": h.finding.data.get("input"),
+			"depths": h.finding.data.get("depths") or [],
+		}
 		for h in evaluate(doc, QUOTE_SEND_EVENT)
 	]
 

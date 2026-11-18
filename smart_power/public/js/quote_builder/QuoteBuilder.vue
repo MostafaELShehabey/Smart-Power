@@ -4,6 +4,17 @@
 			<p v-if="data.header.repricing_note" class="sp-qb-note block">
 				{{ __("Needs repricing") }}: {{ data.header.repricing_note }}
 			</p>
+			<div v-for="r in data.rules" :key="r.key" class="sp-qb-note sp-qb-rule" :class="{ block: r.level === 'Block' }">
+				<span>{{ r.message }} {{ r.suggestion }}</span>
+				<button
+					v-for="d in canEdit ? r.depths : []"
+					:key="d"
+					class="btn btn-xs btn-default"
+					@click="applyDepth(r, d)"
+				>
+					{{ __("Use {0} m", [d]) }}
+				</button>
+			</div>
 			<ol class="sp-qb-steps">
 				<li v-for="(s, i) in steps" :key="s" :class="{ active: step === i }">
 					<button class="btn btn-xs" :class="step === i ? 'btn-primary' : 'btn-default'" @click="step = i">
@@ -67,7 +78,6 @@
 
 			<!-- 3. items -->
 			<section v-show="step === 2" class="sp-qb-card">
-				<p v-for="r in data.rules" :key="r.key" class="sp-qb-note" :class="{ block: r.level === 'Block' }">{{ r.message }}</p>
 				<div v-if="canEdit && data.pending.length" class="sp-qb-pending">
 					<b>{{ __("Lines waiting for an item") }}</b>
 					<div v-for="p in data.pending" :key="p.line_key">
@@ -544,6 +554,12 @@ function setMarkup(line, input) {
 	);
 }
 
+// one click applies the valid depth a technical rule suggests (SP-169)
+function applyDepth(rule, depth) {
+	inputs[rule.input] = depth;
+	touch();
+}
+
 function setMerge(line, value) {
 	if (line.line_key) merge[line.line_key] = value;
 	else line.merge = value;
@@ -774,6 +790,12 @@ onBeforeUnmount(() => {
 	flex-shrink: 0;
 	align-items: center;
 	gap: 6px;
+}
+.sp-qb-rule {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
 }
 .sp-qb-section td {
 	background: var(--subtle-fg);
