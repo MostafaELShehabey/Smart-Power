@@ -2538,3 +2538,31 @@ Transfer,تحويل
 Transfer Order,أمر التحويل
 Vehicle,المركبة
 Bookings,الحجوزات
+A line does not belong to transfer {0}.,هذا البند لا يخص التحويل {0}.
+Add the items to transfer.,أضف الأصناف المطلوب تحويلها.
+Choose a station that has a project.,اختر محطة لها مشروع.
+Choose the main store or the showroom.,اختر المخزن الرئيسي أو المعرض.
+Choose the transport.,اختر وسيلة النقل.
+Company {0} has no transit warehouse.,الشركة {0} ليس لها مخزن بضاعة في الطريق.
+Confirm transfer {0} arriving at station {1},أكد استلام التحويل {0} في المحطة {1}
+Enter each item with a quantity above zero.,أدخل كل صنف بكمية أكبر من صفر.
+Enter what arrived.,أدخل ما وصل.
+Issue Entry,قيد الصرف
+Issue transfer {0} to station {1},اصرف التحويل {0} إلى المحطة {1}
+Issued,تم الصرف
+Only purchasing cancels transfer orders.,إلغاء أوامر التحويل من اختصاص المشتريات فقط.
+Only purchasing creates transfer orders.,إنشاء أوامر التحويل من اختصاص المشتريات فقط.
+Transfer Difference,فرق في التحويل
+Transfer From,التحويل من
+Transfer Status,حالة التحويل
+Transfer to Receive,تحويل للاستلام
+Transfer {0} is {1}.,التحويل {0} حالته {1}.
+Transfer {0} to station {1},التحويل {0} إلى المحطة {1}
+Transfer {0}: {1} still in transit after the site's count,التحويل {0}: ما زال {1} في الطريق بعد جرد الموقع
+Transport,النقل
+You do not work at {0}.,أنت لا تعمل في {0}.
+{0} is not a stock item.,{0} ليس صنفًا مخزنيًا.
+{0}: confirm all its serial numbers or none.,{0}: أكد كل الأرقام التسلسلية أو لا تؤكد أيًا منها.
+{0}: enter {1} different serial numbers.,{0}: أدخل {1} أرقام تسلسلية مختلفة.
+{0}: only {1} are still in transit.,{0}: المتبقي في الطريق {1} فقط.
+Store Keeper,أمين المخزن
