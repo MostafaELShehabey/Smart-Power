@@ -2424,3 +2424,13 @@ Leave a row empty if the unit did not arrive.,اترك الصف فارغًا إ�
 Serial No,الرقم التسلسلي
 Attach a photo you uploaded yourself.,أرفق صورة قمت برفعها بنفسك.
 The photos of a recorded receipt cannot be removed.,لا يمكن حذف صور إيصال مسجل.
+Describe the discrepancy.,اكتب وصف الفرق.
+Discrepancy Notes,ملاحظات الفرق
+Discrepancy on goods receipt {0}: {1},فرق في استلام البضاعة {0}: {1}
+Goods receipt {0} was rejected: {1},تم رفض استلام البضاعة {0}: {1}
+Nothing arrived in good condition. Reject the receipt instead.,لم يصل أي صنف بحالة سليمة. ارفض الاستلام بدلًا من ذلك.
+Only the technical office confirms receipts.,تأكيد الاستلام من اختصاص المكتب الفني فقط.
+Receipt Rejected,تم رفض الاستلام
+Receipt {0} is not waiting for confirmation.,الاستلام {0} ليس في انتظار التأكيد.
+"Row {0}: {1} needs its serial and nameplate photo.","الصف {0}: يلزم إدخال الرقم التسلسلي وصورة لوحة البيانات للصنف {1}."
+Some lines are damaged or short. Mark a discrepancy instead.,بعض البنود تالفة أو ناقصة. سجّل فرقًا بدلًا من ذلك.

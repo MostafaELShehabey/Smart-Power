@@ -458,6 +458,8 @@
 		{"key": "intends_to_proceed", "label_ar": "العميل ينوي التنفيذ", "label_en": "Customer intends to proceed", "default_push": 1, "roles": "SP Project Manager, SP Admin", "_source": "SP-70"},
 		{"key": "payment_confirmed", "label_ar": "تم تأكيد دفعة", "label_en": "Payment confirmed", "default_push": 0, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Project Manager"},
 		{"key": "receipt_to_confirm", "label_ar": "استلام بضاعة في انتظار التأكيد", "label_en": "Goods receipt to confirm", "default_push": 1, "roles": "SP Receipt Confirmer"},
+		{"key": "goods_receipt_rejected", "label_ar": "تم رفض استلام بضاعة", "label_en": "Goods receipt rejected", "default_push": 1, "roles": "SP Main Store Keeper, SP Showroom Store Keeper, SP Site Receiver", "_source": "SP-85"},
+		{"key": "goods_receipt_discrepancy", "label_ar": "فرق في استلام بضاعة", "label_en": "Goods receipt discrepancy", "default_push": 1, "roles": "SP Admin, SP Purchase Officer", "_source": "SP-85"},
 		{"key": "receipt_rejected", "label_ar": "تم رفض إيصال", "label_en": "Receipt rejected", "default_push": 1, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Showroom Cashier, SP Custody Holder"},
 		{"key": "large_payment", "label_ar": "دفعة كبيرة", "label_en": "Large payment", "default_push": 1, "roles": "SP Admin"},
 		{"key": "installment_due", "label_ar": "قسط مستحق قريبًا", "label_en": "Instalment due", "default_push": 1, "roles": "SP Collection Officer, SP Project Manager"},
