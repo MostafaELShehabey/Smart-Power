@@ -100,11 +100,11 @@ class TestGoodsReceipt(IntegrationTestCase):
 		).insert(ignore_permissions=True)
 		name = self.record(po, [(40, "OK")], exit_permit_photo=photo.file_url)["name"]
 		frappe.set_user(self.confirmer)
-		photo.reload()
-		self.assertEqual((photo.attached_to_doctype, photo.attached_to_name), (gr.RECEIPT, name))
-		self.assertTrue(photo.has_permission("read"))
+		attached = frappe.get_doc("File", photo.name)  # the insert's own instance skips permissions
+		self.assertEqual((attached.attached_to_doctype, attached.attached_to_name), (gr.RECEIPT, name))
+		self.assertTrue(attached.has_permission("read"))
 		frappe.set_user(self.other)
-		self.assertFalse(photo.has_permission("read"))
+		self.assertFalse(frappe.get_doc("File", photo.name).has_permission("read"))
 
 	def test_someone_elses_file_is_not_taken_over(self):
 		po = self.site_order()
