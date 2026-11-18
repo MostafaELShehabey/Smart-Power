@@ -131,9 +131,6 @@ doctype_list_js = {
 	"Purchase Order": "public/js/purchase_order_list.js",
 }
 
-# Purchase orders keep their Smart Power status with every ERPNext status change (SP-82)
-override_doctype_class = {"Purchase Order": "smart_power.sp_stock.purchase_orders.SPPurchaseOrder"}
-
 # Drivers and the winch operator land on the field page (SP-34, SP-180).
 role_home_page = {role: "sp-field" for role in LIGHT_ENTRY_ROLES}
 before_request = [
@@ -419,7 +416,11 @@ has_permission = {
 }
 
 # the quote's cost and hidden lines leave the server only for its creator and the admin (SP-35)
-extend_doctype_class = {"Quotation": ["smart_power.sp_sales.quotation_class.SPQuotation"]}
+extend_doctype_class = {
+	"Quotation": ["smart_power.sp_sales.quotation_class.SPQuotation"],
+	# purchase orders keep their Smart Power status with every ERPNext status change (SP-82)
+	"Purchase Order": ["smart_power.sp_stock.purchase_orders.PurchaseOrderStatus"],
+}
 
 # ERPNext's "Update Items" is refused on a case's sent quote (SP-61)
 override_whitelisted_methods = {
