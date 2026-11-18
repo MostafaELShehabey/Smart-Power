@@ -18,9 +18,20 @@ from frappe import _
 from frappe.utils import flt, formatdate, getdate, today
 
 from smart_power.notify import send
-from smart_power.rules import BLOCK, can_override, evaluate, record_warning
+from smart_power.permissions import sees_quote_internals
+from smart_power.rules import (
+	BLOCK,
+	WARN,
+	can_override,
+	effective_level,
+	evaluate,
+	get_rule_setting,
+	record_warning,
+	registry,
+)
 from smart_power.rules.sales import OLD_PRICE_RULE, QUOTE_APPROVE_EVENT
 from smart_power.sp_quotes.engine import calculate
+from smart_power.sp_quotes.quote_calc import write_lines
 from smart_power.sp_stock.prices import BTC, latest_price
 
 QUOTATION, CASE, TEMPLATE = "Quotation", "SP Case", "SP Calc Template"
@@ -165,6 +176,7 @@ def check_quotes() -> None:
 			"sp_status": ("in", CHECKED_STATUSES),
 			"sp_is_latest": 1,
 			"sp_needs_repricing": 0,
+			"sp_old_price_honored": 0,
 			"sp_case": ("is", "set"),
 		},
 		pluck="name",
@@ -191,3 +203,53 @@ def honor_old_price(doc, reason: str | None = None) -> None:
 	if not (reason or "").strip():
 		frappe.throw(_("Give the reason for honoring the old price."))
 	record_warning(doc, hit, reason.strip())
+
+
+def can_reprice(doc) -> bool:
+	return bool(doc.get("sp_needs_repricing") and doc.get("sp_is_latest") and sees_quote_internals(doc))
+
+
+def quote_onload(doc, method=None) -> None:
+	"""Quotation onload: what the form offers on a version that needs repricing."""
+	if not doc.get("sp_case") or not doc.get("sp_needs_repricing"):
+		return
+	level = effective_level(registry()[OLD_PRICE_RULE], get_rule_setting(OLD_PRICE_RULE))
+	doc.set_onload(
+		"sp_repricing", {"can_reprice": can_reprice(doc), "can_honor": level == WARN and can_override()}
+	)
+
+
+@frappe.whitelist(methods=["POST"])
+def reprice(quotation: str) -> dict:
+	"""A new version at today's prices, with the same inputs, overrides, markups and items. The new
+	version keeps the difference, per line and in total, for the builder's side panel."""
+	from smart_power.sp_sales.quotation import new_version
+
+	source = frappe.get_doc(QUOTATION, quotation)
+	source.check_permission("read")
+	if not sees_quote_internals(source):
+		frappe.throw(_("Only the quote creator and the admin reprice a quote."), frappe.PermissionError)
+	if not can_reprice(source):
+		frappe.throw(_("Only the latest version that needs repricing can be repriced."))
+	change = differences(source)
+	doc = frappe.get_doc(QUOTATION, new_version(quotation))
+	if doc.get("sp_calc_template"):
+		write_lines(
+			doc,
+			calculate(
+				doc.sp_calc_template,
+				_json(doc.get("sp_design_inputs")),
+				_json(doc.get("sp_calc_overrides")),
+				on_date=today(),
+				brands=_json(doc.get("sp_brand_order")) if doc.get("sp_brand_order") else None,
+				picks=_picks(source),
+			),
+		)
+	rates = {r["item_code"]: r["new_rate"] for r in change["lines"] if not r["line_key"]}
+	for row in doc.items:
+		if not row.get("sp_line_key") and row.item_code in rates:
+			row.rate = rates[row.item_code]
+			row.sp_cost = 0  # taken again from today's cost
+	doc.sp_reprice_diff = json.dumps(change, ensure_ascii=False)
+	doc.save()
+	return {"quotation": doc.name, "difference": change["difference"]}
