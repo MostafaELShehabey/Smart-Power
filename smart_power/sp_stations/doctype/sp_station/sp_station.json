@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-17 20:00:00.000000",
+ "modified": "2026-11-18 21:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -80,6 +80,7 @@
   "owners_section",
   "sales_owner",
   "execution_owner",
+  "site_receiver",
   "column_break_owners",
   "collection_owner",
   "photos_section",
@@ -314,6 +315,13 @@
    "fieldtype": "Link",
    "label": "Execution Owner",
    "options": "User"
+  },
+  {
+   "fieldname": "site_receiver",
+   "fieldtype": "Link",
+   "label": "Site Receiver",
+   "options": "User",
+   "description": "Receives this station's deliveries on site."
   },
   {
    "fieldname": "column_break_owners",

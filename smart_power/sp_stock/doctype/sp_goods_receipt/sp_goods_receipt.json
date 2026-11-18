@@ -1,0 +1,262 @@
+{
+ "actions": [],
+ "creation": "2026-11-18 21:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "modified": "2026-11-18 21:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "name": "SP Goods Receipt",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "field_order": [
+  "source_type",
+  "purchase_order",
+  "supplier_name",
+  "column_break_source",
+  "destination_warehouse",
+  "station",
+  "status",
+  "lines_section",
+  "lines",
+  "proof_section",
+  "exit_permit_photo",
+  "column_break_proof",
+  "signature",
+  "record_section",
+  "received_by",
+  "work_date",
+  "entry_time",
+  "column_break_record",
+  "reject_reason",
+  "purchase_receipt"
+ ],
+ "fields": [
+  {
+   "fieldname": "source_type",
+   "fieldtype": "Select",
+   "label": "Source",
+   "options": "PO",
+   "default": "PO",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "label": "Purchase Order",
+   "options": "Purchase Order",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "label": "Supplier",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_source",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "destination_warehouse",
+   "fieldtype": "Link",
+   "label": "Destination Warehouse",
+   "options": "Warehouse",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Recorded\nPending confirmation\nConfirmed\nRejected\nDiscrepancy",
+   "default": "Recorded",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "lines_section",
+   "fieldtype": "Section Break",
+   "label": "Received Items"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "label": "Lines",
+   "options": "SP GR Line",
+   "reqd": 1
+  },
+  {
+   "fieldname": "proof_section",
+   "fieldtype": "Section Break",
+   "label": "Proof of Delivery"
+  },
+  {
+   "fieldname": "exit_permit_photo",
+   "fieldtype": "Attach Image",
+   "label": "Exit Permit Photo",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_proof",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "signature",
+   "fieldtype": "Signature",
+   "label": "Receiver Signature",
+   "reqd": 1
+  },
+  {
+   "fieldname": "record_section",
+   "fieldtype": "Section Break",
+   "label": "Record"
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Link",
+   "label": "Received By",
+   "options": "User",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "work_date",
+   "fieldtype": "Date",
+   "label": "Work Date",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "entry_time",
+   "fieldtype": "Datetime",
+   "label": "Entry Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_record",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reject_reason",
+   "fieldtype": "Small Text",
+   "label": "Reject Reason",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "purchase_receipt",
+   "fieldtype": "Link",
+   "label": "Purchase Receipt",
+   "options": "Purchase Receipt",
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 0,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 0,
+   "export": 1,
+   "share": 0,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Receipt Confirmer",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 0,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 0,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Main Store Keeper",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 0,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Showroom Store Keeper",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 0,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  },
+  {
+   "role": "SP Site Receiver",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "email": 0,
+   "export": 1,
+   "share": 0,
+   "write": 0,
+   "create": 1,
+   "delete": 0,
+   "permlevel": 0
+  }
+ ],
+ "autoname": "GR-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1,
+ "search_fields": "purchase_order,supplier_name,status",
+ "title_field": "supplier_name"
+}

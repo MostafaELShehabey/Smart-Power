@@ -2368,3 +2368,37 @@ Partly Received,مستلم جزئيًا
 Delivery Date,تاريخ التوريد
 Batch Total,إجمالي الدفعة
 The supplier,المورد
+A recorded receipt cannot be changed.,لا يمكن تعديل إيصال استلام مسجل.
+Already Received,المستلم سابقًا
+Attach the photo of the supplier's exit permit.,أرفق صورة إذن خروج المورد.
+Condition,الحالة
+Damaged,تالف
+Destination Warehouse,مخزن الوجهة
+Discrepancy,اختلاف
+Enter what was received.,أدخل ما تم استلامه.
+Exit Permit Photo,صورة إذن الخروج
+Goods receipt {0} to confirm: {1},استلام بضاعة {0} في انتظار التأكيد: {1}
+More than was ordered,أكثر من المطلوب
+Ordered,المطلوب
+PO,أمر شراء
+Pending confirmation,في انتظار التأكيد
+Proof of Delivery,إثبات الاستلام
+Purchase Order Item,صنف أمر الشراء
+Received By,المستلم
+Received Items,الأصناف المستلمة
+Received Qty,الكمية المستلمة
+Receiver Signature,توقيع المستلم
+Receives deliveries for this store. Empty: everyone holding the store's receiving role.,يستلم توريدات هذا المخزن. إذا تُرك فارغًا: كل من لديه دور الاستلام لهذا المخزن.
+Receives this station's deliveries on site.,يستلم توريدات هذه المحطة في الموقع.
+Responsible User,المسؤول
+Row {0} is not an open line of this order at this destination.,الصف {0} ليس بندًا مفتوحًا في هذا الأمر لهذه الوجهة.
+Row {0}: choose the condition.,الصف {0}: اختر الحالة.
+Row {0}: enter the quantity received.,الصف {0}: أدخل الكمية المستلمة.
+SP GR Line,بند استلام البضاعة
+SP Goods Receipt,استلام بضاعة
+Short,ناقص
+Sign the receipt.,وقّع على الاستلام.
+Site Receiver,مستلم الموقع
+You do not receive goods at {0}.,أنت غير مسؤول عن الاستلام في {0}.
+{0}: only {1} of {2} are still expected.,{0}: المتبقي {1} فقط من {2}.
+Goods receipt to confirm,استلام بضاعة في انتظار التأكيد
