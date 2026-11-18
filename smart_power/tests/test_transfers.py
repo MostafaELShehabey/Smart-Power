@@ -1,6 +1,8 @@
 """Transfer orders (SP-88): stock leaves the store for Transit, and reaches the site only as far as
 the site confirms it."""
 
+from unittest.mock import patch
+
 import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import flt, today
@@ -70,6 +72,11 @@ class TestTransfers(IntegrationTestCase):
 		stock(ITEM, cls.showroom, 100)
 
 	def setUp(self):
+		# CI skips building assets; the print page looks bundles up in assets.json
+		if frappe.utils.get_assets_json() is None:
+			patcher = patch("frappe.utils.get_assets_json", return_value={})
+			patcher.start()
+			self.addCleanup(patcher.stop)
 		self.station = station()
 		frappe.db.set_value("SP Station", self.station.name, "site_receiver", self.receiver)
 		self.site = wh.site_warehouse(self.station.project)
