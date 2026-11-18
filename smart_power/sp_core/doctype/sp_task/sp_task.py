@@ -35,6 +35,7 @@ class SPTask(Document):
 			"Receipt to Confirm",
 			"Receipt Rejected",
 			"Payment to Confirm",
+			"Supplier Payment to Confirm",
 			"Transfer to Confirm",
 			"Entry to Review",
 			"Reopen Request",
