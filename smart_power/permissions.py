@@ -264,6 +264,7 @@ STATION_SEES_ALL = (
 	"SP Project Manager",
 	"SP Installation Manager",
 	"SP Winch Manager",  # books the station's winch jobs (SP-107)
+	"SP Purchase Officer",  # sends stock to the station's site (SP-88)
 	"SP Followup All",
 	"SP Accountant",
 )

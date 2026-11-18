@@ -1,0 +1,32 @@
+{
+ "creation": "2026-11-19 11:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "arrow-left-right",
+ "idx": 0,
+ "modified": "2026-11-19 11:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "name": "sp-transfers",
+ "owner": "Administrator",
+ "page_name": "sp-transfers",
+ "roles": [
+  {
+   "role": "SP Purchase Officer"
+  },
+  {
+   "role": "SP Main Store Keeper"
+  },
+  {
+   "role": "SP Showroom Store Keeper"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Transfers"
+}

@@ -80,6 +80,12 @@ def _as_system(action):
 		frappe.set_user(user)  # nosemgrep
 
 
+def _signed_by_user(entry: str) -> None:
+	"""The entry shows who issued or confirmed it, not the system that posted it."""
+	user = frappe.session.user
+	frappe.db.set_value(ENTRY, entry, {"owner": user, "modified_by": user}, update_modified=False)
+
+
 def _clean_items(items: list[dict]) -> list[dict]:
 	totals: dict[str, float] = {}
 	for row in items or []:
@@ -223,6 +229,7 @@ def issue_transfer(name: str, serials: str | dict | None = None) -> str:
 		entry.submit()
 
 	_as_system(post)
+	_signed_by_user(entry.name)
 	doc.db_set({"sp_transfer_status": ISSUED, "sp_issue_entry": entry.name})
 	close_tasks(ORDER, doc.name, TASK_ISSUE)
 	subject = _("Confirm transfer {0} arriving at station {1}").format(doc.name, doc.sp_station)
@@ -285,6 +292,7 @@ def confirm_transfer(name: str, lines: str | list) -> dict:
 	if not any(confirmed.values()):
 		frappe.throw(_("Enter what arrived."))
 	entry = _as_system(lambda: _stock_in(doc, confirmed))
+	_signed_by_user(entry)
 	short = sum(_left(r) for r in _issued_rows(doc.sp_issue_entry))
 	close_tasks(ORDER, doc.name, TASK_RECEIVE)
 	if short > 0:
