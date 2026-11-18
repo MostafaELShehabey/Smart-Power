@@ -85,9 +85,12 @@ def code_strings() -> set[str]:
 				and isinstance(node.args[0].value, str)
 			):
 				out.add(node.args[0].value)
-	for path in glob.glob(os.path.join(ROOT, "**", "*.js"), recursive=True) + glob.glob(
-		os.path.join(ROOT, "**", "*.html"), recursive=True
-	):
+	paths = [
+		path
+		for ext in ("js", "html", "vue")
+		for path in glob.glob(os.path.join(ROOT, "**", f"*.{ext}"), recursive=True)
+	]
+	for path in paths:
 		if "/dist/" in path or "node_modules" in path:
 			continue
 		with open(path, encoding="utf-8") as f:

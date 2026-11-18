@@ -68,10 +68,13 @@ Actions,إجراءات
 Active,فعال
 Actual cost of {0},التكلفة الفعلية لـ {0}
 Add,إضافة
+Add a Line,إضافة بند
 Add Amount,مبلغ إضافي
 Add Expense,إضافة مصروف
 Add Photos,إضافة صور
 Add Repayment,إضافة سداد
+Add the Commission,إضافة العمولة
+Add the Winch Line,إضافة بند الونش
 Add Value,إضافة قيمة
 Add Value to {0},إضافة قيمة إلى {0}
 "Added to every quote of its offer type, like transport or installation.",يُضاف لكل عرض من نفس نوع العرض، مثل النقل أو التركيب.
@@ -139,6 +142,8 @@ Attachment,مرفق
 Audit Log,سجل التدقيق
 Available,المتاح
 B,B
+Back to the calculated quantity,العودة إلى الكمية المحسوبة
+Back to the default item,العودة إلى الصنف الافتراضي
 Back to Waiting,العودة إلى المنتظرة
 Balance,الرصيد
 Balanced: debit {0} = credit {1},متوازن: المدين {0} = الدائن {1}
@@ -277,7 +282,9 @@ Cheques,الشيكات
 Cheques due,شيكات مستحقة
 Choose a station or a warehouse.,اختر محطة أو مخزنًا.
 Choose an item or a category.,اختر صنفاً أو فئة.
+Choose another item,اختيار صنف آخر
 Choose Arabic or English.,اختر العربية أو الإنجليزية.
+Choose item,اختيار الصنف
 Choose per event,اختر لكل حدث
 "Choose Reserve, Hand over or Return to supplier.",اختر حجز أو تسليم أو إرجاع للمورد.
 Choose the account that received the money.,اختر الحساب الذي استلم المبلغ.
@@ -337,6 +344,7 @@ Commissioning,التشغيل
 Company,شركة
 Company Contribution,مساهمة الشركة
 Company Settings,إعدادات الشركة
+Company Stock,مخزون الشركة
 Company {0} has no account group {1}.,الشركة {0} ليس لديها مجموعة الحسابات {1}.
 Company {0} has no cost center group.,الشركة {0} ليس لها مجموعة مراكز تكلفة.
 Company {0} has no Sites warehouse group. Run the company setup first.,الشركة {0} ليس لها مجموعة مخازن المواقع. شغّل إعداد الشركة أولاً.
@@ -364,6 +372,7 @@ Confirmed.,تم التأكيد.
 Confirmed: transfer of {0},تم التأكيد: تحويل {0}
 Confirmed: {0} from {1},تم التأكيد: {0} من {1}
 Confirming,جارٍ التأكيد
+Consignment,أمانة
 Consignment Container,حاوية الأمانة
 Consignment container {0} ({1}) is down to {2} panels,حاوية الأمانة {0} ({1}) بقي بها {2} لوح
 Consignment Containers,حاويات الأمانة
@@ -445,6 +454,7 @@ Customer payment {0},دفعة عميل {0}
 Customer Payments,مدفوعات العملاء
 Customer Phone,تليفون العميل
 Customer Statement,كشف حساب العميل
+Customer Tier,فئة العميل
 Customer {0} not found.,العميل {0} غير موجود.
 Customer {0} paid {1} directly ({2}),العميل {0} دفع لـ {1} مباشرة ({2})
 Daily Wage,اليومية
@@ -521,6 +531,7 @@ Due Alert Sent,أُرسل تنبيه الاستحقاق
 Due At,الميعاد
 Due Date,تاريخ الاستحقاق
 Duplicate,مكرر
+Duplicate as Another Option,نسخ كخيار آخر
 Duplicate for Customer,نسخ لعميل آخر
 Duplicates,مكررات
 "E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round.",مثل ceil(depth / pipe_m). الأسماء المتاحة: المدخلات، مفاتيح السطور السابقة (pipes.qty)، item (مواصفات الصنف المختار)، settings؛ والدوال ceil وfloor وmround وnearest_divisible وmin وmax وabs وround.
@@ -691,8 +702,10 @@ Handled On,تاريخ المعالجة
 Has Overdue,عليها متأخرات
 Head (m),الرفع (متر)
 head_m,الرفع (متر)
+Header,البيانات الأساسية
 Hello {0},أهلاً {0}
 Help,مساعدة
+Hidden,مخفي
 Hidden Line,بند مخفي
 Hidden on Print,مخفي في الطباعة
 High,مستوى عالي
@@ -727,6 +740,7 @@ Importing prices…,جاري استيراد الأسعار…
 Importing… ({0}),جارٍ الاستيراد… ({0})
 In App,داخل البرنامج
 In person,شخصيًا
+In range,داخل النطاق
 In settlement,في التسوية
 In the app,داخل البرنامج
 Inactive values are hidden from pickers but still show on old records.,القيم الموقوفة لا تظهر في الاختيارات لكنها تظل ظاهرة في السجلات القديمة.
@@ -780,6 +794,7 @@ Item Name,اسم الصنف
 Item Selection,اختيار الصنف
 Item {0} does not exist.,الصنف {0} غير موجود.
 Item {0} does not exist. Import it first.,الصنف {0} غير موجود. استورده أولاً.
+Items,الأصناف
 Job Type,نوع الشغلانة
 Journal Entry,قيد يومية
 Jumbo car jobs and costs.,شغل وتكاليف عربية الجامبو.
@@ -839,6 +854,7 @@ Line {0},السطر {0}
 Line {0} is locked: its markup cannot change.,السطر {0} مقفل: لا يمكن تغيير نسبة الربح.
 Line {0} is not in template {1}.,السطر {0} غير موجود في القالب {1}.
 Lines,السطور
+Lines waiting for an item,بنود في انتظار اختيار الصنف
 Lines with the same print group print as one lump-sum line (مقطوعية) with their total.,البنود ذات مجموعة الطباعة نفسها تُطبع بندًا واحدًا (مقطوعية) بإجماليها.
 Link,الرابط
 List,القائمة
@@ -1033,6 +1049,7 @@ No notifications yet.,لا توجد إشعارات بعد.
 No numbers for your work yet.,لا توجد أرقام لعملك بعد.
 No open custody.,لا توجد عهدة مفتوحة.
 No open requests here.,لا توجد طلبات مفتوحة هنا.
+No payment plans are active.,لا توجد خطط سداد مفعلة.
 No payments yet,لا توجد مدفوعات
 No photos match. Installations tag them on the site log or the station.,لا توجد صور مطابقة. تحددها التركيبات من اليومية أو من المحطة.
 No photos yet: attach them in the sidebar.,لا توجد صور بعد: أرفقها من الشريط الجانبي.
@@ -1066,6 +1083,7 @@ Not on the quote: nothing to charge.,غير مضاف للعرض: لا يوجد �
 Not permitted,غير مسموح
 Not priced yet: {0},لم تُسعّر بعد: {0}
 Not read yet,غير مقروءة
+Not saved yet,لم يُحفظ بعد
 Not sent,لم يُرسل
 Note,ملاحظة
 Note for the technical review,ملاحظة للمراجعة الفنية
@@ -1157,6 +1175,7 @@ Open Cases,الحالات المفتوحة
 Open cases: {0},حالات مفتوحة: {0}
 Open my leads,فتح عملائي المحتملين
 Open stations,المحطات المفتوحة
+Open the Quote,فتح العرض
 Operation Date,تاريخ التشغيل
 Option,الخيار
 Option taken,الخيار مستخدم
@@ -1178,6 +1197,7 @@ Other events,أحداث أخرى
 Other Spellings,كتابات أخرى
 "Other ways the brand is written in price lists, comma separated; the import maps them to this brand.",طرق أخرى لكتابة الماركة في قوائم الأسعار، مفصولة بفواصل؛ الاستيراد يحوّلها لهذه الماركة.
 "Other ways the supplier is written (e.g. PM TECH, بي ام تك), comma separated; the import maps them to this supplier (SP-165).",طرق أخرى لكتابة المورد (مثل PM TECH، بي ام تك)، مفصولة بفواصل؛ الاستيراد يحوّلها لهذا المورد.
+Out of range,خارج النطاق
 Outcome,النتيجة
 Outstanding,المتبقي
 Outstanding: {0},المتبقي: {0}
@@ -1269,6 +1289,7 @@ Power (kW),القدرة (كيلووات)
 Power (W),القدرة (وات)
 "Prepare and send the quote, or hand the request to another quote creator.",جهّز العرض وأرسله، أو سلّم الطلب لمعد عروض آخر.
 Preview,معاينة
+Preview the PDF,معاينة ملف PDF
 Previous Version,النسخة السابقة
 Price,السعر
 Price (manual lines),السعر (السطور اليدوية)
@@ -1281,6 +1302,7 @@ Price history: {0},سجل أسعار: {0}
 Price List,لستة الأسعار
 Price Lists,لستات الأسعار
 Price lists are not set,لستات الأسعار غير محددة
+Price per kW,السعر لكل كيلووات
 Price Status,حالة السعر
 prices changed,تغيرت الأسعار
 Prices changed or the quote expired before the deposit: make a new version at today's prices (SP-170).,تغيرت الأسعار أو انتهت صلاحية العرض قبل المقدم: اعمل نسخة جديدة بأسعار اليوم (SP-170).
@@ -1331,6 +1353,7 @@ Quotations,عروض الأسعار
 Quote,العرض
 Quote Alert,تنبيه العرض
 Quote Amber After (hours),العرض يصفرّ بعد (ساعات)
+Quote Builder,منشئ عروض الأسعار
 Quote Creator,معد العرض
 Quote Due At,موعد استحقاق العرض
 Quote due soon: {0} ({1}),عرض يقترب موعده: {0} ({1})
@@ -1502,10 +1525,12 @@ Sales Order {0} already belongs to station {1}.,أمر البيع {0} يخص ا�
 Sales Owner,مسئول المبيعات
 Same item as row {0} ({1}): only that row is imported.,نفس صنف الصف {0} ({1}): يُستورد ذلك الصف فقط.
 Save,حفظ
+Save Draft,حفظ المسودة
 Save Request,حفظ الطلب
 "Save the log, then attach its photos.",احفظ اليومية، ثم أرفق صورها.
 Save to see the placeholders of this document.,احفظ لعرض متغيرات هذا المستند.
 Saved,تم الحفظ
+Saved at {0},تم الحفظ الساعة {0}
 Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
 Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون تغيير: {1} · أخطاء: {2}
 Saving the request…,جارٍ حفظ الطلب…
@@ -1521,6 +1546,7 @@ Select,قائمة اختيار
 Select one quote to duplicate.,اختر عرضًا واحدًا لنسخه.
 Select the items to mark reviewed.,حدد العناصر لتمييزها كمُراجعة.
 Select the items you checked against the statement.,حدد العناصر التي راجعتها مع الكشف.
+Sell,البيع
 Send,إرسال
 Send a quote before marking the case won.,أرسل عرضًا قبل تسجيل الحالة كمكسوبة.
 Send a quote before saying the customer will go ahead.,أرسل عرض سعر قبل تسجيل أن العميل سينفذ.
@@ -1802,6 +1828,7 @@ Template Line,سطر القالب
 Template Name,اسم القالب
 Template {0} is not published.,القالب {0} غير منشور.
 Temporary Password,كلمة مرور مؤقتة
+Terms and Preview,الشروط والمعاينة
 Terms Note,ملاحظة الشروط
 Test Readings,قراءات الاختبار
 Test with Sample Inputs,تجربة بمدخلات نموذجية
@@ -1945,6 +1972,7 @@ This request was already taken by {0}.,هذا الطلب استلمه {0} بال
 This rule can only warn; it can never block (decisions 47 and 67).,هذه القاعدة تنبه فقط ولا تمنع أبداً (قرارات 47 و67).
 "This sample shows the Smart Power letterhead, the Arabic font and the shared print helpers.",يعرض هذا النموذج ورق سمارت باور الرسمي والخط العربي وأدوات الطباعة المشتركة.
 This system is already commissioned in {0}.,هذا النظام تم تشغيله بالفعل في {0}.
+This system type has no calculation template yet: add its lines in the Items step.,لا يوجد قالب حساب لهذا النظام بعد: أضف بنوده في خطوة الأصناف.
 This task is already {0}.,هذه المهمة {0} بالفعل.
 This task is not yours.,هذه المهمة ليست لك.
 This version expired on {0}. Make a new version.,هذه النسخة انتهت صلاحيتها في {0}. اعمل نسخة جديدة.
@@ -1970,6 +1998,7 @@ Total Cost,إجمالي التكلفة
 Total cost {0} · Total sale {1} · Profit {2} · Margin {3}%,إجمالي التكلفة {0} · إجمالي البيع {1} · الربح {2} · الهامش {3}%
 Total discount limit for the follow-up owner,حد الخصم على الإجمالي لمسئول المتابعة
 Total discount limit for the quote creator,حد الخصم على الإجمالي لصاحب العرض
+Total Sell,إجمالي البيع
 Totals,الإجماليات
 Transfer / deposit,تحويل / إيداع
 Transfer / Deposit,تحويل / إيداع
@@ -2083,6 +2112,7 @@ Who takes the request once the lead becomes one (the follow-up lead by default).
 Who usually gets it; the preferences list it to them first.,من يصله عادةً؛ يظهر لهم أولًا في التفضيلات.
 Whoever takes the request and prepares the quote.,من يستلم الطلب ويعد العرض.
 Whose campaign it is (the marketing agent who runs it).,صاحب الحملة (مسؤول التسويق الذي يديرها).
+Why change the markup?,لماذا تغيير نسبة الربح؟
 Why this record replaces the cancelled one; it goes to the review (Edits with reason).,لماذا يحل هذا السجل محل السجل الملغى؛ يذهب إلى المراجعة (تعديلات بسبب).
 Winch,ونش
 Winch Center,مركز الونش
@@ -2104,6 +2134,7 @@ Work Date,تاريخ العمل
 Work Done,العمل المنجز
 Worker,العامل
 Worker Skill,مهارة العامل
+Working…,جارٍ العمل…
 Write a note: why is it unpaid?,اكتب ملاحظة: لماذا لم تُسدد؟
 Write off between 0 and the remaining {0}.,اشطب مبلغًا بين 0 والمتبقي {0}.
 Write the comment first.,اكتب التعليق أولًا.

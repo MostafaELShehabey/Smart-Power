@@ -20,18 +20,22 @@ from frappe.model.docstatus import DocStatus
 from frappe.utils import add_days, cint, flt, today
 
 from smart_power.permissions import sees_quote_internals
-from smart_power.rules.sales import margin_check
+from smart_power.rules import evaluate
+from smart_power.rules.sales import QUOTE_SEND_EVENT, margin_check
 from smart_power.sp_core.documents import sp_blocks
 from smart_power.sp_core.services.audit import log_edit
 from smart_power.sp_core.services.settings import get_value
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC
-from smart_power.sp_quotes.engine import OVERRIDABLE, calculate
+from smart_power.sp_quotes.engine import COST_X_MARKUP, OVERRIDABLE, calculate
+from smart_power.sp_quotes.engine import MANUAL as TYPED_PRICE
 from smart_power.sp_quotes.indicative import PANELS_LINE, WATTS_PER_KW
 from smart_power.sp_quotes.payment_plans import schedule_of, set_quote_plans
 from smart_power.sp_quotes.price_age import set_line_ages
 from smart_power.sp_quotes.quote_calc import default_template, loads, quote_for_edit, write_lines
 from smart_power.sp_quotes.special_lines import MANUAL, before_validate, service_item
 from smart_power.sp_sales.quotation import set_cost_and_profit
+from smart_power.sp_stock.consignment import CONTAINER, EMPTY
+from smart_power.sp_stock.warehouses import sites_group
 
 QUOTATION, CASE, TEMPLATE = "Quotation", "SP Case", "SP Calc Template"
 HEADER_FIELDS = ("valid_till", "sp_scope", "sp_payment_plan", "sp_execution_period")
@@ -141,6 +145,24 @@ def _check_overrides(doc, overrides: dict, reasons: dict, saving: bool) -> None:
 			)
 
 
+def _keep_picks(doc, result) -> None:
+	"""What the page needs of a calculation beyond the quote's rows: each line's item group, and
+	the lines waiting for an item, which are not on the quote until the creator picks one."""
+	doc.flags.sp_item_groups = {line.line_key: line.item_group for line in result.lines if line.item_group}
+	doc.flags.sp_pricing = {line.line_key: line for line in result.lines}
+	doc.flags.sp_pending = [
+		{
+			"line_key": line.line_key,
+			"section": line.section,
+			"item_name": line.item_name or line.line_key,
+			"item_group": line.item_group,
+			"qty": flt(line.qty),
+		}
+		for line in result.lines
+		if line.item_group and not line.item_code and flt(line.qty)
+	]
+
+
 def apply(doc, data: dict, saving: bool = False) -> list:
 	"""Put the page's values on the quote and price it, unsaved. Returns the template's notes."""
 	data = frappe._dict(data or {})
@@ -164,6 +186,7 @@ def apply(doc, data: dict, saving: bool = False) -> list:
 			loads(doc.sp_calc_overrides),
 			on_date=doc.transaction_date,
 		)
+		_keep_picks(doc, result)
 		write_lines(doc, result)
 		notes = result.rule_results
 	for row in doc.items:
@@ -187,7 +210,32 @@ def _plant_kw(doc) -> float:
 	return flt(panels.qty) / WATTS_PER_KW if panels else flt(inputs.get("kw"))
 
 
-def _line(row, internals: bool) -> dict:
+def _stock(doc) -> dict:
+	"""{item: {company, consignment}} beside each pick: the company's stores (not the goods already
+	on a site) and the supplier's consignment containers, which are outside the stock ledger."""
+	codes = list({r.item_code for r in doc.items if r.item_code})
+	if not codes:
+		return {}
+	stock = {code: {"company": 0.0, "consignment": 0.0} for code in codes}
+	stores = {"company": doc.company, "is_group": 0}
+	sites = sites_group(doc.company)
+	if sites:
+		stores["parent_warehouse"] = ("!=", sites)
+	warehouses = frappe.get_all("Warehouse", stores, pluck="name")
+	for bin_row in frappe.get_all(
+		"Bin",
+		{"item_code": ("in", codes), "warehouse": ("in", warehouses)},
+		["item_code", "actual_qty"],
+	):
+		stock[bin_row.item_code]["company"] += flt(bin_row.actual_qty)
+	for box in frappe.get_all(
+		CONTAINER, {"item": ("in", codes), "status": ("!=", EMPTY)}, ["item", "available_qty"]
+	):
+		stock[box.item]["consignment"] += flt(box.available_qty)
+	return stock
+
+
+def _line(row, internals: bool, stock: dict | None = None) -> dict:
 	line = {
 		"name": row.name,
 		"line_key": row.get("sp_line_key"),
@@ -207,7 +255,12 @@ def _line(row, internals: bool) -> dict:
 	}
 	if internals:
 		cost = flt(row.get("sp_cost"))
-		line.update(cost=cost, profit=flt(row.amount) - cost * flt(row.qty), markup=row.get("sp_markup_pct"))
+		line.update(
+			cost=cost,
+			profit=flt(row.amount) - cost * flt(row.qty),
+			markup=row.get("sp_markup_pct"),
+			stock=(stock or {}).get(row.item_code),
+		)
 	return line
 
 
@@ -276,15 +329,64 @@ def _summary(doc) -> dict:
 	}
 
 
+def _price_edits(line) -> dict:
+	"""How a template line's sell price may change: typed on a manual-price line, through the
+	markup on a cost-plus line, and not at all on a locked or list price."""
+	method = line.pricing_method if line else None
+	return {
+		"rate_editable": method == TYPED_PRICE,
+		"markup_editable": method == COST_X_MARKUP and not cint(line.lock_markup),
+	}
+
+
+def _notes(doc) -> list:
+	"""The template's technical notes for a draft as it stands (its inputs may still be incomplete)."""
+	if cint(doc.docstatus) != 0 or not doc.get("sp_calc_template"):
+		return []
+	try:
+		result = calculate(
+			doc.sp_calc_template,
+			loads(doc.sp_design_inputs),
+			loads(doc.sp_calc_overrides),
+			on_date=doc.transaction_date,
+		)
+		_keep_picks(doc, result)
+		return result.rule_results
+	except frappe.ValidationError:
+		frappe.clear_messages()
+		return []
+
+
+def _rules(doc) -> list[dict]:
+	"""What the rules would say on sending this draft, at the levels set in the rules screen."""
+	if cint(doc.docstatus) != 0:
+		return []
+	return [
+		{"key": h.spec.key, "level": h.level, "message": h.finding.message}
+		for h in evaluate(doc, QUOTE_SEND_EVENT)
+	]
+
+
 def payload(doc, notes=None) -> dict:
 	internals = sees_quote_internals(doc)
+	stock = _stock(doc) if internals else {}
+	notes = (notes if notes is not None else _notes(doc)) if internals else []
+	groups, pricing = doc.flags.sp_item_groups or {}, doc.flags.sp_pricing or {}
 	case = (
 		frappe.db.get_value(
 			CASE, doc.sp_case, ["customer_name", "location_text", "payment_method", "mobile"], as_dict=True
 		)
 		or frappe._dict()
 	)
-	lines = [_line(r, internals) for r in doc.items if internals or r.get("sp_line_kind") != "Commission"]
+	lines = [
+		{
+			**_line(r, internals, stock),
+			"item_group": groups.get(r.get("sp_line_key")),
+			**_price_edits(pricing.get(r.get("sp_line_key"))),
+		}
+		for r in doc.items
+		if internals or r.get("sp_line_kind") != "Commission"
+	]
 	return {
 		"header": {
 			"name": doc.name,
@@ -312,7 +414,9 @@ def payload(doc, notes=None) -> dict:
 		"inputs": _inputs(doc),
 		"overrides": loads(doc.get("sp_calc_overrides")),
 		"lines": lines,
-		"notes": notes or [],
+		"notes": notes,
+		"pending": (doc.flags.sp_pending or []) if internals else [],
+		"rules": _rules(doc) if internals else [],
 		"options": _options(doc),
 		"plans": _plans(doc, internals),
 		"terms": [str(b) for b in sp_blocks("Quotation", doc)],

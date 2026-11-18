@@ -69,6 +69,8 @@ frappe.ui.form.on("Quotation", {
 			);
 		}
 
+		frm.add_custom_button(__("Quote Builder"), () => frappe.set_route("sp-quote-builder", frm.doc.name));
+
 		frm.add_custom_button(__("New Option"), () =>
 			frappe.confirm(
 				__("Copy this quote as a full alternative (the next option, e.g. B) on the same case?"),
@@ -260,124 +262,8 @@ function sp_quote_notes(r) {
 // Send a quote version (SP-61): the server submits a draft, prints the PDF, logs the send and
 // moves the case; here the PDF is shared to WhatsApp (phone) or downloaded with WhatsApp Web
 // opened (computer).
-const SP_SEND_API = "smart_power.sp_quotes.quote_send";
-
-async function sp_quote_send(frm) {
-	const { message: opts } = await frappe.call(`${SP_SEND_API}.send_options`, { quotation: frm.doc.name });
-	const dialog = new frappe.ui.Dialog({
-		title: frm.doc.docstatus === 0 ? __("Send to Customer") : __("Send Again"),
-		fields: [
-			{
-				fieldname: "print_format",
-				fieldtype: "Select",
-				label: __("Print Format"),
-				options: opts.formats,
-				default: opts.default,
-				reqd: 1,
-			},
-			{
-				fieldname: "channel",
-				fieldtype: "Select",
-				label: __("Channel"),
-				options: opts.channels.map((c) => ({ value: c, label: __(c) })),
-				default: "WhatsApp",
-				reqd: 1,
-			},
-			{
-				fieldname: "note",
-				fieldtype: "HTML",
-				options: `<p class="text-muted small">${frappe.utils.escape_html(
-					frm.doc.docstatus === 0
-						? __("Sending freezes this version: it cannot be edited afterwards.")
-						: __("A new PDF is made and logged for this send.")
-				)}</p>`,
-			},
-			...sp_quote_price_age_fields(opts.price_age || {}),
-		],
-		primary_action_label: __("Send"),
-		primary_action: async (values) => {
-			dialog.hide();
-			const { message: r } = await frappe.call({
-				method: `${SP_SEND_API}.send_quote`,
-				args: { quotation: frm.doc.name, ...values, reason: values.reason || null },
-				freeze: true,
-				freeze_message: __("Making the PDF…"),
-			});
-			(r.warnings || []).forEach((w) => frappe.show_alert({ message: w, indicator: "orange" }, 10)); // sp-allow-number: seconds on screen
-			frappe.show_alert({ message: __("Quote sent"), indicator: "green" });
-			await sp_quote_share(r, values.channel, frm);
-			frm.reload_doc();
-		},
-	});
-	dialog.show();
-	// a stale price of a Block category: the quote is not sent until the price is updated
-	if ((opts.price_age?.block || []).length) dialog.get_primary_btn().prop("disabled", true);
-}
-
-// stale prices at send (SP-63): a red banner naming them at Block, a reason at Warn
-function sp_quote_price_age_fields(price_age) {
-	const esc = frappe.utils.escape_html;
-	const names = (rows) =>
-		rows.map((r) => `${r.item_name} (${__("{0} days, limit {1}", [r.age_days, r.max_days])})`).join(", ");
-	if ((price_age.block || []).length) {
-		return [
-			{
-				fieldname: "price_block",
-				fieldtype: "HTML",
-				options: `<div class="alert alert-danger small">${esc(
-					__("Send is stopped: update these prices first: {0}", [names(price_age.block)])
-				)}</div>`,
-			},
-		];
-	}
-	if ((price_age.warn || []).length) {
-		return [
-			{
-				fieldname: "price_warn",
-				fieldtype: "HTML",
-				options: `<div class="alert alert-warning small">${esc(
-					__("Old prices on this quote: {0}", [names(price_age.warn)])
-				)}</div>`,
-			},
-			{
-				fieldname: "reason",
-				fieldtype: "Small Text",
-				label: __("Reason to send with old prices"),
-				reqd: 1,
-				description: __("Listed for the admin with the quote."),
-			},
-		];
-	}
-	return [];
-}
-
-async function sp_quote_share(r, channel, frm) {
-	const blob = await (await fetch(r.file_url, { credentials: "same-origin" })).blob();
-	const file = new File([blob], r.file_name, { type: "application/pdf" });
-	// a phone: share the PDF straight to WhatsApp (or any app the user picks)
-	if (channel === "WhatsApp" && navigator.canShare && navigator.canShare({ files: [file] })) {
-		try {
-			await navigator.share({ files: [file], title: frm.doc.name });
-			return;
-		} catch (e) {
-			// the user closed the share sheet: fall back to the download below
-		}
-	}
-	// a computer: download the PDF, and open WhatsApp Web on the customer's number
-	const link = document.createElement("a");
-	link.href = URL.createObjectURL(blob);
-	link.download = r.file_name;
-	link.click();
-	if (channel === "WhatsApp") {
-		const phone = sp_whatsapp_number(r.mobile);
-		window.open(`https://web.whatsapp.com/send${phone ? `?phone=${phone}` : ""}`, "_blank");
-	}
-}
-
-// An Egyptian mobile (01xxxxxxxxx) in WhatsApp's international form (201xxxxxxxxx)
-function sp_whatsapp_number(mobile) {
-	const digits = (mobile || "").replace(/\D/g, "");
-	return digits.startsWith("0") ? `2${digits}` : digits; // sp-allow-number: Egypt country code
+function sp_quote_send(frm) {
+	return sp.sales.send_quote(frm.doc.name, frm.doc.docstatus, () => frm.reload_doc());
 }
 
 // Special lines (SP-58): picking a line kind puts its service item on the row; the line's own text
