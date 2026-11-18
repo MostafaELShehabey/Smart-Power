@@ -68,8 +68,21 @@
 				<div v-if="canEdit && data.pending.length" class="sp-qb-pending">
 					<b>{{ __("Lines waiting for an item") }}</b>
 					<div v-for="p in data.pending" :key="p.line_key">
-						<span>{{ p.item_name }} · {{ p.qty }}</span>
-						<button class="btn btn-xs btn-primary" @click="changeItem(p)">{{ __("Choose item") }}</button>
+						<span>
+							{{ p.item_name }} · {{ p.qty }}
+							<small v-for="n in notesOf(p)" :key="n.message" class="sp-qb-note sp-qb-pending-note">{{ n.message }}</small>
+						</span>
+						<span class="sp-qb-pending-actions">
+							<button
+								v-if="overrides[p.line_key]?.item_code || overrides[p.line_key]?.brand"
+								class="sp-qb-tag manual"
+								:title="__('Back to the default item')"
+								@click="clearItem(p)"
+							>
+								{{ __("Manual") }} ✕
+							</button>
+							<button class="btn btn-xs btn-primary" @click="changeItem(p)">{{ __("Choose item") }}</button>
+						</span>
 					</div>
 				</div>
 				<div class="sp-qb-table">
@@ -115,7 +128,7 @@
 										{{ __("Change") }}
 									</button>
 									<button
-										v-if="canEdit && overrides[l.line_key]?.item_code"
+										v-if="canEdit && (overrides[l.line_key]?.item_code || overrides[l.line_key]?.brand)"
 										class="sp-qb-tag manual"
 										:title="__('Back to the default item')"
 										@click="clearItem(l)"
@@ -406,30 +419,87 @@ function clearQty(line) {
 	touch();
 }
 
-function changeItem(line) {
-	frappe.prompt(
-		[
+// the pick screen (SP-168): every option with its stock on hand and price date
+async function changeItem(line) {
+	const { message: pick } = await frappe.call({
+		method: `${API}.pick_options`,
+		args: { name: props.name, line_key: line.line_key, data: values() },
+		freeze: true,
+	});
+	const esc = frappe.utils.escape_html;
+	const number = (v) => (v === null || v === undefined ? "—" : format_number(v, null, 2)); // sp-allow-number: two decimals
+	const rows = pick.options
+		.map(
+			(o) => `<tr class="${o.current ? "table-active" : ""}">
+				<td>${esc(o.item_name || o.item_code)}<div class="small text-muted">${esc(o.item_code)}</div></td>
+				<td>${esc(o.brand || "—")}</td>
+				${pick.capacity ? `<td>${number(o.capacity)}</td>` : ""}
+				<td>${number(o.company)}</td>
+				<td>${number(o.consignment)}</td>
+				<td>${number(o.price)}</td>
+				<td>${o.price_date ? esc(frappe.datetime.str_to_user(o.price_date)) : "—"}</td>
+				<td><span class="indicator-pill ${o.fits ? "green" : "orange"}">${esc(o.fits ? __("Fits") : __("Does not fit"))}</span></td>
+				<td><button class="btn btn-xs btn-default" data-item="${esc(o.item_code)}">${esc(__("Choose"))}</button></td>
+			</tr>`
+		)
+		.join("");
+	const table = rows
+		? `<div class="table-responsive"><table class="table table-sm"><thead><tr>
+				<th>${esc(__("Item"))}</th><th>${esc(__("Brand"))}</th>
+				${pick.capacity ? `<th>${esc(pick.capacity.toUpperCase())}</th>` : ""}
+				<th>${esc(__("Company Stock"))}</th><th>${esc(__("Consignment"))}</th>
+				<th>${esc(__("Price"))}</th><th>${esc(__("Price Date"))}</th><th></th><th></th>
+			</tr></thead><tbody>${rows}</tbody></table></div>`
+		: "";
+	const choose = (item_code) => {
+		const row = override(line.line_key);
+		row.item_code = item_code;
+		delete row.brand;
+		dialog.hide();
+		touch();
+	};
+	const dialog = new frappe.ui.Dialog({
+		title: __("Choose another item"),
+		size: "extra-large",
+		fields: [
+			...(pick.brands.length
+				? [
+						{
+							fieldname: "brand",
+							fieldtype: "Select",
+							label: __("Use a brand's smallest model that fits"),
+							options: ["", ...pick.brands],
+						},
+				  ]
+				: []),
+			{ fieldname: "options", fieldtype: "HTML", options: table },
 			{
 				fieldname: "item_code",
 				fieldtype: "Link",
 				options: "Item",
-				label: __("Item"),
-				default: line.item_code,
-				reqd: 1,
+				label: __("Another item"),
 				get_query: () =>
 					line.item_group ? { filters: { item_group: ["descendants of (inclusive)", line.item_group] } } : {},
 			},
 		],
-		(v) => {
-			override(line.line_key).item_code = v.item_code;
+		primary_action_label: __("Apply"),
+		primary_action(v) {
+			if (v.item_code) return choose(v.item_code);
+			if (!v.brand) return dialog.hide();
+			const row = override(line.line_key);
+			row.brand = v.brand;
+			delete row.item_code;
+			dialog.hide();
 			touch();
 		},
-		__("Choose another item")
-	);
+	});
+	dialog.fields_dict.options.$wrapper.on("click", "[data-item]", (e) => choose(e.currentTarget.dataset.item));
+	dialog.show();
 }
 
 function clearItem(line) {
 	delete override(line.line_key).item_code;
+	delete override(line.line_key).brand;
 	touch();
 }
 
@@ -664,6 +734,16 @@ onBeforeUnmount(() => {
 	align-items: center;
 	gap: 8px;
 	margin-top: 6px;
+}
+.sp-qb-pending-note {
+	display: block;
+	margin-bottom: 0;
+}
+.sp-qb-pending-actions {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	gap: 6px;
 }
 .sp-qb-section td {
 	background: var(--subtle-fg);

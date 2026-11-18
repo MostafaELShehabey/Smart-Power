@@ -110,6 +110,11 @@ def calculate(
 			amount=qty * rate,
 			cost_amount=qty * cost,
 			pricing_method=row.pricing_method,
+			need=(
+				formulas.evaluate(row.need_formula, namespace, where)
+				if row.selection_rule in SIZED_RULES
+				else None
+			),
 			lock_markup=cint(row.lock_markup),
 			is_manual_qty=cint(manual_qty),
 			is_optional=cint(row.is_optional),

@@ -115,7 +115,9 @@ An Installment Every (months),قسط كل (شهور)
 "An official account, or your own transit account (cash in hand).",حساب رسمي، أو حساب العهدة الخاص بك (نقدية في اليد).
 Annex: payment schedule,ملحق: جدول السداد
 Annual Cost of Money,تكلفة الفلوس السنوية
+Another item,صنف آخر
 Applies To,يُطبق على
+Apply,تطبيق
 Approve,موافقة
 Approve the custody settlement of {0}: {1},وافق على تسوية عهدة {0}: {1}
 Approve Version,اعتماد النسخة
@@ -282,6 +284,7 @@ Cheque {0} of {1} bounced ({2}),الشيك {0} بمبلغ {1} مرتجع ({2})
 Cheque {0} of {1} is due on {2}; deposit it at the Post,الشيك {0} بمبلغ {1} يستحق في {2}؛ أودعه في البريد
 Cheques,الشيكات
 Cheques due,شيكات مستحقة
+Choose,اختيار
 Choose a station or a warehouse.,اختر محطة أو مخزنًا.
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose another item,اختيار صنف آخر
@@ -519,6 +522,7 @@ Document Naming Settings,إعدادات تسمية المستندات
 Document Numbering,ترقيم المستندات
 Document Templates,قوالب المستندات
 Documents,المستندات
+Does not fit,غير مناسب
 Done,تم
 Down Payment,المقدم
 Down payment,المقدم
@@ -636,6 +640,7 @@ First in stock,أول صنف متوفر بالمخزن
 First Installment,أول قسط
 First Version,النسخة الأولى
 Fiscal Year Start,بداية السنة المالية
+Fits,مناسب
 Fix Rejected Sync,إصلاح مزامنة مرفوضة
 Fix the rejected custody expenses of {0},عدّل مصروفات العهدة المرفوضة في {0}
 Fixed,ثابت
@@ -1310,6 +1315,7 @@ Price Category,فئة السعر
 Price Check Only,استفسار عن السعر فقط
 Price check only,استفسار عن السعر فقط
 Price date,تاريخ السعر
+Price Date,تاريخ السعر
 Price history: {0},سجل أسعار: {0}
 Price List,لستة الأسعار
 Price Lists,لستات الأسعار
@@ -2067,6 +2073,7 @@ Uploaded,تاريخ الرفع
 Uploaded By,رفعها
 Usable for Marketing,صالحة للتسويق
 Usable for marketing,صالحة للتسويق
+Use a brand's smallest model that fits,استخدام أصغر موديل مناسب من ماركة
 Use the {0} dialog to close a case.,استخدم نافذة {0} لإغلاق الحالة.
 "Use {placeholders} from the list on the template, e.g. {customer_name}.",استخدم {المتغيرات} من القائمة في القالب، مثل {customer_name}.
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).

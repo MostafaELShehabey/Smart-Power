@@ -125,6 +125,39 @@ class TestQuoteBuilder(IntegrationTestCase):
 		builder.save(self.name, {**self.data_for(120), "merge": merge}, page["header"]["modified"])
 		self.assertEqual(self.line(self.page(), "cable")["merge"], "well set")
 
+	def test_the_pick_screen_lists_options_with_stock_and_price_date(self):
+		pick = builder.pick_options(self.name, "motor", self.data_for(100))
+		self.assertTrue(pick["sized"])
+		self.assertEqual(pick["capacity"], "hp")
+		self.assertTrue(pick["brands"])
+		first = pick["options"][0]
+		self.assertTrue(first["fits"])
+		for field in ("company", "consignment", "price", "price_date", "brand"):
+			self.assertIn(field, first)
+		self.assertEqual(len([o for o in pick["options"] if o["current"]]), 1)
+		self.assertFalse(frappe.db.exists("Quotation Item", {"parent": self.name, "sp_line_key": "cable"}))
+
+	def test_a_chosen_brand_prices_the_line_and_goes_back(self):
+		data = self.data_for(100)
+		brand = frappe.db.get_value(
+			"Item", self.line(builder.recalc(self.name, data), "motor")["item_code"], "brand"
+		)
+		chosen = {**data, "overrides": {**data["overrides"], "motor": {"brand": brand}}}
+		self.assertEqual(
+			frappe.db.get_value(
+				"Item", self.line(builder.recalc(self.name, chosen), "motor")["item_code"], "brand"
+			),
+			brand,
+		)
+
+	def test_only_the_creator_opens_the_pick_screen(self):
+		frappe.set_user(self.camelia)
+		try:
+			with self.assertRaises(frappe.PermissionError):
+				builder.pick_options(self.name, "motor", self.data_for(100))
+		finally:
+			frappe.set_user("Administrator")
+
 	def test_a_typed_quantity_stays_and_is_tagged(self):
 		modified = self.page()["header"]["modified"]
 		self.assertEqual(
