@@ -214,6 +214,9 @@ def _carry_special_lines(so_name: str, station: str, quote: str | None) -> None:
 	winch = kind_total(quote, WINCH)
 	if winch and frappe.db.get_value(STATION, station, "winch_status") != WINCH_DONE:
 		values.update(winch_expected_amount=winch, winch_status=WINCH_EXPECTED)
+		from smart_power.sp_winch.bookings import expect_winch_job
+
+		expect_winch_job(station, winch)  # the winch manager plans it (SP-107)
 	commission = flt(frappe.db.get_value(SO, so_name, "sp_referrer_commission"))
 	if commission and not flt(frappe.db.get_value(STATION, station, "commission_amount")):
 		values["commission_amount"] = commission

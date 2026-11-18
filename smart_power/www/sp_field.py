@@ -14,4 +14,7 @@ def get_context(context):
 	from smart_power.sp_winch.vehicles import driver_oil_note
 
 	context.oil = driver_oil_note()  # the driver's vehicle (SP-106)
+	from smart_power.sp_winch.bookings import todays_jobs
+
+	context.jobs = todays_jobs()  # today's booked jobs (SP-107)
 	return context

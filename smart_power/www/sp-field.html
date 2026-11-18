@@ -6,6 +6,20 @@
 	{% if oil %}
 	<p class="sp-field-oil{% if oil.overdue %} text-danger{% endif %}"><b>{{ oil.vehicle }}</b>: {{ oil.label }}</p>
 	{% endif %}
+	<h5>{{ _("Today's Jobs") }}</h5>
+	{% if jobs %}
+	<ul class="list-unstyled sp-field-jobs">
+		{% for job in jobs %}
+		<li class="sp-field-job mb-3">
+			<b>{{ job.job }}</b> · {{ job.place }}<br>
+			{{ job.who }}{% if job.phone %} · <a href="tel:{{ job.phone }}">{{ job.phone }}</a>{% endif %}<br>
+			<span class="text-muted">{{ job.vehicle }}{% if job.amount %} · {{ frappe.format(job.amount, "Currency") }}{% endif %}</span>
+		</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	<p class="text-muted sp-field-no-jobs">{{ _("No jobs are booked for you today.") }}</p>
+	{% endif %}
 	<p>{{ _("Field entry is done from your phone. The Job, Expense and Money pages open here when they are ready.") }}</p>
 	<p class="text-muted">{{ _("The desk is for office users.") }}</p>
 	<a class="btn btn-default" href="/logout">{{ _("Log out") }}</a>

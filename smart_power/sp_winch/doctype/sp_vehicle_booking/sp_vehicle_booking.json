@@ -1,0 +1,282 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "BK-.YYYY.-.#####",
+ "creation": "2026-11-19 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "job_section",
+  "vehicle",
+  "job_type",
+  "place",
+  "column_break_job",
+  "planned_date",
+  "operator",
+  "operator_name",
+  "for_section",
+  "for_kind",
+  "station",
+  "internal_center",
+  "customer_name",
+  "customer_phone",
+  "column_break_for",
+  "agreed_amount",
+  "status_section",
+  "status",
+  "payment_status",
+  "column_break_status",
+  "source",
+  "transfer_order"
+ ],
+ "fields": [
+  {
+   "fieldname": "job_section",
+   "fieldtype": "Section Break",
+   "label": "Job"
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "label": "Vehicle",
+   "options": "Vehicle",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "job_type",
+   "fieldtype": "Link",
+   "label": "Job Type",
+   "options": "SP List Value",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "place",
+   "fieldtype": "Data",
+   "label": "Place"
+  },
+  {
+   "fieldname": "column_break_job",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "planned_date",
+   "fieldtype": "Date",
+   "label": "Planned Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Link",
+   "label": "Operator",
+   "options": "Employee",
+   "in_standard_filter": 1,
+   "description": "The driver or winch operator who does the job."
+  },
+  {
+   "fieldname": "operator_name",
+   "fieldtype": "Data",
+   "label": "Operator Name",
+   "fetch_from": "operator.employee_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "for_section",
+   "fieldtype": "Section Break",
+   "label": "For"
+  },
+  {
+   "fieldname": "for_kind",
+   "fieldtype": "Select",
+   "label": "For",
+   "options": "Station\nOutside\nInternal center",
+   "default": "Outside",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "depends_on": "eval:doc.for_kind==\"Station\"",
+   "mandatory_depends_on": "eval:doc.for_kind==\"Station\"",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "internal_center",
+   "fieldtype": "Link",
+   "label": "Requesting Center",
+   "options": "Cost Center",
+   "depends_on": "eval:doc.for_kind==\"Internal center\"",
+   "mandatory_depends_on": "eval:doc.for_kind==\"Internal center\""
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "depends_on": "eval:doc.for_kind==\"Outside\"",
+   "mandatory_depends_on": "eval:doc.for_kind==\"Outside\""
+  },
+  {
+   "fieldname": "customer_phone",
+   "fieldtype": "Data",
+   "label": "Customer Phone",
+   "options": "Phone",
+   "depends_on": "eval:doc.for_kind==\"Outside\"",
+   "mandatory_depends_on": "eval:doc.for_kind==\"Outside\""
+  },
+  {
+   "fieldname": "column_break_for",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "agreed_amount",
+   "fieldtype": "Currency",
+   "label": "Agreed Amount",
+   "in_list_view": 1,
+   "description": "A station's job takes the winch line of its quote."
+  },
+  {
+   "fieldname": "status_section",
+   "fieldtype": "Section Break",
+   "label": "Status"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Expected\nBooked\nDone\nCancelled",
+   "default": "Expected",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "payment_status",
+   "fieldtype": "Select",
+   "label": "Payment Status",
+   "options": "Open\nPartial\nPaid\nDiscounted",
+   "default": "Open",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Select",
+   "label": "Source",
+   "options": "Manual\nTransfer\nContract",
+   "default": "Manual",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "transfer_order",
+   "fieldtype": "Link",
+   "label": "Transfer Order",
+   "options": "Material Request",
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "SP Vehicle Booking",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "delete": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "delete": 0
+  },
+  {
+   "role": "SP Winch Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "delete": 0
+  },
+  {
+   "role": "SP Winch Reviewer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "delete": 0
+  }
+ ],
+ "sort_field": "planned_date",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "title": "Expected",
+   "color": "Orange"
+  },
+  {
+   "title": "Booked",
+   "color": "Blue"
+  },
+  {
+   "title": "Done",
+   "color": "Green"
+  },
+  {
+   "title": "Cancelled",
+   "color": "Gray"
+  }
+ ],
+ "title_field": "customer_name",
+ "track_changes": 1
+}
