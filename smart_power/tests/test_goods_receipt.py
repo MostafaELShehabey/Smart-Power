@@ -87,6 +87,41 @@ class TestGoodsReceipt(IntegrationTestCase):
 		self.assertEqual(flt(frappe.db.get_value("Purchase Order", po.name, "per_received")), 0)
 		self.assertFalse(frappe.db.exists("Purchase Receipt Item", {"purchase_order": po.name}))
 
+	def test_the_confirmer_can_open_the_exit_permit(self):
+		po = self.site_order()
+		frappe.set_user(self.receiver)
+		photo = frappe.get_doc(
+			{
+				"doctype": "File",
+				"file_name": f"permit-{frappe.generate_hash(length=6)}.png",
+				"content": b"permit",
+				"is_private": 1,
+			}
+		).insert(ignore_permissions=True)
+		name = self.record(po, [(40, "OK")], exit_permit_photo=photo.file_url)["name"]
+		frappe.set_user(self.confirmer)
+		photo.reload()
+		self.assertEqual((photo.attached_to_doctype, photo.attached_to_name), (gr.RECEIPT, name))
+		self.assertTrue(photo.has_permission("read"))
+		frappe.set_user(self.other)
+		self.assertFalse(photo.has_permission("read"))
+
+	def test_someone_elses_file_is_not_taken_over(self):
+		po = self.site_order()
+		theirs = frappe.get_doc(
+			{
+				"doctype": "File",
+				"file_name": f"theirs-{frappe.generate_hash(length=6)}.png",
+				"content": b"theirs",
+				"is_private": 1,
+			}
+		).insert(ignore_permissions=True)
+		frappe.set_user(self.receiver)
+		self.record(po, [(40, "OK")], exit_permit_photo=theirs.file_url)
+		frappe.set_user("Administrator")
+		theirs.reload()
+		self.assertFalse(theirs.attached_to_name)
+
 	def test_a_receipt_needs_the_exit_permit_and_a_signature(self):
 		po = self.site_order()
 		frappe.set_user(self.receiver)
