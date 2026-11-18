@@ -257,6 +257,7 @@ Chassis,الشاسيه
 Check,اختيار (نعم/لا)
 Check before you continue,راجع قبل المتابعة
 "Check the amount, or record the missing receipts first.",راجع المبلغ، أو سجّل الإيصالات الناقصة أولًا.
+Check the curve,راجع المنحنى
 Check the placeholders,راجع المتغيرات
 "Check the plan's multiplier and service, or the cash price.",راجع معامل الخطة والخدمة، أو سعر الكاش.
 Check the prices and the discount before the next version.,راجع الأسعار والخصم قبل الإصدار التالي.
@@ -425,6 +426,8 @@ Credit side,جانب الدائن
 Crew,الطاقم
 Current,الحالي
 Current Password,كلمة المرور الحالية
+Curve point {0}: flow and head cannot be negative.,نقطة المنحنى {0}: لا يمكن أن يكون التصرف أو الرفع بالسالب.
+Curve Points,نقاط المنحنى
 Custody,عهدة
 Custody Account,حساب العهدة
 Custody balance,رصيد العهدة
@@ -1333,6 +1336,7 @@ Published On,تاريخ النشر
 Published template,قالب منشور
 Published: this version cannot change. Make a new version to edit.,منشور: لا يمكن تعديل هذا الإصدار. أنشئ إصدارًا جديدًا للتعديل.
 Pump,الطلمبة
+Pump Curve,منحنى الطلمبة
 Pump Specs,مواصفات الطلمبة
 Purchase for station {0},شراء للمحطة {0}
 Purchase Order,أمر الشراء
@@ -1704,6 +1708,7 @@ SP Price Rule,قاعدة تسعير
 SP Pricing Manager,لستة الأسعار
 SP Project Manager,مدير المشروعات
 SP Projects Manager,مدير المشروعات
+SP Pump Curve Point,نقطة منحنى الطلمبة
 SP Purchase Officer,المشتريات
 SP Quote Creator,إعداد عروض الأسعار
 SP Quote Discount,خصم العرض
@@ -1857,6 +1862,7 @@ The company has no {0} account. Run the company setup.,لا يوجد حساب {0
 "The confirmed deposit Payment Entry that ran the automation (text, so the deposit can still be reversed).",قيد العربون المؤكد الذي شغّل الأتمتة (نص، حتى يمكن عكس العربون).
 The contract's payment-schedule line this cheque pays.,سطر جدول السداد في العقد الذي يسدده هذا الشيك.
 The cost center each source posts to (SP-27). A station is never a cost center: its costs carry its project.,مركز التكلفة الذي يُرحّل إليه كل مصدر. المحطة ليست مركز تكلفة: تكاليفها تحمل مشروعها.
+The curve has flow {0} twice.,التصرف {0} مكرر في المنحنى.
 The customer,العميل
 "The customer's deposit on a case: confirming it makes the contract, the station, draft purchase orders and reservations (SP-175).",عربون العميل على حالة: تأكيده ينشئ العقد والمحطة وأوامر الشراء المبدئية والحجوزات.
 The customer's deposit: confirming it makes the contract and the station (SP-175).,عربون العميل: تأكيده ينشئ العقد والمحطة.
@@ -1888,6 +1894,7 @@ The item spec compared with the need.,مواصفة الصنف التي تُقا�
 The latest file of the brand and model is suggested.,يُقترح أحدث ملف للماركة والموديل.
 The log of {0} is locked ({1} days). Ask the admin.,يومية {0} مقفلة ({1} أيام). اطلب من الأدمن.
 "The lump sum agreed with the referrer: a hidden cost of the station, never printed.",المبلغ المقطوع المتفق عليه مع الوسيط: تكلفة مخفية للمحطة، لا تُطبع أبدًا.
+"The manufacturer's curve, one row per point. Quotes read the head between two points, never beyond the ends.",منحنى الشركة المصنعة، صف لكل نقطة. تقرأ العروض الرفع بين نقطتين، ولا تتجاوز طرفي المنحنى.
 The marketing campaign the enquiry came from; it counts in the campaign's results (SP-52).,الحملة التسويقية التي جاء منها الاستفسار؛ يُحسب في نتائج الحملة.
 The marketing campaign the lead came from (SP-52).,الحملة التسويقية التي جاء منها العميل المحتمل.
 The markup cannot be changed on a quote. Locked BTC lines are always locked.,لا يمكن تغيير نسبة الربح في العرض. سطور BTC المقفلة مقفلة دائمًا.

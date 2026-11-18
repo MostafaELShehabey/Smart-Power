@@ -6,6 +6,7 @@ from frappe.utils import flt
 from frappe.utils.nestedset import get_root_of
 
 from smart_power.sp_core.setup.seed import defaults
+from smart_power.sp_stock.pump_curve import check_curve
 
 # (lower field, upper field): a spec pair where the first can never exceed the second.
 SPEC_PAIRS = (
@@ -29,6 +30,7 @@ def validate(doc, method=None):
 				),
 				title=_("Check the specs"),
 			)
+	check_curve(doc)
 
 
 def seed_item_groups() -> None:
