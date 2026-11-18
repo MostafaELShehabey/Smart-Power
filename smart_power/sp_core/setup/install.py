@@ -26,6 +26,7 @@ def after_install() -> None:
 	from smart_power.sp_sales.setup import allow_repeated_items, apply_customer_naming
 	from smart_power.sp_stations.setup import enable_stock_reservation
 	from smart_power.sp_stations.station_workflow import ensure_workflow_masters as station_masters
+	from smart_power.sp_stock.po_print import make_desk_default as make_po_desk_default
 	from smart_power.sp_stock.prices import seed_price_lists
 	from smart_power.sp_stock.purchase_orders import enable_batches
 	from smart_power.sp_stock.warehouses import seed_warehouse_types
@@ -61,6 +62,7 @@ def after_install() -> None:
 	seed_contract_template()
 	seed_default_print_format()
 	make_desk_default()
+	make_po_desk_default()
 	from smart_power.notify import sync_events
 
 	sync_events()  # the notification event catalogue (SP-40)
