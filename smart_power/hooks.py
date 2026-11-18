@@ -167,6 +167,7 @@ sp_confirmation_sources = {
 	"SP Customer Payment": "smart_power.sp_finance.customer_payment",
 	"SP Transfer": "smart_power.sp_finance.transfer",  # SP-117
 	"SP Custody Settlement": "smart_power.sp_finance.custody",  # SP-122
+	"Payment Entry": "smart_power.sp_finance.supplier_payment",  # SP-86
 }
 
 # Business rules (SP-128): modules whose @rule functions register at first use.
@@ -321,12 +322,21 @@ doc_events = {
 	# A confirmed (or reversed) customer payment refreshes its station's money (SP-73)
 	"Payment Entry": {
 		# a confirmed deposit makes the contract and the station (SP-175)
-		"before_submit": "smart_power.sp_stations.deposit.before_submit",
+		# a supplier payment leaves only through the admin's confirmation (SP-86)
+		"validate": "smart_power.sp_finance.supplier_payment.validate",
+		"before_submit": [
+			"smart_power.sp_finance.supplier_payment.before_submit",
+			"smart_power.sp_stations.deposit.before_submit",
+		],
 		"on_submit": [
 			"smart_power.sp_stations.money.on_payment",
 			"smart_power.sp_stations.deposit.on_submit",
+			"smart_power.sp_finance.supplier_payment.on_change",
 		],
-		"on_cancel": "smart_power.sp_stations.money.on_payment",
+		"on_cancel": [
+			"smart_power.sp_stations.money.on_payment",
+			"smart_power.sp_finance.supplier_payment.on_change",
+		],
 	},
 	# Ticked on the User form: the person's transit / custody account is made (SP-26)
 	# a failed sign-in counts towards the lock (SP-36)

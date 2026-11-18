@@ -118,6 +118,10 @@ TASK_HANDLERS = {
 		"smart_power.sp_finance.customer_payment.confirm",
 		"smart_power.sp_finance.customer_payment.reject",
 	),
+	"Supplier Payment to Confirm": (
+		"smart_power.sp_finance.supplier_payment.confirm",
+		"smart_power.sp_finance.supplier_payment.reject",
+	),
 	"Transfer to Confirm": (
 		"smart_power.sp_finance.transfer.confirm",
 		"smart_power.sp_finance.transfer.reject",

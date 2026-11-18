@@ -2445,3 +2445,23 @@ Receipt {0} updated,تم تحديث الاستلام {0}
 Received by {0} on {1},استلمها {0} بتاريخ {1}
 Reject {0},رفض {0}
 The good quantity posts. The damaged quantity stays open on the order.,يتم ترحيل الكمية السليمة وتظل الكمية التالفة مفتوحة على أمر الشراء.
+A recorded payment cannot be changed.,لا يمكن تعديل دفعة مسجلة.
+Attach the payment receipt.,أرفق إيصال الدفع.
+Confirm payment of {0} to {1},تأكيد دفع {0} إلى {1}
+Enter the payment reference.,أدخل مرجع الدفع.
+Only supplier accounts open the supplier ledger.,كشف حساب المورد متاح لحسابات الموردين فقط.
+Only supplier accounts record supplier payments.,تسجيل دفعات الموردين من اختصاص حسابات الموردين فقط.
+Paid to Supplier,المدفوع للمورد
+Pay from one of the official accounts.,ادفع من أحد الحسابات الرسمية.
+Payment Receipt,إيصال الدفع
+Payment Status,حالة الدفعة
+Payment to {0} was rejected: {1},تم رفض الدفعة إلى {0}: {1}
+Payment {0} is not pending.,الدفعة {0} ليست معلقة.
+Purchase order {0} is not an open order of this supplier.,أمر الشراء {0} ليس أمرًا مفتوحًا لهذا المورد.
+Record supplier payments from the supplier ledger.,سجّل دفعات الموردين من كشف حساب المورد.
+Supplier Payment to Confirm,دفعة مورد في انتظار التأكيد
+Supplier payment to {0},دفعة للمورد {0}
+The admin confirms this payment.,تأكيد هذه الدفعة من اختصاص المدير.
+Supplier payment,دفعة مورد
+Consignment withdrawal,سحب من الأمانة
+Supplier dues this week,مستحقات الموردين هذا الأسبوع

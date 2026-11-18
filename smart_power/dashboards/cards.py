@@ -448,6 +448,26 @@ def cash_in_transit(user: str) -> dict:
 	}
 
 
+@card("supplier_dues_week", "Supplier dues this week", ("finance",))
+def supplier_dues_week(user: str) -> dict:
+	"""What suppliers are owed within a week; orange while any of it is late (SP-86)."""
+	from smart_power.sp_finance.supplier_ledger import dues_this_week
+
+	dues = dues_this_week()
+	return {
+		"value": dues["amount"],
+		"fieldtype": CURRENCY,
+		"indicator": ORANGE if dues["overdue"] else GRAY,
+		"note": _("{0} late").format(frappe.format(dues["overdue"], "Currency")) if dues["overdue"] else "",
+		**_list(
+			"Purchase Invoice",
+			docstatus=1,
+			outstanding_amount=[">", 0],
+			due_date=["<=", dues["week_end"]],
+		),
+	}
+
+
 @card("bounced_cheques", "Bounced cheques", ("finance",))
 def bounced_cheques(user: str) -> dict:
 	return _count("SP Cheque", {"status": "Bounced"}, RED)
