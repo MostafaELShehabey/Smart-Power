@@ -148,3 +148,34 @@ def price_age_hit(doc):
 	from smart_power.rules import evaluate
 
 	return next((h for h in evaluate(doc, QUOTE_SEND_EVENT) if h.spec.key == PRICE_AGE_RULE), None)
+
+
+@rule(
+	"quote_plan_margin",
+	doctypes=("Quotation",),
+	events=(QUOTE_SEND_EVENT,),
+	category="Commercial",
+	default_level=WARN,
+	never_block=True,
+	title="Net margin of the installment plans",
+	description="When a quote is sent, each installment plan's net margin after financing (the company "
+	"contribution's cost of money taken off) should not fall below the bottom of the offer type's margin "
+	"range. Below it, the quote is listed for the admin; it never stops a send.",
+	review_category="Margin",
+)
+def quote_plan_margin(doc, ctx: RuleContext):
+	from frappe.utils import flt
+
+	check = margin_check(doc)
+	if not check or not check["min"]:
+		return None
+	low = [r for r in doc.get("sp_payment_plans") or [] if flt(r.net_margin_pct) < check["min"]]
+	if not low:
+		return None
+	return Finding(
+		message=_("Net margin after financing below {0}%: {1}").format(
+			check["min"], ", ".join(f"{r.template} ({round(flt(r.net_margin_pct), 1)}%)" for r in low)
+		),
+		suggestion=_("Check the plan's multiplier and service, or the cash price."),
+		highlight=True,
+	)

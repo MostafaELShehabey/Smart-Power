@@ -210,6 +210,21 @@ def quote_print(doc) -> frappe._dict:
 			for r in case.get("loads") or []
 		],
 		pumps=_pumps(doc, names),
+		# the installment plans offered (SP-60): sale side only, never the financing cost
+		plans=[
+			{
+				"name": r.template,
+				"total": flt(r.plan_total),
+				"down": flt(r.down_payment),
+				"installments": r.installments,
+				"installment": flt(r.installment_amount),
+				"cheque": flt(r.cheque_amount),
+				"first_due": ar_date(r.first_due),
+				"last_due": ar_date(r.last_due),
+				"chosen": r.template == doc.get("sp_payment_plan"),
+			}
+			for r in doc.get("sp_payment_plans") or []
+		],
 		stamp=embed_image(stamp) if stamp else "",
 		labels=frappe._dict(lump_sum=_(LUMP_SUM)),
 	)

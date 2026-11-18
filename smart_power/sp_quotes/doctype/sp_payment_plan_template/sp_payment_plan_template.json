@@ -1,0 +1,201 @@
+{
+ "actions": [],
+ "creation": "2026-11-18 11:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "plan_name",
+  "is_active",
+  "column_break_head",
+  "notes",
+  "terms_section",
+  "cash_multiplier",
+  "down_payment_pct",
+  "months",
+  "column_break_terms",
+  "every_months",
+  "finance_service_pct",
+  "flags_section",
+  "price_build",
+  "service_basis",
+  "column_break_flags",
+  "cheque_uplift_type",
+  "cheque_uplift"
+ ],
+ "fields": [
+  {
+   "fieldname": "plan_name",
+   "fieldtype": "Data",
+   "label": "Plan Name",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Active",
+   "default": "1",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "description": "Only active plans are offered on new quotes; quotes already made keep their schedule."
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "terms_section",
+   "fieldtype": "Section Break",
+   "label": "Plan Terms"
+  },
+  {
+   "fieldname": "cash_multiplier",
+   "fieldtype": "Float",
+   "label": "Cash Price Multiplier",
+   "precision": "4",
+   "description": "Optional: the installment price is the cash price times this (e.g. 1.2)."
+  },
+  {
+   "fieldname": "down_payment_pct",
+   "fieldtype": "Percent",
+   "label": "Down Payment %",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "months",
+   "fieldtype": "Int",
+   "label": "Months",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_terms",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "every_months",
+   "fieldtype": "Int",
+   "label": "An Installment Every (months)",
+   "default": "1"
+  },
+  {
+   "fieldname": "finance_service_pct",
+   "fieldtype": "Percent",
+   "label": "Finance Service %",
+   "description": "On the financed part (price after the down payment)."
+  },
+  {
+   "fieldname": "flags_section",
+   "fieldtype": "Section Break",
+   "label": "How the Plan is Priced",
+   "description": "The owner's formula questions (SP-158) are answered here, per plan."
+  },
+  {
+   "fieldname": "price_build",
+   "fieldtype": "Select",
+   "label": "Multiplier and Service",
+   "options": "Together\nAlternatives",
+   "default": "Together",
+   "description": "Together: the service is added on top of the multiplied price. Alternatives: a plan with a multiplier charges no service."
+  },
+  {
+   "fieldname": "service_basis",
+   "fieldtype": "Select",
+   "label": "Service Charged",
+   "options": "Yearly x months\nOnce",
+   "default": "Yearly x months",
+   "description": "Yearly x months: financed x % x months / 12. Once: financed x %."
+  },
+  {
+   "fieldname": "column_break_flags",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cheque_uplift_type",
+   "fieldtype": "Select",
+   "label": "Cheque Uplift",
+   "options": "Percent\nAmount",
+   "default": "Percent"
+  },
+  {
+   "fieldname": "cheque_uplift",
+   "fieldtype": "Float",
+   "label": "Cheque Uplift Value",
+   "description": "Each postal cheque is the installment plus this (a percent of it, or an amount)."
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-18 11:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Payment Plan Template",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "field:plan_name",
+ "naming_rule": "By fieldname",
+ "title_field": "plan_name",
+ "track_changes": 1,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Pricing Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 0
+  },
+  {
+   "role": "SP Quote Creator",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 0
+  },
+  {
+   "role": "SP Customer Followup",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 0
+  },
+  {
+   "role": "SP Followup All",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "export": 0
+  }
+ ]
+}

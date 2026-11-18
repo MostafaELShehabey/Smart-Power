@@ -99,6 +99,7 @@ All system types,كل أنواع الأنظمة
 All Versions,كل النسخ
 Already read,مقروءة
 Already {0} {1}.,مسجل بالفعل كـ {0} {1}.
+Alternatives,بدائل
 Always on: the in-app feed is the official record.,دائمًا مفعّل: إشعارات البرنامج هي السجل الرسمي.
 AM,ص
 Amber,أصفر
@@ -107,6 +108,7 @@ Amber After must be fewer days than the Max Price Age.,يجب أن تكون أي
 Amended From,معدل من
 Amount,المبلغ
 Amount Given,المبلغ المسلّم
+An Installment Every (months),قسط كل (شهور)
 "An official account, or your own transit account (cash in hand).",حساب رسمي، أو حساب العهدة الخاص بك (نقدية في اليد).
 Annex: payment schedule,ملحق: جدول السداد
 Annual Cost of Money,تكلفة الفلوس السنوية
@@ -225,6 +227,7 @@ Cash in transit (all holders),نقدية في الطريق (كل الحائزي�
 Cash may stay here this many days before the holder and the admin are alerted; empty uses the setting (SP-116).,يمكن أن تبقى النقدية هنا هذا العدد من الأيام قبل تنبيه الحائز والمدير؛ الفارغ يستخدم الإعداد.
 Cash may stay with a person this many days; after that the holder and the admin are alerted daily until it is deposited. An account's own Max Days Held overrides it (SP-116).,يمكن أن تبقى النقدية مع شخص هذا العدد من الأيام؛ بعدها يُنبَّه الحائز والمدير يوميًا حتى تُودع. أقصى أيام الاحتفاظ للحساب نفسه يتجاوزه.
 Cash on hand,النقدية معي
+Cash Price Multiplier,معامل سعر الكاش
 Cash with people,النقدية مع الأشخاص
 Cash with {0},نقدية مع {0}
 "Cash, installments or bank financing (X4 Financing Type list).",كاش أو تقسيط أو تمويل بنكي (قائمة أنواع التمويل X4).
@@ -250,6 +253,7 @@ Check,اختيار (نعم/لا)
 Check before you continue,راجع قبل المتابعة
 "Check the amount, or record the missing receipts first.",راجع المبلغ، أو سجّل الإيصالات الناقصة أولًا.
 Check the placeholders,راجع المتغيرات
+"Check the plan's multiplier and service, or the cash price.",راجع معامل الخطة والخدمة، أو سعر الكاش.
 Check the prices and the discount before the next version.,راجع الأسعار والخصم قبل الإصدار التالي.
 Check the specs,راجع المواصفات
 Check the template,راجع القالب
@@ -261,6 +265,9 @@ Cheque bounced,شيك مرتجع
 Cheque Deposit,إيداع شيك
 Cheque Due Alert (days before),تنبيه استحقاق الشيك (أيام قبل)
 Cheque No.,رقم الشيك
+Cheque Uplift,زيادة الشيك
+Cheque Uplift Value,قيمة زيادة الشيك
+Cheque Value,قيمة الشيك
 Cheque {0} collected? Its payment of {1} posts to the Post.,تم تحصيل الشيك {0}؟ ستُرحّل دفعته {1} إلى البريد.
 Cheque {0} is already registered as {1}.,الشيك {0} مسجل بالفعل برقم {1}.
 Cheque {0} is {1}; it cannot become {2}.,الشيك {0} حالته {1}؛ لا يمكن أن يصبح {2}.
@@ -292,6 +299,7 @@ Choose the system type first.,اختر نوع النظام أولاً.
 Choose two different accounts.,اختر حسابين مختلفين.
 "Choose where the expense lands: a station, a center or petty cash.",اختر أين يُحمّل المصروف: محطة أو مركز أو نثريات.
 Choose which of the station's systems this commissioning is for.,اختر نظام المحطة الذي يخصه هذا التشغيل.
+Chosen Plan,الخطة المختارة
 City,المدينة
 Clear,مسح
 Cleared,تمت تصفيته
@@ -327,6 +335,7 @@ Commercial Register No.,رقم السجل التجاري
 Commission,عمولة
 Commissioning,التشغيل
 Company,شركة
+Company Contribution,مساهمة الشركة
 Company Settings,إعدادات الشركة
 Company {0} has no account group {1}.,الشركة {0} ليس لديها مجموعة الحسابات {1}.
 Company {0} has no cost center group.,الشركة {0} ليس لها مجموعة مراكز تكلفة.
@@ -375,6 +384,8 @@ Contract {0},عقد {0}
 Contracted Value,القيمة المتعاقد عليها
 Contracted value: {0} · Spend: {1},القيمة المتعاقد عليها: {0} · المصروف: {1}
 Contracts,العقود
+Contribution Cost,تكلفة المساهمة
+Contribution x annual cost of money x months / 12.,المساهمة × تكلفة المال السنوية × الشهور / 12.
 Convert to request,تحويل إلى طلب
 Coordinates,الإحداثيات
 "Copy this quote as a full alternative (the next option, e.g. B) on the same case?",نسخ هذا العرض كبديل كامل (الخيار التالي، مثل B) على نفس الحالة؟
@@ -384,6 +395,7 @@ Cost and Profit,التكلفة والربح
 Cost Center,المركز المالي
 Cost Centers,المراكز المالية
 Cost Formula,معادلة التكلفة
+"Cost minus the down payment, when positive.",التكلفة ناقص المقدم، إذا كانت موجبة.
 Cost Source,مصدر التكلفة
 Cost x Markup,التكلفة × نسبة الربح
 Count Difference,فرق جرد
@@ -494,6 +506,8 @@ Document Numbering,ترقيم المستندات
 Document Templates,قوالب المستندات
 Documents,المستندات
 Done,تم
+Down Payment,المقدم
+Down Payment %,نسبة المقدم %
 Download,تنزيل
 Download the result,تنزيل النتيجة
 Download the template,تحميل النموذج
@@ -511,6 +525,7 @@ Duplicates,مكررات
 "E.g. ceil(depth / pipe_m). Names: inputs, earlier line keys (pipes.qty), item (the picked item's specs), settings; helpers ceil, floor, mround, nearest_divisible, min, max, abs, round.",مثل ceil(depth / pipe_m). الأسماء المتاحة: المدخلات، مفاتيح السطور السابقة (pipes.qty)، item (مواصفات الصنف المختار)، settings؛ والدوال ceil وfloor وmround وnearest_divisible وmin وmax وabs وround.
 E.g. Energy or Submersible.,مثل: الطاقة أو الغاطس.
 Each imported lead is tagged with it.,يُربط بها كل عميل محتمل مستورد.
+"Each postal cheque is the installment plus this (a percent of it, or an amount).",كل شيك بريدي = القسط زائد هذه القيمة (نسبة منه أو مبلغ).
 Edit,تعديل
 Edits with reason,التعديلات بسبب
 "Egyptian mobile, 11 digits starting with 010, 011, 012 or 015. Each customer is stored once per mobile.",موبايل مصري من 11 رقم يبدأ بـ 010 أو 011 أو 012 أو 015. كل عميل يُسجل مرة واحدة لكل موبايل.
@@ -589,15 +604,18 @@ Fill it in before Mark Lost.,اكتبه قبل تسجيل الخسارة.
 Filters,فلاتر
 "Filters are a list of [field, operator, value].",الفلاتر قائمة من [الحقل، المعامل، القيمة].
 Finance,المالية
+Finance Service %,نسبة خدمة التمويل %
 Financial Center,المركز المالي
 Financial Centers,المراكز المالية
 Financially closed,مغلقة ماليًا
 Financially Closed On,تاريخ الإغلاق المالي
 Financing,التمويل
+Financing Cost,تكلفة التمويل
 Financing Type,نوع التمويل
 Find {0} in Smart Power,ابحث عن {0} في سمارت باور
 Fired in the Last 30 Days,مرات التنبيه في آخر 30 يوماً
 First in stock,أول صنف متوفر بالمخزن
+First Installment,أول قسط
 First Version,النسخة الأولى
 Fiscal Year Start,بداية السنة المالية
 Fix Rejected Sync,إصلاح مزامنة مرفوضة
@@ -686,6 +704,7 @@ Home,الصفحة الرئيسية
 Home Page Variant,شكل الصفحة الرئيسية
 "How P1, BTB and BTC are worked out from another price when it changes. Items marked Manual Prices are skipped.",طريقة حساب P1 وBTB وBTC من سعر آخر عند تغيره. الأصناف المعلّمة بأسعار يدوية لا تتأثر.
 "How print formats find this block, e.g. warranty (a-z, 0-9 and _).",الاسم الذي تجد به نماذج الطباعة هذه الفقرة، مثل warranty (حروف a-z وأرقام و _).
+How the Plan is Priced,طريقة تسعير الخطة
 hp,القدرة (حصان)
 Image,صورة
 Imp (A),Imp (أمبير)
@@ -723,6 +742,9 @@ Input {0},المدخل {0}
 Inputs,المدخلات
 Installations asked for more photos of {0}.,تم طلب صور أكثر للمحطة {0} من التركيبات.
 Installing,قيد التركيب
+Installment,القسط
+Installment Plans,خطط التقسيط
+Installment Price,سعر التقسيط
 Installments,أقساط
 Instalment,القسط
 Instalment Due Alert (days before),تنبيه استحقاق القسط (أيام قبله)
@@ -777,6 +799,7 @@ Large payment: {0},دفعة كبيرة: {0}
 Last Action,آخر إجراء
 Last Call,آخر مكالمة
 Last contact {0}: {1} ({2}),آخر تواصل {0}: {1} ({2})
+Last Installment,آخر قسط
 Last-minute ask,العشم
 Last-minute discount,خصم العشم
 Late and reopened field entries,الإدخالات الميدانية المتأخرة والمعاد فتحها
@@ -918,6 +941,7 @@ Money Out,صادر
 Money Records,سجلات الأموال
 Money remaining,مبلغ متبقٍ
 Money this person receives passes through this account until it reaches an official account.,الأموال التي يستلمها هذا الشخص تمر على هذا الحساب حتى تصل إلى حساب رسمي.
+Months,الشهور
 More has left this container than it received.,خرج من هذه الحاوية أكثر مما استلمت.
 More photos of station {0} for marketing,صور أكثر للمحطة {0} للتسويق
 More photos of {0} are already asked for.,صور المحطة {0} مطلوبة بالفعل.
@@ -927,6 +951,7 @@ Move,حركة
 Movement,الحركة
 MPPT Max (V),أقصى MPPT (فولت)
 MPPT Min (V),أدنى MPPT (فولت)
+Multiplier and Service,المعامل والخدمة
 Must Change Password,يجب تغيير كلمة المرور
 My cash,نقديتي
 My collections this month,تحصيلاتي هذا الشهر
@@ -953,6 +978,10 @@ Needs Repricing,يحتاج إعادة تسعير
 Needs repricing,يحتاج إعادة تسعير
 Needs repricing: {0}. Make a new version at today's prices.,يحتاج إعادة تسعير: {0}. اعمل نسخة جديدة بأسعار اليوم.
 "Negative for a discount, e.g. -13 for the list price less 13%.",بالسالب للخصم، مثلاً -13 لسعر اللستة ناقص 13%.
+Net Margin %,صافي الهامش %
+Net margin after financing below {0}%: {1},صافي الهامش بعد التمويل أقل من {0}%: {1}
+Net margin of the installment plans,صافي هامش خطط التقسيط
+Net Profit,صافي الربح
 Never printed: the station commission (SP-58).,لا يُطبع أبدًا: عمولة المحطة (SP-58).
 New,جديد
 New Option,خيار جديد
@@ -1063,11 +1092,14 @@ Old prices on this quote: {0}. Give a reason to send it anyway.,أسعار قد�
 Old Value,القيمة القديمة
 Oldest: {0} h,أقدم: {0} س
 On Site,في الموقع
+On the financed part (price after the down payment).,على الجزء الممول (السعر بعد المقدم).
 On time,في الموعد
 On: a collected postal cheque posts its payment at once. Off: the payment waits for the admin in Confirmations (SP-118).,مفعل: الشيك المحصل يُرحّل دفعته فورًا. غير مفعل: تنتظر الدفعة المدير في التأكيدات.
+Once,مرة واحدة
 One choice per line.,اختيار واحد في كل سطر.
 "One line per row: created, duplicate or error, with the reason.",سطر لكل صف: تم الإنشاء أو مكرر أو خطأ، مع السبب.
 One log per site per day,يومية واحدة لكل موقع في اليوم
+"One option per active plan, worked out on every save of a draft.",خيار لكل خطة مفعّلة، يُحسب عند كل حفظ للمسودة.
 One row per item and supplier. Blank cells keep the old price; an empty date means today.,سطر لكل صنف ومورد. الخانة الفارغة تُبقي السعر القديم، والتاريخ الفارغ يعني اليوم.
 One row per item. A code that already exists updates that item; blank cells keep the old value.,صف لكل صنف. الكود الموجود بالفعل يحدّث الصنف، والخلايا الفارغة تُبقي القيمة القديمة.
 Only,فقط
@@ -1082,6 +1114,7 @@ Only a quote linked to a case is discounted here.,يتم الخصم هنا فق�
 Only a quote linked to a case is sent from here.,يُرسل من هنا فقط العرض المرتبط بحالة.
 Only a quote of a case can be duplicated for another customer.,يمكن نسخ عرض تابع لحالة فقط لعميل آخر.
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
+Only active plans are offered on new quotes; quotes already made keep their schedule.,تُعرض الخطط المفعّلة فقط في العروض الجديدة؛ العروض السابقة تحتفظ بجدولها.
 Only for DocType,لنوع المستند هذا فقط
 Only for Offer Type,لنوع العرض هذا فقط
 Only marketing opens the media library.,مكتبة الصور للتسويق فقط.
@@ -1130,6 +1163,7 @@ Optional Lines,السطور الاختيارية
 Optional Lines (not in the total),السطور الاختيارية (خارج الإجمالي)
 Optional only on a case closed as a price check.,اختياري فقط في حالة أُغلقت كاستفسار عن السعر.
 Optional: for the conversion statistics.,اختياري: لإحصائيات التحويل.
+Optional: the installment price is the cash price times this (e.g. 1.2).,اختياري: سعر التقسيط = سعر الكاش × هذا المعامل (مثلًا 1.2).
 Options,الاختيارات
 Or Into,أو إلى
 Order saved,تم حفظ الترتيب
@@ -1181,6 +1215,7 @@ Payment,الدفعة
 Payment Entry,سند الدفع
 Payment Method,طريقة الدفع
 Payment on a Station,دفعة على محطة
+Payment Plans,خطط السداد
 Payment Schedule,جدول السداد
 Payment to Confirm,دفعة للتأكيد
 Payment {0},دفعة {0}
@@ -1204,6 +1239,10 @@ Photos (optional),الصور (اختياري)
 Photos are tagged on a site log or a station.,تُعلَّم الصور على يومية موقع أو محطة.
 Placeholders,المتغيرات
 Placeholders you can use,المتغيرات المتاحة
+Plan,الخطة
+Plan Name,اسم الخطة
+Plan Terms,شروط الخطة
+Plans Offered,الخطط المعروضة
 Platform,المنصة
 PM,م
 PO Sent,تم إرسال أمر التوريد
@@ -1462,6 +1501,7 @@ Saved,تم الحفظ
 Saved. Also updated: {0},تم الحفظ. وتم تحديث: {0}
 Saved: {0} · Unchanged: {1} · Errors: {2},تم الحفظ: {0} · بدون تغيير: {1} · أخطاء: {2}
 Saving the request…,جارٍ حفظ الطلب…
+Schedule,الجدول
 Schedule and cheques,جدول السداد والشيكات
 Scope,النطاق
 Search,البحث
@@ -1489,6 +1529,7 @@ Sent By,أرسله
 Sent to customer,أُرسل للعميل
 Sent version,إصدار مُرسل
 Serial / Batch,السيريال / الدفعة
+Service Charged,احتساب الخدمة
 Service Issue,مشكلة صيانة
 Set by the mobile app (Release 2).,يُسجل من تطبيق الموبايل (المرحلة الثانية).
 "Set by the system: sent versions stay valid until approved, superseded, lost or expired.",يحددها النظام: النسخ المرسلة تظل صالحة حتى تُعتمد أو تُستبدل أو تُخسر أو تنتهي صلاحيتها.
@@ -1623,6 +1664,7 @@ SP Notification Event,حدث إشعار
 SP Owner and Admin,المدير وصاحب الشركة
 SP Owner History,سجل المسؤولين
 SP Password Reset Request,طلب إعادة تعيين كلمة المرور
+SP Payment Plan Template,نموذج خطة سداد
 SP Price Category,فئة سعر
 SP Price Rule,قاعدة تسعير
 SP Pricing Manager,لستة الأسعار
@@ -1632,6 +1674,7 @@ SP Purchase Officer,المشتريات
 SP Quote Creator,إعداد عروض الأسعار
 SP Quote Discount,خصم العرض
 SP Quote Optional Line,سطر اختياري في العرض
+SP Quote Payment Plan,خطة سداد العرض
 SP Quote Send Log,سجل إرسال العروض
 SP Receipt Confirmer,تأكيد الاستلام
 SP Regulatory Compliance,التراخيص والتأهيل
@@ -1829,9 +1872,11 @@ The official account the custody is paid from.,الحساب الرسمي الذ�
 The option the customer took,الخيار الذي اختاره العميل
 The order must contain every value of the list {0} once.,يجب أن يحتوي الترتيب على كل قيم القائمة {0} مرة واحدة.
 The owner is notified.,تم إبلاغ المسئول.
+"The owner's formula questions (SP-158) are answered here, per plan.",إجابات أسئلة صاحب العمل عن المعادلة (SP-158) تُحدد هنا لكل خطة.
 "The person collects cash: an account ""Cash with ..."" under Cash In Hand, with them as holder (SP-26).","الشخص يحصّل نقدية: حساب ""نقدية مع ..."" تحت النقدية بالصندوق، وهو الحائز."
 "The person holds a custody: an account ""Custody of ..."" under Custody, with them as holder (SP-26).","الشخص يحمل عهدة: حساب ""عهدة ..."" تحت العهد، وهو الحائز."
 The person who holds this money; they see its balance. A channel's transit account (the showroom safe) may have none.,الشخص الذي يحمل هذا المال؛ يرى رصيده. حساب نقدية القناة (خزنة المعرض) قد يكون بلا حائز.
+The plan the customer takes; at the deposit it becomes the contract's schedule and postal cheques. Empty: cash.,الخطة التي يختارها العميل؛ عند العربون تصبح جدول العقد وشيكاته البريدية. فارغ: كاش.
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 the projects team,فريق المشروعات
 The quantity must be above zero.,يجب أن تكون الكمية أكبر من صفر.
@@ -1908,6 +1953,8 @@ To,إلى
 To Account,إلى حساب
 "To change the {0}, use Reassign and give a reason.",لتغيير {0} استخدم إعادة الإسناد واكتب السبب.
 Today,اليوم
+Together,معًا
+Together: the service is added on top of the multiplied price. Alternatives: a plan with a multiplier charges no service.,معًا: تُضاف الخدمة فوق السعر بعد المعامل. بدائل: الخطة ذات المعامل لا تُحسب عليها خدمة.
 Took the request,استلم الطلب
 Total,الإجمالي
 Total Capacity (kW),إجمالي القدرة (ك.وات)
@@ -2009,6 +2056,7 @@ What the site warehouse holds.,رصيد مخزن الموقع.
 WhatsApp,واتساب
 When,متى
 "When a quote is sent, a line whose price is older than its price category allows is checked at the category's level (Price Categories): Warn asks for a reason, listed for the admin; Block stops the send until the price is updated; Off is no check.",عند إرسال العرض يُفحص كل بند سعره أقدم مما تسمح به فئة سعره، حسب مستوى الفئة (فئات الأسعار): التحذير يطلب سببًا يُدرج للمدير، والمنع يوقف الإرسال حتى يُحدَّث السعر، والإيقاف بلا فحص.
+"When a quote is sent, each installment plan's net margin after financing (the company contribution's cost of money taken off) should not fall below the bottom of the offer type's margin range. Below it, the quote is listed for the admin; it never stops a send.",عند إرسال العرض يجب ألا يقل صافي هامش كل خطة تقسيط بعد التمويل (بعد خصم تكلفة المال لمساهمة الشركة) عن الحد الأدنى لنطاق هامش نوع العرض. إن قل يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا.
 "When a quote is sent, its margin should sit inside the range set for its offer type (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
 "When a quote is sent, its margin should sit inside the range set for its offer type and project scope (Smart Power Settings > Margin Ranges). Outside it, the quote is listed for the admin. It never stops a send (decision 58).",عند إرسال العرض يجب أن يكون هامشه داخل النطاق المحدد لنوع العرض ونطاق المشروع (إعدادات سمارت باور > نطاقات الهامش). خارجه يُدرج العرض للمدير، ولا يوقف الإرسال أبدًا (القرار 58).
 When it was entered; the date above is when it happened.,وقت الإدخال؛ التاريخ أعلاه هو وقت الحدوث.
@@ -2061,6 +2109,8 @@ Written Off,المشطوب
 Wrong customer,عميل غير مطابق
 Wrote off {0}: {1},تم شطب {0}: {1}
 Yearly reset,يبدأ كل سنة
+Yearly x months,سنوي × الشهور
+Yearly x months: financed x % x months / 12. Once: financed x %.,سنوي × الشهور: الممول × النسبة × الشهور / 12. مرة واحدة: الممول × النسبة.
 Yes,نعم
 "Yes, go ahead",نعم، تابع
 Yesterday,أمس
