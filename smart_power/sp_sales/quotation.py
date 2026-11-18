@@ -21,7 +21,8 @@ from smart_power.sp_sales.case import touch
 CASE = "SP Case"
 PCT = 100
 APPROVE_ROLES = ("SP Admin", "System Manager")
-CLOSED_STATUSES = ("Won", "Lost")
+WON = "Won"
+CLOSED_STATUSES = (WON, "Lost")
 SUBMITTED, CANCELLED = DocStatus.submitted(), DocStatus.cancelled()
 DRAFT, SENT, NEEDS_REPRICING, APPROVED, SUPERSEDED, LOST, EXPIRED = (
 	"Draft",
@@ -63,12 +64,13 @@ def status_of(doc, sending: bool = False, case_status: str | None = None) -> str
 		return LOST
 	if not submitted:
 		return DRAFT
+	# the deposit fixes the prices (decision 55): after it, a flag no longer counts
+	if doc.get("sp_needs_repricing") and not doc.get("sp_superseded") and case_status != WON:
+		return NEEDS_REPRICING
 	if doc.get("sp_is_approved"):
 		return APPROVED
 	if doc.get("sp_superseded"):
 		return SUPERSEDED
-	if doc.get("sp_needs_repricing"):
-		return NEEDS_REPRICING
 	if doc.get("valid_till") and getdate(doc.valid_till) < getdate(today()):
 		return EXPIRED
 	return SENT
@@ -90,7 +92,7 @@ def refresh_case_quotes(case: str) -> None:
 
 
 def expire_quotes() -> None:
-	"""Daily: sent versions past Valid Till become Expired (SP-170 adds Needs repricing)."""
+	"""Daily: sent versions past Valid Till become Expired (then SP-170's job flags them)."""
 	for name in frappe.get_all(
 		"Quotation",
 		{"sp_status": SENT, "docstatus": SUBMITTED, "valid_till": ("<", today())},
@@ -319,7 +321,7 @@ def new_option(quotation: str) -> str:
 
 
 @frappe.whitelist(methods=["POST"])
-def approve_version(quotation: str) -> str:
+def approve_version(quotation: str, reason: str | None = None) -> str:
 	"""Mark the submitted version the customer accepted, and record it on the case."""
 	doc = frappe.get_doc("Quotation", quotation)
 	if not doc.get("sp_case"):
@@ -338,27 +340,27 @@ def approve_version(quotation: str) -> str:
 		frappe.throw(
 			_("Case {0} is {1}; its approved version cannot change.").format(doc.sp_case, _(case.status))
 		)
-	check_can_approve(doc)
+	check_can_approve(doc, reason)
 	for other in frappe.get_all(
 		"Quotation", {"sp_case": doc.sp_case, "sp_is_approved": 1, "name": ("!=", doc.name)}, pluck="name"
 	):
 		frappe.db.set_value("Quotation", other, "sp_is_approved", 0)
 		refresh_status(other)
-	doc.db_set("sp_is_approved", 1)
+	doc.db_set({"sp_is_approved": 1, "sp_needs_repricing": 0})
 	refresh_status(doc.name)
 	frappe.db.set_value(CASE, doc.sp_case, "accepted_quotation", doc.name)
 	touch(doc.sp_case)
 	return doc.name
 
 
-def check_can_approve(doc) -> None:
-	"""An expired version, or one that needs repricing, is not approved: make a new version."""
+def check_can_approve(doc, reason: str | None = None) -> None:
+	"""An expired version, or one that needs repricing, is not approved: make a new version. The
+	old-price rule's level decides whether the admin may honor a flagged version (SP-170)."""
 	if doc.get("sp_needs_repricing"):
-		frappe.throw(
-			_("This version needs repricing ({0}). Make a new version at today's prices.").format(
-				doc.get("sp_repricing_note") or _("prices changed")
-			)
-		)
+		from smart_power.sp_quotes.repricing import honor_old_price
+
+		honor_old_price(doc, reason)
+		return
 	if doc.get("valid_till") and getdate(doc.valid_till) < getdate(today()):
 		frappe.throw(
 			_("This version expired on {0}. Make a new version.").format(
