@@ -21,7 +21,7 @@ from frappe import _
 from frappe.utils import cstr, flt
 
 from smart_power.notify import send
-from smart_power.sp_core.inbox import create_task
+from smart_power.sp_core.inbox import close_tasks, create_task
 from smart_power.sp_stock.purchase_orders import OPEN_STATUSES
 from smart_power.sp_stock.warehouses import MAIN, SHOWROOM, SITE
 
@@ -41,6 +41,7 @@ RECORDED, PENDING, CONFIRMED, REJECTED, DISCREPANCY = (
 WAITING = (RECORDED, PENDING, DISCREPANCY)
 CONDITIONS = ("OK", "Damaged", "Short")
 TASK_TYPE, EVENT = "Receipt to Confirm", "receipt_to_confirm"
+REJECT_TASK = "Receipt Rejected"
 CONFIRMER = "SP Receipt Confirmer"
 ADMIN_ROLES = ("SP Admin", "System Manager")
 STORE_ROLES = {MAIN: "SP Main Store Keeper", SHOWROOM: "SP Showroom Store Keeper"}
@@ -328,6 +329,9 @@ def record_receipt(
 	_attach(doc, exit_permit_photo, "sp_exit_permit_image")
 	for line in lines:
 		_attach(doc, line.get("serial_photo"), "sp_serial_photo")
+	rejected = {"sp_purchase_order": purchase_order, "sp_received_by": user, "sp_receipt_status": REJECTED}
+	for name in frappe.get_all(RECEIPT, rejected, pluck="name"):
+		close_tasks(RECEIPT, name, REJECT_TASK)  # recorded again
 	users = _confirmers()
 	subject = _("Goods receipt {0} to confirm: {1}").format(doc.name, doc.supplier_name or purchase_order)
 	create_task(TASK_TYPE, RECEIPT, doc.name, users, subject)

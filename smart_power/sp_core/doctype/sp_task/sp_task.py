@@ -33,6 +33,7 @@ class SPTask(Document):
 			"Follow-up Call",
 			"Discount Request",
 			"Receipt to Confirm",
+			"Receipt Rejected",
 			"Payment to Confirm",
 			"Transfer to Confirm",
 			"Entry to Review",
