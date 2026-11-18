@@ -2587,3 +2587,26 @@ Transfer {0} sent to the store,تم إرسال التحويل {0} إلى الم�
 Transfers,التحويلات
 Transfers to Confirm,تحويلات في انتظار التأكيد
 {0} still in transit. Purchasing has been told.,ما زال {0} في الطريق. تم إبلاغ المشتريات.
+A line does not belong to return {0}.,هذا البند لا يخص المرتجع {0}.
+Add the items.,أضف الأصناف.
+Choose a station that has a site warehouse.,اختر محطة لها مخزن موقع.
+Consumed,مستهلك
+Converted,تم التحويل
+Leftovers returned,تم إرجاع المتبقي
+Leftovers returned from station {0},مرتجع متبقي من المحطة {0}
+Material Request,طلب خامات
+Materials used on site: station {0},خامات مستخدمة في الموقع: المحطة {0}
+Only the installation manager records site consumption.,تسجيل استهلاك الموقع من اختصاص مدير التركيبات فقط.
+Receive the return {0} from station {1},استلم المرتجع {0} من المحطة {1}
+Request Kind,نوع الطلب
+Request Note,ملاحظة الطلب
+Request Status,حالة الطلب
+Request {0} is not open.,الطلب {0} غير مفتوح.
+Return Status,حالة المرتجع
+Return to Receive,مرتجع للاستلام
+Return {0} is not waiting to be received.,المرتجع {0} ليس في انتظار الاستلام.
+Return {0}: {1} still in transit after the store's count,المرتجع {0}: ما زال {1} في الطريق بعد جرد المخزن
+Site Request,طلب موقع
+Station {0} asks for materials: {1},المحطة {0} تطلب خامات: {1}
+Station {0} is {1}.,المحطة {0} حالتها {1}.
+{0}: the site holds {1}.,{0}: الموقع به {1} فقط.

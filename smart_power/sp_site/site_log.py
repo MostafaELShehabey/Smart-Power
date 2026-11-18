@@ -138,6 +138,9 @@ def _paid_from(doc) -> None:
 def on_submit(doc) -> None:
 	if doc.materials:
 		doc.db_set("stock_entry", _issue(doc))
+		from smart_power.sp_stock.site_materials import refresh_transfers
+
+		refresh_transfers(doc.station)  # a transfer used up on site is finished (SP-90)
 	if flt(doc.labour_total):
 		from smart_power.sp_finance.posting import post
 
@@ -154,8 +157,9 @@ def on_submit(doc) -> None:
 		doc.db_set("journal_entry", entry)
 
 
-def _issue(doc) -> str:
-	account = _account(doc.company, MATERIALS_ACCOUNT)
+def issue_materials(company: str, warehouse: str, project: str, rows: list, day, remark: str) -> str:
+	"""A Material Issue from the site: its value becomes the station's material cost."""
+	account = _account(company, MATERIALS_ACCOUNT)
 	if not account:
 		frappe.throw(_("The company has no {0} account. Run the company setup.").format(MATERIALS_ACCOUNT))
 	se = frappe.get_doc(
@@ -163,28 +167,35 @@ def _issue(doc) -> str:
 			"doctype": "Stock Entry",
 			"stock_entry_type": "Material Issue",
 			"purpose": "Material Issue",
-			"company": doc.company,
-			"posting_date": doc.work_date,
+			"company": company,
+			"posting_date": day,
 			"set_posting_time": 1,
-			"project": doc.project,
-			"remarks": _("Materials used on site: {0}").format(doc.name),
+			"project": project,
+			"remarks": remark,
 			"items": [
 				{
-					"item_code": r.item_code,
-					"qty": r.qty,
-					"s_warehouse": doc.site_warehouse,
+					"item_code": r.get("item_code"),
+					"qty": r.get("qty"),
+					"s_warehouse": warehouse,
 					"expense_account": account,
-					"cost_center": center(PROJECTS, doc.company),
-					"project": doc.project,
+					"cost_center": center(PROJECTS, company),
+					"project": project,
+					"use_serial_batch_fields": 1 if r.get("serial_no") else 0,
+					"serial_no": r.get("serial_no"),
 				}
-				for r in doc.materials
+				for r in rows
 			],
 		}
 	)
-	se.flags.ignore_permissions = True  # who may log the site is checked by the log's own rights
+	se.flags.ignore_permissions = True  # who may use the site's stock is checked by the caller
 	se.insert()
 	se.submit()
 	return se.name
+
+
+def _issue(doc) -> str:
+	remark = _("Materials used on site: {0}").format(doc.name)
+	return issue_materials(doc.company, doc.site_warehouse, doc.project, doc.materials, doc.work_date, remark)
 
 
 def before_cancel(doc) -> None:

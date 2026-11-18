@@ -464,6 +464,8 @@
 		{"key": "supplier_payment_rejected", "label_ar": "تم رفض دفعة لمورد", "label_en": "Supplier payment rejected", "default_push": 1, "roles": "SP Supplier Accounts, SP Admin", "_source": "SP-86"},
 		{"key": "transfer_to_issue", "label_ar": "أمر تحويل للصرف", "label_en": "Transfer order to issue", "default_push": 1, "roles": "SP Main Store Keeper, SP Showroom Store Keeper", "_source": "SP-88"},
 		{"key": "transfer_to_receive", "label_ar": "تحويل في الطريق للموقع", "label_en": "Transfer on its way to your site", "default_push": 1, "roles": "SP Site Receiver", "_source": "SP-88"},
+		{"key": "material_requested", "label_ar": "طلب خامات من موقع", "label_en": "Materials requested by a site", "default_push": 1, "roles": "SP Purchase Officer, SP Project Manager", "_source": "SP-90"},
+		{"key": "return_to_receive", "label_ar": "مرتجع من موقع للاستلام", "label_en": "Site return to receive", "default_push": 1, "roles": "SP Main Store Keeper", "_source": "SP-90"},
 		{"key": "transfer_difference", "label_ar": "فرق في استلام تحويل", "label_en": "Transfer difference", "default_push": 1, "roles": "SP Purchase Officer, SP Admin", "_source": "SP-88"},
 		{"key": "booking_assigned", "label_ar": "مهمة جديدة للونش أو العربية", "label_en": "New job booked for you", "default_push": 1, "roles": "SP Driver, SP Winch Operator", "_source": "SP-107"},
 		{"key": "oil_change_due", "label_ar": "موعد تغيير الزيت", "label_en": "Oil change due", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-106"},
