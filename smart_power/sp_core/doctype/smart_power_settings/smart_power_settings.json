@@ -44,6 +44,8 @@
   "field_entry_lock_days",
   "case_inactivity_days",
   "winch_debt_age_months",
+  "oil_interval_km",
+  "oil_alert_km",
   "login_lock_attempts",
   "centers_section",
   "center_projects",
@@ -256,6 +258,18 @@
    "label": "Winch Debt Age Alert (months)"
   },
   {
+   "fieldname": "oil_interval_km",
+   "fieldtype": "Int",
+   "label": "Oil Change Interval (km)",
+   "description": "The default for a vehicle that has no interval of its own (SP-106)."
+  },
+  {
+   "fieldname": "oil_alert_km",
+   "fieldtype": "Int",
+   "label": "Oil Change Alert (km before)",
+   "description": "The driver and the winch manager are told when a vehicle is this close to its oil change (SP-106)."
+  },
+  {
    "fieldname": "login_lock_attempts",
    "fieldtype": "Int",
    "label": "Lock Login After (failed tries)",
@@ -340,7 +354,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-16 15:00:00.000000",
+ "modified": "2026-11-19 15:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

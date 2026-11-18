@@ -2489,3 +2489,26 @@ Record Invoice,تسجيل فاتورة
 Send for Confirmation,إرسال للتأكيد
 Supplier Ledger,كشف حساب المورد
 To Date,إلى تاريخ
+{0} km to oil,{0} كم للزيت
+Oil change is {0} km late,تغيير الزيت متأخر {0} كم
+{0}: {1} km to the oil change,{0}: {1} كم على تغيير الزيت
+Choose the vehicle's financial center.,اختر المركز المالي للمركبة.
+Set the oil change interval.,حدد فترة تغيير الزيت.
+The last oil change cannot be after the current odometer.,لا يمكن أن يكون آخر تغيير زيت بعد قراءة العداد الحالية.
+The odometer cannot go back from {0} km.,لا يمكن أن يرجع العداد عن {0} كم.
+Winch,الونش
+Vehicles,المركبات
+Vehicle Type,نوع المركبة
+Financial Center,المركز المالي
+Oil Change Interval (km),فترة تغيير الزيت (كم)
+Last Oil Change (km),آخر تغيير زيت (كم)
+Next Oil Change (km),تغيير الزيت القادم (كم)
+Oil Alert Sent For (km),تم إرسال تنبيه الزيت عند (كم)
+Oil Change Alert (km before),تنبيه تغيير الزيت (كم قبل الموعد)
+Odometer (km),العداد (كم)
+Driver,السائق
+Empty takes the default from Smart Power Settings.,عند تركه فارغًا تُستخدم القيمة الافتراضية من إعدادات سمارت باور.
+Jumbo,الجامبو
+The default for a vehicle that has no interval of its own (SP-106).,القيمة الافتراضية للمركبة التي ليس لها فترة خاصة بها.
+The driver and the winch manager are told when a vehicle is this close to its oil change (SP-106).,يتم تنبيه السائق ومسئول الونش عندما تقترب المركبة من موعد تغيير الزيت بهذه المسافة.
+"The winch and the Jumbo car take their own center. For another vehicle, choose the center the admin added.","الونش والجامبو لهما مركزهما الخاص. لأي مركبة أخرى اختر المركز الذي أضافه المدير."
