@@ -19,22 +19,68 @@ class SPReceiveGoods {
 	}
 
 	async refresh() {
-		const [{ message: cards }, { message: receipts }] = await Promise.all([
+		const [{ message: cards }, { message: receipts }, { message: transfers }] = await Promise.all([
 			frappe.call(`${SP_GR_API}.expected_deliveries`),
 			frappe.call(`${SP_GR_API}.my_receipts`),
+			frappe.call("smart_power.sp_stock.transfers.transfers_to_confirm"),
 		]);
-		this.render(cards, receipts);
+		this.render(cards, receipts, transfers);
 	}
 
-	render(cards, receipts) {
+	render(cards, receipts, transfers) {
 		const esc = frappe.utils.escape_html;
 		this.$main.empty();
+		if (transfers.length) {
+			$(`<h5 class="mt-3">${esc(__("Transfers to Confirm"))}</h5>`).appendTo(this.$main);
+			transfers.forEach((transfer) => this.render_transfer(transfer));
+		}
 		$(`<h5 class="mt-3">${esc(__("Expected Deliveries"))}</h5>`).appendTo(this.$main);
 		if (!cards.length) {
 			$(`<p class="text-muted">${esc(__("No deliveries are expected at your destinations."))}</p>`).appendTo(this.$main);
 		}
 		cards.forEach((card) => this.render_card(card));
 		if (receipts.length) this.render_receipts(receipts);
+	}
+
+	// P3 in transfer mode (SP-88): what the store sent, counted on arrival
+	render_transfer(transfer) {
+		const esc = frappe.utils.escape_html;
+		const rows = transfer.lines
+			.map(
+				(l) => `<tr class="sp-tr-line" data-row="${esc(l.row)}" data-left="${esc(String(l.left))}">
+					<td>${esc(l.item_name || l.item_code)}<div class="small text-muted">${esc(l.item_code)}</div>
+						${l.serial_no ? `<div class="small text-muted">${esc(l.serial_no.split("\n").join(", "))}</div>` : ""}</td>
+					<td class="text-nowrap">${esc(String(l.left))} ${esc(__(l.uom || ""))}</td>
+					<td style="max-width: 120px"><input type="number" min="0" max="${esc(String(l.left))}" class="form-control input-sm sp-tr-qty" value="${esc(String(l.left))}"></td>
+				</tr>`
+			)
+			.join("");
+		const $card = $(`<div class="frappe-card p-3 mb-3 sp-transfer-card">
+			<div class="d-flex flex-wrap justify-content-between align-items-center mb-2" style="gap: 8px">
+				<div><b>${esc(transfer.name)}</b><div class="small text-muted">${esc(transfer.source)} · ${esc(transfer.station)}</div></div>
+				<button class="btn btn-primary btn-sm sp-tr-confirm">${esc(__("Confirm Arrival"))}</button>
+			</div>
+			<div class="table-responsive"><table class="table table-sm mb-0">
+				<thead><tr><th>${esc(__("Item"))}</th><th>${esc(__("In Transit"))}</th><th>${esc(__("Arrived"))}</th></tr></thead>
+				<tbody>${rows}</tbody>
+			</table></div>
+		</div>`).appendTo(this.$main);
+		$card.find(".sp-tr-confirm").on("click", async () => {
+			const lines = $card
+				.find(".sp-tr-line")
+				.map((_, el) => ({ row: el.dataset.row, qty: flt($(el).find(".sp-tr-qty").val()) }))
+				.get();
+			const { message } = await frappe.call({
+				method: "smart_power.sp_stock.transfers.confirm_transfer",
+				args: { name: transfer.name, lines },
+				freeze: true,
+			});
+			frappe.show_alert({
+				message: message.short ? __("{0} still in transit. Purchasing has been told.", [message.short]) : __("Transfer {0} received", [transfer.name]),
+				indicator: message.short ? "orange" : "green",
+			});
+			this.refresh();
+		});
 	}
 
 	render_card(card) {

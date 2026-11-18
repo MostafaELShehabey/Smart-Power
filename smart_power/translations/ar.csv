@@ -2566,3 +2566,24 @@ You do not work at {0}.,أنت لا تعمل في {0}.
 {0}: enter {1} different serial numbers.,{0}: أدخل {1} أرقام تسلسلية مختلفة.
 {0}: only {1} are still in transit.,{0}: المتبقي في الطريق {1} فقط.
 Store Keeper,أمين المخزن
+Arrived,وصل
+Cancel,إلغاء
+Cancel transfer {0}?,إلغاء التحويل {0}؟
+Confirm Arrival,تأكيد الوصول
+Create Transfer,إنشاء التحويل
+In Transit,في الطريق
+Issue,صرف
+Issue transfer {0}? The stock leaves {1}.,صرف التحويل {0}؟ ستخرج البضاعة من {1}.
+Issue {0},صرف {0}
+Main Store,المخزن الرئيسي
+No transfer orders yet.,لا توجد أوامر تحويل بعد.
+One serial number on each line.,رقم تسلسلي واحد في كل سطر.
+Print Transfer Note,طباعة إذن التحويل
+Serial numbers of {0} ({1}),الأرقام التسلسلية للصنف {0} ({1})
+Showroom (at cost),المعرض (بالتكلفة)
+Transfer {0} issued in {1},تم صرف التحويل {0} بالقيد {1}
+Transfer {0} received,تم استلام التحويل {0}
+Transfer {0} sent to the store,تم إرسال التحويل {0} إلى المخزن
+Transfers,التحويلات
+Transfers to Confirm,تحويلات في انتظار التأكيد
+{0} still in transit. Purchasing has been told.,ما زال {0} في الطريق. تم إبلاغ المشتريات.

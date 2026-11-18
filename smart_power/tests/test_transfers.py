@@ -131,6 +131,7 @@ class TestTransfers(IntegrationTestCase):
 		self.assertEqual((on_hand(ITEM, self.main), on_hand(ITEM, self.transit)), (main - 10, transit + 10))
 		doc = frappe.get_doc(t.ENTRY, entry)
 		self.assertEqual((doc.add_to_transit, doc.project, doc.docstatus), (1, self.station.project, 1))
+		self.assertEqual(doc.owner, self.keeper)
 		self.assertTrue(
 			frappe.db.exists(
 				"SP Task",
@@ -171,6 +172,7 @@ class TestTransfers(IntegrationTestCase):
 			)
 		)
 		entry = frappe.get_doc(t.ENTRY, result["entry"])
+		self.assertEqual(entry.owner, self.receiver)
 		self.assertEqual(
 			(entry.project, entry.outgoing_stock_entry),
 			(self.station.project, frappe.db.get_value(t.ORDER, name, "sp_issue_entry")),
