@@ -2402,3 +2402,13 @@ Site Receiver,مستلم الموقع
 You do not receive goods at {0}.,أنت غير مسؤول عن الاستلام في {0}.
 {0}: only {1} of {2} are still expected.,{0}: المتبقي {1} فقط من {2}.
 Goods receipt to confirm,استلام بضاعة في انتظار التأكيد
+Expected Deliveries,التوريدات المتوقعة
+Good,سليم
+My Receipts,إيصالاتي
+No deliveries are expected at your destinations.,لا توجد توريدات متوقعة في مواقعك.
+Receipt {0} is waiting for confirmation,الإيصال {0} في انتظار التأكيد
+Receive,استلام
+Receive {0},استلام {0}
+Save Receipt,حفظ الاستلام
+Still expected: {0},المتبقي: {0}
+{0} (received {1}),{0} (تم استلام {1})
