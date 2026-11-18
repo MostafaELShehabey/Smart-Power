@@ -2610,3 +2610,24 @@ Site Request,طلب موقع
 Station {0} asks for materials: {1},المحطة {0} تطلب خامات: {1}
 Station {0} is {1}.,المحطة {0} حالتها {1}.
 {0}: the site holds {1}.,{0}: الموقع به {1} فقط.
+Choose a station,اختر محطة
+Choose a station first.,اختر محطة أولًا.
+Choose a station to see what its site holds.,اختر محطة لعرض ما في موقعها.
+Enter the quantity of at least one item.,أدخل كمية صنف واحد على الأقل.
+Make Transfer,إنشاء تحويل
+Make Transfer from {0},إنشاء تحويل من {0}
+My Requests,طلباتي
+My Returns,مرتجعاتي
+Needed By,مطلوب بتاريخ
+Nothing is on this site.,لا يوجد شيء في هذا الموقع.
+On site: {0},في الموقع: {0}
+Print Return Note,طباعة إذن المرتجع
+Record Consumption,تسجيل الاستهلاك
+Request Materials,طلب خامات
+Request sent to purchasing,تم إرسال الطلب إلى المشتريات
+Return Leftovers,إرجاع المتبقي
+Return {0} received,تم استلام المرتجع {0}
+Returns to Receive,مرتجعات للاستلام
+Send Request,إرسال الطلب
+Site Materials,خامات الموقع
+Site Requests,طلبات المواقع

@@ -56,6 +56,7 @@ GROUP_ROLES = {
 		*ADMIN,
 	),
 	"Inventory": (
+		"SP Installation Manager",
 		"SP Main Store Keeper",
 		"SP Showroom Store Keeper",
 		"SP Site Receiver",

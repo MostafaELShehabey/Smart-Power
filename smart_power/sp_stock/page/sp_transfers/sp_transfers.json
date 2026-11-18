@@ -4,7 +4,7 @@
  "doctype": "Page",
  "icon": "arrow-left-right",
  "idx": 0,
- "modified": "2026-11-19 11:00:00.000000",
+ "modified": "2026-11-19 16:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stock",
  "name": "sp-transfers",
@@ -13,6 +13,9 @@
  "roles": [
   {
    "role": "SP Purchase Officer"
+  },
+  {
+   "role": "SP Project Manager"
   },
   {
    "role": "SP Main Store Keeper"
