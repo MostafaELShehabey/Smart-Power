@@ -26,7 +26,20 @@ from smart_power.sp_core.documents import sp_blocks
 from smart_power.sp_core.services.audit import log_edit
 from smart_power.sp_core.services.settings import get_value
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC
-from smart_power.sp_quotes.engine import COST_X_MARKUP, OVERRIDABLE, calculate
+from smart_power.sp_quotes.engine import (
+	COST_X_MARKUP,
+	FIXED_LIST,
+	OVERRIDABLE,
+	PUMP_CURVE,
+	SIZED_RULES,
+	calculate,
+	duty_of,
+	group_items,
+	ranked_items,
+)
+from smart_power.sp_quotes.engine import (
+	LOCKED_BTC as LOCKED_PRICE,
+)
 from smart_power.sp_quotes.engine import MANUAL as TYPED_PRICE
 from smart_power.sp_quotes.indicative import PANELS_LINE, WATTS_PER_KW
 from smart_power.sp_quotes.payment_plans import schedule_of, set_quote_plans
@@ -42,6 +55,8 @@ from smart_power.sp_quotes.quote_calc import (
 from smart_power.sp_quotes.special_lines import MANUAL, before_validate, service_item
 from smart_power.sp_sales.quotation import set_cost_and_profit
 from smart_power.sp_stock.on_hand import on_hand
+from smart_power.sp_stock.prices import BTC, COST, LIST, latest_price
+from smart_power.sp_stock.pump_curve import covers, curve_of
 
 QUOTATION, CASE, TEMPLATE = "Quotation", "SP Case", "SP Calc Template"
 HEADER_FIELDS = ("valid_till", "sp_scope", "sp_payment_plan", "sp_execution_period")
@@ -50,6 +65,8 @@ HAND_FIELDS = ("item_code", "item_name", "qty", "rate", "sp_cost", "sp_line_kind
 REQUEST_INPUTS = {"pump_depth": "pump_depth_m", "well_depth": "well_depth_m", "water_level": "water_level_m"}
 CANCELLED = DocStatus.cancelled()
 COST_PLAN_FIELDS = ("contribution", "contribution_cost", "net_profit", "net_margin_pct")
+PICK_LIMIT = 60  # sp-allow-number: the options one pick screen lists, best first
+PRICE_LIST_OF = {LOCKED_PRICE: BTC, FIXED_LIST: LIST}  # any other method is priced from the cost
 
 
 # --- opening a quote ------------------------------------------------------------------------------
@@ -453,3 +470,66 @@ def save(name: str, data: dict | str | None = None, modified: str | None = None)
 	notes = apply(doc, frappe.parse_json(data) if isinstance(data, str) else data, saving=True)
 	doc.save()
 	return payload(doc, notes)
+
+
+@frappe.whitelist(methods=["POST"])
+def pick_options(name: str, line_key: str, data: dict | str | None = None) -> dict:
+	"""The items a line can take, best first, with their stock on hand and price date (SP-168).
+	The options follow the page's unsaved values; nothing is saved."""
+	doc = quote_for_edit(name)
+	apply(doc, frappe.parse_json(data) if isinstance(data, str) else data)
+	row = _template_lines(doc).get(line_key)
+	if not row:
+		frappe.throw(
+			_("Line {0} is not in template {1}.").format(frappe.bold(line_key), doc.sp_calc_template)
+		)
+	empty = {
+		"line_key": line_key,
+		"options": [],
+		"brands": [],
+		"sized": False,
+		"capacity": None,
+		"need": None,
+	}
+	if not row.item_group:
+		return empty
+	sized = row.selection_rule in SIZED_RULES
+	field = f"sp_{row.capacity_field}" if row.capacity_field else None
+	line = (doc.flags.sp_pricing or {}).get(line_key) or frappe._dict()
+	need = flt(line.need) if sized else None
+	items = {
+		i.name: i for i in group_items(row.item_group, ["item_name", "brand", *([field] if field else [])])
+	}
+	best = ranked_items(row.item_group, row.capacity_field, need, brands_of(doc)) if sized else []
+	codes = [*best, *(code for code in items if code not in best)][:PICK_LIMIT]
+	stock = on_hand(codes, doc.company)
+	price_list = PRICE_LIST_OF.get(row.pricing_method, COST)
+	duty = duty_of(loads(doc.sp_design_inputs)) if row.selection_rule == PUMP_CURVE else None
+	options = []
+	for code in codes:
+		price = latest_price(code, price_list, on_date=doc.transaction_date)
+		fits = code in best if sized else True
+		if duty:
+			fits = fits and covers(curve_of(code), *duty)
+		options.append(
+			{
+				"item_code": code,
+				"item_name": items[code].item_name,
+				"brand": items[code].brand,
+				"capacity": flt(items[code].get(field)) if field else None,
+				"fits": fits,
+				"company": stock[code]["company"],
+				"consignment": stock[code]["consignment"],
+				"price": flt(price.rate) if price else None,
+				"price_date": str(price.date) if price and price.date else None,
+				"current": code == line.item_code,
+			}
+		)
+	return {
+		**empty,
+		"options": options,
+		"brands": sorted({o["brand"] for o in options if o["brand"]}) if sized else [],
+		"sized": sized,
+		"capacity": row.capacity_field,
+		"need": need,
+	}
