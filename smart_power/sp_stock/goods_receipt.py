@@ -267,9 +267,28 @@ def _confirmers() -> list[str]:
 	return frappe.get_all("User", {"name": ("in", users or [""]), "enabled": 1}, pluck="name")
 
 
+def _attach_permit(doc) -> None:
+	"""The receiver's private photo joins the receipt, so whoever may read the receipt can open it."""
+	name = frappe.db.get_value(
+		"File",
+		{"file_url": doc.exit_permit_photo, "owner": doc.received_by, "attached_to_name": ("is", "not set")},
+	)
+	if name:
+		frappe.db.set_value(
+			"File",
+			name,
+			{
+				"attached_to_doctype": RECEIPT,
+				"attached_to_name": doc.name,
+				"attached_to_field": "exit_permit_photo",
+			},
+		)
+
+
 def after_insert(doc) -> None:
 	"""The receipt waits for the technical office; stock and the ledger stay as they are."""
 	doc.db_set("status", PENDING)
+	_attach_permit(doc)
 	users = _confirmers()
 	subject = _("Goods receipt {0} to confirm: {1}").format(doc.name, doc.supplier_name or doc.purchase_order)
 	create_task(TASK_TYPE, RECEIPT, doc.name, users, subject)
