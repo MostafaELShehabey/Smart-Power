@@ -570,6 +570,7 @@ Every item must be done before submitting.,يجب إنجاز كل البنود �
 Excel File,ملف إكسل
 Execution,التنفيذ
 Execution Owner,مسؤول التنفيذ
+Execution Period,مدة التنفيذ
 Expected,مُتوقع
 Expected Winch Job,مهمة ونش متوقعة
 Expense,مصروف
@@ -1117,6 +1118,7 @@ Only a quote linked to a case has versions.,فقط العرض المرتبط ب�
 Only a quote linked to a case is discounted here.,يتم الخصم هنا فقط على عرض مرتبط بحالة.
 Only a quote linked to a case is sent from here.,يُرسل من هنا فقط العرض المرتبط بحالة.
 Only a quote of a case can be duplicated for another customer.,يمكن نسخ عرض تابع لحالة فقط لعميل آخر.
+Only a quote of a case opens in the builder.,يُفتح في المنشئ عرض تابع لحالة فقط.
 Only a site warehouse is linked to a project.,مخزن الموقع فقط هو الذي يُربط بمشروع.
 Only active plans are offered on new quotes; quotes already made keep their schedule.,تُعرض الخطط المفعّلة فقط في العروض الجديدة؛ العروض السابقة تحتفظ بجدولها.
 Only for DocType,لنوع المستند هذا فقط
@@ -1291,6 +1293,7 @@ Print Group,مجموعة الطباعة
 Print Sample,نموذج الطباعة
 "Printed on quotes, contracts, invoices and receipts.",يُطبع على العروض والعقود والفواتير والإيصالات.
 Printed on the contract per component (SP-74).,تُطبع في العقد لكل مكون.
+"Printed on the quote, e.g. 30 days from the deposit.",تُطبع على العرض، مثلًا 30 يومًا من العربون.
 "Printed under the total with their own price. Never added to the total, the cost or the margin (SP-59).",تُطبع تحت الإجمالي بسعرها الخاص، ولا تُضاف أبدًا للإجمالي أو التكلفة أو الهامش (SP-59).
 Priority,الأولوية
 Profit,الربح
@@ -1333,6 +1336,7 @@ Quote Due At,موعد استحقاق العرض
 Quote due soon: {0} ({1}),عرض يقترب موعده: {0} ({1})
 Quote Due Within (hours),العرض مطلوب خلال (ساعات)
 Quote History,سجل العروض
+Quote line,بند العرض
 Quote margin within its range,هامش العرض داخل نطاقه
 Quote Queue,قائمة طلبات العروض
 Quote Request,طلب عرض
@@ -2142,6 +2146,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 {0} cannot be negative.,{0} لا يمكن أن يكون سالباً.
 {0} cannot review; forward it to the admin.,{0} لا يمكنه المراجعة؛ حوّلها إلى المدير.
 {0} changed,تم تغيير {0}
+{0} changed this quote since you opened it. Reload to see their changes.,عدّل {0} هذا العرض بعد فتحك له. أعد التحميل لرؤية التعديلات.
 "{0} confirmed, {1} failed.",تم تأكيد {0}، وفشل {1}.
 {0} days,{0} يوم
 {0} days held,محتفظ بها {0} يوم

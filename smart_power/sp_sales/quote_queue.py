@@ -194,15 +194,12 @@ def ask_site_survey(case: str) -> int:
 
 @frappe.whitelist(methods=["POST"])
 def start_quote(case: str) -> dict:
-	"""Start the quote: an unclaimed request is taken first. Returns the case's open draft
-	quotation, or the values for a new one (the form opens pre-filled; SP-57 adds Q2)."""
+	"""Start the quote: an unclaimed request is taken first. Returns the case's open draft, or a
+	new one priced from the request, for the Quote Builder (Q2, SP-57)."""
+	from smart_power.sp_quotes.builder import start
+
 	doc = frappe.get_doc(CASE, case)
 	_check_can_act(doc)
 	if not doc.quote_creator:
 		take(doc.name)
-	draft = frappe.db.get_value(
-		"Quotation", {"sp_case": doc.name, "docstatus": 0}, "name", order_by="creation desc"
-	)
-	if draft:
-		return {"quotation": draft}
-	return {"new": {"quotation_to": "Customer", "party_name": doc.customer, "sp_case": doc.name}}
+	return start(doc.name)

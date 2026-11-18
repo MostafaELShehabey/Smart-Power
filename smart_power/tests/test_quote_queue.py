@@ -180,9 +180,9 @@ class TestQueueActions(IntegrationTestCase):
 		from smart_power.sp_sales.quote_queue import start_quote
 
 		result = as_user(self.aya, start_quote, self.case.name)
+		draft = frappe.get_doc("Quotation", result["quotation"])
 		self.assertEqual(
-			result["new"],
-			{"quotation_to": "Customer", "party_name": self.case.customer, "sp_case": self.case.name},
+			(draft.party_name, draft.sp_case, draft.docstatus), (self.case.customer, self.case.name, 0)
 		)
 		self.assertEqual(frappe.db.get_value("SP Case", self.case.name, "quote_creator"), self.aya)
 
