@@ -288,6 +288,7 @@ Cheques,الشيكات
 Cheques due,شيكات مستحقة
 Choose,اختيار
 Choose a station or a warehouse.,اختر محطة أو مخزنًا.
+Choose an inverter of {0} kW or more.,اختر إنفرتر بقدرة {0} كيلووات أو أكثر.
 Choose an item or a category.,اختر صنفاً أو فئة.
 Choose another item,اختيار صنف آخر
 Choose Arabic or English.,اختر العربية أو الإنجليزية.
@@ -795,6 +796,7 @@ Intends to proceed with {0}{1},ينوي التنفيذ بالعرض {0}{1}
 Invalid mobile,رقم موبايل غير صحيح
 Inverter,الإنفرتر
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
+Inverter at least as large as the motor,الإنفرتر لا يقل عن الموتور
 Inverter Brand,ماركة الإنفرتر
 Inverter Model,موديل الإنفرتر
 Inverter Serial,سيريال الإنفرتر
@@ -1365,6 +1367,8 @@ Published: this version cannot change. Make a new version to edit.,منشور: �
 Pump,الطلمبة
 Pump Curve,منحنى الطلمبة
 Pump curve,منحنى الطلمبة
+Pump depth divides by the pipe length,عمق الغاطس يقبل القسمة على طول الماسورة
+Pump depth {0} m does not divide by the {1} m pipe length.,عمق الغاطس {0} متر لا يقبل القسمة على طول الماسورة {1} متر.
 Pump Specs,مواصفات الطلمبة
 Pump {0} does not exist.,الطلمبة {0} غير موجودة.
 Purchase for station {0},شراء للمحطة {0}
@@ -1421,6 +1425,7 @@ Readings,القراءات
 "Ready: {0} pumps, {1} points · Errors: {2} · Skipped: {3}",جاهز: {0} طلمبة، {1} نقطة · أخطاء: {2} · متروك: {3}
 Ready: {0} · Duplicates: {1} · Errors: {2},جاهز: {0} · مكرر: {1} · أخطاء: {2}
 Reason,السبب
+Reason for overriding,سبب التجاوز
 Reason for the Change,سبب التغيير
 Reason Given,السبب المكتوب
 Reason needed,السبب مطلوب
@@ -1924,6 +1929,8 @@ The four ERPNext price lists that the price list screen (I2) and the quotes use.
 The holder's custody account after the approved expenses (carried amounts included).,حساب عهدة صاحبها بعد المصروفات الموافق عليها (شاملًا المُرحّل).
 "The inputs the price was given for (e.g. HP, pump depth).",المدخلات التي أُعطي السعر عليها (مثل القدرة بالحصان وعمق الغاطس).
 The inputs the quote was designed from (the calculation template comes with SP-55).,المدخلات التي صُمم منها العرض (قالب الحساب يأتي مع SP-55).
+The inverter {0} ({1} kW) is smaller than the motor {2} ({3} kW).,الإنفرتر {0} ({1} كيلووات) أصغر من الموتور {2} ({3} كيلووات).
+"The inverter's rated power must cover the motor's, compared in kW (1 HP = 0.746 kW). Warn shows on the quote and is listed for the admin. Block stops the send until the inverter is changed or the admin overrides with a reason.",يجب أن تغطي قدرة الإنفرتر قدرة الموتور، وتُقارن بالكيلووات (1 حصان = 0.746 كيلووات). التحذير يظهر على العرض ويُدرج للمدير. المنع يوقف الإرسال حتى يتغير الإنفرتر أو يتجاوزه المدير مع ذكر السبب.
 "The item for a Manual selection, and the fallback for the other rules.",الصنف عند الاختيار اليدوي، والبديل عند تعذر القواعد الأخرى.
 The item spec compared with the need.,مواصفة الصنف التي تُقارن بالاحتياج.
 The latest file of the brand and model is suggested.,يُقترح أحدث ملف للماركة والموديل.
@@ -1957,6 +1964,7 @@ The plan the customer takes; at the deposit it becomes the contract's schedule a
 The pricing rules go round in a circle. Work one price out from the list price or the cost.,قواعد التسعير تدور في حلقة. احسب سعراً واحداً على الأقل من سعر اللستة أو التكلفة.
 the projects team,فريق المشروعات
 The pump code is empty.,كود الطلمبة فارغ.
+"The pump depth must be a whole number of pipes of the chosen type, otherwise the nearest valid depths are suggested. Warn shows on the quote and is listed for the admin. Block stops the send until the depth is fixed or the admin overrides with a reason.",يجب أن يساوي عمق الغاطس عددًا صحيحًا من مواسير النوع المختار، وإلا تُقترح أقرب الأعماق الصحيحة. التحذير يظهر على العرض ويُدرج للمدير. المنع يوقف الإرسال حتى يُصحح العمق أو يتجاوزه المدير مع ذكر السبب.
 The quantity must be above zero.,يجب أن تكون الكمية أكبر من صفر.
 "The quick price given to the customer (IP1): the same template and engine as a quote, sale price only.",السعر السريع الذي أُعطي للعميل (IP1): نفس القالب ومحرك الحساب لعرض السعر، بسعر البيع فقط.
 The quote clock stops here (Sent to customer).,يتوقف عداد العرض هنا (أُرسل للعميل).
@@ -2092,6 +2100,8 @@ Usable for Marketing,صالحة للتسويق
 Usable for marketing,صالحة للتسويق
 Use a brand's smallest model that fits,استخدام أصغر موديل مناسب من ماركة
 Use the {0} dialog to close a case.,استخدم نافذة {0} لإغلاق الحالة.
+Use {0} m,استخدم {0} متر
+Use {0} m.,استخدم {0} متر.
 "Use {placeholders} from the list on the template, e.g. {customer_name}.",استخدم {المتغيرات} من القائمة في القالب، مثل {customer_name}.
 Used by installment plans (Release 2).,تُستخدم في أنظمة التقسيط (المرحلة الثانية).
 User,المستخدم

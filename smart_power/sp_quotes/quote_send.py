@@ -15,8 +15,17 @@ import frappe
 from frappe import _
 from frappe.utils import add_days, cint, now_datetime
 
-from smart_power.rules import evaluate, record_warning
+from smart_power.rules import (
+	BLOCK,
+	WARN,
+	RuleBlocked,
+	can_override,
+	evaluate,
+	record_override,
+	record_warning,
+)
 from smart_power.rules.sales import QUOTE_SEND_EVENT
+from smart_power.rules.technical import technical_hits
 from smart_power.sp_core.services.settings import get_value
 
 CASE, LOG, TASK = "SP Case", "SP Quote Send Log", "SP Task"
@@ -46,7 +55,30 @@ def send_options(quotation: str) -> dict:
 		"channels": list(CHANNELS),
 		# stale prices: a reason at Warn, no send at Block (SP-63)
 		"price_age": send_check(frappe.get_doc("Quotation", quotation)),
+		# a technical rule at Block stops the send, unless the admin gives a reason (SP-169)
+		"technical": technical_check(frappe.get_doc("Quotation", quotation)),
 	}
+
+
+def technical_check(doc) -> dict:
+	"""For the send dialog: what stops this quote, and whether this user may pass it."""
+	hits = technical_hits(doc)
+	return {
+		"block": [h.finding.message for h in hits if h.level == BLOCK],
+		"warn": [h.finding.message for h in hits if h.level == WARN],
+		"can_override": can_override(),
+	}
+
+
+def check_technical(doc, reason: str | None) -> None:
+	"""A technical rule at Block stops the send until it is fixed or the admin gives a reason."""
+	blocked = [h for h in technical_hits(doc) if h.level == BLOCK]
+	if blocked and not (can_override() and (reason or "").strip()):
+		frappe.throw(
+			"<br>".join(frappe.utils.escape_html(h.finding.message) for h in blocked),
+			RuleBlocked,
+			title=_("Blocked by a business rule"),
+		)
 
 
 def _check_can_send(doc, case) -> None:
@@ -79,6 +111,7 @@ def send_quote(
 	case = frappe.get_doc(CASE, doc.sp_case) if doc.get("sp_case") else frappe._dict()
 	_check_can_send(doc, case)
 	check_before_send(doc, price_age_hit(doc), reason)
+	check_technical(doc, reason)
 	if channel not in CHANNELS:
 		frappe.throw(_("Unknown channel {0}.").format(frappe.bold(channel)))
 	print_format = print_format or default_print_format()
@@ -204,7 +237,10 @@ def check_margin(doc, reason: str | None = None) -> list[str]:
 
 	messages = []
 	for hit in evaluate(doc, QUOTE_SEND_EVENT):
-		record_warning(doc, hit, reason if hit.spec.key == PRICE_AGE_RULE else None)
+		if hit.level == BLOCK:  # only the admin's reason gets a blocked quote this far (SP-169)
+			record_override(doc, hit, reason)
+		else:
+			record_warning(doc, hit, reason if hit.spec.key == PRICE_AGE_RULE else None)
 		messages.append(hit.finding.message)
 	return messages
 

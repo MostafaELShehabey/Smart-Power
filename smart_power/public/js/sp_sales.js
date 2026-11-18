@@ -187,6 +187,7 @@ sp.sales.send_quote = async function (quotation, docstatus, on_done) {
 				)}</p>`,
 			},
 			...sp_quote_price_age_fields(opts.price_age || {}),
+			...sp_quote_technical_fields(opts.technical || {}, (opts.price_age?.warn || []).length > 0),
 		],
 		primary_action_label: __("Send"),
 		primary_action: async (values) => {
@@ -206,7 +207,31 @@ sp.sales.send_quote = async function (quotation, docstatus, on_done) {
 	dialog.show();
 	// a stale price of a Block category: the quote is not sent until the price is updated
 	if ((opts.price_age?.block || []).length) dialog.get_primary_btn().prop("disabled", true);
+	// a technical rule at Block: only the admin can pass it, with a reason (SP-169)
+	if ((opts.technical?.block || []).length && !opts.technical.can_override) {
+		dialog.get_primary_btn().prop("disabled", true);
+	}
 };
+
+// technical rules at send (SP-169): a red banner at Block, an orange one at Warn
+function sp_quote_technical_fields(technical, has_reason) {
+	const esc = frappe.utils.escape_html;
+	const banner = (name, kind, rows) => ({
+		fieldname: name,
+		fieldtype: "HTML",
+		options: `<div class="alert alert-${kind} small">${rows.map(esc).join("<br>")}</div>`,
+	});
+	const fields = [];
+	const blocked = technical.block || [];
+	if (blocked.length) {
+		fields.push(banner("technical_block", "danger", blocked));
+		if (technical.can_override && !has_reason) {
+			fields.push({ fieldname: "reason", fieldtype: "Small Text", label: __("Reason for overriding"), reqd: 1 });
+		}
+	}
+	if ((technical.warn || []).length) fields.push(banner("technical_warn", "warning", technical.warn));
+	return fields;
+}
 
 // stale prices at send (SP-63): a red banner naming them at Block, a reason at Warn
 function sp_quote_price_age_fields(price_age) {

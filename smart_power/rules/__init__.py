@@ -373,6 +373,11 @@ def record_warning(doc, hit: Hit, reason: str | None = None) -> None:
 	_record(doc, hit, OUTCOME_WARNED, reason)
 
 
+def record_override(doc, hit: Hit, reason: str | None) -> None:
+	"""Log a block the admin passed outside a save (e.g. when a quote is sent), with the reason."""
+	_record(doc, hit, OUTCOME_OVERRIDDEN, reason)
+
+
 def _insert_hit(doc, hit: Hit, outcome: str, reason: str | None) -> None:
 	today = frappe.utils.today()
 	exists = frappe.db.exists(

@@ -33,6 +33,10 @@ frappe.ui.form.on("Quotation", {
 			);
 		}
 		sp_quote_repricing_buttons(frm);
+		// inverter against motor, depth against pipe length (SP-169)
+		(frm.doc.__onload?.sp_technical_rules || []).forEach((r) =>
+			frm.dashboard.add_comment(frappe.utils.escape_html(r.message), r.level === "Block" ? "red" : "orange", true)
+		);
 		// the margin against its range: orange out of range, never blocking a send (SP-63)
 		sp_quote_margin_chip(frm);
 		// the indicative price given first, and how far this version is from it (SP-49)
