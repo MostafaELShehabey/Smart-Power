@@ -12,7 +12,6 @@ warehouse. Supplier prices sit at the cost permlevel (SP-35).
 """
 
 import frappe
-from erpnext.buying.doctype.purchase_order.purchase_order import PurchaseOrder
 from frappe import _
 from frappe.model.docstatus import DocStatus
 from frappe.utils import cint, flt, getdate
@@ -36,7 +35,7 @@ STORE_TYPES = {MAIN_STORE: MAIN, SHOWROOM_STORE: SHOWROOM}
 DESTINATION_OF = {MAIN: MAIN_STORE, SHOWROOM: SHOWROOM_STORE, SITE: SITE_DELIVERY}
 
 
-class SPPurchaseOrder(PurchaseOrder):
+class PurchaseOrderStatus:
 	def set_status(self, update=False, status=None, update_modified=True):
 		"""Every change of ERPNext's status, a receipt's included, moves the Smart Power status."""
 		super().set_status(update=update, status=status, update_modified=update_modified)
