@@ -102,6 +102,16 @@ def sites_group(company: str) -> str | None:
 	)
 
 
+def company_stores(company: str | None = None) -> list[str]:
+	"""The warehouses that hold free stock: every store but the goods already on a site."""
+	sites = set(
+		frappe.get_all("Warehouse", {"warehouse_name": _spec()["sites"], "is_group": 1}, pluck="name")
+	)
+	filters = {"is_group": 0, **({"company": company} if company else {})}
+	rows = frappe.get_all("Warehouse", filters, ["name", "parent_warehouse"])
+	return [r.name for r in rows if r.parent_warehouse not in sites]
+
+
 def site_warehouse(project: str, create: bool = True) -> str | None:
 	"""The site warehouse of a station's Project; made on first use (first transfer or receipt)."""
 	existing = frappe.db.get_value("Warehouse", {"sp_project": project, "warehouse_type": SITE})

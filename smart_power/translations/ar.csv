@@ -170,6 +170,7 @@ Bounced cheques,شيكات مرتجعة
 Bounced On,تاريخ الارتجاع
 Branch,الفرع
 Brand,الماركة
+Brand Order,ترتيب الماركات
 Brand Priority,أولوية الماركات
 Brand priority,أولوية الماركة
 BTB,BTB
@@ -1063,6 +1064,8 @@ No photos match. Installations tag them on the site log or the station.,لا ت�
 No photos yet: attach them in the sidebar.,لا توجد صور بعد: أرفقها من الشريط الجانبي.
 No price,بدون سعر
 No price changes yet.,لا توجد تغييرات أسعار بعد.
+No pump curve covers {0} m at {1} m³/h.,لا يغطي أي منحنى طلمبة رفع {0} متر عند تصرف {1} م³/ساعة.
+No pump here has a curve yet: picked by size.,لا توجد طلمبة لها منحنى بعد: تم الاختيار حسب القدرة.
 No quote sent {0} hours after the request (due within {1} hours).,لم يُرسل عرض بعد {0} ساعة من الطلب (المطلوب خلال {1} ساعة).
 No quote yet.,لا يوجد عرض بعد.
 No request yet.,لا توجد طلبات بعد.
@@ -1343,6 +1346,7 @@ Published template,قالب منشور
 Published: this version cannot change. Make a new version to edit.,منشور: لا يمكن تعديل هذا الإصدار. أنشئ إصدارًا جديدًا للتعديل.
 Pump,الطلمبة
 Pump Curve,منحنى الطلمبة
+Pump curve,منحنى الطلمبة
 Pump Specs,مواصفات الطلمبة
 Pump {0} does not exist.,الطلمبة {0} غير موجودة.
 Purchase for station {0},شراء للمحطة {0}
@@ -1793,6 +1797,7 @@ Stations with overdue instalments,محطات عليها أقساط متأخرة
 Status,الحالة
 Still Open,المفتوحة
 Stock Entry,حركة مخزون
+Stock first,المخزون أولًا
 Stock Movements,حركات المخزون
 Storage Fee,رسوم التخزين
 Storage fee for consignment container {0},رسوم تخزين حاوية الأمانة {0}
@@ -1856,6 +1861,7 @@ The amount must be above zero.,يجب أن يكون المبلغ أكبر من �
 The answers to the system type's request fields.,إجابات حقول الطلب الخاصة بنوع النظام.
 The approved quote of each won case.,عرض السعر المعتمد لكل حالة مكسوبة.
 "The brand part of item codes, e.g. JA in PNL-JA-625 (SP-165).",جزء الماركة في أكواد الأصناف، مثل JA في PNL-JA-625.
+The brand priority when this quote was started. Reordering the brands later leaves it alone.,أولوية الماركات عند بدء هذا العرض. تغيير الترتيب لاحقًا لا يؤثر عليه.
 The campaign cannot end before it starts.,لا يمكن أن تنتهي الحملة قبل أن تبدأ.
 The case is already yours.,الحالة لك بالفعل.
 The case is handed over.,تم تسليم الحالة.
@@ -2202,6 +2208,7 @@ Your limit is {0}% of the total; above it the discount is kept and the admin is 
 "{0} days, limit {1}",{0} يوم، الحد {1}
 {0} does not follow customers up; hand the case to a colleague who does.,{0} لا يتابع العملاء؛ سلّم الحالة لزميل يتابعهم.
 {0} does not keep goods with us on consignment.,{0} ليس لديه بضاعة أمانة عندنا.
+{0} does not pick its item by brand.,{0} لا يختار الصنف حسب الماركة.
 {0} duplicates,{0} مكرر
 {0} errors,{0} خطأ
 {0} expenses,{0} مصروفات

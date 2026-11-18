@@ -6,7 +6,9 @@ For each template line, in order:
 
 1. the item: the override, else the selection rule (Manual: the default item; First in stock:
    the first item of the group with stock; Brand priority: the top-priority brand's smallest
-   item whose capacity spec covers the need), else the default item;
+   item whose capacity spec covers the need, or the chosen brand's; Stock first: the same, but
+   an item with company stock wins, then one with consignment stock; Pump curve: the same, among
+   the pumps whose curve covers the required head and flow), else the default item;
 2. the quantity: the override (kept as manual), else the line's formula;
 3. the unit cost: P1 price, the valuation rate (after landed cost), the line's default
    (per kW or manual), or the line's cost formula (SP-56, e.g. an allowance that is a share
@@ -29,12 +31,17 @@ from frappe.utils.nestedset import get_descendants_of
 
 from smart_power.sp_core.services.settings import brand_priority, get_settings
 from smart_power.sp_quotes import formulas
+from smart_power.sp_stock.on_hand import on_hand
 from smart_power.sp_stock.prices import BTC, COST, LIST, STALE, age_status, category_of, latest_price
+from smart_power.sp_stock.pump_curve import POINT, covers
 
 TEMPLATE = "SP Calc Template"
 PCT = 100
 # selection rules, cost sources and pricing methods (the template's Select options)
 MANUAL, FIRST_IN_STOCK, BRAND_PRIORITY = "Manual", "First in stock", "Brand priority"
+STOCK_FIRST, PUMP_CURVE = "Stock first", "Pump curve"
+SIZED_RULES = (BRAND_PRIORITY, STOCK_FIRST, PUMP_CURVE)  # they pick the smallest size that covers a need
+HEAD_INPUT, FLOW_INPUT = "required_head_m", "required_flow_m3h"  # SP-184
 P1_COST, VALUATION, PER_KW, COST_FORMULA = "P1 price", "Valuation rate", "Per-kW default", "Formula"
 COST_X_MARKUP, LOCKED_BTC, PASS_THROUGH, FIXED_LIST = (
 	"Cost x Markup",
@@ -46,11 +53,18 @@ COST_X_MARKUP, LOCKED_BTC, PASS_THROUGH, FIXED_LIST = (
 SPECS = ("hp", "kw", "watt", "battery_ah", "vmp", "voc", "imp", "isc", "max_dc_v", "mppt_min", "mppt_max")
 SPECS += ("head_m", "flow_m3h")
 WARN, INFO = "warn", "info"
-OVERRIDABLE = ("qty", "item_code", "markup", "rate", "cost")
+OVERRIDABLE = ("qty", "item_code", "brand", "markup", "rate", "cost")
 
 
-def calculate(template, inputs: dict | None = None, overrides: dict | None = None, on_date=None) -> dict:
-	"""Price a template. overrides: {line_key: {qty, item_code, markup, rate, cost}}."""
+def calculate(
+	template,
+	inputs: dict | None = None,
+	overrides: dict | None = None,
+	on_date=None,
+	brands: dict | None = None,
+) -> dict:
+	"""Price a template. overrides: {line_key: {qty, item_code, brand, markup, rate, cost}}.
+	brands: the brand order a quote keeps (SP-168); without it, today's order in the settings."""
 	doc = template if isinstance(template, Document) else frappe.get_doc(TEMPLATE, template)
 	on_date = getdate(on_date or today())
 	overrides = overrides or {}
@@ -64,7 +78,9 @@ def calculate(template, inputs: dict | None = None, overrides: dict | None = Non
 		check_override(row, override, where)
 		namespace = {**values, **refs, formulas.SETTINGS: settings}
 
-		item_code = override.get("item_code") or select_item(row, namespace, where, results)
+		item_code = override.get("item_code") or select_item(
+			row, namespace, where, results, brands, override.get("brand")
+		)
 		item = specs(item_code)
 		manual_qty = "qty" in override
 		qty = (
@@ -173,22 +189,28 @@ def specs(item_code: str | None) -> frappe._dict:
 	return data
 
 
-def select_item(row, namespace: dict, where: str, results: list) -> str | None:
+def select_item(
+	row, namespace: dict, where: str, results: list, brands: dict | None = None, brand: str | None = None
+) -> str | None:
 	if row.selection_rule == FIRST_IN_STOCK:
 		picked = first_in_stock(row.item_group)
-	elif row.selection_rule == BRAND_PRIORITY:
+	elif row.selection_rule in SIZED_RULES:
 		need = formulas.evaluate(row.need_formula, namespace, where)
-		picked = by_brand_priority(row.item_group, row.capacity_field, need)
-		if not picked:
-			results.append(
-				rule(
-					row,
-					WARN,
-					_("No item in {0} covers {1}.").format(
-						row.item_group, f"{row.capacity_field} ≥ {need:g}"
-					),
+		ranked = ranked_items(row.item_group, row.capacity_field, need, brands, brand)
+		if row.selection_rule == PUMP_CURVE and duty_of(namespace):
+			picked = by_pump_curve(row, ranked, duty_of(namespace), results)
+		else:
+			picked = by_stock(ranked) if row.selection_rule == STOCK_FIRST else next(iter(ranked), None)
+			if not picked:
+				results.append(
+					rule(
+						row,
+						WARN,
+						_("No item in {0} covers {1}.").format(
+							brand or row.item_group, f"{row.capacity_field} ≥ {need:g}"
+						),
+					)
 				)
-			)
 	else:
 		return row.item_code
 	if not picked and row.item_code:
@@ -216,24 +238,63 @@ def first_in_stock(item_group: str) -> str | None:
 	return next((i for i in items if i in in_stock), None)
 
 
-def by_brand_priority(item_group: str, capacity_field: str, need: float) -> str | None:
-	"""The top-priority brand's smallest item that covers the need (brands without a priority
-	come last)."""
+def ranked_items(
+	item_group: str, capacity_field: str, need: float, brands: dict | None = None, brand: str | None = None
+) -> list[str]:
+	"""The items that cover the need, best first: the top-priority brand's smallest item leads
+	(brands without a priority come last). A chosen brand leaves only that brand's items."""
 	field = f"sp_{capacity_field}"
-	order = brand_priority(item_group)
+	order = brand_priority(item_group) if brands is None else brands.get(item_group, [])
 	candidates = [
 		i
 		for i in group_items(item_group, [field, "brand"])
-		if i.get(field) is not None and flt(i.get(field)) >= need
+		if i.get(field) is not None and flt(i.get(field)) >= need and (not brand or i.brand == brand)
 	]
-	if not candidates:
-		return None
 
 	def rank(i):
 		priority = order.index(i.brand) if i.brand in order else len(order)
 		return (priority, flt(i.get(field)), i.name)
 
-	return min(candidates, key=rank).name
+	return [i.name for i in sorted(candidates, key=rank)]
+
+
+def by_stock(ranked: list[str]) -> str | None:
+	"""Company stock first, then consignment, otherwise the first in priority."""
+	stock = on_hand(ranked)
+	for kind in ("company", "consignment"):
+		found = next((code for code in ranked if stock[code][kind] > 0), None)
+		if found:
+			return found
+	return next(iter(ranked), None)
+
+
+def duty_of(namespace: dict) -> tuple[float, float] | None:
+	"""The required (head, flow), when the quote gives both."""
+	head, flow = flt(namespace.get(HEAD_INPUT)), flt(namespace.get(FLOW_INPUT))
+	return (head, flow) if head > 0 and flow > 0 else None
+
+
+def by_pump_curve(row, ranked: list[str], duty: tuple[float, float], results: list) -> str | None:
+	"""The first pump whose curve covers the duty. While no candidate has a curve yet, the size
+	decides, and the line says so."""
+	head, flow = duty
+	points = frappe.get_all(
+		POINT,
+		{"parent": ("in", ranked or [""]), "parenttype": "Item"},
+		["parent", "flow_m3h", "head_m"],
+	)
+	curves = {}
+	for point in points:
+		curves.setdefault(point.parent, []).append(point)
+	if not curves:
+		results.append(rule(row, INFO, _("No pump here has a curve yet: picked by size.")))
+		return next(iter(ranked), None)
+	found = next((code for code in ranked if covers(curves.get(code, []), head, flow)), None)
+	if not found:
+		results.append(
+			rule(row, WARN, _("No pump curve covers {0} m at {1} m³/h.").format(f"{head:g}", f"{flow:g}"))
+		)
+	return found
 
 
 # --- cost and price ---------------------------------------------------------------------------
@@ -320,6 +381,8 @@ def check_override(row, override: dict, where: str) -> None:
 	unknown = set(override) - set(OVERRIDABLE)
 	if unknown:
 		frappe.throw(_("{0}: {1} cannot be overridden.").format(where, ", ".join(sorted(unknown))))
+	if override.get("brand") and row.selection_rule not in SIZED_RULES:
+		frappe.throw(_("{0} does not pick its item by brand.").format(where))
 	if "markup" in override and (cint(row.lock_markup) or row.pricing_method == LOCKED_BTC):
 		if flt(override["markup"]) != flt(row.default_markup):
 			frappe.throw(_("{0} is locked: its markup cannot change.").format(where), title=_("Locked line"))

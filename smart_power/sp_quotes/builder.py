@@ -31,11 +31,17 @@ from smart_power.sp_quotes.engine import MANUAL as TYPED_PRICE
 from smart_power.sp_quotes.indicative import PANELS_LINE, WATTS_PER_KW
 from smart_power.sp_quotes.payment_plans import schedule_of, set_quote_plans
 from smart_power.sp_quotes.price_age import set_line_ages
-from smart_power.sp_quotes.quote_calc import default_template, loads, quote_for_edit, write_lines
+from smart_power.sp_quotes.quote_calc import (
+	brands_of,
+	default_template,
+	keep_brand_order,
+	loads,
+	quote_for_edit,
+	write_lines,
+)
 from smart_power.sp_quotes.special_lines import MANUAL, before_validate, service_item
 from smart_power.sp_sales.quotation import set_cost_and_profit
-from smart_power.sp_stock.consignment import CONTAINER, EMPTY
-from smart_power.sp_stock.warehouses import sites_group
+from smart_power.sp_stock.on_hand import on_hand
 
 QUOTATION, CASE, TEMPLATE = "Quotation", "SP Case", "SP Calc Template"
 HEADER_FIELDS = ("valid_till", "sp_scope", "sp_payment_plan", "sp_execution_period")
@@ -83,11 +89,15 @@ def create_draft(case) -> str:
 		}
 	)
 	doc.sp_calc_template = default_template(doc)
+	keep_brand_order(doc)
 	if doc.sp_calc_template:
 		inputs = request_inputs(case, doc.sp_calc_template)
 		doc.sp_design_inputs = json.dumps(inputs, ensure_ascii=False)
 		try:
-			write_lines(doc, calculate(doc.sp_calc_template, inputs, on_date=doc.transaction_date))
+			write_lines(
+				doc,
+				calculate(doc.sp_calc_template, inputs, on_date=doc.transaction_date, brands=brands_of(doc)),
+			)
 		except frappe.MandatoryError:
 			frappe.clear_messages()
 	if not doc.items:
@@ -185,6 +195,7 @@ def apply(doc, data: dict, saving: bool = False) -> list:
 			loads(doc.sp_design_inputs),
 			loads(doc.sp_calc_overrides),
 			on_date=doc.transaction_date,
+			brands=brands_of(doc),
 		)
 		_keep_picks(doc, result)
 		write_lines(doc, result)
@@ -211,28 +222,8 @@ def _plant_kw(doc) -> float:
 
 
 def _stock(doc) -> dict:
-	"""{item: {company, consignment}} beside each pick: the company's stores (not the goods already
-	on a site) and the supplier's consignment containers, which are outside the stock ledger."""
-	codes = list({r.item_code for r in doc.items if r.item_code})
-	if not codes:
-		return {}
-	stock = {code: {"company": 0.0, "consignment": 0.0} for code in codes}
-	stores = {"company": doc.company, "is_group": 0}
-	sites = sites_group(doc.company)
-	if sites:
-		stores["parent_warehouse"] = ("!=", sites)
-	warehouses = frappe.get_all("Warehouse", stores, pluck="name")
-	for bin_row in frappe.get_all(
-		"Bin",
-		{"item_code": ("in", codes), "warehouse": ("in", warehouses)},
-		["item_code", "actual_qty"],
-	):
-		stock[bin_row.item_code]["company"] += flt(bin_row.actual_qty)
-	for box in frappe.get_all(
-		CONTAINER, {"item": ("in", codes), "status": ("!=", EMPTY)}, ["item", "available_qty"]
-	):
-		stock[box.item]["consignment"] += flt(box.available_qty)
-	return stock
+	"""{item: {company, consignment}} beside each pick."""
+	return on_hand([r.item_code for r in doc.items if r.item_code], doc.company)
 
 
 def _line(row, internals: bool, stock: dict | None = None) -> dict:
@@ -349,6 +340,7 @@ def _notes(doc) -> list:
 			loads(doc.sp_design_inputs),
 			loads(doc.sp_calc_overrides),
 			on_date=doc.transaction_date,
+			brands=brands_of(doc),
 		)
 		_keep_picks(doc, result)
 		return result.rule_results

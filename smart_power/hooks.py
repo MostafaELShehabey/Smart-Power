@@ -224,7 +224,11 @@ doc_events = {
 			# the margin chip: in or out of its range, for its creator and the admin (SP-63)
 			"smart_power.rules.sales.margin_onload",
 		],
-		"before_insert": "smart_power.sp_sales.quotation.before_insert",
+		"before_insert": [
+			"smart_power.sp_sales.quotation.before_insert",
+			# the brand order it starts with: a later reorder changes new quotes only (SP-168)
+			"smart_power.sp_quotes.quote_calc.keep_brand_order",
+		],
 		"before_validate": [
 			# what the user was not shown (cost, hidden lines) is kept (SP-35)
 			"smart_power.permissions.keep_quote_internals",

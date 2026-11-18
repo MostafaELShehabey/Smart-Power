@@ -38,6 +38,12 @@ def brand_priority(item_group: str) -> list[str]:
 	return [r.brand for r in sorted(rows, key=lambda r: r.priority or 0)]
 
 
+def brand_order() -> dict[str, list[str]]:
+	"""Every item group's brands in priority order, as a quote keeps them (SP-168)."""
+	groups = {r.item_group for r in get_settings().brand_priorities}
+	return {group: brand_priority(group) for group in sorted(groups)}
+
+
 def account_map(event: str):
 	"""The Account Map row for a posting event, or None."""
 	for row in get_settings().account_map:

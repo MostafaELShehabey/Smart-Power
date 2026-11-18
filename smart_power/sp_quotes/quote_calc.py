@@ -20,6 +20,7 @@ from frappe.utils import flt
 
 from smart_power.permissions import sees_quote_internals
 from smart_power.sp_core.services.audit import log_edit
+from smart_power.sp_core.services.settings import brand_order
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC, published_template
 from smart_power.sp_quotes.engine import INFO, OVERRIDABLE, calculate
 from smart_power.sp_quotes.special_lines import COMMISSION, MANUAL, WINCH, service_item
@@ -78,7 +79,7 @@ def set_line_override(
 	if value in (None, ""):
 		current.pop(field, None)
 	else:
-		current[field] = value if field == "item_code" else flt(value)
+		current[field] = value if field in ("item_code", "brand") else flt(value)
 	if current:
 		overrides[line_key] = current
 	else:
@@ -107,12 +108,25 @@ def template_for_quote(quotation: str, template: str | None = None) -> dict:
 	return {"template": name, "inputs": inputs}
 
 
+def brands_of(doc) -> dict | None:
+	"""The brand order the quote keeps (SP-168); None on a quote that has not kept one yet."""
+	return json.loads(doc.sp_brand_order) if doc.get("sp_brand_order") else None
+
+
+def keep_brand_order(doc, method=None) -> None:
+	"""Quotation before_insert: a quote of a case keeps the brand order it starts with, so a later
+	reorder changes new quotes only. A new version or option carries its source's order."""
+	if doc.get("sp_case") and not doc.get("sp_brand_order"):
+		doc.sp_brand_order = json.dumps(brand_order(), ensure_ascii=False)
+
+
 def recalculate(doc) -> dict:
 	result = calculate(
 		doc.sp_calc_template,
 		loads(doc.sp_design_inputs),
 		loads(doc.sp_calc_overrides),
 		on_date=doc.transaction_date,
+		brands=brands_of(doc),
 	)
 	write_lines(doc, result)
 	doc.save()
