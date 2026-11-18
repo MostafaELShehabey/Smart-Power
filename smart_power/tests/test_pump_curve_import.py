@@ -4,6 +4,7 @@ import frappe
 from frappe.tests import IntegrationTestCase
 
 from smart_power.sp_quotes.calc_templates import CURVE_INPUTS, add_curve_inputs, template_data
+from smart_power.sp_stock.item import seed_item_groups
 from smart_power.sp_stock.pump_curve import covers, curve_of
 from smart_power.sp_stock.pump_curve_import import COLUMNS, ERROR, OK, SKIPPED, import_rows
 from smart_power.tests.test_calc_template import make_template
@@ -73,6 +74,11 @@ class TestPumpCurveImport(IntegrationTestCase):
 
 
 class TestPumpTemplateInputs(IntegrationTestCase):
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		seed_item_groups()  # the groups the shipped template's lines pick from
+
 	def published(self):
 		shipped = template_data("pump.json")
 		inputs = [r for r in shipped["inputs"] if r["input_key"] not in CURVE_INPUTS]
