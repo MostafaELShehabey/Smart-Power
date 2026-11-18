@@ -106,7 +106,12 @@ class TestCustomerPayment(IntegrationTestCase):
 		self.assertEqual((flt(money.paid_amount), flt(money.pending_amount)), (0, 25000))
 		task = frappe.get_all(
 			"SP Task",
-			{"reference_name": doc.name, "task_type": "Payment to Confirm", "status": "Open"},
+			{
+				"reference_name": doc.name,
+				"task_type": "Payment to Confirm",
+				"status": "Open",
+				"assigned_to": self.admin,  # every admin gets one, and a site may have others
+			},
 			["assigned_to", "image", "amount"],
 		)
 		self.assertEqual(task[0].assigned_to, self.admin)

@@ -462,6 +462,7 @@
 		{"key": "receipt_to_confirm", "label_ar": "استلام بضاعة في انتظار التأكيد", "label_en": "Goods receipt to confirm", "default_push": 1, "roles": "SP Receipt Confirmer"},
 		{"key": "goods_receipt_rejected", "label_ar": "تم رفض استلام بضاعة", "label_en": "Goods receipt rejected", "default_push": 1, "roles": "SP Main Store Keeper, SP Showroom Store Keeper, SP Site Receiver", "_source": "SP-85"},
 		{"key": "supplier_payment_rejected", "label_ar": "تم رفض دفعة لمورد", "label_en": "Supplier payment rejected", "default_push": 1, "roles": "SP Supplier Accounts, SP Admin", "_source": "SP-86"},
+		{"key": "booking_assigned", "label_ar": "مهمة جديدة للونش أو العربية", "label_en": "New job booked for you", "default_push": 1, "roles": "SP Driver, SP Winch Operator", "_source": "SP-107"},
 		{"key": "oil_change_due", "label_ar": "موعد تغيير الزيت", "label_en": "Oil change due", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-106"},
 		{"key": "goods_receipt_discrepancy", "label_ar": "فرق في استلام بضاعة", "label_en": "Goods receipt discrepancy", "default_push": 1, "roles": "SP Admin, SP Purchase Officer", "_source": "SP-85"},
 		{"key": "receipt_rejected", "label_ar": "تم رفض إيصال", "label_en": "Receipt rejected", "default_push": 1, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Showroom Cashier, SP Custody Holder"},

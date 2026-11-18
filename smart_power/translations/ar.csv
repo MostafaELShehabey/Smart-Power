@@ -2496,10 +2496,8 @@ Choose the vehicle's financial center.,اختر المركز المالي للم
 Set the oil change interval.,حدد فترة تغيير الزيت.
 The last oil change cannot be after the current odometer.,لا يمكن أن يكون آخر تغيير زيت بعد قراءة العداد الحالية.
 The odometer cannot go back from {0} km.,لا يمكن أن يرجع العداد عن {0} كم.
-Winch,الونش
 Vehicles,المركبات
 Vehicle Type,نوع المركبة
-Financial Center,المركز المالي
 Oil Change Interval (km),فترة تغيير الزيت (كم)
 Last Oil Change (km),آخر تغيير زيت (كم)
 Next Oil Change (km),تغيير الزيت القادم (كم)
@@ -2512,3 +2510,31 @@ Jumbo,الجامبو
 The default for a vehicle that has no interval of its own (SP-106).,القيمة الافتراضية للمركبة التي ليس لها فترة خاصة بها.
 The driver and the winch manager are told when a vehicle is this close to its oil change (SP-106).,يتم تنبيه السائق ومسئول الونش عندما تقترب المركبة من موعد تغيير الزيت بهذه المسافة.
 "The winch and the Jumbo car take their own center. For another vehicle, choose the center the admin added.","الونش والجامبو لهما مركزهما الخاص. لأي مركبة أخرى اختر المركز الذي أضافه المدير."
+A finished job cannot be cancelled.,لا يمكن إلغاء مهمة منتهية.
+A station's job takes the winch line of its quote.,مهمة المحطة تأخذ قيمة بند الونش من عرض السعر.
+Agreed Amount,المبلغ المتفق عليه
+Booked,محجوز
+Cancel Booking,إلغاء الحجز
+Cancel booking {0}?,إلغاء الحجز {0}؟
+Discounted,مخصوم
+Enter the {0}.,أدخل {0}.
+Internal center,مركز داخلي
+Job,المهمة
+New job {0} on {1}: {2},مهمة جديدة {0} بتاريخ {1}: {2}
+No jobs are booked for you today.,لا توجد مهام محجوزة لك اليوم.
+Only the winch manager changes bookings.,تعديل الحجوزات من اختصاص مسئول الونش فقط.
+Operator,السائق
+Operator Name,اسم السائق
+Outside,خارجي
+Partial,جزئي
+Place,المكان
+Planned Date,التاريخ المخطط
+Requesting Center,المركز الطالب
+SP Vehicle Booking,حجز ونش أو عربية
+The agreed amount cannot be negative.,لا يمكن أن يكون المبلغ المتفق عليه سالبًا.
+The driver or winch operator who does the job.,السائق أو سائق الونش الذي ينفذ المهمة.
+Today's Jobs,مهام اليوم
+Transfer,تحويل
+Transfer Order,أمر التحويل
+Vehicle,المركبة
+Bookings,الحجوزات
