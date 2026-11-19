@@ -1,0 +1,178 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "FR-.YYYY.-.#####",
+ "creation": "2026-11-19 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "field_entry",
+  "action",
+  "flag",
+  "note",
+  "column_break_by",
+  "reviewed_by",
+  "reviewed_at",
+  "review_item",
+  "reopen_request"
+ ],
+ "fields": [
+  {
+   "fieldname": "field_entry",
+   "fieldtype": "Link",
+   "label": "Field Entry",
+   "options": "SP Field Entry",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "action",
+   "fieldtype": "Select",
+   "label": "Action",
+   "options": "Completed\nReviewed\nAbnormal\nReopened",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "flag",
+   "fieldtype": "Data",
+   "label": "Flags",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_by",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_item",
+   "fieldtype": "Link",
+   "label": "Review Item",
+   "options": "SP Review Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reopen_request",
+   "fieldtype": "Link",
+   "label": "Reopen Request",
+   "options": "SP Reopen Request",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "SP Field Review",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Winch Manager",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Winch Reviewer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "title": "Completed",
+   "color": "Blue"
+  },
+  {
+   "title": "Reviewed",
+   "color": "Green"
+  },
+  {
+   "title": "Abnormal",
+   "color": "Red"
+  },
+  {
+   "title": "Reopened",
+   "color": "Orange"
+  }
+ ],
+ "track_changes": 0
+}

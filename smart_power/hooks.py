@@ -404,6 +404,8 @@ scheduler_events = {
 		"smart_power.sp_winch.vehicles.check_oil_due",
 		# field entries past their window show Locked; those locking next are announced (SP-109)
 		"smart_power.sp_winch.field_lock.lock_entries",
+		# the field review flags that change after the save: balances, held cash (SP-110)
+		"smart_power.sp_winch.review.refresh_flags",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],

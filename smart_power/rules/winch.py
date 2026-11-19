@@ -1,8 +1,8 @@
-"""Winch and Jumbo rules (SP-109)."""
+"""Winch and Jumbo rules (SP-109, SP-110)."""
 
 from frappe import _
 
-from smart_power.rules import BLOCK, Finding, RuleContext, rule
+from smart_power.rules import BLOCK, WARN, Finding, RuleContext, rule
 
 RULE_KEY = "field_entry_day_locked"
 DAY_LOCKED = "DAY_LOCKED"  # what the mobile app reads
@@ -28,3 +28,55 @@ def field_entry_day_locked(doc, ctx: RuleContext):
 	if not any(is_locked(vehicle, day) for vehicle, day in days):
 		return None
 	return Finding(message=_("Day locked"), suggestion=_("Ask to reopen it."), data={"code": DAY_LOCKED})
+
+
+UNUSUAL_EXPENSE = "field_expense_unusual"
+REVIEW_EVENT = "field_review"  # computed with the review flags (SP-110), not on save
+FACTOR, MIN_ENTRIES, HISTORY = 1.5, 3, 50  # sp-allow-number: defaults, the admin sets the limits
+
+
+@rule(
+	UNUSUAL_EXPENSE,
+	doctypes=("SP Field Entry",),
+	events=(REVIEW_EVENT,),
+	category="Commercial",
+	default_level=WARN,
+	never_block=True,
+	title="Unusual field expense",
+	description="A winch or Jumbo expense above its type's average times average_factor (over the "
+	"last entries of that type, once there are min_entries of them), or above the type's own "
+	"threshold in by_type (expense type code: amount). Flagged for the field review, never a block.",
+)
+def field_expense_unusual(doc, ctx: RuleContext):
+	import frappe
+	from frappe.utils import flt
+
+	if doc.entry_kind != "Expense" or not doc.expense_type:
+		return None
+	amount = flt(doc.amount)
+	code = frappe.db.get_value("SP List Value", doc.expense_type, "code")
+	threshold = flt((ctx.limits.get("by_type") or {}).get(code))
+	if threshold and amount > threshold:
+		return Finding(
+			message=_("Above the {0} threshold").format(frappe.format(threshold, "Currency")),
+			amount=amount,
+			data={"threshold": threshold},
+		)
+	past = frappe.get_all(
+		"SP Field Entry",
+		filters={"entry_kind": "Expense", "expense_type": doc.expense_type, "name": ("!=", doc.name)},
+		pluck="amount",
+		order_by="work_date desc, creation desc",
+		limit=HISTORY,
+	)
+	if len(past) < int(ctx.limits.get("min_entries") or MIN_ENTRIES):
+		return None
+	average = sum(flt(a) for a in past) / len(past)
+	factor = flt(ctx.limits.get("average_factor")) or FACTOR
+	if amount <= average * factor:
+		return None
+	return Finding(
+		message=_("Above {0} times the average {1}").format(factor, frappe.format(average, "Currency")),
+		amount=amount,
+		data={"factor": factor, "average": average},
+	)

@@ -194,6 +194,8 @@ def reject(name: str, reason: str) -> str:
 
 
 def _tell_requester(doc, subject: str) -> None:
+	if doc.requested_by == frappe.session.user:
+		return  # reopened by the one who asked (the field review, SP-110)
 	send(EVENT_DECIDED, [doc.requested_by], REQUEST, doc.name, subject, from_user=frappe.session.user)
 
 
