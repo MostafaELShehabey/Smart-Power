@@ -50,6 +50,13 @@ def columns() -> list[dict]:
 			"options": "SP Field Entry",
 			"width": NARROW,
 		},
+		{
+			"fieldname": "salary",
+			"label": _("Crew Salary"),
+			"fieldtype": "Link",
+			"options": "SP Crew Salary",
+			"width": NARROW,
+		},
 	]
 
 
