@@ -1,5 +1,7 @@
 """The phone pages' server side (SP-180): options, my entries, changing one, and the lock."""
 
+import os
+
 import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, getdate, now_datetime, today
@@ -132,3 +134,16 @@ class TestFieldPagesApi(IntegrationTestCase):
 		)
 		shown = next(e for e in self.as_user(self.driver, fp.entries) if e["name"] == name)
 		self.assertEqual(shown["request"], request)
+
+	def test_a_voice_note_is_uploaded_private_and_audio_only(self):
+		url = self.as_user(self.driver, fp.save_voice, "note.wav", "audio/wav", b"RIFF0000WAVE")
+		path = frappe.get_site_path(url.lstrip("/"))
+		self.addCleanup(
+			lambda: os.path.exists(path) and os.remove(path)
+		)  # the transaction rolls back, the disk does not
+		self.assertTrue(url.startswith("/private/files/voice-"))
+		self.assertEqual(frappe.db.get_value("File", {"file_url": url}, "is_private"), 1)
+		with self.assertRaises(frappe.ValidationError):
+			self.as_user(self.driver, fp.save_voice, "note.exe", "application/octet-stream", b"MZ")
+		with self.assertRaises(frappe.PermissionError):
+			self.as_user("Guest", fp.upload_voice)

@@ -6,6 +6,10 @@
 	{% if oil %}
 	<p class="sp-field-oil{% if oil.overdue %} text-danger{% endif %}"><b>{{ oil.vehicle }}</b>: {{ oil.label }}</p>
 	{% endif %}
+	{% if locking %}
+	<p class="sp-field-locking text-warning"><b>{{ _("{0} field entries lock within 24 hours").format(locking) }}</b></p>
+	{% endif %}
+
 	<h5>{{ _("Today's Jobs") }}</h5>
 	{% if jobs %}
 	<ul class="list-unstyled sp-field-jobs">
@@ -14,28 +18,191 @@
 			<b>{{ job.job }}</b> · {{ job.place }}<br>
 			{{ job.who }}{% if job.phone %} · <a href="tel:{{ job.phone }}">{{ job.phone }}</a>{% endif %}<br>
 			<span class="text-muted">{{ job.vehicle }}{% if job.amount %} · {{ frappe.format(job.amount, "Currency") }}{% endif %}</span>
+			{% if can_log %}<br><button type="button" class="btn btn-sm btn-primary mt-1 sp-log-booking" data-booking="{{ job.name }}">{{ _("Log this job") }}</button>{% endif %}
 		</li>
 		{% endfor %}
 	</ul>
 	{% else %}
 	<p class="text-muted sp-field-no-jobs">{{ _("No jobs are booked for you today.") }}</p>
 	{% endif %}
-	{% if locking %}
-	<p class="sp-field-locking text-warning"><b>{{ _("{0} field entries lock within 24 hours").format(locking) }}</b></p>
+
+	{% if can_log %}
+	<div class="sp-entry card p-3 mb-4">
+		<div class="d-flex justify-content-between align-items-center mb-2">
+			<h5 class="m-0 sp-entry-title">{{ _("New entry") }}</h5>
+			<button type="button" class="btn btn-sm btn-default sp-entry-reset d-none">{{ _("Cancel") }}</button>
+		</div>
+		<div class="btn-group w-100 mb-3 sp-tabs" role="tablist">
+			<button type="button" class="btn btn-primary sp-tab" data-kind="Job">{{ _("Job") }}</button>
+			<button type="button" class="btn btn-default sp-tab" data-kind="Expense">{{ _("Expense") }}</button>
+			<button type="button" class="btn btn-default sp-tab" data-kind="Money">{{ _("Money") }}</button>
+		</div>
+		<form class="sp-entry-form" novalidate>
+			<div class="sp-for-manager d-none form-group">
+				<label>{{ _("For") }}</label>
+				<select class="form-control" name="on_behalf_of"></select>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-6">
+					<label>{{ _("Vehicle") }}</label>
+					<select class="form-control" name="vehicle" required></select>
+				</div>
+				<div class="form-group col-6">
+					<label>{{ _("Work Date") }}</label>
+					<input class="form-control" type="date" name="work_date" required>
+				</div>
+			</div>
+
+			<div class="sp-kind" data-kind="Job">
+				<input type="hidden" name="booking">
+				<div class="form-group">
+					<label>{{ _("Job Type") }}</label>
+					<select class="form-control" name="job_type"></select>
+				</div>
+				<div class="form-group">
+					<label>{{ _("For") }}</label>
+					<select class="form-control" name="for_kind">
+						<option value="Outside">{{ _("Outside customer") }}</option>
+						<option value="Station">{{ _("Station") }}</option>
+						<option value="Internal center">{{ _("Smart Power center") }}</option>
+					</select>
+				</div>
+				<div class="sp-for" data-for="Station">
+					<div class="form-group">
+						<label>{{ _("Station") }}</label>
+						<select class="form-control" name="station"></select>
+					</div>
+				</div>
+				<div class="sp-for" data-for="Outside">
+					<div class="form-row">
+						<div class="form-group col-6">
+							<label>{{ _("Customer Name") }}</label>
+							<input class="form-control" name="customer_name">
+						</div>
+						<div class="form-group col-6">
+							<label>{{ _("Customer Phone") }}</label>
+							<input class="form-control" name="customer_phone" type="tel" inputmode="tel">
+						</div>
+					</div>
+				</div>
+				<div class="sp-for" data-for="Internal center">
+					<div class="form-group">
+						<label>{{ _("Requesting Center") }}</label>
+						<select class="form-control" name="internal_center"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>{{ _("Place") }}</label>
+					<input class="form-control" name="place">
+				</div>
+				<div class="form-row">
+					<div class="form-group col-6"><label>{{ _("HP") }}</label><input class="form-control" name="hp" type="number" inputmode="decimal" min="0" step="any"></div>
+					<div class="form-group col-6"><label>{{ _("Depth") }}</label><input class="form-control" name="depth" type="number" inputmode="decimal" min="0" step="any"></div>
+					<div class="form-group col-4"><label>{{ _("Days") }}</label><input class="form-control" name="days" type="number" inputmode="decimal" min="0" step="any"></div>
+					<div class="form-group col-4"><label>{{ _("Hours") }}</label><input class="form-control" name="hours" type="number" inputmode="decimal" min="0" step="any"></div>
+					<div class="form-group col-4"><label>{{ _("Km") }}</label><input class="form-control" name="km" type="number" inputmode="decimal" min="0" step="any"></div>
+				</div>
+				<div class="form-group">
+					<label>{{ _("Agreed Amount") }}</label>
+					<input class="form-control" name="agreed_amount" type="number" inputmode="decimal" min="0" step="any">
+				</div>
+				<div class="sp-for" data-for="Outside">
+					<div class="form-group">
+						<label>{{ _("Received Now") }}</label>
+						<input class="form-control" name="received_now" type="number" inputmode="decimal" min="0" step="any">
+					</div>
+				</div>
+			</div>
+
+			<div class="sp-kind d-none" data-kind="Expense">
+				<div class="form-group">
+					<label>{{ _("Expense Type") }}</label>
+					<select class="form-control" name="expense_type"></select>
+				</div>
+				<div class="form-group">
+					<label>{{ _("Paid From") }}</label>
+					<select class="form-control" name="paid_from">
+						<option value="Custody">{{ _("My custody") }}</option>
+						<option value="Shop cash">{{ _("Shop cash") }}</option>
+					</select>
+				</div>
+				<div class="form-group sp-oil d-none">
+					<label>{{ _("Odometer") }}</label>
+					<input class="form-control" name="odometer" type="number" inputmode="numeric" min="0" step="1">
+				</div>
+				<div class="form-group sp-wage d-none">
+					<label>{{ _("Worker") }}</label>
+					<select class="form-control" name="worker"></select>
+				</div>
+			</div>
+
+			<div class="sp-kind d-none" data-kind="Money">
+				<div class="form-group">
+					<label>{{ _("Money Kind") }}</label>
+					<select class="form-control" name="money_kind">
+						<option value="Received">{{ _("Received from a customer") }}</option>
+						<option value="Deposit">{{ _("Deposited into an account") }}</option>
+					</select>
+				</div>
+				<div class="form-group sp-received">
+					<label>{{ _("Related Job") }}</label>
+					<select class="form-control" name="related_job"></select>
+				</div>
+			</div>
+
+			<div class="form-group sp-amount d-none">
+				<label>{{ _("Amount") }}</label>
+				<input class="form-control" name="amount" type="number" inputmode="decimal" min="0" step="any">
+			</div>
+			<div class="sp-how">
+				<div class="form-group sp-method">
+					<label>{{ _("Received Method") }}</label>
+					<select class="form-control" name="received_method"></select>
+				</div>
+				<div class="form-group sp-account d-none">
+					<label>{{ _("To Account") }}</label>
+					<select class="form-control" name="to_account"></select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>{{ _("Photo") }}</label>
+				<input class="form-control-file sp-photo" type="file" accept="image/*" capture="environment">
+				<input type="hidden" name="photo">
+				<div class="small text-muted sp-photo-state"></div>
+			</div>
+			<div class="form-group">
+				<label>{{ _("Voice Note") }}</label>
+				<div>
+					<button type="button" class="btn btn-sm btn-default sp-record">{{ _("Record a voice note") }}</button>
+					<input class="d-none sp-voice-file" type="file" accept="audio/*" capture>
+				</div>
+				<input type="hidden" name="voice_note">
+				<div class="small text-muted sp-voice-state"></div>
+			</div>
+			<div class="form-group">
+				<label>{{ _("Note") }}</label>
+				<textarea class="form-control" name="note" rows="2"></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary btn-block btn-lg sp-save">{{ _("Save") }}</button>
+			<div class="alert mt-3 d-none sp-result" role="status"></div>
+		</form>
+	</div>
 	{% endif %}
-	{% if entries %}
+
 	<h5>{{ _("My Entries") }}</h5>
 	<ul class="list-unstyled sp-field-entries">
 		{% for entry in entries %}
-		<li class="sp-field-entry mb-2">
+		<li class="sp-field-entry mb-2" data-name="{{ entry.name }}">
 			{% if entry.locked %}<span class="sp-field-lock" title="{{ _('Day locked') }}" aria-label="{{ _('Day locked') }}">🔒</span>{% endif %}
 			<b>{{ _(entry.entry_kind) }}</b> · {{ frappe.format(entry.work_date, "Date") }} · {{ _(entry.status) }}
 		</li>
+		{% else %}
+		<li class="text-muted">{{ _("Nothing logged yet.") }}</li>
 		{% endfor %}
 	</ul>
-	{% endif %}
-	<p>{{ _("Field entry is done from your phone. The Job, Expense and Money pages open here when they are ready.") }}</p>
 	<p class="text-muted">{{ _("The desk is for office users.") }}</p>
 	<a class="btn btn-default" href="/logout">{{ _("Log out") }}</a>
 </div>
+<script>window.sp_field_messages = {{ messages | tojson }};</script>
 {% endblock %}
