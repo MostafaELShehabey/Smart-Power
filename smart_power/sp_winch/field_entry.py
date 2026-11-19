@@ -31,6 +31,7 @@ from smart_power.sp_winch.bookings import (
 	FOR_CENTER,
 	FOR_OUTSIDE,
 	FOR_STATION,
+	OPERATOR_ROLES,
 )
 from smart_power.sp_winch.vehicles import JUMBO_TYPE, VEHICLE, record_odometer
 
@@ -309,6 +310,18 @@ def _run_as(user: str, action):
 		frappe.set_user(current)  # nosemgrep
 
 
+def _quietly(action):
+	"""ERPNext's notes to an accountant are not for the operator. An error still stops the save."""
+	shown = len(frappe.local.message_log)
+	result = action()
+	del frappe.local.message_log[shown:]
+	return result
+
+
+def _post(event: str, doc, amount: float, **kw) -> str:
+	return _quietly(lambda: post(event, doc, amount, **kw))
+
+
 def on_update(doc) -> None:
 	before = doc.get_doc_before_save()
 	if _money_changed(doc):
@@ -371,7 +384,7 @@ def _post_job(doc) -> None:
 		"credit_center": doc.cost_center,
 	}
 	if doc.for_kind == FOR_OUTSIDE:
-		post(
+		_post(
 			JOB_EVENT,
 			doc,
 			amount,
@@ -383,7 +396,7 @@ def _post_job(doc) -> None:
 		_receive(doc, flt(doc.received_now), doc.customer)
 	elif doc.for_kind == FOR_STATION:
 		project = frappe.db.get_value("SP Station", doc.station, "project")
-		post(
+		_post(
 			INTERNAL_EVENT,
 			doc,
 			amount,
@@ -393,7 +406,7 @@ def _post_job(doc) -> None:
 			**common,
 		)
 	elif doc.for_kind == FOR_CENTER:
-		post(INTERNAL_EVENT, doc, amount, debit_center=doc.internal_center, internal_charge=True, **common)
+		_post(INTERNAL_EVENT, doc, amount, debit_center=doc.internal_center, internal_charge=True, **common)
 
 
 def _set_customer(doc) -> None:
@@ -407,7 +420,7 @@ def _set_customer(doc) -> None:
 			{"doctype": "Customer", "customer_name": doc.customer_name, "sp_mobile": mobile}
 		)
 		customer.flags.ignore_permissions = True
-		found = customer.insert().name
+		found = _quietly(customer.insert).name
 	doc.db_set("customer", found)
 
 
@@ -415,7 +428,7 @@ def _receive(doc, amount: float, customer: str | None) -> None:
 	if amount <= 0:
 		return
 	transit = holder_account(_holder(doc), TRANSIT, doc.company)
-	post(
+	_post(
 		MONEY_EVENT,
 		doc,
 		amount,
@@ -456,7 +469,7 @@ def _deposit(doc, amount: float, transit: str) -> None:
 
 def _post_expense(doc) -> None:
 	custody = doc.paid_from == FROM_CUSTODY
-	post(
+	_post(
 		EXPENSE_EVENT,
 		doc,
 		flt(doc.amount),
@@ -509,6 +522,46 @@ def save_entry(values: str | dict) -> str:
 		frappe.clear_messages()
 		return frappe.db.get_value(ENTRY, {"client_uuid": uuid})
 	return doc.name
+
+
+@frappe.whitelist()
+def official_account_query(
+	doctype: str, txt: str, searchfield: str, start: int, page_len: int, filters: dict | str | None = None
+) -> list:
+	"""The accounts money can go to. An operator names one here without seeing its balance."""
+	frappe.has_permission(ENTRY, "create", throw=True)
+	return frappe.get_all(
+		"Account",
+		filters={
+			"sp_account_kind": OFFICIAL,
+			"is_group": 0,
+			"disabled": 0,
+			"name": ("like", f"%{txt}%"),
+		},
+		fields=["name"],
+		as_list=True,
+		start=start,
+		page_length=page_len,
+	)
+
+
+@frappe.whitelist()
+def operator_query(
+	doctype: str, txt: str, searchfield: str, start: int, page_len: int, filters: dict | str | None = None
+) -> list:
+	"""The people an entry can be logged for: the enabled operators and drivers."""
+	if not _has_role(LOGS_FOR_OTHERS):
+		frappe.throw(_("Only the winch manager logs an entry for someone else."), frappe.PermissionError)
+	users = frappe.get_all("Has Role", {"role": ("in", OPERATOR_ROLES), "parenttype": "User"}, pluck="parent")
+	return frappe.get_all(
+		"User",
+		filters={"name": ("in", users or [""]), "enabled": 1},
+		or_filters={"name": ("like", f"%{txt}%"), "full_name": ("like", f"%{txt}%")},
+		fields=["name", "full_name"],
+		as_list=True,
+		start=start,
+		page_length=page_len,
+	)
 
 
 # --- who sees what --------------------------------------------------------------------------------
