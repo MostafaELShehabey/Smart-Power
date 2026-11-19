@@ -2864,3 +2864,36 @@ Sheet Item,البند
 Closing Balance,رصيد نهاية المدة
 Month Grid,جدول الشهر
 Year Summary,ملخص السنة
+A winch or Jumbo crew member's monthly salary; each Crew Salary starts with it (SP-181).,المرتب الشهري لفرد طاقم الونش أو الجامبو؛ كل مرتب طاقم يبدأ به (SP-181).
+Advance Deduction,خصم السلفة
+Advance repaid by {0},سداد سلفة من {0}
+Advance to {0},سلفة لـ {0}
+Advance {0} is not open.,السلفة {0} غير مفتوحة.
+Any day of the month the salary is for.,أي يوم من الشهر الذي يخصه المرتب.
+Crew Salary,مرتب الطاقم
+Deducted From,مخصومة من
+Deducted from each monthly salary when advances are repaid by deduction.,تُخصم من كل مرتب شهري عند سداد السلف بالخصم.
+Enter the salary of {0}.,اكتب مرتب {0}.
+"How a winch or Jumbo crew member repays an advance: deducted from each monthly salary, or in cash. Daily workers always repay in cash.",طريقة سداد سلفة طاقم الونش أو الجامبو: خصم من كل مرتب شهري أو كاش. عمال اليومية يسددون كاش دائمًا.
+Monthly Salary,المرتب الشهري
+Only the winch manager or the admin pays the crew.,صرف مرتبات وسلف الطاقم لمسئول الونش أو الأدمن فقط.
+Part of this advance is repaid: cancel the repayments first.,جزء من السلفة اتسدد: الغِ السداد أولًا.
+Repay above zero and up to the {0} still owed.,سدد مبلغًا أكبر من صفر وحتى {0} المتبقي.
+Repay in Cash,سداد كاش
+SP Crew Salary,مرتب طاقم
+SP Worker Advance,سلفة عامل
+SP Worker Advance Repayment,سداد سلفة عامل
+Salary,المرتب
+Salary deduction,خصم من المرتب
+Salary of {0} for {1},مرتب {0} عن {1}
+"The account the advance was paid from: an official account, or your own cash or custody.",الحساب الذي صُرفت منه السلفة: حساب رسمي أو نقديتك أو عهدتك.
+"The advance installments taken off, when advances are repaid by salary deduction.",أقساط السلف المخصومة عند السداد بالخصم من المرتب.
+The installment must be above zero and no more than the advance.,القسط أكبر من صفر ولا يزيد عن السلفة.
+The winch or Jumbo car the worker is on: its center carries the advance.,الونش أو الجامبو الذي يعمل عليه العامل: مركزه يحمل السلفة.
+Worker Advance,سلفة عامل
+Worker Advance Repayment,سداد سلفة عامل
+Worker Name,اسم العامل
+{0} already has the salary of {1}: {2}.,{0} له مرتب {1} بالفعل: {2}.
+"{0}: choose an official account, or your own cash or custody.",{0}: اختر حسابًا رسميًا أو نقديتك أو عهدتك.
+Still owes {0} on advances; this month's installment is deducted.,عليه {0} سلف متبقية؛ يُخصم قسط هذا الشهر.
+"Still owes {0} on advances, repaid in cash.",عليه {0} سلف متبقية، تُسدد كاش.

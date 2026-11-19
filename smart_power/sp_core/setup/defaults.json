@@ -345,6 +345,7 @@
 		"field_entry_lock_days": {"value": 3, "_source": "decision 44 (3-day rule)"},
 		"winch_internal_revenue": {"value": "On the job", "_source": "SP-112: the owner chose on the job day by default (2026-11-19)"},
 		"winch_debt_age_months": {"value": 3, "_source": "SP-112: the owner chose 3 months, the admin can change it (2026-11-19)"},
+		"worker_advance_repayment": {"value": "Salary deduction", "_source": "SP-181: the owner chose salary deduction by default (2026-11-19, open question SP-158)"},
 		"default_rounding_step": {"value": 0, "_source": "no rounding until the templates set their own"}
 	},
 	"margin_ranges": [
@@ -516,6 +517,7 @@
 			{"account_name": "Vodafone Cash", "parent": "Bank Accounts", "account_type": "Bank", "kind": "Official", "bank": "Vodafone Cash"},
 			{"account_name": "Showroom Safe", "parent": "Cash In Hand", "account_type": "Cash", "kind": "Transit"},
 			{"account_name": "Customer Advances - Agri Bank", "parent": "Loans and Advances (Assets)", "kind": "Other"},
+			{"account_name": "Worker Advances", "parent": "Loans and Advances (Assets)", "kind": "Other", "_source": "SP-181: advances to the winch and Jumbo crew, per employee"},
 			{"account_name": "Consignment Memo", "parent": "Temporary Accounts", "account_type": "Temporary", "kind": "Other"},
 			{"account_name": "Indirect Cost Pool", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other"},
 			{"account_name": "Petty Cash Expenses", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-122: petty cash spent from a custody, on a center"},
@@ -533,6 +535,7 @@
 			{"account_name": "Daily Wages Payable", "parent": "Current Liabilities", "kind": "Other", "_source": "SP-96: daily workers' wages owed"},
 			{"account_name": "Winch Services", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-108: a winch or Jumbo job charged to a station or center"},
 			{"account_name": "Winch Discounts", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-112: a discount given when winch money is collected"},
+			{"account_name": "Crew Salaries", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-181: monthly salaries of the winch and Jumbo crew, on the vehicle's center"},
 			{"account_name": "Vehicle Running Costs", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-108: fuel, oil, repairs and crew wages of a vehicle, on its center"}
 		],
 		"modes_of_payment": [

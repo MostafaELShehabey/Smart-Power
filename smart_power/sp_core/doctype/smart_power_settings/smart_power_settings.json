@@ -46,6 +46,7 @@
   "winch_debt_age_months",
   "winch_discount_role",
   "winch_internal_revenue",
+  "worker_advance_repayment",
   "oil_interval_km",
   "oil_alert_km",
   "login_lock_attempts",
@@ -275,6 +276,14 @@
    "description": "When a winch or Jumbo job for a station or one of our centers is charged: on the job day, or when the admin confirms it."
   },
   {
+   "fieldname": "worker_advance_repayment",
+   "fieldtype": "Select",
+   "options": "Salary deduction\nCash",
+   "default": "Salary deduction",
+   "label": "Worker Advance Repayment",
+   "description": "How a winch or Jumbo crew member repays an advance: deducted from each monthly salary, or in cash. Daily workers always repay in cash."
+  },
+  {
    "fieldname": "oil_interval_km",
    "fieldtype": "Int",
    "label": "Oil Change Interval (km)",
@@ -371,7 +380,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-19 20:00:00.000000",
+ "modified": "2026-11-19 19:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-11-19 19:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "repayment_date",
+  "kind",
+  "amount",
+  "to_account",
+  "salary",
+  "journal_entry"
+ ],
+ "fields": [
+  {
+   "fieldname": "repayment_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "kind",
+   "fieldtype": "Select",
+   "label": "Kind",
+   "options": "Salary deduction\nCash",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "to_account",
+   "fieldtype": "Link",
+   "label": "To Account",
+   "options": "Account",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "salary",
+   "fieldtype": "Link",
+   "label": "Crew Salary",
+   "options": "SP Crew Salary",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Journal Entry",
+   "options": "Journal Entry"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 19:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "SP Worker Advance Repayment",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 1,
+ "permissions": []
+}
