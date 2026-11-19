@@ -33,7 +33,7 @@ TASK_TYPE, FIX_TASK = "Reopen Request", "Fix Rejected Sync"
 LATE = "Late Entry"
 REASON_IN_TITLE = 80  # sp-allow-number: keeps the task title within its field
 MY_ENTRIES = 20  # sp-allow-number: entries listed on the operator's page, a screen size
-EVENT_LOCKING, EVENT_DECIDED = "entries_locking_24h", "reopen_decided"
+EVENT_LOCKING, EVENT_DECIDED, EVENT_ASKED = "entries_locking_24h", "reopen_decided", "reopen_asked"
 
 
 def lock_days() -> int:
@@ -139,6 +139,15 @@ def ask_to_reopen(vehicle: str, work_date: str, reason: str) -> str:
 			vehicle, frappe.format(work_date, "Date"), reason[:REASON_IN_TITLE]
 		),
 		description=reason,
+	)
+	# the inbox task waits there; the projects manager and the admin also hear of it (SP-180)
+	send(
+		EVENT_ASKED,
+		_reopeners(),
+		REQUEST,
+		doc.name,
+		_("Asked to reopen {0} on {1}: {2}").format(vehicle, frappe.format(work_date, "Date"), reason),
+		from_user=frappe.session.user,
 	)
 	return doc.name
 
