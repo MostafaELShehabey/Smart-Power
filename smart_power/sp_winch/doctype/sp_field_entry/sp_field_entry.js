@@ -1,6 +1,43 @@
 // L1 Light field entry on the desk (SP-108): the winch manager logs for an operator.
 // The rules and the posting are on the server (smart_power.sp_winch.field_entry).
 const SP_FIELD_ENTRY_API = "smart_power.sp_winch.field_entry";
+const SP_FIELD_LOCK_API = "smart_power.sp_winch.field_lock";
+
+// A locked day (SP-109): the form says so, and the only action left is to ask to reopen it.
+async function sp_show_lock(frm) {
+	frm.set_intro();
+	frm.remove_custom_button(__("Ask to Reopen"));
+	frm.enable_save();
+	if (!frm.doc.vehicle || !frm.doc.work_date) return;
+	const { vehicle, work_date } = frm.doc;
+	const { message: state } = await frappe.call({
+		method: `${SP_FIELD_LOCK_API}.lock_state`,
+		args: { vehicle, work_date },
+	});
+	if (!state.locked) return;
+	if (state.blocked) frm.disable_save();
+	if (state.request) {
+		frm.set_intro(__("Day locked. Request {0} is waiting for a decision.", [state.request]), "orange");
+		return;
+	}
+	frm.set_intro(__("Day locked"), "red");
+	frm.add_custom_button(__("Ask to Reopen"), () => {
+		frappe.prompt(
+			{ fieldname: "reason", fieldtype: "Small Text", label: __("Reason"), reqd: 1 },
+			async ({ reason }) => {
+				await frappe.call({
+					method: `${SP_FIELD_LOCK_API}.ask_to_reopen`,
+					args: { vehicle, work_date, reason },
+					freeze: true,
+				});
+				frappe.show_alert({ message: __("Sent for a decision"), indicator: "green" });
+				sp_show_lock(frm);
+			},
+			__("Ask to Reopen"),
+			__("Send")
+		);
+	});
+}
 
 frappe.ui.form.on("SP Field Entry", {
 	setup(frm) {
@@ -12,6 +49,9 @@ frappe.ui.form.on("SP Field Entry", {
 		frm.set_query("booking", () => ({ filters: { status: "Booked" } }));
 		frm.set_query("related_job", () => ({ filters: { entry_kind: "Job", for_kind: "Outside" } }));
 	},
+	refresh: sp_show_lock,
+	vehicle: sp_show_lock,
+	work_date: sp_show_lock,
 	async booking(frm) {
 		if (!frm.doc.booking) return;
 		const { message: row } = await frappe.db.get_value("SP Vehicle Booking", frm.doc.booking, [

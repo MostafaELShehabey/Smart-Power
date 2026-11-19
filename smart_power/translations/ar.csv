@@ -2683,7 +2683,7 @@ Not reopened: {0}: {1},لم يُعَد الفتح: {0}: {1}
 Only the projects manager or the admin decides a reopening.,مدير المشروعات أو الأدمن فقط يقرر إعادة الفتح.
 Rejection Reason,سبب الرفض
 Reopen Until,مفتوح حتى
-Reopen {0} on {1},إعادة فتح {0} بتاريخ {1}
+"Reopen {0} on {1}: {2}","إعادة فتح {0} بتاريخ {1}: {2}"
 Reopened,أعيد فتحه
 Reopened until {0}: {1},أعيد الفتح حتى {0}: {1}
 Reopened: {0} on {1}: {2},أعيد الفتح: {0} بتاريخ {1}: {2}
@@ -2692,3 +2692,8 @@ SP Reopen Request,طلب إعادة فتح يوم
 This day is still open.,هذا اليوم ما زال مفتوحًا.
 This entry reached the server after the day locked. Ask to reopen it.,وصل هذا التسجيل بعد قفل اليوم. اطلب إعادة فتحه.
 {0} field entries lock within 24 hours,{0} تسجيلات ميدانية ستقفل خلال 24 ساعة
+Ask to Reopen,طلب إعادة فتح
+Day locked. Request {0} is waiting for a decision.,اليوم مقفل. الطلب {0} في انتظار القرار.
+My Entries,تسجيلاتي
+Sent for a decision,تم الإرسال لاتخاذ القرار
+Entries locking in 24 h,تسجيلات تقفل خلال 24 ساعة

@@ -31,6 +31,8 @@ REOPENERS = ("SP Project Manager", "SP Admin", "System Manager")
 SEES_ALL = (*REOPENERS, "SP Winch Manager", "SP Winch Reviewer")
 TASK_TYPE, FIX_TASK = "Reopen Request", "Fix Rejected Sync"
 LATE = "Late Entry"
+REASON_IN_TITLE = 80  # sp-allow-number: keeps the task title within its field
+MY_ENTRIES = 20  # sp-allow-number: entries listed on the operator's page, a screen size
 EVENT_LOCKING, EVENT_DECIDED = "entries_locking_24h", "reopen_decided"
 
 
@@ -132,7 +134,10 @@ def ask_to_reopen(vehicle: str, work_date: str, reason: str) -> str:
 		REQUEST,
 		doc.name,
 		_reopeners(),
-		_("Reopen {0} on {1}").format(vehicle, frappe.format(work_date, "Date")),
+		# the inbox shows the title, and the reason is what the decision rests on
+		_("Reopen {0} on {1}: {2}").format(
+			vehicle, frappe.format(work_date, "Date"), reason[:REASON_IN_TITLE]
+		),
 		description=reason,
 	)
 	return doc.name
@@ -238,6 +243,19 @@ def locking_soon(user: str | None = None) -> list[str]:
 		if last_open_day(r.vehicle, r.work_date) == today
 		and (everyone or user in (r.logged_by, r.on_behalf_of))
 	]
+
+
+def my_entries(user: str | None = None) -> list[dict]:
+	"""The operator's latest entries, with a lock on those whose day has closed."""
+	user = user or frappe.session.user
+	rows = frappe.get_all(
+		ENTRY,
+		or_filters={"logged_by": user, "on_behalf_of": user},
+		fields=["name", "entry_kind", "vehicle", "work_date", "status"],
+		order_by="work_date desc, creation desc",
+		limit=MY_ENTRIES,
+	)
+	return [{**r, "locked": is_locked(r.vehicle, r.work_date)} for r in rows]
 
 
 # --- an offline entry that arrives too late ---------------------------------------------------------

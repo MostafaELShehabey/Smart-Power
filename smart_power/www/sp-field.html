@@ -20,6 +20,20 @@
 	{% else %}
 	<p class="text-muted sp-field-no-jobs">{{ _("No jobs are booked for you today.") }}</p>
 	{% endif %}
+	{% if locking %}
+	<p class="sp-field-locking text-warning"><b>{{ _("{0} field entries lock within 24 hours").format(locking) }}</b></p>
+	{% endif %}
+	{% if entries %}
+	<h5>{{ _("My Entries") }}</h5>
+	<ul class="list-unstyled sp-field-entries">
+		{% for entry in entries %}
+		<li class="sp-field-entry mb-2">
+			{% if entry.locked %}<span class="sp-field-lock" title="{{ _('Day locked') }}" aria-label="{{ _('Day locked') }}">🔒</span>{% endif %}
+			<b>{{ _(entry.entry_kind) }}</b> · {{ frappe.format(entry.work_date, "Date") }} · {{ _(entry.status) }}
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
 	<p>{{ _("Field entry is done from your phone. The Job, Expense and Money pages open here when they are ready.") }}</p>
 	<p class="text-muted">{{ _("The desk is for office users.") }}</p>
 	<a class="btn btn-default" href="/logout">{{ _("Log out") }}</a>
