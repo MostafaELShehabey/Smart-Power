@@ -44,6 +44,8 @@ class SPTask(Document):
 			"Transfer to Issue",
 			"Transfer to Receive",
 			"Transfer Difference",
+			"Material Request",
+			"Return to Receive",
 			"Settlement to Approve",
 			"Count Difference",
 			"Password Reset",

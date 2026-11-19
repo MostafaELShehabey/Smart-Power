@@ -39,7 +39,7 @@ EVENT_ISSUE, EVENT_RECEIVE, EVENT_DIFFERENCE = (
 )
 BUYER = "SP Purchase Officer"
 ADMIN_ROLES = ("SP Admin", "System Manager")
-CREATORS = (BUYER, *ADMIN_ROLES)
+CREATORS = (BUYER, "SP Project Manager", *ADMIN_ROLES)
 RECENT = 50  # sp-allow-number: a screenful of the latest transfers
 
 
@@ -252,19 +252,21 @@ def _left(row) -> float:
 	return flt(flt(row.transfer_qty) - flt(row.transferred_qty), QTY_DIGITS)
 
 
-def _stock_in(doc, confirmed: dict[str, float]):
-	"""End Transit for what the site counted. A row with nothing confirmed stays in Transit."""
-	entry = make_stock_in_entry(doc.sp_issue_entry)
+def _end_transit(source: str, confirmed: dict[str, float], project: str, warehouse: str | None = None):
+	"""End Transit for what was counted. A row with nothing confirmed stays in Transit."""
+	entry = make_stock_in_entry(source)
 	kept = []
 	for row in entry.items:
 		qty = flt(confirmed.get(row.ste_detail))
 		if qty > 0:
 			row.qty = qty
 			row.transfer_qty = flt(qty * flt(row.conversion_factor or 1), QTY_DIGITS)
-			row.project = doc.items[0].project
+			row.project = project
+			row.t_warehouse = warehouse or row.t_warehouse
 			kept.append(row)
 	entry.set("items", kept)
-	entry.project = doc.items[0].project
+	entry.project = project
+	entry.to_warehouse = warehouse or entry.to_warehouse
 	entry.flags.ignore_permissions = True
 	entry.insert()
 	entry.submit()
@@ -291,7 +293,7 @@ def confirm_transfer(name: str, lines: str | list) -> dict:
 		confirmed[row.name] = qty
 	if not any(confirmed.values()):
 		frappe.throw(_("Enter what arrived."))
-	entry = _as_system(lambda: _stock_in(doc, confirmed))
+	entry = _as_system(lambda: _end_transit(doc.sp_issue_entry, confirmed, doc.items[0].project))
 	_signed_by_user(entry)
 	short = sum(_left(r) for r in _issued_rows(doc.sp_issue_entry))
 	close_tasks(ORDER, doc.name, TASK_RECEIVE)
