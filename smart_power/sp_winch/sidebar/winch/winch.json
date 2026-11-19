@@ -43,6 +43,22 @@
    "child": 0,
    "collapsible": 1,
    "hidden": 0,
+   "icon": "unlock",
+   "indent": 0,
+   "is_default_module": 0,
+   "keep_closed": 0,
+   "label": "Reopen Requests",
+   "link_to": "SP Reopen Request",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "added": 0,
+   "child": 0,
+   "collapsible": 1,
+   "hidden": 0,
    "icon": "truck",
    "indent": 0,
    "is_default_module": 0,
@@ -55,7 +71,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-11-19 21:00:00.000000",
+ "modified": "2026-11-19 23:30:00.000000",
  "modified_by": "Administrator",
  "module": "SP Winch",
  "name": "Winch",

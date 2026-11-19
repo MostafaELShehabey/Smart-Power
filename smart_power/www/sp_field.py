@@ -17,4 +17,8 @@ def get_context(context):
 	from smart_power.sp_winch.bookings import todays_jobs
 
 	context.jobs = todays_jobs()  # today's booked jobs (SP-107)
+	from smart_power.sp_winch.field_lock import locking_soon, my_entries
+
+	context.locking = len(locking_soon())  # entries locking in 24 hours (SP-109)
+	context.entries = my_entries()
 	return context

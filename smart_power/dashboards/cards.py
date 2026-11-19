@@ -448,6 +448,21 @@ def cash_in_transit(user: str) -> dict:
 	}
 
 
+@card("entries_locking", "Entries locking in 24 h", ("projects", "showroom"))
+def entries_locking(user: str) -> dict | None:
+	"""Field entries whose last open day is today (SP-109), for who follows the winch and Jumbo."""
+	if not frappe.has_permission("SP Field Entry", "read", user=user):
+		return None
+	from smart_power.sp_winch.field_lock import locking_soon
+
+	names = locking_soon(user)
+	return {
+		"value": len(names),
+		"indicator": ORANGE if names else GREEN,
+		**_list("SP Field Entry", name=["in", names]),
+	}
+
+
 @card("supplier_dues_week", "Supplier dues this week", ("finance",))
 def supplier_dues_week(user: str) -> dict:
 	"""What suppliers are owed within a week; orange while any of it is late (SP-86)."""

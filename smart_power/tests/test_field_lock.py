@@ -4,6 +4,7 @@ import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, getdate, nowdate, today
 
+from smart_power.dashboards.cards import entries_locking
 from smart_power.rules import RuleBlocked
 from smart_power.sp_core.inbox import act
 from smart_power.sp_finance.accounts import seed_accounts
@@ -13,6 +14,7 @@ from smart_power.sp_winch import field_entry as fe
 from smart_power.sp_winch import field_lock as lock
 from smart_power.tests.test_field_entry import list_value
 from smart_power.tests.utils import load_erpnext_test_data, make_user, set_rule, set_setting
+from smart_power.www.sp_field import get_context
 
 load_erpnext_test_data()
 
@@ -116,6 +118,7 @@ class TestFieldLock(IntegrationTestCase):
 		task = frappe.db.get_value(
 			"SP Task", {"reference_name": request, "assigned_to": self.amira, "status": "Open"}
 		)
+		self.assertIn("The receipt came late", frappe.db.get_value("SP Task", task, "subject"))
 		act(task, "approve")
 		frappe.set_user("Administrator")
 		row = frappe.get_doc(lock.REQUEST, request)
@@ -213,3 +216,18 @@ class TestFieldLock(IntegrationTestCase):
 		self.ask(add_days(today(), -(N + 1)))
 		self.assertIn(self.other, lock.query_conditions(self.other))
 		self.assertEqual(lock.query_conditions(self.amira), "")
+
+	def test_the_operator_page_shows_locks_and_what_locks_next(self):
+		locked, soon = self.old_entry(N + 1), self.old_entry(N)
+		frappe.set_user(self.driver)
+		context = frappe._dict()
+		get_context(context)
+		marks = {e["name"]: e["locked"] for e in context.entries}
+		self.assertEqual((marks[locked.name], marks[soon.name]), (True, False))
+		self.assertEqual(context.locking, 1)
+
+	def test_the_home_card_counts_what_locks_next(self):
+		doc = self.old_entry(N)
+		card = entries_locking(self.amira)
+		self.assertEqual(card["value"], 1)
+		self.assertEqual(card["route_options"]["name"], ["in", [doc.name]])
