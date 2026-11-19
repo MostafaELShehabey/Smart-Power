@@ -36,3 +36,16 @@ class TestFieldPage(IntegrationTestCase):
 			frappe.set_user("Administrator")
 		self.assertIn(response.status_code, (301, 302, 303, 307, 308))
 		self.assertIn("/login", response.headers.get("Location", ""))
+
+	def test_the_job_expense_and_money_pages_are_there_for_who_logs(self):
+		user = make_user("sp.field.driver@example.com", ("driver",))
+		frappe.set_user(user)
+		try:
+			html = get_response_content("sp-field")
+		finally:
+			frappe.set_user("Administrator")
+		for kind in ("Job", "Expense", "Money"):
+			self.assertIn(f'data-kind="{kind}"', html)
+		self.assertIn("sp-entry-form", html)
+		self.assertIn("sp_field_messages", html)
+		self.assertIn("SPFieldPage", html)  # the page's own script

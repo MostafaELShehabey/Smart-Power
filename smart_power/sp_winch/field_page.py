@@ -83,7 +83,22 @@ def _open_jobs(user: str) -> list[dict]:
 		fields=["name", "customer_name", "work_date", "outstanding_amount"],
 		order_by="work_date desc",
 	)
-	return [{**r, "outstanding": flt(r.outstanding_amount)} for r in rows]
+	return [
+		{
+			**r,
+			"outstanding": flt(r.outstanding_amount),
+			"label": " · ".join(
+				part
+				for part in (
+					r.customer_name,
+					frappe.format(r.work_date, "Date"),
+					frappe.format(r.outstanding_amount, "Currency"),
+				)
+				if part
+			),
+		}
+		for r in rows
+	]
 
 
 @frappe.whitelist()
@@ -125,6 +140,13 @@ def options() -> dict:
 		"open_jobs": _open_jobs(user),
 		"bookings": todays_jobs(user),
 		"operators": operators,
+		# the people a wage is paid to (an expense of type Worker Wage)
+		"workers": frappe.get_all(
+			"Employee",
+			{"status": "Active", "sp_is_daily_worker": 1},
+			["name", "employee_name"],
+			order_by="employee_name",
+		),
 	}
 
 
@@ -169,6 +191,13 @@ def entries() -> list[dict]:
 				"status": r.status,
 				"summary": _summary(r),
 				"amount": flt(r.agreed_amount if r.entry_kind == JOB else r.amount),
+				# worded here: the phone page has no desk translations or formats
+				"kind_label": _(r.entry_kind),
+				"status_label": _(r.status),
+				"date_label": frappe.format(r.work_date, "Date"),
+				"amount_label": frappe.format(
+					r.agreed_amount if r.entry_kind == JOB else r.amount, "Currency"
+				),
 				"locked": locked,
 				"request": request,
 				"reopened": r.reopened,
@@ -208,3 +237,49 @@ def update_entry(name: str, values: str | dict) -> str:
 	doc.update(values)
 	doc.save()
 	return doc.name
+
+
+VOICE_NAME = 10  # sp-allow-number: random letters in a voice note's file name
+# what a phone records a voice note as; the site's own file size limit applies
+VOICE_TYPES = {
+	"webm": "audio/webm",
+	"ogg": "audio/ogg",
+	"m4a": "audio/mp4",
+	"mp3": "audio/mpeg",
+	"aac": "audio/aac",
+	"wav": "audio/wav",
+	"3gp": "audio/3gpp",
+	"amr": "audio/amr",
+}
+
+
+@frappe.whitelist(methods=["POST"])
+def upload_voice() -> str:
+	"""A voice note for an entry: kept private until the entry that names it is saved.
+
+	Frappe lets a website user (a driver, the operator) upload only images and documents, so
+	voice notes come here: audio only, from someone who logs field entries."""
+	_check()
+	upload = frappe.request.files.get("file") if frappe.request else None
+	if not upload:
+		frappe.throw(_("Record the voice note first."))
+	return save_voice(upload.filename, upload.mimetype, upload.stream.read())
+
+
+def save_voice(filename: str | None, mimetype: str | None, content: bytes) -> str:
+	ext = (filename or "").rsplit(".", 1)[-1].lower()
+	if ext not in VOICE_TYPES or not (mimetype or "").startswith(("audio/", "video/webm")):
+		frappe.throw(_("Only a voice recording can be uploaded here."))
+	if not content:
+		frappe.throw(_("Record the voice note first."))
+	doc = frappe.get_doc(
+		{
+			"doctype": "File",
+			"file_name": f"voice-{frappe.generate_hash(length=VOICE_NAME)}.{ext}",
+			"folder": "Home",
+			"is_private": 1,
+			"content": content,
+		}
+	)
+	doc.save(ignore_permissions=True)  # the caller's right to log an entry was checked first
+	return doc.file_url
