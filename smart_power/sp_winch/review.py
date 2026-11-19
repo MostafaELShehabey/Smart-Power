@@ -47,6 +47,7 @@ from smart_power.sp_winch.field_entry import (
 	_has_role,
 	_holder,
 )
+from smart_power.sp_winch.receipts import job_money
 
 REVIEW = "SP Field Review"
 LOGGED, LOCKED, REVIEWED, FLAGGED = "Logged", "Locked", "Reviewed", "Flagged"
@@ -111,7 +112,7 @@ def compute_flags(doc) -> list[dict]:
 		if abs(flt(doc.agreed_amount) - booked) > PENNY:
 			add(AMOUNT_DIFFERS, agreed=flt(doc.agreed_amount), booked=booked)
 	if doc.entry_kind == JOB and doc.for_kind == FOR_OUTSIDE:
-		still_open = flt(doc.agreed_amount) - flt(doc.received_now) - _collected_later(doc.name)
+		still_open = job_money(doc).outstanding  # paid on the job, later, by winch receipts (SP-112)
 		if still_open > PENNY:
 			add(UNPAID, amount=still_open)
 	if doc.entry_time and doc.work_date:

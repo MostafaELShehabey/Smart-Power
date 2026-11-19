@@ -66,3 +66,4 @@ smart_power.patches.sp82_po_print_format
 smart_power.patches.sp84_receipts_on_purchase_receipt
 smart_power.patches.sp106_vehicle_settings
 smart_power.patches.sp108_field_entry
+smart_power.patches.sp112_winch_receipts

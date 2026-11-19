@@ -2744,3 +2744,45 @@ Sent to the admin.,تم الإرسال للأدمن.
 What,البيان
 Mark Reviewed,اعتماد المراجعة
 Reopen Requests,طلبات إعادة الفتح
+Allocate Oldest First,توزيع على الأقدم أولًا
+Allocated,مخصص
+Allocations,التوزيع
+Choose the customer and enter the amount first.,اختر العميل واكتب المبلغ أولًا.
+Confirm Job,تأكيد المهمة
+Confirmed At,وقت التأكيد
+Debt Alert Sent,تم إرسال تنبيه المديونية
+Discount Reason,سبب الخصم
+Jobs,المهام
+"Kept on the customer's account, for the next job.",يبقى على حساب العميل للمهمة القادمة.
+Money paid into an official account goes there once the admin confirms it.,المبلغ المدفوع في حساب رسمي يدخله بعد تأكيد الأدمن.
+More,المزيد
+Not Allocated,غير موزع
+On confirmation,عند التأكيد
+On the job,يوم المهمة
+Only the admin confirms Smart Power's own jobs.,تأكيد مهام سمارت باور الداخلية للأدمن فقط.
+Only the admin or the Winch Discount Role gives a discount at collection.,الخصم عند التحصيل للأدمن أو لدور خصم الونش فقط.
+Record Receipt,تسجيل إيصال
+Row {0}: enter an amount or a discount.,الصف {0}: اكتب مبلغًا أو خصمًا.
+Row {0}: give the reason for the discount.,الصف {0}: اكتب سبب الخصم.
+Row {0}: job {1} is another customer's.,الصف {0}: المهمة {1} لعميل آخر.
+Row {0}: job {1} is listed twice.,الصف {0}: المهمة {1} مكررة.
+Row {0}: only {1} is open on job {2}.,الصف {0}: المتبقي على المهمة {2} هو {1} فقط.
+Row {0}: the amounts cannot be negative.,الصف {0}: المبالغ لا تكون بالسالب.
+Row {0}: {1} is not an outside customer's job.,الصف {0}: {1} ليست مهمة لعميل خارجي.
+SP Receipt Allocation,توزيع إيصال
+SP Winch Receipt,إيصال ونش
+Smart Power Winch Jobs Post,قيد مهام الونش لسمارت باور
+The admin has confirmed transfer {0}: this receipt cannot be deleted.,أكد الأدمن التحويل {0}: لا يمكن حذف هذا الإيصال.
+"The jobs take {0}, more than the receipt's {1}.",المهام تأخذ {0}، أكثر من مبلغ الإيصال {1}.
+This customer has no open jobs.,لا توجد مهام مفتوحة لهذا العميل.
+What was still open on the job before this receipt.,المتبقي على المهمة قبل هذا الإيصال.
+"When a winch or Jumbo job for a station or one of our centers is charged: on the job day, or when the admin confirms it.",متى تُحمّل مهمة الونش أو الجامبو لمحطة أو لأحد مراكزنا: يوم المهمة، أو عند تأكيد الأدمن.
+"Who may give a discount when winch money is collected, besides the admin. Empty: only the admin.",من يحق له الخصم عند تحصيل فلوس الونش غير الأدمن. فارغ: الأدمن فقط.
+Whose cash it is until it is handed in: their own transit account.,صاحب النقدية حتى يسلمها: حساب العهدة الخاص به.
+Winch Discount,خصم ونش
+Winch Discount Role,دور خصم الونش
+Winch receipt {0}: {1},إيصال ونش {0}: {1}
+Winch receipts are allocated to this job: its customer cannot change.,إيصالات ونش موزعة على هذه المهمة: لا يمكن تغيير العميل.
+{0} is already paid or discounted on this job: the agreed amount cannot be less.,تم دفع أو خصم {0} على هذه المهمة: لا يكون المبلغ المتفق عليه أقل من ذلك.
+{0} is not a job for a station or one of our centers.,{0} ليست مهمة لمحطة أو لأحد مراكزنا.
+"{0}, job {1}: {2}",{0}، المهمة {1}: {2}

@@ -44,6 +44,8 @@
   "field_entry_lock_days",
   "case_inactivity_days",
   "winch_debt_age_months",
+  "winch_discount_role",
+  "winch_internal_revenue",
   "oil_interval_km",
   "oil_alert_km",
   "login_lock_attempts",
@@ -258,6 +260,21 @@
    "label": "Winch Debt Age Alert (months)"
   },
   {
+   "fieldname": "winch_discount_role",
+   "fieldtype": "Link",
+   "options": "Role",
+   "label": "Winch Discount Role",
+   "description": "Who may give a discount when winch money is collected, besides the admin. Empty: only the admin."
+  },
+  {
+   "fieldname": "winch_internal_revenue",
+   "fieldtype": "Select",
+   "options": "On the job\nOn confirmation",
+   "default": "On the job",
+   "label": "Smart Power Winch Jobs Post",
+   "description": "When a winch or Jumbo job for a station or one of our centers is charged: on the job day, or when the admin confirms it."
+  },
+  {
    "fieldname": "oil_interval_km",
    "fieldtype": "Int",
    "label": "Oil Change Interval (km)",
@@ -354,7 +371,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-19 15:00:00.000000",
+ "modified": "2026-11-19 20:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",
