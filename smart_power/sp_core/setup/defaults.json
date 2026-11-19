@@ -475,6 +475,7 @@
 		{"key": "booking_assigned", "label_ar": "مهمة جديدة للونش أو العربية", "label_en": "New job booked for you", "default_push": 1, "roles": "SP Driver, SP Winch Operator", "_source": "SP-107"},
 		{"key": "entries_locking_24h", "label_ar": "تسجيلات ستقفل خلال 24 ساعة", "label_en": "Field entries locking within 24 hours", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-109"},
 		{"key": "reopen_decided", "label_ar": "قرار على طلب فتح يوم", "label_en": "Reopen request decided", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-109"},
+		{"key": "reopen_asked", "label_ar": "طلب فتح يوم ميداني", "label_en": "Asked to reopen a field day", "default_push": 1, "roles": "SP Project Manager, SP Admin", "_source": "SP-180"},
 		{"key": "winch_old_debt", "label_ar": "مديونية ونش قديمة", "label_en": "Old winch debt", "default_push": 1, "roles": "SP Winch Manager, SP Admin", "_source": "SP-112"},
 		{"key": "oil_change_due", "label_ar": "موعد تغيير الزيت", "label_en": "Oil change due", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-106"},
 		{"key": "goods_receipt_discrepancy", "label_ar": "فرق في استلام بضاعة", "label_en": "Goods receipt discrepancy", "default_push": 1, "roles": "SP Admin, SP Purchase Officer", "_source": "SP-85"},
