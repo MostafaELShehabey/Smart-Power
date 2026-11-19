@@ -1,0 +1,29 @@
+{
+ "creation": "2026-11-19 14:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "check",
+ "idx": 0,
+ "modified": "2026-11-19 14:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "sp-winch-review",
+ "owner": "Administrator",
+ "page_name": "sp-winch-review",
+ "roles": [
+  {
+   "role": "SP Project Manager"
+  },
+  {
+   "role": "SP Winch Reviewer"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Field Review"
+}
