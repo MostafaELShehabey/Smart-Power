@@ -130,6 +130,10 @@ TASK_HANDLERS = {
 		"smart_power.sp_finance.custody.confirm",
 		"smart_power.sp_finance.custody.reject",
 	),
+	"Reopen Request": (
+		"smart_power.sp_winch.field_lock.approve",
+		"smart_power.sp_winch.field_lock.reject",
+	),
 }
 APPROVE, REJECT = "approve", "reject"
 FIELDS = (

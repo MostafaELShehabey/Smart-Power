@@ -331,6 +331,7 @@ def _as_payload(h: Hit) -> dict:
 		"level": h.level,
 		"message": h.finding.message,
 		"suggestion": h.finding.suggestion,
+		"code": h.finding.data.get("code"),
 		"needs_reason": h.level == BLOCK or _needs_reason(h),
 	}
 

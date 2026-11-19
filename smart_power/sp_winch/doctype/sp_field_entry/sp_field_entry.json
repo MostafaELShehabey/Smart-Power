@@ -13,6 +13,7 @@
   "status",
   "on_behalf_of",
   "logged_by",
+  "reopened",
   "section_job",
   "booking",
   "job_type",
@@ -117,6 +118,15 @@
    "label": "Logged By",
    "options": "User",
    "read_only": 1
+  },
+  {
+   "fieldname": "reopened",
+   "fieldtype": "Check",
+   "label": "Reopened",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_standard_filter": 1,
+   "description": "Changed while its day was reopened."
   },
   {
    "fieldname": "section_job",
@@ -408,7 +418,7 @@
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-11-19 22:00:00.000000",
+ "modified": "2026-11-19 23:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Winch",
  "name": "SP Field Entry",

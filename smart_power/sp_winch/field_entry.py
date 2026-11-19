@@ -12,7 +12,7 @@ Saving posts through the Account Map; changing the money on an entry reverses an
 
 Money received by a method other than cash reaches the operator's transit and leaves it at once as
 a pending transfer to the account it went to, so nothing lands on an official account unconfirmed.
-The phone pages are SP-180, the 3-day lock SP-109 and the review flags SP-110.
+The phone pages are SP-180 and the review flags SP-110. The lock is in field_lock (SP-109).
 """
 
 import frappe
@@ -23,6 +23,7 @@ from smart_power.sp_finance.accounts import CUSTODY, OFFICIAL, TRANSIT, holder_a
 from smart_power.sp_finance.centers import PROJECTS, center
 from smart_power.sp_finance.journal import allow_cancel
 from smart_power.sp_finance.posting import post, postings
+from smart_power.sp_winch import field_lock
 from smart_power.sp_winch.bookings import (
 	BOOKED,
 	BOOKING,
@@ -506,13 +507,20 @@ def _read_odometer(doc) -> None:
 
 
 @frappe.whitelist(methods=["POST"])
-def save_entry(values: str | dict) -> str:
-	"""Log an entry. The same client_uuid sent twice gives the one entry already logged."""
+def save_entry(values: str | dict) -> str | dict:
+	"""Log an entry. The same client_uuid sent twice gives the one entry already logged. An offline
+	entry for a locked day is refused with a fix-it task (SP-109)."""
 	values = frappe.parse_json(values)
 	uuid = values.get("client_uuid")
 	existing = uuid and frappe.db.get_value(ENTRY, {"client_uuid": uuid})
 	if existing:
 		return existing
+	if (
+		uuid
+		and values.get("device_time")
+		and field_lock.refuses_sync(values.get("vehicle"), values.get("work_date"))
+	):
+		return field_lock.refuse_sync(values)
 	doc = frappe.get_doc({"doctype": ENTRY, **{k: values[k] for k in ENTERED_FIELDS if k in values}})
 	frappe.db.savepoint("sp_field_entry")
 	try:

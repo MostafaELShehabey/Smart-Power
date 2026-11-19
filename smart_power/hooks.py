@@ -184,6 +184,7 @@ sp_rule_modules = [
 	"smart_power.rules.sales",
 	"smart_power.rules.technical",
 	"smart_power.rules.finance",
+	"smart_power.rules.winch",
 ]
 
 _RULE_EVENTS = {
@@ -401,12 +402,16 @@ scheduler_events = {
 		"smart_power.sp_stations.installments.update_installments",
 		# a vehicle close to its oil change: its driver and the winch manager (SP-106)
 		"smart_power.sp_winch.vehicles.check_oil_due",
+		# field entries past their window show Locked; those locking next are announced (SP-109)
+		"smart_power.sp_winch.field_lock.lock_entries",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],
 }
 
 permission_query_conditions = {
+	# who asked to reopen a day sees their own request (SP-109)
+	"SP Reopen Request": "smart_power.sp_winch.field_lock.query_conditions",
 	# an operator sees their own field entries (SP-108)
 	"SP Field Entry": "smart_power.sp_winch.field_entry.query_conditions",
 	# a marketing agent sees her own campaigns (SP-52)
