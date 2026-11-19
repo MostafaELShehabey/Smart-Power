@@ -344,6 +344,7 @@
 		"consignment_low_balance": {"value": 33, "_source": "SP-91: about one pallet left (594 panels = 18 pallets × 33)"},
 		"field_entry_lock_days": {"value": 3, "_source": "decision 44 (3-day rule)"},
 		"winch_internal_revenue": {"value": "On the job", "_source": "SP-112: the owner chose on the job day by default (2026-11-19)"},
+		"winch_debt_age_months": {"value": 3, "_source": "SP-112: the owner chose 3 months, the admin can change it (2026-11-19)"},
 		"default_rounding_step": {"value": 0, "_source": "no rounding until the templates set their own"}
 	},
 	"margin_ranges": [
@@ -358,7 +359,8 @@
 		"cash_held_too_long": {"level": "Warn", "_source": "SP-116: warn, never block"},
 		"transfer_over_balance": {"level": "Warn", "_source": "SP-117: warn, configurable"},
 		"field_entry_day_locked": {"level": "Block", "_source": "SP-109: 3-day lock, configurable off, warn or block"},
-		"field_expense_unusual": {"level": "Warn", "limits": {"average_factor": 1.5, "min_entries": 3, "by_type": {}}, "_source": "SP-110: the type's average x 1.5, or a threshold per expense type"}
+		"field_expense_unusual": {"level": "Warn", "limits": {"average_factor": 1.5, "min_entries": 3, "by_type": {}}, "_source": "SP-110: the type's average x 1.5, or a threshold per expense type"},
+		"winch_old_debt": {"level": "Warn", "_source": "SP-112: a warning on a booking for a customer with old debt; the level is a setting"}
 	},
 	"list_values": [
 		{"list_name": "System Type", "code": "PUMP", "value_ar": "طلمبات (غاطس)", "value_en": "Pump", "sort_order": 1},
@@ -473,6 +475,7 @@
 		{"key": "booking_assigned", "label_ar": "مهمة جديدة للونش أو العربية", "label_en": "New job booked for you", "default_push": 1, "roles": "SP Driver, SP Winch Operator", "_source": "SP-107"},
 		{"key": "entries_locking_24h", "label_ar": "تسجيلات ستقفل خلال 24 ساعة", "label_en": "Field entries locking within 24 hours", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-109"},
 		{"key": "reopen_decided", "label_ar": "قرار على طلب فتح يوم", "label_en": "Reopen request decided", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-109"},
+		{"key": "winch_old_debt", "label_ar": "مديونية ونش قديمة", "label_en": "Old winch debt", "default_push": 1, "roles": "SP Winch Manager, SP Admin", "_source": "SP-112"},
 		{"key": "oil_change_due", "label_ar": "موعد تغيير الزيت", "label_en": "Oil change due", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-106"},
 		{"key": "goods_receipt_discrepancy", "label_ar": "فرق في استلام بضاعة", "label_en": "Goods receipt discrepancy", "default_push": 1, "roles": "SP Admin, SP Purchase Officer", "_source": "SP-85"},
 		{"key": "receipt_rejected", "label_ar": "تم رفض إيصال", "label_en": "Receipt rejected", "default_push": 1, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Showroom Cashier, SP Custody Holder"},

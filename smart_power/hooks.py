@@ -406,6 +406,8 @@ scheduler_events = {
 		"smart_power.sp_winch.field_lock.lock_entries",
 		# the field review flags that change after the save: balances, held cash (SP-110)
 		"smart_power.sp_winch.review.refresh_flags",
+		# winch jobs unpaid past the debt age: the winch manager and the admin, once (SP-112)
+		"smart_power.sp_winch.receivables.check_old_debts",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],

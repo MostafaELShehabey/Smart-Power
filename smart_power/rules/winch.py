@@ -80,3 +80,39 @@ def field_expense_unusual(doc, ctx: RuleContext):
 		amount=amount,
 		data={"factor": factor, "average": average},
 	)
+
+
+OLD_DEBT = "winch_old_debt"
+
+
+@rule(
+	OLD_DEBT,
+	doctypes=("SP Vehicle Booking",),
+	category="Commercial",
+	default_level=WARN,
+	title="Booking for a customer with old winch debt",
+	description="A new winch or Jumbo booking for an outside customer whose jobs are still unpaid after "
+	"Winch Debt Age Alert (months, Smart Power Settings). A warning by default (SP-112); the admin can "
+	"make it a block or turn it off.",
+)
+def winch_old_debt(doc, ctx: RuleContext):
+	import frappe
+
+	from smart_power.sp_winch.receivables import old_debt_of_phone
+
+	if doc.for_kind != "Outside" or doc.status in ("Done", "Cancelled"):
+		return None
+	if not doc.is_new() and not doc.has_value_changed("customer_phone"):
+		return None
+	debt = old_debt_of_phone(doc.customer_phone)
+	if not debt:
+		return None
+	return Finding(
+		message=_("{0} still owes {1} on winch jobs since {2}.").format(
+			debt.customer_name,
+			frappe.format(debt.outstanding, "Currency"),
+			frappe.format(debt.oldest, "Date"),
+		),
+		suggestion=_("Collect the old debt, or agree on it before the job."),
+		amount=debt.outstanding,
+	)

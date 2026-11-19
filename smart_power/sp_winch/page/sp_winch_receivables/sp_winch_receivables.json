@@ -1,0 +1,32 @@
+{
+ "creation": "2026-11-20 10:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "wallet",
+ "idx": 0,
+ "modified": "2026-11-20 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "sp-winch-receivables",
+ "owner": "Administrator",
+ "page_name": "sp-winch-receivables",
+ "roles": [
+  {
+   "role": "SP Winch Manager"
+  },
+  {
+   "role": "SP Project Manager"
+  },
+  {
+   "role": "SP Winch Reviewer"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Winch Receivables"
+}
