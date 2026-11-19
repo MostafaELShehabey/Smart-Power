@@ -2670,3 +2670,25 @@ The operator this entry is logged for.,السائق الذي يُسجَّل له
 Times,الأوقات
 {0} is not an official account.,{0} ليس حسابًا رسميًا.
 Field Entries,التسجيلات الميدانية
+"A winch or Jumbo entry can be added or changed only within the lock days after its work date (Field Entry Lock Days in Smart Power Settings), or while the day is reopened.",يمكن إضافة أو تعديل تسجيل الونش أو الجامبو خلال أيام القفل بعد تاريخ العمل فقط (أيام قفل التسجيل الميداني في إعدادات سمارت باور)، أو أثناء إعادة فتح اليوم.
+Ask to reopen it.,اطلب إعادة فتحه.
+Changed while its day was reopened.,تم تعديله أثناء إعادة فتح اليوم.
+Day locked,اليوم مقفل
+Day locked: {0} on {1},اليوم مقفل: {0} بتاريخ {1}
+Decided By,صاحب القرار
+Field entry day locked,يوم التسجيل الميداني مقفل
+Give the reason for reopening the day.,اذكر سبب إعادة فتح اليوم.
+Logged late: {0} for {1},تسجيل متأخر: {0} عن يوم {1}
+Not reopened: {0}: {1},لم يُعَد الفتح: {0}: {1}
+Only the projects manager or the admin decides a reopening.,مدير المشروعات أو الأدمن فقط يقرر إعادة الفتح.
+Rejection Reason,سبب الرفض
+Reopen Until,مفتوح حتى
+Reopen {0} on {1},إعادة فتح {0} بتاريخ {1}
+Reopened,أعيد فتحه
+Reopened until {0}: {1},أعيد الفتح حتى {0}: {1}
+Reopened: {0} on {1}: {2},أعيد الفتح: {0} بتاريخ {1}: {2}
+Request {0} is already {1}.,الطلب {0} حالته بالفعل {1}.
+SP Reopen Request,طلب إعادة فتح يوم
+This day is still open.,هذا اليوم ما زال مفتوحًا.
+This entry reached the server after the day locked. Ask to reopen it.,وصل هذا التسجيل بعد قفل اليوم. اطلب إعادة فتحه.
+{0} field entries lock within 24 hours,{0} تسجيلات ميدانية ستقفل خلال 24 ساعة

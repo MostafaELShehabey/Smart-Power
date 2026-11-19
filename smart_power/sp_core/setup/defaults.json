@@ -355,7 +355,8 @@
 		"quote_validity": {"level": "Block", "_source": "tech plan section 6 (quote validity rule)"},
 		"quote_24h": {"level": "Warn", "_source": "SP-128 / SP-48: warn, never block (decision 70)"},
 		"cash_held_too_long": {"level": "Warn", "_source": "SP-116: warn, never block"},
-		"transfer_over_balance": {"level": "Warn", "_source": "SP-117: warn, configurable"}
+		"transfer_over_balance": {"level": "Warn", "_source": "SP-117: warn, configurable"},
+		"field_entry_day_locked": {"level": "Block", "_source": "SP-109: 3-day lock, configurable off, warn or block"}
 	},
 	"list_values": [
 		{"list_name": "System Type", "code": "PUMP", "value_ar": "طلمبات (غاطس)", "value_en": "Pump", "sort_order": 1},
@@ -468,6 +469,8 @@
 		{"key": "return_to_receive", "label_ar": "مرتجع من موقع للاستلام", "label_en": "Site return to receive", "default_push": 1, "roles": "SP Main Store Keeper", "_source": "SP-90"},
 		{"key": "transfer_difference", "label_ar": "فرق في استلام تحويل", "label_en": "Transfer difference", "default_push": 1, "roles": "SP Purchase Officer, SP Admin", "_source": "SP-88"},
 		{"key": "booking_assigned", "label_ar": "مهمة جديدة للونش أو العربية", "label_en": "New job booked for you", "default_push": 1, "roles": "SP Driver, SP Winch Operator", "_source": "SP-107"},
+		{"key": "entries_locking_24h", "label_ar": "تسجيلات ستقفل خلال 24 ساعة", "label_en": "Field entries locking within 24 hours", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-109"},
+		{"key": "reopen_decided", "label_ar": "قرار على طلب فتح يوم", "label_en": "Reopen request decided", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-109"},
 		{"key": "oil_change_due", "label_ar": "موعد تغيير الزيت", "label_en": "Oil change due", "default_push": 1, "roles": "SP Driver, SP Winch Operator, SP Winch Manager", "_source": "SP-106"},
 		{"key": "goods_receipt_discrepancy", "label_ar": "فرق في استلام بضاعة", "label_en": "Goods receipt discrepancy", "default_push": 1, "roles": "SP Admin, SP Purchase Officer", "_source": "SP-85"},
 		{"key": "receipt_rejected", "label_ar": "تم رفض إيصال", "label_en": "Receipt rejected", "default_push": 1, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Showroom Cashier, SP Custody Holder"},
