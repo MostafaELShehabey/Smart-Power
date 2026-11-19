@@ -2726,3 +2726,21 @@ Write a note for the admin.,اكتب ملاحظة للأدمن.
 "{0}, booked {1}",{0}، والحجز {1}
 {0}: {1} completed in the field review ({2}). {3},{0}: استُكمل {1} في المراجعة الميدانية ({2}). {3}
 {0}: {1} on {2}{3},{0}: {1} بتاريخ {2}{3}
+Complete,استكمال
+Complete {0},استكمال {0}
+Entry,التسجيل
+Field Review,المراجعة الميدانية
+Flag {0} abnormal,تعليم {0} غير طبيعي
+Mark day reviewed,اعتماد مراجعة اليوم
+Mark {0} entries reviewed?,اعتماد مراجعة {0} تسجيل؟
+No entries here.,لا توجد تسجيلات هنا.
+Not reviewed only,غير المراجَع فقط
+Note for the admin,ملاحظة للأدمن
+Reopen Day,إعادة فتح اليوم
+Reopen {0} on {1},إعادة فتح {0} بتاريخ {1}
+Reopened.,تمت إعادة الفتح.
+Saved.,تم الحفظ.
+Sent to the admin.,تم الإرسال للأدمن.
+What,البيان
+Mark Reviewed,اعتماد المراجعة
+Reopen Requests,طلبات إعادة الفتح
