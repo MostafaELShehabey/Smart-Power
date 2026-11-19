@@ -1,0 +1,32 @@
+{
+ "creation": "2026-11-19 16:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "hard-hat",
+ "idx": 0,
+ "modified": "2026-11-19 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "name": "sp-site-materials",
+ "owner": "Administrator",
+ "page_name": "sp-site-materials",
+ "roles": [
+  {
+   "role": "SP Site Receiver"
+  },
+  {
+   "role": "SP Installation Manager"
+  },
+  {
+   "role": "SP Project Manager"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Site Materials"
+}
