@@ -2786,3 +2786,20 @@ Winch receipts are allocated to this job: its customer cannot change.,إيصال
 {0} is already paid or discounted on this job: the agreed amount cannot be less.,تم دفع أو خصم {0} على هذه المهمة: لا يكون المبلغ المتفق عليه أقل من ذلك.
 {0} is not a job for a station or one of our centers.,{0} ليست مهمة لمحطة أو لأحد مراكزنا.
 "{0}, job {1}: {2}",{0}، المهمة {1}: {2}
+"A new winch or Jumbo booking for an outside customer whose jobs are still unpaid after Winch Debt Age Alert (months, Smart Power Settings). A warning by default (SP-112); the admin can make it a block or turn it off.",حجز ونش أو جامبو جديد لعميل خارجي عليه مهام غير مدفوعة بعد مدة تنبيه مديونية الونش (بالشهور، في إعدادات سمارت باور). تحذير افتراضيًا، ويمكن للأدمن جعله منعًا أو إيقافه.
+Add Note,إضافة ملاحظة
+Booking for a customer with old winch debt,حجز لعميل عليه مديونية ونش قديمة
+"Collect the old debt, or agree on it before the job.",حصّل المديونية القديمة أو اتفق عليها قبل المهمة.
+Customers,العملاء
+Debt Age Alert,تنبيه عمر المديونية
+Last Note,آخر ملاحظة
+Nobody owes for winch jobs.,لا توجد مديونيات على مهام الونش.
+Note on {0},ملاحظة على {0}
+Old winch debt: {0} owes {1} since {2},مديونية ونش قديمة: على {0} مبلغ {1} منذ {2}
+Only the winch office sees the winch receivables.,مديونيات الونش لمكتب الونش فقط.
+Smart Power jobs to confirm,مهام سمارت باور في انتظار التأكيد
+Winch Receivables,مديونيات الونش
+Write the note first.,اكتب الملاحظة أولًا.
+{0} months,{0} شهر
+{0} still owes {1} on winch jobs since {2}.,على {0} مبلغ {1} لمهام ونش منذ {2}.
+Winch Receipts,إيصالات الونش
