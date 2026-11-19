@@ -2631,3 +2631,41 @@ Returns to Receive,مرتجعات للاستلام
 Send Request,إرسال الطلب
 Site Materials,خامات الموقع
 Site Requests,طلبات المواقع
+A charge between Smart Power centers (SP-108): it nets to zero in the company total.,رسوم داخلية بين مراكز سمارت باور: صافيها صفر في إجمالي الشركة.
+Booking,الحجز
+Booking {0} is already logged on {1}.,الحجز {0} مسجل بالفعل في {1}.
+Booking {0} was cancelled.,تم إلغاء الحجز {0}.
+Client UUID,معرّف الجهاز
+Depth,العمق
+Device Time,وقت الجهاز
+Entry Kind,نوع التسجيل
+Field entry {0}: {1},تسجيل ميداني {0}: {1}
+Flagged,عليه ملاحظة
+HP,حصان
+Hours,الساعات
+How the Money Moved,طريقة حركة الفلوس
+Internal Charge,رسوم داخلية
+Km,كم
+Logged,مسجل
+Money is received on an outside customer's job.,التحصيل يكون على شغلانة لعميل خارجي.
+Money was already received on this job: its customer cannot change.,تم تحصيل فلوس على هذه الشغلانة، ولا يمكن تغيير عميلها.
+Odometer,العداد
+On Behalf Of,بالنيابة عن
+Only the winch manager logs an entry for someone else.,مسئول الونش فقط يسجل بالنيابة عن شخص آخر.
+Only {0} is still open on this job.,المتبقي على هذه الشغلانة {0} فقط.
+Photo,صورة
+Received Method,طريقة التحصيل
+Received Now,المحصل الآن
+Received {0} is more than the agreed {1}.,المحصل {0} أكبر من المتفق عليه {1}.
+Related Job,الشغلانة المرتبطة
+Review Flags,ملاحظات المراجعة
+SP Field Entry,التسجيل الميداني
+Shop cash,نقدية المحل
+Station {0} has no project to charge.,المحطة {0} ليس لها مشروع للتحميل عليه.
+Sync Time,وقت المزامنة
+The Post or a company account. The admin confirms it.,البريد أو حساب للشركة، ويؤكده الأدمن.
+The admin has confirmed transfer {0}: this money cannot change.,أكد الأدمن التحويل {0}، ولا يمكن تغيير هذا المبلغ.
+The amounts cannot be negative.,لا يمكن أن تكون المبالغ بالسالب.
+The operator this entry is logged for.,السائق الذي يُسجَّل له هذا القيد.
+Times,الأوقات
+{0} is not an official account.,{0} ليس حسابًا رسميًا.

@@ -521,7 +521,9 @@
 			{"account_name": "Advance Fees", "parent": "Direct Income", "account_type": "Income Account", "kind": "Other"},
 			{"account_name": "Project Labour", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-96: daily labour on a site, on the station's project"},
 			{"account_name": "Project Materials", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-96: materials used on a site, on the station's project"},
-			{"account_name": "Daily Wages Payable", "parent": "Current Liabilities", "kind": "Other", "_source": "SP-96: daily workers' wages owed"}
+			{"account_name": "Daily Wages Payable", "parent": "Current Liabilities", "kind": "Other", "_source": "SP-96: daily workers' wages owed"},
+			{"account_name": "Winch Services", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-108: a winch or Jumbo job charged to a station or center"},
+			{"account_name": "Vehicle Running Costs", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-108: fuel, oil, repairs and crew wages of a vehicle, on its center"}
 		],
 		"modes_of_payment": [
 			{"mode": "Cash", "type": "Cash", "account": "Showroom Safe", "method": "CASH"},

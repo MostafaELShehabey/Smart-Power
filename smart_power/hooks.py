@@ -407,6 +407,8 @@ scheduler_events = {
 }
 
 permission_query_conditions = {
+	# an operator sees their own field entries (SP-108)
+	"SP Field Entry": "smart_power.sp_winch.field_entry.query_conditions",
 	# a marketing agent sees her own campaigns (SP-52)
 	"SP Campaign": "smart_power.sp_sales.campaigns.query_conditions",
 	# leads: one's own, made, owned or to follow up (SP-51)
@@ -433,6 +435,7 @@ permission_query_conditions = {
 	"SP Custody Settlement": "smart_power.sp_finance.custody.settlement_query",
 }
 has_permission = {
+	"SP Field Entry": "smart_power.sp_winch.field_entry.has_permission",
 	"SP Campaign": "smart_power.sp_sales.campaigns.has_permission",
 	"Lead": "smart_power.sp_sales.leads.has_permission",
 	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
