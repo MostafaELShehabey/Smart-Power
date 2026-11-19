@@ -195,3 +195,17 @@ class TestMonthGrid(IntegrationTestCase):
 		self.assertTrue(any(card["label"] == "Collection Rate" for card in cards))
 		with self.assertRaises(frappe.ValidationError):
 			execute({"month": self.month})
+
+	def test_the_year_summary_lines_up_twelve_months_and_their_total(self):
+		from smart_power.sp_winch.report.sp_winch_year_summary.sp_winch_year_summary import (
+			execute as year_execute,
+		)
+
+		self.outside_job()
+		columns, rows = year_execute({"vehicle": self.vehicle, "year": self.year})
+		self.assertEqual(len(rows), 13)
+		month = rows[self.month - 1]
+		self.assertEqual((month["month_number"], month["agreed"], month["paid"]), (self.month, AGREED, NOW))
+		total = rows[-1]
+		self.assertEqual((total["month"], total["agreed"], total["balance"]), ("Total", AGREED, NOW))
+		self.assertEqual([c["fieldname"] for c in columns][:3], ["month", "agreed", "paid"])
