@@ -1,0 +1,266 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "WR-.YYYY.-.#####",
+ "creation": "2026-11-19 20:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "customer_name",
+  "work_date",
+  "column_break_head",
+  "amount",
+  "method",
+  "holder",
+  "to_account",
+  "photo",
+  "section_allocations",
+  "allocations",
+  "allocated_amount",
+  "column_break_totals",
+  "discount_amount",
+  "unallocated_amount",
+  "section_more",
+  "note",
+  "company",
+  "cost_center",
+  "column_break_more",
+  "transfer",
+  "entry_time",
+  "recorded_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "fetch_from": "customer.customer_name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "work_date",
+   "fieldtype": "Date",
+   "label": "Received On",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "method",
+   "fieldtype": "Link",
+   "label": "Method",
+   "options": "SP List Value",
+   "reqd": 1
+  },
+  {
+   "fieldname": "holder",
+   "fieldtype": "Link",
+   "label": "Received By",
+   "options": "User",
+   "reqd": 1,
+   "description": "Whose cash it is until it is handed in: their own transit account."
+  },
+  {
+   "fieldname": "to_account",
+   "fieldtype": "Link",
+   "label": "To Account",
+   "options": "Account",
+   "depends_on": "eval:doc.method && doc.method!=\"Payment Method-CASH\"",
+   "description": "Money paid into an official account goes there once the admin confirms it."
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "label": "Photo"
+  },
+  {
+   "fieldname": "section_allocations",
+   "fieldtype": "Section Break",
+   "label": "Jobs"
+  },
+  {
+   "fieldname": "allocations",
+   "fieldtype": "Table",
+   "label": "Allocations",
+   "options": "SP Receipt Allocation"
+  },
+  {
+   "fieldname": "allocated_amount",
+   "fieldtype": "Currency",
+   "label": "Allocated",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_totals",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "discount_amount",
+   "fieldtype": "Currency",
+   "label": "Discount",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "unallocated_amount",
+   "fieldtype": "Currency",
+   "label": "Not Allocated",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "Kept on the customer's account, for the next job."
+  },
+  {
+   "fieldname": "section_more",
+   "fieldtype": "Section Break",
+   "label": "More",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_more",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "transfer",
+   "fieldtype": "Link",
+   "label": "Transfer",
+   "options": "SP Transfer",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "entry_time",
+   "fieldtype": "Datetime",
+   "label": "Entry Time",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "recorded_by",
+   "fieldtype": "Link",
+   "label": "Recorded By",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "SP Winch Receipt",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 1
+  },
+  {
+   "role": "SP Winch Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Winch Reviewer",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  }
+ ],
+ "search_fields": "customer_name",
+ "show_title_field_in_link": 1,
+ "title_field": "customer_name",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

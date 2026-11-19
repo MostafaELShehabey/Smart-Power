@@ -39,6 +39,30 @@ async function sp_show_lock(frm) {
 	});
 }
 
+// The job's money (SP-112): record a receipt for an outside job still open; the admin confirms a
+// job for a station or one of our centers.
+function sp_payment_buttons(frm) {
+	const doc = frm.doc;
+	if (doc.__islocal || doc.entry_kind !== "Job") return;
+	const open = ["Open", "Partial"].includes(doc.payment_status);
+	if (doc.for_kind === "Outside" && open && frappe.model.can_create("SP Winch Receipt")) {
+		frm.add_custom_button(__("Record Receipt"), () =>
+			frappe.new_doc("SP Winch Receipt", { customer: doc.customer, amount: doc.outstanding_amount })
+		);
+	}
+	const admin = frappe.user.has_role("SP Admin") || frappe.user.has_role("System Manager");
+	if (doc.for_kind !== "Outside" && !doc.payment_confirmed_at && admin) {
+		frm.add_custom_button(__("Confirm Job"), async () => {
+			await frappe.call({
+				method: "smart_power.sp_winch.receipts.confirm_jobs",
+				args: { names: [doc.name] },
+				freeze: true,
+			});
+			frm.reload_doc();
+		});
+	}
+}
+
 frappe.ui.form.on("SP Field Entry", {
 	setup(frm) {
 		frm.set_query("to_account", () => ({ query: `${SP_FIELD_ENTRY_API}.official_account_query` }));
@@ -49,7 +73,10 @@ frappe.ui.form.on("SP Field Entry", {
 		frm.set_query("booking", () => ({ filters: { status: "Booked" } }));
 		frm.set_query("related_job", () => ({ filters: { entry_kind: "Job", for_kind: "Outside" } }));
 	},
-	refresh: sp_show_lock,
+	refresh(frm) {
+		sp_show_lock(frm);
+		sp_payment_buttons(frm);
+	},
 	vehicle: sp_show_lock,
 	work_date: sp_show_lock,
 	async booking(frm) {

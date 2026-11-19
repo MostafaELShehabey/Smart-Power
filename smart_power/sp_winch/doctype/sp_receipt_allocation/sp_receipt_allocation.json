@@ -1,0 +1,92 @@
+{
+ "actions": [],
+ "creation": "2026-11-19 20:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "job",
+  "work_date",
+  "vehicle",
+  "booking",
+  "open_amount",
+  "amount",
+  "discount",
+  "discount_reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "job",
+   "fieldtype": "Link",
+   "label": "Job",
+   "options": "SP Field Entry",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "work_date",
+   "fieldtype": "Date",
+   "label": "Work Date",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "label": "Vehicle",
+   "options": "Vehicle",
+   "read_only": 1
+  },
+  {
+   "fieldname": "booking",
+   "fieldtype": "Link",
+   "label": "Booking",
+   "options": "SP Vehicle Booking",
+   "read_only": 1
+  },
+  {
+   "fieldname": "open_amount",
+   "fieldtype": "Currency",
+   "label": "Open",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "What was still open on the job before this receipt."
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Currency",
+   "label": "Discount",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "discount_reason",
+   "fieldtype": "Small Text",
+   "label": "Discount Reason",
+   "in_list_view": 1,
+   "columns": 2
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-19 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "SP Receipt Allocation",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

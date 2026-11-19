@@ -12,7 +12,8 @@ Saving posts through the Account Map; changing the money on an entry reverses an
 
 Money received by a method other than cash reaches the operator's transit and leaves it at once as
 a pending transfer to the account it went to, so nothing lands on an official account unconfirmed.
-The phone pages are SP-180, the lock is in field_lock (SP-109) and the review flags in review (SP-110).
+The phone pages are SP-180, the lock is in field_lock (SP-109), the review flags in review (SP-110)
+and the payment status and winch receipts in receipts (SP-112).
 """
 
 import frappe
@@ -55,6 +56,8 @@ SERVICES_ACCOUNT, RUNNING_ACCOUNT, WINCH_INCOME, JUMBO_INCOME, SHOP_ACCOUNT = (
 	"Jumbo Income",
 	"Showroom Safe",
 )
+DISCOUNT_EVENT, DISCOUNT_ACCOUNT = "Winch Discount", "Winch Discounts"  # at collection (SP-112)
+ON_CONFIRMATION = "On confirmation"  # Smart Power Winch Jobs Post (SP-112)
 SEES_ALL = ("System Manager", "SP Admin", "SP Winch Manager", "SP Winch Reviewer", "SP Project Manager")
 LOGS_FOR_OTHERS = ("System Manager", "SP Admin", "SP Winch Manager", "SP Winch Reviewer")
 
@@ -371,11 +374,22 @@ def _remark(doc) -> str:
 	return _("Field entry {0}: {1}").format(doc.name, who)
 
 
+def deferred(doc) -> bool:
+	"""A job for a station or a center that is charged when the admin confirms it (SP-112)."""
+	from smart_power.sp_core.services.settings import get_value
+
+	return (
+		doc.for_kind != FOR_OUTSIDE
+		and get_value("winch_internal_revenue") == ON_CONFIRMATION
+		and not doc.get("payment_confirmed_at")
+	)
+
+
 def _post_job(doc) -> None:
 	amount = flt(doc.agreed_amount)
 	if doc.for_kind == FOR_OUTSIDE:
 		_set_customer(doc)
-	if amount <= 0:
+	if amount <= 0 or deferred(doc):
 		return
 	common = {
 		"company": doc.company,
@@ -600,14 +614,16 @@ def seed_account_map(company: str) -> None:
 	have = {r.event for r in settings.account_map}
 	default = frappe.get_cached_value("Company", company, "cost_center")
 	debtors = frappe.get_cached_value("Company", company, "default_receivable_account")
-	services, running, income, shop = (
-		_account(company, n) for n in (SERVICES_ACCOUNT, RUNNING_ACCOUNT, WINCH_INCOME, SHOP_ACCOUNT)
+	services, running, income, shop, discounts = (
+		_account(company, n)
+		for n in (SERVICES_ACCOUNT, RUNNING_ACCOUNT, WINCH_INCOME, SHOP_ACCOUNT, DISCOUNT_ACCOUNT)
 	)
 	rows = (
 		(INTERNAL_EVENT, services, income, "Debit side", "A job for a station or a center: nets to zero."),
 		(JOB_EVENT, debtors, income, "None", "A job for an outside customer."),
 		(EXPENSE_EVENT, running, shop, "None", "The credit is the operator's custody when paid from it."),
 		(MONEY_EVENT, shop, debtors, "None", "The debit is the operator's own transit account."),
+		(DISCOUNT_EVENT, discounts, debtors, "None", "A discount given when winch money is collected."),
 	)
 	for event, debit, credit, project_rule, note in rows:
 		if event in have or not (debit and credit and default):

@@ -343,6 +343,7 @@
 		"installment_due_lead_days": {"value": 3, "_source": "SP-81: the collection owner is told 3 days before an instalment falls due"},
 		"consignment_low_balance": {"value": 33, "_source": "SP-91: about one pallet left (594 panels = 18 pallets × 33)"},
 		"field_entry_lock_days": {"value": 3, "_source": "decision 44 (3-day rule)"},
+		"winch_internal_revenue": {"value": "On the job", "_source": "SP-112: the owner chose on the job day by default (2026-11-19)"},
 		"default_rounding_step": {"value": 0, "_source": "no rounding until the templates set their own"}
 	},
 	"margin_ranges": [
@@ -527,6 +528,7 @@
 			{"account_name": "Project Materials", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-96: materials used on a site, on the station's project"},
 			{"account_name": "Daily Wages Payable", "parent": "Current Liabilities", "kind": "Other", "_source": "SP-96: daily workers' wages owed"},
 			{"account_name": "Winch Services", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-108: a winch or Jumbo job charged to a station or center"},
+			{"account_name": "Winch Discounts", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-112: a discount given when winch money is collected"},
 			{"account_name": "Vehicle Running Costs", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-108: fuel, oil, repairs and crew wages of a vehicle, on its center"}
 		],
 		"modes_of_payment": [
