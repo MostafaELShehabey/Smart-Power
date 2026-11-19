@@ -187,3 +187,21 @@ class TestCrewPay(IntegrationTestCase):
 				cp.salary_start(self.driver)
 		finally:
 			frappe.set_user("Administrator")
+
+	def test_worker_balances_and_the_month_grid_show_the_crew(self):
+		from smart_power.sp_winch.month_grid import month_totals
+		from smart_power.sp_winch.report.sp_worker_balances.sp_worker_balances import execute
+
+		self.advance()
+		pay = self.salary()
+		_columns, rows = execute({"vehicle": self.vehicle})
+		row = next(r for r in rows if r["employee"] == self.driver)
+		self.assertEqual(
+			(row["amount"], row["repaid"], row["outstanding"], row["last_kind"]),
+			(ADVANCE, INSTALLMENT, ADVANCE - INSTALLMENT, "Salary deduction"),
+		)
+		year, month = int(today()[:4]), int(today()[5:7])
+		totals = month_totals(self.vehicle, year, month)
+		self.assertEqual(totals["wages"], -SALARY)  # the whole salary is the month's cost
+		self.assertEqual(totals["balance"], 0)  # paid from an official account: no one's cash moved
+		self.assertEqual(pay.docstatus, 1)

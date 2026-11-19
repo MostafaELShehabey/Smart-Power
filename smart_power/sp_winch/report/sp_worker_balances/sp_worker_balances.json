@@ -1,0 +1,30 @@
+{
+ "add_total_row": 1,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-11-19 20:00:00.000000",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-11-19 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "SP Worker Balances",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "SP Worker Advance",
+ "report_name": "SP Worker Balances",
+ "report_type": "Script Report",
+ "roles": [
+  {"role": "SP Admin"},
+  {"role": "System Manager"},
+  {"role": "SP Winch Manager"},
+  {"role": "SP Winch Reviewer"},
+  {"role": "SP Project Manager"}
+ ],
+ "timeout": 0
+}

@@ -2897,3 +2897,10 @@ Worker Name,اسم العامل
 "{0}: choose an official account, or your own cash or custody.",{0}: اختر حسابًا رسميًا أو نقديتك أو عهدتك.
 Still owes {0} on advances; this month's installment is deducted.,عليه {0} سلف متبقية؛ يُخصم قسط هذا الشهر.
 "Still owes {0} on advances, repaid in cash.",عليه {0} سلف متبقية، تُسدد كاش.
+Advances,السلف
+How,الطريقة
+Include repaid advances,إظهار السلف المسددة
+Last Repaid,آخر سداد
+Worker Advances,سلف العمال
+Crew Salaries,مرتبات الطاقم
+Worker Balances,أرصدة العمال

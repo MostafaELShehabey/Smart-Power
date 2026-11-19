@@ -4,7 +4,7 @@ One row per entry, in the sheet's column order (حركة الونش 17-11-2026):
 agreed, paid by the customer, wage expenses, vehicle running expenses, handed in, the running
 balance with the operator, and Smart Power's own jobs and expenses apart. Money the office
 collected on this vehicle's jobs (SP-112) is listed on its day, but it never reached the operator,
-so it leaves the balance alone.
+so it leaves the balance alone. Crew salaries (SP-181) are wage costs on the day they were paid.
 
     running balance = cash received - handed in (confirmed, SP-117) - what custody paid
 
@@ -19,7 +19,9 @@ import frappe
 from frappe import _
 from frappe.utils import add_to_date, flt, get_first_day, getdate
 
+from smart_power.sp_finance.accounts import CUSTODY, TRANSIT
 from smart_power.sp_winch.bookings import FOR_OUTSIDE, _job_label
+from smart_power.sp_winch.crew_pay import SALARY
 from smart_power.sp_winch.field_entry import (
 	DEPOSIT,
 	ENTRY,
@@ -186,11 +188,48 @@ def _receipt_row(row) -> dict:
 	}
 
 
+def _salaries(vehicle: str, filters: dict) -> list:
+	"""The crew salaries paid on this vehicle (SP-181), by the day they were paid."""
+	return frappe.get_all(
+		SALARY,
+		filters={"vehicle": vehicle, "docstatus": 1, **filters},
+		fields=["name", "work_date", "employee_name", "month", "gross_amount", "net_amount", "paid_from"],
+		order_by="work_date asc, creation asc",
+	)
+
+
+def _salary_row(salary, cash_accounts: set) -> dict:
+	"""The whole salary is the month's wage cost; only what was paid out of someone's cash moves
+	the balance (the installment stays with the company, an official account is the office's)."""
+	return {
+		"work_date": salary.work_date,
+		"salary": salary.name,
+		"item": _("Salary of {0} for {1}").format(salary.employee_name, frappe.format(salary.month, "Date")),
+		"wages": -flt(salary.gross_amount),
+		"cash_moved": -flt(salary.net_amount) if salary.paid_from in cash_accounts else 0.0,
+	}
+
+
+def _cash_accounts(salaries: list) -> set:
+	names = [s.paid_from for s in salaries if s.paid_from]
+	if not names:
+		return set()
+	return set(
+		frappe.get_all(
+			"Account", {"name": ("in", names), "sp_account_kind": ("in", (TRANSIT, CUSTODY))}, pluck="name"
+		)
+	)
+
+
 def opening_balance(vehicle: str, before) -> float:
 	"""The operator's cash at the month's start: every earlier entry, by the same arithmetic."""
 	entries = _entries(vehicle, {"work_date": ("<", before)})
 	transfers = _transfers(entries)
-	return sum(_row(entry, transfers, {})["cash_moved"] for entry in entries)
+	salaries = _salaries(vehicle, {"work_date": ("<", before)})
+	cash = _cash_accounts(salaries)
+	return sum(_row(entry, transfers, {})["cash_moved"] for entry in entries) + sum(
+		_salary_row(s, cash)["cash_moved"] for s in salaries
+	)
 
 
 def month_rows(vehicle: str, year: int, month: int) -> list[dict]:
@@ -199,7 +238,10 @@ def month_rows(vehicle: str, year: int, month: int) -> list[dict]:
 	transfers, workers = _transfers(entries), _worker_names(entries)
 	rows = [_row(entry, transfers, workers) for entry in entries]
 	rows += [_receipt_row(row) for row in _office_receipts(vehicle, start, end)]
-	rows.sort(key=lambda r: (getdate(r["work_date"]), r.get("entry") or ""))
+	salaries = _salaries(vehicle, {"work_date": ("between", [start, end])})
+	cash = _cash_accounts(salaries)
+	rows += [_salary_row(salary, cash) for salary in salaries]
+	rows.sort(key=lambda r: (getdate(r["work_date"]), r.get("entry") or r.get("salary") or ""))
 	balance = opening_balance(vehicle, start)
 	rows.insert(0, {"work_date": start, "item": _("Balance from the month before"), "balance": balance})
 	for row in rows[1:]:
