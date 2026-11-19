@@ -32,6 +32,22 @@ OFFICIAL, TRANSIT = "Official", "Transit"
 CASH, THIRD_PARTY = "Payment Method-CASH", "Payment Method-THIRD_PARTY"
 CONFIRM_TASK = "Payment to Confirm"  # in the admin's inbox (SP-39)
 ADMIN_ROLE, ADMIN_ROLES = "SP Admin", ("SP Admin", "System Manager")
+SHOWROOM, SHOWROOM_EVENT = "Showroom", "showroom_payment"
+SHOWROOM_BOX, SHOWROOM_ROLES = "Showroom Safe", ("SP Showroom Cashier", *ADMIN_ROLES)
+
+
+def showroom_box_account(company: str | None) -> str | None:
+	"""خزنة المعرض: the showroom's cash box, a transit account shared by the showroom cashiers."""
+	if not company:
+		return None
+	return frappe.db.get_value(
+		"Account", {"company": company, "account_name": SHOWROOM_BOX, "is_group": 0, "disabled": 0}
+	)
+
+
+def can_use_showroom_box(user: str | None = None) -> bool:
+	user = user or frappe.session.user
+	return user == "Administrator" or bool(set(SHOWROOM_ROLES) & set(frappe.get_roles(user)))
 
 
 def is_admin(user: str | None = None) -> bool:
@@ -102,6 +118,13 @@ def _check_receiving_account(doc) -> None:
 	if company != doc.company:
 		frappe.throw(_("Account {0} is not an account of {1}.").format(doc.receiving_account, doc.company))
 	own_transit = kind == TRANSIT and holder == doc.recorded_by
+	# the showroom box is shared: any showroom cashier takes money into it (SH5, SP-103)
+	showroom_box = doc.channel == SHOWROOM and doc.receiving_account == showroom_box_account(doc.company)
+	if showroom_box and not can_use_showroom_box(doc.recorded_by):
+		frappe.throw(
+			_("Only the showroom cashier takes money into the showroom box."), frappe.PermissionError
+		)
+	own_transit = own_transit or showroom_box
 	if kind != OFFICIAL and not own_transit:
 		frappe.throw(
 			_("{0} is neither an official account nor your own transit account.").format(
@@ -118,6 +141,17 @@ def on_submit(doc) -> None:
 	doc.db_set("status", PENDING)
 	_confirm_task(doc)
 	_refresh(doc)
+	if doc.channel == SHOWROOM and doc.station:
+		# the collection owner hears at once of money taken at the showroom (SH5, SP-103)
+		owner = frappe.db.get_value(STATION, doc.station, "collection_owner")
+		_notify(
+			doc,
+			[owner],
+			_("Paid at the showroom: {0} from {1} on {2}, waiting for the admin").format(
+				frappe.format(doc.amount, "Currency"), doc.customer_name, doc.station
+			),
+			SHOWROOM_EVENT,
+		)
 
 
 def _confirm_task(doc) -> None:

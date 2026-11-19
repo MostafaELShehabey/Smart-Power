@@ -465,6 +465,7 @@
 		{"key": "won_case", "label_ar": "حالة مكسوبة (تأكيد العربون)", "label_en": "Won case (deposit confirmed)", "default_push": 1, "roles": "SP Project Manager, SP Admin"},
 		{"key": "intends_to_proceed", "label_ar": "العميل ينوي التنفيذ", "label_en": "Customer intends to proceed", "default_push": 1, "roles": "SP Project Manager, SP Admin", "_source": "SP-70"},
 		{"key": "payment_confirmed", "label_ar": "تم تأكيد دفعة", "label_en": "Payment confirmed", "default_push": 0, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Project Manager"},
+		{"key": "showroom_payment", "label_ar": "دفعة محطة في المعرض", "label_en": "Station payment taken at the showroom", "default_push": 1, "roles": "SP Collection Officer, SP Customer Followup, SP Followup All, SP Project Manager", "_source": "SP-103"},
 		{"key": "receipt_to_confirm", "label_ar": "استلام بضاعة في انتظار التأكيد", "label_en": "Goods receipt to confirm", "default_push": 1, "roles": "SP Receipt Confirmer"},
 		{"key": "goods_receipt_rejected", "label_ar": "تم رفض استلام بضاعة", "label_en": "Goods receipt rejected", "default_push": 1, "roles": "SP Main Store Keeper, SP Showroom Store Keeper, SP Site Receiver", "_source": "SP-85"},
 		{"key": "supplier_payment_rejected", "label_ar": "تم رفض دفعة لمورد", "label_en": "Supplier payment rejected", "default_push": 1, "roles": "SP Supplier Accounts, SP Admin", "_source": "SP-86"},
