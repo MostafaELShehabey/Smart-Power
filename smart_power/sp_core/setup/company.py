@@ -62,6 +62,9 @@ def complete_setup() -> str:
 	from smart_power.sp_site.site_log import seed_account_map as seed_site_log
 
 	seed_site_log(company)  # SP-96
+	from smart_power.sp_winch.field_entry import seed_account_map as seed_field_entry
+
+	seed_field_entry(company)  # SP-108
 	return company
 
 

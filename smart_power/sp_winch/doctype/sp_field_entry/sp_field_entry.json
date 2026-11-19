@@ -1,0 +1,522 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "FE-.YYYY.-.#####",
+ "creation": "2026-11-19 20:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "entry_kind",
+  "vehicle",
+  "work_date",
+  "column_break_who",
+  "status",
+  "on_behalf_of",
+  "logged_by",
+  "section_job",
+  "booking",
+  "job_type",
+  "for_kind",
+  "station",
+  "internal_center",
+  "customer_name",
+  "customer_phone",
+  "customer",
+  "place",
+  "column_break_job",
+  "hp",
+  "depth",
+  "days",
+  "hours",
+  "km",
+  "agreed_amount",
+  "received_now",
+  "section_expense",
+  "expense_type",
+  "paid_from",
+  "column_break_expense",
+  "odometer",
+  "worker",
+  "section_money",
+  "money_kind",
+  "related_job",
+  "section_amount",
+  "amount",
+  "section_how",
+  "received_method",
+  "to_account",
+  "transfer",
+  "section_proof",
+  "photo",
+  "voice_note",
+  "column_break_proof",
+  "note",
+  "section_times",
+  "entry_time",
+  "device_time",
+  "sync_time",
+  "column_break_times",
+  "cost_center",
+  "company",
+  "client_uuid",
+  "review_flags"
+ ],
+ "fields": [
+  {
+   "fieldname": "entry_kind",
+   "fieldtype": "Select",
+   "label": "Entry Kind",
+   "options": "Job\nExpense\nMoney",
+   "reqd": 1,
+   "default": "Job",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "label": "Vehicle",
+   "options": "Vehicle",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "work_date",
+   "fieldtype": "Date",
+   "label": "Work Date",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_who",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Logged\nLocked\nReviewed\nFlagged",
+   "default": "Logged",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "on_behalf_of",
+   "fieldtype": "Link",
+   "label": "On Behalf Of",
+   "options": "User",
+   "description": "The operator this entry is logged for."
+  },
+  {
+   "fieldname": "logged_by",
+   "fieldtype": "Link",
+   "label": "Logged By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_job",
+   "fieldtype": "Section Break",
+   "label": "Job",
+   "depends_on": "eval:doc.entry_kind==\"Job\""
+  },
+  {
+   "fieldname": "booking",
+   "fieldtype": "Link",
+   "label": "Booking",
+   "options": "SP Vehicle Booking"
+  },
+  {
+   "fieldname": "job_type",
+   "fieldtype": "Link",
+   "label": "Job Type",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Job Type\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
+   "mandatory_depends_on": "eval:doc.entry_kind==\"Job\""
+  },
+  {
+   "fieldname": "for_kind",
+   "fieldtype": "Select",
+   "label": "For",
+   "options": "Station\nOutside\nInternal center",
+   "mandatory_depends_on": "eval:doc.entry_kind==\"Job\""
+  },
+  {
+   "fieldname": "station",
+   "fieldtype": "Link",
+   "label": "Station",
+   "options": "SP Station",
+   "depends_on": "eval:doc.for_kind==\"Station\""
+  },
+  {
+   "fieldname": "internal_center",
+   "fieldtype": "Link",
+   "label": "Requesting Center",
+   "options": "Cost Center",
+   "depends_on": "eval:doc.for_kind==\"Internal center\""
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "depends_on": "eval:doc.for_kind==\"Outside\""
+  },
+  {
+   "fieldname": "customer_phone",
+   "fieldtype": "Data",
+   "label": "Customer Phone",
+   "options": "Phone",
+   "depends_on": "eval:doc.for_kind==\"Outside\""
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1,
+   "depends_on": "eval:doc.for_kind==\"Outside\""
+  },
+  {
+   "fieldname": "place",
+   "fieldtype": "Data",
+   "label": "Place"
+  },
+  {
+   "fieldname": "column_break_job",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hp",
+   "fieldtype": "Float",
+   "label": "HP"
+  },
+  {
+   "fieldname": "depth",
+   "fieldtype": "Float",
+   "label": "Depth"
+  },
+  {
+   "fieldname": "days",
+   "fieldtype": "Float",
+   "label": "Days"
+  },
+  {
+   "fieldname": "hours",
+   "fieldtype": "Float",
+   "label": "Hours"
+  },
+  {
+   "fieldname": "km",
+   "fieldtype": "Float",
+   "label": "Km"
+  },
+  {
+   "fieldname": "agreed_amount",
+   "fieldtype": "Currency",
+   "label": "Agreed Amount"
+  },
+  {
+   "fieldname": "received_now",
+   "fieldtype": "Currency",
+   "label": "Received Now",
+   "depends_on": "eval:doc.for_kind==\"Outside\""
+  },
+  {
+   "fieldname": "section_expense",
+   "fieldtype": "Section Break",
+   "label": "Expense",
+   "depends_on": "eval:doc.entry_kind==\"Expense\""
+  },
+  {
+   "fieldname": "expense_type",
+   "fieldtype": "Link",
+   "label": "Expense Type",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Field Expense\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
+   "mandatory_depends_on": "eval:doc.entry_kind==\"Expense\""
+  },
+  {
+   "fieldname": "paid_from",
+   "fieldtype": "Select",
+   "label": "Paid From",
+   "options": "Custody\nShop cash",
+   "mandatory_depends_on": "eval:doc.entry_kind==\"Expense\""
+  },
+  {
+   "fieldname": "column_break_expense",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "odometer",
+   "fieldtype": "Int",
+   "label": "Odometer"
+  },
+  {
+   "fieldname": "worker",
+   "fieldtype": "Link",
+   "label": "Worker",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "section_money",
+   "fieldtype": "Section Break",
+   "label": "Money",
+   "depends_on": "eval:doc.entry_kind==\"Money\""
+  },
+  {
+   "fieldname": "money_kind",
+   "fieldtype": "Select",
+   "label": "Money Kind",
+   "options": "Received\nDeposit",
+   "mandatory_depends_on": "eval:doc.entry_kind==\"Money\""
+  },
+  {
+   "fieldname": "related_job",
+   "fieldtype": "Link",
+   "label": "Related Job",
+   "options": "SP Field Entry",
+   "depends_on": "eval:doc.money_kind==\"Received\""
+  },
+  {
+   "fieldname": "section_amount",
+   "fieldtype": "Section Break",
+   "label": "Amount",
+   "depends_on": "eval:doc.entry_kind!=\"Job\""
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "section_how",
+   "fieldtype": "Section Break",
+   "label": "How the Money Moved"
+  },
+  {
+   "fieldname": "received_method",
+   "fieldtype": "Link",
+   "label": "Received Method",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Payment Method\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
+  },
+  {
+   "fieldname": "to_account",
+   "fieldtype": "Link",
+   "label": "To Account",
+   "options": "Account",
+   "description": "The Post or a company account. The admin confirms it."
+  },
+  {
+   "fieldname": "transfer",
+   "fieldtype": "Link",
+   "label": "Transfer",
+   "options": "SP Transfer",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "section_proof",
+   "fieldtype": "Section Break",
+   "label": "Proof"
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "label": "Photo"
+  },
+  {
+   "fieldname": "voice_note",
+   "fieldtype": "Attach",
+   "label": "Voice Note"
+  },
+  {
+   "fieldname": "column_break_proof",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "section_times",
+   "fieldtype": "Section Break",
+   "label": "Times",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "entry_time",
+   "fieldtype": "Datetime",
+   "label": "Entry Time",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "device_time",
+   "fieldtype": "Datetime",
+   "label": "Device Time",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "sync_time",
+   "fieldtype": "Datetime",
+   "label": "Sync Time",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_times",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Center",
+   "options": "Cost Center",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_uuid",
+   "fieldtype": "Data",
+   "label": "Client UUID",
+   "unique": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "review_flags",
+   "fieldtype": "JSON",
+   "label": "Review Flags",
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-19 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Winch",
+ "name": "SP Field Entry",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Winch Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Winch Reviewer",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Winch Operator",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Driver",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  }
+ ],
+ "sort_field": "work_date",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "title": "Logged",
+   "color": "Blue"
+  },
+  {
+   "title": "Locked",
+   "color": "Gray"
+  },
+  {
+   "title": "Reviewed",
+   "color": "Green"
+  },
+  {
+   "title": "Flagged",
+   "color": "Red"
+  }
+ ],
+ "track_changes": 1
+}

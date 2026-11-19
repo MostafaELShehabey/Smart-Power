@@ -55,9 +55,12 @@ def lines(
 	party: str | None = None,
 	debit_account: str | None = None,
 	credit_account: str | None = None,
+	debit_center: str | None = None,
+	credit_center: str | None = None,
 ) -> list[dict]:
 	"""The two balanced lines of an event, from the Account Map. A document that chooses its money
-	account (e.g. the official account an advance is paid from, SP-121) passes it for that side."""
+	account (e.g. the official account an advance is paid from, SP-121) passes it for that side, and
+	one whose two sides land on different centers (a winch job, SP-108) passes those."""
 	row = account_map(event)
 	if not row:
 		frappe.throw(
@@ -80,13 +83,15 @@ def lines(
 		"account": debit_account or row.debit_account,
 		"debit_in_account_currency": amount,
 		"credit_in_account_currency": 0,
-		"cost_center": _center(row.debit_center_rule, row.debit_cost_center, cost_center, "debit", event),
+		"cost_center": debit_center
+		or _center(row.debit_center_rule, row.debit_cost_center, cost_center, "debit", event),
 	}
 	credit = {
 		"account": credit_account or row.credit_account,
 		"debit_in_account_currency": 0,
 		"credit_in_account_currency": amount,
-		"cost_center": _center(row.credit_center_rule, row.credit_cost_center, cost_center, "credit", event),
+		"cost_center": credit_center
+		or _center(row.credit_center_rule, row.credit_cost_center, cost_center, "credit", event),
 	}
 	if project and row.project_rule in (DEBIT_SIDE, BOTH_SIDES):
 		debit["project"] = project
@@ -101,7 +106,17 @@ def lines(
 	return [debit, credit]
 
 
-def _entry(event: str, doc, amount: float, *, posting_date=None, company=None, remark=None, **kw):
+def _entry(
+	event: str,
+	doc,
+	amount: float,
+	*,
+	posting_date=None,
+	company=None,
+	remark=None,
+	internal_charge=False,
+	**kw,
+):
 	return frappe.get_doc(
 		{
 			"doctype": JE,
@@ -110,6 +125,7 @@ def _entry(event: str, doc, amount: float, *, posting_date=None, company=None, r
 			"posting_date": posting_date or doc.get("posting_date") or nowdate(),
 			"user_remark": remark or _("{0}: {1}").format(_(event), doc.name),
 			"sp_posting_event": event,
+			"sp_internal_charge": 1 if internal_charge else 0,
 			"sp_source_doctype": doc.doctype,
 			"sp_source_name": doc.name,
 			"accounts": lines(event, doc, amount, **kw),
