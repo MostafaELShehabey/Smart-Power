@@ -60,7 +60,11 @@
   "cost_center",
   "company",
   "client_uuid",
-  "review_flags"
+  "section_review",
+  "review_flags",
+  "column_break_review",
+  "reviewed_by",
+  "reviewed_at"
  ],
  "fields": [
   {
@@ -409,16 +413,41 @@
    "no_copy": 1
   },
   {
+   "fieldname": "section_review",
+   "fieldtype": "Section Break",
+   "label": "Review",
+   "collapsible": 1
+  },
+  {
    "fieldname": "review_flags",
    "fieldtype": "JSON",
    "label": "Review Flags",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_review",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reviewed_by",
+   "fieldtype": "Link",
+   "label": "Reviewed By",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "reviewed_at",
+   "fieldtype": "Datetime",
+   "label": "Reviewed At",
    "read_only": 1,
    "no_copy": 1
   }
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-11-19 23:00:00.000000",
+ "modified": "2026-11-19 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Winch",
  "name": "SP Field Entry",

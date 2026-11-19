@@ -2697,3 +2697,32 @@ Day locked. Request {0} is waiting for a decision.,اليوم مقفل. الطل
 My Entries,تسجيلاتي
 Sent for a decision,تم الإرسال لاتخاذ القرار
 Entries locking in 24 h,تسجيلات تقفل خلال 24 ساعة
+"A winch or Jumbo expense above its type's average times average_factor (over the last entries of that type, once there are min_entries of them), or above the type's own threshold in by_type (expense type code: amount). Flagged for the field review, never a block.",مصروف ونش أو جامبو أعلى من متوسط نوعه مضروبًا في average_factor (على آخر تسجيلات النوع، متى بلغت min_entries)، أو أعلى من حد النوع في by_type (كود نوع المصروف: المبلغ). يظهر كعلامة في المراجعة الميدانية، ولا يمنع الحفظ أبدًا.
+Abnormal field entry {0}: {1},تسجيل ميداني غير طبيعي {0}: {1}
+Above the {0} threshold,أعلى من الحد {0}
+Above {0} times the average {1},أعلى من {0} ضعف المتوسط {1}
+Amount differs from the booking,المبلغ يختلف عن الحجز
+Completed,مكتمل
+Completed in review: {0}. Reason: {1},استُكمل في المراجعة: {0}. السبب: {1}
+Entered late,مُدخل متأخرًا
+Field Entry,التسجيل الميداني
+Flagged abnormal: {0},عُلّم غير طبيعي: {0}
+Flags,العلامات
+Give the reason for the change.,اكتب سبب التغيير.
+Held {0} days (limit {1}),محتفظ بها {0} يوم (الحد {1})
+Missing details,بيانات ناقصة
+Nothing was changed.,لم يتغير شيء.
+Only the field reviewer reviews field entries.,مراجعة التسجيلات الميدانية لمراجع الميدان فقط.
+Review Item,بند المراجعة
+Reviewed At,وقت المراجعة
+SP Field Review,مراجعة ميدانية
+Unpaid,غير مدفوع
+Unusual expense,مصروف غير معتاد
+Unusual field expense,مصروف ميداني غير معتاد
+Write a note for the admin.,اكتب ملاحظة للأدمن.
+{0} cannot be completed here.,لا يمكن استكمال {0} من هنا.
+{0} days after the work date,بعد تاريخ العمل بـ {0} يوم
+{0} still open,{0} لم يُحصّل بعد
+"{0}, booked {1}",{0}، والحجز {1}
+{0}: {1} completed in the field review ({2}). {3},{0}: استُكمل {1} في المراجعة الميدانية ({2}). {3}
+{0}: {1} on {2}{3},{0}: {1} بتاريخ {2}{3}

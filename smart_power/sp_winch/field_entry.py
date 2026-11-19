@@ -12,7 +12,7 @@ Saving posts through the Account Map; changing the money on an entry reverses an
 
 Money received by a method other than cash reaches the operator's transit and leaves it at once as
 a pending transfer to the account it went to, so nothing lands on an official account unconfirmed.
-The phone pages are SP-180 and the review flags SP-110. The lock is in field_lock (SP-109).
+The phone pages are SP-180, the lock is in field_lock (SP-109) and the review flags in review (SP-110).
 """
 
 import frappe
