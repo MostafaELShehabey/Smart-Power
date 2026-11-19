@@ -1,5 +1,7 @@
 """Light field entry (SP-108): a job, an expense or money logged once, and the accounts come out right."""
 
+from unittest.mock import patch
+
 import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, flt, today
@@ -265,3 +267,22 @@ class TestFieldEntry(IntegrationTestCase):
 		)
 		accounts = {r.account for r in frappe.get_doc("Journal Entry", fe.postings(doc)[0]).accounts}
 		self.assertIn(fe._account(COMPANY, fe.JUMBO_INCOME), accounts)
+
+	def test_the_pickers_offer_official_accounts_and_operators_only(self):
+		frappe.set_user(self.operator)
+		accounts = [r[0] for r in fe.official_account_query("Account", "", "name", 0, 50)]
+		self.assertIn(self.official, accounts)
+		self.assertNotIn(holder_account(self.operator, TRANSIT, COMPANY), accounts)
+		with self.assertRaises(frappe.PermissionError):
+			fe.operator_query("User", "", "name", 0, 50)
+		frappe.set_user(self.manager)
+		people = [r[0] for r in fe.operator_query("User", "sp.fe", "name", 0, 50)]
+		self.assertIn(self.operator, people)
+		self.assertNotIn(self.manager, people)
+
+	def test_a_new_customer_brings_no_message_to_the_operator(self):
+		programmes = "erpnext.selling.doctype.customer.customer.get_loyalty_programs"
+		frappe.clear_messages()
+		with patch(programmes, return_value=["SP108 A", "SP108 B"]):
+			self.outside_job(customer_phone="01001080110", customer_name="SP108 Quiet")
+		self.assertEqual(frappe.get_message_log(), [])
