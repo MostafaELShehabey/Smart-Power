@@ -380,3 +380,52 @@ def of_station(station: str) -> list[dict]:
 			order_by="idx asc",
 		)
 	return orders
+
+
+# ---------------------------------------------------------------- the form (S3)
+
+
+def _readable_station(station: str):
+	doc = frappe.get_doc(STATION, station)
+	doc.check_permission("read")
+	return doc
+
+
+@frappe.whitelist()
+def contract_lines(station: str) -> list[dict]:
+	"""The signed contract's lines a return can come off: what is not delivered yet."""
+	from smart_power.permissions import can_see_cost
+
+	frappe.has_permission(CHANGE_ORDER, "create", throw=True)
+	doc = _readable_station(station)
+	if not doc.sales_order:
+		return []
+	sees_cost = can_see_cost()
+	rows = []
+	for r in _contract_lines(doc.sales_order):
+		left = flt(r.qty) - flt(r.delivered_qty)
+		if left <= ROUNDING:
+			continue
+		rows.append(
+			{
+				"so_detail": r.name,
+				"item_code": r.item_code,
+				"item_name": frappe.db.get_value("Item", r.item_code, "item_name"),
+				"qty": flt(r.qty),
+				"left": left,
+				"rate": flt(r.rate),
+				"cost": _snapshot_cost(doc, r.item_code) if sees_cost else None,
+			}
+		)
+	return rows
+
+
+@frappe.whitelist()
+def line_price(station: str, item_code: str) -> dict:
+	"""An added item's price for the station's customer (and its cost, for the cost roles)."""
+	from smart_power.permissions import can_see_cost
+
+	frappe.has_permission(CHANGE_ORDER, "create", throw=True)
+	doc = _readable_station(station)
+	price = _price(item_code, doc.customer)
+	return {"rate": flt(price.price), "cost": flt(price.cost) if can_see_cost() else None}
