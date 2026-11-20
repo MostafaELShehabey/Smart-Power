@@ -3064,3 +3064,29 @@ Load Containers,تحميل الحاويات
 Reconciliation matched,التسوية مطابقة
 Saved with differences: the admin has been told,حُفظت بفروق: تم إبلاغ الأدمن
 {0} containers loaded,تم تحميل {0} حاويات
+Agreement,الاتفاق
+Contract signed,تم توقيع العقد
+Cost and profit: give it to the admin only.,التكلفة والربح: للأدمن فقط.
+Costs,التكاليف
+Delivery late on {0},تأخر التوريد في {0}
+First goods received,أول استلام بضاعة
+First payment confirmed,تأكيد أول دفعة
+First purchase order,أول أمر شراء
+First transfer to the site,أول تحويل للموقع
+In operation,دخلت التشغيل
+Installation started on site,بدء التركيب في الموقع
+Less arrived than left on {0},وصل أقل مما خرج في {0}
+Overdue: {0} from the customer,متأخر: {0} على العميل
+Payments,المدفوعات
+Programming,البرمجة
+Purchasing & Materials,المشتريات والخامات
+Role,الدور
+SP Station Tab Access,صلاحيات تبويبات المحطة
+Site & Execution,الموقع والتنفيذ
+Station Record,ملف المحطة
+Station Tabs by Role,تبويبات المحطة حسب الدور
+Unknown station tab {0}.,تبويب محطة غير معروف {0}.
+Warranty & Service,الضمان والصيانة
+Which tabs of the station record each role sees (SP-76). A user sees the tabs of all their roles. Amounts follow the station's role permissions; the Costs tab also needs a cost role.,التبويبات التي يراها كل دور في ملف المحطة (SP-76). يرى المستخدم تبويبات كل أدواره. المبالغ تتبع صلاحيات الأدوار على المحطة، وتبويب التكاليف يحتاج أيضًا دورًا يرى التكلفة.
+You cannot see this tab of the station.,لا يمكنك رؤية هذا التبويب في المحطة.
+{0} in payments waiting for the admin's confirmation,{0} مدفوعات في انتظار تأكيد الأدمن

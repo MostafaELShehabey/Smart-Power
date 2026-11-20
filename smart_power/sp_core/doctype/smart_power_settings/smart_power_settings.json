@@ -39,8 +39,6 @@
   "cheque_auto_confirm",
   "installment_due_lead_days",
   "consignment_low_balance",
-  "count_section",
-  "count_schedule",
   "large_payment_threshold",
   "column_break_cash",
   "field_entry_lock_days",
@@ -61,7 +59,11 @@
   "center_indirect",
   "money_section",
   "cost_of_money_pct",
-  "account_map"
+  "account_map",
+  "count_section",
+  "count_schedule",
+  "station_section",
+  "station_tab_access"
  ],
  "fields": [
   {
@@ -388,13 +390,25 @@
    "options": "SP Count Schedule",
    "label": "Count Schedule",
    "description": "Each location here gets a count sheet at the start of every week or month, and its store keeper a task (SP-94)."
+  },
+  {
+   "fieldname": "station_section",
+   "fieldtype": "Section Break",
+   "label": "Station Record"
+  },
+  {
+   "fieldname": "station_tab_access",
+   "fieldtype": "Table",
+   "options": "SP Station Tab Access",
+   "label": "Station Tabs by Role",
+   "description": "Which tabs of the station record each role sees (SP-76). A user sees the tabs of all their roles. Amounts follow the station's role permissions; the Costs tab also needs a cost role."
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-20 12:00:00.000000",
+ "modified": "2026-11-20 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

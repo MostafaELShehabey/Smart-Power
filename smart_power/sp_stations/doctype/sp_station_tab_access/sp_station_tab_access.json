@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "creation": "2026-11-20 18:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-20 18:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stations",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "name": "SP Station Tab Access",
+ "istable": 1,
+ "editable_grid": 1,
+ "permissions": [],
+ "field_order": [
+  "role",
+  "tab_overview",
+  "tab_scope",
+  "tab_agreement",
+  "tab_payments",
+  "tab_purchasing",
+  "tab_site",
+  "tab_programming",
+  "tab_documents",
+  "tab_warranty",
+  "tab_costs",
+  "tab_history"
+ ],
+ "fields": [
+  {
+   "fieldname": "role",
+   "fieldtype": "Link",
+   "options": "Role",
+   "label": "Role",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "tab_overview",
+   "fieldtype": "Check",
+   "label": "Overview",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "tab_scope",
+   "fieldtype": "Check",
+   "label": "Scope"
+  },
+  {
+   "fieldname": "tab_agreement",
+   "fieldtype": "Check",
+   "label": "Agreement",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "tab_payments",
+   "fieldtype": "Check",
+   "label": "Payments",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "tab_purchasing",
+   "fieldtype": "Check",
+   "label": "Purchasing & Materials"
+  },
+  {
+   "fieldname": "tab_site",
+   "fieldtype": "Check",
+   "label": "Site & Execution",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "tab_programming",
+   "fieldtype": "Check",
+   "label": "Programming"
+  },
+  {
+   "fieldname": "tab_documents",
+   "fieldtype": "Check",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "tab_warranty",
+   "fieldtype": "Check",
+   "label": "Warranty & Service"
+  },
+  {
+   "fieldname": "tab_costs",
+   "fieldtype": "Check",
+   "label": "Costs",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Cost and profit: give it to the admin only."
+  },
+  {
+   "fieldname": "tab_history",
+   "fieldtype": "Check",
+   "label": "History"
+  }
+ ],
+ "row_format": "Dynamic"
+}
