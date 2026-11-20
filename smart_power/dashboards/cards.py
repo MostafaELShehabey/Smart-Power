@@ -463,6 +463,23 @@ def entries_locking(user: str) -> dict | None:
 	}
 
 
+@card("showroom_stock_low", "Showroom stock low", ("showroom", "store"))
+def showroom_stock_low(user: str) -> dict | None:
+	"""Items of the showroom store at or under their reorder level (SP-87)."""
+	if not frappe.has_permission("Bin", "read", user=user):
+		return None
+	from smart_power.sp_stock.showroom_stock import REPORT, low_items, showroom_stores
+
+	rows = low_items()
+	stores = showroom_stores()
+	return {
+		"value": len(rows),
+		"indicator": RED if rows else GREEN,
+		"route": ["query-report", REPORT],
+		"route_options": {"below_reorder": 1, **({"location": stores[0]} if len(stores) == 1 else {})},
+	}
+
+
 @card("supplier_dues_week", "Supplier dues this week", ("finance",))
 def supplier_dues_week(user: str) -> dict:
 	"""What suppliers are owed within a week; orange while any of it is late (SP-86)."""

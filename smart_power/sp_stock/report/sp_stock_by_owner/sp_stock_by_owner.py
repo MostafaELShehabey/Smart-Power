@@ -31,6 +31,7 @@ def columns() -> list[dict]:
 		{"fieldname": "on_hand", "label": _("On Hand"), **qty},
 		{"fieldname": "reserved", "label": _("Reserved"), **qty},
 		{"fieldname": "available", "label": _("Available"), **qty},
+		{"fieldname": "reorder_level", "label": _("Reorder Level"), **qty},
 	]
 	if can_see_cost():
 		cols.append({"fieldname": "value", "label": _("Value"), "fieldtype": "Currency", "width": WIDE})
