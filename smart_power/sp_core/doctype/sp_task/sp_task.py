@@ -49,6 +49,7 @@ class SPTask(Document):
 			"Settlement to Approve",
 			"Stock Count",
 			"Count Difference",
+			"Consignment Reconciliation",
 			"Password Reset",
 			"Fix Rejected Sync",
 			"Reassign Request",

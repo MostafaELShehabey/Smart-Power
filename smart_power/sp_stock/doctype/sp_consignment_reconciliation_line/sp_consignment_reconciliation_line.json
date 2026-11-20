@@ -1,0 +1,169 @@
+{
+ "actions": [],
+ "creation": "2026-11-20 18:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-20 18:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "name": "SP Consignment Reconciliation Line",
+ "istable": 1,
+ "editable_grid": 0,
+ "permissions": [],
+ "field_order": [
+  "container",
+  "container_no",
+  "item",
+  "ours_section",
+  "our_received",
+  "our_withdrawn",
+  "column_break_ours",
+  "our_handed_over",
+  "our_returned",
+  "our_remaining",
+  "supplier_section",
+  "supplier_received",
+  "supplier_withdrawn",
+  "column_break_supplier",
+  "supplier_handed_over",
+  "supplier_remaining",
+  "result_section",
+  "diff",
+  "line_status",
+  "note"
+ ],
+ "fields": [
+  {
+   "fieldname": "container",
+   "fieldtype": "Link",
+   "options": "SP Consignment Container",
+   "label": "Container",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "container_no",
+   "fieldtype": "Data",
+   "label": "Container No",
+   "fetch_from": "container.container_no",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "options": "Item",
+   "label": "Item Code",
+   "fetch_from": "container.item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ours_section",
+   "fieldtype": "Section Break",
+   "label": "Our Figures"
+  },
+  {
+   "fieldname": "our_received",
+   "fieldtype": "Int",
+   "label": "Received",
+   "read_only": 1
+  },
+  {
+   "fieldname": "our_withdrawn",
+   "fieldtype": "Int",
+   "label": "Withdrawn for Smart Power",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ours",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "our_handed_over",
+   "fieldtype": "Int",
+   "label": "Handed Over",
+   "read_only": 1
+  },
+  {
+   "fieldname": "our_returned",
+   "fieldtype": "Int",
+   "label": "Returned to Supplier",
+   "read_only": 1
+  },
+  {
+   "fieldname": "our_remaining",
+   "fieldtype": "Int",
+   "label": "Our Remaining",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "supplier_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier's Statement"
+  },
+  {
+   "fieldname": "supplier_received",
+   "fieldtype": "Int",
+   "label": "Supplier: Received"
+  },
+  {
+   "fieldname": "supplier_withdrawn",
+   "fieldtype": "Int",
+   "label": "Supplier: Withdrawn for Smart Power"
+  },
+  {
+   "fieldname": "column_break_supplier",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_handed_over",
+   "fieldtype": "Int",
+   "label": "Supplier: Handed Over"
+  },
+  {
+   "fieldname": "supplier_remaining",
+   "fieldtype": "Int",
+   "label": "Supplier: Remaining",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "result_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "diff",
+   "fieldtype": "Int",
+   "label": "Difference",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "line_status",
+   "fieldtype": "Select",
+   "options": "\nMatched\nDifference",
+   "label": "Result",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Data",
+   "label": "Note",
+   "in_list_view": 1,
+   "columns": 2
+  }
+ ],
+ "row_format": "Dynamic"
+}

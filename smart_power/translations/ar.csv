@@ -3024,3 +3024,35 @@ Weekly,أسبوعيًا
 {0} added to the sheet,تمت إضافة {0} إلى الكشف
 {0} differences,{0} فروق
 {0} of {1} lines counted,تم جرد {0} من {1} بند
+Any day of the month; the figures are taken as of its last day.,أي يوم في الشهر؛ تؤخذ الأرقام كما هي في آخر يوم منه.
+As Of,حتى تاريخ
+Attach the supplier's statement before finishing.,أرفق كشف المورد قبل الإنهاء.
+Consignment Reconciliation,تسوية الأمانة
+"Consignment {0}, {1}: {2} containers differ from the statement ({3})",أمانة {0}، {1}: {2} حاويات تختلف عن كشف المورد ({3})
+Container No,رقم الحاوية
+Containers,الحاويات
+Count differences,فروق الجرد
+Load the containers first.,حمّل الحاويات أولًا.
+Matched,مطابق
+Only the main store keeper reconciles consignment.,أمين المخزن الرئيسي فقط يسوّي الأمانة.
+Our Figures,أرقامنا
+Our Remaining,المتبقي عندنا
+Reconcile {0}'s consignment for {1} with its statement,سوِّ أمانة {0} عن {1} مع كشف المورد
+Reconciled By,سوّاها
+Reconciled On,تاريخ التسوية
+Reconciliation {0} is finished.,التسوية {0} منتهية.
+Reconciliation {0} is finished: its figures can no longer change.,التسوية {0} منتهية: لا يمكن تغيير أرقامها.
+SP Consignment Reconciliation,تسوية الأمانة
+SP Consignment Reconciliation Line,سطر تسوية الأمانة
+Statement File,ملف الكشف
+Supplier's Statement,كشف المورد
+Supplier: Handed Over,المورد: المسلَّم
+Supplier: Received,المورد: المستلم
+Supplier: Remaining,المورد: المتبقي
+Supplier: Withdrawn for Smart Power,المورد: المسحوب لسمارت باور
+The supplier's monthly statement (photo or PDF); needed to finish.,كشف المورد الشهري (صورة أو PDF)؛ مطلوب للإنهاء.
+With differences,بها فروق
+Withdrawn for Smart Power,المسحوب لسمارت باور
+Write a note on each container that differs: {0},اكتب ملاحظة على كل حاوية بها فرق: {0}
+{0} is already reconciled for this month.,{0} له تسوية بالفعل عن هذا الشهر.
+Type the supplier's figures for every container: {0},اكتب أرقام المورد لكل حاوية: {0}
