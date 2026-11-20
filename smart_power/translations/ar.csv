@@ -2952,3 +2952,44 @@ the showroom,المعرض
 Request from the Main Store,طلب من المخزن الرئيسي
 Request {0} sent to the main store,تم إرسال الطلب {0} إلى المخزن الرئيسي
 Showroom refill,تزويد المعرض
+Blind Count,جرد بدون عرض الرصيد
+Count Date,تاريخ الجرد
+Count Every,الجرد كل
+Count Schedule,مواعيد الجرد
+Count Sheet,كشف الجرد
+"Count a store, not the group {0}.",اجرد مخزنًا وليس المجموعة {0}.
+Count every line before submitting (an empty shelf is 0): {0},اجرد كل البنود قبل الإرسال (الرف الفارغ يُكتب 0): {0}
+Count {0} again at {1},أعد الجرد {0} في {1}
+Count {0} at {1}: {2} differences to approve,الجرد {0} في {1}: {2} فروق في انتظار الاعتماد
+Count {0} is {1}.,الجرد {0} حالته {1}.
+Counted By,الجرد بواسطة
+Counted Qty,الكمية المعدودة
+Decided On,تاريخ القرار
+Differences,الفروق
+"Each location here gets a count sheet at the start of every week or month, and its store keeper a task (SP-94).",كل مكان هنا يحصل على كشف جرد في بداية كل أسبوع أو شهر، ويحصل أمين مخزنه على مهمة (SP-94).
+Give the reason for rejecting the count.,اكتب سبب رفض الجرد.
+Give the reason for the differences.,اكتب سبب الفروق.
+No differences,لا توجد فروق
+Only the admin decides on count differences.,الأدمن فقط يقرر في فروق الجرد.
+Recount Of,إعادة جرد لـ
+Row {0}: a counted quantity cannot be negative.,الصف {0}: الكمية المعدودة لا يمكن أن تكون سالبة.
+Row {0}: {1} is already on the sheet.,الصف {0}: {1} موجود بالفعل في الكشف.
+SP Count Schedule,مواعيد الجرد
+SP Stock Count,جرد المخزون
+SP Stock Count Line,بند جرد المخزون
+Scheduled,مجدول
+Stock Count,جرد المخزون
+Stock Counts,جرد المخزون
+Stock Reconciliation,تسوية المخزون
+Stock count {0} at {1},جرد المخزون {0} في {1}
+Submission,الإرسال
+Submitted,تم الإرسال
+Submitted On,تاريخ الإرسال
+System Qty,الرصيد بالنظام
+Taken from the stock when the count is submitted.,يؤخذ من المخزون عند إرسال الجرد.
+The sheet has no lines.,الكشف لا يحتوي على بنود.
+The store keeper does not see the system quantity until the count is submitted.,أمين المخزن لا يرى الرصيد بالنظام حتى يُرسل الجرد.
+Week,أسبوع
+You do not count stock at {0}.,أنت لا تجرد المخزون في {0}.
+{0} has serial or batch numbers: correct its stock by hand in a Stock Reconciliation.,{0} له أرقام تسلسلية أو دفعات: صحّح رصيده يدويًا في تسوية مخزون.
+"{0}: the stock moved since the count, and the difference would leave {1}.",{0}: تحرك المخزون بعد الجرد، والفرق سيترك {1}.

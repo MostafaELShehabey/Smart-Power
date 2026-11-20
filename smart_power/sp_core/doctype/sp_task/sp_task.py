@@ -47,6 +47,7 @@ class SPTask(Document):
 			"Material Request",
 			"Return to Receive",
 			"Settlement to Approve",
+			"Stock Count",
 			"Count Difference",
 			"Password Reset",
 			"Fix Rejected Sync",
