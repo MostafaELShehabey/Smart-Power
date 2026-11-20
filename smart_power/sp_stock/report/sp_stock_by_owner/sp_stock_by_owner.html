@@ -1,0 +1,36 @@
+<div dir="rtl" lang="ar" style="font-family: inherit;">
+	<h3 style="margin-bottom: 4px;">{%= __("Stock Sheet") %}</h3>
+	<p style="color: #666; margin-top: 0;">
+		{%= frappe.datetime.str_to_user(frappe.datetime.get_today()) %}
+		{% if (filters.location) { %} · {%= filters.location %}{% } %}
+		{% if (filters.item_code) { %} · {%= filters.item_code %}{% } %}
+	</p>
+	<table class="table table-bordered" style="width: 100%;">
+		<thead>
+			<tr>
+				<th>{%= __("Item Code") %}</th>
+				<th>{%= __("Item Name") %}</th>
+				<th>{%= __("Stock Location") %}</th>
+				<th>{%= __("Stock Owner") %}</th>
+				<th style="text-align: left;">{%= __("On Hand") %}</th>
+				<th style="text-align: left;">{%= __("Reserved") %}</th>
+				<th style="text-align: left;">{%= __("Available") %}</th>
+				<th>{%= __("Counted") %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for (var i = 0; i < data.length; i++) { var row = data[i]; %}
+			<tr>
+				<td>{%= row.item_code %}</td>
+				<td>{%= row.item_name || "" %}</td>
+				<td>{%= row.location || "" %}</td>
+				<td>{%= row.owner || "" %}</td>
+				<td style="text-align: left;">{%= format_number(row.on_hand) %}</td>
+				<td style="text-align: left;">{%= format_number(row.reserved) %}</td>
+				<td style="text-align: left;">{%= format_number(row.available) %}</td>
+				<td></td>
+			</tr>
+			{% } %}
+		</tbody>
+	</table>
+</div>
