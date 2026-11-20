@@ -173,3 +173,13 @@ class TestShowroomAtCost(IntegrationTestCase):
 				t.request_refill,
 				{"items": [{"item_code": INVERTER, "qty": 1}], "company": COMPANY},
 			)
+
+	def test_showroom_sales_sees_the_refill_it_asked_for(self):
+		sales = make_user("sp.sc.sales@example.com", ("showroom_sales",))
+		name = self.as_user(
+			sales, t.request_refill, {"items": [{"item_code": INVERTER, "qty": 1}], "company": COMPANY}
+		)
+		mine = self.as_user(sales, t.my_transfers)
+		self.assertTrue(mine["can_refill"])
+		self.assertIn(name, [r["name"] for r in mine["transfers"]])
+		self.assertFalse(next(r for r in mine["transfers"] if r["name"] == name)["can_issue"])

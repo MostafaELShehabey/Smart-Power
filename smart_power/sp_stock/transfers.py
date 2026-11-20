@@ -428,7 +428,7 @@ def my_transfers() -> dict:
 			{**_card(r), "can_issue": r.status == CREATED and (_is_admin(user) or r.source in mine)}
 			for r in rows
 			# a store sees what it issues, and the showroom the refills it asked for
-			if sees_all or r.source in mine or r.site in mine
+			if sees_all or r.source in mine or r.site in mine or r.owner == user
 		],
 	}
 

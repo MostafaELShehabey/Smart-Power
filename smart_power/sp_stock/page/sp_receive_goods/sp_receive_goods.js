@@ -57,7 +57,7 @@ class SPReceiveGoods {
 			.join("");
 		const $card = $(`<div class="frappe-card p-3 mb-3 sp-transfer-card">
 			<div class="d-flex flex-wrap justify-content-between align-items-center mb-2" style="gap: 8px">
-				<div><b>${esc(transfer.name)}</b><div class="small text-muted">${esc(transfer.source)} · ${esc(transfer.station)}</div></div>
+				<div><b>${esc(transfer.name)}</b><div class="small text-muted">${esc(transfer.source)} · ${esc(transfer.station || transfer.site)}</div></div>
 				<button class="btn btn-primary btn-sm sp-tr-confirm">${esc(__("Confirm Arrival"))}</button>
 			</div>
 			<div class="table-responsive"><table class="table table-sm mb-0">
