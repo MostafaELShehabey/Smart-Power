@@ -2919,3 +2919,21 @@ Take a Payment,تحصيل دفعة
 Taken at the showroom today,المحصل في المعرض اليوم
 {0} is waiting for the admin's confirmation.,{0} في انتظار تأكيد الأدمن.
 {0} waiting for the admin,{0} في انتظار الأدمن
+Consignment store,مخزن الأمانة
+Counted,المعدود
+Item Code,كود الصنف
+Location Type,نوع المكان
+Movements,الحركات
+On Hand,الموجود
+Show empty rows,إظهار الصفوف الفارغة
+Stock Sheet,كشف المخزون
+Supplier on consignment,مورد بالأمانة
+SP Stock by Owner,المخزون حسب المالك
+Stock Location,المكان
+Stock Owner,المالك
+Show Movements,عرض الحركات
+Stock by Owner,المخزون حسب المالك
+Main store,المخزن الرئيسي
+Showroom store,مخزن المعرض
+Station site,موقع محطة
+In transit,في الطريق
