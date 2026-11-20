@@ -3090,3 +3090,83 @@ Warranty & Service,الضمان والصيانة
 Which tabs of the station record each role sees (SP-76). A user sees the tabs of all their roles. Amounts follow the station's role permissions; the Costs tab also needs a cost role.,التبويبات التي يراها كل دور في ملف المحطة (SP-76). يرى المستخدم تبويبات كل أدواره. المبالغ تتبع صلاحيات الأدوار على المحطة، وتبويب التكاليف يحتاج أيضًا دورًا يرى التكلفة.
 You cannot see this tab of the station.,لا يمكنك رؤية هذا التبويب في المحطة.
 {0} in payments waiting for the admin's confirmation,{0} مدفوعات في انتظار تأكيد الأدمن
+Accepted Quote,العرض المقبول
+Actual Cost,التكلفة الفعلية
+Actual Cost by Source,التكلفة الفعلية حسب المصدر
+Actual Profit,الربح الفعلي
+Added By,أضافه
+Agreed Lines,البنود المتفق عليها
+Bank or Post,البنك أو البريد
+Booked Jobs,الشغلانات المحجوزة
+Change orders are added here when they are recorded.,أوامر التغيير تظهر هنا عند تسجيلها.
+Cheque No,رقم الشيك
+Component Warranties,ضمانات المكونات
+Consignment Withdrawals,المسحوب من الأمانة
+Consignment goods,بضاعة الأمانة
+Contract PDF,ملف العقد PDF
+Create Purchase Order,إنشاء أمر شراء
+Custody and site spending,مصروفات العهدة والموقع
+Daily Labour,اليوميات
+Daily labour,اليوميات
+Destination,جهة التوريد
+Estimated against Actual,التقديري مقابل الفعلي
+Expected Profit,الربح المتوقع
+Field Changes,تغييرات الحقول
+Files on the Station,ملفات المحطة
+Indirect share,نصيب التكاليف غير المباشرة
+Invoices,الفواتير
+Loading...,جاري التحميل...
+Log,السجل
+"Materials used, showroom goods at cost",الخامات المستخدمة وبضاعة المعرض بالتكلفة
+No accepted quote yet.,لا يوجد عرض مقبول بعد.
+No changes yet.,لا توجد تغييرات بعد.
+No cheques.,لا توجد شيكات.
+No contract yet.,لا يوجد عقد بعد.
+No files yet. Attach them from the sidebar.,لا توجد ملفات بعد. أرفقها من الشريط الجانبي.
+No invoices yet.,لا توجد فواتير بعد.
+No jobs yet.,لا توجد شغلانات بعد.
+No open tasks.,لا توجد مهام مفتوحة.
+No payment schedule.,لا يوجد جدول دفعات.
+No payments yet.,لا توجد مدفوعات بعد.
+No purchase orders yet.,لا توجد أوامر شراء بعد.
+No returns.,لا توجد مرتجعات.
+No site expenses.,لا توجد مصروفات موقع.
+No site logs yet.,لا توجد يوميات موقع بعد.
+No tasks.,لا توجد مهام.
+No test readings.,لا توجد قراءات اختبار.
+No transfers yet.,لا توجد تحويلات بعد.
+Not programmed yet.,لم تتم البرمجة بعد.
+Nothing posted on this station yet.,لا توجد قيود على هذه المحطة بعد.
+Nothing received yet.,لم يتم استلام شيء بعد.
+Nothing yet.,لا شيء بعد.
+Open Tasks,المهام المفتوحة
+Paid To,مدفوع إلى
+Paid to Third Parties from the Customer's Money,مدفوع لطرف ثالث من مال العميل
+Payment Terms,شروط الدفع
+Purchase Orders,أوامر الشراء
+Purchases,المشتريات
+Quantities from the accepted quote {0},الكميات من العرض المقبول {0}
+Quote Versions,نسخ العرض
+Read-only after signing: it changes only through a change order.,للقراءة فقط بعد التوقيع: لا يتغير إلا بأمر تغيير.
+Receipts,الاستلامات
+Received At,مكان الاستلام
+Referrer commission,عمولة الوسيط
+Returns from the site,المرتجعات من الموقع
+Schedule and Payments,الجدول والمدفوعات
+Service tickets and supplier claims are added here when the service screens are built.,طلبات الصيانة ومطالبات الموردين تظهر هنا عند بناء شاشات الصيانة.
+Signed,موقّع
+Site Daily Logs,يوميات الموقع
+Site Expenses,مصروفات الموقع
+"Stock Moves: Transfers In, Consumption and Returns",حركات المخزون: التحويلات الواردة والاستهلاك والمرتجعات
+Task,المهمة
+Tasks,المهام
+The warranties start when the station is commissioned.,تبدأ الضمانات عند تشغيل المحطة.
+Timeline,التسلسل الزمني
+Timeline and Alerts,التسلسل الزمني والتنبيهات
+Transfers to the Site,التحويلات للموقع
+Winch and Car Jobs,شغلانات الونش والعربية
+Winch and car jobs,شغلانات الونش والعربية
+Work on Site,العمل في الموقع
+incl. indirect {0},منها غير مباشر {0}
+{0} for station {1}?,{0} للمحطة {1}؟
+Partly paid,مدفوع جزئيًا
