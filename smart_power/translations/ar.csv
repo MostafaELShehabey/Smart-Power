@@ -2942,3 +2942,10 @@ At or under the reorder level,عند حد إعادة الطلب أو أقل
 Reorder Level,حد إعادة الطلب
 {0} items low in the showroom store: {1},{0} أصناف قاربت على النفاد في مخزن المعرض: {1}
 Showroom stock low,مخزون المعرض قارب على النفاد
+Company {0} needs a main store and a showroom store.,الشركة {0} تحتاج مخزنًا رئيسيًا ومخزن معرض.
+Confirm transfer {0} arriving at {1},أكد وصول التحويل {0} إلى {1}
+Issue refill {0} to the showroom,اصرف طلب تزويد المعرض {0}
+Only the showroom asks the main store for a refill.,طلب تزويد المعرض من المخزن الرئيسي للمعرض فقط.
+Transfer {0} to {1},التحويل {0} إلى {1}
+station {0},المحطة {0}
+the showroom,المعرض
