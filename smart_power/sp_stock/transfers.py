@@ -8,6 +8,10 @@ Purchasing creates the order and the store or showroom issues it with a transfer
 stay in the Transit warehouse until the site receiver confirms what arrived (End Transit). What is
 short stays in Transit, and purchasing gets a task. Showroom stock moves at cost, because a transfer
 carries its valuation. Every entry carries the station's Project, and no price reaches these screens.
+
+The showroom refills itself the same way (SP-89): request_refill asks the main store for items, the
+main store keeper issues them into Transit, and the showroom store keeper confirms what arrived. A
+refill has no station and no project: it is an internal move at cost, so it books no showroom income.
 """
 
 import frappe
@@ -38,6 +42,7 @@ EVENT_ISSUE, EVENT_RECEIVE, EVENT_DIFFERENCE = (
 	"transfer_difference",
 )
 BUYER = "SP Purchase Officer"
+REFILLERS = ("SP Showroom Store Keeper", "SP Showroom Sales", "SP Admin", "System Manager")
 ADMIN_ROLES = ("SP Admin", "System Manager")
 CREATORS = (BUYER, "SP Project Manager", *ADMIN_ROLES)
 RECENT = 50  # sp-allow-number: a screenful of the latest transfers
@@ -161,6 +166,62 @@ def create_transfer(values: str | dict) -> str:
 	return doc.name
 
 
+def _can_refill() -> bool:
+	return frappe.session.user == "Administrator" or bool(set(REFILLERS) & set(frappe.get_roles()))
+
+
+def _company() -> str | None:
+	from erpnext import get_default_company
+
+	return frappe.defaults.get_user_default("Company") or get_default_company()
+
+
+@frappe.whitelist(methods=["POST"])
+def request_refill(values: str | dict) -> str:
+	"""The showroom asks the main store for items. values: items [{item_code, qty}], planned_date, note."""
+	if not _can_refill():
+		frappe.throw(_("Only the showroom asks the main store for a refill."), frappe.PermissionError)
+	values = frappe.parse_json(values)
+	items = _clean_items(values.get("items"))
+	company = values.get("company") or _company()
+	main, showroom = warehouse_of(company, MAIN), warehouse_of(company, SHOWROOM)
+	if not (main and showroom):
+		frappe.throw(_("Company {0} needs a main store and a showroom store.").format(company))
+	day = values.get("planned_date") or nowdate()
+	doc = frappe.get_doc(
+		{
+			"doctype": ORDER,
+			"material_request_type": "Material Transfer",
+			"company": company,
+			"transaction_date": nowdate(),
+			"schedule_date": day,
+			"set_from_warehouse": main,
+			"set_warehouse": showroom,
+			"sp_source_kind": MAIN,
+			"sp_transport": OTHER,
+			"sp_transfer_status": CREATED,
+			"items": [
+				{**row, "schedule_date": day, "from_warehouse": main, "warehouse": showroom} for row in items
+			],
+		}
+	)
+	doc.flags.ignore_permissions = True  # checked above
+	doc.insert()
+	doc.submit()
+	if values.get("note"):
+		doc.add_comment("Comment", values["note"])
+	subject = _("Issue refill {0} to the showroom").format(doc.name)
+	users = _keepers(main, MAIN)
+	create_task(TASK_ISSUE, ORDER, doc.name, users, subject)
+	send(EVENT_ISSUE, users, ORDER, doc.name, subject)
+	return doc.name
+
+
+def _destination(doc) -> str:
+	"""Where the transfer goes, for its notes and tasks: a station, or the showroom (a refill)."""
+	return _("station {0}").format(doc.sp_station) if doc.sp_station else _("the showroom")
+
+
 def _locked(name: str, *statuses: str):
 	status = frappe.db.get_value(ORDER, name, "sp_transfer_status", for_update=True)
 	if status not in statuses:
@@ -202,7 +263,7 @@ def issue_transfer(name: str, serials: str | dict | None = None) -> str:
 			"from_warehouse": doc.set_from_warehouse,
 			"to_warehouse": transit,
 			"project": doc.items[0].project,
-			"remarks": _("Transfer {0} to station {1}").format(doc.name, doc.sp_station),
+			"remarks": _("Transfer {0} to {1}").format(doc.name, _destination(doc)),
 			"items": [
 				{
 					"item_code": row.item_code,
@@ -232,8 +293,8 @@ def issue_transfer(name: str, serials: str | dict | None = None) -> str:
 	_signed_by_user(entry.name)
 	doc.db_set({"sp_transfer_status": ISSUED, "sp_issue_entry": entry.name})
 	close_tasks(ORDER, doc.name, TASK_ISSUE)
-	subject = _("Confirm transfer {0} arriving at station {1}").format(doc.name, doc.sp_station)
-	users = _receivers(doc.sp_station)
+	subject = _("Confirm transfer {0} arriving at {1}").format(doc.name, _destination(doc))
+	users = _receivers(doc.sp_station) if doc.sp_station else _keepers(doc.set_warehouse, SHOWROOM)
 	create_task(TASK_RECEIVE, ORDER, doc.name, users, subject)
 	send(EVENT_RECEIVE, users, ORDER, doc.name, subject)
 	return entry.name
@@ -362,10 +423,12 @@ def my_transfers() -> dict:
 	)
 	return {
 		"can_create": sees_all,
+		"can_refill": _can_refill(),
 		"transfers": [
 			{**_card(r), "can_issue": r.status == CREATED and (_is_admin(user) or r.source in mine)}
 			for r in rows
-			if sees_all or r.source in mine
+			# a store sees what it issues, and the showroom the refills it asked for
+			if sees_all or r.source in mine or r.site in mine
 		],
 	}
 
