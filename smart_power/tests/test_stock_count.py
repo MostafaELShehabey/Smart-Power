@@ -210,3 +210,16 @@ class TestStockCount(IntegrationTestCase):
 			"valuation_rate",
 		)
 		self.assertEqual(flt(rate), 100)  # the main store's cost, not zero
+
+	def test_the_home_card_shows_the_open_scheduled_count(self):
+		from smart_power.dashboards.cards import next_stock_count
+
+		settings = frappe.get_single("Smart Power Settings")
+		settings.set("count_schedule", [{"warehouse": self.main, "every": sc.WEEK, "blind": 1}])
+		settings.flags.ignore_permissions = True
+		settings.save()
+		frappe.db.delete(sc.COUNT, {"warehouse": self.main})
+		made = sc.create_scheduled_counts()[0]
+		card = next_stock_count(self.keeper)
+		self.assertEqual((card["value"], card["route"]), (0, ["sp-count-sheets", made]))
+		self.assertIsNone(next_stock_count(self.other))

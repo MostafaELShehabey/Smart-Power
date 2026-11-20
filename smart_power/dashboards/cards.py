@@ -480,6 +480,26 @@ def showroom_stock_low(user: str) -> dict | None:
 	}
 
 
+@card("next_stock_count", "Next Stock Count", ("store", "showroom"))
+def next_stock_count(user: str) -> dict | None:
+	"""Days to the next scheduled count of my locations; 0 and orange while a sheet is open (SP-94)."""
+	from frappe.utils import date_diff, nowdate
+
+	from smart_power.sp_stock.stock_count import next_counts
+
+	rows = next_counts(user)
+	if not rows:
+		return None
+	first = rows[0]
+	days = max(date_diff(first["due"], nowdate()), 0)
+	return {
+		"value": days,
+		"indicator": ORANGE if days == 0 else GREEN,
+		"note": f"{first['warehouse']} · {frappe.utils.formatdate(first['due'])}",
+		"route": ["sp-count-sheets", first["open"]] if first["open"] else ["sp-count-sheets"],
+	}
+
+
 @card("supplier_dues_week", "Supplier dues this week", ("finance",))
 def supplier_dues_week(user: str) -> dict:
 	"""What suppliers are owed within a week; orange while any of it is late (SP-86)."""
