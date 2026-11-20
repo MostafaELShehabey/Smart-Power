@@ -2993,3 +2993,34 @@ Week,أسبوع
 You do not count stock at {0}.,أنت لا تجرد المخزون في {0}.
 {0} has serial or batch numbers: correct its stock by hand in a Stock Reconciliation.,{0} له أرقام تسلسلية أو دفعات: صحّح رصيده يدويًا في تسوية مخزون.
 "{0}: the stock moved since the count, and the difference would leave {1}.",{0}: تحرك المخزون بعد الجرد، والفرق سيترك {1}.
+All Counts,كل الجرد
+Approve Count {0},اعتماد الجرد {0}
+Count Differences,فروق الجرد
+Count Due,موعد الجرد
+Count Sheet {0},كشف الجرد {0}
+Count submitted: no differences,تم إرسال الجرد: لا توجد فروق
+Count submitted: {0} differences sent to the admin,تم إرسال الجرد: أُرسل {0} فروق إلى الأدمن
+Count {0} approved,تم اعتماد الجرد {0}
+Count {0} approved: {1} posted,تم اعتماد الجرد {0}: تم ترحيل {1}
+Count {0} rejected: {1} sent to be counted again,تم رفض الجرد {0}: أُرسل {1} لإعادة الجرد
+Due now,حان موعده
+Each scan adds one to the item's count.,كل مسح يضيف واحدًا إلى عدد الصنف.
+Monthly,شهريًا
+Next Counts,مواعيد الجرد القادمة
+Next Stock Count,الجرد القادم
+No differences waiting.,لا توجد فروق في الانتظار.
+No item with barcode or code {0},لا يوجد صنف بالباركود أو الكود {0}
+None.,لا يوجد.
+Open Count Sheet,فتح كشف الجرد
+Open Count Sheets,كشوف جرد مفتوحة
+Open Sheet,فتح الكشف
+Recent Counts,آخر الجرد
+Reject Count {0},رفض الجرد {0}
+Scan a barcode or type an item code,امسح الباركود أو اكتب كود الصنف
+Start Count,بدء جرد
+Submit Count,إرسال الجرد
+Submit count {0}? The counted quantities can no longer be changed.,إرسال الجرد {0}؟ لن يمكن تعديل الكميات المعدودة بعد ذلك.
+Weekly,أسبوعيًا
+{0} added to the sheet,تمت إضافة {0} إلى الكشف
+{0} differences,{0} فروق
+{0} of {1} lines counted,تم جرد {0} من {1} بند
