@@ -108,6 +108,11 @@
 		"sites": "المواقع",
 		"disable_if_empty": ["Stores", "Finished Goods", "Work In Progress"]
 	},
+	"count_schedule": {
+		"_source": "SP-94: the story's example (main store monthly, showroom store weekly); blind by default (owner, 2026-11-20). The admin edits it in Smart Power Settings.",
+		"Main": {"every": "Month", "blind": 1},
+		"Showroom": {"every": "Week", "blind": 1}
+	},
 	"price_lists": {
 		"_source": "SP-30: the four price lists (supplier list price, P1 cost, BTB for companies, BTC for individuals). The admin can rename them; Smart Power Settings points at each one.",
 		"list": {"name": "List Price", "buying": 1},

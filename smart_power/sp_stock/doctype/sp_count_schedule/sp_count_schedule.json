@@ -1,0 +1,55 @@
+{
+ "actions": [],
+ "creation": "2026-11-20 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-20 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "name": "SP Count Schedule",
+ "istable": 1,
+ "editable_grid": 1,
+ "permissions": [],
+ "field_order": [
+  "warehouse",
+  "every",
+  "blind"
+ ],
+ "fields": [
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "options": "Warehouse",
+   "label": "Stock Location",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 5
+  },
+  {
+   "fieldname": "every",
+   "fieldtype": "Select",
+   "options": "Week\nMonth",
+   "label": "Count Every",
+   "reqd": 1,
+   "in_list_view": 1,
+   "default": "Month",
+   "columns": 3
+  },
+  {
+   "fieldname": "blind",
+   "fieldtype": "Check",
+   "label": "Blind Count",
+   "default": "1",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "The store keeper does not see the system quantity until the count is submitted."
+  }
+ ],
+ "row_format": "Dynamic"
+}

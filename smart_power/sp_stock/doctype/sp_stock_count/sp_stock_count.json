@@ -1,0 +1,233 @@
+{
+ "actions": [],
+ "creation": "2026-11-20 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-20 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "name": "SP Stock Count",
+ "autoname": "STC-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1,
+ "title_field": "warehouse",
+ "show_title_field_in_link": 0,
+ "search_fields": "warehouse,status",
+ "field_order": [
+  "warehouse",
+  "company",
+  "count_date",
+  "column_break_head",
+  "status",
+  "blind",
+  "scheduled",
+  "lines_section",
+  "lines",
+  "submit_section",
+  "counted_by",
+  "submitted_on",
+  "differences",
+  "column_break_approval",
+  "approved_by",
+  "approved_on",
+  "reason",
+  "stock_reconciliation",
+  "recount_of"
+ ],
+ "fields": [
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "options": "Warehouse",
+   "label": "Stock Location",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "options": "Company",
+   "label": "Company",
+   "fetch_from": "warehouse.company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "count_date",
+   "fieldtype": "Date",
+   "label": "Count Date",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "options": "Draft\nSubmitted\nApproved\nRejected",
+   "label": "Status",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "blind",
+   "fieldtype": "Check",
+   "label": "Blind Count",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "scheduled",
+   "fieldtype": "Check",
+   "label": "Scheduled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lines_section",
+   "fieldtype": "Section Break",
+   "label": "Count Sheet"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "options": "SP Stock Count Line",
+   "label": "Lines",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submit_section",
+   "fieldtype": "Section Break",
+   "label": "Submission"
+  },
+  {
+   "fieldname": "counted_by",
+   "fieldtype": "Link",
+   "options": "User",
+   "label": "Counted By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "submitted_on",
+   "fieldtype": "Datetime",
+   "label": "Submitted On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "differences",
+   "fieldtype": "Int",
+   "label": "Differences",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_approval",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "options": "User",
+   "label": "Decided By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Datetime",
+   "label": "Decided On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stock_reconciliation",
+   "fieldtype": "Link",
+   "options": "Stock Reconciliation",
+   "label": "Stock Reconciliation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recount_of",
+   "fieldtype": "Link",
+   "options": "SP Stock Count",
+   "label": "Recount Of",
+   "read_only": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 1
+  },
+  {
+   "role": "SP Main Store Keeper",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  },
+  {
+   "role": "SP Showroom Store Keeper",
+   "read": 1,
+   "write": 0,
+   "create": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "delete": 0
+  }
+ ]
+}

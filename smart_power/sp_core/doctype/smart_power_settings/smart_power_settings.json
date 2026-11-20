@@ -39,6 +39,8 @@
   "cheque_auto_confirm",
   "installment_due_lead_days",
   "consignment_low_balance",
+  "count_section",
+  "count_schedule",
   "large_payment_threshold",
   "column_break_cash",
   "field_entry_lock_days",
@@ -374,13 +376,25 @@
    "fieldtype": "Int",
    "label": "Consignment Low Balance (panels)",
    "description": "A consignment container at or under this many panels alerts the admin and the main store keeper (SP-91)."
+  },
+  {
+   "fieldname": "count_section",
+   "fieldtype": "Section Break",
+   "label": "Stock Counts"
+  },
+  {
+   "fieldname": "count_schedule",
+   "fieldtype": "Table",
+   "options": "SP Count Schedule",
+   "label": "Count Schedule",
+   "description": "Each location here gets a count sheet at the start of every week or month, and its store keeper a task (SP-94)."
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-19 19:00:00.000000",
+ "modified": "2026-11-20 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

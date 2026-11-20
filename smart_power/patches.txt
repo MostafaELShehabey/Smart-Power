@@ -69,3 +69,4 @@ smart_power.patches.sp108_field_entry
 smart_power.patches.sp112_winch_receipts
 smart_power.patches.sp112_debt_age
 smart_power.patches.sp181_crew_pay
+smart_power.patches.sp94_count_schedule
