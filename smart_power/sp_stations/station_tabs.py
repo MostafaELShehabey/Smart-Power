@@ -15,7 +15,7 @@ X2 field rules; seeded by seed_tab_access). A user sees the tabs of all their ro
 Tabs and their sources:
 
     overview      key dates, timeline, open tasks, alerts
-    scope         the systems, the accepted quote's quantities, returns from the site
+    scope         the systems, the accepted quote's quantities, change orders, site returns
     agreement     the contract (Sales Order): lines, discount, payment terms, its PDF
     payments      schedule with status, customer payments, cheques, the Agri Bank advance
     purchasing    purchase orders, receipts, consignment withdrawals, transfers, stock entries
@@ -303,12 +303,16 @@ def scope(doc, amounts: bool) -> dict:
 		["name", "posting_date", "sp_return_status"],
 		order_by="posting_date asc",
 	)
+	from smart_power.sp_stations.change_order import of_station
+
 	return {
 		"systems": systems,
 		"capacity_kw_total": doc.capacity_kw_total,
 		"quote": doc.quotation_accepted,
 		"lines": lines,
 		"returns": returns,
+		# the scope changes after signing (SP-78); amounts only for those who see them
+		"change_orders": _money(of_station(doc.name), amounts, "delta_amount"),
 	}
 
 
