@@ -412,6 +412,8 @@ scheduler_events = {
 		"smart_power.sp_stock.showroom_stock.check_showroom_stock",
 		# the scheduled stock counts: a sheet and a task for the store keeper, once a week or month (SP-94)
 		"smart_power.sp_stock.stock_count.create_scheduled_counts",
+		# on the 1st: the consignment reconciliation sheet for the month just closed (SP-93)
+		"smart_power.sp_stock.consignment_reconciliation.create_monthly",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],

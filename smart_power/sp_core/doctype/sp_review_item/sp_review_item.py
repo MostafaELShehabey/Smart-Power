@@ -30,6 +30,7 @@ class SPReviewItem(Document):
 			"Consignment Conversion",
 			"Write-off",
 			"PO Sent",
+			"Count Difference",
 		]
 		comment: DF.SmallText | None
 		highlight: DF.Check
