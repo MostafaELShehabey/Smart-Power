@@ -71,6 +71,9 @@ def after_install() -> None:
 def after_sync() -> None:
 	"""Runs on install after the fixtures (the SP roles) are in."""
 	sync_role_profiles()
+	from smart_power.sp_stations.station_tabs import seed_tab_access
+
+	seed_tab_access()  # SP-76: the map names the SP roles
 
 
 def sync_role_profiles() -> None:

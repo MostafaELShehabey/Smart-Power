@@ -113,6 +113,21 @@
 		"Main": {"every": "Month", "blind": 1},
 		"Showroom": {"every": "Week", "blind": 1}
 	},
+	"station_tab_access": {
+		"_source": "SP-76: the station record's tabs by role. The story's three profiles (the admin all 11, أميرة 10 without Costs, مصطفى the 6 site tabs) and, for the other roles, the owner's pick of 2026-11-20. Costs is the admin's only. The admin edits it in Smart Power Settings.",
+		"all": ["overview", "scope", "agreement", "payments", "purchasing", "site", "programming", "documents", "warranty", "costs", "history"],
+		"projects": ["overview", "scope", "agreement", "payments", "purchasing", "site", "programming", "documents", "warranty", "history"],
+		"site": ["overview", "scope", "site", "programming", "documents", "warranty"],
+		"money": ["overview", "scope", "agreement", "payments", "documents", "history"],
+		"winch": ["overview", "site"],
+		"roles": {
+			"SP Admin": "all",
+			"SP Project Manager": "projects", "SP Contract Manager": "projects", "SP Purchase Officer": "projects",
+			"SP Installation Manager": "site", "SP Site Receiver": "site", "SP Installation Technician": "site", "SP Commissioning Programmer": "site", "SP Warranty Service": "site",
+			"SP Collection Officer": "money", "SP Accountant": "money", "SP Customer Followup": "money", "SP Followup All": "money", "SP Showroom Cashier": "money", "SP Quote Creator": "money",
+			"SP Winch Manager": "winch"
+		}
+	},
 	"price_lists": {
 		"_source": "SP-30: the four price lists (supplier list price, P1 cost, BTB for companies, BTC for individuals). The admin can rename them; Smart Power Settings points at each one.",
 		"list": {"name": "List Price", "buying": 1},
