@@ -103,3 +103,65 @@ class TestStockByOwner(IntegrationTestCase):
 		frappe.db.set_value("Bin", {"item_code": ITEM, "warehouse": self.main}, "reserved_stock", 5)
 		company = next(r for r in self.rows(self.admin)[1] if r["owner_kind"] == "company")
 		self.assertEqual((company["reserved"], company["available"]), (5, self.before + IN_STORE - 5))
+
+
+class TestShowroomStockLow(IntegrationTestCase):
+	"""Showroom items at or under their reorder level: the report filter, the card and the alert."""
+
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		wh.seed_warehouses(COMPANY)
+		cls.keeper = make_user("sp.i3.showroom@example.com", ("showroom_store_keeper",))
+		cls.showroom = frappe.db.get_value("Warehouse", {"company": COMPANY, "warehouse_type": "Showroom"})
+		cls.items = {}
+		for code, level in (("_Test SP87 MC4", 10), ("_Test SP87 Cable", 50)):
+			if not frappe.db.exists("Item", code):
+				frappe.get_doc(
+					{
+						"doctype": "Item",
+						"item_code": code,
+						"item_name": code,
+						"item_group": frappe.db.get_value("Item Group", {"is_group": 0}),
+						"stock_uom": "Nos",
+						"is_stock_item": 1,
+					}
+				).insert()
+			item = frappe.get_doc("Item", code)
+			item.set("reorder_levels", [])
+			item.append(
+				"reorder_levels",
+				{
+					"warehouse": cls.showroom,
+					"warehouse_reorder_level": level,
+					"warehouse_reorder_qty": level,
+					"material_request_type": "Purchase",
+				},
+			)
+			item.save()
+			cls.items[code] = level
+
+	def test_low_items_are_listed_alerted_and_counted_on_the_card(self):
+		from smart_power.dashboards.cards import showroom_stock_low
+		from smart_power.sp_stock.showroom_stock import check_showroom_stock, low_items
+
+		make_stock_entry(
+			item_code="_Test SP87 MC4", qty=4, to_warehouse=self.showroom, rate=10, company=COMPANY
+		)
+		make_stock_entry(
+			item_code="_Test SP87 Cable", qty=500, to_warehouse=self.showroom, rate=10, company=COMPANY
+		)
+		low = {r["item_code"]: r for r in low_items(COMPANY)}
+		self.assertIn("_Test SP87 MC4", low)
+		self.assertNotIn("_Test SP87 Cable", low)
+		self.assertEqual(low["_Test SP87 MC4"]["reorder_level"], 10)
+		self.assertGreaterEqual(check_showroom_stock(), 1)
+		self.assertTrue(
+			frappe.db.exists("Notification Log", {"for_user": self.keeper, "sp_event": "showroom_stock_low"})
+		)
+		card = showroom_stock_low(self.keeper)
+		self.assertGreaterEqual(card["value"], 1)
+		self.assertEqual(
+			(card["route"], card["route_options"]["below_reorder"]),
+			(["query-report", "SP Stock by Owner"], 1),
+		)

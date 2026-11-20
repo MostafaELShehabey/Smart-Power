@@ -2937,3 +2937,8 @@ Main store,المخزن الرئيسي
 Showroom store,مخزن المعرض
 Station site,موقع محطة
 In transit,في الطريق
+{0} and {1} more,{0} و{1} أخرى
+At or under the reorder level,عند حد إعادة الطلب أو أقل
+Reorder Level,حد إعادة الطلب
+{0} items low in the showroom store: {1},{0} أصناف قاربت على النفاد في مخزن المعرض: {1}
+Showroom stock low,مخزون المعرض قارب على النفاد

@@ -23,6 +23,7 @@ frappe.query_reports["SP Stock by Owner"] = {
 			],
 		},
 		{ fieldname: "show_zero", label: __("Show empty rows"), fieldtype: "Check" },
+		{ fieldname: "below_reorder", label: __("At or under the reorder level"), fieldtype: "Check" },
 	],
 	formatter(value, row, column, data, default_formatter) {
 		if (column.fieldname !== "history" || !data || !data.item_code) {

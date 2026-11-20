@@ -61,10 +61,14 @@ def company_rows(filters) -> list[dict]:
 		fields=["item_code", "warehouse", "actual_qty", "reserved_stock", "stock_value"],
 	)
 	names = _item_names({b.item_code for b in bins})
+	levels = reorder_levels(list(warehouses))
 	rows = []
 	for b in bins:
 		on_hand = flt(b.actual_qty)
-		if abs(on_hand) < PENNY and not filters.get("show_zero"):
+		level = levels.get((b.item_code, b.warehouse))
+		if filters.get("below_reorder") and not (level and on_hand <= level):
+			continue
+		if abs(on_hand) < PENNY and not filters.get("show_zero") and not filters.get("below_reorder"):
 			continue
 		reserved = flt(b.reserved_stock)
 		w = warehouses[b.warehouse]
@@ -79,7 +83,63 @@ def company_rows(filters) -> list[dict]:
 				"on_hand": on_hand,
 				"reserved": reserved,
 				"available": on_hand - reserved,
+				"reorder_level": level,
 				"value": flt(b.stock_value),
+			}
+		)
+	if filters.get("below_reorder"):
+		rows += _missing_bins(warehouses, levels, {(r["item_code"], r["location"]) for r in rows}, filters)
+	return rows
+
+
+def reorder_levels(warehouses: list[str]) -> dict:
+	"""(item, warehouse) → the level at or under which it should be reordered (Item Reorder)."""
+	if not warehouses:
+		return {}
+	rows = frappe.get_all(
+		"Item Reorder",
+		filters={"warehouse": ("in", warehouses), "parenttype": "Item"},
+		fields=["parent", "warehouse", "warehouse_reorder_level"],
+	)
+	return {
+		(r.parent, r.warehouse): flt(r.warehouse_reorder_level)
+		for r in rows
+		if flt(r.warehouse_reorder_level)
+	}
+
+
+def _missing_bins(warehouses: dict, levels: dict, seen: set, filters) -> list[dict]:
+	"""An item with a reorder level and no stock at all has no Bin yet: it is low too."""
+	rows = []
+	missing = [key for key in levels if key not in seen and key[1] in warehouses]
+	if filters.get("item_code"):
+		missing = [key for key in missing if key[0] == filters.item_code]
+	have = {
+		(b.item_code, b.warehouse)
+		for b in frappe.get_all(
+			"Bin",
+			{"item_code": ("in", [k[0] for k in missing] or [""])},
+			["item_code", "warehouse", "actual_qty"],
+		)
+		if flt(b.actual_qty) > levels.get((b.item_code, b.warehouse), 0)
+	}
+	names = _item_names({k[0] for k in missing})
+	for item, warehouse in missing:
+		if (item, warehouse) in have:
+			continue
+		rows.append(
+			{
+				"item_code": item,
+				"item_name": names.get(item),
+				"location": warehouse,
+				"location_type": _location_type(warehouses[warehouse].warehouse_type),
+				"owner": SMART_POWER,
+				"owner_kind": "company",
+				"on_hand": 0.0,
+				"reserved": 0.0,
+				"available": 0.0,
+				"reorder_level": levels[(item, warehouse)],
+				"value": 0.0,
 			}
 		)
 	return rows
@@ -145,7 +205,7 @@ def stock_rows(filters: dict | None = None) -> list[dict]:
 	rows = []
 	if filters.get("owner") in (None, "", "company"):
 		rows += company_rows(filters)
-	if filters.get("owner") in (None, "", "supplier"):
+	if filters.get("owner") in (None, "", "supplier") and not filters.get("below_reorder"):
 		rows += consignment_rows(filters)
 	rows.sort(key=lambda r: (r["item_code"], r["owner_kind"], r["location"] or ""))
 	if not can_see_cost():
