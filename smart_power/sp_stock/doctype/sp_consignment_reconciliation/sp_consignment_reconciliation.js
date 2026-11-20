@@ -1,7 +1,6 @@
 // I7 Consignment reconciliation (SP-93): load our container figures, type the supplier's statement,
 // then finish. The rules are on the server (smart_power.sp_stock.consignment_reconciliation).
 const SP_CRC_API = "smart_power.sp_stock.consignment_reconciliation";
-const SP_CRC_COLORS = { Draft: "orange", Matched: "green", "With differences": "red" };
 
 frappe.ui.form.on("SP Consignment Reconciliation", {
 	setup(frm) {
@@ -19,7 +18,6 @@ frappe.ui.form.on("SP Consignment Reconciliation", {
 
 	refresh(frm) {
 		frm.fields_dict.lines.grid.cannot_add_rows = true;
-		frm.page.set_indicator(__(frm.doc.status), SP_CRC_COLORS[frm.doc.status] || "gray");
 		if (frm.is_new()) return;
 		if (frm.doc.status !== "Draft") {
 			frm.disable_form();

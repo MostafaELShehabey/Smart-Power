@@ -4,7 +4,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "links": [],
- "modified": "2026-11-20 19:00:00.000000",
+ "modified": "2026-11-20 20:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stock",
  "owner": "Administrator",
@@ -47,14 +47,16 @@
    "reqd": 1,
    "read_only": 1,
    "in_list_view": 1,
-   "columns": 2
+   "columns": 1
   },
   {
    "fieldname": "container_no",
    "fieldtype": "Data",
    "label": "Container No",
    "fetch_from": "container.container_no",
-   "read_only": 1
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
   },
   {
    "fieldname": "item",
