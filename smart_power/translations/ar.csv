@@ -2907,3 +2907,15 @@ Worker Balances,أرصدة العمال
 Only the showroom cashier takes money into the showroom box.,خزنة المعرض لأمين خزنة المعرض فقط.
 Only the showroom cashier takes station payments here.,تحصيل دفعات المحطات هنا لأمين خزنة المعرض فقط.
 "Paid at the showroom: {0} from {1} on {2}, waiting for the admin",دفعة في المعرض: {0} من {1} على {2}، في انتظار تأكيد الأدمن
+Cash goes into the showroom box until it is deposited.,الكاش يدخل خزنة المعرض حتى يتم توريده.
+"Customer name, mobile or station",اسم العميل أو الموبايل أو رقم المحطة
+Next: {0} on {1},القادم: {0} بتاريخ {1}
+No open station found.,لا توجد محطة مفتوحة.
+Nothing left on the schedule,لا يوجد متبقي في جدول الدفعات
+Nothing yet today.,لا شيء اليوم بعد.
+Payment on {0},دفعة على {0}
+Station Payment at the Showroom,دفعة محطة في المعرض
+Take a Payment,تحصيل دفعة
+Taken at the showroom today,المحصل في المعرض اليوم
+{0} is waiting for the admin's confirmation.,{0} في انتظار تأكيد الأدمن.
+{0} waiting for the admin,{0} في انتظار الأدمن
