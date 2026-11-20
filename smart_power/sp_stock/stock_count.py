@@ -24,6 +24,7 @@ from frappe.utils import (
 	flt,
 	get_first_day,
 	get_first_day_of_week,
+	get_fullname,
 	getdate,
 	now_datetime,
 	nowdate,
@@ -497,6 +498,7 @@ def my_counts() -> dict:
 				if l.diff
 			]
 			row.counted_by = doc.counted_by
+			row.counted_by_name = get_fullname(doc.counted_by)
 			to_decide.append(row)
 	recent = frappe.get_all(
 		COUNT,

@@ -3,6 +3,9 @@
 // server leaves it out. The rules are on the server (smart_power.sp_stock.stock_count).
 const SP_SC_API = "smart_power.sp_stock.stock_count";
 const SP_SC_COLORS = { Draft: "orange", Submitted: "blue", Approved: "green", Rejected: "red" };
+const SP_SC_QTY_DIGITS = 3; // sp-allow-number: quantities to a thousandth, as the server keeps them
+// a quantity as counted: whole pieces without decimals, metres of cable with them
+const sp_sc_qty = (value) => format_number(value, null, Number.isInteger(flt(value)) ? 0 : SP_SC_QTY_DIGITS);
 
 frappe.pages["sp-count-sheets"].on_page_load = function (wrapper) {
 	const page = frappe.ui.make_app_page({ parent: wrapper, title: __("Stock Counts"), single_column: true });
@@ -25,8 +28,17 @@ class SPCountSheets {
 		return name ? this.open_sheet(name) : this.refresh();
 	}
 
+	// the page can be shown twice in a row: only the latest load draws
+	ticket() {
+		this.latest = (this.latest || 0) + 1;
+		return this.latest;
+	}
+
 	async refresh() {
+		const ticket = this.ticket();
 		const { message } = await frappe.call(`${SP_SC_API}.my_counts`);
+		if (ticket !== this.latest) return;
+		this.page.clear_primary_action();
 		this.page.set_title(__("Stock Counts"));
 		if (message.locations.length) this.page.set_primary_action(__("Start Count"), () => this.start(message.locations), "add");
 		this.$main.empty();
@@ -90,16 +102,16 @@ class SPCountSheets {
 				.map(
 					(l) => `<tr>
 						<td>${esc(l.item_name || l.item_code)}<div class="small text-muted">${esc(l.item_code)}</div>${l.note ? `<div class="small">${esc(l.note)}</div>` : ""}</td>
-						<td class="text-right">${esc(format_number(l.system_qty))}</td>
-						<td class="text-right">${esc(format_number(l.counted_qty))}</td>
-						<td class="text-right ${l.diff < 0 ? "text-danger" : "text-success"}">${esc(format_number(l.diff))} ${esc(__(l.uom || ""))}</td>
+						<td class="text-right">${esc(sp_sc_qty(l.system_qty))}</td>
+						<td class="text-right">${esc(sp_sc_qty(l.counted_qty))}</td>
+						<td class="text-right ${l.diff < 0 ? "text-danger" : "text-success"}">${esc(sp_sc_qty(l.diff))} ${esc(__(l.uom || ""))}</td>
 						${has_value ? `<td class="text-right">${esc(format_currency(l.value))}</td>` : ""}
 					</tr>`
 				)
 				.join("");
 			const $card = $(`<div class="frappe-card p-3 mb-3 sp-decision-card">
 				<div class="d-flex flex-wrap justify-content-between align-items-start mb-2" style="gap: 8px">
-					<div><b>${esc(row.name)}</b><div class="small text-muted">${esc(row.warehouse)} · ${esc(frappe.datetime.str_to_user(row.count_date))} · ${esc(frappe.user.full_name(row.counted_by))}</div></div>
+					<div><b>${esc(row.name)}</b><div class="small text-muted">${esc(row.warehouse)} · ${esc(frappe.datetime.str_to_user(row.count_date))} · ${esc(row.counted_by_name || row.counted_by)}</div></div>
 					<div class="d-flex flex-wrap" style="gap: 8px">
 						<button class="btn btn-default btn-sm sp-sc-reject">${esc(__("Reject"))}</button>
 						<button class="btn btn-primary btn-sm sp-sc-approve">${esc(__("Approve"))}</button>
@@ -157,7 +169,10 @@ class SPCountSheets {
 	// ------------------------------------------------------------ the sheet
 
 	async open_sheet(name) {
+		const ticket = this.ticket();
 		const { message } = await frappe.call({ method: `${SP_SC_API}.sheet`, args: { name } });
+		if (ticket !== this.latest) return;
+		this.page.clear_primary_action();
 		this.sheet = message;
 		this.page.set_title(__("Count Sheet {0}", [message.name]));
 		if (message.can_edit) this.page.set_primary_action(__("Submit Count"), () => this.submit(), "check");
@@ -194,13 +209,13 @@ class SPCountSheets {
 			.map(
 				(l, i) => `<tr class="sp-sc-line" data-item="${esc(l.item_code)}">
 					<td>${esc(l.item_name || l.item_code)}<div class="small text-muted">${esc(l.item_code)} · ${esc(__(l.uom || ""))}</div></td>
-					${shows_system ? `<td class="text-right">${esc(format_number(l.system_qty))}</td>` : ""}
+					${shows_system ? `<td class="text-right">${esc(sp_sc_qty(l.system_qty))}</td>` : ""}
 					<td style="max-width: 110px">${
 						s.can_edit
 							? `<input type="number" min="0" step="any" class="form-control input-sm sp-sc-qty" value="${l.counted ? esc(String(l.counted_qty)) : ""}" data-index="${i}">`
-							: esc(format_number(l.counted_qty))
+							: esc(sp_sc_qty(l.counted_qty))
 					}</td>
-					${s.status !== "Draft" && shows_system ? `<td class="text-right">${esc(format_number(l.diff))}</td>` : ""}
+					${s.status !== "Draft" && shows_system ? `<td class="text-right">${esc(sp_sc_qty(l.diff))}</td>` : ""}
 					<td>${s.can_edit ? `<input type="text" class="form-control input-sm sp-sc-note" value="${esc(l.note || "")}">` : esc(l.note || "")}</td>
 				</tr>`
 			)
@@ -217,6 +232,8 @@ class SPCountSheets {
 			${s.can_edit ? `<button class="btn btn-default btn-sm mt-3 sp-sc-save">${esc(__("Save"))}</button>` : ""}
 		</div>`).appendTo(this.$main);
 		this.$main.find(".sp-sc-save").on("click", () => this.save());
+		// a barcode scanner types where the focus is
+		this.$main.find(".sp-sc-scan").trigger("focus");
 		if (s.stock_reconciliation) {
 			$(`<p><a href="/app/stock-reconciliation/${encodeURIComponent(s.stock_reconciliation)}">${esc(__("Stock Reconciliation"))} ${esc(s.stock_reconciliation)}</a></p>`).appendTo(this.$main);
 		}
