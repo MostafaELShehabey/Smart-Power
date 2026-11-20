@@ -66,16 +66,15 @@ function sp_co_total(frm) {
 	sp_co_summary(frm);
 }
 
-// what the contract becomes: agreed before → after
+// what the contract becomes: agreed before → after (an intro, so a new form shows it too)
 function sp_co_summary(frm) {
-	frm.dashboard.clear_headline();
-	if (!frm.doc.station) return;
+	frm.set_intro("");
+	if (!frm.doc.station || !frm.doc.agreed_before) return;
 	const before = flt(frm.doc.agreed_before);
 	const delta = flt(frm.doc.delta_amount);
 	const after = frm.doc.docstatus === 1 ? flt(frm.doc.agreed_after) : before + delta;
-	if (!before && !delta) return;
 	const change = `${delta >= 0 ? "+" : ""}${format_currency(delta)}`;
-	frm.dashboard.set_headline(
+	frm.set_intro(
 		`${__("Agreed: {0} → {1}", [format_currency(before), format_currency(after)])} (${change})`,
 		delta < 0 ? "orange" : "blue"
 	);
@@ -118,6 +117,8 @@ async function sp_co_return_dialog(frm) {
 					frappe.throw(__("Only {0} of {1} can be returned.", [l.left, l.item_code]));
 				}
 			}
+			// the empty row a new form starts with is replaced, not kept above the returns
+			frm.doc.items = (frm.doc.items || []).filter((r) => r.item_code);
 			for (const l of chosen) {
 				const row = frm.add_child("items", {
 					item_code: l.item_code,
