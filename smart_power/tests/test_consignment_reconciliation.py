@@ -126,6 +126,14 @@ class TestConsignmentReconciliation(IntegrationTestCase):
 
 	def test_finishing_needs_the_statement_and_a_note_on_each_difference(self):
 		doc = self.sheet()
+		untyped = self.line(doc, "MSKU123")
+		self.assertEqual(
+			(untyped.line_status, untyped.diff, doc.differences), ("", 0, 0)
+		)  # nothing typed yet
+		frappe.db.set_value(cr.RECONCILIATION, doc.name, "statement_file", STATEMENT)
+		with self.assertRaises(frappe.ValidationError):
+			self.as_user(self.keeper, cr.finish, doc.name)  # the statement's figures are not typed
+		frappe.db.set_value(cr.RECONCILIATION, doc.name, "statement_file", None)
 		with self.assertRaises(frappe.ValidationError):
 			self.as_user(self.keeper, cr.finish, doc.name)  # no statement yet
 		doc = self.type_statement(doc, "MSKU123", supplier_remaining=1200)
@@ -150,11 +158,12 @@ class TestConsignmentReconciliation(IntegrationTestCase):
 		self.assertEqual(cr.our_figures(self.msku.name, self.month_end)["our_returned"], 0)
 
 	def test_one_sheet_a_month_and_only_the_store_keeper_or_admin(self):
+		waiting = cr.due_count(self.keeper)
 		doc = self.sheet()
 		self.assertNotIn(doc.name, cr.create_monthly())
 		with self.assertRaises(frappe.PermissionError):
 			self.as_user(self.other, cr.finish, doc.name)
 		with self.assertRaises(frappe.PermissionError):
 			self.as_user(self.other, cr.load, doc.name)
-		self.assertEqual(cr.due_count(self.keeper), 1)
+		self.assertEqual(cr.due_count(self.keeper), waiting + 1)
 		self.assertEqual(cr.due_count(self.other), 0)

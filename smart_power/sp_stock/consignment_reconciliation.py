@@ -87,6 +87,11 @@ def _figures(doc) -> list:
 	return [(l.container, *(cint(l.get(f)) for pair in PAIRS for f in pair)) for l in doc.lines]
 
 
+def typed(line) -> bool:
+	"""A statement always lists what a container received, so all-zero figures mean not typed yet."""
+	return any(cint(line.get(theirs)) for _ours, theirs in PAIRS)
+
+
 def _compare(line) -> None:
 	line.our_remaining = (
 		cint(line.our_received)
@@ -94,6 +99,10 @@ def _compare(line) -> None:
 		- cint(line.our_handed_over)
 		- cint(line.our_returned)
 	)
+	if not typed(line):
+		# the statement is not typed for this container yet: no result until it is
+		line.diff, line.line_status = 0, ""
+		return
 	line.diff = cint(line.supplier_remaining) - cint(line.our_remaining)
 	agrees = all(cint(line.get(ours)) == cint(line.get(theirs)) for ours, theirs in PAIRS)
 	line.line_status = LINE_MATCHED if agrees else LINE_DIFFERENCE
@@ -192,6 +201,9 @@ def finish(name: str) -> dict:
 		frappe.throw(_("Load the containers first."))
 	for line in doc.lines:
 		_compare(line)
+	untyped = [line.container_no or line.container for line in doc.lines if not typed(line)]
+	if untyped:
+		frappe.throw(_("Type the supplier's figures for every container: {0}").format(", ".join(untyped)))
 	unexplained = [
 		line.container_no or line.container
 		for line in doc.lines
