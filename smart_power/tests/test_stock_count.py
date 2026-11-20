@@ -57,12 +57,13 @@ class TestStockCount(IntegrationTestCase):
 
 	def count_all(self, name, user, **counted):
 		"""Count every line: the given items as stated, the others as the books hold them."""
+		doc = frappe.get_doc(sc.COUNT, name)
 		lines = [
 			{
 				"item_code": l.item_code,
-				"counted_qty": counted.get(l.item_code, on_hand(l.item_code, self.main)),
+				"counted_qty": counted.get(l.item_code, on_hand(l.item_code, doc.warehouse)),
 			}
-			for l in frappe.get_doc(sc.COUNT, name).lines
+			for l in doc.lines
 		]
 		return self.as_user(user, sc.save_counts, name, lines)
 
@@ -195,3 +196,17 @@ class TestStockCount(IntegrationTestCase):
 			r.warehouse: (r.every, r.blind) for r in frappe.get_single("Smart Power Settings").count_schedule
 		}
 		self.assertEqual(rows, {self.main: (sc.MONTH, 1), self.showroom: (sc.WEEK, 1)})
+
+	def test_an_item_found_where_the_books_hold_none_takes_its_latest_cost(self):
+		showroom_keeper = make_user("sp.cnt.hussein@example.com", ("showroom_store_keeper",))
+		name = self.as_user(showroom_keeper, sc.start_count, self.showroom, 1)
+		self.count_all(name, showroom_keeper)
+		self.as_user(showroom_keeper, sc.save_counts, name, [{"item_code": MC4, "counted_qty": 1}])
+		self.as_user(showroom_keeper, sc.submit_count, name)
+		decided = self.as_user(self.admin, sc.approve_count, name, "وُجد في المعرض")
+		rate = frappe.db.get_value(
+			"Stock Reconciliation Item",
+			{"parent": decided["stock_reconciliation"], "item_code": MC4},
+			"valuation_rate",
+		)
+		self.assertEqual(flt(rate), 100)  # the main store's cost, not zero

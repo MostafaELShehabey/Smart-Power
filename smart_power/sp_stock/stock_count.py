@@ -346,9 +346,20 @@ def _decide(doc, status: str, reason: str, reconciliation: str | None = None):
 
 
 def _rate(item_code: str, warehouse: str, company: str) -> float:
+	"""The item's cost here, else its latest cost in the company (an item found where the books
+	hold none), else the Item's own rate."""
 	rate = flt(frappe.db.get_value("Bin", {"item_code": item_code, "warehouse": warehouse}, "valuation_rate"))
 	if rate:
 		return rate
+	latest = frappe.get_all(
+		"Stock Ledger Entry",
+		{"item_code": item_code, "company": company, "is_cancelled": 0, "valuation_rate": (">", 0)},
+		pluck="valuation_rate",
+		order_by="posting_date desc, posting_time desc, creation desc",
+		limit=1,
+	)
+	if latest:
+		return flt(latest[0])
 	rate = flt(frappe.db.get_value("Item", item_code, "valuation_rate"))
 	if rate:
 		return rate
