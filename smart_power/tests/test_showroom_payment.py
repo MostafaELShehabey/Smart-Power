@@ -157,3 +157,7 @@ class TestShowroomPayment(IntegrationTestCase):
 				doc.insert()
 		finally:
 			frappe.set_user("Administrator")
+
+	def test_the_sh5_page_is_for_the_showroom_cashier(self):
+		page = frappe.get_doc("Page", "sp-showroom-payment")
+		self.assertEqual({r.role for r in page.roles}, {"SP Showroom Cashier", "SP Admin", "System Manager"})
