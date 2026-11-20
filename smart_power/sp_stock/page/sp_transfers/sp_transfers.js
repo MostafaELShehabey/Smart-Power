@@ -36,6 +36,12 @@ class SPTransfers {
 			frappe.call(`${SP_SM_API}.returns_to_receive`),
 		]);
 		if (message.can_create) this.page.set_primary_action(__("New Transfer"), () => this.create(), "add");
+		// from a station's Create Transfer (SP-76): the new transfer for that station
+		const station = frappe.route_options?.sp_new_transfer;
+		if (station) {
+			frappe.route_options = null;
+			if (message.can_create) this.create(station);
+		}
 		// SP-89: the showroom asks the main store for stock
 		if (message.can_refill && !message.can_create) {
 			this.page.set_primary_action(__("Request from the Main Store"), () => this.request_refill(), "add");
@@ -233,12 +239,12 @@ class SPTransfers {
 		frappe.show_alert({ message: __("Transfer {0} issued in {1}", [transfer.name, entry]), indicator: "green" });
 	}
 
-	create() {
+	create(station) {
 		const dialog = new frappe.ui.Dialog({
 			title: __("New Transfer"),
 			size: "large",
 			fields: [
-				{ fieldname: "station", fieldtype: "Link", options: "SP Station", label: __("Station"), reqd: 1 },
+				{ fieldname: "station", fieldtype: "Link", options: "SP Station", label: __("Station"), reqd: 1, default: station },
 				{
 					fieldname: "source_kind",
 					fieldtype: "Select",

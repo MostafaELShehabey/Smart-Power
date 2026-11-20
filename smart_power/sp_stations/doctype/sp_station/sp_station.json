@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-20 18:00:00.000000",
+ "modified": "2026-11-20 19:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -46,6 +46,7 @@
  "search_fields": "customer_name,status,collection_owner",
  "track_changes": 1,
  "field_order": [
+  "tab_overview",
   "customer",
   "customer_name",
   "case",
@@ -56,6 +57,33 @@
   "project",
   "site_warehouse",
   "company",
+  "owners_section",
+  "sales_owner",
+  "execution_owner",
+  "site_receiver",
+  "column_break_owners",
+  "collection_owner",
+  "dates_section",
+  "contract_date",
+  "operation_date",
+  "column_break_dates",
+  "tech_closed_on",
+  "fin_closed_on",
+  "overview_section",
+  "overview_html",
+  "tab_scope",
+  "systems_section",
+  "systems",
+  "capacity_kw_total",
+  "scope_section",
+  "scope_html",
+  "tab_agreement",
+  "agreement_section",
+  "financing_type",
+  "bank_branch",
+  "contract_section",
+  "agreement_html",
+  "tab_payments",
   "money_section",
   "agreed_amount",
   "paid_amount",
@@ -67,41 +95,52 @@
   "next_due_amount",
   "overdue_amount",
   "has_overdue",
-  "systems_section",
-  "systems",
-  "capacity_kw_total",
+  "payments_section",
+  "payments_html",
+  "tab_purchasing",
+  "purchasing_section",
+  "purchasing_html",
+  "tab_site",
   "site_section",
   "location_text",
   "geo",
   "column_break_site",
   "region",
-  "financing_type",
-  "bank_branch",
-  "owners_section",
-  "sales_owner",
-  "execution_owner",
-  "site_receiver",
-  "column_break_owners",
-  "collection_owner",
-  "photos_section",
-  "photos_html",
-  "dates_section",
-  "contract_date",
-  "operation_date",
-  "column_break_dates",
-  "tech_closed_on",
-  "fin_closed_on",
   "winch_section",
   "winch_expected_amount",
   "column_break_winch",
   "winch_status",
+  "site_work_section",
+  "site_html",
+  "photos_section",
+  "photos_html",
+  "tab_programming",
+  "programming_section",
+  "programming_html",
+  "tab_documents",
+  "documents_section",
+  "documents_html",
+  "tab_warranty",
+  "warranty_section",
+  "warranty_html",
+  "tab_costs",
   "cost_section",
   "commission_amount",
   "estimated_cost_snapshot",
+  "costs_detail_section",
+  "costs_html",
+  "tab_history",
   "history_section",
-  "owner_history"
+  "owner_history",
+  "changes_section",
+  "history_html"
  ],
  "fields": [
+  {
+   "fieldname": "tab_overview",
+   "fieldtype": "Tab Break",
+   "label": "Overview"
+  },
   {
    "fieldname": "customer",
    "fieldtype": "Link",
@@ -182,6 +221,154 @@
    "reqd": 1
   },
   {
+   "fieldname": "owners_section",
+   "fieldtype": "Section Break",
+   "label": "Owners"
+  },
+  {
+   "fieldname": "sales_owner",
+   "fieldtype": "Link",
+   "label": "Sales Owner",
+   "options": "User",
+   "description": "The case's follow-up owner; fixed once the contract exists."
+  },
+  {
+   "fieldname": "execution_owner",
+   "fieldtype": "Link",
+   "label": "Execution Owner",
+   "options": "User"
+  },
+  {
+   "fieldname": "site_receiver",
+   "fieldtype": "Link",
+   "label": "Site Receiver",
+   "options": "User",
+   "description": "Receives this station's deliveries on site."
+  },
+  {
+   "fieldname": "column_break_owners",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "collection_owner",
+   "fieldtype": "Link",
+   "label": "Collection Owner",
+   "options": "User",
+   "search_index": 1,
+   "description": "The execution owner by default; the admin switches it from a date."
+  },
+  {
+   "fieldname": "dates_section",
+   "fieldtype": "Section Break",
+   "label": "Dates"
+  },
+  {
+   "fieldname": "contract_date",
+   "fieldtype": "Date",
+   "label": "Contract Date"
+  },
+  {
+   "fieldname": "operation_date",
+   "fieldtype": "Date",
+   "label": "Operation Date"
+  },
+  {
+   "fieldname": "column_break_dates",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tech_closed_on",
+   "fieldtype": "Date",
+   "label": "Technically Closed On",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "fin_closed_on",
+   "fieldtype": "Date",
+   "label": "Financially Closed On",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "overview_section",
+   "fieldtype": "Section Break",
+   "label": "Timeline and Alerts"
+  },
+  {
+   "fieldname": "overview_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "fieldname": "tab_scope",
+   "fieldtype": "Tab Break",
+   "label": "Scope"
+  },
+  {
+   "fieldname": "systems_section",
+   "fieldtype": "Section Break",
+   "label": "Systems"
+  },
+  {
+   "fieldname": "systems",
+   "fieldtype": "Table",
+   "label": "Systems",
+   "options": "SP Station System"
+  },
+  {
+   "fieldname": "capacity_kw_total",
+   "fieldtype": "Float",
+   "label": "Total Capacity (kW)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "scope_section",
+   "fieldtype": "Section Break",
+   "label": "Accepted Quote"
+  },
+  {
+   "fieldname": "scope_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "fieldname": "tab_agreement",
+   "fieldtype": "Tab Break",
+   "label": "Agreement"
+  },
+  {
+   "fieldname": "agreement_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "financing_type",
+   "fieldtype": "Link",
+   "label": "Financing",
+   "options": "SP List Value",
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Financing Type\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
+  },
+  {
+   "fieldname": "bank_branch",
+   "fieldtype": "Data",
+   "label": "Bank Branch"
+  },
+  {
+   "fieldname": "contract_section",
+   "fieldtype": "Section Break",
+   "label": "Contract"
+  },
+  {
+   "fieldname": "agreement_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "fieldname": "tab_payments",
+   "fieldtype": "Tab Break",
+   "label": "Payments"
+  },
+  {
    "fieldname": "money_section",
    "fieldtype": "Section Break",
    "label": "Money"
@@ -250,21 +437,50 @@
    "permlevel": 1
   },
   {
-   "fieldname": "systems_section",
+   "fieldname": "overdue_amount",
+   "fieldtype": "Currency",
+   "label": "Overdue",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "What the contract's instalments already due still lack (SP-81).",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "has_overdue",
+   "fieldtype": "Check",
+   "label": "Has Overdue",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "payments_section",
    "fieldtype": "Section Break",
-   "label": "Systems"
+   "label": "Schedule and Payments"
   },
   {
-   "fieldname": "systems",
-   "fieldtype": "Table",
-   "label": "Systems",
-   "options": "SP Station System"
+   "fieldname": "payments_html",
+   "fieldtype": "HTML",
+   "label": ""
   },
   {
-   "fieldname": "capacity_kw_total",
-   "fieldtype": "Float",
-   "label": "Total Capacity (kW)",
-   "read_only": 1
+   "fieldname": "tab_purchasing",
+   "fieldtype": "Tab Break",
+   "label": "Purchasing & Materials"
+  },
+  {
+   "fieldname": "purchasing_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "purchasing_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "fieldname": "tab_site",
+   "fieldtype": "Tab Break",
+   "label": "Site & Execution"
   },
   {
    "fieldname": "site_section",
@@ -293,99 +509,6 @@
    "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Region\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
   },
   {
-   "fieldname": "financing_type",
-   "fieldtype": "Link",
-   "label": "Financing",
-   "options": "SP List Value",
-   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Financing Type\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
-  },
-  {
-   "fieldname": "bank_branch",
-   "fieldtype": "Data",
-   "label": "Bank Branch"
-  },
-  {
-   "fieldname": "owners_section",
-   "fieldtype": "Section Break",
-   "label": "Owners"
-  },
-  {
-   "fieldname": "sales_owner",
-   "fieldtype": "Link",
-   "label": "Sales Owner",
-   "options": "User",
-   "description": "The case's follow-up owner; fixed once the contract exists."
-  },
-  {
-   "fieldname": "execution_owner",
-   "fieldtype": "Link",
-   "label": "Execution Owner",
-   "options": "User"
-  },
-  {
-   "fieldname": "site_receiver",
-   "fieldtype": "Link",
-   "label": "Site Receiver",
-   "options": "User",
-   "description": "Receives this station's deliveries on site."
-  },
-  {
-   "fieldname": "column_break_owners",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "collection_owner",
-   "fieldtype": "Link",
-   "label": "Collection Owner",
-   "options": "User",
-   "search_index": 1,
-   "description": "The execution owner by default; the admin switches it from a date."
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "photos_section",
-   "fieldtype": "Section Break",
-   "label": "Photos"
-  },
-  {
-   "fieldname": "photos_html",
-   "fieldtype": "HTML",
-   "label": "Photos"
-  },
-  {
-   "fieldname": "dates_section",
-   "fieldtype": "Section Break",
-   "label": "Dates"
-  },
-  {
-   "fieldname": "contract_date",
-   "fieldtype": "Date",
-   "label": "Contract Date"
-  },
-  {
-   "fieldname": "operation_date",
-   "fieldtype": "Date",
-   "label": "Operation Date"
-  },
-  {
-   "fieldname": "column_break_dates",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "tech_closed_on",
-   "fieldtype": "Date",
-   "label": "Technically Closed On",
-   "read_only": 1,
-   "no_copy": 1
-  },
-  {
-   "fieldname": "fin_closed_on",
-   "fieldtype": "Date",
-   "label": "Financially Closed On",
-   "read_only": 1,
-   "no_copy": 1
-  },
-  {
    "fieldname": "winch_section",
    "fieldtype": "Section Break",
    "label": "Winch"
@@ -412,6 +535,75 @@
    "no_copy": 1
   },
   {
+   "fieldname": "site_work_section",
+   "fieldtype": "Section Break",
+   "label": "Work on Site"
+  },
+  {
+   "fieldname": "site_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "photos_section",
+   "fieldtype": "Section Break",
+   "label": "Photos"
+  },
+  {
+   "fieldname": "photos_html",
+   "fieldtype": "HTML",
+   "label": "Photos"
+  },
+  {
+   "fieldname": "tab_programming",
+   "fieldtype": "Tab Break",
+   "label": "Programming"
+  },
+  {
+   "fieldname": "programming_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "programming_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "fieldname": "tab_documents",
+   "fieldtype": "Tab Break",
+   "label": "Documents"
+  },
+  {
+   "fieldname": "documents_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "documents_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "fieldname": "tab_warranty",
+   "fieldtype": "Tab Break",
+   "label": "Warranty & Service"
+  },
+  {
+   "fieldname": "warranty_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "warranty_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "fieldname": "tab_costs",
+   "fieldtype": "Tab Break",
+   "label": "Costs",
+   "permlevel": 2
+  },
+  {
    "fieldname": "cost_section",
    "fieldtype": "Section Break",
    "label": "Cost",
@@ -430,7 +622,23 @@
    "label": "Estimated Cost (frozen)",
    "permlevel": 2,
    "read_only": 1,
-   "no_copy": 1
+   "no_copy": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "costs_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Estimated against Actual"
+  },
+  {
+   "fieldname": "costs_html",
+   "fieldtype": "HTML",
+   "label": ""
+  },
+  {
+   "fieldname": "tab_history",
+   "fieldtype": "Tab Break",
+   "label": "History"
   },
   {
    "fieldname": "history_section",
@@ -447,21 +655,14 @@
    "no_copy": 1
   },
   {
-   "fieldname": "overdue_amount",
-   "fieldtype": "Currency",
-   "label": "Overdue",
-   "read_only": 1,
-   "no_copy": 1,
-   "description": "What the contract's instalments already due still lack (SP-81).",
-   "permlevel": 1
+   "fieldname": "changes_section",
+   "fieldtype": "Section Break",
+   "label": "Field Changes"
   },
   {
-   "fieldname": "has_overdue",
-   "fieldtype": "Check",
-   "label": "Has Overdue",
-   "read_only": 1,
-   "no_copy": 1,
-   "in_standard_filter": 1
+   "fieldname": "history_html",
+   "fieldtype": "HTML",
+   "label": ""
   }
  ],
  "permissions": [
