@@ -500,6 +500,27 @@ def next_stock_count(user: str) -> dict | None:
 	}
 
 
+@card("consignment_reco_due", "Consignment reconciliation due", ("store",))
+def consignment_reco_due(user: str) -> dict | None:
+	"""Monthly reconciliation sheets still waiting for the supplier's statement (SP-93)."""
+	from smart_power.sp_stock.consignment_reconciliation import (
+		DRAFT,
+		RECONCILIATION,
+		_can_reconcile,
+		due_count,
+	)
+
+	if not _can_reconcile(user):
+		return None
+	count = due_count(user)
+	return {
+		"value": count,
+		"indicator": ORANGE if count else GREEN,
+		"route": ["List", RECONCILIATION],
+		"route_options": {"status": DRAFT},
+	}
+
+
 @card("supplier_dues_week", "Supplier dues this week", ("finance",))
 def supplier_dues_week(user: str) -> dict:
 	"""What suppliers are owed within a week; orange while any of it is late (SP-86)."""

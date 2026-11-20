@@ -4,7 +4,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "links": [],
- "modified": "2026-11-20 18:00:00.000000",
+ "modified": "2026-11-20 19:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stock",
  "owner": "Administrator",
@@ -14,7 +14,7 @@
  "index_web_pages_for_search": 0,
  "name": "SP Consignment Reconciliation Line",
  "istable": 1,
- "editable_grid": 0,
+ "editable_grid": 1,
  "permissions": [],
  "field_order": [
   "container",

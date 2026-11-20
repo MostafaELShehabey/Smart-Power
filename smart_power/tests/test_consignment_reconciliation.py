@@ -167,3 +167,12 @@ class TestConsignmentReconciliation(IntegrationTestCase):
 			self.as_user(self.other, cr.load, doc.name)
 		self.assertEqual(cr.due_count(self.keeper), waiting + 1)
 		self.assertEqual(cr.due_count(self.other), 0)
+
+	def test_the_store_home_card_counts_the_sheets_waiting(self):
+		from smart_power.dashboards.cards import consignment_reco_due
+
+		waiting = cr.due_count(self.keeper)
+		self.sheet()
+		card = consignment_reco_due(self.keeper)
+		self.assertEqual((card["value"], card["route_options"]), (waiting + 1, {"status": cr.DRAFT}))
+		self.assertIsNone(consignment_reco_due(self.other))

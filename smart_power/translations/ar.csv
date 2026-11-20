@@ -3056,3 +3056,11 @@ Withdrawn for Smart Power,المسحوب لسمارت باور
 Write a note on each container that differs: {0},اكتب ملاحظة على كل حاوية بها فرق: {0}
 {0} is already reconciled for this month.,{0} له تسوية بالفعل عن هذا الشهر.
 Type the supplier's figures for every container: {0},اكتب أرقام المورد لكل حاوية: {0}
+Consignment reconciliation due,تسوية أمانة مستحقة
+Finish Reconciliation,إنهاء التسوية
+Finish as matched? Every container agrees with the statement.,إنهاء كمطابقة؟ كل الحاويات تتفق مع كشف المورد.
+Finish with {0} differences? The admin will be told.,إنهاء مع {0} فروق؟ سيتم إبلاغ الأدمن.
+Load Containers,تحميل الحاويات
+Reconciliation matched,التسوية مطابقة
+Saved with differences: the admin has been told,حُفظت بفروق: تم إبلاغ الأدمن
+{0} containers loaded,تم تحميل {0} حاويات
