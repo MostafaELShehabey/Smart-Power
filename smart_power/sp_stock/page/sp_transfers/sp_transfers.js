@@ -36,6 +36,12 @@ class SPTransfers {
 			frappe.call(`${SP_SM_API}.returns_to_receive`),
 		]);
 		if (message.can_create) this.page.set_primary_action(__("New Transfer"), () => this.create(), "add");
+		// SP-89: the showroom asks the main store for stock
+		if (message.can_refill && !message.can_create) {
+			this.page.set_primary_action(__("Request from the Main Store"), () => this.request_refill(), "add");
+		} else if (message.can_refill && !this.refill_button) {
+			this.refill_button = this.page.add_inner_button(__("Request from the Main Store"), () => this.request_refill());
+		}
 		this.$main.empty();
 		this.render_requests(requests);
 		this.render_returns(returns);
@@ -175,7 +181,7 @@ class SPTransfers {
 				<div>
 					<b>${esc(transfer.name)}</b>
 					<span class="indicator-pill ${SP_TR_COLORS[transfer.status] || "gray"}">${esc(__(transfer.status))}</span>
-					<div class="small text-muted">${esc(transfer.source)} → ${esc(transfer.site)} · ${esc(transfer.station)}</div>
+					<div class="small text-muted">${esc(transfer.source)} → ${esc(transfer.site)} · ${esc(transfer.station || __("Showroom refill"))}</div>
 					<div class="small text-muted">${esc(__(transfer.transport || ""))} · ${esc(frappe.datetime.str_to_user(transfer.schedule_date))}</div>
 				</div>
 				<div class="d-flex flex-wrap" style="gap: 8px">
@@ -278,6 +284,40 @@ class SPTransfers {
 				const name = await this.act("create_transfer", { values });
 				dialog.hide();
 				frappe.show_alert({ message: __("Transfer {0} sent to the store", [name]), indicator: "green" });
+			},
+		});
+		dialog.show();
+	}
+
+	// SP-89: items and quantities the showroom needs; the main store keeper issues them
+	request_refill() {
+		const dialog = new frappe.ui.Dialog({
+			title: __("Request from the Main Store"),
+			size: "large",
+			fields: [
+				{ fieldname: "planned_date", fieldtype: "Date", label: __("Needed By"), reqd: 1, default: frappe.datetime.get_today() },
+				{ fieldname: "column", fieldtype: "Column Break" },
+				{ fieldname: "note", fieldtype: "Small Text", label: __("Note") },
+				{ fieldname: "section", fieldtype: "Section Break" },
+				{
+					fieldname: "items",
+					fieldtype: "Table",
+					label: __("Items"),
+					reqd: 1,
+					cannot_add_rows: false,
+					in_place_edit: true,
+					data: [],
+					fields: [
+						{ fieldname: "item_code", fieldtype: "Link", options: "Item", label: __("Item"), in_list_view: 1, reqd: 1, columns: 7 }, // sp-allow-number: grid column width
+						{ fieldname: "qty", fieldtype: "Float", label: __("Qty"), in_list_view: 1, reqd: 1, columns: 3 }, // sp-allow-number: grid column width
+					],
+				},
+			],
+			primary_action_label: __("Send Request"),
+			primary_action: async (values) => {
+				const name = await this.act("request_refill", { values });
+				dialog.hide();
+				frappe.show_alert({ message: __("Request {0} sent to the main store", [name]), indicator: "green" });
 			},
 		});
 		dialog.show();

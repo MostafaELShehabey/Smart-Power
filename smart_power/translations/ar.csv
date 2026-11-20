@@ -2949,3 +2949,6 @@ Only the showroom asks the main store for a refill.,طلب تزويد المعر
 Transfer {0} to {1},التحويل {0} إلى {1}
 station {0},المحطة {0}
 the showroom,المعرض
+Request from the Main Store,طلب من المخزن الرئيسي
+Request {0} sent to the main store,تم إرسال الطلب {0} إلى المخزن الرئيسي
+Showroom refill,تزويد المعرض
