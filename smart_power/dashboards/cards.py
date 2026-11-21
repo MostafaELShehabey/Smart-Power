@@ -430,6 +430,21 @@ def waiting_confirmation(user: str) -> dict:
 	}
 
 
+@card("period_status", "Months not closed", ("finance",))
+def period_status(user: str) -> dict:
+	"""A14 (SP-126): the ended months still open, and how the last one stands."""
+	from smart_power.sp_finance.month_close import period_status as status
+
+	s = status()
+	month = getdate(s["month"]).strftime("%m-%Y")
+	return {
+		"value": s["open_months"],
+		"indicator": GREEN if s["closed"] else ORANGE,
+		"note": _("{0}: closed").format(month) if s["closed"] else _("{0}: open").format(month),
+		"route": ["sp-month-end"],
+	}
+
+
 @card("cash_in_transit", "Cash in transit (all holders)", ("finance",))
 def cash_in_transit(user: str) -> dict:
 	from erpnext.accounts.utils import get_balance_on

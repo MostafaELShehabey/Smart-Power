@@ -3531,3 +3531,49 @@ Serials {0}/{1},الأرقام التسلسلية {0}/{1}
 "The brand's warranty, used when an item of the brand has none (showroom sales, SP-179).",ضمان الماركة، يُستخدم عندما لا يكون للصنف ضمان (مبيعات المعرض).
 "{0} was not sold on {1}, or is already returned.",{0} لم يُبع على {1}، أو تم إرجاعه بالفعل.
 "{0}: enter its serial number.",{0}: أدخل رقمه التسلسلي.
+"A closed month refuses every entry dated in it, for everyone, until the admin reopens it.",الشهر المقفل يرفض أي قيد بتاريخه، للجميع، حتى يعيد المدير فتحه.
+A month can be closed only after it ends.,لا يُقفل الشهر إلا بعد انتهائه.
+Accounting Period,الفترة المحاسبية
+Acknowledged Because,سبب الإقرار
+Checklist at the close,قائمة المراجعة عند الإقفال
+Checks,البنود
+Close the Month,إقفال الشهر
+Close {0}? Nothing dated in it can be posted until it is reopened.,إقفال {0}؟ لن يُرحَّل أي شيء بتاريخه حتى يُعاد فتحه.
+Closed On,تاريخ الإقفال
+Count,العدد
+Give the reason for each check still red: {0},اذكر السبب لكل بند ما زال أحمر: {0}
+Give the reason for reopening.,اذكر سبب إعادة الفتح.
+Green,أخضر
+Grey,رمادي
+Month Close,إقفال الشهر
+Month closed,الشهر مقفل
+Only the admin closes or reopens a month.,المدير وحده يقفل الشهر أو يعيد فتحه.
+Pool of {0} not split yet.,وعاء بقيمة {0} لم يُوزَّع بعد.
+Reason to close anyway,سبب الإقفال رغم ذلك
+Red,أحمر
+Reopened By,أعاد الفتح
+Reopened On,تاريخ إعادة الفتح
+Reopens,مرات إعادة الفتح
+SP Month Close,إقفال الشهر
+SP Month Close Check,بند إقفال الشهر
+SP Month Close Reopen,إعادة فتح الشهر
+The first day of the month.,أول يوم في الشهر.
+Waits on R5 team commission (SP-143).,ينتظر تقرير عمولة الفريق R5.
+{0} is already closed.,{0} مقفل بالفعل.
+{0} is closed,{0} مقفل
+{0} is closed: nothing can be recorded on {1}.,{0} مقفل: لا يمكن تسجيل شيء بتاريخ {1}.
+{0} is not closed.,{0} غير مقفل.
+{0} is open,{0} مفتوح
+{0}: closed,{0}: مقفل
+{0}: open,{0}: مفتوح
+Not done,لم يكتمل
+Not built yet,لم يُبنَ بعد
+Months not closed,شهور لم تُقفل
+Confirmations cleared,لا تأكيدات معلقة
+Transit reviewed,مراجعة النقدية في الطريق
+Cheques updated,تحديث الشيكات
+Indirect pool split,توزيع وعاء المصاريف غير المباشرة
+Team commission entered (R5),إدخال عمولة الفريق (R5)
+Entries reviewed,مراجعة القيود
+Checklist Item,البند
+Open the list,افتح القائمة

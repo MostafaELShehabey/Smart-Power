@@ -223,6 +223,17 @@ doc_events = {
 		"on_cancel": "smart_power.sp_finance.posting.cancel_postings",
 	},
 	"SP Rule Setting": {"on_update": "smart_power.rules.clear_cache"},
+	# A14 (SP-126): nothing new is recorded into a closed month
+	**{
+		doctype: {"validate": "smart_power.sp_finance.month_close.guard"}
+		for doctype in (
+			"SP Customer Payment",
+			"SP Transfer",
+			"SP Expense",
+			"SP Cash Box Day",
+			"SP Indirect Split",
+		)
+	},
 	# a showroom sale's cash goes into the showroom box, whatever the Mode of Payment says (SP-102)
 	"Sales Invoice": {"before_save": "smart_power.sp_sales.showroom_sale.pin_box"},
 	# Daily workers (SP-33): a daily wage, no login
