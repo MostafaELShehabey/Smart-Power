@@ -104,6 +104,8 @@ def unit_serials(item_code: str, qty: float, text: str | list | None) -> list[st
 	else:
 		serials = [s.strip() for s in cstr(text).replace(",", "\n").split("\n") if s.strip()]
 	if len(set(serials)) != len(serials) or len(serials) != qty:
+		if qty == 1:
+			frappe.throw(_("{0}: enter its serial number.").format(item_code))
 		frappe.throw(_("{0}: enter {1} different serial numbers.").format(item_code, frappe.format(qty)))
 	return serials
 
@@ -170,8 +172,8 @@ def history(serial: str) -> list[dict]:
 		return []
 	rows = []
 	moves = frappe.db.sql(
-		"""select date(b.posting_datetime) as posting_date, b.voucher_type, b.voucher_no, b.warehouse, b.type_of_transaction,
-			b.item_code
+		"""select date(b.posting_datetime) as posting_date, b.posting_datetime as at, b.voucher_type,
+			b.voucher_no, b.warehouse, b.type_of_transaction, b.item_code
 		from `tabSerial and Batch Entry` e join `tabSerial and Batch Bundle` b on b.name = e.parent
 		where e.serial_no = %s and b.docstatus = 1 and b.is_cancelled = 0
 		order by b.posting_datetime, b.creation""",
@@ -189,12 +191,13 @@ def history(serial: str) -> list[dict]:
 				"reference_doctype": m.voucher_type,
 				"reference_name": m.voucher_no,
 				"photo": _receipt_photo(m.voucher_type, m.voucher_no, serial),
+				"at": m.at,
 			}
 		)
 	for p in frappe.get_all(
 		PHOTO,
 		{"serial_no": serial},
-		["posting_date", "point", "item_code", "reference_doctype", "reference_name", "photo"],
+		["posting_date", "point", "item_code", "reference_doctype", "reference_name", "photo", "creation"],
 	):
 		rows.append(
 			{
@@ -204,10 +207,11 @@ def history(serial: str) -> list[dict]:
 				"reference_doctype": p.reference_doctype,
 				"reference_name": p.reference_name,
 				"photo": p.photo,
+				"at": p.creation,
 			}
 		)
 	for c in frappe.db.sql(
-		"""select m.operation_date, m.name, m.station, c.item, c.nameplate_photo
+		"""select m.operation_date, m.name, m.station, c.item, c.nameplate_photo, m.modified as at
 		from `tabSP Station Component` c join `tabSP Commissioning` m on m.name = c.parent
 		where c.parenttype = 'SP Commissioning' and c.serial = %s and m.docstatus = 1""",
 		serial,
@@ -221,12 +225,13 @@ def history(serial: str) -> list[dict]:
 				"reference_doctype": "SP Commissioning",
 				"reference_name": c.name,
 				"photo": c.nameplate_photo,
+				"at": c.at,
 			}
 		)
 	for w in frappe.get_all(
 		"SP Warranty",
 		{"serial_no": serial},
-		["name", "start_date", "end_date", "item", "customer_name", "status"],
+		["name", "start_date", "end_date", "item", "customer_name", "status", "creation"],
 	):
 		rows.append(
 			{
@@ -238,9 +243,12 @@ def history(serial: str) -> list[dict]:
 				"customer": w.customer_name,
 				"reference_doctype": "SP Warranty",
 				"reference_name": w.name,
+				"at": w.creation,
 			}
 		)
-	rows.sort(key=lambda r: str(r.get("date") or ""))
+	rows.sort(key=lambda r: (str(r.get("date") or ""), str(r.get("at") or "")))  # same day: by time
+	for r in rows:
+		r.pop("at", None)
 	return rows
 
 
