@@ -187,9 +187,15 @@ class TestCashHeld(CashBoxCase):
 			self.assertTrue(state["over_days"])
 			self.assertEqual(state["days"], 9)  # the page's red banner
 			set_rule("showroom_cash_over_limit", "Block")
-			with patch.object(cb, "sales_in", return_value=SALES):
+			# a Block queues its SP Rule Hit for after the rollback, and that write commits:
+			# the class rollback would leave a hit on a day that no longer exists
+			with (
+				patch.object(cb, "sales_in", return_value=SALES),
+				patch("smart_power.rules._log_blocks_after_rollback") as log_block,
+			):
 				with self.assertRaises(frappe.ValidationError):
 					self.as_user(self.cashier, cb.close_day, doc.name, EXPECTED)
+			self.assertEqual(log_block.call_args.args[1][0].spec.key, "showroom_cash_over_limit")
 		self.assertEqual(frappe.db.get_value(DAY, doc.name, "status"), cb.OPEN)
 
 
