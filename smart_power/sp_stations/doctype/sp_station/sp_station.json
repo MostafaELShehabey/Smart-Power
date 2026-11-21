@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-21 16:00:00.000000",
+ "modified": "2026-11-21 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -90,6 +90,7 @@
   "agreement_section",
   "financing_type",
   "bank_branch",
+  "sales_partner",
   "contract_section",
   "agreement_html",
   "tab_payments",
@@ -436,6 +437,13 @@
    "fieldname": "bank_branch",
    "fieldtype": "Data",
    "label": "Bank Branch"
+  },
+  {
+   "fieldname": "sales_partner",
+   "fieldtype": "Link",
+   "label": "Referrer",
+   "options": "Sales Partner",
+   "description": "Whoever brought the station, paid the agreed commission (Costs). The contract takes it."
   },
   {
    "fieldname": "contract_section",

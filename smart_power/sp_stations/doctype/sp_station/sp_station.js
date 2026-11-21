@@ -63,6 +63,10 @@ frappe.ui.form.on("SP Station", {
 		if (admin && ["Open", "Purchasing", "Installing"].includes(frm.doc.status)) {
 			frm.add_custom_button(__("Cancel Station"), () => sp_station_cancel(frm), __("Actions"));
 		}
+		// the referrer's commission, as a payable to the referrer (SP-177)
+		if (admin && flt(frm.doc.commission_amount) > 0 && frm.doc.status !== "Cancelled") {
+			sp_station_commission_button(frm);
+		}
 		// S4 hand the execution or the collection to someone else from a date (SP-79)
 		if (admin && !["Financially closed", "Cancelled"].includes(frm.doc.status)) {
 			frm.add_custom_button(__("Reassign"), () => sp_station_reassign(frm));
@@ -243,6 +247,34 @@ async function sp_station_cancel(frm) {
 	});
 	dialog.$wrapper.find(".btn-modal-primary").attr("data-variant", "danger");
 	dialog.show();
+}
+
+// Post the referrer commission now (SP-177): the Manual setting, or one the event did not post.
+async function sp_station_commission_button(frm) {
+	const api = "smart_power.sp_stations.commission";
+	const state = await frappe.xcall(`${api}.commission_state`, { station: frm.doc.name });
+	if (state.posted || !state.can_post) return;
+	frm.add_custom_button(
+		__("Post Commission"),
+		() => {
+			if (!frm.doc.sales_partner) {
+				frappe.msgprint(__("Set the station's referrer first."));
+				return;
+			}
+			frappe.confirm(
+				__("Post the referrer commission of {0} to {1}?", [
+					format_currency(frm.doc.commission_amount),
+					frm.doc.sales_partner,
+				]),
+				async () => {
+					await frappe.xcall(`${api}.post_commission`, { station: frm.doc.name });
+					frappe.show_alert({ message: __("Commission posted."), indicator: "green" });
+					frm.reload_doc();
+				}
+			);
+		},
+		__("Actions")
+	);
 }
 
 // S4 Reassign (SP-79): the execution or the collection owner, from a date, with a reason.

@@ -3290,3 +3290,26 @@ Unknown fate {0}.,مصير غير معروف {0}.
 {0} received in {1},{0} مستلمة في {1}
 Customer refund,رد للعميل
 Cancelled after deposit,إلغاء بعد العربون
+"A referrer is registered with their full name and mobile, each unique (SP-177).","يُسجَّل الوسيط باسمه الكامل ورقم موبايله، وكلاهما لا يتكرر."
+Commission posted.,تم ترحيل العمولة.
+Not Posted Yet,لم تُرحَّل بعد
+Only the admin posts a referrer commission.,الأدمن فقط يرحّل عمولة الوسيط.
+Post Commission,ترحيل العمولة
+Post Referrer Commission At,ترحيل عمولة الوسيط عند
+Post the referrer commission of {0} to {1}?,ترحيل عمولة الوسيط {0} إلى {1}؟
+Posted,المُرحَّل
+Referrer,الوسيط
+Referrer commission of station {0} to {1},عمولة الوسيط للمحطة {0} إلى {1}
+Set the station's referrer first.,حدد وسيط المحطة أولاً.
+Station {0} has a referrer commission of {1} but no referrer: set it to post the commission,للمحطة {0} عمولة وسيط {1} بلا وسيط: حدده لترحيل العمولة
+Station {0} has no referrer commission.,ليس للمحطة {0} عمولة وسيط.
+Technical close,الإغلاق الفني
+The commission of station {0} is already posted.,عمولة المحطة {0} مُرحَّلة بالفعل.
+"When a station's referrer commission posts as a payable to the referrer: at the deposit, at the technical close, or when the admin presses Post Commission (SP-177).","متى تُرحَّل عمولة وسيط المحطة كمستحق للوسيط: عند العربون، أو عند الإغلاق الفني، أو عندما يضغط الأدمن ترحيل العمولة."
+"Whoever brought the station, paid the agreed commission (Costs). The contract takes it.","من جاء بالمحطة، ويُصرف له العمولة المتفق عليها (التكاليف). ويأخذه العقد."
+SP Referrer Commissions,عمولات الوسطاء
+Referrer Commissions,عمولات الوسطاء
+Referrer Commissions Payable,عمولات الوسطاء المستحقة
+Set Referrer,تحديد الوسيط
+Referrer {0} has no mobile. Add it on the Sales Partner first.,الوسيط {0} بلا رقم موبايل. أضفه في بيانات الوسيط أولاً.
+"A referrer is registered with their full name and mobile, each unique; a station's referrer needs one (SP-177).","يُسجَّل الوسيط باسمه الكامل ورقم موبايله، وكلاهما لا يتكرر؛ ويلزم الموبايل لوسيط المحطة."
