@@ -55,6 +55,12 @@ class TestReferrerCommission(IntegrationTestCase):
 
 	def setUp(self):
 		self.addCleanup(frappe.set_user, "Administrator")
+		if frappe.utils.get_assets_json() is None:  # CI builds no assets; the PDF only needs the HTML
+			from unittest.mock import patch
+
+			patcher = patch("frappe.utils.get_assets_json", return_value={})
+			patcher.start()
+			self.addCleanup(patcher.stop)
 		set_setting(account_map=[], referrer_commission_event=cm.DEPOSIT)
 		cm.seed_account_map(COMPANY)
 
