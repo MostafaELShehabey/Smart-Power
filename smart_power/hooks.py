@@ -223,6 +223,8 @@ doc_events = {
 		"on_cancel": "smart_power.sp_finance.posting.cancel_postings",
 	},
 	"SP Rule Setting": {"on_update": "smart_power.rules.clear_cache"},
+	# a showroom sale's cash goes into the showroom box, whatever the Mode of Payment says (SP-102)
+	"Sales Invoice": {"before_save": "smart_power.sp_sales.showroom_sale.pin_box"},
 	# Daily workers (SP-33): a daily wage, no login
 	"Employee": {"validate": "smart_power.sp_core.workers.validate"},
 	# Customer master (SP-31): one customer per mobile.

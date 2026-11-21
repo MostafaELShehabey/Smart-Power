@@ -16,6 +16,7 @@
   "column_break_quotes",
   "followup_discount_max_pct",
   "creator_discount_max_pct",
+  "showroom_discount_max_pct",
   "default_rounding_step",
   "prices_section",
   "list_price_list",
@@ -121,6 +122,12 @@
    "fieldname": "creator_discount_max_pct",
    "fieldtype": "Percent",
    "label": "Max Total Discount: Quote Creator"
+  },
+  {
+   "description": "Above this discount on a showroom sale the admin is flagged (rule showroom_discount_max). Empty: no limit; every showroom discount is still listed in the Review centre (SP-102).",
+   "fieldname": "showroom_discount_max_pct",
+   "fieldtype": "Percent",
+   "label": "Showroom Discount Limit"
   },
   {
    "description": "0 means no rounding; 5 rounds to the nearest 5.",
@@ -424,7 +431,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-22 00:00:00.000000",
+ "modified": "2026-11-22 01:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

@@ -35,19 +35,20 @@ PENNY = 0.005  # sp-allow-number: half a piastre, rounding
 # --- setup ------------------------------------------------------------------------------------------
 
 
-def ensure_invoice_series() -> None:
-	"""Sales Invoice offers the final invoice's yearly series (the admin's other options are kept)."""
+def ensure_invoice_series(series: str = INVOICE_SERIES) -> None:
+	"""Sales Invoice offers this yearly series (the final invoice's by default; SP-102 adds the
+	showroom receipt's). The admin's other options are kept."""
 	from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
 	field = frappe.get_meta(SI).get_field("naming_series")
 	options = [o for o in (field.options or "").split("\n") if o.strip()] if field else []
-	if INVOICE_SERIES in options:
+	if series in options:
 		return
 	make_property_setter(
 		SI,
 		"naming_series",
 		"options",
-		"\n".join([*options, INVOICE_SERIES]),
+		"\n".join([*options, series]),
 		"Text",
 		validate_fields_for_doctype=False,
 	)
