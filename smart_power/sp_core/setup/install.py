@@ -85,6 +85,9 @@ def after_sync() -> None:
 	from smart_power.sp_stations.close import ensure_invoice_series
 
 	ensure_invoice_series()  # SP-80: the final invoice's SINV-.YYYY.-.#### series
+	from smart_power.sp_sales.showroom_sale import ensure_series
+
+	ensure_series()  # SP-102: the showroom receipt's SHR-.YYYY.-.##### series
 
 
 def sync_role_profiles() -> None:

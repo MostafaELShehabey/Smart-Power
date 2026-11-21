@@ -14,6 +14,7 @@ REGION_LIST = "Region"
 # Tier → ERPNext customer type. Individuals buy at BTC prices, companies at BTB.
 TIER_TO_CUSTOMER_TYPE = {"Individual": "Individual", "Company": "Company"}
 INTERNATIONAL_PREFIX = "00"
+WALK_IN = "عميل نقدي"  # the showroom walk-in customer (SP-102)
 
 
 def normalize_mobile(value: str | None) -> str:
@@ -95,7 +96,8 @@ def validate_mobile(doc):
 				)
 
 	if not doc.sp_mobile:
-		if doc.get("is_internal_customer") or is_erpnext_test_data():
+		# the showroom's walk-in customer «عميل نقدي» (SP-102) stands for anyone, with no mobile
+		if doc.get("is_internal_customer") or doc.customer_name == WALK_IN or is_erpnext_test_data():
 			return
 		frappe.throw(_("Mobile is required: it is how a returning customer is found."), frappe.MandatoryError)
 

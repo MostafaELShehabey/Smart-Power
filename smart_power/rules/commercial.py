@@ -88,6 +88,34 @@ def discount_creator_max(doc, ctx: RuleContext):
 
 
 @rule(
+	"showroom_discount_max",
+	doctypes=("Sales Invoice",),
+	events=("before_submit",),
+	title="Showroom discount limit",
+	description="A showroom sale's discount (its lines and its total, against the price list) above "
+	"Showroom Discount Limit in Smart Power Settings flags the admin. No limit until the admin sets "
+	"one (SP-102); every showroom discount is listed in the Review centre anyway.",
+	review_category="Discount",
+)
+def showroom_discount_max(doc, ctx: RuleContext):
+	from smart_power.sp_sales.showroom_sale import discount_pct, is_showroom, sale_discount
+
+	if not is_showroom(doc) or doc.get("is_return"):
+		return None
+	limit = flt(ctx.settings.showroom_discount_max_pct)
+	pct = discount_pct(doc)
+	if not limit or pct <= limit:
+		return None
+	return Finding(
+		message=_("Showroom discount {0}% is above the limit of {1}%.").format(
+			frappe.format(flt(pct, 1), "Float"), frappe.format(limit, "Float")
+		),
+		amount=sale_discount(doc),
+		highlight=True,
+	)
+
+
+@rule(
 	"quote_validity",
 	doctypes=("Quotation",),
 	title="Quote validity",
