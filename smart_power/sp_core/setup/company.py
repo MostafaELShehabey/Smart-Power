@@ -83,6 +83,9 @@ def complete_setup() -> str:
 	from smart_power.sp_finance.indirect_split import seed_account_map as seed_split
 
 	seed_split(company)  # SP-124
+	from smart_power.sp_finance.cash_box import seed_account_map as seed_cash_box
+
+	seed_cash_box(company)  # SP-104
 	return company
 
 

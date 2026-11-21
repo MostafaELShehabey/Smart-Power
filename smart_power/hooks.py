@@ -178,6 +178,7 @@ sp_confirmation_sources = {
 	"SP Transfer": "smart_power.sp_finance.transfer",  # SP-117
 	"SP Custody Settlement": "smart_power.sp_finance.custody",  # SP-122
 	"Payment Entry": "smart_power.sp_finance.supplier_payment",  # SP-86
+	"SP Cash Box Day": "smart_power.sp_finance.cash_box",  # SP-104: the showroom box's day close
 }
 
 # Business rules (SP-128): modules whose @rule functions register at first use.

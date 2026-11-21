@@ -3373,3 +3373,56 @@ The Indirect Pool has nothing to split this month.,مجمع التكاليف غ�
 "The shares add up to {0}, not the pool's {1}.","مجموع الأنصبة {0}، وليس مبلغ المجمع {1}."
 {0} already splits this month.,{0} يوزع هذا الشهر بالفعل.
 Indirect Cost Allocated,التكاليف غير المباشرة الموزعة
+Cash Box,الخزنة
+Cash Over/Short,عجز وزيادة الخزنة
+Cash Over and Short,عجز وزيادة الخزنة
+Close the Day,إقفال اليوم
+Closed By,أقفله
+Closed-pending,مقفل بانتظار التأكيد
+Confirm the showroom box close of {0}: counted {1},أكد إقفال خزنة المعرض ليوم {0}: المعدود {1}
+Counted {0},المعدود {0}
+Counted − expected.,المعدود − المتوقع.
+Day,اليوم
+Day Close,إقفال اليوم
+Day Close to Confirm,إقفال يوم بانتظار التأكيد
+"Day {0} is {1}, not open.","اليوم {0} في حالة {1}، وليس مفتوحاً."
+"Day {0} is {1}, not waiting.","اليوم {0} في حالة {1}، وليس بانتظار التأكيد."
+Days the oldest cash in the box has waited for a deposit.,أيام انتظار أقدم نقدية في الخزنة للإيداع.
+Deposit the cash,أودع النقدية
+Deposit the cash at the Post or the bank.,أودع النقدية في البوستة أو البنك.
+Deposits Out,الإيداعات الخارجة
+Expected Closing,الرصيد المتوقع للإقفال
+Expenses Out,المصروفات الخارجة
+Needed when the count differs.,مطلوب عند اختلاف العد.
+No movements yet today.,لا توجد حركات اليوم بعد.
+Only the admin confirms a day close.,الأدمن فقط يؤكد إقفال اليوم.
+Only the showroom cashier or the admin keeps the cash box.,خزنة المعرض أو الأدمن فقط يديرون الخزنة.
+Opening,رصيد الافتتاح
+Over / Short Entry,قيد العجز / الزيادة
+Pending and confirmed.,بانتظار التأكيد والمؤكدة.
+Record Expense,تسجيل مصروف
+Record Bank Deposit,تسجيل إيداع
+Bank deposit,إيداع
+SP Cash Box Day,يوم خزنة المعرض
+Sales In,المبيعات الداخلة
+Sent back,أُعيد
+Sent to the admin to confirm.,أُرسل للأدمن للتأكيد.
+Showroom Box Cash Limit,حد نقدية خزنة المعرض
+Showroom box over its limit,خزنة المعرض فوق حدها
+Showroom box {0}: {1},خزنة المعرض {0}: {1}
+Station Payments In,دفعات المحطات الداخلة
+Station payment,دفعة محطة
+The Day,اليوم
+The box already has an open day ({0}): close it first.,للخزنة يوم مفتوح بالفعل ({0}): أقفله أولاً.
+The box close of {0} was sent back: {1},أُعيد إقفال الخزنة ليوم {0}: {1}
+The count is {0} off the expected {1}: give the reason.,العد يختلف بـ {0} عن المتوقع {1}: اذكر السبب.
+The last closing counted (confirmed or waiting).,آخر رصيد إقفال معدود (مؤكد أو بانتظار التأكيد).
+The showroom box (خزنة المعرض).,خزنة المعرض.
+"The showroom box holds more than Showroom Box Cash Limit, or its oldest cash has waited longer than its days limit (decision 63). A warning by default (SP-104); at Block the day cannot be closed until a deposit is recorded.","خزنة المعرض فيها أكثر من حد نقدية خزنة المعرض، أو انتظرت أقدم نقديتها أكثر من حد الأيام. تحذير افتراضياً؛ وعند المنع لا يُقفل اليوم حتى يُسجَّل إيداع."
+The showroom box is over its limit: {0}.,خزنة المعرض فوق حدها: {0}.
+"The showroom box warns (rule showroom_cash_over_limit) when it holds more than this, or its cash waits longer than Cash Held Limit (SP-104).","تُحذّر خزنة المعرض عندما يزيد ما فيها عن هذا، أو تنتظر نقديتها أكثر من حد أيام الاحتفاظ بالنقدية."
+Today's Cash Box,خزنة اليوم
+cash held {0} days (limit {1}),نقدية محتفظ بها {0} يوم (الحد {1})
+{0} in the box (limit {1}),{0} في الخزنة (الحد {1})
+{0} is not the showroom box.,{0} ليس خزنة المعرض.
+Cash box day close,إقفال يوم الخزنة
