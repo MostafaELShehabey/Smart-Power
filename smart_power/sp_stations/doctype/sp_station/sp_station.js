@@ -59,6 +59,10 @@ frappe.ui.form.on("SP Station", {
 		if (admin && frm.doc.remaining_amount > 0 && frm.doc.status !== "Cancelled") {
 			frm.add_custom_button(__("Record Write-off"), () => sp_station_write_off(frm));
 		}
+		// S4 hand the execution or the collection to someone else from a date (SP-79)
+		if (admin && !["Financially closed", "Cancelled"].includes(frm.doc.status)) {
+			frm.add_custom_button(__("Reassign"), () => sp_station_reassign(frm));
+		}
 		if (frm.doc.sales_order) {
 			frm.add_custom_button(__("Contract"), () => frappe.set_route("Form", "Sales Order", frm.doc.sales_order), __("View"));
 		} else if (frm.doc.case) {
@@ -117,13 +121,18 @@ function sp_station_money_chips(frm, money, due) {
 }
 
 function sp_station_owner_line(frm) {
-	const owner = (label, user) => (user ? `${__(label)}: ${frappe.user.full_name(user)}` : "");
+	const names = frm.doc.__onload?.sp_owner_names || {};
+	const owner = (label, user) => (user ? `${__(label)}: ${names[user] || frappe.user.full_name(user)}` : "");
 	const owners = [
 		owner("Sales", frm.doc.sales_owner),
 		owner("Execution", frm.doc.execution_owner),
 		owner("Collection", frm.doc.collection_owner),
 	].filter(Boolean);
 	const parts = owners.map((o) => frappe.utils.escape_html(o));
+	// a hand-over from a later date (SP-79)
+	for (const r of frm.doc.__onload?.sp_scheduled_reassign || []) {
+		parts.push(frappe.utils.escape_html(__("{0} moves to {1} on {2}", [r.owner, r.to_user, r.from_date]))); // sp-allow-number: placeholder index
+	}
 	const read_only = frm.doc.__onload?.sp_read_only;
 	if (read_only) parts.unshift(`<b>${frappe.utils.escape_html(read_only)}</b>`);
 	if (parts.length) frm.dashboard.set_headline(parts.join(" · "), read_only ? "orange" : undefined);
@@ -155,6 +164,58 @@ function sp_station_write_off(frm) {
 		},
 	});
 	dialog.show();
+}
+
+// S4 Reassign (SP-79): the execution or the collection owner, from a date, with a reason.
+async function sp_station_reassign(frm) {
+	const api = "smart_power.sp_stations.reassign";
+	const users = {};
+	const load = async (kind) => {
+		users[kind] = users[kind] || (await frappe.xcall(`${api}.eligible_users`, { kind }));
+		dialog.fields_dict.to_user.df.options = users[kind];
+		dialog.fields_dict.to_user.refresh();
+	};
+	const dialog = new frappe.ui.Dialog({
+		title: __("Reassign"),
+		fields: [
+			{
+				fieldname: "kind",
+				fieldtype: "Select",
+				label: __("Owner"),
+				reqd: 1,
+				default: "collection",
+				options: [
+					{ value: "collection", label: __("Collection Owner") },
+					{ value: "execution", label: __("Execution Owner") },
+				],
+				change: () => load(dialog.get_value("kind")),
+			},
+			{ fieldname: "to_user", fieldtype: "Select", label: __("To"), reqd: 1, options: [] },
+			{
+				fieldname: "from_date",
+				fieldtype: "Date",
+				label: __("From Date"),
+				reqd: 1,
+				default: frappe.datetime.get_today(),
+				description: __("A later date waits as Scheduled; the change happens on that day."),
+			},
+			{ fieldname: "reason", fieldtype: "Small Text", label: __("Reason"), reqd: 1 },
+		],
+		primary_action_label: __("Reassign"),
+		primary_action: async (values) => {
+			const result = await frappe.xcall(`${api}.reassign_station`, { station: frm.doc.name, ...values });
+			dialog.hide();
+			frappe.show_alert({
+				message: result.applied
+					? __("Reassigned.")
+					: __("Scheduled from {0}.", [frappe.datetime.str_to_user(result.from_date)]),
+				indicator: "green",
+			});
+			frm.reload_doc();
+		},
+	});
+	dialog.show();
+	await load("collection");
 }
 
 // The contract (SP-74) when the station was opened before it: made from the case's approved version.

@@ -401,6 +401,8 @@ scheduler_events = {
 		"smart_power.sp_finance.transit.check_cash_held",
 		# postal cheques due soon: Due, with alerts (SP-118)
 		"smart_power.sp_finance.cheques.check_due",
+		# station hand-overs from today: the new owners, before the instalment alerts (SP-79)
+		"smart_power.sp_stations.reassign.apply_scheduled",
 		# contract instalments: allocated, Overdue, due and overdue alerts once (SP-81)
 		"smart_power.sp_stations.installments.update_installments",
 		# a vehicle close to its oil change: its driver and the winch manager (SP-106)

@@ -3232,3 +3232,21 @@ The contract's supply period. Needed before the contract is signed; once set on 
 The first party,الطرف الأول
 The second party,الطرف الثاني
 Represented by,ويمثلها
+A later date waits as Scheduled; the change happens on that day.,التاريخ اللاحق ينتظر كمجدول، ويتم التغيير في ذلك اليوم.
+A reassignment from a later date; the daily job applies it on that date.,إعادة إسناد من تاريخ لاحق، تطبقها المهمة اليومية في ذلك التاريخ.
+Choose an active user to reassign to.,اختر مستخدماً نشطاً لإعادة الإسناد إليه.
+Only the admin reassigns a station.,الأدمن فقط يعيد إسناد المحطة.
+Reassigned.,تمت إعادة الإسناد.
+Scheduled from {0}.,مجدولة من {0}.
+Station {0} ({1}) moved to {2} as {3}: {4},انتقلت المحطة {0} ({1}) إلى {2} بصفته {3}: {4}
+Station {0} is {1}; it is not reassigned.,المحطة {0} في حالة {1}، ولا يُعاد إسنادها.
+"The admin changes it with Reassign, with a reason.","يغيّره الأدمن من إعادة الإسناد، مع ذكر السبب."
+"The execution owner by default; the admin moves it with Reassign, from a date.","مسؤول التنفيذ افتراضياً، ويغيّره الأدمن من إعادة الإسناد بدءاً من تاريخ."
+"The reassignment starts today or later, not on a past date.","تبدأ إعادة الإسناد اليوم أو بعده، وليس في تاريخ سابق."
+The station's collection owner on the payment's date; a later reassignment does not move it.,مسؤول تحصيل المحطة في تاريخ الدفعة، ولا تنقلها إعادة إسناد لاحقة.
+You are now the {0} of station {1} ({2}): {3},أصبحت {0} للمحطة {1} ({2}): {3}
+{0} cannot be the {1}: they need one of the roles {2}.,لا يمكن أن يكون {0} {1}: يحتاج أحد الأدوار {2}.
+{0} is already the {1}.,{0} هو {1} بالفعل.
+{0} moves to {1} on {2},ينتقل {0} إلى {1} في {2}
+{0} of station {1} to {2} from {3}: {4},{0} للمحطة {1} إلى {2} من {3}: {4}
+Station reassigned,تم نقل مسؤولية محطة
