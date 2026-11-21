@@ -82,3 +82,4 @@ smart_power.patches.sp124_indirect_split
 smart_power.patches.sp104_cash_box
 smart_power.patches.sp102_showroom_sale
 smart_power.patches.sp179_serials
+smart_power.patches.sp71_case_inactivity
