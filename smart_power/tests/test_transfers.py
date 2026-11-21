@@ -33,6 +33,24 @@ def stock(item, warehouse, qty=100):
 	entry.submit()
 
 
+def photo(case) -> str:
+	"""A private nameplate photo uploaded by whoever is signed in; removed from disk afterwards."""
+	import os
+
+	name = f"sp179-{frappe.generate_hash(length=8)}.png"
+	doc = frappe.get_doc(
+		{
+			"doctype": "File",
+			"file_name": name,
+			"content": frappe.generate_hash(length=16).encode(),
+			"is_private": 1,
+		}
+	).insert(ignore_permissions=True)
+	path = frappe.get_site_path("private", "files", doc.file_name)
+	case.addCleanup(lambda: os.path.exists(path) and os.remove(path))
+	return doc.file_url
+
+
 def on_hand(item, warehouse):
 	return flt(frappe.db.get_value("Bin", {"item_code": item, "warehouse": warehouse}, "actual_qty"))
 
@@ -98,9 +116,9 @@ class TestTransfers(IntegrationTestCase):
 		frappe.set_user("Administrator")
 		return name
 
-	def issue(self, name, user=None, serials=None):
+	def issue(self, name, user=None, serials=None, photos=None):
 		frappe.set_user(user or self.keeper)
-		entry = t.issue_transfer(name, serials)
+		entry = t.issue_transfer(name, serials, photos)
 		frappe.set_user("Administrator")
 		return entry
 
@@ -261,7 +279,26 @@ class TestTransfers(IntegrationTestCase):
 		name = self.create(qty=2, item=code)
 		row = frappe.db.get_value("Material Request Item", {"parent": name})
 		self.assertRaises(frappe.ValidationError, self.issue, name, None, {row: "SP88-S1"})
-		self.issue(name, None, {row: "\n".join(serials)})
+		# SP-179: each unit also needs a new nameplate photo, one the keeper uploaded
+		frappe.set_user(self.keeper)
+		photos = {s: photo(self) for s in serials}
+		frappe.set_user("Administrator")
+		self.assertRaises(
+			frappe.MandatoryError,
+			self.issue,
+			name,
+			None,
+			{row: "\n".join(serials)},
+			{"SP88-S1": photos["SP88-S1"]},
+		)
+		entry = self.issue(name, None, {row: "\n".join(serials)}, photos)
+		taken = frappe.get_all(
+			"SP Serial Photo", {"reference_name": entry}, ["serial_no", "point", "photo", "taken_by"]
+		)
+		self.assertEqual(
+			sorted((r.serial_no, r.point, r.photo, r.taken_by) for r in taken),
+			sorted((s, "Issue", photos[s], self.keeper) for s in serials),
+		)
 		self.assertRaises(frappe.ValidationError, self.confirm, name, 1)
 		self.assertEqual(self.confirm(name, 2)["status"], t.RECEIVED)
 		self.assertEqual(frappe.db.get_value("Serial No", "SP88-S1", "warehouse"), self.site)

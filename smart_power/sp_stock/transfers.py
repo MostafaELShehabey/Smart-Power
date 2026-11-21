@@ -245,11 +245,21 @@ def _serials(item_code: str, qty: float, text: str | None) -> str | None:
 
 
 @frappe.whitelist(methods=["POST"])
-def issue_transfer(name: str, serials: str | dict | None = None) -> str:
-	"""The store hands the goods over: source → Transit. serials: {order row: the unit serials}."""
+def issue_transfer(name: str, serials: str | dict | None = None, photos: str | dict | None = None) -> str:
+	"""The store hands the goods over: source → Transit. serials: {order row: the unit serials};
+	photos: {serial: the nameplate photo}, one for each unit (SP-179)."""
+	from smart_power.sp_stock.serials import ISSUE, check_photos, record_photos
+
 	doc = _locked(name, CREATED)
 	_check_warehouse(doc.set_from_warehouse)
 	serials = frappe.parse_json(serials) or {}
+	photos = frappe.parse_json(photos) or {}
+	units = {
+		row.name: _serials(row.item_code, row.qty, serials.get(row.name)) for row in doc.items
+	}  # checked before anything moves
+	for row in doc.items:
+		if units[row.name]:
+			check_photos(row.item_code, units[row.name].split("\n"), photos)
 	transit = warehouse_of(doc.company, TRANSIT)
 	if not transit:
 		frappe.throw(_("Company {0} has no transit warehouse.").format(doc.company))
@@ -277,7 +287,7 @@ def issue_transfer(name: str, serials: str | dict | None = None) -> str:
 					"material_request": doc.name,
 					"material_request_item": row.name,
 					"use_serial_batch_fields": 1 if _is_serial(row.item_code) else 0,
-					"serial_no": _serials(row.item_code, row.qty, serials.get(row.name)),
+					"serial_no": units[row.name],
 				}
 				for row in doc.items
 			],
@@ -291,6 +301,17 @@ def issue_transfer(name: str, serials: str | dict | None = None) -> str:
 
 	_as_system(post)
 	_signed_by_user(entry.name)
+	for row in doc.items:
+		if units[row.name]:
+			record_photos(
+				ISSUE,
+				row.item_code,
+				units[row.name].split("\n"),
+				photos,
+				ENTRY,
+				entry.name,
+				entry.posting_date,
+			)
 	doc.db_set({"sp_transfer_status": ISSUED, "sp_issue_entry": entry.name})
 	close_tasks(ORDER, doc.name, TASK_ISSUE)
 	subject = _("Confirm transfer {0} arriving at {1}").format(doc.name, _destination(doc))

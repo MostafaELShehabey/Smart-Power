@@ -6,7 +6,7 @@ from unittest.mock import patch
 import frappe
 from frappe.model.workflow import apply_workflow
 from frappe.tests import IntegrationTestCase
-from frappe.utils import add_days, add_months, flt, getdate, today
+from frappe.utils import add_months, flt, getdate, today
 
 from smart_power.sp_core.documents import seed_warranty_template
 from smart_power.sp_core.setup.seed import seed_list_values
@@ -156,8 +156,8 @@ class TestStationClose(IntegrationTestCase):
 		component = frappe.get_doc("SP Station Component", commissioning.components[0].name)
 		self.assertEqual(component.warranty_months, WARRANTY_YEARS * 12)  # the quote's years
 		self.assertEqual(
-			getdate(component.warranty_end), add_days(add_months(getdate(today()), WARRANTY_YEARS * 12), -1)
-		)
+			getdate(component.warranty_end), add_months(getdate(today()), WARRANTY_YEARS * 12)
+		)  # the same date (owner, 2026-11-22, SP-179)
 		self.assertEqual(close.final_invoice(station), invoice.name)  # once
 
 	def test_writing_off_the_last_2000_closes_financially_with_a_review_item(self):

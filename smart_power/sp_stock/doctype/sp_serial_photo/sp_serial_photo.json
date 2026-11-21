@@ -1,0 +1,181 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-11-22 03:00:00.000000",
+ "description": "A nameplate photo taken when a serial-tracked unit leaves a store (SP-179). The receipt keeps its own on the receipt line; commissioning on the component.",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "serial_no",
+  "item_code",
+  "point",
+  "column_break_ref",
+  "reference_doctype",
+  "reference_name",
+  "posting_date",
+  "taken_by",
+  "photo_section",
+  "photo"
+ ],
+ "fields": [
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Data",
+   "label": "Serial No",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "options": "Item",
+   "label": "Item",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "point",
+   "fieldtype": "Select",
+   "options": "Issue\nShowroom sale",
+   "label": "Point",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ref",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "options": "DocType",
+   "label": "Reference Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "options": "reference_doctype",
+   "label": "Reference",
+   "in_list_view": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "taken_by",
+   "fieldtype": "Link",
+   "options": "User",
+   "label": "Taken By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "photo_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "label": "Nameplate Photo",
+   "reqd": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-22 03:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stock",
+ "name": "SP Serial Photo",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Warranty Service",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  },
+  {
+   "role": "SP Project Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  },
+  {
+   "role": "SP Installation Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  },
+  {
+   "role": "SP Main Store Keeper",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  },
+  {
+   "role": "SP Showroom Store Keeper",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  },
+  {
+   "role": "SP Showroom Sales",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  },
+  {
+   "role": "SP Showroom Cashier",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  }
+ ],
+ "search_fields": "item_code",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "serial_no",
+ "track_changes": 1
+}

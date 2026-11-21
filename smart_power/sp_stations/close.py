@@ -122,6 +122,33 @@ def check_technical_close(doc) -> None:
 			),
 			title=_("Technical close"),
 		)
+	_check_photos(done)
+
+
+def _check_photos(done) -> None:
+	"""A serial-tracked component also needs its nameplate photo (SP-179)."""
+	from smart_power.sp_stock.serials import is_serial
+
+	no_photo = [
+		r
+		for r in frappe.get_all(
+			"SP Station Component",
+			{
+				"parent": ("in", [c.name for c in done]),
+				"parenttype": COMMISSIONING,
+				"nameplate_photo": ("in", ("", None)),
+			},
+			["component_type", "item", "serial"],
+		)
+		if is_serial(r.item)
+	]
+	if no_photo:
+		frappe.throw(
+			_("Attach the nameplate photo of every motor and pump before the technical close: {0}.").format(
+				", ".join(f"{r.item} ({r.serial})" for r in no_photo)
+			),
+			title=_("Technical close"),
+		)
 
 
 def _label(system_type: str) -> str:
@@ -164,6 +191,9 @@ def set_warranties(doc) -> None:
 			},
 			update_modified=False,
 		)
+	from smart_power.sp_stock.warranty import register_station
+
+	register_station(doc.name)  # the register follows the settled months (SP-179)
 
 
 def final_invoice(doc) -> str | None:

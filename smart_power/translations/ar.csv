@@ -3490,3 +3490,36 @@ Return of,مرتجع من
 The showroom box is deposited into an official account.,تُودَع خزنة المعرض في حساب رسمي فقط.
 Deposits pending,إيداعات قيد التأكيد
 Waiting for the admin,في انتظار تأكيد المدير
+Attach the nameplate photo of every motor and pump before the technical close: {0}.,أرفق صورة لوحة البيانات لكل موتور وطلمبة قبل الإقفال الفني: {0}.
+Commissioned at station {0},تم التشغيل في المحطة {0}
+Commissioning {0} was cancelled.,أُلغي التشغيل {0}.
+Cover,التغطية
+Into {0},دخل {0}
+Nameplate photo: {0},صورة لوحة البيانات: {0}
+"Not switched, because they already have stock movements: {0}",لم تُحوَّل لأن لها حركات مخزون بالفعل: {0}
+Operation date,تاريخ التشغيل
+Out of {0},خرج من {0}
+Point,المرحلة
+Reference Type,نوع المرجع
+"Required for a serial-tracked item (motors and pumps, SP-179).",مطلوبة للصنف المتتبَّع بالرقم التسلسلي (المواتير والطلمبات).
+SP Serial Photo,صورة الرقم التسلسلي
+SP Warranty,سجل الضمان
+Sale date,تاريخ البيع
+Serial No {0},الرقم التسلسلي {0}
+Serial Numbers,الأرقام التسلسلية
+Showroom sale,بيع المعرض
+Starts From,يبدأ من
+Taken By,التقطها
+"The items of this group (and its sub-groups) are tracked one unit at a time: each needs its serial and nameplate photo at receipt, issue, showroom sale and commissioning (SP-179).",أصناف هذه المجموعة (ومجموعاتها الفرعية) تُتتبَّع وحدةً وحدة: كل وحدة تحتاج رقمها التسلسلي وصورة لوحة البيانات عند الاستلام والصرف وبيع المعرض والتشغيل.
+Void,ملغى
+Void Reason,سبب الإلغاء
+Warranty End,نهاية الضمان
+Warranty Months,شهور الضمان
+Warranty to {0} ({1}),الضمان حتى {0} ({1})
+no cover set,بلا مدة ضمان محددة
+{0} items are now tracked by serial number.,أصبح {0} صنفًا يُتتبَّع بالرقم التسلسلي.
+{0}: attach the nameplate photo of {1}.,{0}: أرفق صورة لوحة البيانات للرقم {1}.
+Serial History,سجل الرقم التسلسلي
+SP Serial History,سجل الرقم التسلسلي
+Warranty Register,سجل الضمان
+"{0}: enter its serial number.",{0}: أدخل رقمه التسلسلي.

@@ -216,26 +216,44 @@ class SPTransfers {
 			frappe.confirm(__("Issue transfer {0}? The stock leaves {1}.", [transfer.name, transfer.source]), () => this.send(transfer, {}));
 			return;
 		}
+		// SP-179: each unit's serial and a new nameplate photo
+		const fields = [];
+		for (const l of serial) {
+			fields.push({ fieldtype: "Section Break", label: `${l.item_name || l.item_code} (${l.qty})` });
+			for (let i = 1; i <= l.qty; i++) {
+				fields.push(
+					{ fieldname: `${l.name}__s${i}`, fieldtype: "Data", label: __("Serial No {0}", [i]), reqd: 1 },
+					{ fieldtype: "Column Break" },
+					{ fieldname: `${l.name}__p${i}`, fieldtype: "Attach Image", label: __("Nameplate Photo"), reqd: 1 },
+					{ fieldtype: "Section Break" }
+				);
+			}
+		}
 		const dialog = new frappe.ui.Dialog({
 			title: __("Issue {0}", [transfer.name]),
-			fields: serial.map((l) => ({
-				fieldname: l.name,
-				fieldtype: "Small Text",
-				label: __("Serial numbers of {0} ({1})", [l.item_name || l.item_code, l.qty]),
-				description: __("One serial number on each line."),
-				reqd: 1,
-			})),
+			fields,
 			primary_action_label: __("Issue"),
 			primary_action: (values) => {
+				const serials = {};
+				const photos = {};
+				for (const l of serial) {
+					const units = [];
+					for (let i = 1; i <= l.qty; i++) {
+						const s = (values[`${l.name}__s${i}`] || "").trim();
+						units.push(s);
+						photos[s] = values[`${l.name}__p${i}`];
+					}
+					serials[l.name] = units.join("\n");
+				}
 				dialog.hide();
-				this.send(transfer, values);
+				this.send(transfer, serials, photos);
 			},
 		});
 		dialog.show();
 	}
 
-	async send(transfer, serials) {
-		const entry = await this.act("issue_transfer", { name: transfer.name, serials });
+	async send(transfer, serials, photos) {
+		const entry = await this.act("issue_transfer", { name: transfer.name, serials, photos: photos || {} });
 		frappe.show_alert({ message: __("Transfer {0} issued in {1}", [transfer.name, entry]), indicator: "green" });
 	}
 

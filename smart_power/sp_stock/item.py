@@ -31,6 +31,9 @@ def validate(doc, method=None):
 				title=_("Check the specs"),
 			)
 	check_curve(doc)
+	from smart_power.sp_stock.serials import item_validate
+
+	item_validate(doc)  # a serial-tracked group's items (SP-179)
 
 
 def seed_item_groups() -> None:
@@ -54,6 +57,9 @@ def seed_item_groups() -> None:
 
 	seed_price_categories()
 	seed_child_groups(spec.get("children") or {})  # after the categories they share
+	from smart_power.sp_stock.serials import seed_serial_groups
+
+	seed_serial_groups()  # SP-179: motors and pumps
 	seed_group_codes()  # SP-165
 	from smart_power.sp_quotes.special_lines import seed_service_items
 
