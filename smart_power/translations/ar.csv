@@ -3218,3 +3218,17 @@ Collecting,قيد التحصيل
 Total HP,إجمالي القدرة (حصان)
 "The station's systems, for the list (kept from the Systems table).",أنظمة المحطة لعرضها في القائمة (من جدول الأنظمة).
 ID,الرقم
+Contract Template,قالب العقد
+Contract periods,مدد العقد
+Fill in {0} before the contract is signed: the contract prints them.,أدخل {0} قبل توقيع العقد: العقد يطبعها.
+Installation Period (days),مدة التركيب (أيام)
+Supply Period (days),مدة التوريد (أيام)
+National ID,الرقم القومي
+Printed on the contract.,يُطبع على العقد.
+The contract's installation period. Needed before the contract is signed; once set on a signed contract it does not change.,مدة التركيب في العقد. مطلوبة قبل توقيع العقد، ولا تتغير بعد إدخالها في عقد موقّع.
+The contract's supply period. Needed before the contract is signed; once set on a signed contract it does not change.,مدة التوريد في العقد. مطلوبة قبل توقيع العقد، ولا تتغير بعد إدخالها في عقد موقّع.
+"The template version the signed contract prints with, so a reprint never changes.","إصدار القالب الذي يُطبع به العقد الموقّع، فلا تتغير أي إعادة طباعة."
+{0} is on the signed contract and cannot change.,{0} مذكورة في العقد الموقّع ولا يمكن تغييرها.
+The first party,الطرف الأول
+The second party,الطرف الثاني
+Represented by,ويمثلها

@@ -8,7 +8,13 @@ from smart_power.sp_finance.customer_payment import confirm, receiving_accounts,
 from smart_power.sp_sales.quotation import approve_version
 from smart_power.sp_stations.contract import ensure_contract
 from smart_power.sp_stock import warehouses as wh
-from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, set_setting
+from smart_power.tests.utils import (
+	load_erpnext_test_data,
+	make_quotation,
+	make_user,
+	set_setting,
+	sign_contract,
+)
 
 load_erpnext_test_data()
 
@@ -65,7 +71,7 @@ class TestCustomerPayment(IntegrationTestCase):
 		approve_version(q.name)
 		result = ensure_contract(q.sp_case)
 		so = frappe.get_doc("Sales Order", result["sales_order"])
-		so.submit()
+		sign_contract(so)
 		self.station = result["station"]
 
 	def tearDown(self):

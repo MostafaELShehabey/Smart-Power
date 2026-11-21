@@ -12,7 +12,7 @@ from smart_power.sp_stations.contract import make_contract
 from smart_power.sp_stations.station_tabs import tab
 from smart_power.sp_stock import warehouses as wh
 from smart_power.tests.test_station import COMPANY, receive
-from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user
+from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, sign_contract
 
 load_erpnext_test_data()
 
@@ -57,7 +57,7 @@ class TestChangeOrder(IntegrationTestCase):
 			)
 		so.save()
 		if signed:
-			so.submit()
+			sign_contract(so)
 		station = frappe.get_doc("SP Station", result["station"])
 		frappe.db.set_value(
 			"SP Station",

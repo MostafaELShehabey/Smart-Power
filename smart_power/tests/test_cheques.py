@@ -11,7 +11,13 @@ from smart_power.sp_finance.cheques import check_due, mark_bounced, mark_collect
 from smart_power.sp_sales.quotation import approve_version
 from smart_power.sp_stations.contract import ensure_contract
 from smart_power.sp_stock import warehouses as wh
-from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, set_setting
+from smart_power.tests.utils import (
+	load_erpnext_test_data,
+	make_quotation,
+	make_user,
+	set_setting,
+	sign_contract,
+)
 
 load_erpnext_test_data()
 
@@ -148,7 +154,7 @@ class TestCheques(IntegrationTestCase):
 			},
 		)
 		self.so.save()
-		self.so.submit()
+		sign_contract(self.so)
 		self.assertTrue(frappe.db.exists("SP Cheque", {"cheque_no": "C-D1-1", "station": self.station}))
 
 	def test_moves_follow_the_order(self):

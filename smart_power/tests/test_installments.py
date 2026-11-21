@@ -10,7 +10,13 @@ from smart_power.sp_stations import installments
 from smart_power.sp_stations.contract import make_contract
 from smart_power.sp_stock import warehouses as wh
 from smart_power.tests.test_station import COMPANY, receive
-from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, set_setting
+from smart_power.tests.utils import (
+	load_erpnext_test_data,
+	make_quotation,
+	make_user,
+	set_setting,
+	sign_contract,
+)
 
 load_erpnext_test_data()
 
@@ -48,7 +54,7 @@ class InstalmentCase(IntegrationTestCase):
 				{"due_date": add_days(today(), days), "invoice_portion": 50, "payment_amount": total / 2},
 			)
 		so.save()
-		so.submit()
+		sign_contract(so)
 		frappe.db.set_value("SP Station", result["station"], "collection_owner", self.amira)
 		return frappe.get_doc("SP Station", result["station"])
 

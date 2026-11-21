@@ -13,7 +13,7 @@ from smart_power.sp_stock.purchase_orders import SITE_DELIVERY, enable_batches
 from smart_power.tests.test_goods_receipt import GROUP, SIGNATURE, photo
 from smart_power.tests.test_prices import make_item
 from smart_power.tests.test_purchase_orders import COMPANY, order, row, station
-from smart_power.tests.utils import load_erpnext_test_data, make_user
+from smart_power.tests.utils import load_erpnext_test_data, make_user, sign_contract
 
 load_erpnext_test_data()
 
@@ -204,7 +204,7 @@ class TestReceiptConfirmation(IntegrationTestCase):
 		frappe.db.set_value("SP Station", st.name, "site_receiver", self.receiver)
 		so = frappe.get_doc("Sales Order", st.sales_order)
 		if so.docstatus == 0:
-			so.submit()
+			sign_contract(so)
 		line = so.items[0]
 		frappe.db.set_value("Sales Order Item", line.name, "reserve_stock", 1)
 		values = {"qty": line.qty, "rate": RATE, "item_code": line.item_code}

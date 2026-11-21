@@ -8,6 +8,9 @@ A print format asks for a block of the published template of its document:
 The text holds {placeholders}, filled by a plain formatter, never by Jinja, so text the admin
 types cannot run code. Each document has its own placeholders (PLACEHOLDERS); a misspelled one
 is refused when the template is saved, listing the valid ones.
+
+A signed contract keeps the template version it was signed with (sp_contract_template, SP-75),
+so publishing new text changes the next contracts, never the ones already signed.
 """
 
 import re
@@ -53,6 +56,12 @@ def _amount(value, currency) -> Markup:
 	return Markup('<span class="sp-num">{}</span>').format(money(value, currency))
 
 
+def _days(doc, fieldname) -> Markup:
+	"""A number of days inside Arabic text, kept left to right."""
+	days = doc.get(fieldname)
+	return Markup('<span class="sp-num">{}</span>').format(days) if days else ""
+
+
 def resolvers() -> dict:
 	"""placeholder -> how to read it from the document being printed."""
 	return {
@@ -75,6 +84,8 @@ def resolvers() -> dict:
 		"amount": lambda doc: _amount(_total(doc), doc.get("currency")),
 		"amount_words": lambda doc: ar_words(_total(doc)),
 		"operation_date": lambda doc: ar_date(doc.get("sp_operation_date")),
+		"supply_days": lambda doc: _days(doc, "sp_supply_days"),
+		"install_days": lambda doc: _days(doc, "sp_install_days"),
 		"balance": lambda doc: _amount(
 			flt(doc.get("balance") or doc.get("outstanding_amount")), doc.get("currency")
 		),
@@ -94,7 +105,15 @@ PLACEHOLDERS = {
 		"total",
 		"total_words",
 	),
-	"Contract": (*COMMON, "station_no", "case_no", "total", "total_words"),
+	"Contract": (
+		*COMMON,
+		"station_no",
+		"case_no",
+		"total",
+		"total_words",
+		"supply_days",
+		"install_days",
+	),
 	"Invoice": (*COMMON, "station_no", "total", "total_words"),
 	"Receipt": (*COMMON, "station_no", "amount", "amount_words"),
 	"Purchase Order": (
@@ -147,12 +166,22 @@ def fill(text: str | None, doc) -> str:
 	return PLACEHOLDER.sub(value, text or "")
 
 
+# the field a document keeps its template version in, once it is final (a signed contract)
+PINNED = {"Contract": "sp_contract_template"}
+
+
 def published(document: str) -> str | None:
 	return frappe.db.get_value(TEMPLATE, {"document": document, "is_published": 1}, "name")
 
 
-def _blocks(document: str) -> list:
-	name = published(document)
+def template_for(document: str, doc=None) -> str | None:
+	"""The version doc prints with: the one it was signed with, else the published one."""
+	pinned = doc.get(PINNED[document]) if doc is not None and document in PINNED else None
+	return pinned or published(document)
+
+
+def _blocks(document: str, doc=None) -> list:
+	name = template_for(document, doc)
 	if not name:
 		return []
 	return frappe.get_all(
@@ -170,7 +199,7 @@ def _render(block, doc) -> Markup:
 
 def sp_block(document: str, block_key: str, doc=None) -> Markup:
 	"""One block of the document's published template, filled for doc (empty when missing)."""
-	block = next((b for b in _blocks(document) if b.block_key == block_key), None)
+	block = next((b for b in _blocks(document, doc) if b.block_key == block_key), None)
 	return _render(block, doc) if block else Markup("")
 
 
@@ -178,7 +207,7 @@ def sp_blocks(document: str, doc=None, exclude=None) -> list[Markup]:
 	"""Every block of the document's published template, in order, filled for doc (less the
 	keys in exclude, e.g. a preamble printed on its own)."""
 	skip = set(exclude or ())
-	return [_render(block, doc) for block in _blocks(document) if block.block_key not in skip]
+	return [_render(block, doc) for block in _blocks(document, doc) if block.block_key not in skip]
 
 
 # --- the starting quote template ------------------------------------------------------------
@@ -231,12 +260,12 @@ CONTRACT_BLOCKS = (
 	(
 		"supply_period",
 		"مدة التوريد",
-		"<p>يتم التوريد خلال المدة المتفق عليها من تاريخ استلام الدفعة المقدمة.</p>",
+		"<p>يتم التوريد خلال {supply_days} يوماً من تاريخ استلام الدفعة المقدمة.</p>",
 	),
 	(
 		"installation_period",
 		"مدة التركيب",
-		"<p>يتم التركيب خلال المدة المتفق عليها من تاريخ اكتمال التوريد وتجهيز الموقع.</p>",
+		"<p>يتم التركيب خلال {install_days} يوماً من تاريخ اكتمال التوريد وتجهيز الموقع.</p>",
 	),
 	(
 		"warranty",
