@@ -4,7 +4,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "is_submittable": 1,
- "modified": "2026-11-16 14:00:00.000000",
+ "modified": "2026-11-21 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Finance",
  "name": "SP Customer Payment",
@@ -46,6 +46,7 @@
   "recorded_by",
   "entry_time",
   "confirmed_by",
+  "collection_owner",
   "column_break_review",
   "reject_reason",
   "payment_entry",
@@ -228,6 +229,15 @@
    "options": "User",
    "read_only": 1,
    "no_copy": 1
+  },
+  {
+   "fieldname": "collection_owner",
+   "fieldtype": "Link",
+   "label": "Collection Owner",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "The station's collection owner on the payment's date; a later reassignment does not move it."
   },
   {
    "fieldname": "column_break_review",

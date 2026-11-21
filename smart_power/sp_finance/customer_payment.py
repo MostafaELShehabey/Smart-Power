@@ -96,6 +96,11 @@ def validate(doc) -> None:
 	if doc.is_new() or not doc.recorded_by:
 		doc.recorded_by = frappe.session.user
 		doc.entry_time = now_datetime()
+	if doc.station and not doc.collection_owner:
+		from smart_power.sp_stations.reassign import owner_on
+
+		# the owner of the payment's date: a later hand-over does not take it (SP-79)
+		doc.collection_owner = owner_on(doc.station, doc.work_date)
 	if doc.docstatus.is_draft():
 		doc.status = DRAFT
 	if doc.method == THIRD_PARTY:

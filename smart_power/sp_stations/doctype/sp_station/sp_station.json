@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-21 12:00:00.000000",
+ "modified": "2026-11-21 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -240,7 +240,9 @@
    "label": "Execution Owner",
    "options": "User",
    "in_list_view": 1,
-   "in_standard_filter": 1
+   "in_standard_filter": 1,
+   "read_only": 1,
+   "description": "The admin changes it with Reassign, with a reason."
   },
   {
    "fieldname": "site_receiver",
@@ -259,9 +261,10 @@
    "label": "Collection Owner",
    "options": "User",
    "search_index": 1,
-   "description": "The execution owner by default; the admin switches it from a date.",
+   "description": "The execution owner by default; the admin moves it with Reassign, from a date.",
    "in_list_view": 1,
-   "in_standard_filter": 1
+   "in_standard_filter": 1,
+   "read_only": 1
   },
   {
    "fieldname": "dates_section",

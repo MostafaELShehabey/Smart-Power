@@ -160,6 +160,8 @@ def list_columns(systems) -> tuple[float, str]:
 
 
 def _record_owner_changes(doc, before) -> None:
+	"""Each owner change adds a history row. The execution and collection owners change only
+	through Reassign (SP-79), which gives the reason; a scheduled one brings its own row."""
 	if not before:
 		return
 	for fieldname, label in OWNER_LABELS.items():
@@ -168,6 +170,13 @@ def _record_owner_changes(doc, before) -> None:
 			continue
 		if fieldname != "sales_owner" and not is_admin() and old:
 			frappe.throw(_("Only the admin changes the {0}.").format(_(label)))
+		if fieldname != "sales_owner" and old and not doc.flags.sp_owner_change_reason:
+			frappe.throw(
+				_("To change the {0}, use Reassign and give a reason.").format(_(label)),
+				title=_("Reassign"),
+			)
+		if doc.flags.sp_owner_row_done:
+			continue
 		doc.append(
 			"owner_history",
 			{
