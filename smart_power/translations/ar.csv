@@ -3426,3 +3426,64 @@ cash held {0} days (limit {1}),نقدية محتفظ بها {0} يوم (الحد
 {0} in the box (limit {1}),{0} في الخزنة (الحد {1})
 {0} is not the showroom box.,{0} ليس خزنة المعرض.
 Cash box day close,إقفال يوم الخزنة
+A line discount is a percent between 0 and 100.,خصم السطر نسبة بين 0 و100.
+"A showroom sale's discount (its lines and its total, against the price list) above Showroom Discount Limit in Smart Power Settings flags the admin. No limit until the admin sets one (SP-102); every showroom discount is listed in the Review centre anyway.","خصم بيع المعرض (على السطور وعلى الإجمالي، مقارنة بقائمة الأسعار) فوق «حد خصم المعرض» في إعدادات Smart Power يُنبّه المدير. لا حد حتى يضعه المدير (SP-102)؛ وكل خصم في المعرض يظهر في مركز المراجعة على أي حال."
+Above this discount on a showroom sale the admin is flagged (rule showroom_discount_max). Empty: no limit; every showroom discount is still listed in the Review centre (SP-102).,فوق هذا الخصم في بيع المعرض يُنبَّه المدير (قاعدة showroom_discount_max). فارغ: لا حد؛ وكل خصم في المعرض يظهر في مركز المراجعة (SP-102).
+Add at least one item.,أضف صنفًا واحدًا على الأقل.
+Allow pop-ups to print the receipt.,اسمح بالنوافذ المنبثقة لطباعة الإيصال.
+Before discount,قبل الخصم
+Cash goes into the showroom box.,النقدية تدخل خزنة المعرض.
+Choose the items to return and their quantity.,اختر الأصناف المرتجعة وكمياتها.
+Customer mobile,موبايل العميل
+Discount %,الخصم %
+Discount on the total,خصم على الإجمالي
+Find,بحث
+In the showroom,في المعرض
+"Name, code or brand",الاسم أو الكود أو الماركة
+No customer has this mobile; the sale stays on the walk-in customer.,لا يوجد عميل بهذا الموبايل؛ يبقى البيع على العميل النقدي.
+No item found.,لا يوجد صنف.
+No showroom receipt {0}.,لا يوجد إيصال معرض {0}.
+Only the showroom cashier sells at the showroom.,البيع في المعرض لكاشير المعرض فقط.
+Only {0} of {1} is left to return on {2}.,المتبقي للإرجاع من {1} في {2} هو {0} فقط.
+Paid to {0}.,تُدفع إلى {0}.
+Prices changed: add the items again.,تغيرت الأسعار: أضف الأصناف من جديد.
+Prices: {0},الأسعار: {0}
+Receipt No.,رقم الإيصال
+Return a Receipt,مرتجع إيصال
+Return and Print,إرجاع وطباعة
+Return of {0},مرتجع {0}
+Search for an item and add it.,ابحث عن صنف وأضفه.
+Search items,بحث الأصناف
+Sell and Print,بيع وطباعة
+Sell for {0} to {1}?,بيع بمبلغ {0} إلى {1}؟
+Showroom Discount Limit,حد خصم المعرض
+Showroom Sale,بيع المعرض
+Showroom discount limit,حد خصم المعرض
+Showroom discount {0} ({1}%) on {2},خصم معرض {0} ({1}%) على {2}
+Showroom discount {0}% is above the limit of {1}%.,خصم المعرض {0}% فوق الحد {1}%.
+Showroom receipts today,إيصالات المعرض اليوم
+Sold,المباع
+The discount cannot be negative.,لا يكون الخصم سالبًا.
+The discount is more than the sale.,الخصم أكبر من قيمة البيع.
+The money goes back out of the showroom box in cash.,يُرد المبلغ نقدًا من خزنة المعرض.
+The sale,البيع
+"The showroom is not set up for {0}: it needs the showroom store, the box and Showroom Sales.",المعرض غير مُعد لـ {0}: يلزم مخزن المعرض والخزنة وحساب مبيعات المعرض.
+The showroom store has {0} of {1}; the sale needs {2}.,في مخزن المعرض {0} من {1}؛ والبيع يحتاج {2}.
+Walk-in customer,عميل نقدي
+{0} has no price on {1}.,{0} ليس له سعر في {1}.
+{0} is not a payment method of the showroom.,{0} ليست طريقة دفع في المعرض.
+{0} is not a showroom receipt.,{0} ليس إيصال معرض.
+{0} is not on the receipt.,{0} ليس في الإيصال.
+{0} is posted.,تم ترحيل {0}.
+{0}: {1} refunded from the box.,{0}: رُد {1} من الخزنة.
+Showroom Receipt,إيصال بيع المعرض
+Showroom Return,مرتجع المعرض
+Cashier,الكاشير
+Refunded,المردود
+Thank you for buying from Smart Power,شكرًا لشرائكم من Smart Power
+InstaPay,إنستاباي
+Bank Misr Transfer,تحويل بنك مصر
+Vodafone Cash,فودافون كاش
+Post Deposit,إيداع بالبريد
+Discount to the customer,الخصم للعميل
+Return of,مرتجع من
