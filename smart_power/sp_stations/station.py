@@ -131,6 +131,10 @@ def validate(doc) -> None:
 
 	sync_referrer(doc)  # the contract names the referrer (SP-177)
 	if before and before.status != doc.status:
+		if doc.status == TECH_CLOSED:
+			from smart_power.sp_stations.close import check_technical_close
+
+			check_technical_close(doc)  # SP-80
 		if doc.status == TECH_CLOSED and not doc.tech_closed_on:
 			doc.tech_closed_on = today()
 		if doc.status == FIN_CLOSED:
@@ -235,4 +239,7 @@ def record_write_off(station: str, amount: float, reason: str) -> dict:
 		_("Write-off of {0} on station {1}: {2}").format(frappe.format(amount, "Currency"), doc.name, reason),
 		amount=amount,
 	)
-	return {"journal_entry": entry, **refresh(doc.name)}
+	money = refresh(doc.name)
+	from smart_power.sp_stations.close import settle
+
+	return {"journal_entry": entry, **money, "financially_closed": settle(doc.name)}  # SP-80

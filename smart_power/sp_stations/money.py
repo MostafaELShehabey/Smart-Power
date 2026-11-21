@@ -99,5 +99,8 @@ def on_payment(doc, method=None) -> None:
 	"""Payment Entry on_submit / on_cancel: the station of its project refreshes."""
 	if not doc.get("project"):
 		return
+	from smart_power.sp_stations.close import settle
+
 	for station in frappe.get_all(STATION, {"project": doc.project}, pluck="name"):
 		refresh(station)
+		settle(station)  # the last payment closes a technically closed station (SP-80)

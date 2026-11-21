@@ -32,6 +32,8 @@ class SPStation(Document):
 		station.validate(self)
 
 	def on_update(self):
+		from smart_power.sp_stations import close
 		from smart_power.sp_stations.commission import on_station_update
 
+		close.on_station_update(self)  # the final invoice, the warranties, the financial close (SP-80)
 		on_station_update(self)  # the technical close may post the referrer commission (SP-177)

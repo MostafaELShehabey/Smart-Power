@@ -16,7 +16,11 @@ def ensure_admin_module() -> None:
 
 def after_install() -> None:
 	from smart_power.rules import sync_rule_settings
-	from smart_power.sp_core.documents import seed_contract_template, seed_quote_template
+	from smart_power.sp_core.documents import (
+		seed_contract_template,
+		seed_quote_template,
+		seed_warranty_template,
+	)
 	from smart_power.sp_core.setup.locale import apply_branding, apply_locale
 	from smart_power.sp_core.setup.print_setup import setup_printing
 	from smart_power.sp_core.setup.seed import seed_list_values, seed_settings
@@ -60,6 +64,7 @@ def after_install() -> None:
 	setup_printing()
 	seed_quote_template()
 	seed_contract_template()
+	seed_warranty_template()  # SP-80
 	seed_default_print_format()
 	make_desk_default()
 	make_po_desk_default()
@@ -77,6 +82,9 @@ def after_sync() -> None:
 	from smart_power.sp_stations.setup import seed_list_settings
 
 	seed_list_settings()  # SP-77: the stations list's columns
+	from smart_power.sp_stations.close import ensure_invoice_series
+
+	ensure_invoice_series()  # SP-80: the final invoice's SINV-.YYYY.-.#### series
 
 
 def sync_role_profiles() -> None:

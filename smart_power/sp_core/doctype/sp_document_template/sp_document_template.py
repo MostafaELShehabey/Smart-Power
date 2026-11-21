@@ -109,6 +109,7 @@ DOCTYPES = {
 	"Invoice": "Sales Invoice",
 	"Purchase Order": "Purchase Order",
 	"Delivery Note": "Delivery Note",
+	"Warranty Certificate": "SP Station",
 }
 
 

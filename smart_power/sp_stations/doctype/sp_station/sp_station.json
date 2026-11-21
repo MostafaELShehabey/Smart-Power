@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-21 18:00:00.000000",
+ "modified": "2026-11-21 20:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -69,6 +69,7 @@
   "column_break_dates",
   "tech_closed_on",
   "fin_closed_on",
+  "final_invoice",
   "cancel_section",
   "cancelled_on",
   "refund_amount",
@@ -137,6 +138,7 @@
   "cost_section",
   "commission_amount",
   "estimated_cost_snapshot",
+  "close_cost_snapshot",
   "costs_detail_section",
   "costs_html",
   "tab_history",
@@ -308,6 +310,15 @@
    "label": "Financially Closed On",
    "read_only": 1,
    "no_copy": 1
+  },
+  {
+   "fieldname": "final_invoice",
+   "fieldtype": "Link",
+   "label": "Final Invoice",
+   "options": "Sales Invoice",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "The internal Sales Invoice made at the technical close: revenue and the customer's receivable, with the payments set against it as advances."
   },
   {
    "fieldname": "cancel_section",
@@ -716,6 +727,15 @@
    "fieldname": "estimated_cost_snapshot",
    "fieldtype": "JSON",
    "label": "Estimated Cost (frozen)",
+   "permlevel": 2,
+   "read_only": 1,
+   "no_copy": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "close_cost_snapshot",
+   "fieldtype": "JSON",
+   "label": "Cost at Financial Close",
    "permlevel": 2,
    "read_only": 1,
    "no_copy": 1,
