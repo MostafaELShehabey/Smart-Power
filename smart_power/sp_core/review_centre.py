@@ -40,6 +40,7 @@ TABS = (
 	"PO Sent",
 	"Count Difference",
 	"Station Cancellation",
+	"Expense",
 )
 PAGE_SIZE = 200  # sp-allow-number: items listed per tab, a screen size
 
@@ -74,6 +75,7 @@ def _labels() -> dict[str, str]:
 		"Consignment Conversion": _("Consignment conversions"),
 		"Write-off": _("Write-offs"),
 		"Station Cancellation": _("Station cancellations"),
+		"Expense": _("Expenses"),
 		"Rule Warning": _("Rule warnings"),
 		"PO Sent": _("Purchase orders sent"),
 		"Count Difference": _("Count differences"),

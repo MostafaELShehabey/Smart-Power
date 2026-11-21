@@ -3334,3 +3334,20 @@ Remaining to Suppliers,المتبقي للموردين
 Collected from the Customer,الدفعات المدفوعة من العميل
 Collected - Owed to Suppliers,الدفعات - إجمالي المطلوب للموردين
 Remaining from the Customer,المتبقي من العميل
+"A project expense with no station goes to the Indirect Pool, split at month end (A16).","مصروف المشروع بلا محطة يذهب إلى مجمع التكاليف غير المباشرة، ويُوزَّع آخر الشهر."
+Choose the official account that paid it.,اختر الحساب الرسمي الذي دفعه.
+Company {0} has no showroom box (خزنة المعرض).,الشركة {0} ليس لها خزنة المعرض.
+"Expense {0} of {1} on {2}, paid from {3}","مصروف {0} بقيمة {1} على {2}، مدفوع من {3}"
+Indirect,غير مباشر
+Official account,حساب رسمي
+SP Expense,مصروف
+Set the account of expense type {0} (Lists) or the Expense row of the Account Map.,حدد حساب نوع المصروف {0} (القوائم) أو صف المصروفات في خريطة الحسابات.
+The shop cash is the showroom box; the owner's payments go to the Owner Current Account.,نقدية المحل هي خزنة المعرض، ومدفوعات صاحب الشركة تذهب إلى جاري صاحب الشركة.
+The showroom cashier records expenses paid from the shop cash only.,خزنة المعرض تسجل المصروفات المدفوعة من نقدية المحل فقط.
+{0} is not an expense type.,{0} ليس نوع مصروف.
+{0} is not an official account of {1}.,{0} ليس حساباً رسمياً لـ {1}.
+Company Owner,صاحب الشركة
+Owner Current Account,جاري صاحب الشركة
+Expenses by Center and Type,المصروفات حسب المركز والنوع
+SP Expenses by Center and Type,المصروفات حسب المركز والنوع
+Expense Type Name,اسم نوع المصروف
