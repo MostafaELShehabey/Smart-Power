@@ -10,6 +10,9 @@ One day of the showroom box (خزنة المعرض, a transit account) at a time
                             confirmed
     = expected closing
 
+A deposit waiting for the admin (SP-105) is "deposit pending": out of the box's cash in hand, not
+yet in the bank. The day shows it as its own line until it is confirmed, whatever its date.
+
 The cashier closes the day with the counted cash; a difference needs a reason. The close waits
 for the admin in the confirmations centre (A1); confirming posts the difference (Account Map
 event "Cash Over/Short", the Showroom center): short, Dr Cash Over and Short / Cr the box; over,
@@ -158,14 +161,14 @@ def amount_limit() -> float:
 
 def held(doc) -> dict:
 	"""How the box stands against its limits (the page's banner and the rule)."""
-	from erpnext.accounts.utils import get_balance_on
-
+	from smart_power.sp_finance.transfer import in_hand, pending_out
 	from smart_power.sp_finance.transit import days_held, limit_days
 
-	balance = flt(get_balance_on(doc.cash_account, ignore_account_permission=True))
+	balance = in_hand(doc.cash_account)  # the deposits waiting for the admin are out of the box
 	days, day_limit, cash_limit = days_held(doc.cash_account), limit_days(doc.cash_account), amount_limit()
 	return {
 		"balance": balance,
+		"pending_deposits": pending_out(doc.cash_account),
 		"days": days,
 		"day_limit": day_limit,
 		"cash_limit": cash_limit,
@@ -177,7 +180,22 @@ def held(doc) -> dict:
 def state(doc) -> dict:
 	"""For the form: the day's records, the limits, and what this user may do."""
 	moves = movements(doc.cash_account, doc.day) if doc.cash_account and doc.day else {}
-	return {"moves": moves, "held": held(doc) if doc.cash_account else {}, "is_admin": is_admin()}
+	pending = (
+		frappe.get_all(
+			TRANSFER,
+			{"from_account": doc.cash_account, "docstatus": 1, "status": "Pending"},
+			["name", "amount", "to_account", "work_date"],
+			order_by="work_date asc, creation asc",
+		)
+		if doc.cash_account
+		else []
+	)
+	return {
+		"moves": moves,
+		"held": held(doc) if doc.cash_account else {},
+		"pending_deposits": pending,
+		"is_admin": is_admin(),
+	}
 
 
 # --- the day -------------------------------------------------------------------------------------------

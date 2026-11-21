@@ -9,6 +9,9 @@
   the recorder with the reason, nothing posted.
 - The admin's own official → official transfer posts at once (no confirmation), and is audited.
 - Moving more than a transit account holds is a warning, set in rule settings (transfer_over_balance).
+- SH3 showroom deposit (SP-105): the showroom cashier deposits the shared showroom box (خزنة
+  المعرض) into an official account. Until the admin confirms, the money is "deposit pending": out
+  of the box's cash in hand (in_hand), not yet in the bank, and the books still show it in the box.
 """
 
 import frappe
@@ -40,13 +43,41 @@ def _account(name: str) -> frappe._dict:
 	)
 
 
+def showroom_box(company: str | None, user: str | None = None) -> str | None:
+	"""The showroom box, when this user keeps it (the showroom cashier and the admin, SP-105)."""
+	from smart_power.sp_finance.customer_payment import can_use_showroom_box, showroom_box_account
+
+	return showroom_box_account(company) if can_use_showroom_box(user) else None
+
+
 def sources(company: str, user: str | None = None) -> list[str]:
-	"""The accounts this user may move money from: their own transit; the admin, any money account."""
+	"""The accounts this user may move money from: their own transit, and the showroom box for its
+	cashier; the admin, any money account."""
 	user = user or frappe.session.user
 	filters = {"company": company, "is_group": 0, "disabled": 0}
 	if is_admin(user):
 		return frappe.get_all("Account", {**filters, "sp_account_kind": ("in", MONEY_KINDS)}, pluck="name")
-	return frappe.get_all("Account", {**filters, "sp_account_kind": TRANSIT, "sp_holder": user}, pluck="name")
+	names = frappe.get_all(
+		"Account", {**filters, "sp_account_kind": TRANSIT, "sp_holder": user}, pluck="name"
+	)
+	box = showroom_box(company, user)
+	return [*names, box] if box and box not in names else names
+
+
+def pending_out(account: str, exclude: str | None = None) -> float:
+	"""Deposits out of the account still waiting for the admin: not yet posted (SP-105)."""
+	filters = {"from_account": account, "docstatus": 1, "status": PENDING}
+	if exclude:
+		filters["name"] = ("!=", exclude)
+	return flt(sum(flt(a) for a in frappe.get_all(TRANSFER, filters, pluck="amount")))
+
+
+def in_hand(account: str, exclude: str | None = None) -> float:
+	"""The cash still in the account: its balance less the deposits waiting for the admin."""
+	from erpnext.accounts.utils import get_balance_on
+
+	balance = flt(get_balance_on(account, ignore_account_permission=True))
+	return balance - pending_out(account, exclude)
 
 
 def destinations(company: str) -> list[str]:
@@ -76,6 +107,12 @@ def validate(doc) -> None:
 		doc.entry_time = now_datetime()
 	if not is_admin(doc.recorded_by) and doc.from_account not in sources(doc.company, doc.recorded_by):
 		frappe.throw(_("You can move money only from your own transit account."), frappe.PermissionError)
+	if (
+		not is_admin(doc.recorded_by)
+		and doc.from_account == showroom_box(doc.company, doc.recorded_by)
+		and dst.sp_account_kind != OFFICIAL
+	):
+		frappe.throw(_("The showroom box is deposited into an official account."))
 	if doc.docstatus.is_draft():
 		doc.status = DRAFT
 	if not doc.receipt_photo and not _posts_at_once(doc):
@@ -293,12 +330,13 @@ def _company() -> str | None:
 
 
 @frappe.whitelist()
-def transfer_options() -> dict:
-	"""What the Transfer dialog offers this user: the sources (with balances) and destinations."""
-	from erpnext.accounts.utils import get_balance_on
-
-	company = _company()
+def transfer_options(company: str | None = None) -> dict:
+	"""What the Transfer dialog offers this user: the sources (with the cash in hand, less the
+	deposits waiting for the admin) and the destinations. The cashier deposits the showroom box
+	into an official account only."""
+	company = company or _company()
 	names = sources(company)
+	box = None if is_admin() else showroom_box(company)
 	rows = frappe.get_all(
 		"Account",
 		filters={"name": ("in", sorted(set(names) | set(destinations(company))) or [""])},
@@ -313,11 +351,12 @@ def transfer_options() -> dict:
 			{
 				"value": n,
 				"label": label.get(n, n),
-				"balance": flt(get_balance_on(n, company=company, ignore_account_permission=True)),
+				"balance": in_hand(n),
+				"official_only": n == box,
 			}
 			for n in names
 		],
-		"destinations": [{"value": r.name, "label": r.account_name} for r in rows],
+		"destinations": [{"value": r.name, "label": r.account_name, "kind": r.sp_account_kind} for r in rows],
 	}
 
 
