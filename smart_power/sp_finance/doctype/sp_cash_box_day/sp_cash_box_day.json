@@ -1,0 +1,239 @@
+{
+ "actions": [],
+ "autoname": "CBD-.YYYY.-.#####",
+ "creation": "2026-11-22 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "track_changes": 1,
+ "links": [],
+ "modified": "2026-11-22 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Cash Box Day",
+ "owner": "Administrator",
+ "sort_field": "day",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "day",
+ "field_order": [
+  "day",
+  "cash_account",
+  "company",
+  "column_break_head",
+  "status",
+  "days_held",
+  "flow_section",
+  "opening",
+  "sales_in",
+  "station_payments_in",
+  "column_break_flow",
+  "expenses_out",
+  "deposits_out",
+  "expected_closing",
+  "lines_section",
+  "lines_html",
+  "close_section",
+  "counted",
+  "difference",
+  "column_break_close",
+  "reason",
+  "closed_by",
+  "confirmed_by",
+  "reject_reason",
+  "journal_entry"
+ ],
+ "fields": [
+  {
+   "fieldname": "day",
+   "fieldtype": "Date",
+   "label": "Day",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cash_account",
+   "fieldtype": "Link",
+   "label": "Cash Box",
+   "options": "Account",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "The showroom box (خزنة المعرض)."
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nClosed-pending\nConfirmed",
+   "default": "Open",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "days_held",
+   "fieldtype": "Int",
+   "label": "Days Held",
+   "read_only": 1,
+   "description": "Days the oldest cash in the box has waited for a deposit."
+  },
+  {
+   "fieldname": "flow_section",
+   "fieldtype": "Section Break",
+   "label": "The Day"
+  },
+  {
+   "fieldname": "opening",
+   "fieldtype": "Currency",
+   "label": "Opening",
+   "read_only": 1,
+   "description": "The last closing counted (confirmed or waiting)."
+  },
+  {
+   "fieldname": "sales_in",
+   "fieldtype": "Currency",
+   "label": "Sales In",
+   "read_only": 1
+  },
+  {
+   "fieldname": "station_payments_in",
+   "fieldtype": "Currency",
+   "label": "Station Payments In",
+   "read_only": 1,
+   "description": "Pending and confirmed."
+  },
+  {
+   "fieldname": "column_break_flow",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "expenses_out",
+   "fieldtype": "Currency",
+   "label": "Expenses Out",
+   "read_only": 1
+  },
+  {
+   "fieldname": "deposits_out",
+   "fieldtype": "Currency",
+   "label": "Deposits Out",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expected_closing",
+   "fieldtype": "Currency",
+   "label": "Expected Closing",
+   "read_only": 1,
+   "bold": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "lines_section",
+   "fieldtype": "Section Break",
+   "label": "Movements"
+  },
+  {
+   "fieldname": "lines_html",
+   "fieldtype": "HTML",
+   "label": "Movements"
+  },
+  {
+   "fieldname": "close_section",
+   "fieldtype": "Section Break",
+   "label": "Day Close"
+  },
+  {
+   "fieldname": "counted",
+   "fieldtype": "Currency",
+   "label": "Counted",
+   "read_only": 1
+  },
+  {
+   "fieldname": "difference",
+   "fieldtype": "Currency",
+   "label": "Difference",
+   "read_only": 1,
+   "description": "Counted − expected."
+  },
+  {
+   "fieldname": "column_break_close",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason",
+   "read_only": 1
+  },
+  {
+   "fieldname": "closed_by",
+   "fieldtype": "Link",
+   "label": "Closed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "confirmed_by",
+   "fieldtype": "Link",
+   "label": "Confirmed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reject_reason",
+   "fieldtype": "Small Text",
+   "label": "Reject Reason",
+   "read_only": 1
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Over / Short Entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "SP Showroom Cashier",
+   "read": 1,
+   "report": 1,
+   "print": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "print": 1
+  }
+ ]
+}

@@ -74,3 +74,40 @@ def transfer_over_balance(doc, ctx: RuleContext):
 		suggestion=_("Check the amount, or record the missing receipts first."),
 		amount=flt(doc.amount) - balance,
 	)
+
+
+@rule(
+	"showroom_cash_over_limit",
+	doctypes=("SP Cash Box Day",),
+	events=("close",),
+	category="Commercial",
+	default_level=WARN,
+	title="Showroom box over its limit",
+	description="The showroom box holds more than Showroom Box Cash Limit, or its oldest cash has "
+	"waited longer than its days limit (decision 63). A warning by default (SP-104); at Block the "
+	"day cannot be closed until a deposit is recorded.",
+	review_category="Rule Warning",
+)
+def showroom_cash_over_limit(doc, ctx: RuleContext):
+	import frappe
+
+	from smart_power.sp_finance.cash_box import held
+
+	state = held(doc)
+	if not (state["over_cash"] or state["over_days"]):
+		return None
+	parts = []
+	if state["over_cash"]:
+		parts.append(
+			_("{0} in the box (limit {1})").format(
+				frappe.format(state["balance"], "Currency"), frappe.format(state["cash_limit"], "Currency")
+			)
+		)
+	if state["over_days"]:
+		parts.append(_("cash held {0} days (limit {1})").format(state["days"], state["day_limit"]))
+	return Finding(
+		message=_("The showroom box is over its limit: {0}.").format("، ".join(parts)),
+		suggestion=_("Deposit the cash at the Post or the bank."),
+		amount=state["balance"],
+		highlight=True,
+	)
