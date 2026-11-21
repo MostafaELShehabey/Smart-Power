@@ -3170,3 +3170,36 @@ Work on Site,العمل في الموقع
 incl. indirect {0},منها غير مباشر {0}
 {0} for station {1}?,{0} للمحطة {1}؟
 Partly paid,مدفوع جزئيًا
+A negative quantity returns it from the contract.,الكمية السالبة ترتجعه من العقد.
+"A new installment is for an addition: spread a reduction, or take it from the last.",القسط الجديد للإضافة فقط: وزّع التخفيض أو اخصمه من آخر الأقساط.
+A submitted change order is not cancelled: record another change order that reverses it.,أمر التغيير المعتمد لا يُلغى: سجّل أمر تغيير آخر يعكسه.
+Agreed After,المتفق عليه بعد التغيير
+Agreed Amount and Schedule,المبلغ المتفق عليه والجدول
+Agreed Before,المتفق عليه قبل التغيير
+An added item takes its price for the customer when empty; a returned one always takes the contract's price.,الصنف المضاف يأخذ سعر العميل إذا تُرك فارغًا، والمرتجع يأخذ دائمًا سعر العقد.
+Change in Agreed Amount,التغيير في المبلغ المتفق عليه
+Change in Estimated Cost,التغيير في التكلفة التقديرية
+Change order {0},أمر تغيير {0}
+Change order {0} on station {1}: {2} ({3}),أمر تغيير {0} على المحطة {1}: {2} ({3})
+Choose the date of the new installment.,اختر تاريخ القسط الجديد.
+Contract Line,بند العقد
+Customer Approval,موافقة العميل
+Estimated Cost,التكلفة التقديرية
+Estimated cost of the line (the item's cost when empty).,التكلفة التقديرية للبند (تكلفة الصنف إذا تُرك فارغًا).
+Every installment is paid: add the change as a new installment.,كل الأقساط مدفوعة: أضف التغيير كقسط جديد.
+New Installment Date,تاريخ القسط الجديد
+New installment,قسط جديد
+"Reduce Last is for a reduction: spread an addition, or add it as a new installment.",الخصم من الأخير للتخفيض فقط: وزّع الإضافة أو أضفها كقسط جديد.
+Reduce last,الخصم من آخر الأقساط
+Row {0}: type a quantity (negative to return it).,الصف {0}: اكتب الكمية (سالبة للارتجاع).
+Row {0}: {1} has no price: type its rate.,الصف {0}: {1} بدون سعر: اكتب سعره.
+"Row {0}: {1} is not on the contract, or fewer than {2} are left on it.",الصف {0}: {1} غير موجود في العقد، أو المتبقي منه أقل من {2}.
+SP Change Order,أمر تغيير
+SP Change Order Item,بند أمر التغيير
+Spread over remaining,توزيع على الأقساط المتبقية
+"Spread the change over the unpaid instalments, add it as a new instalment (an addition), or take it from the last instalments (a reduction).",وزّع التغيير على الأقساط غير المدفوعة، أو أضفه كقسط جديد (للإضافة)، أو اخصمه من آخر الأقساط (للتخفيض).
+Station {0} is {1}: its contract no longer changes.,المحطة {0} {1}: عقدها لم يعد يتغير.
+The contract of station {0} is not signed yet: change the draft contract instead.,عقد المحطة {0} لم يُوقّع بعد: عدّل مسودة العقد مباشرة.
+The customer would be over-paid,سيصبح العميل دافعًا أكثر من المستحق
+The customer's signed approval of the change.,موافقة العميل الموقعة على التغيير.
+"This change lowers the agreed amount by {0}, but only {1} is still unpaid. Refund the customer first, then record the change.",هذا التغيير يخفض المبلغ المتفق عليه بمقدار {0}، والمتبقي غير المدفوع {1} فقط. رُدّ المبلغ للعميل أولًا ثم سجّل التغيير.

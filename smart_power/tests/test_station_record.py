@@ -37,6 +37,7 @@ MONEY_KEYS = {
 	"agreed",
 	"estimated",
 	"actual",
+	"delta_amount",
 }
 
 
