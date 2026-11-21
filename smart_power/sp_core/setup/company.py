@@ -71,6 +71,9 @@ def complete_setup() -> str:
 	from smart_power.sp_winch.crew_pay import seed_account_map as seed_crew_pay
 
 	seed_crew_pay(company)  # SP-181
+	from smart_power.sp_stations.commission import seed_account_map as seed_commission
+
+	seed_commission(company)  # SP-177
 	return company
 
 

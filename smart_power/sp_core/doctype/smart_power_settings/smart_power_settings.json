@@ -38,6 +38,7 @@
   "cheque_due_lead_days",
   "cheque_auto_confirm",
   "installment_due_lead_days",
+  "referrer_commission_event",
   "consignment_low_balance",
   "large_payment_threshold",
   "column_break_cash",
@@ -329,6 +330,14 @@
    "description": "The collection owner is told this many days before a contract instalment falls due (SP-81)."
   },
   {
+   "fieldname": "referrer_commission_event",
+   "fieldtype": "Select",
+   "label": "Post Referrer Commission At",
+   "options": "Deposit\nTechnical close\nManual",
+   "default": "Deposit",
+   "description": "When a station's referrer commission posts as a payable to the referrer: at the deposit, at the technical close, or when the admin presses Post Commission (SP-177)."
+  },
+  {
    "fieldname": "centers_section",
    "fieldtype": "Section Break",
    "label": "Financial Centers",
@@ -408,7 +417,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-20 18:00:00.000000",
+ "modified": "2026-11-21 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

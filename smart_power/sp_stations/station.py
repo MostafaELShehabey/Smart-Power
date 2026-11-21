@@ -127,6 +127,9 @@ def validate(doc) -> None:
 	):
 		frappe.throw(_("The sales owner is fixed once the contract exists."))
 	_record_owner_changes(doc, before)
+	from smart_power.sp_stations.commission import sync_referrer
+
+	sync_referrer(doc)  # the contract names the referrer (SP-177)
 	if before and before.status != doc.status:
 		if doc.status == TECH_CLOSED and not doc.tech_closed_on:
 			doc.tech_closed_on = today()

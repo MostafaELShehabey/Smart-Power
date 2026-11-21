@@ -112,9 +112,11 @@ def run_deposit(payment_entry: str) -> dict:
 	if first_time:
 		frappe.db.set_value(SO, so.name, "sp_deposit_payment", pe.name, update_modified=False)
 		_notify(station, so, pe)
+	from smart_power.sp_stations.commission import DEPOSIT, at
 	from smart_power.sp_stations.money import refresh
 
 	refresh(station.name)
+	result["referrer_commission"] = at(DEPOSIT, station.name)  # SP-177, when set to post here
 	return result
 
 

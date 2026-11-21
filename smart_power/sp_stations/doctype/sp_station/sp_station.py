@@ -30,3 +30,8 @@ class SPStation(Document):
 
 	def validate(self):
 		station.validate(self)
+
+	def on_update(self):
+		from smart_power.sp_stations.commission import on_station_update
+
+		on_station_update(self)  # the technical close may post the referrer commission (SP-177)
