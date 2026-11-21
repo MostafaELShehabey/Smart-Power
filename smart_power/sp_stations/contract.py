@@ -21,7 +21,7 @@ import json
 import frappe
 from frappe import _
 from frappe.model.docstatus import DocStatus
-from frappe.utils import flt, getdate, now_datetime, today
+from frappe.utils import comma_and, flt, getdate, now_datetime, today
 
 from smart_power.sp_quotes.special_lines import COMMISSION, WINCH, kind_total
 
@@ -294,6 +294,43 @@ def validate_order(doc, method=None) -> None:
 			},
 			update_modified=False,
 		)
+
+
+PERIODS = (("sp_supply_days", "Supply Period (days)"), ("sp_install_days", "Installation Period (days)"))
+
+
+def before_submit_order(doc, method=None) -> None:
+	"""Sales Order before_submit, i.e. the contract is signed (SP-75): its supply and installation
+	days are set (owner, 2026-11-21), and it keeps the contract template published now, so a
+	reprint never changes. A deposit confirmed before the signing does not wait for the days."""
+	if not doc.get("sp_case"):
+		return
+	missing = [_(label) for fieldname, label in PERIODS if not doc.get(fieldname)]
+	if missing and not doc.flags.sp_from_deposit:
+		frappe.throw(
+			_("Fill in {0} before the contract is signed: the contract prints them.").format(
+				comma_and(missing, add_quotes=False)
+			),
+			title=_("Contract periods"),
+		)
+	from smart_power.sp_core.documents import published
+
+	doc.sp_contract_template = doc.get("sp_contract_template") or published("Contract")
+
+
+def before_update_after_submit_order(doc, method=None) -> None:
+	"""A signed contract's days can be filled in once (a deposit signed it without them), never
+	changed: the paper the customer signed says them."""
+	if not doc.get("sp_case"):
+		return
+	before = doc.get_doc_before_save()
+	for fieldname, label in PERIODS:
+		old = before.get(fieldname) if before else None
+		if old and doc.get(fieldname) != old:
+			frappe.throw(
+				_("{0} is on the signed contract and cannot change.").format(frappe.bold(_(label))),
+				title=_("Contract periods"),
+			)
 
 
 @frappe.whitelist()

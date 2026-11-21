@@ -317,6 +317,9 @@ doc_events = {
 	"Sales Order": {
 		"validate": "smart_power.sp_stations.contract.validate_order",
 		"on_update": "smart_power.sp_stations.contract.on_order_change",
+		# signing needs the contract's periods and keeps its template version (SP-75)
+		"before_submit": "smart_power.sp_stations.contract.before_submit_order",
+		"before_update_after_submit": "smart_power.sp_stations.contract.before_update_after_submit_order",
 		"on_submit": [
 			"smart_power.sp_stations.contract.on_order_change",
 			# the contract's postal cheques join the register (SP-118)

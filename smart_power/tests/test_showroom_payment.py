@@ -13,7 +13,13 @@ from smart_power.sp_stations.contract import ensure_contract
 from smart_power.sp_stock import warehouses as wh
 from smart_power.tests.test_customer_payment import account
 from smart_power.tests.test_field_entry import balance, list_value
-from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, set_setting
+from smart_power.tests.utils import (
+	load_erpnext_test_data,
+	make_quotation,
+	make_user,
+	set_setting,
+	sign_contract,
+)
 
 load_erpnext_test_data()
 
@@ -51,7 +57,7 @@ class TestShowroomPayment(IntegrationTestCase):
 		q.submit()
 		approve_version(q.name)
 		result = ensure_contract(q.sp_case)
-		frappe.get_doc("Sales Order", result["sales_order"]).submit()
+		sign_contract(result["sales_order"])
 		self.station = result["station"]
 		frappe.db.set_value("SP Station", self.station, "collection_owner", self.amira)
 		self.customer = frappe.db.get_value("SP Station", self.station, "customer")

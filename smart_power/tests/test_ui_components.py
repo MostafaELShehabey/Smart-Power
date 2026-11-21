@@ -9,7 +9,13 @@ from frappe.utils import flt
 from smart_power import audit
 from smart_power.sp_finance.customer_payment import confirm
 from smart_power.tests.test_customer_payment import PHOTO, account
-from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, set_setting
+from smart_power.tests.utils import (
+	load_erpnext_test_data,
+	make_quotation,
+	make_user,
+	set_setting,
+	sign_contract,
+)
 
 load_erpnext_test_data()
 
@@ -36,7 +42,7 @@ class TestEditWithReason(IntegrationTestCase):
 		q.submit()
 		approve_version(q.name)
 		result = ensure_contract(q.sp_case)
-		frappe.get_doc("Sales Order", result["sales_order"]).submit()
+		sign_contract(result["sales_order"])
 		self.station = result["station"]
 
 	def tearDown(self):

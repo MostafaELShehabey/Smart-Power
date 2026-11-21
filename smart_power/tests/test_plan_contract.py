@@ -10,7 +10,13 @@ from smart_power.sp_quotes import payment_plans as pp
 from smart_power.sp_sales.quotation import approve_version
 from smart_power.sp_stations.contract import make_contract
 from smart_power.sp_stock import warehouses as wh
-from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_user, set_setting
+from smart_power.tests.utils import (
+	load_erpnext_test_data,
+	make_quotation,
+	make_user,
+	set_setting,
+	sign_contract,
+)
 
 load_erpnext_test_data()
 
@@ -79,7 +85,7 @@ class TestPlanContract(IntegrationTestCase):
 
 	def test_a_cheque_joins_the_register_when_its_number_comes(self):
 		so = self.contract(self.quote())
-		so.submit()
+		sign_contract(so)
 		self.assertFalse(frappe.db.exists("SP Cheque", {"sales_order": so.name}))
 		so.reload()
 		so.sp_cheques[0].cheque_no = "PC-0001"

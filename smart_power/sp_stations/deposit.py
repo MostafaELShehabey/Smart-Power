@@ -58,6 +58,7 @@ def before_submit(pe, method=None) -> None:
 	so = frappe.get_doc(SO, result["sales_order"])
 	if so.docstatus.is_draft():
 		so.flags.ignore_permissions = True
+		so.flags.sp_from_deposit = True  # signed by the deposit; the days can follow (SP-75)
 		so.submit()
 	pe.project = pe.project or frappe.db.get_value(STATION, result["station"], "project")
 	if not any(r.reference_doctype == SO and r.reference_name == so.name for r in pe.references):

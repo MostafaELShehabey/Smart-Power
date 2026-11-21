@@ -124,3 +124,16 @@ def make_customer(mobile: str, name: str = "عميل تجربة", **kw) -> str:
 		.insert()
 		.name
 	)
+
+
+SUPPLY_DAYS, INSTALL_DAYS = 30, 15  # sp-allow-number: test contract periods
+
+
+def sign_contract(so):
+	"""Sign (submit) a contract Sales Order with the periods it prints (SP-75)."""
+	if isinstance(so, str):
+		so = frappe.get_doc("Sales Order", so)
+	so.sp_supply_days = so.get("sp_supply_days") or SUPPLY_DAYS
+	so.sp_install_days = so.get("sp_install_days") or INSTALL_DAYS
+	so.submit()
+	return so
