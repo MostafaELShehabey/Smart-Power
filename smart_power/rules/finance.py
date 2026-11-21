@@ -59,12 +59,13 @@ def cash_held_too_long(doc, ctx: RuleContext):
 )
 def transfer_over_balance(doc, ctx: RuleContext):
 	import frappe
-	from erpnext.accounts.utils import get_balance_on
 	from frappe.utils import flt
+
+	from smart_power.sp_finance.transfer import in_hand
 
 	if frappe.db.get_value("Account", doc.from_account, "sp_account_kind") != "Transit":
 		return None
-	balance = flt(get_balance_on(doc.from_account, ignore_account_permission=True))
+	balance = in_hand(doc.from_account, exclude=doc.name)  # less the deposits already pending (SP-105)
 	if flt(doc.amount) <= balance:
 		return None
 	return Finding(
