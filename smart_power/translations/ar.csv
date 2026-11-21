@@ -3351,3 +3351,25 @@ Owner Current Account,جاري صاحب الشركة
 Expenses by Center and Type,المصروفات حسب المركز والنوع
 SP Expenses by Center and Type,المصروفات حسب المركز والنوع
 Expense Type Name,اسم نوع المصروف
+%,%
+Any day of the month; the split covers the whole month.,أي يوم في الشهر؛ التوزيع يشمل الشهر كله.
+Closed Stations of the Month,محطات الشهر المغلقة
+"Everything posted on the Indirect Pool center in the month: salaries, wages, rent, general costs.","كل ما رُحِّل على مركز التكاليف غير المباشرة في الشهر: رواتب وأجور وإيجار ومصروفات عامة."
+Indirect split,التوزيع غير المباشر
+Indirect split of {0},التوزيع غير المباشر لشهر {0}
+Leave the amount empty and the share is this % of the pool.,اترك المبلغ فارغاً ليكون النصيب هذه النسبة من المجمع.
+Left to Share,المتبقي للتوزيع
+Map the Indirect Split event in Smart Power Settings > Account Map.,اربط حدث التوزيع غير المباشر في إعدادات سمارت باور > خريطة الحسابات.
+Only the admin splits the indirect costs.,الأدمن فقط يوزع التكاليف غير المباشرة.
+Pool,المجمع
+Row {0}: a share cannot be negative.,الصف {0}: لا يكون النصيب سالباً.
+Row {0}: choose the station.,الصف {0}: اختر المحطة.
+SP Indirect Split,توزيع التكاليف غير المباشرة
+SP Indirect Split Line,بند توزيع التكاليف غير المباشرة
+Shared,الموزَّع
+Shares,الأنصبة
+Target,الجهة
+The Indirect Pool has nothing to split this month.,مجمع التكاليف غير المباشرة ليس فيه ما يُوزَّع هذا الشهر.
+"The shares add up to {0}, not the pool's {1}.","مجموع الأنصبة {0}، وليس مبلغ المجمع {1}."
+{0} already splits this month.,{0} يوزع هذا الشهر بالفعل.
+Indirect Cost Allocated,التكاليف غير المباشرة الموزعة

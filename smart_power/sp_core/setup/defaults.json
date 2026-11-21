@@ -550,6 +550,7 @@
 			{"account_name": "Worker Advances", "parent": "Loans and Advances (Assets)", "kind": "Other", "_source": "SP-181: advances to the winch and Jumbo crew, per employee"},
 			{"account_name": "Consignment Memo", "parent": "Temporary Accounts", "account_type": "Temporary", "kind": "Other"},
 			{"account_name": "Indirect Cost Pool", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other"},
+			{"account_name": "Indirect Cost Allocated", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-124: the indirect pool's share charged to each station and center"},
 			{"account_name": "Petty Cash Expenses", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-122: petty cash spent from a custody, on a center"},
 			{"account_name": "Commission Payable", "parent": "Current Liabilities", "kind": "Other"},
 			{"account_name": "Owner Current Account", "parent": "Current Liabilities", "kind": "Other", "_source": "SP-123: expenses the owner paid personally, owed to him (owner 2026-11-21: a liability)"},

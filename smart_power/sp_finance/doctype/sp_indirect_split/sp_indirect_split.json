@@ -1,0 +1,140 @@
+{
+ "actions": [],
+ "autoname": "ISP-.YYYY.-.#####",
+ "creation": "2026-11-21 23:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "track_changes": 1,
+ "links": [],
+ "modified": "2026-11-21 23:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Indirect Split",
+ "owner": "Administrator",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "month",
+  "company",
+  "column_break_head",
+  "pool_amount",
+  "total_amount",
+  "difference",
+  "lines_section",
+  "lines",
+  "details_section",
+  "journal_entry",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "month",
+   "fieldtype": "Date",
+   "label": "Month",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "Any day of the month; the split covers the whole month."
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pool_amount",
+   "fieldtype": "Currency",
+   "label": "Pool",
+   "read_only": 1,
+   "in_list_view": 1,
+   "description": "Everything posted on the Indirect Pool center in the month: salaries, wages, rent, general costs."
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Shared",
+   "read_only": 1
+  },
+  {
+   "fieldname": "difference",
+   "fieldtype": "Currency",
+   "label": "Left to Share",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lines_section",
+   "fieldtype": "Section Break",
+   "label": "Shares"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "label": "Shares",
+   "options": "SP Indirect Split Line"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "collapsible": 1,
+   "label": "Details"
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Journal Entry",
+   "options": "Journal Entry",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "SP Indirect Split",
+   "read_only": 1,
+   "no_copy": 1,
+   "print_hide": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "report": 1,
+   "print": 1
+  }
+ ]
+}
