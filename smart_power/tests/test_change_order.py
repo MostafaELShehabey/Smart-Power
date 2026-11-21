@@ -185,3 +185,21 @@ class TestChangeOrder(IntegrationTestCase):
 		self.assertTrue(frappe.has_permission(co.CHANGE_ORDER, "create", user=self.amira))
 		self.assertFalse(frappe.has_permission(co.CHANGE_ORDER, "create", user=manager))
 		self.assertTrue(frappe.has_permission(co.CHANGE_ORDER, "read", user=manager))
+
+	def test_the_form_offers_the_contract_lines_to_return_at_their_price(self):
+		station = self.station()
+		frappe.set_user(self.amira)
+		lines = co.contract_lines(station.name)
+		price = co.line_price(station.name, OTHER)
+		frappe.set_user("Administrator")
+		self.assertEqual(
+			[(line["item_code"], line["left"], line["rate"], line["cost"]) for line in lines],
+			[(PANEL, 40, 5000, 4000)],
+		)
+		self.assertEqual(set(price), {"rate", "cost"})
+		frappe.set_user(self.mostafa)
+		try:
+			with self.assertRaises(frappe.PermissionError):
+				co.contract_lines(station.name)  # the site does not change the contract
+		finally:
+			frappe.set_user("Administrator")

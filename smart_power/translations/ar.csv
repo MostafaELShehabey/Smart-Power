@@ -3203,3 +3203,14 @@ The contract of station {0} is not signed yet: change the draft contract instead
 The customer would be over-paid,سيصبح العميل دافعًا أكثر من المستحق
 The customer's signed approval of the change.,موافقة العميل الموقعة على التغيير.
 "This change lowers the agreed amount by {0}, but only {1} is still unpaid. Refund the customer first, then record the change.",هذا التغيير يخفض المبلغ المتفق عليه بمقدار {0}، والمتبقي غير المدفوع {1} فقط. رُدّ المبلغ للعميل أولًا ثم سجّل التغيير.
+Add Returns,إضافة المرتجعات
+Agreed: {0} → {1},المتفق عليه: {0} ← {1}
+Change Orders,أوامر التغيير
+Contract Lines,بنود العقد
+Contract Price,سعر العقد
+No change orders.,لا توجد أوامر تغيير.
+Not Delivered,لم يُسلّم
+Nothing on the contract can be returned: everything is delivered.,لا يوجد في العقد ما يمكن ارتجاعه: كل شيء تم تسليمه.
+Only {0} of {1} can be returned.,يمكن ارتجاع {0} فقط من {1}.
+Return Qty,كمية الارتجاع
+Return from Contract,ارتجاع من العقد

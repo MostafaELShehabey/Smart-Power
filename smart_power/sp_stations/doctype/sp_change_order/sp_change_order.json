@@ -270,7 +270,9 @@
    "fieldtype": "Currency",
    "label": "Agreed Before",
    "read_only": 1,
-   "no_copy": 1
+   "no_copy": 1,
+   "fetch_from": "station.agreed_amount",
+   "fetch_if_empty": 1
   },
   {
    "fieldname": "agreed_after",

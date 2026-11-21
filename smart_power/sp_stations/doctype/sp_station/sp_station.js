@@ -67,6 +67,18 @@ frappe.ui.form.on("SP Station", {
 		if (frm.doc.project) {
 			frm.add_custom_button(__("Project"), () => frappe.set_route("Form", "Project", frm.doc.project), __("View"));
 		}
+		// S3 a change to the signed contract (SP-78)
+		if (
+			frm.doc.sales_order &&
+			["Open", "Purchasing", "Installing"].includes(frm.doc.status) &&
+			frappe.model.can_create("SP Change Order")
+		) {
+			frm.add_custom_button(
+				__("Change Order"),
+				() => frappe.new_doc("SP Change Order", { station: frm.doc.name }),
+				__("Create")
+			);
+		}
 		// PR1 programming and the operation date, one per system (SP-97)
 		if (frm.doc.status !== "Cancelled" && frappe.model.can_create("SP Commissioning")) {
 			frm.add_custom_button(
@@ -325,7 +337,23 @@ const SP_ST_RENDER = {
 				amounts,
 				__("No returns.")
 			) +
-			`<p class="text-muted small">${__("Change orders are added here when they are recorded.")}</p>`
+			sp_st_h(__("Change Orders")) +
+			sp_st_table(
+				[
+					{ label: __("Change Order"), key: "name", type: "link", doctype: "SP Change Order" },
+					{ label: __("Date"), key: "posting_date", type: "date" },
+					{
+						label: __("Lines"),
+						value: (r) => r.lines.map((l) => `${l.item_name || l.item_code} ${l.qty > 0 ? "+" : ""}${l.qty}`).join("، "),
+					},
+					{ label: __("Change"), key: "delta_amount", type: "money" },
+					{ label: __("Reason"), key: "reason" },
+					{ label: __("Status"), value: (r) => (r.docstatus ? "Submitted" : "Draft"), type: "status" },
+				],
+				d.change_orders,
+				amounts,
+				__("No change orders.")
+			)
 		);
 	},
 
