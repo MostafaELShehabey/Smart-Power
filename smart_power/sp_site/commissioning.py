@@ -6,8 +6,10 @@
   "commissioning", or the "*" template), editable on the record; every checklist item must be
   done before submitting, and the refusal names the ones that are not.
 - Component serials with their warranty: months from the item (warranty years x 12, else
-  ERPNext's warranty days) when not typed; the warranty ends the day before the same date
-  that many months after the operation date.
+  ERPNext's warranty days) when not typed; the warranty ends on the same date that many months
+  after the operation date (owner, 2026-11-22, SP-179).
+- A serial-tracked component (motors and pumps, SP-179) needs its serial and nameplate photo to
+  submit; each component with a serial joins the warranty register (SP Warranty).
 - On submit the station's operation date is the latest of its systems'; once every system of the
   station is commissioned, the project managers (أميرة) get a "Technical Close" task.
 - Cancelling (not once the station is technically closed, except by the admin) puts the
@@ -18,7 +20,7 @@ import json
 
 import frappe
 from frappe import _
-from frappe.utils import add_days, add_months, cint, flt, getdate
+from frappe.utils import cint, flt
 
 from smart_power.sp_core.inbox import close_tasks, create_task
 from smart_power.sp_core.setup.seed import defaults
@@ -201,19 +203,39 @@ def before_submit(doc) -> None:
 			_("Not done yet: {0}").format(", ".join(frappe.bold(m) for m in missing)),
 			title=_("Checklist"),
 		)
+	_check_serials(doc)
 	for row in doc.components:
 		row.warranty_end = warranty_end(doc.operation_date, row.warranty_months)
 
 
+def _check_serials(doc) -> None:
+	"""A serial-tracked component needs its serial and its nameplate photo (SP-179)."""
+	from smart_power.sp_stock.serials import is_serial
+
+	for row in doc.components:
+		if not is_serial(row.item):
+			continue
+		if not (row.serial or "").strip():
+			frappe.throw(_("Row {0}: enter the serial number of {1}.").format(row.idx, row.item))
+		if not row.nameplate_photo:
+			frappe.throw(
+				_("Row {0}: attach the nameplate photo of {1}.").format(row.idx, row.item),
+				frappe.MandatoryError,
+			)
+
+
 def warranty_end(operation_date, months) -> str | None:
-	"""15-04-2027 + 24 months -> 14-04-2029."""
-	if not operation_date or not cint(months):
-		return None
-	return str(add_days(add_months(getdate(operation_date), cint(months)), -1))
+	"""15-04-2027 + 24 months -> 15-04-2029 (owner, 2026-11-22)."""
+	from smart_power.sp_stock.warranty import end_date
+
+	return end_date(operation_date, months)
 
 
 def on_submit(doc) -> None:
+	from smart_power.sp_stock.warranty import register_commissioning
+
 	_set_operation_date(doc.station)
+	register_commissioning(doc)
 	if _all_commissioned(doc.station):
 		create_task(
 			TECH_CLOSE_TASK,
@@ -235,7 +257,10 @@ def before_cancel(doc) -> None:
 
 
 def on_cancel(doc) -> None:
+	from smart_power.sp_stock.warranty import on_commissioning_cancel
+
 	_set_operation_date(doc.station)
+	on_commissioning_cancel(doc)
 	close_tasks(STATION, doc.station, TECH_CLOSE_TASK, status="Cancelled")
 
 

@@ -235,6 +235,8 @@ doc_events = {
 			"smart_power.sp_core.search_key.set_customer_key",
 		]
 	},
+	# SP-179: turning on an item group's Serial Numbers flag switches its items
+	"Item Group": {"on_update": "smart_power.sp_stock.serials.item_group_on_update"},
 	# Item catalogue (SP-29): specs that cannot be true are refused.
 	"Item": {
 		"validate": [

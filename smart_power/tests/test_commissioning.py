@@ -75,7 +75,7 @@ class TestCommissioning(IntegrationTestCase):
 		doc = self.commissioning(st)
 		doc.submit()
 		self.assertEqual(str(frappe.db.get_value("SP Station", st.name, "operation_date")), "2027-04-15")
-		self.assertEqual(str(doc.components[0].warranty_end), "2029-04-14")
+		self.assertEqual(str(doc.components[0].warranty_end), "2029-04-15")
 		self.assertIn(self.amira, self.close_tasks(st))
 
 	def test_an_unchecked_item_is_refused_by_name(self):

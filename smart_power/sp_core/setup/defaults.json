@@ -87,6 +87,8 @@
 			"إنفرترات ودرايفات": ["لوحات تجميع"],
 			"مواسير": ["مشتملات البئر"]
 		},
+		"_serials_source": "SP-179 (decisions 62 and 73): phase 1 tracks motors and pumps by serial; the admin turns the Serial Numbers flag on for inverters and batteries later, one group at a time.",
+		"serials": ["مواتير غاطس", "طلمبات غاطس"],
 		"_codes_source": "SP-165: the code prefix (GROUP-BRAND-MODEL) and the specs every item of the group must have; the admin edits them on the Item Group",
 		"codes": {
 			"ألواح شمسية": {"prefix": "PNL", "specs": ["sp_watt", "sp_vmp", "sp_voc", "sp_imp", "sp_isc"]},
