@@ -146,8 +146,20 @@ class TestStation(IntegrationTestCase):
 		st = apply_workflow(frappe.get_doc("SP Station", st.name), "Close Financially")
 		self.assertEqual(st.status, "Financially closed")
 
-	def test_cancel_only_before_the_close(self):
+	def test_cancel_only_by_the_admin_before_the_close(self):
+		"""Cancel Station left the workflow for the admin's cancel, with its refunds (SP-176)."""
+		from frappe.model.workflow import WorkflowTransitionError
+
+		from smart_power.sp_stations.cancel import cancel_station
+
 		st = self.station()
 		frappe.set_user(self.amira)
-		st = apply_workflow(frappe.get_doc("SP Station", st.name), "Cancel Station")
-		self.assertEqual(st.status, "Cancelled")
+		with self.assertRaises(WorkflowTransitionError):
+			apply_workflow(frappe.get_doc("SP Station", st.name), "Cancel Station")
+		frappe.set_user("Administrator")
+		cancel_station(st.name, "العميل ألغى")
+		self.assertEqual(frappe.db.get_value("SP Station", st.name, "status"), "Cancelled")
+		closed = self.station()
+		frappe.db.set_value("SP Station", closed.name, "status", "Technically closed")
+		with self.assertRaises(frappe.ValidationError):
+			cancel_station(closed.name, "متأخر")

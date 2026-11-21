@@ -24,7 +24,7 @@ CONFIRM_TASK, REJECT_TASK = "Supplier Payment to Confirm", "Other"
 EVENT_REJECTED, EVENT_LARGE = "supplier_payment_rejected", "large_payment"
 ADMIN_ROLE, ADMIN_ROLES = "SP Admin", ("SP Admin", "System Manager")
 RECORDERS = ("SP Supplier Accounts", *ADMIN_ROLES)
-KIND = "Supplier payment"
+KIND, REFUND_KIND = "Supplier payment", "Customer refund"  # a refund: a cancelled station (SP-176)
 
 
 def is_admin(user: str | None = None) -> bool:
@@ -211,7 +211,8 @@ def _pending(name: str):
 def confirm(name: str) -> str:
 	"""The admin checked the money: it goes out and reduces what the supplier is owed."""
 	entry = _pending(name)
-	_allocate(entry)
+	if entry.party_type == SUPPLIER:
+		_allocate(entry)  # a customer refund (SP-176) is set against nothing
 	entry.sp_payment_status = CONFIRMED
 	entry.flags.sp_confirming = True
 	entry.flags.ignore_permissions = True
@@ -288,6 +289,8 @@ def pending_items(filters: dict) -> list[dict]:
 			"sp_receipt_photo",
 			"party_name",
 			"party",
+			"party_type",
+			"project",
 		],
 		order_by="posting_date asc, creation asc",
 	)
@@ -295,13 +298,13 @@ def pending_items(filters: dict) -> list[dict]:
 		{
 			"doctype": ENTRY,
 			"name": r.name,
-			"kind": _(KIND),
+			"kind": _(KIND) if r.party_type == SUPPLIER else _(REFUND_KIND),
 			"recorder": r.sp_recorded_by,
 			"date": r.posting_date,
 			"account": r.paid_from,
 			"amount": flt(r.paid_amount),
 			"photo": r.sp_receipt_photo,
-			"station": None,
+			"station": frappe.db.get_value("SP Station", {"project": r.project}) if r.project else None,
 			"party": r.party_name or r.party,
 		}
 		for r in rows

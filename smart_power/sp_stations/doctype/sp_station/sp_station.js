@@ -59,6 +59,10 @@ frappe.ui.form.on("SP Station", {
 		if (admin && frm.doc.remaining_amount > 0 && frm.doc.status !== "Cancelled") {
 			frm.add_custom_button(__("Record Write-off"), () => sp_station_write_off(frm));
 		}
+		// cancel after the deposit: refunds, reservations, orders and the site's goods (SP-176)
+		if (admin && ["Open", "Purchasing", "Installing"].includes(frm.doc.status)) {
+			frm.add_custom_button(__("Cancel Station"), () => sp_station_cancel(frm), __("Actions"));
+		}
 		// S4 hand the execution or the collection to someone else from a date (SP-79)
 		if (admin && !["Financially closed", "Cancelled"].includes(frm.doc.status)) {
 			frm.add_custom_button(__("Reassign"), () => sp_station_reassign(frm));
@@ -163,6 +167,81 @@ function sp_station_write_off(frm) {
 			frm.reload_doc();
 		},
 	});
+	dialog.show();
+}
+
+// Cancel the station (SP-176): every confirmed payment is refunded (pending confirmation), the
+// reservations go, draft orders are deleted and submitted ones flagged, the site's goods go back.
+async function sp_station_cancel(frm) {
+	const api = "smart_power.sp_stations.cancel";
+	const p = await frappe.xcall(`${api}.cancel_preview`, { station: frm.doc.name });
+	const esc = frappe.utils.escape_html;
+	const refunds = p.refunds
+		.map((r) => `<li>${esc(frappe.datetime.str_to_user(r.date))} · ${format_currency(r.amount)} · ${esc(r.account)}</li>`)
+		.join("");
+	const total = p.refunds.reduce((sum, r) => sum + flt(r.amount), 0);
+	const orders = [
+		p.draft_orders.length ? __("Draft purchase orders deleted: {0}", [p.draft_orders.join(", ")]) : "",
+		p.submitted_orders.length
+			? __("Submitted purchase orders flagged to the projects manager: {0}", [p.submitted_orders.join(", ")])
+			: "",
+	].filter(Boolean);
+	const fields = [
+		{
+			fieldtype: "HTML",
+			fieldname: "summary",
+			options:
+				`<p>${esc(__("Refund, pending the admin's confirmation: {0}", [format_currency(total)]))}</p>` +
+				(refunds ? `<ul>${refunds}</ul>` : `<p class="text-muted">${esc(__("No confirmed payment to refund."))}</p>`) +
+				orders.map((o) => `<p>${esc(o)}</p>`).join(""),
+		},
+		{ fieldtype: "Small Text", fieldname: "reason", label: __("Reason"), reqd: 1 },
+	];
+	const transit = p.refunds.filter((r) => !r.official);
+	if (transit.length) fields.push({ fieldtype: "Section Break", label: __("Refund From") });
+	transit.forEach((r, i) =>
+		fields.push({
+			fieldtype: "Select",
+			fieldname: `account_${i}`,
+			label: __("{0} received in {1}", [format_currency(r.amount), r.account]),
+			options: ["", ...p.accounts],
+			reqd: 1,
+		})
+	);
+	if (p.lines.length) fields.push({ fieldtype: "Section Break", label: __("At the Site") });
+	p.lines.forEach((l, i) =>
+		fields.push({
+			fieldtype: "Select",
+			fieldname: `fate_${i}`,
+			label: `${l.item_name} · ${l.qty}`,
+			options: [
+				{ value: "To stock", label: __("To stock") },
+				...(l.purchase_receipt ? [{ value: "Return to supplier", label: __("Return to supplier") }] : []),
+			],
+			default: "To stock",
+		})
+	);
+	const dialog = new frappe.ui.Dialog({
+		title: __("Cancel Station {0}", [frm.doc.name]),
+		fields,
+		primary_action_label: __("Cancel Station"),
+		primary_action: async (values) => {
+			const accounts = {};
+			transit.forEach((r, i) => (accounts[r.payment] = values[`account_${i}`]));
+			const fates = {};
+			p.lines.forEach((l, i) => (fates[l.item_code] = values[`fate_${i}`]));
+			await frappe.xcall(`${api}.cancel_station`, {
+				station: frm.doc.name,
+				reason: values.reason,
+				accounts,
+				fates,
+			});
+			dialog.hide();
+			frappe.show_alert({ message: __("Station cancelled."), indicator: "orange" });
+			frm.reload_doc();
+		},
+	});
+	dialog.$wrapper.find(".btn-modal-primary").attr("data-variant", "danger");
 	dialog.show();
 }
 
