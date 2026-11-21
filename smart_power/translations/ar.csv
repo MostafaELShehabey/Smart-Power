@@ -3311,3 +3311,5 @@ SP Referrer Commissions,عمولات الوسطاء
 Referrer Commissions,عمولات الوسطاء
 Referrer Commissions Payable,عمولات الوسطاء المستحقة
 Set Referrer,تحديد الوسيط
+Referrer {0} has no mobile. Add it on the Sales Partner first.,الوسيط {0} بلا رقم موبايل. أضفه في بيانات الوسيط أولاً.
+"A referrer is registered with their full name and mobile, each unique; a station's referrer needs one (SP-177).","يُسجَّل الوسيط باسمه الكامل ورقم موبايله، وكلاهما لا يتكرر؛ ويلزم الموبايل لوسيط المحطة."

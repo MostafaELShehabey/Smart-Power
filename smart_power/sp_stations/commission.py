@@ -86,8 +86,18 @@ def seed_account_map(company: str) -> None:
 
 
 def sync_referrer(doc) -> None:
-	"""SP Station validate: the contract names the station's referrer (Sales Order sales_partner)."""
-	if doc.sales_order and doc.has_value_changed("sales_partner"):
+	"""SP Station validate: a referrer is registered with a mobile, and the contract names the
+	station's referrer (Sales Order sales_partner)."""
+	if not doc.has_value_changed("sales_partner"):
+		return
+	if doc.sales_partner and not frappe.db.get_value(PARTNER, doc.sales_partner, "sp_mobile"):
+		frappe.throw(
+			_("Referrer {0} has no mobile. Add it on the Sales Partner first.").format(
+				frappe.bold(doc.sales_partner)
+			),
+			frappe.MandatoryError,
+		)
+	if doc.sales_order:
 		frappe.db.set_value(
 			"Sales Order", doc.sales_order, "sales_partner", doc.sales_partner, update_modified=False
 		)

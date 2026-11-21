@@ -174,6 +174,20 @@ class TestReferrerCommission(IntegrationTestCase):
 		with self.assertRaises(frappe.ValidationError):
 			cm.post_commission(station.name)  # already posted
 
+	def test_a_referrer_without_a_mobile_is_refused_on_the_station(self):
+		station, _result = self.deposit(self.deal(), set_referrer=False)
+		bare = frappe.get_doc(
+			{
+				"doctype": "Sales Partner",
+				"partner_name": "وسيط بلا موبايل",
+				"commission_rate": 0,
+				"territory": frappe.db.get_value("Territory", {"is_group": 0}) or "All Territories",
+			}
+		).insert()  # ERPNext's own records come without one, so the field is not required
+		station.sales_partner = bare.name
+		with self.assertRaises(frappe.MandatoryError):
+			station.save()
+
 	def test_only_the_admin_posts_and_the_mobile_is_unique(self):
 		station, _result = self.deposit(self.deal(), set_referrer=False)
 		manager = make_user("sp.rc.pm@example.com", ("project_manager",))
