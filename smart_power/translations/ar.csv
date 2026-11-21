@@ -3522,4 +3522,12 @@ no cover set,بلا مدة ضمان محددة
 Serial History,سجل الرقم التسلسلي
 SP Serial History,سجل الرقم التسلسلي
 Warranty Register,سجل الضمان
+Choose a different serial for each unit.,اختر رقمًا تسلسليًا مختلفًا لكل وحدة.
+Enter the serial and nameplate photo of each unit: {0},أدخل الرقم التسلسلي وصورة لوحة البيانات لكل وحدة: {0}
+Returned on {0}.,مرتجع في {0}.
+Serial number {0} is entered twice.,الرقم التسلسلي {0} مُدخل مرتين.
+Serial number {0} of {1} is not in the showroom store.,الرقم التسلسلي {0} للصنف {1} ليس في مخزن المعرض.
+Serials {0}/{1},الأرقام التسلسلية {0}/{1}
+"The brand's warranty, used when an item of the brand has none (showroom sales, SP-179).",ضمان الماركة، يُستخدم عندما لا يكون للصنف ضمان (مبيعات المعرض).
+"{0} was not sold on {1}, or is already returned.",{0} لم يُبع على {1}، أو تم إرجاعه بالفعل.
 "{0}: enter its serial number.",{0}: أدخل رقمه التسلسلي.

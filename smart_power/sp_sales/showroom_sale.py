@@ -16,12 +16,17 @@ is paid at once: cash goes into the showroom box (خزنة المعرض, Showroo
 The owner's decisions (2026-11-21): one walk-in customer «عميل نقدي» at BTC prices for every
 walk-in sale; a sale by mobile links the real customer (a company gets BTB). There is no
 discount limit until the admin sets Showroom Discount Limit; every discount is listed in the
-Review centre meanwhile. Serials and warranty are SP-179's.
+Review centre meanwhile.
+
+Serials (SP-179): a motor or pump is sold one unit at a time, each with a serial in the showroom
+store and a new nameplate photo (owner, 2026-11-22); without them the sale is refused. Each sold
+serial joins the warranty register from the sale date, for the item's warranty years, else its
+brand's. A return names the serials that come back, and their warranty is void.
 """
 
 import frappe
 from frappe import _
-from frappe.utils import flt, nowdate
+from frappe.utils import cstr, flt, nowdate
 
 from smart_power.sp_finance.centers import SHOWROOM as SHOWROOM_CENTER
 from smart_power.sp_finance.centers import center
@@ -45,6 +50,8 @@ TODAY_SHOWN = 50  # sp-allow-number: today's receipts listed, a screen size
 MIN_SEARCH = 2  # sp-allow-number: letters before an item search runs
 QTY_DIGITS = 3  # sp-allow-number: quantity precision of a sale line
 MONEY_DIGITS = 2  # sp-allow-number: piastres
+SERIALS_SHOWN = 100  # sp-allow-number: serials of one item offered at the counter
+MONTHS_PER_YEAR = 12  # sp-allow-number: a calendar fact
 PCT = 100
 
 
@@ -294,7 +301,7 @@ def find_items(q: str, customer: str | None = None) -> list[dict]:
 	items = frappe.get_all(
 		"Item",
 		{"name": ("in", names), "disabled": 0, "is_sales_item": 1, "has_variants": 0},
-		["name", "item_name", "sp_name_ar", "stock_uom"],
+		["name", "item_name", "sp_name_ar", "stock_uom", "has_serial_no"],
 		limit=len(names),
 	)
 	stock = dict(
@@ -313,6 +320,7 @@ def find_items(q: str, customer: str | None = None) -> list[dict]:
 			"uom": i.stock_uom,
 			"in_stock": flt(stock.get(i.name)),
 			"price": sale_price(i.name, key),
+			"serial": bool(i.has_serial_no),
 		}
 		for i in items
 	]
@@ -320,8 +328,46 @@ def find_items(q: str, customer: str | None = None) -> list[dict]:
 	return rows[:RESULTS]
 
 
+@frappe.whitelist()
+def store_serials(item_code: str) -> list[str]:
+	"""The serials of an item in the showroom store, for the cashier to pick (SP-179)."""
+	_check()
+	store = _profile(_company()).warehouse
+	return frappe.get_all(
+		"Serial No",
+		{"item_code": item_code, "warehouse": store, "status": "Active"},
+		pluck="name",
+		order_by="name asc",
+		limit=SERIALS_SHOWN,
+	)
+
+
+def _line_serials(row: dict, qty: float, store: str, taken: set) -> tuple[list[str], dict]:
+	"""A serial-tracked line: one serial in the store and a nameplate photo for each unit."""
+	from smart_power.sp_stock.serials import check_photos, unit_serials
+
+	units = row.get("serials") or []
+	serials = unit_serials(row["item_code"], qty, [u.get("serial_no") for u in units])
+	photos = {cstr(u.get("serial_no")).strip(): u.get("photo") for u in units}
+	check_photos(row["item_code"], serials, photos)
+	for serial in serials:
+		place = frappe.db.get_value("Serial No", serial, ["item_code", "warehouse", "status"], as_dict=True)
+		if not place or place.item_code != row["item_code"] or place.warehouse != store:
+			frappe.throw(
+				_("Serial number {0} of {1} is not in the showroom store.").format(
+					frappe.bold(serial), row["item_code"]
+				)
+			)
+		if serial in taken:
+			frappe.throw(_("Serial number {0} is entered twice.").format(frappe.bold(serial)))
+		taken.add(serial)
+	return serials, photos
+
+
 def _clean_lines(lines: list[dict], key: str, store: str) -> list[dict]:
-	clean, wanted = [], {}
+	from smart_power.sp_stock.serials import is_serial
+
+	clean, wanted, taken = [], {}, set()
 	for row in lines or []:
 		qty = flt(row.get("qty"), QTY_DIGITS)
 		if not row.get("item_code") or qty <= 0:
@@ -335,16 +381,18 @@ def _clean_lines(lines: list[dict], key: str, store: str) -> list[dict]:
 		line_pct = flt(row.get("discount_pct"))
 		if not 0 <= line_pct < PCT:
 			frappe.throw(_("A line discount is a percent between 0 and 100."))
-		clean.append(
-			{
-				"item_code": row["item_code"],
-				"qty": qty,
-				"price_list_rate": price,
-				"discount_percentage": line_pct,
-				"rate": flt(price * (1 - line_pct / PCT), MONEY_DIGITS),
-				"warehouse": store,
-			}
-		)
+		line = {
+			"item_code": row["item_code"],
+			"qty": qty,
+			"price_list_rate": price,
+			"discount_percentage": line_pct,
+			"rate": flt(price * (1 - line_pct / PCT), MONEY_DIGITS),
+			"warehouse": store,
+		}
+		if is_serial(row["item_code"]):
+			serials, photos = _line_serials(row, qty, store, taken)
+			line.update(use_serial_batch_fields=1, serial_no="\n".join(serials), photos=photos)
+		clean.append(line)
 	if not clean:
 		frappe.throw(_("Add at least one item."))
 	for item_code, qty in wanted.items():
@@ -402,7 +450,11 @@ def sell(values: str | dict) -> dict:
 				"discount_amount": total_discount,
 				"remarks": values.get("reference_no") or None,
 				"items": [
-					{**line, "income_account": profile.income_account, "cost_center": profile.cost_center}
+					{
+						**{k: v for k, v in line.items() if k != "photos"},
+						"income_account": profile.income_account,
+						"cost_center": profile.cost_center,
+					}
 					for line in lines
 				],
 			}
@@ -420,7 +472,43 @@ def sell(values: str | dict) -> dict:
 	si = _as_system(build)
 	_signed_by(si.name, user)
 	_review_discount(si)
+	_register_serials(si, lines)
 	return {"name": si.name, "grand_total": flt(si.grand_total), "discount": sale_discount(si)}
+
+
+def warranty_months(item_code: str) -> int:
+	"""The item's warranty years, else its brand's (SP-179), in months; 0 when neither is set."""
+	years, brand = frappe.db.get_value("Item", item_code, ["sp_warranty_years", "brand"])
+	if not flt(years) and brand:
+		years = frappe.db.get_value("Brand", brand, "sp_warranty_years")
+	return round(flt(years) * MONTHS_PER_YEAR)
+
+
+def _register_serials(si, lines: list[dict]) -> None:
+	"""The nameplate photos and a warranty row for each sold serial, from the sale date."""
+	from smart_power.sp_stock.serials import SHOWROOM_SALE, record_photos
+	from smart_power.sp_stock.warranty import SALE_DATE, SHOWROOM, upsert
+
+	for line in lines:
+		if not line.get("serial_no"):
+			continue
+		serials = line["serial_no"].split("\n")
+		record_photos(SHOWROOM_SALE, line["item_code"], serials, line["photos"], SI, si.name, si.posting_date)
+		months = warranty_months(line["item_code"])
+		for serial in serials:
+			upsert(
+				serial,
+				line["item_code"],
+				{
+					"source": SHOWROOM,
+					"sales_invoice": si.name,
+					"customer": si.customer,
+					"start_basis": SALE_DATE,
+					"start_date": si.posting_date,
+					"months": months,
+					"nameplate_photo": line["photos"][serial],
+				},
+			)
 
 
 def _pin_lines(si, lines: list[dict], profile) -> None:
@@ -436,6 +524,8 @@ def _pin_lines(si, lines: list[dict], profile) -> None:
 				"cost_center": profile.cost_center,
 			}
 		)
+		if line.get("serial_no"):
+			row.update({"use_serial_batch_fields": 1, "serial_no": line["serial_no"]})
 
 
 def _signed_by(name: str, user: str) -> None:
@@ -475,13 +565,26 @@ def return_sale(invoice: str, items: str | list) -> dict:
 	original = frappe.get_doc(SI, invoice)
 	if not is_showroom(original) or original.docstatus != 1 or original.is_return:
 		frappe.throw(_("{0} is not a showroom receipt.").format(frappe.bold(invoice)))
-	wanted = {}
+	from smart_power.sp_stock.serials import is_serial, unit_serials
+
+	wanted, back = {}, {}
 	for row in frappe.parse_json(items) or []:
 		qty = flt(row.get("qty"), QTY_DIGITS)
 		if row.get("item_code") and qty > 0:
 			wanted[row["item_code"]] = wanted.get(row["item_code"], 0) + qty
+			if is_serial(row["item_code"]):
+				back.setdefault(row["item_code"], []).extend(
+					unit_serials(row["item_code"], qty, row.get("serials") or [])
+				)
 	if not wanted:
 		frappe.throw(_("Choose the items to return and their quantity."))
+	sold = returnable_serials(original)
+	for item_code, serials in back.items():
+		strange = [s for s in serials if s not in sold.get(item_code, [])]
+		if strange:
+			frappe.throw(
+				_("{0} was not sold on {1}, or is already returned.").format(", ".join(strange), invoice)
+			)
 	left = returnable(original)
 	for item_code, qty in wanted.items():
 		if item_code not in left:
@@ -508,6 +611,12 @@ def return_sale(invoice: str, items: str | list) -> dict:
 			wanted[row.item_code] = left - qty
 			row.qty = -qty
 			row.stock_qty = -qty * flt(row.conversion_factor or 1)
+			if row.item_code in back:  # the serials that come back (SP-179)
+				units = back[row.item_code][: int(qty)]
+				back[row.item_code] = back[row.item_code][int(qty) :]
+				row.serial_and_batch_bundle = None
+				row.use_serial_batch_fields = 1
+				row.serial_no = "\n".join(units)
 			kept.append(row)
 		ret.set("items", kept)
 		ret.calculate_taxes_and_totals()
@@ -516,8 +625,16 @@ def return_sale(invoice: str, items: str | list) -> dict:
 		ret.submit()
 		return ret
 
+	returned = {s for row in frappe.parse_json(items) or [] for s in (row.get("serials") or [])}
 	ret = _as_system(build)
 	_signed_by(ret.name, user)
+	if returned:
+		from smart_power.sp_stock.warranty import void
+
+		void(
+			{"sales_invoice": invoice, "serial_no": ("in", sorted(returned))},
+			_("Returned on {0}.").format(ret.name),
+		)
 	return {"name": ret.name, "refund": abs(flt(ret.grand_total))}
 
 
@@ -539,6 +656,7 @@ def find_receipt(name: str) -> dict:
 		frappe.throw(_("No showroom receipt {0}.").format(frappe.bold(name)))
 	doc = frappe.get_doc(SI, name)
 	left = returnable(doc)
+	serials = returnable_serials(doc)
 	return {
 		"name": doc.name,
 		"customer_name": doc.customer_name,
@@ -551,6 +669,7 @@ def find_receipt(name: str) -> dict:
 				"qty": flt(r.qty),
 				"rate": flt(r.rate),
 				"returnable": left.get(r.item_code, 0),
+				"serials": serials.get(r.item_code, []),
 			}
 			for r in doc.items
 		],
@@ -569,6 +688,27 @@ def returnable(doc) -> dict[str, float]:
 	):
 		left[row.item_code] = left.get(row.item_code, 0) - abs(flt(row.qty))
 	return {k: max(v, 0) for k, v in left.items()}
+
+
+def _bundle_serials(bundle: str | None) -> list[str]:
+	if not bundle:
+		return []
+	return frappe.get_all("Serial and Batch Entry", {"parent": bundle}, pluck="serial_no", order_by="idx asc")
+
+
+def returnable_serials(doc) -> dict[str, list[str]]:
+	"""The serials of each item sold on a receipt that no return has taken back yet."""
+	sold = {}
+	for r in doc.items:
+		sold.setdefault(r.item_code, []).extend(_bundle_serials(r.serial_and_batch_bundle))
+	for row in frappe.get_all(
+		"Sales Invoice Item",
+		{"parenttype": SI, "docstatus": 1, "parent": ("in", _returns_of(doc.name) or [""])},
+		["item_code", "serial_and_batch_bundle"],
+	):
+		gone = set(_bundle_serials(row.serial_and_batch_bundle))
+		sold[row.item_code] = [s for s in sold.get(row.item_code, []) if s not in gone]
+	return {k: v for k, v in sold.items() if v}
 
 
 def _returns_of(name: str) -> list[str]:

@@ -178,9 +178,60 @@ class SPShowroomSale {
 		if (line) {
 			line.qty = Math.min(line.qty + 1, row.in_stock);
 		} else {
-			this.cart.push({ ...row, qty: 1, discount_pct: 0 });
+			this.cart.push({ ...row, qty: 1, discount_pct: 0, units: [] });
 		}
 		this.render_cart();
+	}
+
+	units_ok(l) {
+		return !l.serial || (l.units.length === l.qty && l.units.every((u) => u.serial_no && u.photo));
+	}
+
+	serials_button(l) {
+		if (!l.serial) return "";
+		const ok = this.units_ok(l);
+		const label = __("Serials {0}/{1}", [ok ? l.qty : l.units.length, l.qty]);
+		return `<button class="btn btn-xs ${ok ? "btn-default" : "btn-warning"} sp-serials">${frappe.utils.escape_html(label)}</button>`;
+	}
+
+	// SP-179: a motor or pump leaves with each unit's serial (from the showroom store) and a new
+	// nameplate photo
+	async pick_serials(l) {
+		const { message: serials } = await frappe.call(`${SP_SH1_API}.store_serials`, { item_code: l.item_code });
+		const fields = [];
+		for (let i = 0; i < l.qty; i++) {
+			const u = l.units[i] || {};
+			fields.push(
+				{
+					fieldname: `s${i}`,
+					fieldtype: "Select",
+					label: __("Serial No {0}", [i + 1]),
+					options: [""].concat(serials),
+					default: u.serial_no,
+					reqd: 1,
+				},
+				{ fieldtype: "Column Break" },
+				{ fieldname: `p${i}`, fieldtype: "Attach Image", label: __("Nameplate Photo"), default: u.photo, reqd: 1 },
+				{ fieldtype: "Section Break" }
+			);
+		}
+		const dialog = new frappe.ui.Dialog({
+			title: l.item_name,
+			fields,
+			primary_action_label: __("Save"),
+			primary_action: (v) => {
+				const units = [];
+				for (let i = 0; i < l.qty; i++) units.push({ serial_no: v[`s${i}`], photo: v[`p${i}`] });
+				if (new Set(units.map((u) => u.serial_no)).size !== units.length) {
+					frappe.msgprint(__("Choose a different serial for each unit."));
+					return;
+				}
+				l.units = units;
+				dialog.hide();
+				this.render_cart();
+			},
+		});
+		dialog.show();
 	}
 
 	line_amount(l) {
@@ -211,7 +262,8 @@ class SPShowroomSale {
 		);
 		this.cart.forEach((l, i) => {
 			const $tr = $(`<tr>
-				<td>${esc(l.item_name)}<div class="small text-muted">${esc(format_currency(l.price))}</div></td>
+				<td>${esc(l.item_name)}<div class="small text-muted">${esc(format_currency(l.price))}</div>
+					${this.serials_button(l)}</td>
 				<td><input type="number" min="1" max="${l.in_stock}" step="1" class="form-control input-xs sp-qty" style="width: 70px"></td>
 				<td><input type="number" min="0" max="99" step="0.5" class="form-control input-xs sp-disc" style="width: 70px"></td>
 				<td class="text-right">${esc(format_currency(this.line_amount(l)))}</td>
@@ -230,6 +282,7 @@ class SPShowroomSale {
 					l.discount_pct = Math.max(Math.min(flt(e.target.value), 99), 0); // sp-allow-number: under 100%
 					this.render_cart();
 				});
+			$tr.find(".sp-serials").on("click", () => this.pick_serials(l));
 			$tr.find(".sp-remove").on("click", () => {
 				this.cart.splice(i, 1);
 				this.render_cart();
@@ -288,6 +341,13 @@ class SPShowroomSale {
 			frappe.msgprint(__("Add at least one item."));
 			return;
 		}
+		const missing = this.cart.filter((l) => !this.units_ok(l));
+		if (missing.length) {
+			frappe.msgprint(
+				__("Enter the serial and nameplate photo of each unit: {0}", [missing.map((l) => l.item_name).join("، ")])
+			);
+			return;
+		}
 		const t = this.totals();
 		frappe.confirm(
 			__("Sell for {0} to {1}?", [
@@ -304,6 +364,7 @@ class SPShowroomSale {
 								item_code: l.item_code,
 								qty: l.qty,
 								discount_pct: l.discount_pct,
+								serials: l.serial ? l.units : undefined,
 							})),
 							discount_amount: this.discount_amount || 0,
 							mode_of_payment: this.mode,
@@ -354,8 +415,7 @@ class SPShowroomSale {
 				(l, i) => `<tr><td>${esc(l.item_name)}</td>
 				<td class="text-right">${esc(format_number(l.qty))}</td>
 				<td class="text-right">${esc(format_currency(l.rate))}</td>
-				<td><input type="number" min="0" max="${l.returnable}" step="1" value="0" data-i="${i}"
-					class="form-control input-xs sp-ret" style="width: 70px" ${l.returnable ? "" : "disabled"}></td></tr>`
+				<td>${this.return_input(l, i)}</td></tr>`
 			)
 			.join("");
 		dialog.fields_dict.lines.$wrapper.html(`<div class="mb-2">${esc(r.customer_name)} ·
@@ -366,6 +426,21 @@ class SPShowroomSale {
 			<div class="small text-muted">${esc(__("The money goes back out of the showroom box in cash."))}</div>`);
 	}
 
+	// a serial-tracked item comes back by its serials (SP-179), anything else by quantity
+	return_input(l, i) {
+		const esc = frappe.utils.escape_html;
+		if (l.serials && l.serials.length) {
+			return l.serials
+				.map(
+					(sn) =>
+						`<label class="d-block small mb-0"><input type="checkbox" class="sp-ret-sn" data-i="${i}" value="${esc(sn)}"> ${esc(sn)}</label>`
+				)
+				.join("");
+		}
+		return `<input type="number" min="0" max="${l.returnable}" step="1" value="0" data-i="${i}"
+			class="form-control input-xs sp-ret" style="width: 70px" ${l.returnable ? "" : "disabled"}>`;
+	}
+
 	async do_return(dialog) {
 		const r = dialog.sp_receipt;
 		const items = [];
@@ -373,6 +448,13 @@ class SPShowroomSale {
 			const qty = Math.min(flt(el.value), r.items[el.dataset.i].returnable);
 			if (qty > 0) items.push({ item_code: r.items[el.dataset.i].item_code, qty });
 		});
+		const picked = {};
+		dialog.fields_dict.lines.$wrapper.find(".sp-ret-sn:checked").each((_i, el) => {
+			(picked[el.dataset.i] = picked[el.dataset.i] || []).push(el.value);
+		});
+		for (const [i, serials] of Object.entries(picked)) {
+			items.push({ item_code: r.items[i].item_code, qty: serials.length, serials });
+		}
 		if (!items.length) {
 			frappe.msgprint(__("Choose the items to return and their quantity."));
 			return;
