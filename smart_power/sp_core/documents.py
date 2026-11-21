@@ -79,11 +79,14 @@ def resolvers() -> dict:
 		"valid_till": lambda doc: ar_date(doc.get("valid_till")),
 		"case_no": lambda doc: doc.get("sp_case") or "",
 		"system_type": _system_type,
-		"station_no": lambda doc: doc.get("sp_station") or doc.get("project") or "",
+		"station_no": lambda doc: doc.get("sp_station")
+		or (doc.name if doc.get("doctype") == "SP Station" else None)
+		or doc.get("project")
+		or "",
 		"supplier_name": lambda doc: doc.get("supplier_name") or doc.get("supplier") or "",
 		"amount": lambda doc: _amount(_total(doc), doc.get("currency")),
 		"amount_words": lambda doc: ar_words(_total(doc)),
-		"operation_date": lambda doc: ar_date(doc.get("sp_operation_date")),
+		"operation_date": lambda doc: ar_date(doc.get("sp_operation_date") or doc.get("operation_date")),
 		"supply_days": lambda doc: _days(doc, "sp_supply_days"),
 		"install_days": lambda doc: _days(doc, "sp_install_days"),
 		"balance": lambda doc: _amount(
@@ -290,6 +293,39 @@ def seed_contract_template() -> None:
 			"document": "Contract",
 			"blocks": [
 				{"block_key": key, "title": title, "body": body} for key, title, body in CONTRACT_BLOCKS
+			],
+		}
+	).insert(ignore_permissions=True)
+	doc.publish_now()
+
+
+# --- the starting warranty certificate template (SP-80) ----------------------------------------
+
+WARRANTY_BLOCKS = (
+	(
+		"preamble",
+		"",
+		"<p>تشهد {company_name} بأن مكونات المحطة رقم {station_no} الخاصة بالسيد / {customer_name} "
+		"مشمولة بالضمان من تاريخ التشغيل {operation_date}، كلٌ حسب المدة المبينة في الجدول.</p>",
+	),
+	(
+		"terms",
+		"شروط الضمان",
+		"<p>يسري الضمان على عيوب الصناعة وفق ضمان الشركة المصنعة لكل مكون، ولا يشمل سوء الاستخدام.</p>",
+	),
+)
+
+
+def seed_warranty_template() -> None:
+	"""Publish a first warranty certificate template once; then the admin's."""
+	if frappe.db.exists(TEMPLATE, {"document": "Warranty Certificate"}):
+		return
+	doc = frappe.get_doc(
+		{
+			"doctype": TEMPLATE,
+			"document": "Warranty Certificate",
+			"blocks": [
+				{"block_key": key, "title": title, "body": body} for key, title, body in WARRANTY_BLOCKS
 			],
 		}
 	).insert(ignore_permissions=True)

@@ -3313,3 +3313,14 @@ Referrer Commissions Payable,عمولات الوسطاء المستحقة
 Set Referrer,تحديد الوسيط
 Referrer {0} has no mobile. Add it on the Sales Partner first.,الوسيط {0} بلا رقم موبايل. أضفه في بيانات الوسيط أولاً.
 "A referrer is registered with their full name and mobile, each unique; a station's referrer needs one (SP-177).","يُسجَّل الوسيط باسمه الكامل ورقم موبايله، وكلاهما لا يتكرر؛ ويلزم الموبايل لوسيط المحطة."
+Commission every system before the technical close: {0}.,يجب تشغيل كل نظام قبل الإغلاق الفني: {0}.
+Cost at Financial Close,التكلفة عند الإغلاق المالي
+Fill in the serial of every component before the technical close: {0}.,أدخل السيريال لكل مكوّن قبل الإغلاق الفني: {0}.
+Final Invoice,الفاتورة النهائية
+Final invoice of station {0},الفاتورة النهائية للمحطة {0}
+Financially closed: nothing remains to collect.,أُغلقت مالياً: لا يتبقى شيء للتحصيل.
+Station {0} has no operation date: commission its systems first.,المحطة {0} ليس لها تاريخ تشغيل: شغّل أنظمتها أولاً.
+Station {0} has no signed contract to invoice.,المحطة {0} ليس لها عقد موقّع لإصدار الفاتورة.
+"The internal Sales Invoice made at the technical close: revenue and the customer's receivable, with the payments set against it as advances.","فاتورة المبيعات الداخلية عند الإغلاق الفني: الإيراد ومديونية العميل، والمدفوعات مخصومة منها كدفعات مقدمة."
+no system is commissioned,لم يتم تشغيل أي نظام
+Serial No.,رقم السيريال

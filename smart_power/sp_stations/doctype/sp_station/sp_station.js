@@ -79,6 +79,24 @@ frappe.ui.form.on("SP Station", {
 		if (frm.doc.project) {
 			frm.add_custom_button(__("Project"), () => frappe.set_route("Form", "Project", frm.doc.project), __("View"));
 		}
+		// the technical close (SP-80): the final invoice and the warranty certificate
+		if (frm.doc.final_invoice && frappe.model.can_read("Sales Invoice")) {
+			frm.add_custom_button(
+				__("Final Invoice"),
+				() => frappe.set_route("Form", "Sales Invoice", frm.doc.final_invoice),
+				__("View")
+			);
+		}
+		if (["Technically closed", "Financially closed"].includes(frm.doc.status)) {
+			frm.add_custom_button(
+				__("Warranty Certificate"),
+				() =>
+					window.open(
+						`/printview?doctype=SP%20Station&name=${encodeURIComponent(frm.doc.name)}&format=SP%20Warranty%20Certificate`
+					),
+				__("View")
+			);
+		}
 		// S3 a change to the signed contract (SP-78)
 		if (
 			frm.doc.sales_order &&

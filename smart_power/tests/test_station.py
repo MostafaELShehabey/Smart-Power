@@ -126,10 +126,11 @@ class TestStation(IntegrationTestCase):
 	def test_financial_close_needs_nothing_remaining_or_a_write_off(self):
 		st = self.station()
 		receive(st, 150000)
+		# the technical close itself (commissioning, the final invoice) is SP-80's test_station_close
+		frappe.db.set_value(
+			"SP Station", st.name, {"status": "Technically closed", "tech_closed_on": today()}
+		)
 		frappe.set_user(self.amira)
-		for action in ("Start Purchasing", "Start Installing", "Close Technically"):
-			st = apply_workflow(frappe.get_doc("SP Station", st.name), action)
-		self.assertEqual(frappe.db.get_value("SP Station", st.name, "tech_closed_on"), getdate(today()))
 		with self.assertRaises(frappe.ValidationError):
 			apply_workflow(frappe.get_doc("SP Station", st.name), "Close Financially")
 		with self.assertRaises(frappe.PermissionError):
@@ -142,9 +143,9 @@ class TestStation(IntegrationTestCase):
 		self.assertTrue(
 			frappe.db.exists("SP Review Item", {"reference_name": st.name, "category": "Write-off"})
 		)
-		frappe.set_user(self.amira)
-		st = apply_workflow(frappe.get_doc("SP Station", st.name), "Close Financially")
-		self.assertEqual(st.status, "Financially closed")
+		# nothing remains: the station closes financially by itself (SP-80)
+		self.assertTrue(result["financially_closed"])
+		self.assertEqual(frappe.db.get_value("SP Station", st.name, "status"), "Financially closed")
 
 	def test_cancel_only_by_the_admin_before_the_close(self):
 		"""Cancel Station left the workflow for the admin's cancel, with its refunds (SP-176)."""

@@ -74,6 +74,9 @@ def complete_setup() -> str:
 	from smart_power.sp_stations.commission import seed_account_map as seed_commission
 
 	seed_commission(company)  # SP-177
+	from smart_power.sp_stations.close import seed_account_map as seed_write_off
+
+	seed_write_off(company)  # SP-80
 	return company
 
 

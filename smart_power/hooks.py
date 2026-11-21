@@ -90,6 +90,8 @@ jinja = {
 		"smart_power.sp_quotes.quote_print.quote_print",
 		# The contract PDF (SP-74)
 		"smart_power.sp_stations.contract_print.contract_print",
+		# The warranty certificate (SP-80)
+		"smart_power.sp_stations.close.warranty_print",
 		# The customer statement (SP-120)
 		"smart_power.sp_finance.balances.customer_statement",
 	],

@@ -76,3 +76,4 @@ smart_power.patches.sp75_contract_periods
 smart_power.patches.sp79_station_reassign
 smart_power.patches.sp176_cancel_station
 smart_power.patches.sp177_referrer_commission
+smart_power.patches.sp80_station_close_v2
