@@ -3324,3 +3324,13 @@ Station {0} has no signed contract to invoice.,المحطة {0} ليس لها ع
 "The internal Sales Invoice made at the technical close: revenue and the customer's receivable, with the payments set against it as advances.","فاتورة المبيعات الداخلية عند الإغلاق الفني: الإيراد ومديونية العميل، والمدفوعات مخصومة منها كدفعات مقدمة."
 no system is commissioned,لم يتم تشغيل أي نظام
 Serial No.,رقم السيريال
+Station Financial Position,الموقف المالي للمحطات
+SP Station Position,الموقف المالي للمحطات
+Only the admin opens the station financial position.,الأدمن فقط يفتح الموقف المالي للمحطات.
+Agreed with the Customer,المتفق عليه مع العميل
+Owed to Suppliers,إجمالي المطلوب للموردين
+Paid to Suppliers,ما تم دفعه للموردين
+Remaining to Suppliers,المتبقي للموردين
+Collected from the Customer,الدفعات المدفوعة من العميل
+Collected - Owed to Suppliers,الدفعات - إجمالي المطلوب للموردين
+Remaining from the Customer,المتبقي من العميل
