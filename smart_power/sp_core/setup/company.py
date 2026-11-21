@@ -80,6 +80,9 @@ def complete_setup() -> str:
 	from smart_power.sp_finance.expenses import seed_account_map as seed_expense
 
 	seed_expense(company)  # SP-123
+	from smart_power.sp_finance.indirect_split import seed_account_map as seed_split
+
+	seed_split(company)  # SP-124
 	return company
 
 
