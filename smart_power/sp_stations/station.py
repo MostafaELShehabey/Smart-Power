@@ -141,6 +141,9 @@ def validate(doc) -> None:
 			doc.fin_closed_on = doc.fin_closed_on or today()
 		if doc.status == CANCELLED and before.status in (TECH_CLOSED, FIN_CLOSED):
 			frappe.throw(_("A closed station cannot be cancelled."))
+		if doc.status == CANCELLED:
+			# the refunds, the stock and the orders go with it (SP-176)
+			frappe.throw(_("Cancel a station with its Cancel Station button."), title=_("Cancel Station"))
 
 
 def list_columns(systems) -> tuple[float, str]:

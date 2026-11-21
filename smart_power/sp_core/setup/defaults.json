@@ -457,6 +457,7 @@
 		{"list_name": "Call Result", "code": "PRICE_OBJECTION", "value_ar": "اعتراض على السعر", "value_en": "Price objection", "sort_order": 5, "_source": "SP-32"},
 		{"list_name": "Call Result", "code": "ACCEPTED", "value_ar": "موافق", "value_en": "Accepted", "sort_order": 6, "_source": "SP-32"},
 		{"list_name": "Call Result", "code": "LOST", "value_ar": "لم يكمل", "value_en": "Lost", "sort_order": 7, "_source": "SP-32"},
+		{"list_name": "Lost Reason", "code": "CANCELLED_AFTER_DEPOSIT", "value_ar": "إلغاء بعد العربون", "value_en": "Cancelled after deposit", "sort_order": 90, "_source": "SP-176: a cancelled station closes its case"},
 		{"list_name": "Lost Reason", "code": "PRICE_CHECK_ONLY", "value_ar": "استفسار عن السعر فقط", "value_en": "Price check only", "sort_order": 1, "_source": "SP-32"},
 		{"list_name": "Service Issue", "code": "NO_WATER", "value_ar": "لا توجد مياه", "value_en": "No water", "sort_order": 1, "_source": "SP-32"},
 		{"list_name": "Service Issue", "code": "INVERTER_FAULT", "value_ar": "عطل في الإنفرتر", "value_en": "Inverter fault", "sort_order": 2, "_source": "SP-32"},

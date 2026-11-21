@@ -74,3 +74,4 @@ smart_power.patches.sp76_station_tabs
 smart_power.patches.sp77_stations_list
 smart_power.patches.sp75_contract_periods
 smart_power.patches.sp79_station_reassign
+smart_power.patches.sp176_cancel_station

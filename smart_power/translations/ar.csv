@@ -3250,3 +3250,43 @@ You are now the {0} of station {1} ({2}): {3},أصبحت {0} للمحطة {1} ({
 {0} moves to {1} on {2},ينتقل {0} إلى {1} في {2}
 {0} of station {1} to {2} from {3}: {4},{0} للمحطة {1} إلى {2} من {3}: {4}
 Station reassigned,تم نقل مسؤولية محطة
+A reason is needed to cancel the station.,يلزم سبب لإلغاء المحطة.
+At the Site,في الموقع
+Cancel Lines,بنود الإلغاء
+Cancel Station {0},إلغاء المحطة {0}
+Cancel a station with its Cancel Station button.,ألغِ المحطة من زر إلغاء المحطة.
+Cancellation,الإلغاء
+Cancellation Reason,سبب الإلغاء
+Cancelled On,تاريخ الإلغاء
+Cancelled: {0},أُلغيت: {0}
+Choose the official account that refunds {0} received on {1}.,اختر الحساب الرسمي الذي يرد {0} المستلمة في {1}.
+Company {0} has no main store.,الشركة {0} ليس لها مخزن رئيسي.
+Draft purchase orders deleted: {0},أوامر شراء مسودة حُذفت: {0}
+"Every confirmed payment, refunded from the account that received it (pending the admin's confirmation).","كل دفعة مؤكدة تُرد من الحساب الذي استلمها (في انتظار تأكيد الأدمن)."
+Fate,المصير
+From Warehouse,من مخزن
+No confirmed payment to refund.,لا توجد دفعة مؤكدة لردها.
+Only the admin cancels a station.,الأدمن فقط يلغي المحطة.
+Purchase Return,مرتجع مشتريات
+Refund Amount,مبلغ الرد
+Refund From,الرد من
+Refund Of,رد لـ
+Refund of {0}: station {1} cancelled,رد {0}: أُلغيت المحطة {1}
+"Refund, pending the admin's confirmation: {0}","الرد، في انتظار تأكيد الأدمن: {0}"
+SP Station Cancel Line,بند إلغاء محطة
+Station Cancellation,إلغاء محطة
+Station cancellations,إلغاء المحطات
+Station cancelled.,أُلغيت المحطة.
+Station {0} ({1}) cancelled: {2},أُلغيت المحطة {0} ({1}): {2}
+Station {0} cancelled: back to the main store,أُلغيت المحطة {0}: رجوع للمخزن الرئيسي
+Station {0} cancelled: returned to the supplier,أُلغيت المحطة {0}: مرتجع للمورد
+Station {0} is {1}; only a station before its technical close is cancelled.,المحطة {0} في حالة {1}، والإلغاء فقط قبل الإغلاق الفني.
+Station {0} was cancelled: settle purchase order {1} with the supplier,أُلغيت المحطة {0}: سوِّ أمر الشراء {1} مع المورد
+Submitted purchase orders flagged to the projects manager: {0},أوامر شراء معتمدة مُبلَّغ بها مدير المشروعات: {0}
+"The customer payment this refunds (a cancelled station, SP-176).","دفعة العميل التي يردها هذا (محطة ملغاة)."
+To stock,للمخزون
+Unknown fate {0}.,مصير غير معروف {0}.
+{0} came with no receipt of this station; it can only go back to stock.,{0} لم يأتِ بإيصال لهذه المحطة، فيرجع للمخزون فقط.
+{0} received in {1},{0} مستلمة في {1}
+Customer refund,رد للعميل
+Cancelled after deposit,إلغاء بعد العربون
