@@ -3214,3 +3214,7 @@ Nothing on the contract can be returned: everything is delivered.,لا يوجد 
 Only {0} of {1} can be returned.,يمكن ارتجاع {0} فقط من {1}.
 Return Qty,كمية الارتجاع
 Return from Contract,ارتجاع من العقد
+Collecting,قيد التحصيل
+Total HP,إجمالي القدرة (حصان)
+"The station's systems, for the list (kept from the Systems table).",أنظمة المحطة لعرضها في القائمة (من جدول الأنظمة).
+ID,الرقم

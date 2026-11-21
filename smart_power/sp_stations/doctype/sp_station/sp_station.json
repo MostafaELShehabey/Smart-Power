@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-20 19:00:00.000000",
+ "modified": "2026-11-21 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -75,6 +75,8 @@
   "systems_section",
   "systems",
   "capacity_kw_total",
+  "hp_total",
+  "systems_summary",
   "scope_section",
   "scope_html",
   "tab_agreement",
@@ -191,10 +193,10 @@
    "options": "Open\nPurchasing\nInstalling\nTechnically closed\nFinancially closed\nCancelled",
    "default": "Open",
    "read_only": 1,
-   "in_list_view": 1,
    "in_standard_filter": 1,
    "search_index": 1,
-   "no_copy": 1
+   "no_copy": 1,
+   "in_list_view": 1
   },
   {
    "fieldname": "project",
@@ -236,7 +238,9 @@
    "fieldname": "execution_owner",
    "fieldtype": "Link",
    "label": "Execution Owner",
-   "options": "User"
+   "options": "User",
+   "in_list_view": 1,
+   "in_standard_filter": 1
   },
   {
    "fieldname": "site_receiver",
@@ -255,7 +259,9 @@
    "label": "Collection Owner",
    "options": "User",
    "search_index": 1,
-   "description": "The execution owner by default; the admin switches it from a date."
+   "description": "The execution owner by default; the admin switches it from a date.",
+   "in_list_view": 1,
+   "in_standard_filter": 1
   },
   {
    "fieldname": "dates_section",
@@ -265,12 +271,14 @@
   {
    "fieldname": "contract_date",
    "fieldtype": "Date",
-   "label": "Contract Date"
+   "label": "Contract Date",
+   "in_list_view": 1
   },
   {
    "fieldname": "operation_date",
    "fieldtype": "Date",
-   "label": "Operation Date"
+   "label": "Operation Date",
+   "in_list_view": 1
   },
   {
    "fieldname": "column_break_dates",
@@ -320,7 +328,25 @@
    "fieldname": "capacity_kw_total",
    "fieldtype": "Float",
    "label": "Total Capacity (kW)",
-   "read_only": 1
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "hp_total",
+   "fieldtype": "Float",
+   "label": "Total HP",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "systems_summary",
+   "fieldtype": "Data",
+   "label": "Systems",
+   "read_only": 1,
+   "no_copy": 1,
+   "description": "The station's systems, for the list (kept from the Systems table).",
+   "in_list_view": 1
   },
   {
    "fieldname": "scope_section",
@@ -346,7 +372,9 @@
    "fieldtype": "Link",
    "label": "Financing",
    "options": "SP List Value",
-   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Financing Type\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Financing Type\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
+   "in_list_view": 1,
+   "in_standard_filter": 1
   },
   {
    "fieldname": "bank_branch",
@@ -379,8 +407,8 @@
    "label": "Agreed",
    "read_only": 1,
    "no_copy": 1,
-   "in_list_view": 1,
-   "permlevel": 1
+   "permlevel": 1,
+   "in_list_view": 1
   },
   {
    "fieldname": "paid_amount",
@@ -388,7 +416,8 @@
    "label": "Paid (confirmed)",
    "read_only": 1,
    "no_copy": 1,
-   "permlevel": 1
+   "permlevel": 1,
+   "in_list_view": 1
   },
   {
    "fieldname": "pending_amount",
@@ -417,8 +446,8 @@
    "label": "Remaining",
    "read_only": 1,
    "no_copy": 1,
-   "in_list_view": 1,
-   "permlevel": 1
+   "permlevel": 1,
+   "in_list_view": 1
   },
   {
    "fieldname": "next_due_date",
@@ -426,7 +455,8 @@
    "label": "Next Due",
    "read_only": 1,
    "no_copy": 1,
-   "search_index": 1
+   "search_index": 1,
+   "in_list_view": 1
   },
   {
    "fieldname": "next_due_amount",
@@ -506,7 +536,9 @@
    "fieldtype": "Link",
    "label": "Region",
    "options": "SP List Value",
-   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Region\"], [\"SP List Value\", \"is_active\", \"=\", 1]]"
+   "link_filters": "[[\"SP List Value\", \"list_name\", \"=\", \"Region\"], [\"SP List Value\", \"is_active\", \"=\", 1]]",
+   "in_list_view": 1,
+   "in_standard_filter": 1
   },
   {
    "fieldname": "winch_section",

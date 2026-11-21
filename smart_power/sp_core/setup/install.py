@@ -74,6 +74,9 @@ def after_sync() -> None:
 	from smart_power.sp_stations.station_tabs import seed_tab_access
 
 	seed_tab_access()  # SP-76: the map names the SP roles
+	from smart_power.sp_stations.setup import seed_list_settings
+
+	seed_list_settings()  # SP-77: the stations list's columns
 
 
 def sync_role_profiles() -> None:

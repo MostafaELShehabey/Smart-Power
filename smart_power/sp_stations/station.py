@@ -115,6 +115,7 @@ def validate(doc) -> None:
 	if doc.customer:  # the customer may come from the case, after the form's own fetch
 		doc.customer_name = frappe.db.get_value("Customer", doc.customer, "customer_name")
 	doc.capacity_kw_total = sum(flt(r.capacity_kw) * (flt(r.qty) or 1) for r in doc.systems)
+	doc.hp_total, doc.systems_summary = list_columns(doc.systems)
 	if doc.is_new():
 		return
 	before = doc.get_doc_before_save()
@@ -140,6 +141,22 @@ def validate(doc) -> None:
 			doc.fin_closed_on = doc.fin_closed_on or today()
 		if doc.status == CANCELLED and before.status in (TECH_CLOSED, FIN_CLOSED):
 			frappe.throw(_("A closed station cannot be cancelled."))
+
+
+def list_columns(systems) -> tuple[float, str]:
+	"""The stations list's HP and Systems columns (S1, SP-77), kept from the Systems table."""
+	types = [r.system_type for r in systems if r.system_type]
+	labels = dict(
+		frappe.get_all("SP List Value", {"name": ("in", types or [""])}, ["name", "value_ar"], as_list=True)
+	)
+	parts = []
+	for r in systems:
+		if not r.system_type:
+			continue
+		label = labels.get(r.system_type) or r.system_type
+		qty = flt(r.qty) or 1
+		parts.append(f"{label} x{frappe.format(qty, 'Float')}" if qty != 1 else label)
+	return sum(flt(r.hp) * (flt(r.qty) or 1) for r in systems), "، ".join(parts)
 
 
 def _record_owner_changes(doc, before) -> None:

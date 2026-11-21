@@ -20,10 +20,13 @@ class TestListViews(IntegrationTestCase):
 	def tearDown(self):
 		frappe.set_user("Administrator")
 
-	def test_the_stations_list_has_mine_still_open_overdue_and_all(self):
+	def test_the_stations_list_has_the_s1_views(self):
 		views = lists.views_for("Administrator")
 		station = {v["label"]: v["filters"] for v in views["SP Station"]}
-		self.assertEqual(list(station)[:4], ["Mine", "Still Open", "Overdue", "All"])
+		# SP-77 S1: Open · Installing · Collecting · Overdue · Closed, between Mine and All
+		self.assertEqual(
+			list(station)[:7], ["Mine", "Open", "Installing", "Collecting", "Overdue", "Closed", "All"]
+		)
 		self.assertEqual(station["Overdue"], [["has_overdue", "=", 1]])  # only overdue stations
 
 	def test_a_tab_shows_only_to_its_roles(self):

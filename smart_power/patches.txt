@@ -71,3 +71,4 @@ smart_power.patches.sp112_debt_age
 smart_power.patches.sp181_crew_pay
 smart_power.patches.sp94_count_schedule
 smart_power.patches.sp76_station_tabs
+smart_power.patches.sp77_stations_list

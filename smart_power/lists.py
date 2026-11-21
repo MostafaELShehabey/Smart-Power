@@ -66,7 +66,13 @@ def totals(doctype: str, filters: str | list | None = None, fields: str | list |
 	"""The sums of the money columns over every row the user may see that the filters match."""
 	fields = frappe.parse_json(fields) if isinstance(fields, str) else (fields or [])
 	meta = frappe.get_meta(doctype)
-	money = [f for f in fields if (df := meta.get_field(f)) and df.fieldtype in ("Currency", "Float")]
+	# only the columns this user may read (a station's money is permlevel 1, SP-76/SP-77)
+	readable = set(frappe.model.get_permitted_fields(doctype))
+	money = [
+		f
+		for f in fields
+		if f in readable and (df := meta.get_field(f)) and df.fieldtype in ("Currency", "Float")
+	]
 	if not money:
 		return {}
 	rows = frappe.get_list(
