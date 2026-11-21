@@ -11,7 +11,15 @@ frappe.pages["sp-confirmations"].on_page_load = function (wrapper) {
 };
 
 frappe.pages["sp-confirmations"].on_page_show = function (wrapper) {
-	wrapper.sp_confirmations && wrapper.sp_confirmations.refresh();
+	const page = wrapper.sp_confirmations;
+	if (!page) return;
+	// A14 (SP-126) opens the page on one month's dates
+	const options = frappe.route_options || {};
+	frappe.route_options = null;
+	for (const key of ["from_date", "to_date"]) {
+		if (options[key] && page.filters[key]) page.filters[key].set_value(options[key]);
+	}
+	page.refresh();
 };
 
 class SPConfirmations {
