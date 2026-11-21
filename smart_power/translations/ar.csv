@@ -3530,3 +3530,4 @@ Serial number {0} of {1} is not in the showroom store.,الرقم التسلسل
 Serials {0}/{1},الأرقام التسلسلية {0}/{1}
 "The brand's warranty, used when an item of the brand has none (showroom sales, SP-179).",ضمان الماركة، يُستخدم عندما لا يكون للصنف ضمان (مبيعات المعرض).
 "{0} was not sold on {1}, or is already returned.",{0} لم يُبع على {1}، أو تم إرجاعه بالفعل.
+"{0}: enter its serial number.",{0}: أدخل رقمه التسلسلي.
