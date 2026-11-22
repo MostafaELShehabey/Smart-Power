@@ -3666,3 +3666,21 @@ Which bank,أي بنك
 {0} is not an internal invoice.,{0} ليست فاتورة داخلية.
 Invoice printed,طباعة فاتورة
 Invoice cancelled,إلغاء فاتورة
+Shared between stations,مشتركة بين المحطات
+Station Split,توزيع على المحطات
+SP PO Station Split,توزيع أمر الشراء على المحطات
+Shared Goods Issue,صرف البضاعة المشتركة
+Shared Purchase Split,توزيع مشتريات مشتركة
+Shared Purchases,مشتريات مشتركة
+"One order for several stations: each station's amount. They must add up to the order's total; the receipt then charges each station its share.","أمر واحد لعدة محطات: مبلغ كل محطة. يجب أن يساوي مجموعها إجمالي الأمر، وعند تأكيد الاستلام تُحمَّل كل محطة نصيبها."
+"A shared order goes to a store. Put its stations in the split, not on the order or its rows.","الأمر المشترك يُسلَّم إلى مخزن. ضع محطاته في جدول التوزيع، لا على الأمر ولا على بنوده."
+Station {0} is in the split twice.,المحطة {0} مكررة في التوزيع.
+Station {0} belongs to another company.,المحطة {0} تتبع شركة أخرى.
+Station {0} has no project yet.,المحطة {0} ليس لها مشروع بعد.
+Give station {0} its amount.,أدخل مبلغ المحطة {0}.
+"The stations' amounts add up to {0}, not the order's total of {1}.","مجموع مبالغ المحطات {0}، لا يساوي إجمالي الأمر {1}."
+Map the Shared Purchase Split event in Smart Power Settings > Account Map.,اربط حدث «توزيع مشتريات مشتركة» في إعدادات سمارت باور > خريطة الحسابات.
+Shared between stations: {0},مشتركة بين المحطات: {0}
+Purchase {0} shared between stations ({1}),أمر الشراء {0} موزع على المحطات ({1})
+"The stations' amounts add up to the order's total of {0}.","مبالغ المحطات تساوي إجمالي الأمر {0}."
+"The stations' amounts add up to {0} of {1}: {2} left.","مجموع مبالغ المحطات {0} من {1}: الباقي {2}."

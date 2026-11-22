@@ -10,7 +10,7 @@ A receipt waits as a draft Purchase Receipt, Pending confirmation (SP-84). From 
 Posting submits the receipt on the date the goods arrived, then bills it with a submitted Purchase
 Invoice on the supplier's payment terms. Lines of a station carry its Project and the Projects
 cost center. Site deliveries go into the site warehouse and reach the station's cost when they
-are consumed on the daily log. A line reserved for a sales order stays reserved once received.
+are consumed on the daily log; a shared order's value goes to its stations at once (SP-83). A line reserved for a sales order stays reserved once received.
 """
 
 import frappe
@@ -39,6 +39,7 @@ from smart_power.sp_stock.goods_receipt import (
 	_is_serial,
 	_sees_all,
 )
+from smart_power.sp_stock.shared_purchase import allocate
 
 OK, DAMAGED = "OK", "Damaged"
 INVOICE = "Purchase Invoice"
@@ -159,6 +160,7 @@ def _post(doc, status: str, notes: str | None = None) -> str:
 		doc.submit()
 		_keep_reservation(doc)
 		invoice = _bill(doc)
+		allocate(doc, invoice)  # a shared order's value goes to its stations (SP-83)
 	finally:
 		frappe.set_user(user)  # nosemgrep
 	frappe.db.set_value(INVOICE, invoice, {"owner": user, "modified_by": user}, update_modified=False)

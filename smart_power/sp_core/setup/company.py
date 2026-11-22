@@ -86,6 +86,9 @@ def complete_setup() -> str:
 	from smart_power.sp_finance.cash_box import seed_account_map as seed_cash_box
 
 	seed_cash_box(company)  # SP-104
+	from smart_power.sp_stock.shared_purchase import seed_account_map as seed_shared_purchase
+
+	seed_shared_purchase(company)  # SP-83
 	from smart_power.sp_sales.showroom_sale import seed_pos_profile
 
 	seed_pos_profile(company)  # SP-102: the showroom sale's POS profile and walk-in customer
