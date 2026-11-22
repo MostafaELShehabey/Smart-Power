@@ -21,6 +21,7 @@ from frappe.utils import flt
 from smart_power.permissions import sees_quote_internals
 from smart_power.sp_core.services.audit import log_edit
 from smart_power.sp_core.services.settings import brand_order
+from smart_power.sp_quotes.chassis_quote import use_calculator
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC, published_template
 from smart_power.sp_quotes.engine import INFO, OVERRIDABLE, calculate
 from smart_power.sp_quotes.special_lines import COMMISSION, MANUAL, WINCH, service_item
@@ -128,6 +129,7 @@ def recalculate(doc) -> dict:
 		on_date=doc.transaction_date,
 		brands=brands_of(doc),
 	)
+	use_calculator(doc, result)  # the chassis from the quote's calc (SP-167)
 	write_lines(doc, result)
 	doc.save()
 	return result

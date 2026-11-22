@@ -363,6 +363,7 @@
 		"showroom_box_cash_limit": {"value": 100000, "_source": "SP-104: decision 63's example (6-11 note), the owner's default 2026-11-21"},
 		"cash_held_limit_days": {"value": 3, "_source": "SP-116 (the story's example: 3 days)"},
 		"case_inactivity_days": {"value": 5, "_source": "SP-71: owner, 2026-11-22 (the story's example: 5 days)"},
+		"chassis_station_markup": {"value": "Factory markup", "_source": "SP-167: the story's default (the locked markup); open question SP-158"},
 		"cheque_due_lead_days": {"value": 7, "_source": "SP-118 (the story's example: 7-day lead)"},
 		"oil_interval_km": {"value": 5000, "_source": "SP-106: the story's example interval"},
 		"oil_alert_km": {"value": 200, "_source": "SP-106: alert 200 km before the oil change"},

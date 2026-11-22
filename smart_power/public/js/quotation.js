@@ -109,6 +109,15 @@ frappe.ui.form.on("Quotation", {
 			if (frm.doc.sp_calc_template) {
 				frm.add_custom_button(__("Change a Line"), () => sp_quote_change_line(frm), __("Template"));
 			}
+			// the chassis from the calculator (SP-167): open the quote's calc, or start one
+			frm.add_custom_button(__("Chassis Calculator"), async () => {
+				const { message: info } = await frappe.call({
+					method: "smart_power.sp_quotes.chassis_quote.from_quote",
+					args: { quotation: frm.doc.name },
+				});
+				if (info.calc) return frappe.set_route("Form", "SP Chassis Calc", info.calc);
+				frappe.new_doc("SP Chassis Calc", { quotation: frm.doc.name });
+			});
 		}
 
 		// a sent version's primary button marks it won (SP-45); an expired one keeps this button

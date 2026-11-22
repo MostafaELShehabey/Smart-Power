@@ -3808,3 +3808,10 @@ Weight per Metre (kg),وزن المتر (كجم)
 "the overhang J is {0} m, not between {1} and {2} m",الفرق J {0} م، مش بين {1} و{2} م
 the rails cover {0} m of {1} m,الحوامل بتغطي {0} م من {1} م
 "the spacing is {0} m, not between {1} and {2} m",المسافة {0} م، مش بين {1} و{2} م
+"A station quote's chassis line, when the quote has a chassis calc: the factory's locked markups, or the line's own markup on the calc's cost (SP-167).",سطر الشاسيه في عرض المحطة لما يكون للعرض حساب شاسيه: نسب بيع المصنع الثابتة، أو نسبة السطر نفسه على تكلفة الحساب.
+Chassis Markup in Station Offers,نسبة بيع الشاسيه في عروض المحطات
+Factory markup,نسبة المصنع
+Galvanised iron chassis - {0},شاسيه حديد مجلفن على الساخن - {0}
+Line markup,نسبة السطر
+Open Quotation,فتح عرض السعر
+The chassis comes from calculator {0}.,الشاسيه محسوب من حاسبة الشاسيه {0}.
