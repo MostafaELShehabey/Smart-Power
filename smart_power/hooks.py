@@ -129,6 +129,8 @@ doctype_js = {
 	"Sales Invoice": "public/js/sales_invoice.js",
 	# a recorded goods receipt is read-only until it is confirmed (SP-84)
 	"Purchase Receipt": "public/js/purchase_receipt.js",
+	# the stations' split against the order's total (SP-83)
+	"Purchase Order": "public/js/purchase_order.js",
 	# the supplier's ledger from their record (SP-86)
 	"Supplier": "public/js/supplier.js",
 	# how far a vehicle is from its oil change (SP-106)
@@ -321,7 +323,11 @@ doc_events = {
 	# Purchase orders (SP-82): destination, delivery batches and status
 	"Purchase Order": {
 		"before_validate": "smart_power.sp_stock.purchase_orders.before_validate",
-		"validate": "smart_power.sp_stock.purchase_orders.validate",
+		"validate": [
+			"smart_power.sp_stock.purchase_orders.validate",
+			# one order shared between stations by amount (SP-83)
+			"smart_power.sp_stock.shared_purchase.validate_order",
+		],
 		"on_submit": "smart_power.sp_stock.purchase_orders.on_change",
 		"on_cancel": "smart_power.sp_stock.purchase_orders.on_change",
 	},
@@ -334,6 +340,8 @@ doc_events = {
 		# a receiver's draft waits for the technical office: no edits, no submit until confirmed (SP-84)
 		"validate": "smart_power.sp_stock.goods_receipt.validate",
 		"before_submit": "smart_power.sp_stock.goods_receipt.before_submit",
+		# a shared order's goods come back to the store before the receipt is cancelled (SP-83)
+		"before_cancel": "smart_power.sp_stock.shared_purchase.before_cancel_receipt",
 		"on_submit": "smart_power.sp_stock.purchase_orders.on_receipt_change",
 		"on_cancel": "smart_power.sp_stock.purchase_orders.on_receipt_change",
 	},

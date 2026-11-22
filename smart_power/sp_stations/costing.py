@@ -4,7 +4,8 @@
 
 Every expense posted with the station's Project (its accounting dimension) counts, by source:
 
-    purchases      Purchase Invoice / Receipt lines charged to the station
+    purchases      Purchase Invoice / Receipt lines charged to the station, and its share
+                   of a purchase shared between stations (SP-83, "Shared Purchase Split")
     consignment    the same, when the order converted consignment goods (SP-92)
     materials      Stock Entries: goods consumed on site, showroom goods at cost (SP-88..90)
     winch          the winch and car jobs' internal charge (SP-108)
@@ -26,6 +27,7 @@ SOURCES = ("purchases", "consignment", "materials", "winch", "custody", "labour"
 INDIRECT = "indirect"
 EVENT_SOURCE = {
 	"Indirect Split": INDIRECT,
+	"Shared Purchase Split": "purchases",
 	"Winch Internal Charge": "winch",
 	"Field Job": "winch",
 	"Custody Expense": "custody",
