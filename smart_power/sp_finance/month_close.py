@@ -10,8 +10,8 @@
     reopen_month(...)            the admin only, with a reason (audited): the period is disabled.
 
 The SP records that post on their own date are refused too while their month is closed (guard),
-so nothing waits to post into a closed month. "Team commission entered" waits on R5 (SP-143): it
-shows, but never blocks (owner, 2026-11-22).
+so nothing waits to post into a closed month. "Team commission entered" checks R5 (SP-143): a
+month with no sheet is red, and closes with a reason like any red row.
 """
 
 import frappe
@@ -133,8 +133,17 @@ def check_indirect(company, start, end) -> dict:
 
 
 def check_commission(company, start, end) -> dict:
-	"""R5 team commission is SP-143's: shown, never blocking (owner, 2026-11-22)."""
-	return _row(False, 0, _("Waits on R5 team commission (SP-143)."), None, blocking=False)
+	"""The month's R5 team commission sheet is entered (SP-143). A month with none is red, and
+	closes with a reason (SP-126)."""
+	from smart_power.sp_finance.team_commission import DOCTYPE, entered
+
+	name = entered(company, start)
+	return _row(
+		bool(name),
+		0 if name else 1,
+		"" if name else _("No team commission entered for the month."),
+		{"route": ["Form", DOCTYPE, name]} if name else {"route": ["List", DOCTYPE]},
+	)
 
 
 def check_reviews(company, start, end) -> dict:

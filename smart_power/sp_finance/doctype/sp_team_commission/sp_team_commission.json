@@ -1,0 +1,137 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 22:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "month",
+  "column_break_head",
+  "total",
+  "paid_total",
+  "payable",
+  "accrual_entry",
+  "lines_section",
+  "lines"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "in_standard_filter": 1,
+   "remember_last_selected_value": 1
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Date",
+   "label": "Month",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "Any day of the month: the sheet is kept on its first day."
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total Commission",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "paid_total",
+   "fieldtype": "Currency",
+   "label": "Paid",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "payable",
+   "fieldtype": "Currency",
+   "label": "Still Payable",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "accrual_entry",
+   "fieldtype": "Link",
+   "label": "Commission Entry",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lines_section",
+   "fieldtype": "Section Break",
+   "label": "People"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "label": "People",
+   "options": "SP Team Commission Line",
+   "reqd": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-22 22:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Team Commission",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "SP Commission Manager",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1
+  }
+ ],
+ "sort_field": "month",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "month",
+ "track_changes": 1
+}

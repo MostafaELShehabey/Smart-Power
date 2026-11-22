@@ -3871,3 +3871,27 @@ Every active user with this role gets the step's task.,كل مستخدم نشط 
 Cost / factor,التكلفة ÷ المعامل
 Line {0}: the sale factor ({1}) must be above zero.,السطر {0}: معامل البيع ({1}) يجب أن يكون أكبر من صفر.
 {0}: cost / factor needs the template input {1}.,{0}: التكلفة ÷ المعامل تحتاج مُدخل القالب {1}.
+SP Team Commission,عمولة الفريق
+SP Team Commission Line,سطر عمولة الفريق
+Team Commission,عمولة الفريق
+Team Commission Payment,سداد عمولة الفريق
+Total Commission,إجمالي العمولة
+Still Payable,المتبقي المستحق
+Commission Entry,قيد العمولة
+Person,الشخص
+Payment Posting,قيد السداد
+Mark Paid,تسجيل السداد
+"Any day of the month: the sheet is kept on its first day.","أي يوم في الشهر: يُحفظ الكشف على أول يوم فيه."
+The team commission of this month is already entered in {0}.,عمولة الفريق لهذا الشهر مُدخلة بالفعل في {0}.
+Row {0}: the amount must be above zero.,السطر {0}: المبلغ يجب أن يكون أكبر من صفر.
+Row {0}: {1} is entered twice.,السطر {0}: {1} مُدخل مرتين.
+{0}'s commission is paid: it cannot change.,عمولة {0} مسددة: لا يمكن تغييرها.
+"Mark a commission paid with Mark Paid, so its payment posts.","سجّل سداد العمولة بزر تسجيل السداد، حتى يُرحَّل قيد السداد."
+Paid commissions are on this sheet: it cannot be deleted.,في هذا الكشف عمولات مسددة: لا يمكن حذفه.
+Line {0} is not on {1}.,السطر {0} ليس في {1}.
+{0}'s commission is already paid.,عمولة {0} مسددة بالفعل.
+Pay from one of the company's official accounts.,السداد يكون من أحد الحسابات الرسمية للشركة.
+Team commission {0},عمولة الفريق {0}
+Team commission paid to {0},سداد عمولة الفريق إلى {0}
+{0}'s commission ({1}) paid from {2}: {3},تم سداد عمولة {0} ({1}) من {2}: {3}
+No team commission entered for the month.,لم تُدخل عمولة الفريق لهذا الشهر.

@@ -268,6 +268,22 @@
    "indent": 0,
    "is_default_module": 0,
    "keep_closed": 0,
+   "label": "Team Commission",
+   "link_to": "SP Team Commission",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "added": 0,
+   "child": 0,
+   "collapsible": 1,
+   "hidden": 0,
+   "icon": "notebook-pen",
+   "indent": 0,
+   "is_default_module": 0,
+   "keep_closed": 0,
    "label": "Simple Records",
    "link_to": "SP Simple Record",
    "link_type": "DocType",
@@ -276,7 +292,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-11-22 05:00:00.000000",
+ "modified": "2026-11-22 22:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Finance",
  "name": "Finance",
