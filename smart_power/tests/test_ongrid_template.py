@@ -11,10 +11,12 @@ from frappe.tests import IntegrationTestCase
 from frappe.utils import flt
 
 from smart_power.sp_core.services.lists import by_code
+from smart_power.sp_finance.centers import seed_centers
 from smart_power.sp_quotes.calc_templates import template_data
 from smart_power.sp_quotes.engine import calculate
 from smart_power.sp_stations import task_templates as tt
 from smart_power.sp_stock import prices
+from smart_power.sp_stock import warehouses as wh
 from smart_power.sp_stock.item import seed_item_groups
 from smart_power.sp_stock.prices import COST
 from smart_power.tests.test_calc_template import make_template
@@ -23,6 +25,7 @@ from smart_power.tests.utils import load_erpnext_test_data, make_test_case, make
 
 load_erpnext_test_data()
 
+COMPANY = "_Test Company"  # CI has no default company
 BRAND = "SP173 Brand"
 PANELS, INVERTERS = "ألواح شمسية", "إنفرترات ودرايفات"
 FACTOR = 0.86  # the file's sale factor
@@ -37,6 +40,8 @@ class TestOngridTemplate(IntegrationTestCase):
 	def setUpClass(cls):
 		super().setUpClass()
 		seed_item_groups()
+		wh.seed_warehouses(COMPANY)  # a station opens its site warehouse
+		seed_centers(COMPANY)
 		if not frappe.db.exists("Brand", BRAND):
 			frappe.get_doc({"doctype": "Brand", "brand": BRAND}).insert()
 		cls.panel = make_item("SP173-PANEL-625", item_group=PANELS, brand=BRAND, sp_watt=625).name
@@ -93,7 +98,9 @@ class TestOngridTemplate(IntegrationTestCase):
 		case = frappe.get_doc("SP Case", make_test_case())
 		case.append("system_types", {"system_type": by_code("System Type", "ONGRID")})
 		case.save(ignore_permissions=True)
-		station = frappe.get_doc({"doctype": "SP Station", "case": case.name}).insert(ignore_permissions=True)
+		station = frappe.get_doc({"doctype": "SP Station", "case": case.name, "company": COMPANY}).insert(
+			ignore_permissions=True
+		)
 		tasks = frappe.get_all(
 			"SP Task",
 			{
@@ -115,7 +122,9 @@ class TestOngridTemplate(IntegrationTestCase):
 		case = frappe.get_doc("SP Case", make_test_case())
 		case.append("system_types", {"system_type": by_code("System Type", "PUMP")})
 		case.save(ignore_permissions=True)
-		station = frappe.get_doc({"doctype": "SP Station", "case": case.name}).insert(ignore_permissions=True)
+		station = frappe.get_doc({"doctype": "SP Station", "case": case.name, "company": COMPANY}).insert(
+			ignore_permissions=True
+		)
 		self.assertFalse(
 			frappe.db.exists("SP Task", {"reference_name": station.name, "task_type": "Grid Connection"})
 		)
