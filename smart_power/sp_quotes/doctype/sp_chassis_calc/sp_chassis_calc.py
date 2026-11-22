@@ -9,3 +9,8 @@ class SPChassisCalc(Document):
 		from smart_power.sp_quotes.chassis_calc import apply
 
 		apply(self)
+
+	def on_update(self):
+		from smart_power.sp_quotes.chassis_quote import on_calc_update
+
+		on_calc_update(self)

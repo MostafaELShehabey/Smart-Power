@@ -17,6 +17,8 @@ from frappe.model.docstatus import DocStatus
 from frappe.utils import flt
 
 from smart_power.sp_core.printing import ar_date, ar_words, embed_image
+from smart_power.sp_quotes.chassis_quote import CHASSIS_LINE
+from smart_power.sp_quotes.chassis_quote import print_lines as chassis_print_lines
 
 CASE = "SP Case"
 LUMP_SUM = "مقطوعية"
@@ -140,6 +142,18 @@ def _pumps(doc, names) -> list[dict]:
 	]
 
 
+def _lines(doc, rows, names) -> list[dict]:
+	"""A chassis-only quote prints its calc's lines in place of its chassis row (SP-167)."""
+	chassis = chassis_print_lines(doc)
+	if chassis is None:
+		return print_lines(rows, names)
+	others = [r for r in rows if r.get("sp_line_key") != CHASSIS_LINE]
+	lines = chassis + print_lines(others, names)
+	for number, line in enumerate(lines, start=1):  # numbered as one list
+		line["no"] = number
+	return lines
+
+
 def quote_print(doc) -> frappe._dict:
 	"""Everything the quote PDF prints for one quote version."""
 	case = _case(doc)
@@ -161,7 +175,7 @@ def quote_print(doc) -> frappe._dict:
 			system_type=_system_type(case) if case else "",
 			case=doc.get("sp_case"),
 		),
-		lines=print_lines(rows, names),
+		lines=_lines(doc, rows, names),
 		optional=[
 			{
 				"description": _arabic_names([r.item_code]).get(r.item_code) or r.item_name or r.item_code,

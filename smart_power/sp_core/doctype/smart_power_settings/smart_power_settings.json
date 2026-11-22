@@ -30,6 +30,7 @@
   "chassis_iron_markup_pct",
   "column_break_chassis",
   "chassis_markup_basis",
+  "chassis_station_markup",
   "selection_section",
   "brand_priorities",
   "cash_section",
@@ -203,6 +204,14 @@
    "fieldtype": "Select",
    "label": "Markup Basis",
    "options": "Markup on cost\nMargin on sale"
+  },
+  {
+   "default": "Factory markup",
+   "description": "A station quote's chassis line, when the quote has a chassis calc: the factory's locked markups, or the line's own markup on the calc's cost (SP-167).",
+   "fieldname": "chassis_station_markup",
+   "fieldtype": "Select",
+   "label": "Chassis Markup in Station Offers",
+   "options": "Factory markup\nLine markup"
   },
   {
    "fieldname": "selection_section",
@@ -431,7 +440,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-22 01:00:00.000000",
+ "modified": "2026-11-22 16:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

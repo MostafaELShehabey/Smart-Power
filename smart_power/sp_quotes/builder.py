@@ -25,6 +25,7 @@ from smart_power.rules.sales import QUOTE_SEND_EVENT, margin_check
 from smart_power.sp_core.documents import sp_blocks
 from smart_power.sp_core.services.audit import log_edit
 from smart_power.sp_core.services.settings import get_value
+from smart_power.sp_quotes.chassis_quote import use_calculator
 from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import LOCKED_BTC
 from smart_power.sp_quotes.engine import (
 	COST_X_MARKUP,
@@ -214,6 +215,7 @@ def apply(doc, data: dict, saving: bool = False) -> list:
 			on_date=doc.transaction_date,
 			brands=brands_of(doc),
 		)
+		use_calculator(doc, result)  # the chassis from the quote's calc (SP-167)
 		_keep_picks(doc, result)
 		write_lines(doc, result)
 		notes = result.rule_results
@@ -359,6 +361,7 @@ def _notes(doc) -> list:
 			on_date=doc.transaction_date,
 			brands=brands_of(doc),
 		)
+		use_calculator(doc, result)  # the chassis from the quote's calc (SP-167)
 		_keep_picks(doc, result)
 		return result.rule_results
 	except frappe.ValidationError:
