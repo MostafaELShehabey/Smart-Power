@@ -5,7 +5,8 @@
 - Agreed: the contract (Sales Order, SP-74) once it exists, else the accepted quote's total.
   Change orders (SP-78) update the contract.
 - Paid: confirmed customer payments only. A payment is confirmed when its Payment Entry is
-  submitted (the admin's confirmation, SP-114/SP-115); it carries the station's project.
+  submitted (the admin's confirmation, SP-114/SP-115); it carries the station's project. An
+  opening station (SP-160) adds what was paid before go-live (opening_paid_amount).
 - Remaining: agreed - paid - written off.
 - Next due: the first instalment of the payment schedule (the contract's, else the accepted
   quote's) that the paid and written-off money does not cover yet.
@@ -70,7 +71,8 @@ def pending_payments(station: str) -> float:
 
 def compute(doc) -> dict:
 	agreed, schedule = _agreed_and_schedule(doc)
-	paid = confirmed_payments(doc.project)
+	# with what was paid before go-live, when the opening took it as paid (SP-160)
+	paid = confirmed_payments(doc.project) + flt(doc.get("opening_paid_amount"))
 	written_off = flt(doc.write_off_amount)
 	due_date, due_amount = next_due(schedule, paid + written_off)
 	return {

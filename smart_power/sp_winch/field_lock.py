@@ -84,8 +84,8 @@ def before_save(doc) -> None:
 
 
 def after_insert(doc) -> None:
-	"""An entry logged after the normal window is listed for the admin."""
-	if is_late(doc.work_date):
+	"""An entry logged after the normal window is listed for the admin (not an opening debt)."""
+	if is_late(doc.work_date) and not doc.get("is_opening"):
 		raise_item(
 			LATE, doc, _("Logged late: {0} for {1}").format(doc.name, frappe.format(doc.work_date, "Date"))
 		)

@@ -45,7 +45,11 @@ def can_record(user: str | None = None) -> bool:
 	return user == "Administrator" or bool(set(RECORDERS) & set(frappe.get_roles(user)))
 
 
-def _official(account: str | None, label: str) -> None:
+def _official(account: str | None, label: str, doc=None) -> None:
+	from smart_power.sp_finance.opening import allowed_source
+
+	if doc is not None and allowed_source(doc, account):
+		return  # the opening's advances come from Temporary Opening (SP-160)
 	if account and frappe.db.get_value("Account", account, "sp_account_kind") != OFFICIAL:
 		frappe.throw(_("{0} must be an official account (a bank, the Post, InstaPay …).").format(_(label)))
 
@@ -62,7 +66,7 @@ def validate(doc) -> None:
 		doc.company, doc.project = station.company, station.project
 	if flt(doc.amount) <= 0:
 		frappe.throw(_("The amount must be above zero."))
-	_official(doc.paid_from_account, "Paid From")
+	_official(doc.paid_from_account, "Paid From", doc)
 	if doc.docstatus.is_draft():
 		doc.status = DRAFT
 	_totals(doc)

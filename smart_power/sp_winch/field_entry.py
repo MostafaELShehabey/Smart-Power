@@ -151,8 +151,18 @@ def validate(doc) -> None:
 	_from_booking(doc)
 	_set_vehicle(doc)
 	_keep_only_its_kind(doc)
+	_keep_opening(doc)
 	{JOB: _validate_job, EXPENSE: _validate_expense, MONEY: _validate_money}[doc.entry_kind](doc)
 	_guard_confirmed(doc)
+
+
+def _keep_opening(doc) -> None:
+	"""Only the opening balances open a winch debt from before go-live (SP-160); it stays one."""
+	before = None if doc.is_new() else doc.get_doc_before_save()
+	if doc.is_new():
+		doc.is_opening = 1 if doc.flags.get("sp_opening") and doc.get("is_opening") else 0
+	elif before:
+		doc.is_opening = before.get("is_opening")
 
 
 def _set_people(doc) -> None:
@@ -217,7 +227,8 @@ def _check_official(account: str) -> None:
 
 
 def _validate_job(doc) -> None:
-	_required(doc, {"job_type": "Job Type", "for_kind": "For"})
+	# an opening debt has no job to name (SP-160)
+	_required(doc, {"for_kind": "For"} if doc.is_opening else {"job_type": "Job Type", "for_kind": "For"})
 	if flt(doc.agreed_amount) < 0 or flt(doc.received_now) < 0:
 		frappe.throw(_("The amounts cannot be negative."))
 	if doc.for_kind == FOR_STATION:
@@ -359,7 +370,12 @@ def _reverse(doc) -> None:
 
 
 def _income_account(doc) -> str | None:
-	"""The Jumbo car earns on its own account; every other vehicle follows the Account Map."""
+	"""The Jumbo car earns on its own account; every other vehicle follows the Account Map. An
+	opening debt was earned before go-live: it comes through Temporary Opening (SP-160)."""
+	if doc.get("is_opening"):
+		from smart_power.sp_finance.opening import temporary_account
+
+		return temporary_account(doc.company)
 	if frappe.db.get_value(VEHICLE, doc.vehicle, "sp_vehicle_type") != JUMBO_TYPE:
 		return None
 	return _account(doc.company, JUMBO_INCOME)
