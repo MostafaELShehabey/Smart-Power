@@ -12,7 +12,7 @@ from frappe.tests import IntegrationTestCase
 from frappe.utils import flt
 
 from smart_power.sp_finance import opening as ob
-from smart_power.sp_finance.accounts import CUSTODY, holder_account
+from smart_power.sp_finance.accounts import CUSTODY, holder_account, seed_accounts
 from smart_power.tests.test_customer_payment import account
 from smart_power.tests.utils import load_erpnext_test_data, make_user
 
@@ -60,6 +60,7 @@ class OpeningCase(IntegrationTestCase):
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()
+		seed_accounts(COMPANY)  # the Custody group, on a fresh site
 		cls.bank = account("SP OB Bank", "Bank", "Official", account_type="Bank")
 		cls.holder = make_user("sp.ob.holder@example.com", ("custody_holder",))
 		holder_account(cls.holder, CUSTODY, COMPANY)  # the trial balance names it
