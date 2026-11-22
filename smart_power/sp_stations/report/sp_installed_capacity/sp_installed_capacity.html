@@ -1,0 +1,48 @@
+<div dir="rtl" lang="ar" style="font-family: inherit;">
+	<h3 style="margin-bottom: 4px; text-align: center;">{%= __("Installed Capacity Statement") %}</h3>
+	<p style="text-align: center; margin-top: 0;">
+		{%= filters.company || frappe.defaults.get_user_default("Company") || "" %}
+		· {%= __("From") %} {%= frappe.datetime.str_to_user(filters.from_date) %}
+		{%= __("To") %} {%= frappe.datetime.str_to_user(filters.to_date) %}
+	</p>
+	<table class="table table-bordered" style="width: 100%;">
+		<thead>
+			<tr>
+				<th>{%= __("Date") %}</th>
+				<th>{%= __("Station") %}</th>
+				<th>{%= __("Customer Name") %}</th>
+				<th>{%= __("Phone Number") %}</th>
+				<th>{%= __("Location") %}</th>
+				<th style="text-align: left;">{%= __("Station Capacity (kW)") %}</th>
+				<th style="text-align: left;">{%= __("Price per kW") %}</th>
+				<th style="text-align: left;">{%= __("Total") %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for (var i = 0; i < data.length; i++) { var row = data[i]; %}
+			{% if (row.is_section) { %}
+			<tr><td colspan="8" style="font-weight: bold;">{%= row.operation_date %}</td></tr>
+			{% } else if (row.is_total) { %}
+			<tr style="font-weight: bold;">
+				<td colspan="5">{%= row.operation_date %} · {%= row.station %}</td>
+				<td style="text-align: left;">{%= format_number(row.capacity_kw, null, 1) %}</td>
+				<td></td>
+				<td style="text-align: left;">{%= format_currency(row.total) %}</td>
+			</tr>
+			{% } else { %}
+			<tr>
+				<td>{%= row.operation_date %}</td>
+				<td>{%= row.station || "" %}</td>
+				<td>{%= row.customer_name || "" %}</td>
+				<td>{%= row.phone || "" %}</td>
+				<td>{%= row.location || "" %}</td>
+				<td style="text-align: left;">{%= format_number(row.capacity_kw, null, 1) %}</td>
+				<td style="text-align: left;">{%= format_currency(row.price_per_kw) %}</td>
+				<td style="text-align: left;">{%= format_currency(row.total) %}</td>
+			</tr>
+			{% } %}
+			{% } %}
+		</tbody>
+	</table>
+	<p style="color: #666;">{%= frappe.datetime.str_to_user(frappe.datetime.get_today()) %}</p>
+</div>
