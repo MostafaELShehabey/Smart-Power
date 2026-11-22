@@ -3644,3 +3644,25 @@ Technical Office,المكتب الفني
 Installations,التركيبات
 Stores,المخازن
 Projects,المشاريع
+Cancel an internal invoice with Cancel with Reason; the admin gives the reason.,ألغِ الفاتورة الداخلية من «إلغاء مع ذكر السبب»؛ المدير يذكر السبب.
+Cancel the Invoice,إلغاء الفاتورة
+Cancel with Reason,إلغاء مع ذكر السبب
+Cancel {0},إلغاء {0}
+Cancelled invoices,الفواتير الملغاة
+Give the reason for cancelling.,اذكر سبب الإلغاء.
+Invoice Cancellation,إلغاء فاتورة
+Invoice {0} ({1}) cancelled: {2},أُلغيت الفاتورة {0} ({1}): {2}
+Invoice {0} is not submitted.,الفاتورة {0} غير معتمدة.
+Name the bank the invoice is printed for.,اذكر اسم البنك الذي تُطبع له الفاتورة.
+Only the admin cancels an internal invoice.,المدير وحده يلغي الفاتورة الداخلية.
+Only the admin or the accountant prints an internal invoice.,المدير أو المحاسب فقط يطبع الفاتورة الداخلية.
+Only the admin or the accountant reads the print log.,المدير أو المحاسب فقط يقرأ سجل الطباعة.
+Print for a Bank or Customer,طباعة لبنك أو للعميل
+Print it for a bank or for the customer.,اطبعها لبنك أو للعميل.
+Print {0},طباعة {0}
+Printed,طُبعت
+Printed for,طُبعت لـ
+Which bank,أي بنك
+{0} is not an internal invoice.,{0} ليست فاتورة داخلية.
+Invoice printed,طباعة فاتورة
+Invoice cancelled,إلغاء فاتورة

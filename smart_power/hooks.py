@@ -125,6 +125,8 @@ doctype_js = {
 	"User": "public/js/user.js",
 	# A6 / A6b: source, Reverse, the live balanced check (SP-119)
 	"Journal Entry": "public/js/journal_entry.js",
+	# internal invoices: print for a bank or the customer, cancel with a reason (SP-125)
+	"Sales Invoice": "public/js/sales_invoice.js",
 	# a recorded goods receipt is read-only until it is confirmed (SP-84)
 	"Purchase Receipt": "public/js/purchase_receipt.js",
 	# the supplier's ledger from their record (SP-86)
@@ -235,7 +237,11 @@ doc_events = {
 		)
 	},
 	# a showroom sale's cash goes into the showroom box, whatever the Mode of Payment says (SP-102)
-	"Sales Invoice": {"before_save": "smart_power.sp_sales.showroom_sale.pin_box"},
+	"Sales Invoice": {
+		"before_save": "smart_power.sp_sales.showroom_sale.pin_box",
+		# an internal invoice is cancelled only by the admin, with a reason (SP-125)
+		"before_cancel": "smart_power.sp_finance.invoices.before_cancel",
+	},
 	# Daily workers (SP-33): a daily wage, no login
 	"Employee": {"validate": "smart_power.sp_core.workers.validate"},
 	# Customer master (SP-31): one customer per mobile.
