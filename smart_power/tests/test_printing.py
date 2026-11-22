@@ -10,7 +10,7 @@ class TestPrinting(IntegrationTestCase):
 	def test_the_story_amount_in_words(self):
 		self.assertEqual(
 			ar_words(125450.50),
-			"مائة خمسة وعشرون ألفاً وأربعمائة خمسون جنيهاً وخمسون قرشاً",
+			"مائة وخمسة وعشرون ألفاً وأربعمائة وخمسون جنيهاً وخمسون قرشاً",
 		)
 
 	def test_counted_words_agree_with_the_number(self):
@@ -27,6 +27,9 @@ class TestPrinting(IntegrationTestCase):
 			3000: "ثلاثة آلاف جنيه",
 			11000: "أحد عشر ألف جنيه",
 			2500000: "مليونان وخمسمائة ألف جنيه",
+			450000: "أربعمائة وخمسون ألف جنيه",  # the Al-Ahly sheet's own words (SP-171)
+			105: "مائة وخمسة جنيهات",
+			311: "ثلاثمائة وأحد عشر جنيهاً",
 			0: "صفر جنيه",
 			0.5: "خمسون قرشاً",
 			12.05: "اثنا عشر جنيهاً وخمسة قروش",
@@ -35,7 +38,7 @@ class TestPrinting(IntegrationTestCase):
 			self.assertEqual(ar_words(value), words, value)
 
 	def test_numbers_without_currency(self):
-		self.assertEqual(number_words(125450), "مائة خمسة وعشرون ألفاً وأربعمائة خمسون")
+		self.assertEqual(number_words(125450), "مائة وخمسة وعشرون ألفاً وأربعمائة وخمسون")
 		self.assertEqual(ar_words(17, with_currency=False), "سبعة عشر")
 
 	def test_money_has_thousands_separators(self):

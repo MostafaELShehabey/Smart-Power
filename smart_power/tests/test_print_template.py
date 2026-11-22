@@ -112,8 +112,8 @@ class TestPrintTemplate(IntegrationTestCase):
 		self.assertTrue('dir="rtl"' in html, 'dir="rtl"')
 		self.assertTrue("IBM Plex Sans Arabic" in html, "IBM Plex Sans Arabic")
 		self.assertTrue(
-			"مائة خمسة وعشرون ألفاً وأربعمائة خمسون جنيهاً وخمسون قرشاً" in html,
-			"مائة خمسة وعشرون ألفاً وأربعمائة خمسون جنيهاً وخمسون قرشاً",
+			"مائة وخمسة وعشرون ألفاً وأربعمائة وخمسون جنيهاً وخمسون قرشاً" in html,
+			"مائة وخمسة وعشرون ألفاً وأربعمائة وخمسون جنيهاً وخمسون قرشاً",
 		)
 		self.assertTrue("INVT GD100" in html, "INVT GD100")
 

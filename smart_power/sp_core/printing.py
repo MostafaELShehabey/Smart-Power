@@ -1,7 +1,7 @@
 """Helpers for printed documents (SP-23), available in every print format and letterhead.
 
     money(125450.5)           "125,450.50 EGP" (the site's money format)
-    ar_words(125450.5)        "مائة خمسة وعشرون ألفاً وأربعمائة خمسون جنيهاً وخمسون قرشاً"
+    ar_words(125450.5)        "مائة وخمسة وعشرون ألفاً وأربعمائة وخمسون جنيهاً وخمسون قرشاً"
     ar_date("2026-11-14")     "14 نوفمبر 2026"
     signature_block("المستلم", "المدير")   signature boxes
     qr(url)                   a QR code image (e.g. to verify a receipt)
@@ -71,17 +71,19 @@ MONTHS = (
 
 
 def below_thousand(n: int) -> str:
-	"""1 to 999 in words: the hundreds, then the units and tens ("مائة خمسة وعشرون")."""
+	"""1 to 999 in words: the hundreds, then «و» and the units and tens ("مائة وخمسة وعشرون",
+	as the banks write it; owner, 2026-11-22, SP-171)."""
 	hundreds, rest = divmod(n, 100)
-	parts = [HUNDREDS[hundreds]] if hundreds else []
 	if rest >= TEN * 2:  # sp-allow-number: twenty and up
 		tens, units = divmod(rest, TEN)
-		parts.append(f"{UNITS[units]} و{TENS[tens]}" if units else TENS[tens])
+		words = f"{UNITS[units]} و{TENS[tens]}" if units else TENS[tens]
 	elif rest >= TEN:
-		parts.append(TEENS[rest - TEN])
-	elif rest:
-		parts.append(UNITS[rest])
-	return " ".join(parts)
+		words = TEENS[rest - TEN]
+	else:
+		words = UNITS[rest] if rest else ""
+	if not hundreds:
+		return words
+	return f"{HUNDREDS[hundreds]} و{words}" if words else HUNDREDS[hundreds]
 
 
 def counted(n: int, forms: tuple[str, str, str, str], construct: bool = False) -> str:
@@ -105,7 +107,7 @@ def counted(n: int, forms: tuple[str, str, str, str], construct: bool = False) -
 
 
 def number_words(n: int, construct: bool = False) -> str:
-	"""A whole number in words, e.g. 125450 → "مائة خمسة وعشرون ألفاً وأربعمائة خمسون".
+	"""A whole number in words, e.g. 125450 → "مائة وخمسة وعشرون ألفاً وأربعمائة وخمسون".
 
 	construct: a counted word follows, so a closing ألف/مليون takes its construct form."""
 	if n == 0:

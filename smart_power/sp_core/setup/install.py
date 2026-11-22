@@ -67,6 +67,9 @@ def after_install() -> None:
 	seed_warranty_template()  # SP-80
 	seed_default_print_format()
 	make_desk_default()
+	from smart_power.sp_quotes.bank_formats import seed_bank_formats
+
+	seed_bank_formats()  # SP-171
 	make_po_desk_default()
 	from smart_power.notify import sync_events
 
