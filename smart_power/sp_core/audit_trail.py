@@ -39,6 +39,7 @@ SENSITIVE = (
 	"SP Company Settings",
 	"SP Document Template",
 	"Accounting Period",
+	"SP Mobile Device",
 )
 
 

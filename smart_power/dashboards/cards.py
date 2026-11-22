@@ -76,6 +76,9 @@ def get_home() -> dict:
 	if cached:
 		return cached
 	variants = variants_of(user)
+	home = frappe.db.get_value("User", user, "sp_home_page") if user != "Administrator" else None
+	if home in variants:  # the home the admin chose for this user comes first (X1, SP-130)
+		variants = [home] + [v for v in variants if v != home]
 	cards = []
 	for c in CARDS.values():
 		if not set(c.variants) & set(variants):
@@ -84,7 +87,9 @@ def get_home() -> dict:
 		if data is None:  # a card that does not apply to this person (e.g. no cash account)
 			continue
 		cards.append({"key": c.key, "label": _(c.label), "fieldtype": INT, "indicator": GRAY, **data})
-	result = {"variants": variants, "cards": cards}
+	if home in variants:
+		cards.sort(key=lambda card: home not in CARDS[card["key"]].variants)
+	result = {"variants": variants, "cards": cards, "home": home if home in variants else None}
 	frappe.cache.set_value(key, result, expires_in_sec=CACHE_SECONDS)
 	return result
 

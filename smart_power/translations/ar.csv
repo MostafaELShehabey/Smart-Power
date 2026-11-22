@@ -3603,3 +3603,44 @@ Reassigned,إعادة إسناد
 Handed over,تسليم
 Audit log exported,تصدير سجل المراجعة
 Month reopened,إعادة فتح الشهر
+Accounts made,تم إنشاء الحسابات
+Add User,إضافة مستخدم
+Device ID,معرّف الجهاز
+Device Name,اسم الجهاز
+Device revoked,تم إلغاء الجهاز
+Disable,تعطيل
+Disable {0}? They can no longer sign in.,تعطيل {0}؟ لن يستطيع تسجيل الدخول.
+Disabled,معطل
+Email,البريد الإلكتروني
+Enable,تفعيل
+Enable {0}?,تفعيل {0}؟
+Enter the email the user signs in with.,أدخل البريد الذي يدخل به المستخدم.
+Give the user at least one role.,أعط المستخدم دورًا واحدًا على الأقل.
+Give {0} a new temporary password?,إعطاء {0} كلمة مرور مؤقتة جديدة؟
+Give {0} this password; they change it at the first sign-in. It is shown only once.,أعط {0} كلمة المرور هذه؛ سيغيرها عند أول دخول. تظهر مرة واحدة فقط.
+Last Login,آخر دخول
+Last Sync,آخر مزامنة
+Make Money Accounts,إنشاء حسابات النقدية
+Mobile Device,جهاز الموبايل
+Only the admin manages users and roles.,المدير وحده يدير المستخدمين والأدوار.
+Reset Password,إعادة تعيين كلمة المرور
+Revoke Device,إلغاء الجهاز
+Revoke {0}'s phone? It must sign in again.,إلغاء هاتف {0}؟ يجب أن يسجل الدخول من جديد.
+Revoked By,ألغاه
+Revoked On,تاريخ الإلغاء
+SP Mobile Device,جهاز موبايل
+Temporary password,كلمة مرور مؤقتة
+The entry mode is Full or Light.,وضع الإدخال كامل أو مبسط.
+Unknown home {0}.,صفحة رئيسية غير معروفة {0}.
+Unknown role key {0}.,مفتاح دور غير معروف {0}.
+Unlock,فك القفل
+Users and Roles,المستخدمون والأدوار
+You cannot disable your own account.,لا يمكنك تعطيل حسابك.
+You cannot take the admin role from yourself.,لا يمكنك سحب دور المدير من نفسك.
+{0} already has an account.,{0} لديه حساب بالفعل.
+{0} is not a team member.,{0} ليس من فريق العمل.
+Intake,الاستقبال والمتابعة
+Technical Office,المكتب الفني
+Installations,التركيبات
+Stores,المخازن
+Projects,المشاريع
