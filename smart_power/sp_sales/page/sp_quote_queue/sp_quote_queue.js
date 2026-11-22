@@ -8,6 +8,7 @@ const SP_QQ_VIEWS = [
 	{ value: "Unclaimed", label: "Unclaimed" },
 	{ value: "Mine", label: "Mine" },
 	{ value: "All", label: "All" },
+	{ value: "Overdue", label: "Overdue" }, // AD1's "requests over 24 h" opens here (SP-138)
 ];
 const SP_QQ_COLOURS = { "On time": "green", Amber: "orange", Overdue: "red", Sent: "blue" };
 const SP_QQ_TICK_MS = 30000; // sp-allow-number: the countdown redraws every 30 seconds
@@ -32,7 +33,11 @@ frappe.pages["sp-quote-queue"].on_page_load = function (wrapper) {
 };
 
 frappe.pages["sp-quote-queue"].on_page_show = function (wrapper) {
-	wrapper.sp_quote_queue && wrapper.sp_quote_queue.refresh();
+	const view = frappe.route_options && frappe.route_options.view;
+	frappe.route_options = null;
+	if (!wrapper.sp_quote_queue) return;
+	if (view && SP_QQ_VIEWS.some((v) => v.value === view)) wrapper.sp_quote_queue.view = view;
+	wrapper.sp_quote_queue.refresh();
 };
 
 class SPQuoteQueue {

@@ -3928,3 +3928,35 @@ Quoted %,نسبة العروض %
 Avg Hours to Quote,متوسط الساعات حتى العرض
 Quoted in 24 h %,عروض خلال 24 ساعة %
 "Group by channel, a person or the lost reason.","جمّع حسب القناة أو الشخص أو سبب الخسارة."
+Centers,المراكز
+Closed but not paid,مغلقة فنيًا ولم تُسدَّد
+Collected this month,المحصَّل هذا الشهر
+Command Dashboard,لوحة القيادة
+Contracted this month,المتعاقد عليه هذا الشهر
+Discounts given,الخصومات الممنوحة
+Estimated Profit,الربح التقديري
+Inactive cases,حالات بلا نشاط
+Late deliveries,توريدات متأخرة
+Lost as price check only,خسارة: استفسار عن السعر فقط
+Needs your attention,يحتاج انتباهك
+No action for {0} days,بلا إجراء منذ {0} يوم
+Open now,مفتوحة الآن
+Operations,العمليات
+Outstanding on customers,المستحق على العملاء
+Payments and deposits to confirm,مدفوعات وإيداعات بانتظار التأكيد
+Purchase orders past their date,أوامر شراء تجاوزت موعدها
+Quotes out of margin range,عروض خارج نطاق الهامش
+Quotes sent,العروض المرسلة
+Requests over 24 h,طلبات تجاوزت 24 ساعة
+Requests this month,طلبات هذا الشهر
+Stations closed this month: estimate vs actual,المحطات المغلقة هذا الشهر: التقديري مقابل الفعلي
+Stations in progress,محطات قيد التنفيذ
+Supplier payable,المستحق للموردين
+The command dashboard is the admin's.,لوحة القيادة للمدير فقط.
+Win rate,نسبة الكسب
+Win rate {0}%,نسبة الكسب {0}%
+{0} discounts,{0} خصم
+{0} over the days limit,{0} تجاوزوا حد الأيام
+{0} payments,{0} دفعة
+{0} stations,{0} محطة
+Set the company in Company Settings first.,اضبط الشركة في إعدادات الشركة أولًا.
