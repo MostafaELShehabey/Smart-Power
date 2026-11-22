@@ -1,0 +1,303 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-22 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Chassis Calc",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "SP Quote Creator",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1
+  },
+  {
+   "role": "SP System Designer",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1
+  },
+  {
+   "role": "SP Pricing Manager",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1
+  },
+  {
+   "role": "SP Purchase Officer",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "naming_series",
+  "factory",
+  "quotation",
+  "customer_name",
+  "column_break_head",
+  "panel_item",
+  "panel_watt",
+  "panel_length_m",
+  "panel_width_m",
+  "column_break_head2",
+  "supports_per_stand",
+  "rails_mode",
+  "iron_cost_kg",
+  "iron_markup",
+  "arrays_section",
+  "arrays",
+  "results_section",
+  "panels",
+  "capacity_kw",
+  "stands",
+  "iron_weight_kg",
+  "column_break_results",
+  "total_cost",
+  "total_sale",
+  "profit",
+  "sale_per_kw",
+  "review",
+  "lines_section",
+  "lines"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "CHS-.YYYY.-.#####",
+   "default": "CHS-.YYYY.-.#####",
+   "hidden": 1
+  },
+  {
+   "fieldname": "factory",
+   "fieldtype": "Link",
+   "label": "Factory",
+   "options": "SP Chassis Factory",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "quotation",
+   "fieldtype": "Link",
+   "label": "Quotation",
+   "options": "Quotation",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "panel_item",
+   "fieldtype": "Link",
+   "label": "Panel Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "panel_watt",
+   "fieldtype": "Float",
+   "label": "Panel Watt",
+   "fetch_from": "panel_item.sp_watt",
+   "fetch_if_empty": 1
+  },
+  {
+   "fieldname": "panel_length_m",
+   "fieldtype": "Float",
+   "label": "Panel Length (m)",
+   "precision": "3",
+   "fetch_from": "panel_item.sp_panel_length_m",
+   "fetch_if_empty": 1
+  },
+  {
+   "fieldname": "panel_width_m",
+   "fieldtype": "Float",
+   "label": "Panel Width (m)",
+   "precision": "3",
+   "reqd": 1,
+   "fetch_from": "panel_item.sp_panel_width_m",
+   "fetch_if_empty": 1
+  },
+  {
+   "fieldname": "column_break_head2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supports_per_stand",
+   "fieldtype": "Int",
+   "label": "Supports per Stand"
+  },
+  {
+   "fieldname": "rails_mode",
+   "fieldtype": "Select",
+   "label": "Rails Mode",
+   "options": "\nCut to size\nStandard lengths"
+  },
+  {
+   "fieldname": "iron_cost_kg",
+   "fieldtype": "Currency",
+   "label": "Iron Cost per kg",
+   "read_only": 1
+  },
+  {
+   "fieldname": "iron_markup",
+   "fieldtype": "Float",
+   "label": "Iron Markup (×)",
+   "precision": "3",
+   "read_only": 1,
+   "description": "From the factory; only the admin changes it."
+  },
+  {
+   "fieldname": "arrays_section",
+   "fieldtype": "Section Break",
+   "label": "Arrays"
+  },
+  {
+   "fieldname": "arrays",
+   "fieldtype": "Table",
+   "label": "Arrays",
+   "options": "SP Chassis Array",
+   "reqd": 1
+  },
+  {
+   "fieldname": "results_section",
+   "fieldtype": "Section Break",
+   "label": "Results"
+  },
+  {
+   "fieldname": "panels",
+   "fieldtype": "Int",
+   "label": "Panels",
+   "read_only": 1
+  },
+  {
+   "fieldname": "capacity_kw",
+   "fieldtype": "Float",
+   "label": "Capacity (kW)",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stands",
+   "fieldtype": "Int",
+   "label": "Stands",
+   "read_only": 1
+  },
+  {
+   "fieldname": "iron_weight_kg",
+   "fieldtype": "Float",
+   "label": "Theoretical Iron Weight (kg)",
+   "precision": "3",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_results",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_sale",
+   "fieldtype": "Currency",
+   "label": "Offer Total",
+   "read_only": 1,
+   "in_list_view": 1,
+   "description": "Rounded to 10."
+  },
+  {
+   "fieldname": "profit",
+   "fieldtype": "Currency",
+   "label": "Profit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sale_per_kw",
+   "fieldtype": "Currency",
+   "label": "Price per kW",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review",
+   "fieldtype": "Small Text",
+   "label": "Review",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lines_section",
+   "fieldtype": "Section Break",
+   "label": "Price Analysis"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "label": "Lines",
+   "options": "SP Chassis Line",
+   "read_only": 1
+  }
+ ],
+ "autoname": "naming_series:",
+ "title_field": "customer_name",
+ "track_changes": 1
+}

@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-22 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Chassis Part",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "key",
+  "part",
+  "group",
+  "section",
+  "length_m",
+  "kg_per_m",
+  "unit_weight_kg",
+  "qty_formula",
+  "column_break_price",
+  "basis",
+  "unit_cost",
+  "price_rule",
+  "markup",
+  "kg_price_digits",
+  "unit_price_digits",
+  "unit_rounding",
+  "in_iron_weight",
+  "item"
+ ],
+ "fields": [
+  {
+   "fieldname": "key",
+   "fieldtype": "Data",
+   "label": "Key",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Used by later formulas, e.g. double for the double joints."
+  },
+  {
+   "fieldname": "part",
+   "fieldtype": "Data",
+   "label": "Part",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "group",
+   "fieldtype": "Select",
+   "label": "Group",
+   "options": "Stand frame\nFixing and accessories",
+   "default": "Fixing and accessories",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "section",
+   "fieldtype": "Data",
+   "label": "Iron Section"
+  },
+  {
+   "fieldname": "length_m",
+   "fieldtype": "Float",
+   "label": "Length (m)",
+   "precision": "3"
+  },
+  {
+   "fieldname": "kg_per_m",
+   "fieldtype": "Float",
+   "label": "Weight per Metre (kg)",
+   "precision": "3"
+  },
+  {
+   "fieldname": "unit_weight_kg",
+   "fieldtype": "Float",
+   "label": "Unit Weight (kg)",
+   "precision": "3",
+   "description": "Length × weight per metre when both are set."
+  },
+  {
+   "fieldname": "qty_formula",
+   "fieldtype": "Small Text",
+   "label": "Quantity Formula",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Names: stands, arrays, rows, panels, supports, quad_joints, panel_gaps, rail_lines and the keys of the parts above."
+  },
+  {
+   "fieldname": "column_break_price",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "basis",
+   "fieldtype": "Select",
+   "label": "Cost Basis",
+   "options": "Weight\nUnit cost",
+   "default": "Weight",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "unit_cost",
+   "fieldtype": "Currency",
+   "label": "Unit Cost",
+   "depends_on": "eval:doc.basis=='Unit cost'"
+  },
+  {
+   "fieldname": "price_rule",
+   "fieldtype": "Select",
+   "label": "Price Rule",
+   "options": "Iron\nCustom",
+   "default": "Iron",
+   "description": "Iron: the factory's iron markup and rounding. Custom: this part's own."
+  },
+  {
+   "fieldname": "markup",
+   "fieldtype": "Float",
+   "label": "Markup (×)",
+   "precision": "3",
+   "depends_on": "eval:doc.price_rule=='Custom'"
+  },
+  {
+   "fieldname": "kg_price_digits",
+   "fieldtype": "Int",
+   "label": "Per-kg Price Digits",
+   "depends_on": "eval:doc.price_rule=='Custom' && doc.basis=='Weight'",
+   "description": "Excel ROUND digits: 1 = one decimal, -1 = to 10."
+  },
+  {
+   "fieldname": "unit_price_digits",
+   "fieldtype": "Int",
+   "label": "Unit Price Digits",
+   "depends_on": "eval:doc.price_rule=='Custom'"
+  },
+  {
+   "fieldname": "unit_rounding",
+   "fieldtype": "Select",
+   "label": "Unit Price Rounding",
+   "options": "Round\nRound up",
+   "default": "Round",
+   "depends_on": "eval:doc.price_rule=='Custom'"
+  },
+  {
+   "fieldname": "in_iron_weight",
+   "fieldtype": "Check",
+   "label": "In the Iron Weight",
+   "default": "1"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  }
+ ],
+ "istable": 1,
+ "editable_grid": 1
+}
