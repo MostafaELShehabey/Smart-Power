@@ -10,7 +10,7 @@ import frappe
 from frappe import _
 from frappe.utils import get_fullname
 
-from smart_power.sp_sales.quote_clock import amber_seconds_left, clock
+from smart_power.sp_sales.quote_clock import OVERDUE, amber_seconds_left, clock
 from smart_power.sp_sales.quote_request import (
 	ADMIN_ROLE,
 	INSTALLATION_MANAGER_ROLE,
@@ -24,7 +24,7 @@ from smart_power.sp_sales.quote_request import (
 
 CASE = "SP Case"
 OPEN_STATUSES = ("Quote request", "Draft")
-UNCLAIMED, MINE, ALL = "Unclaimed", "Mine", "All"
+UNCLAIMED, MINE, ALL, OVERDUE_VIEW = "Unclaimed", "Mine", "All", "Overdue"
 TAKE_ACTION = "Take Request"
 QUEUE_FIELDS = [
 	"name",
@@ -75,6 +75,8 @@ def get_queue(view: str = ALL) -> list[dict]:
 		# who may take it) and the admin
 		row["can_act"] = is_admin or (is_creator and row.quote_creator in (None, "", frappe.session.user))
 		row.pop("creation", None)
+	if view == OVERDUE_VIEW:  # past the quote clock now (AD1's "requests over 24 h", SP-138)
+		rows = [row for row in rows if row["state"] == OVERDUE]
 	return rows
 
 

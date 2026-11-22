@@ -15,7 +15,12 @@ frappe.pages["sp-review-centre"].on_page_load = function (wrapper) {
 };
 
 frappe.pages["sp-review-centre"].on_page_show = function (wrapper) {
-	wrapper.sp_review_centre && wrapper.sp_review_centre.refresh();
+	// AD1 opens a tab here (SP-138)
+	const category = frappe.route_options && frappe.route_options.category;
+	frappe.route_options = null;
+	if (!wrapper.sp_review_centre) return;
+	if (category) wrapper.sp_review_centre.category = category;
+	wrapper.sp_review_centre.refresh();
 };
 
 class SPReviewCentre {
