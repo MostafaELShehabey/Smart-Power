@@ -42,7 +42,7 @@ class SPMonthEnd {
 		this.page.clear_secondary_action();
 		const head = closed
 			? `<div class="alert alert-success">${esc(__("{0} is closed", [label]))} · ${esc(
-					d.closed_by ? frappe.user.full_name(d.closed_by) : ""
+					d.closed_by ? (frappe.user_info(d.closed_by) || {}).fullname : ""
 				)} · ${esc(frappe.datetime.str_to_user(d.closed_on || ""))}</div>`
 			: `<div class="alert alert-warning">${esc(__("{0} is open", [label]))}</div>`;
 		const rows = (closed && d.closed_checks.length ? d.closed_checks : d.checks)
@@ -63,7 +63,7 @@ class SPMonthEnd {
 		const reopens = (d.reopens || [])
 			.map(
 				(r) =>
-					`<li>${esc(frappe.datetime.str_to_user(r.reopened_on))} · ${esc(frappe.user.full_name(r.reopened_by))}: ${esc(r.reason)}</li>`
+					`<li>${esc(frappe.datetime.str_to_user(r.reopened_on))} · ${esc((frappe.user_info(r.reopened_by) || {}).fullname)}: ${esc(r.reason)}</li>`
 			)
 			.join("");
 		this.$body.html(`${head}

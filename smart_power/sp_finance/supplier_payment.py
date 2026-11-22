@@ -14,6 +14,7 @@ from frappe.utils import cstr, flt, get_fullname, nowdate
 
 from smart_power.notify import send
 from smart_power.sp_core.inbox import HIGH, NORMAL, close_tasks, create_task
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_core.services.settings import get_value
 from smart_power.sp_stock.goods_receipt import _check_own_photo
 
@@ -208,6 +209,7 @@ def _pending(name: str):
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Confirmed", "Payment Entry")  # X13 (SP-137)
 def confirm(name: str) -> str:
 	"""The admin checked the money: it goes out and reduces what the supplier is owed."""
 	entry = _pending(name)
@@ -226,6 +228,7 @@ def confirm(name: str) -> str:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Rejected", "Payment Entry")  # X13 (SP-137)
 def reject(name: str, reason: str) -> str:
 	"""Nothing is posted; the recorder gets the reason and can record the payment again."""
 	reason = cstr(reason).strip()

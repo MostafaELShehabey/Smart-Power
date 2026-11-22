@@ -24,6 +24,7 @@ import frappe
 from frappe import _
 from frappe.utils import flt, today
 
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_stations.station import is_admin
 from smart_power.sp_stations.station_workflow import CANCELLED, FIN_CLOSED, TECH_CLOSED
 
@@ -163,6 +164,7 @@ def cancel_preview(station: str) -> dict:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Cancelled", "SP Station")  # X13 (SP-137)
 def cancel_station(
 	station: str, reason: str, accounts: str | dict | None = None, fates: str | dict | None = None
 ) -> dict:

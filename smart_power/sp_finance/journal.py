@@ -15,6 +15,8 @@ from frappe import _
 from frappe.model.docstatus import DocStatus
 from frappe.utils import flt, today
 
+from smart_power.sp_core.services.audit import audited
+
 JE = "Journal Entry"
 
 
@@ -64,6 +66,7 @@ def on_submit(doc, method=None) -> None:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Reversed", "Journal Entry")  # X13 (SP-137)
 def reverse(name: str) -> str:
 	"""A6 Reverse: a draft reversing entry of a manual entry, linked to it (submit to post)."""
 	from erpnext.accounts.doctype.journal_entry.journal_entry import make_reverse_journal_entry

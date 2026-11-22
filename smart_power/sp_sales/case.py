@@ -12,6 +12,7 @@ import frappe
 from frappe import _
 from frappe.utils import now_datetime, today
 
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_sales import quote_clock
 from smart_power.sp_sales.quote_request import PAYMENT_LIST, SOURCE_LIST, clean_details
 
@@ -116,6 +117,7 @@ def record_owner_changes(doc) -> None:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Reassigned", "SP Case")  # X13 (SP-137)
 def reassign(case: str, owner_field: str, to_user: str | None = None, reason: str | None = None) -> str:
 	"""Give one of the case's owners to another user, with a reason (admin only for now).
 

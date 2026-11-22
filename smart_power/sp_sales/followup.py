@@ -14,6 +14,7 @@ import frappe
 from frappe import _
 from frappe.utils import get_fullname, now_datetime
 
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_sales.case import touch
 
 CASE, TASK, CALL, STATION = "SP Case", "SP Task", "SP Call Log", "SP Station"
@@ -236,6 +237,7 @@ def can_hand_over(case, user: str | None = None) -> bool:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Handed over", "SP Case")  # X13 (SP-137)
 def hand_over(case: str, to_user: str, note: str | None = None) -> str:
 	"""F5: give my case to a colleague at once, with no approval. The history keeps the date,
 	from and to; the open call tasks and the board card move with the case."""

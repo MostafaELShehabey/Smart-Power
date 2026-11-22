@@ -24,6 +24,7 @@ from frappe import _
 from frappe.utils import flt, now_datetime
 
 from smart_power.sp_core.inbox import HIGH, NORMAL, close_tasks, create_task
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_finance.accounts import mode_for_method
 
 PAYMENT, STATION, CASE, TASK = "SP Customer Payment", "SP Station", "SP Case", "SP Task"
@@ -196,6 +197,7 @@ def _pending(name: str):
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Confirmed", "SP Customer Payment")  # X13 (SP-137)
 def confirm(name: str) -> str:
 	"""The admin checked the money: post it. Returns the entry's name."""
 	return post_confirmed(_pending(name))
@@ -231,6 +233,7 @@ def post_confirmed(doc) -> str:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Rejected", "SP Customer Payment")  # X13 (SP-137)
 def reject(name: str, reason: str) -> str:
 	"""Back to the recorder with the reason; nothing is posted. The recorder can amend it."""
 	reason = (reason or "").strip()

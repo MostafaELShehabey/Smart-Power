@@ -14,6 +14,8 @@
   "column_break_audit",
   "reference_doctype",
   "reference_name",
+  "ip",
+  "user_agent",
   "details_section",
   "details"
  ],
@@ -59,6 +61,18 @@
    "options": "reference_doctype"
   },
   {
+   "fieldname": "ip",
+   "fieldtype": "Data",
+   "label": "IP Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "user_agent",
+   "fieldtype": "Small Text",
+   "label": "Browser",
+   "read_only": 1
+  },
+  {
    "fieldname": "details_section",
    "fieldtype": "Section Break"
   },
@@ -73,7 +87,7 @@
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-09 14:29:36.865018",
+ "modified": "2026-11-22 07:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP Audit Log",
