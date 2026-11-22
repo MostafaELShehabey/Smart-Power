@@ -4,7 +4,7 @@ One SP Team Commission per company and month: a line per person with the amount 
 (no formula, as agreed), a note, and whether it is paid. Station commissions from quotes are
 separate and already sit in station cost (SP-58, SP-177).
 
-    saving the amounts   "Team Commission": Dr Commission on Sales / Cr Commission Payable, on the
+    saving the amounts   "Team Commission": Dr Team Commissions / Cr Commission Payable, on the
                          Indirect Pool center (the story's default), dated the month's last day.
                          A changed total reverses the entry and posts the new one.
     mark_paid(line)      "Team Commission Payment": Dr Commission Payable / Cr the official account
@@ -23,7 +23,7 @@ from smart_power.sp_finance.posting import JE, post, postings
 
 DOCTYPE = "SP Team Commission"
 EVENT, PAY_EVENT = "Team Commission", "Team Commission Payment"
-EXPENSE_ACCOUNT, PAYABLE_ACCOUNT = "Commission on Sales", "Commission Payable"
+EXPENSE_ACCOUNT, PAYABLE_ACCOUNT = "Team Commissions", "Commission Payable"
 MONEY_DIGITS = 2  # sp-allow-number: currency precision
 
 

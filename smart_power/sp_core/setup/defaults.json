@@ -563,6 +563,7 @@
 			{"account_name": "Indirect Cost Allocated", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-124: the indirect pool's share charged to each station and center"},
 			{"account_name": "Petty Cash Expenses", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-122: petty cash spent from a custody, on a center"},
 			{"account_name": "Commission Payable", "parent": "Current Liabilities", "kind": "Other"},
+			{"account_name": "Team Commissions", "parent": "Indirect Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-143: the month's team commission (R5), an indirect cost"},
 			{"account_name": "Owner Current Account", "parent": "Current Liabilities", "kind": "Other", "_source": "SP-123: expenses the owner paid personally, owed to him (owner 2026-11-21: a liability)"},
 			{"account_name": "Referrer Commissions Payable", "parent": "Current Liabilities", "account_type": "Payable", "kind": "Other", "_source": "SP-177: what is owed to each referrer (party Sales Partner)"},
 			{"account_name": "Referrer Commissions", "parent": "Direct Expenses", "account_type": "Expense Account", "kind": "Other", "_source": "SP-177: a station's referrer commission, on its project"},
