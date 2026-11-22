@@ -3912,3 +3912,19 @@ Closing balance,الرصيد الختامي
 Include Transit Accounts,شامل حسابات العهدة في الطريق
 "4 to 26 weeks, or 1 to 12 months","من 4 إلى 26 أسبوعًا، أو من 1 إلى 12 شهرًا"
 Show the cash flow by week or by month.,اعرض التدفق النقدي بالأسبوع أو بالشهر.
+SP Conversion,تحويل الطلبات
+Conversion,تحويل الطلبات
+Requester,مقدم الطلب
+Quote creator,منشئ العرض
+Follow-up owner,مسؤول المتابعة
+Lost reason,سبب الخسارة
+Quoted,تم إرسال العرض
+Group By,التجميع حسب
+Not set,غير محدد
+No reason,بدون سبب
+Share %,النسبة %
+Win Rate %,نسبة الفوز %
+Quoted %,نسبة العروض %
+Avg Hours to Quote,متوسط الساعات حتى العرض
+Quoted in 24 h %,عروض خلال 24 ساعة %
+"Group by channel, a person or the lost reason.","جمّع حسب القناة أو الشخص أو سبب الخسارة."
