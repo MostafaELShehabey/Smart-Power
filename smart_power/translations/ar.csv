@@ -3852,3 +3852,7 @@ Column,العمود
 Posting Date,تاريخ القيد
 Remarks,ملاحظات
 Voucher Type,نوع المستند
+Panels needed: {0} W,الألواح المطلوبة: {0} وات
+Inverter needed: {0} kW,الإنفرتر المطلوب: {0} كيلو وات
+Batteries needed: {0} Ah at {1} V,البطاريات المطلوبة: {0} أمبير ساعة على {1} فولت
+"Printed on the quote for this component. Empty: the item's own warranty.","يُطبع على عرض السعر لهذا المكوّن. فارغ: ضمان الصنف نفسه."

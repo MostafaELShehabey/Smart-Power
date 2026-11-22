@@ -1,0 +1,43 @@
+{
+ "_source": "SP-172: the owner's off-grid file (16-9-2026), its technical tab (the load table and the sizing formulas) and its analysis tab (the lines, quantities and markups). Sun hours, the inverter factor, the battery voltage, efficiency and depth of discharge are template defaults, not rules. Products round up (owner's decision 22-11-2026): panels in complete strings, the priority brand's smallest inverter and battery at or above the need, and the battery count rounded up. The unit costs of the lines not priced from the catalogue are left for the admin to enter as a new version (the repo is public).",
+ "template_key": "OFFGRID",
+ "template_name": "أوف جريد: ألواح + إنفرتر + بطاريات",
+ "offer_type": [
+  "System Type",
+  "OFFGRID"
+ ],
+ "description": "محطة طاقة شمسية منفصلة عن الشبكة: الألواح والإنفرتر والبطاريات محسوبة من جدول الأحمال (طاقة النهار والليل).",
+ "inputs": [
+  {"input_key": "load_w", "label": "إجمالي قدرة الأحمال (وات)", "input_type": "Float", "reqd": 1, "help": "من جدول الأحمال في الطلب: الكمية × القدرة لكل جهاز"},
+  {"input_key": "day_wh", "label": "الطاقة المطلوبة نهارًا (وات ساعة)", "input_type": "Float", "reqd": 1, "help": "من جدول الأحمال: الكمية × القدرة × ساعات النهار"},
+  {"input_key": "night_wh", "label": "الطاقة المطلوبة ليلًا (وات ساعة)", "input_type": "Float", "reqd": 1, "help": "من جدول الأحمال: الكمية × القدرة × ساعات الليل"},
+  {"input_key": "sun_hours", "label": "ساعات الشمس الفعالة", "input_type": "Float", "default_value": "5.5", "help": "قدرة الألواح = (طاقة النهار + طاقة الليل) ÷ ساعات الشمس"},
+  {"input_key": "inverter_factor", "label": "معامل الإنفرتر", "input_type": "Float", "default_value": "1.5", "help": "قدرة الإنفرتر = إجمالي قدرة الأحمال × المعامل"},
+  {"input_key": "battery_voltage", "label": "جهد البطاريات (فولت)", "input_type": "Float", "default_value": "48"},
+  {"input_key": "battery_efficiency", "label": "كفاءة البطاريات", "input_type": "Float", "default_value": "0.9"},
+  {"input_key": "depth_of_discharge", "label": "عمق التفريغ", "input_type": "Float", "default_value": "0.8", "help": "سعة البطاريات = طاقة الليل ÷ (الكفاءة × عمق التفريغ × الجهد)"},
+  {"input_key": "battery_unit_ah", "label": "سعة البطارية الواحدة (أمبير ساعة)", "input_type": "Float", "default_value": "200", "help": "يُختار أصغر بطارية بهذه السعة أو أكبر، من الماركة صاحبة الأولوية"},
+  {"input_key": "panel_watt", "label": "قدرة اللوح (وات)", "input_type": "Float", "default_value": "625", "help": "يُختار أصغر لوح بهذه القدرة أو أكبر، من الماركة صاحبة الأولوية"},
+  {"input_key": "panels_per_string", "label": "عدد الألواح في الاسترنج", "input_type": "Int", "default_value": "7"},
+  {"input_key": "strings", "label": "عدد الاسترنجات", "input_type": "Int", "default_value": "0", "help": "صفر: يُحسب من الطاقة المطلوبة، استرنجات كاملة"},
+  {"input_key": "dc_cable_per_string", "label": "سلك DC لكل استرنج (متر)", "input_type": "Float", "default_value": "20"},
+  {"input_key": "ac_cable_m", "label": "طول سلك 2×50 مم (متر)", "input_type": "Float", "default_value": "6"},
+  {"input_key": "pipes_2in_count", "label": "عدد مواسير 2 بوصة", "input_type": "Float", "default_value": "1"},
+  {"input_key": "strings_per_flex_roll", "label": "استرنجات لكل لفة فليكسبل", "input_type": "Float", "default_value": "3"}
+ ],
+ "lines": [
+  {"line_key": "panels", "section": "الطاقة", "description": "ألواح شمسية (بالوات)", "item_group": "ألواح شمسية", "selection_rule": "Stock first", "capacity_field": "watt", "need_formula": "panel_watt", "qty_formula": "panels_per_string * (strings or ceil((day_wh + night_wh) / sun_hours / ((item.watt or panel_watt) * panels_per_string))) * (item.watt or panel_watt)", "cost_source": "P1 price", "pricing_method": "Cost x Markup", "default_markup": 10, "rounding": "2 decimals", "warranty_years": 25},
+  {"line_key": "inverter", "section": "الطاقة", "description": "إنفرتر أوف جريد", "item_group": "إنفرترات ودرايفات", "selection_rule": "Brand priority", "capacity_field": "kw", "need_formula": "load_w * inverter_factor / 1000", "qty_formula": "1", "cost_source": "P1 price", "pricing_method": "Locked BTC price", "warranty_years": 3},
+  {"line_key": "batteries", "section": "البطاريات", "description": "بطاريات", "item_group": "بطاريات", "selection_rule": "Brand priority", "capacity_field": "battery_ah", "need_formula": "battery_unit_ah", "qty_formula": "ceil(night_wh / (battery_efficiency * depth_of_discharge * battery_voltage) / (item.battery_ah or battery_unit_ah))", "cost_source": "P1 price", "pricing_method": "Locked BTC price", "warranty_years": 7},
+  {"line_key": "chassis", "section": "الطاقة", "description": "شاسيهات ثابتة من الحديد المجلفن على الساخن سمك 3 مم مثبتة في الأرض بقواعد خرسانية (لكل كيلو وات)", "qty_formula": "panels.qty / 1000", "cost_source": "Per-kW default", "pricing_method": "Cost x Markup", "default_markup": 20, "rounding": "Nearest 10"},
+  {"line_key": "combiner", "section": "الطاقة", "description": "لوحة تجميع", "item_group": "لوحات تجميع", "selection_rule": "Manual", "qty_formula": "1", "cost_source": "P1 price", "pricing_method": "Cost x Markup", "default_markup": 10, "rounding": "Nearest 10"},
+  {"line_key": "dc_cable", "section": "الطاقة", "description": "سلك DC قطاع 4 مم (متر)", "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string)) * dc_cable_per_string", "cost_source": "Manual", "pricing_method": "Cost x Markup", "default_markup": 40, "rounding": "Nearest 5"},
+  {"line_key": "ac_cable", "section": "الطاقة", "description": "سلك 2×50 مم (متر)", "qty_formula": "ac_cable_m", "cost_source": "Manual", "pricing_method": "Cost x Markup", "default_markup": 40, "rounding": "Nearest 5"},
+  {"line_key": "mc4", "section": "الطاقة", "description": "MC4", "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string))", "cost_source": "Manual", "pricing_method": "Cost x Markup", "default_markup": 50, "rounding": "Nearest 10"},
+  {"line_key": "pipes_2in", "section": "الطاقة", "description": "مواسير 2 بوصة", "qty_formula": "pipes_2in_count", "cost_source": "Manual", "pricing_method": "Cost x Markup", "default_markup": 15, "rounding": "Nearest 10"},
+  {"line_key": "flex", "section": "الطاقة", "description": "فليكسبل حراري (لفة)", "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string)) / strings_per_flex_roll", "cost_source": "Manual", "pricing_method": "Cost x Markup", "default_markup": 20, "rounding": "Nearest 10"},
+  {"line_key": "fittings", "section": "الطاقة", "description": "كيعان + حزامات + جلاندات + مشتملات تركيب", "qty_formula": "1", "cost_source": "Formula", "cost_formula": "pipes_2in.amount / 4", "pricing_method": "Cost x Markup", "default_markup": 100, "rounding": "Nearest 10"},
+  {"line_key": "installation", "section": "الطاقة", "description": "تركيب وبرمجة (لكل كيلو وات)", "qty_formula": "panels.qty / 1000", "cost_source": "Manual", "pricing_method": "Cost x Markup", "default_markup": 50, "rounding": "Nearest 10"},
+  {"line_key": "transport", "section": "الطاقة", "description": "نقل", "qty_formula": "1", "cost_source": "Manual", "pricing_method": "Pass-through"}
+ ]
+}
