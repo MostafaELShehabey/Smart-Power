@@ -208,3 +208,32 @@ def quote_plan_margin(doc, ctx: RuleContext):
 		suggestion=_("Check the plan's multiplier and service, or the cash price."),
 		highlight=True,
 	)
+
+
+# The case-inactivity rule is checked by the daily job sp_sales.followup.check_inactivity (SP-71).
+INACTIVITY_EVENT = "inactivity"
+
+
+@rule(
+	"case_inactive",
+	doctypes=("SP Case",),
+	events=(INACTIVITY_EVENT,),
+	category="Commercial",
+	default_level=WARN,
+	never_block=True,
+	title="Case with no action",
+	description="An open case (not Won or Lost) with no call, quote, status change, discount or "
+	"hand-over for Case Inactivity Alert days (Smart Power Settings) alerts its owner and the admin, "
+	"again every that many days while it stays untouched. A warning, never a block.",
+	review_category="Rule Warning",
+)
+def case_inactive(doc, ctx: RuleContext):
+	days = doc.flags.sp_idle_days
+	if not days:
+		return None
+	return Finding(
+		message=_("No action on case {0} ({1}) for {2} days (alert after {3}).").format(
+			doc.name, doc.customer_name or doc.customer or "", days, doc.flags.sp_idle_limit
+		),
+		suggestion=_("Call the customer, or hand the case over."),
+	)

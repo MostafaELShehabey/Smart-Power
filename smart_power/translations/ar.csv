@@ -3577,3 +3577,9 @@ Team commission entered (R5),إدخال عمولة الفريق (R5)
 Entries reviewed,مراجعة القيود
 Checklist Item,البند
 Open the list,افتح القائمة
+"An open case (not Won or Lost) with no call, quote, status change, discount or hand-over for Case Inactivity Alert days (Smart Power Settings) alerts its owner and the admin, again every that many days while it stays untouched. A warning, never a block.",الحالة المفتوحة (غير المكسوبة أو المفقودة) التي لا يُسجَّل عليها اتصال أو عرض أو تغيير حالة أو خصم أو تسليم لمدة تنبيه خمول الحالة (إعدادات سمارت باور) تنبّه مالكها والمدير، وتتكرر كل نفس المدة ما دامت بلا حركة. تنبيه فقط، لا يمنع أبدًا.
+"Call the customer, or hand the case over.",اتصل بالعميل، أو سلّم الحالة لزميل.
+Case with no action,حالة بلا متابعة
+Last Inactivity Alert,آخر تنبيه خمول
+No action on case {0} ({1}) for {2} days (alert after {3}).,لا متابعة على الحالة {0} ({1}) منذ {2} يومًا (التنبيه بعد {3}).
+When the owner and the admin were last told the case had no action (SP-71).,آخر مرة نُبِّه فيها المالك والمدير بأن الحالة بلا متابعة.

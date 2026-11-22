@@ -266,6 +266,7 @@ def owner_changed(case, old_owner: str | None) -> None:
 	open call tasks move, the customer follows (unless featured), both owners are told, and an
 	admin reassign is listed for review."""
 	new_owner = case.get(OWNER_FIELD)
+	touch(case.name)  # a hand-over is an action on the case (SP-71)
 	for name in frappe.get_all(
 		TASK,
 		{"reference_doctype": CASE, "reference_name": case.name, "task_type": CALL_TASK, "status": TASK_OPEN},
@@ -324,3 +325,56 @@ def hand_over_options(case: str) -> dict:
 			{"value": u, "label": get_fullname(u)} for u in sorted(enabled) if u != frappe.session.user
 		],
 	}
+
+
+# --- the case-inactivity rule (SP-71) -------------------------------------------------------------
+
+INACTIVE_EVENT = "case_inactive"
+CLOSED_STATUSES = ("Won", "Lost")
+ADMIN_ROLE = "SP Admin"
+
+
+def check_inactivity(only: list[str] | None = None) -> list[str]:
+	"""Daily: an open case with no action for Case Inactivity Alert days alerts its owner and the
+	admin once, and again every that many days while it stays untouched (owner: 5 days).
+	only: these cases, not every open one."""
+	from frappe.utils import add_days, cint, date_diff
+
+	from smart_power.notify import send
+	from smart_power.rules import OFF, effective_level, evaluate, get_rule_setting, record_warning, registry
+	from smart_power.sp_core.services.settings import get_value
+	from smart_power.sp_sales.quote_request import _users_with
+
+	limit = cint(get_value("case_inactivity_days"))
+	spec = registry().get(INACTIVE_EVENT)
+	if not limit or (spec and effective_level(spec, get_rule_setting(INACTIVE_EVENT)) == OFF):
+		return []
+	cutoff = add_days(now_datetime(), -limit)
+	cases = frappe.get_all(
+		CASE,
+		filters={
+			"status": ("not in", CLOSED_STATUSES),
+			"last_action_at": ("<", cutoff),
+			**({"name": ("in", only)} if only else {}),
+		},
+		or_filters=[["last_inactive_alert", "is", "not set"], ["last_inactive_alert", "<", cutoff]],
+		fields=["name"],
+		order_by="last_action_at asc",
+	)
+	admins = _users_with(ADMIN_ROLE)
+	alerted = []
+	for row in cases:
+		doc = frappe.get_doc(CASE, row.name)
+		doc.flags.sp_idle_days = date_diff(now_datetime(), doc.last_action_at)
+		doc.flags.sp_idle_limit = limit
+		hits = evaluate(doc, "inactivity")
+		if not hits:
+			continue
+		for hit in hits:
+			record_warning(doc, hit)
+		users = sorted({u for u in [doc.get(OWNER_FIELD), *admins] if u})
+		if users:
+			send(INACTIVE_EVENT, users, CASE, doc.name, hits[0].finding.message, from_user="Administrator")
+		frappe.db.set_value(CASE, doc.name, "last_inactive_alert", now_datetime(), update_modified=False)
+		alerted.append(doc.name)
+	return alerted

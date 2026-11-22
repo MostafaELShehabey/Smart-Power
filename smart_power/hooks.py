@@ -415,6 +415,8 @@ scheduler_events = {
 		"smart_power.sp_sales.quotation.expire_quotes",
 		# expired or price-changed quotes before the deposit: Needs repricing, with alerts (SP-170)
 		"smart_power.sp_quotes.repricing.check_quotes",
+		# open cases with no action for Case Inactivity Alert days: the owner and the admin (SP-71)
+		"smart_power.sp_sales.followup.check_inactivity",
 		# cash held too long in a transit account: the holder and the admin, daily (SP-116)
 		"smart_power.sp_finance.transit.check_cash_held",
 		# postal cheques due soon: Due, with alerts (SP-118)
