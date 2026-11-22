@@ -70,6 +70,9 @@ def after_install() -> None:
 	from smart_power.sp_quotes.bank_formats import seed_bank_formats
 
 	seed_bank_formats()  # SP-171
+	from smart_power.sp_quotes.chassis_calc import seed_factories
+
+	seed_factories()  # SP-166
 	make_po_desk_default()
 	from smart_power.notify import sync_events
 

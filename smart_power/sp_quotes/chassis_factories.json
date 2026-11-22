@@ -1,0 +1,47 @@
+{
+ "_source": "SP-166: the factories' approved sheets in the as-is folder (Agri Solar rules v2 and template, 17-11-2026; Ali El-Shafei template, 9-11-2026). Supplier costs are left for the admin to enter: the repo is public.",
+ "factories": [
+  {
+   "factory_name": "أجري سولار",
+   "panel_gap": 0.04, "min_spacing": 2.3, "max_spacing": 2.75, "design_spacing": 2.75, "spacing_step": 0.05, "spacing_rounding": "Round down",
+   "j_min": 0.2, "j_max": 0.8, "j_target": 0.5, "leg_distance": 2.8, "default_supports": 1, "max_supports": 1,
+   "rail_label": "حامل الألواح", "rail_section": "4×4 سم", "rail_kg_per_m": 2.05, "rail_lengths": "4, 5, 6", "default_rail_mode": "Cut to size", "rail_lines_per_row": 2,
+   "iron_markup": 1.25, "iron_kg_digits": 1, "iron_unit_digits": -1, "iron_unit_rounding": "Round up",
+   "parts": [
+    {"key": "back_leg", "part": "الرجل الخلفية", "group": "Stand frame", "section": "6×4 سم", "length_m": 1.6, "kg_per_m": 2.65, "qty_formula": "stands"},
+    {"key": "front_leg", "part": "الرجل الأمامية", "group": "Stand frame", "section": "6×4 سم", "length_m": 0.3, "kg_per_m": 2.65, "qty_formula": "stands"},
+    {"key": "support", "part": "دعامة أمامية داخلية", "group": "Stand frame", "section": "4×4 سم", "length_m": 1.6, "kg_per_m": 2.05, "qty_formula": "stands"},
+    {"key": "slant", "part": "القطاع المائل في الجمل", "group": "Stand frame", "section": "6×4 سم", "length_m": 4, "kg_per_m": 2.65, "qty_formula": "stands"},
+    {"key": "base", "part": "قاعدة تثبيت خرسانة", "section": "5×4×35 سم", "unit_weight_kg": 1.1, "qty_formula": "stands * 2", "price_rule": "Custom", "markup": 1.8, "kg_price_digits": -1, "unit_price_digits": -1, "unit_rounding": "Round"},
+    {"key": "double", "part": "وصلة ثنائية", "unit_weight_kg": 0.22, "qty_formula": "stands * 4", "price_rule": "Custom", "markup": 2.5, "kg_price_digits": -1, "unit_price_digits": 0, "unit_rounding": "Round"},
+    {"key": "quad", "part": "وصلة رباعية", "unit_weight_kg": 0.18, "qty_formula": "quad_joints", "price_rule": "Custom", "markup": 2.5, "kg_price_digits": -1, "unit_price_digits": 0, "unit_rounding": "Round"},
+    {"key": "bolt_10", "part": "مسمار 10 سم قطر 13 مم + وردة", "basis": "Unit cost", "qty_formula": "stands * 4", "price_rule": "Custom", "markup": 3, "unit_price_digits": 0, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "bolt_6", "part": "مسمار 6 سم قطر 10 مم + وردة + صامولة", "basis": "Unit cost", "qty_formula": "stands * 4", "price_rule": "Custom", "markup": 3, "unit_price_digits": 0, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "bolt_2", "part": "مسمار 2 سم قطر 10 مم + وردة + صامولة", "basis": "Unit cost", "qty_formula": "stands * 12 + quad * 4", "price_rule": "Custom", "markup": 3, "unit_price_digits": 0, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "mid_clamp", "part": "كلامب مجوز كامل (ميدل + صامولة سوستة 8 مم)", "basis": "Unit cost", "qty_formula": "panel_gaps * 2", "price_rule": "Custom", "markup": 1.8, "unit_price_digits": 0, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "end_clamp", "part": "كلامب فردي كامل (إند + صامولة سوستة 8 مم)", "basis": "Unit cost", "qty_formula": "rows * 4", "price_rule": "Custom", "markup": 1.8, "unit_price_digits": 0, "unit_rounding": "Round up", "in_iron_weight": 0}
+   ]
+  },
+  {
+   "factory_name": "علي الشافعي",
+   "panel_gap": 0.04, "min_spacing": 2.45, "max_spacing": 2.8, "design_spacing": 2.75, "spacing_step": 0.01, "spacing_rounding": "Round",
+   "j_min": 0.3, "j_max": 0.8, "j_target": 0.4, "leg_distance": 2.8, "default_supports": 1, "max_supports": 2,
+   "rail_label": "حامل الألواح", "rail_section": "4×4 سم", "rail_kg_per_m": 2.1, "rail_lengths": "4, 5, 6", "default_rail_mode": "Standard lengths", "rail_lines_per_row": 2,
+   "iron_markup": 1.22, "iron_kg_digits": 1, "iron_unit_digits": -1, "iron_unit_rounding": "Round up",
+   "parts": [
+    {"key": "back_leg", "part": "الرجل الخلفية", "group": "Stand frame", "section": "6×4 سم", "length_m": 1.65, "kg_per_m": 2.75, "qty_formula": "stands"},
+    {"key": "front_leg", "part": "الرجل الأمامية", "group": "Stand frame", "section": "6×4 سم", "length_m": 0.4, "kg_per_m": 2.75, "qty_formula": "stands"},
+    {"key": "support", "part": "الدعامة الأمامية الداخلية الأولى", "group": "Stand frame", "section": "4×4 سم", "length_m": 1.25, "kg_per_m": 2.1, "qty_formula": "stands"},
+    {"key": "support_2", "part": "الدعامة الثانية", "group": "Stand frame", "section": "4×4 سم", "length_m": 0.75, "kg_per_m": 2.1, "qty_formula": "stands if supports == 2 else 0"},
+    {"key": "slant", "part": "القطاع المائل في الجمل", "group": "Stand frame", "section": "4×4 سم", "length_m": 4, "kg_per_m": 2.1, "qty_formula": "stands"},
+    {"key": "base", "part": "قاعدة تثبيت خرسانة", "section": "5×4×35 سم", "basis": "Unit cost", "qty_formula": "stands * 2", "price_rule": "Custom", "markup": 1.22, "unit_price_digits": -1, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "double", "part": "وصلة ثنائية", "basis": "Unit cost", "qty_formula": "stands * (2 + 2 * supports)", "price_rule": "Custom", "markup": 1.22, "unit_price_digits": -1, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "quad", "part": "وصلة رباعية", "basis": "Unit cost", "qty_formula": "quad_joints", "price_rule": "Custom", "markup": 1.22, "unit_price_digits": -1, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "bolt_6", "part": "مسمار 6 سم قطر 10 مم + الوردة + الصامولة", "basis": "Unit cost", "qty_formula": "stands * 4 + double + 2", "price_rule": "Custom", "markup": 1.22, "unit_price_digits": -1, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "bolt_2", "part": "مسمار 2 سم قطر 10 مم + الوردة + الصامولة", "basis": "Unit cost", "qty_formula": "2 * base + 2 * double + 4 * quad + 2", "price_rule": "Custom", "markup": 1.22, "unit_price_digits": -1, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "mid_clamp", "part": "كلامب مجوز كامل (ميدل كلامب + صامولة سوستة 8 مم)", "basis": "Unit cost", "qty_formula": "panel_gaps * 2", "price_rule": "Custom", "markup": 1.22, "unit_price_digits": -1, "unit_rounding": "Round up", "in_iron_weight": 0},
+    {"key": "end_clamp", "part": "كلامب فردي كامل (اند كلامب + صامولة سوستة 8 مم)", "basis": "Unit cost", "qty_formula": "rows * 4", "price_rule": "Custom", "markup": 1.22, "unit_price_digits": -1, "unit_rounding": "Round up", "in_iron_weight": 0}
+   ]
+  }
+ ]
+}

@@ -1,0 +1,316 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-22 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Chassis Factory",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1,
+   "write": 1,
+   "share": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "SP Quote Creator",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1
+  },
+  {
+   "role": "SP System Designer",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Pricing Manager",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Purchase Officer",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "email": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "factory_name",
+  "supplier",
+  "geometry_section",
+  "panel_gap",
+  "min_spacing",
+  "max_spacing",
+  "design_spacing",
+  "spacing_step",
+  "spacing_rounding",
+  "column_break_geo",
+  "j_min",
+  "j_max",
+  "j_target",
+  "leg_distance",
+  "default_supports",
+  "max_supports",
+  "rails_section",
+  "rail_label",
+  "rail_section",
+  "rail_kg_per_m",
+  "column_break_rails",
+  "rail_lengths",
+  "default_rail_mode",
+  "rail_lines_per_row",
+  "pricing_section",
+  "iron_cost_kg",
+  "iron_markup",
+  "column_break_pricing",
+  "iron_kg_digits",
+  "iron_unit_digits",
+  "iron_unit_rounding",
+  "parts_section",
+  "parts"
+ ],
+ "fields": [
+  {
+   "fieldname": "factory_name",
+   "fieldtype": "Data",
+   "label": "Factory Name",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "geometry_section",
+   "fieldtype": "Section Break",
+   "label": "Geometry"
+  },
+  {
+   "fieldname": "panel_gap",
+   "fieldtype": "Float",
+   "label": "Gap Between Panels (m)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "min_spacing",
+   "fieldtype": "Float",
+   "label": "Minimum Spacing (m)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "max_spacing",
+   "fieldtype": "Float",
+   "label": "Maximum Spacing (m)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "design_spacing",
+   "fieldtype": "Float",
+   "label": "Spacing for the Stand Count (m)",
+   "precision": "3",
+   "description": "The fewest stands are counted at this spacing; empty = the maximum."
+  },
+  {
+   "fieldname": "spacing_step",
+   "fieldtype": "Float",
+   "label": "Spacing Step (m)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "spacing_rounding",
+   "fieldtype": "Select",
+   "label": "Spacing Rounding",
+   "options": "Round down\nRound",
+   "default": "Round down"
+  },
+  {
+   "fieldname": "column_break_geo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "j_min",
+   "fieldtype": "Float",
+   "label": "Minimum Overhang J (m)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "j_max",
+   "fieldtype": "Float",
+   "label": "Maximum Overhang J (m)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "j_target",
+   "fieldtype": "Float",
+   "label": "Target Overhang J (m)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "leg_distance",
+   "fieldtype": "Float",
+   "label": "Distance Between the Legs (m)",
+   "precision": "3"
+  },
+  {
+   "fieldname": "default_supports",
+   "fieldtype": "Int",
+   "label": "Supports per Stand",
+   "default": "1"
+  },
+  {
+   "fieldname": "max_supports",
+   "fieldtype": "Int",
+   "label": "Most Supports per Stand",
+   "default": "1"
+  },
+  {
+   "fieldname": "rails_section",
+   "fieldtype": "Section Break",
+   "label": "Panel Holders"
+  },
+  {
+   "fieldname": "rail_label",
+   "fieldtype": "Data",
+   "label": "Holder Name",
+   "default": "حامل الألواح"
+  },
+  {
+   "fieldname": "rail_section",
+   "fieldtype": "Data",
+   "label": "Holder Section"
+  },
+  {
+   "fieldname": "rail_kg_per_m",
+   "fieldtype": "Float",
+   "label": "Holder Weight per Metre (kg)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_rails",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rail_lengths",
+   "fieldtype": "Data",
+   "label": "Holder Lengths (m)",
+   "reqd": 1,
+   "default": "4, 5, 6"
+  },
+  {
+   "fieldname": "default_rail_mode",
+   "fieldtype": "Select",
+   "label": "Default Rails Mode",
+   "options": "Cut to size\nStandard lengths",
+   "default": "Cut to size"
+  },
+  {
+   "fieldname": "rail_lines_per_row",
+   "fieldtype": "Int",
+   "label": "Holder Lines per Panel Row",
+   "default": "2"
+  },
+  {
+   "fieldname": "pricing_section",
+   "fieldtype": "Section Break",
+   "label": "Pricing",
+   "description": "Only the admin changes these (owner, 2026-11-22)."
+  },
+  {
+   "fieldname": "iron_cost_kg",
+   "fieldtype": "Currency",
+   "label": "Iron Cost per kg"
+  },
+  {
+   "fieldname": "iron_markup",
+   "fieldtype": "Float",
+   "label": "Iron Markup (×)",
+   "precision": "3",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_pricing",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "iron_kg_digits",
+   "fieldtype": "Int",
+   "label": "Iron Per-kg Price Digits",
+   "default": "1"
+  },
+  {
+   "fieldname": "iron_unit_digits",
+   "fieldtype": "Int",
+   "label": "Iron Unit Price Digits",
+   "default": "-1"
+  },
+  {
+   "fieldname": "iron_unit_rounding",
+   "fieldtype": "Select",
+   "label": "Iron Unit Price Rounding",
+   "options": "Round up\nRound",
+   "default": "Round up"
+  },
+  {
+   "fieldname": "parts_section",
+   "fieldtype": "Section Break",
+   "label": "Parts"
+  },
+  {
+   "fieldname": "parts",
+   "fieldtype": "Table",
+   "label": "Parts",
+   "options": "SP Chassis Part"
+  }
+ ],
+ "autoname": "field:factory_name",
+ "title_field": "factory_name",
+ "track_changes": 1
+}

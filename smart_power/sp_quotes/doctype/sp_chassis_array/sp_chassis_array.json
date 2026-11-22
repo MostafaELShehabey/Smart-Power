@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-22 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Chassis Array",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "panels",
+  "panels_top",
+  "panels_bottom",
+  "holder_length",
+  "proposed_stands",
+  "stands",
+  "proposed_spacing",
+  "spacing",
+  "overhang",
+  "rail_piece_length",
+  "rail_layout",
+  "rails",
+  "review"
+ ],
+ "fields": [
+  {
+   "fieldname": "panels",
+   "fieldtype": "Int",
+   "label": "Panels",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "panels_top",
+   "fieldtype": "Int",
+   "label": "Top Row",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Empty: half the panels, rounded up."
+  },
+  {
+   "fieldname": "panels_bottom",
+   "fieldtype": "Int",
+   "label": "Bottom Row",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "holder_length",
+   "fieldtype": "Float",
+   "label": "Holder Length F (m)",
+   "precision": "3",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "proposed_stands",
+   "fieldtype": "Int",
+   "label": "Proposed Stands",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stands",
+   "fieldtype": "Int",
+   "label": "Stands",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Empty: the proposed number. You may add stands."
+  },
+  {
+   "fieldname": "proposed_spacing",
+   "fieldtype": "Float",
+   "label": "Proposed Spacing (m)",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "spacing",
+   "fieldtype": "Float",
+   "label": "Spacing (m)",
+   "precision": "3",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "overhang",
+   "fieldtype": "Float",
+   "label": "Overhang J (m)",
+   "precision": "3",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "rail_piece_length",
+   "fieldtype": "Float",
+   "label": "Holder Piece (m)",
+   "precision": "2",
+   "description": "Cut to size: the whole pieces' length; empty = the longest."
+  },
+  {
+   "fieldname": "rail_layout",
+   "fieldtype": "Data",
+   "label": "Holder Pieces per Line",
+   "description": "Standard lengths, e.g. 3×6 + 3×5 + 1×4; empty = suggested."
+  },
+  {
+   "fieldname": "rails",
+   "fieldtype": "Data",
+   "label": "Holders",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "review",
+   "fieldtype": "Small Text",
+   "label": "Review",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "editable_grid": 1
+}

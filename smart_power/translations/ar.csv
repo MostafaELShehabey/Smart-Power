@@ -3694,3 +3694,117 @@ Warranty,الضمان
 Country of Origin,بلد المنشأ
 Year of Manufacture,سنة الصنع
 Total in Words,الإجمالي بالحروف
+Iron Section,القطاع
+A minimum is above its maximum.,حد أدنى أكبر من الحد الأقصى المقابل له.
+All arrays pass the check.,كل المصفوفات مقبولة.
+Array,مصفوفة
+Arrays,المصفوفات
+Bottom Row,الصف السفلي
+CHS-.YYYY.-.#####,CHS-.YYYY.-.#####
+Cost Basis,أساس التكلفة
+Custom,خاص
+Cut to size,تقطيع بالطول
+Cut to size: the whole pieces' length; empty = the longest.,التقطيع بالطول: طول القطع الكاملة؛ فارغ = الأطول.
+Default Rails Mode,طريقة الحوامل الافتراضية
+Distance Between the Legs (m),المسافة بين الرجلين (م)
+"Empty: half the panels, rounded up.",فارغ: نصف الألواح مقربًا لأعلى.
+Empty: the proposed number. You may add stands.,فارغ: العدد المقترح. ممكن تزوّد الجمال.
+"Excel ROUND digits: 1 = one decimal, -1 = to 10.",أرقام التقريب كما في إكسل: 1 = رقم عشري واحد، ‎-1 = لأقرب 10.
+Factory Name,اسم المصنع
+Factory {0} takes 1 to {1} supports per stand.,مصنع {0} يقبل من 1 إلى {1} دعامة في الجمل.
+Fixing and accessories,التثبيت والإكسسوارات
+From the factory; only the admin changes it.,من المصنع؛ المدير فقط يغيّره.
+Gap Between Panels (m),الخلوص بين اللوحين (م)
+Geometry,الأبعاد
+"Give the holder lengths, e.g. 4, 5, 6.",اكتب أطوال الحوامل، مثل 4، 5، 6.
+"Give the panel width, or a panel item with its size.",اكتب عرض اللوح، أو اختر صنف لوح بمقاساته.
+Group,المجموعة
+Holder Length F (m),طول حامل الألواح F (م)
+Holder Lengths (m),أطوال الحوامل (م)
+Holder Lines per Panel Row,خطوط الحوامل لكل صف ألواح
+Holder Piece (m),طول قطعة الحامل (م)
+Holder Pieces per Line,قطع الحامل في الخط
+Holder Section,قطاع الحامل
+Holder Name,اسم الحامل
+Holder Weight per Metre (kg),وزن متر الحامل (كجم)
+Holders,الحوامل
+In the Iron Weight,ضمن وزن الحديد
+Iron,حديد
+Iron Cost per kg,تكلفة كيلو الحديد
+Iron Markup (×),نسبة بيع الحديد (×)
+Iron Per-kg Price Digits,تقريب سعر كيلو الحديد
+Iron Unit Price Digits,تقريب سعر قطعة الحديد
+Iron Unit Price Rounding,طريقة تقريب سعر قطعة الحديد
+Iron: the factory's iron markup and rounding. Custom: this part's own.,حديد: نسبة بيع الحديد وتقريبه في المصنع. خاص: نسبة القطعة وتقريبها.
+Length (m),الطول (م)
+Length × weight per metre when both are set.,الطول × وزن المتر لو الاتنين مكتوبين.
+Markup (×),نسبة البيع (×)
+Maximum Overhang J (m),أكبر فرق J (م)
+Maximum Spacing (m),أكبر مسافة بين الجمال (م)
+Minimum Overhang J (m),أقل فرق J (م)
+Minimum Spacing (m),أقل مسافة بين الجمال (م)
+Most Supports per Stand,أكبر عدد دعامات في الجمل
+"Names: stands, arrays, rows, panels, supports, quad_joints, panel_gaps, rail_lines and the keys of the parts above.","الأسماء: stands (الجمال)، arrays (المصفوفات)، rows (صفوف الألواح)، panels (الألواح)، supports (الدعامات)، quad_joints (الوصلات الرباعية)، panel_gaps (المسافات بين الألواح)، rail_lines (خطوط الحوامل) ومفاتيح القطع اللي فوق."
+Offer Total,إجمالي العرض
+Only the admin changes the iron markup.,المدير فقط يغيّر نسبة بيع الحديد.
+"Only the admin changes these (owner, 2026-11-22).",المدير فقط يغيّر دول (قرار المالك 2026-11-22).
+Overhang J (m),الفرق J (م)
+Panel Holders,حوامل الألواح
+Panel Item,صنف اللوح
+Panel Length (m),طول اللوح (م)
+Panel Watt,قدرة اللوح (وات)
+Panel Width (m),عرض اللوح (م)
+Panel holder,حامل الألواح
+Panels,الألواح
+Part,القطعة
+Part {0},القطعة {0}
+Parts,القطع
+Per-kg Price Digits,تقريب سعر الكيلو
+Price Analysis,تحليل السعر
+Price Rule,قاعدة السعر
+Proposed Spacing (m),المسافة المقترحة (م)
+Proposed Stands,عدد الجمال المقترح
+Quantity Formula,معادلة الكمية
+Rails Mode,طريقة الحوامل
+Round,تقريب
+Round down,تقريب لأسفل
+Round up,تقريب لأعلى
+Rounded to 10.,مقرب لأقرب 10.
+SP Chassis Array,مصفوفة الشاسيه
+SP Chassis Calc,حساب الشاسيه
+SP Chassis Factory,مصنع الشاسيه
+SP Chassis Line,سطر تحليل الشاسيه
+SP Chassis Part,قطعة الشاسيه
+SP Chassis Price List,لستة أسعار الشاسيه
+Chassis Calculator,حاسبة الشاسيه
+Chassis Factories,مصانع الشاسيه
+Chassis Price List,لستة أسعار الشاسيه
+Sale Amount,إجمالي البيع
+Sale Price,سعر البيع
+Sale per kg,سعر بيع الكيلو
+Series,السلسلة
+Spacing (m),المسافة بين الجمال (م)
+Spacing Rounding,تقريب المسافة
+Spacing Step (m),خطوة المسافة (م)
+Spacing for the Stand Count (m),المسافة لحساب عدد الجمال (م)
+Stand frame,هيكل الجمال
+Standard lengths,أطوال ستاندرد
+"Standard lengths, e.g. 3×6 + 3×5 + 1×4; empty = suggested.",أطوال ستاندرد، مثل 3×6 + 3×5 + 1×4؛ فارغ = المقترح.
+Stands,الجمال
+Supports per Stand,الدعامات في الجمل
+Target Overhang J (m),الفرق J المستهدف (م)
+The chassis calculator's holder length uses it (SP-166).,حاسبة الشاسيه بتحسب طول الحامل منه.
+The fewest stands are counted at this spacing; empty = the maximum.,أقل عدد جمال بيتحسب بالمسافة دي؛ فارغ = أكبر مسافة.
+Theoretical Iron Weight (kg),وزن الحديد النظري (كجم)
+Top Row,الصف العلوي
+Unit Cost,تكلفة الوحدة
+Unit Price Digits,تقريب سعر القطعة
+Unit Price Rounding,طريقة تقريب سعر القطعة
+Unit Weight (kg),وزن القطعة (كجم)
+Unit cost,تكلفة الوحدة
+"Used by later formulas, e.g. double for the double joints.",بتستخدمه المعادلات اللي بعدها، مثل double للوصلات الثنائية.
+Weight,الوزن
+Weight per Metre (kg),وزن المتر (كجم)
+"the overhang J is {0} m, not between {1} and {2} m",الفرق J {0} م، مش بين {1} و{2} م
+the rails cover {0} m of {1} m,الحوامل بتغطي {0} م من {1} م
+"the spacing is {0} m, not between {1} and {2} m",المسافة {0} م، مش بين {1} و{2} م

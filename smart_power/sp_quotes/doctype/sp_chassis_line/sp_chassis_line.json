@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-22 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "SP Chassis Line",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "part",
+  "group",
+  "section",
+  "length_m",
+  "unit_weight_kg",
+  "qty",
+  "unit_cost",
+  "cost_amount",
+  "kg_sale",
+  "sale_rate",
+  "sale_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "part",
+   "fieldtype": "Data",
+   "label": "Part",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "group",
+   "fieldtype": "Data",
+   "label": "Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section",
+   "fieldtype": "Data",
+   "label": "Iron Section",
+   "read_only": 1
+  },
+  {
+   "fieldname": "length_m",
+   "fieldtype": "Float",
+   "label": "Length (m)",
+   "precision": "3",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "unit_weight_kg",
+   "fieldtype": "Float",
+   "label": "Unit Weight (kg)",
+   "precision": "3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Qty",
+   "precision": "0",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "unit_cost",
+   "fieldtype": "Currency",
+   "label": "Unit Cost",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "cost_amount",
+   "fieldtype": "Currency",
+   "label": "Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "kg_sale",
+   "fieldtype": "Currency",
+   "label": "Sale per kg",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sale_rate",
+   "fieldtype": "Currency",
+   "label": "Sale Price",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "sale_amount",
+   "fieldtype": "Currency",
+   "label": "Sale Amount",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  }
+ ],
+ "istable": 1,
+ "editable_grid": 1
+}
