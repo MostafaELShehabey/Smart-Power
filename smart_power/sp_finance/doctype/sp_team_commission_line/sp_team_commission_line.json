@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 22:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": [
+  "user",
+  "full_name",
+  "amount",
+  "note",
+  "paid",
+  "paid_on",
+  "paid_from_account",
+  "journal_entry"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "Person",
+   "options": "User",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "fetch_from": "user.full_name",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Data",
+   "label": "Note",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "paid",
+   "fieldtype": "Check",
+   "label": "Paid",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "paid_on",
+   "fieldtype": "Date",
+   "label": "Paid On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "paid_from_account",
+   "fieldtype": "Link",
+   "label": "Paid From",
+   "options": "Account",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "journal_entry",
+   "fieldtype": "Link",
+   "label": "Payment Posting",
+   "options": "Journal Entry",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-22 22:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Team Commission Line",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

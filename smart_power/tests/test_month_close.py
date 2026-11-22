@@ -74,7 +74,7 @@ class TestPendingConfirmations(MonthCase):
 		self.assertIn(second.name, row["details"])
 		self.assertEqual(row["route"]["route"], ["sp-confirmations"])
 		self.assertEqual(row["route"]["options"]["from_date"], str(self.month))
-		self.assertEqual(self.checks()["commission"]["status"], mc.GREY)  # R5 waits on SP-143
+		self.assertEqual(self.checks()["commission"]["status"], mc.RED)  # no R5 sheet for the month (SP-143)
 
 
 class TestClosedMonth(MonthCase):

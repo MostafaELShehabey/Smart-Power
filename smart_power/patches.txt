@@ -91,3 +91,4 @@ smart_power.patches.sp167_chassis_station_markup
 smart_power.patches.sp178_iron_weight_variance
 smart_power.patches.sp172_offgrid_template
 smart_power.patches.sp173_ongrid_template
+smart_power.patches.sp143_team_commission

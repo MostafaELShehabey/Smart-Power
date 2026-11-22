@@ -23,7 +23,7 @@
    "fieldname": "event",
    "fieldtype": "Select",
    "label": "Event",
-   "options": "Field Job\nField Expense\nField Money\nCustody Expense\nCustody Settlement\nCheque Deposit\nCheque Bounce\nCustomer Advance\nIndirect Split\nWinch Internal Charge\nShowroom Deposit\nWrite-off\nRefund\nAdvance Repayment\nAdvance Fee\nSimple Record\nSite Labour\nWinch Discount\nWorker Advance\nWorker Advance Repayment\nCrew Salary\nAdvance Deduction\nReferrer Commission\nExpense\nCash Over/Short\nShared Purchase Split",
+   "options": "Field Job\nField Expense\nField Money\nCustody Expense\nCustody Settlement\nCheque Deposit\nCheque Bounce\nCustomer Advance\nIndirect Split\nWinch Internal Charge\nShowroom Deposit\nWrite-off\nRefund\nAdvance Repayment\nAdvance Fee\nSimple Record\nSite Labour\nWinch Discount\nWorker Advance\nWorker Advance Repayment\nCrew Salary\nAdvance Deduction\nReferrer Commission\nExpense\nCash Over/Short\nShared Purchase Split\nTeam Commission\nTeam Commission Payment",
    "reqd": 1,
    "in_list_view": 1,
    "columns": 2
@@ -103,7 +103,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-11-22 12:00:00.000000",
+ "modified": "2026-11-22 22:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP Account Map",
