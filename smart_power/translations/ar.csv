@@ -3896,3 +3896,19 @@ Team commission paid to {0},سداد عمولة الفريق إلى {0}
 {0}'s commission ({1}) paid from {2}: {3},تم سداد عمولة {0} ({1}) من {2}: {3}
 No team commission entered for the month.,لم تُدخل عمولة الفريق لهذا الشهر.
 Team Commissions,عمولات الفريق
+SP Cash Flow,التدفق النقدي
+Cash Flow,التدفق النقدي
+Opening Balance,الرصيد الافتتاحي
+Instalments Due,الأقساط المستحقة
+Cheques Due,الشيكات المستحقة
+Total In,إجمالي الوارد
+Supplier Dues,مستحقات الموردين
+Net,الصافي
+Period,الفترة
+Horizon,المدى
+Week {0},الأسبوع {0}
+Month {0},الشهر {0}
+Closing balance,الرصيد الختامي
+Include Transit Accounts,شامل حسابات العهدة في الطريق
+"4 to 26 weeks, or 1 to 12 months","من 4 إلى 26 أسبوعًا، أو من 1 إلى 12 شهرًا"
+Show the cash flow by week or by month.,اعرض التدفق النقدي بالأسبوع أو بالشهر.
