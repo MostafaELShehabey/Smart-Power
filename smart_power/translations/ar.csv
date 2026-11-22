@@ -3856,3 +3856,18 @@ Panels needed: {0} W,الألواح المطلوبة: {0} وات
 Inverter needed: {0} kW,الإنفرتر المطلوب: {0} كيلو وات
 Batteries needed: {0} Ah at {1} V,البطاريات المطلوبة: {0} أمبير ساعة على {1} فولت
 "Printed on the quote for this component. Empty: the item's own warranty.","يُطبع على عرض السعر لهذا المكوّن. فارغ: ضمان الصنف نفسه."
+SP Task Template,قالب مهام المحطة
+SP Task Template Step,خطوة قالب المهام
+Template Name,اسم القالب
+Grid Connection,الربط على الشبكة
+Owner Role,الدور المسؤول
+Expected Days,الأيام المتوقعة
+Documents,المستندات
+Step,الخطوة
+Steps,الخطوات
+A new station of this type gets the template's tasks.,المحطة الجديدة من هذا النوع تأخذ مهام القالب.
+Every active user with this role gets the step's task.,كل مستخدم نشط له هذا الدور يأخذ مهمة الخطوة.
+"Days from the station's opening; empty: no due date.","أيام من فتح المحطة؛ فارغ: بدون موعد استحقاق."
+Cost / factor,التكلفة ÷ المعامل
+Line {0}: the sale factor ({1}) must be above zero.,السطر {0}: معامل البيع ({1}) يجب أن يكون أكبر من صفر.
+{0}: cost / factor needs the template input {1}.,{0}: التكلفة ÷ المعامل تحتاج مُدخل القالب {1}.

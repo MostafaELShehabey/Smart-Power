@@ -1,0 +1,37 @@
+{
+ "_source": "SP-173: the owner's on-grid 100 kW offer (30-7-2026), its analysis tab. Plant = panel watt x panels per string x strings, with the file's errors corrected: the title said 125 kW and the panel text 715 W, while the sheet computes 625 W x 18 x 9 = 101.25 kW. The sale price is the cost / a factor (0.86, a 14% margin), a template input. The inverter is picked by hand (owner's decision 22-11-2026, no sizing ratio yet). The unit costs of the lines not priced from the catalogue are left for the admin to enter as a new version (the repo is public). No margin range is seeded for the type (owner's decision).",
+ "template_key": "ONGRID",
+ "template_name": "أون جريد: محطة متصلة بالشبكة",
+ "offer_type": [
+  "System Type",
+  "ONGRID"
+ ],
+ "description": "محطة طاقة شمسية مرتبطة بالشبكة (صافي القياس): الألواح بالاسترنجات، الإنفرتر يُختار يدويًا، والسعر = التكلفة ÷ معامل البيع.",
+ "inputs": [
+  {"input_key": "kw", "label": "القدرة المطلوبة (كيلو وات)", "input_type": "Float", "reqd": 1, "help": "من الطلب؛ عدد الاسترنجات يُحسب منها عندما يكون صفرًا"},
+  {"input_key": "panel_watt", "label": "قدرة اللوح (وات)", "input_type": "Float", "default_value": "625", "help": "يُختار أصغر لوح بهذه القدرة أو أكبر، من الماركة صاحبة الأولوية"},
+  {"input_key": "panels_per_string", "label": "عدد الألواح في الاسترنج", "input_type": "Int", "default_value": "18"},
+  {"input_key": "strings", "label": "عدد الاسترنجات", "input_type": "Int", "default_value": "0", "help": "صفر: يُحسب من القدرة المطلوبة، استرنجات كاملة"},
+  {"input_key": "sale_factor", "label": "معامل البيع", "input_type": "Float", "default_value": "0.86", "help": "سعر البيع = التكلفة ÷ المعامل (0.86 = هامش 14%)"},
+  {"input_key": "dc_cable_per_string", "label": "سلك DC لكل استرنج (متر)", "input_type": "Float", "default_value": "80"},
+  {"input_key": "ac_cable_m", "label": "طول سلك AC (متر)", "input_type": "Float", "default_value": "3"},
+  {"input_key": "pipes_per_string", "label": "مواسير 2 بوصة لكل استرنج", "input_type": "Float", "default_value": "2"},
+  {"input_key": "flex_per_string", "label": "لفات فليكسبل لكل استرنج", "input_type": "Float", "default_value": "2"}
+ ],
+ "lines": [
+  {"line_key": "panels", "section": "الطاقة", "description": "ألواح شمسية (بالوات)", "item_group": "ألواح شمسية", "selection_rule": "Stock first", "capacity_field": "watt", "need_formula": "panel_watt", "qty_formula": "panels_per_string * (strings or ceil(kw * 1000 / ((item.watt or panel_watt) * panels_per_string))) * (item.watt or panel_watt)", "cost_source": "P1 price", "pricing_method": "Cost / factor", "rounding": "2 decimals", "warranty_years": 25},
+  {"line_key": "inverter", "section": "الطاقة", "description": "إنفرتر أون جريد", "item_group": "إنفرترات ودرايفات", "selection_rule": "Manual", "qty_formula": "1", "cost_source": "P1 price", "pricing_method": "Cost / factor", "rounding": "2 decimals", "warranty_years": 2},
+  {"line_key": "chassis", "section": "الطاقة", "description": "شاسيهات ثابتة من الحديد المجلفن على الساخن سمك 3 مم مثبتة في الأرض بقواعد خرسانية (لكل كيلو وات)", "qty_formula": "panels.qty / 1000", "cost_source": "Per-kW default", "pricing_method": "Cost / factor", "rounding": "2 decimals"},
+  {"line_key": "ac_panel", "section": "الطاقة", "description": "لوحة تشمل قاطع MCCB", "item_group": "لوحات تجميع", "selection_rule": "Manual", "qty_formula": "1", "cost_source": "P1 price", "pricing_method": "Cost / factor", "rounding": "2 decimals"},
+  {"line_key": "ac_cable", "section": "الطاقة", "description": "سلك AC قطاع (3×50+25) مم نحاس (متر)", "qty_formula": "ac_cable_m", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals"},
+  {"line_key": "dc_cable", "section": "الطاقة", "description": "سلك DC قطاع 4 مم (متر)", "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string)) * dc_cable_per_string", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals", "print_group": "الأعمال الكهربية"},
+  {"line_key": "mc4", "section": "الطاقة", "description": "MC4", "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string))", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals", "print_group": "الأعمال الكهربية"},
+  {"line_key": "pipes_2in", "section": "الطاقة", "description": "مواسير 2 بوصة", "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string)) * pipes_per_string", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals", "print_group": "الأعمال الكهربية"},
+  {"line_key": "flex", "section": "الطاقة", "description": "فليكسبل حراري (لفة)", "qty_formula": "round(panels.qty / ((panels.item.watt or panel_watt) * panels_per_string)) * flex_per_string", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals", "print_group": "الأعمال الكهربية"},
+  {"line_key": "fittings", "section": "الطاقة", "description": "كيعان + حزامات + جلاندات + مشتملات تركيب", "qty_formula": "1", "cost_source": "Formula", "cost_formula": "flex.cost_amount / 4", "pricing_method": "Cost / factor", "rounding": "2 decimals", "print_group": "الأعمال الكهربية"},
+  {"line_key": "installation", "section": "الطاقة", "description": "تركيب وبرمجة (لكل كيلو وات)", "qty_formula": "panels.qty / 1000", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals", "print_group": "الأعمال الكهربية"},
+  {"line_key": "earthing", "section": "الطاقة", "description": "نظام أرضي (earthing) بمقاومة أقل من 10 أوم، شامل القضبان النحاسية والإكسسوارات", "qty_formula": "1", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals"},
+  {"line_key": "technical_file", "section": "الطاقة", "description": "الملف الفني (شهادات الاختبار، الكتالوجات، مخرجات التصميم، الرسومات والمخطط الكهربائي ونقطة الربط)", "qty_formula": "1", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals"},
+  {"line_key": "transport", "section": "الطاقة", "description": "نقل", "qty_formula": "1", "cost_source": "Manual", "pricing_method": "Cost / factor", "rounding": "2 decimals", "print_group": "الأعمال الكهربية"}
+ ]
+}

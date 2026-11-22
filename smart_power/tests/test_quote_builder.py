@@ -182,11 +182,11 @@ class TestQuoteBuilder(IntegrationTestCase):
 				"channel": "Call",
 				"follow_up_owner": self.owner,
 				"quote_creator": self.aya,
-				"system_types": [{"system_type": "System Type-ONGRID"}],
-				"request_details": {"kw": 15},
+				# a type with no template yet (on-grid has one since SP-173): one hand line to start from
+				"system_types": [{"system_type": "System Type-IRRIGATION"}],
 			}
 		).insert()
-		name = builder.start(case.name)["quotation"]  # no template yet: one hand line to start from
+		name = builder.start(case.name)["quotation"]
 		hand = [{"item_code": code, "qty": 1, "rate": 1000, "sp_cost": 930}]
 		page = builder.save(name, {"hand_lines": hand}, builder.load(name)["header"]["modified"])
 		self.assertEqual(round(page["summary"]["margin"], 1), 7)

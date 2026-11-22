@@ -22,6 +22,8 @@ from smart_power.sp_quotes import formulas
 BRAND_PRIORITY, FIRST_IN_STOCK = "Brand priority", "First in stock"
 SIZED_RULES = (BRAND_PRIORITY, "Stock first", "Pump curve")
 LOCKED_BTC = "Locked BTC price"
+# SP-173: the on-grid sheet prices the plant as cost / a factor (0.86), the template's input
+COST_BY_FACTOR, FACTOR_INPUT = "Cost / factor", "sale_factor"
 COST_FORMULA = "Formula"
 NUMBER_INPUTS = ("Float", "Int")
 # Edits allowed on a published version
@@ -91,6 +93,12 @@ class SPCalcTemplate(Document):
 				formulas.check(row.need_formula, known, where)
 			elif row.selection_rule == FIRST_IN_STOCK and not row.item_group:
 				frappe.throw(_("{0}: first in stock needs an item group.").format(where))
+			if row.pricing_method == COST_BY_FACTOR and FACTOR_INPUT not in input_keys:
+				frappe.throw(
+					_("{0}: cost / factor needs the template input {1}.").format(
+						where, frappe.bold(FACTOR_INPUT)
+					)
+				)
 			if row.pricing_method == LOCKED_BTC:
 				row.lock_markup = 1
 			known.add(row.line_key)

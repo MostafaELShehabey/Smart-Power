@@ -31,6 +31,7 @@ from frappe.utils.nestedset import get_descendants_of
 
 from smart_power.sp_core.services.settings import brand_priority, get_settings
 from smart_power.sp_quotes import formulas
+from smart_power.sp_quotes.doctype.sp_calc_template.sp_calc_template import COST_BY_FACTOR, FACTOR_INPUT
 from smart_power.sp_quotes.offgrid import notes
 from smart_power.sp_stock.on_hand import on_hand
 from smart_power.sp_stock.prices import BTC, COST, LIST, STALE, age_status, category_of, latest_price
@@ -97,7 +98,7 @@ def calculate(
 			row, item_code, override, on_date, results, {**namespace, formulas.ITEM: item}
 		)
 		markup = flt(override["markup"]) if "markup" in override else flt(row.default_markup)
-		rate, rate_date = unit_rate(row, item_code, cost, markup, override, on_date, results)
+		rate, rate_date = unit_rate(row, item_code, cost, markup, override, on_date, results, values)
 		rate = round_rate(rate, row.rounding)
 		check_age(row, item_code, (cost_date, rate_date), on_date, results)
 
@@ -345,8 +346,15 @@ def valuation_rate(item_code: str) -> float:
 	return flt(frappe.get_cached_value("Item", item_code, "valuation_rate"))
 
 
-def unit_rate(row, item_code, cost, markup, override, on_date, results) -> tuple[float, object]:
+def unit_rate(row, item_code, cost, markup, override, on_date, results, values=None) -> tuple[float, object]:
 	method = row.pricing_method
+	if method == COST_BY_FACTOR:
+		factor = flt((values or {}).get(FACTOR_INPUT))
+		if factor <= 0:
+			frappe.throw(
+				_("Line {0}: the sale factor ({1}) must be above zero.").format(row.line_key, FACTOR_INPUT)
+			)
+		return cost / factor, None
 	if method == MANUAL:
 		return flt(override.get("rate", row.manual_rate)), None
 	if method == COST_X_MARKUP:
