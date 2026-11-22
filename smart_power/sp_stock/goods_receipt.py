@@ -22,6 +22,7 @@ from frappe.utils import cstr, flt
 
 from smart_power.notify import send
 from smart_power.sp_core.inbox import close_tasks, create_task
+from smart_power.sp_stock.iron_weight import is_weighed
 from smart_power.sp_stock.purchase_orders import OPEN_STATUSES
 from smart_power.sp_stock.warehouses import MAIN, SHOWROOM, SITE
 
@@ -221,6 +222,8 @@ def _check_lines(purchase_order: str, warehouse: str, lines: list[dict]) -> None
 			_check_serial(line, row, serials, position)
 		before = flt(row.received_qty) + waiting.get(row.name, 0)
 		received[row.name] = received.get(row.name, 0) + flt(line.get("received_qty"))
+		if is_weighed(row.item_code):
+			continue  # iron: the scale weight is final, above or below the order (SP-178)
 		if flt(before + received[row.name], QTY_DIGITS) > flt(row.qty, QTY_DIGITS):
 			frappe.throw(
 				_("{0}: only {1} of {2} are still expected.").format(

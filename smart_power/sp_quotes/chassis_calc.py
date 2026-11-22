@@ -72,13 +72,20 @@ def factory_dict(name_or_doc) -> dict:
 		"rail_lengths": rail_lengths(doc.rail_lengths),
 		"default_rail_mode": doc.default_rail_mode or CUT,
 		"rail_lines_per_row": cint(doc.rail_lines_per_row) or ROWS_PER_ARRAY,
-		"iron_cost_kg": flt(doc.iron_cost_kg),
+		"iron_cost_kg": iron_cost(doc),
 		"iron_markup": flt(doc.iron_markup),
 		"iron_kg_digits": cint(doc.iron_kg_digits),
 		"iron_unit_digits": cint(doc.iron_unit_digits),
 		"iron_unit_rounding": doc.iron_unit_rounding,
 		"parts": [{f: row.get(f) for f in PART_FIELDS} for row in doc.parts],
 	}
+
+
+def iron_cost(doc) -> float:
+	"""The iron item's valuation rate (after landed cost, SP-178), else the cost typed."""
+	from smart_power.sp_quotes.engine import valuation_rate
+
+	return (flt(valuation_rate(doc.iron_item)) if doc.get("iron_item") else 0) or flt(doc.iron_cost_kg)
 
 
 # --- the factory ----------------------------------------------------------------------------------

@@ -39,6 +39,7 @@ from smart_power.sp_stock.goods_receipt import (
 	_is_serial,
 	_sees_all,
 )
+from smart_power.sp_stock.iron_weight import settle_weighed_lines
 from smart_power.sp_stock.shared_purchase import allocate
 
 OK, DAMAGED = "OK", "Damaged"
@@ -157,6 +158,7 @@ def _post(doc, status: str, notes: str | None = None) -> str:
 	_set_center(doc)
 	frappe.set_user("Administrator")  # nosemgrep
 	try:
+		settle_weighed_lines(doc)  # iron: the scale weight is final (SP-178)
 		doc.submit()
 		_keep_reservation(doc)
 		invoice = _bill(doc)
