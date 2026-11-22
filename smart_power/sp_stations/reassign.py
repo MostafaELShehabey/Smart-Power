@@ -23,6 +23,7 @@ import frappe
 from frappe import _
 from frappe.utils import get_datetime, get_fullname, getdate, now_datetime, today
 
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_stations.station import OWNER_LABELS, is_admin
 
 STATION, TASK, CHEQUE, PAYMENT = "SP Station", "SP Task", "SP Cheque", "SP Customer Payment"
@@ -80,6 +81,7 @@ def _check_kind(kind: str) -> None:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Reassigned", "SP Station")  # X13 (SP-137)
 def reassign_station(
 	station: str, kind: str, to_user: str, from_date: str | None = None, reason: str | None = None
 ) -> dict:

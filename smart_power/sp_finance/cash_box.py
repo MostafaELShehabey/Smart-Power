@@ -30,6 +30,7 @@ from frappe import _
 from frappe.utils import flt, today
 
 from smart_power.sp_core.inbox import close_tasks, create_task
+from smart_power.sp_core.services.audit import audited
 
 DAY, PAYMENT, EXPENSE, TRANSFER = "SP Cash Box Day", "SP Customer Payment", "SP Expense", "SP Transfer"
 OPEN, PENDING, CONFIRMED = "Open", "Closed-pending", "Confirmed"
@@ -303,6 +304,7 @@ def _entry_kwargs(doc) -> dict:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Confirmed", "SP Cash Box Day")  # X13 (SP-137)
 def confirm(name: str) -> str | None:
 	"""The admin checked the count: the difference posts (over or short); the day is confirmed."""
 	from smart_power.sp_finance.posting import post
@@ -321,6 +323,7 @@ def confirm(name: str) -> str | None:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Rejected", "SP Cash Box Day")  # X13 (SP-137)
 def reject(name: str, reason: str) -> str:
 	"""Back to the cashier with the reason; the day is open again."""
 	from smart_power.notify import send

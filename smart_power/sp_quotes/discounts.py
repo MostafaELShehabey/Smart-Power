@@ -23,6 +23,7 @@ from frappe.utils import flt, now_datetime
 
 from smart_power.rules import evaluate, record_warning
 from smart_power.rules.sales import QUOTE_SEND_EVENT
+from smart_power.sp_core.services.audit import audited
 
 QUOTATION, CASE = "Quotation", "SP Case"
 DISCOUNT, LAST_MINUTE = "Discount", "Last-minute ask"
@@ -170,6 +171,7 @@ def discount_options(quotation: str) -> dict:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Discount given", "Quotation")  # X13 (SP-137)
 def give_discount(
 	quotation: str,
 	percent: float | None = None,

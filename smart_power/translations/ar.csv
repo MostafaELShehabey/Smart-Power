@@ -3583,3 +3583,23 @@ Case with no action,حالة بلا متابعة
 Last Inactivity Alert,آخر تنبيه خمول
 No action on case {0} ({1}) for {2} days (alert after {3}).,لا متابعة على الحالة {0} ({1}) منذ {2} يومًا (التنبيه بعد {3}).
 When the owner and the admin were last told the case had no action (SP-71).,آخر مرة نُبِّه فيها المالك والمدير بأن الحالة بلا متابعة.
+Browser,المتصفح
+Deleted,حُذف
+Document Type,نوع المستند
+Edited with a reason,تعديل بسبب
+Export,تصدير
+Exported,تم التصدير
+IP Address,عنوان IP
+Nothing in the log for these filters.,لا شيء في السجل لهذه الفلاتر.
+Only the admin reads the audit log.,المدير وحده يقرأ سجل المراجعة.
+Rule overridden,تجاوز قاعدة
+The log is append-only: nobody edits or deletes it.,السجل للإضافة فقط: لا أحد يعدله أو يحذفه.
+Time,الوقت
+rows added,صفوف مضافة
+rows removed,صفوف محذوفة
+Reversed,عكس القيد
+Written off,إعدام دين
+Reassigned,إعادة إسناد
+Handed over,تسليم
+Audit log exported,تصدير سجل المراجعة
+Month reopened,إعادة فتح الشهر

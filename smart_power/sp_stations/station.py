@@ -18,6 +18,7 @@ import frappe
 from frappe import _
 from frappe.utils import flt, now_datetime, today
 
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_stations.station_workflow import CANCELLED, FIN_CLOSED, TECH_CLOSED
 
 STATION, CASE = "SP Station", "SP Case"
@@ -201,6 +202,7 @@ def _record_owner_changes(doc, before) -> None:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Written off", "SP Station")  # X13 (SP-137)
 def record_write_off(station: str, amount: float, reason: str) -> dict:
 	"""The admin writes off what cannot be collected, so the station can close financially. The
 	write-off posts through the Account Map (event Write-off) and is listed for review."""

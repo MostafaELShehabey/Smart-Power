@@ -23,6 +23,7 @@ from frappe.model.docstatus import DocStatus
 from frappe.utils import flt, getdate, now_datetime, today
 
 from smart_power.sp_core.inbox import close_tasks, create_task
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_finance.accounts import CUSTODY, OFFICIAL
 
 CUS, LINE, SETTLEMENT, TASK = "SP Custody", "SP Custody Line", "SP Custody Settlement", "SP Task"
@@ -392,6 +393,7 @@ def _expense_lines(doc, rows) -> list[dict]:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Confirmed", "SP Custody Settlement")  # X13 (SP-137)
 def confirm(name: str) -> str | None:
 	"""Approve: the approved expenses post to their centers; rejected ones go back with the reason;
 	"Return" moves the holder's custody balance back to the official account."""
@@ -489,6 +491,7 @@ def _refresh_custody(name: str, returned: float, closing: str, reopened: bool) -
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Rejected", "SP Custody Settlement")  # X13 (SP-137)
 def reject(name: str, reason: str) -> str:
 	"""The whole settlement goes back to the holder with the reason; nothing is posted."""
 	reason = (reason or "").strip()

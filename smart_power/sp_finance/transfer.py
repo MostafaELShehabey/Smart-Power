@@ -19,6 +19,7 @@ from frappe import _
 from frappe.utils import flt, now_datetime
 
 from smart_power.sp_core.inbox import close_tasks, create_task
+from smart_power.sp_core.services.audit import audited
 from smart_power.sp_finance.accounts import OFFICIAL, TRANSIT
 
 TRANSFER, TASK = "SP Transfer", "SP Task"
@@ -201,6 +202,7 @@ def _pending(name: str):
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Confirmed", "SP Transfer")  # X13 (SP-137)
 def confirm(name: str) -> str:
 	doc = _pending(name)
 	entry = _post(doc)
@@ -212,6 +214,7 @@ def confirm(name: str) -> str:
 
 
 @frappe.whitelist(methods=["POST"])
+@audited("Rejected", "SP Transfer")  # X13 (SP-137)
 def reject(name: str, reason: str) -> str:
 	reason = (reason or "").strip()
 	if not reason:
