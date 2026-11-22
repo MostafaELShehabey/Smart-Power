@@ -3815,3 +3815,20 @@ Galvanised iron chassis - {0},شاسيه حديد مجلفن على الساخن
 Line markup,نسبة السطر
 Open Quotation,فتح عرض السعر
 The chassis comes from calculator {0}.,الشاسيه محسوب من حاسبة الشاسيه {0}.
+Above {0}%,أكثر من {0}%
+Chassis Calc,حساب الشاسيه
+Difference %,نسبة الفرق
+Difference (kg),الفرق (كجم)
+From the chassis calc; the variance report compares the scale weight with it.,من حساب الشاسيه؛ تقرير فرق الوزن بيقارن وزن الميزان بيه.
+Iron Item,صنف الحديد
+Iron Weight Variance Warning,تنبيه فرق وزن الحديد
+"Iron sections in kg: the receipt takes the scale weight, which is final above or below the order (SP-178).",قطاعات حديد بالكيلو: الاستلام بوزن الميزان، وهو النهائي سواء أكتر أو أقل من الأمر.
+No factory,بدون مصنع
+Scale Weight (kg),وزن الميزان (كجم)
+The iron stock item in kg (SP-178): its valuation rate after landed cost is the iron cost per kg.,صنف الحديد بالكيلو: سعر تقييمه بعد مصاريف الشحن والتنزيل والعمالة هو تكلفة كيلو الحديد.
+The iron weight variance report warns when the scale weight differs from the theoretical weight by more than this (SP-178).,تقرير فرق الوزن بينبه لما وزن الميزان يختلف عن الوزن النظري بأكتر من النسبة دي.
+Theoretical Weight (kg),الوزن النظري (كجم)
+"Used when no iron item is set, or it has no stock value yet.",بتُستخدم لو مفيش صنف حديد، أو لسه ماعندوش قيمة مخزون.
+Weighed at Receipt,يُستلم بالميزان
+Iron Weight Variance,فرق وزن الحديد
+SP Iron Weight Variance,فرق وزن الحديد

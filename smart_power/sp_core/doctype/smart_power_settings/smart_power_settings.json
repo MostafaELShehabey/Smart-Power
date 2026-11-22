@@ -31,6 +31,7 @@
   "column_break_chassis",
   "chassis_markup_basis",
   "chassis_station_markup",
+  "iron_weight_variance_pct",
   "selection_section",
   "brand_priorities",
   "cash_section",
@@ -212,6 +213,12 @@
    "fieldtype": "Select",
    "label": "Chassis Markup in Station Offers",
    "options": "Factory markup\nLine markup"
+  },
+  {
+   "fieldname": "iron_weight_variance_pct",
+   "fieldtype": "Percent",
+   "label": "Iron Weight Variance Warning",
+   "description": "The iron weight variance report warns when the scale weight differs from the theoretical weight by more than this (SP-178)."
   },
   {
    "fieldname": "selection_section",
@@ -440,7 +447,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-22 16:00:00.000000",
+ "modified": "2026-11-22 17:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",
