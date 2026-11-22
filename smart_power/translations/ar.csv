@@ -3684,3 +3684,13 @@ Shared between stations: {0},مشتركة بين المحطات: {0}
 Purchase {0} shared between stations ({1}),أمر الشراء {0} موزع على المحطات ({1})
 "The stations' amounts add up to the order's total of {0}.","مبالغ المحطات تساوي إجمالي الأمر {0}."
 "The stations' amounts add up to {0} of {1}: {2} left.","مجموع مبالغ المحطات {0} من {1}: الباقي {2}."
+Bank Quote Facts,بيانات عرض البنك
+"Printed on the banks' quote formats. The admin adds more fields in Customize Form and drags them onto a format.",تُطبع في نماذج عروض البنوك. يضيف المدير حقولًا أخرى من تخصيص النموذج ويسحبها إلى النموذج.
+Customer Mobile,موبايل العميل
+Water Source,مصدر المياه
+Irrigation Data,بيانات الري
+"Printed after the quote's title, e.g. «لتغذية 9 فدان 15 قيراط».",تُطبع بعد عنوان العرض، مثل «لتغذية 9 فدان 15 قيراط».
+Warranty,الضمان
+Country of Origin,بلد المنشأ
+Year of Manufacture,سنة الصنع
+Total in Words,الإجمالي بالحروف

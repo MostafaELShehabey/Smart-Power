@@ -88,6 +88,8 @@ jinja = {
 		"smart_power.sp_core.documents.sp_blocks",
 		# The customer quote PDF (SP-62)
 		"smart_power.sp_quotes.quote_print.quote_print",
+		# the banks' quote formats the admin builds (SP-171)
+		"smart_power.sp_quotes.bank_formats.bank_quote_table",
 		# The contract PDF (SP-74)
 		"smart_power.sp_stations.contract_print.contract_print",
 		# The warranty certificate (SP-80)
@@ -302,6 +304,8 @@ doc_events = {
 			"smart_power.sp_quotes.price_age.set_line_ages",
 			# one installment plan per active template, after the totals and the cost (SP-60)
 			"smart_power.sp_quotes.payment_plans.set_quote_plans",
+			# the total in Arabic words, a field any print format can show (SP-171)
+			"smart_power.sp_quotes.bank_formats.set_total_in_words",
 		],
 		"before_cancel": "smart_power.sp_sales.quotation.before_cancel",
 		"before_update_after_submit": "smart_power.sp_sales.quotation.before_update_after_submit",
