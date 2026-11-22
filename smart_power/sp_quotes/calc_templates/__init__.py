@@ -15,7 +15,7 @@ import frappe
 from smart_power.sp_core.services.lists import by_code
 
 TEMPLATE = "SP Calc Template"
-FILES = ("pump.json",)
+FILES = ("pump.json", "offgrid.json")
 PUMP_KEY, PUMP_FILE, DEPTH_INPUT = "PUMP", "pump.json", "pump_depth"
 CURVE_INPUTS = ("required_head_m", "required_flow_m3h")  # SP-184
 BRAND_PRIORITY = "Brand priority"

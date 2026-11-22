@@ -31,6 +31,7 @@ from frappe.utils.nestedset import get_descendants_of
 
 from smart_power.sp_core.services.settings import brand_priority, get_settings
 from smart_power.sp_quotes import formulas
+from smart_power.sp_quotes.offgrid import notes
 from smart_power.sp_stock.on_hand import on_hand
 from smart_power.sp_stock.prices import BTC, COST, LIST, STALE, age_status, category_of, latest_price
 from smart_power.sp_stock.pump_curve import POINT, covers
@@ -125,6 +126,7 @@ def calculate(
 			is_hidden=cint(row.is_hidden),
 			is_winch_line=cint(row.is_winch_line),
 			print_group=row.print_group,
+			warranty_years=flt(row.get("warranty_years")) or None,
 		)
 		line.profit = line.amount - line.cost_amount
 		lines.append(line)
@@ -138,7 +140,7 @@ def calculate(
 		inputs=values,
 		lines=lines,
 		totals=totals(lines, values),
-		rule_results=results,
+		rule_results=results + notes(values),  # an off-grid template's needs (SP-172)
 	)
 
 

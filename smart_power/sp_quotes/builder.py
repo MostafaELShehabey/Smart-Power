@@ -43,6 +43,7 @@ from smart_power.sp_quotes.engine import (
 )
 from smart_power.sp_quotes.engine import MANUAL as TYPED_PRICE
 from smart_power.sp_quotes.indicative import PANELS_LINE, WATTS_PER_KW
+from smart_power.sp_quotes.offgrid import LOAD_INPUTS, load_totals
 from smart_power.sp_quotes.payment_plans import schedule_of, set_quote_plans
 from smart_power.sp_quotes.price_age import set_line_ages
 from smart_power.sp_quotes.quote_calc import (
@@ -88,6 +89,10 @@ def request_inputs(case, template: str) -> dict:
 		"SP Calc Template Input", {"parent": template, "parenttype": TEMPLATE}, pluck="input_key"
 	)
 	found = {k: details.get(REQUEST_INPUTS.get(k, k)) for k in keys}
+	if set(LOAD_INPUTS) & set(keys) and case.get("loads"):
+		# an off-grid template sizes from the request's load table (SP-172)
+		totals = load_totals(case.loads)
+		found.update({k: totals[k] for k in LOAD_INPUTS if k in keys and flt(totals[k])})
 	return {k: v for k, v in found.items() if v not in (None, "")}
 
 

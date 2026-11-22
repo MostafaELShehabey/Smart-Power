@@ -139,6 +139,11 @@ def write_lines(doc, result) -> None:
 	"""Replace the calculated rows; keep the rows added by hand. Optional lines go to the
 	optional table (SP-59), outside the quote's totals."""
 	manual_rows = [row for row in doc.items if not row.get("sp_line_key")]
+	warranties = {
+		row.sp_line_key: (row.item_code, row.get("sp_warranty_years"))
+		for row in doc.items
+		if row.get("sp_line_key") and flt(row.get("sp_warranty_years"))
+	}
 	manual_optional = [row for row in doc.get("sp_optional_lines") or [] if not row.get("line_key")]
 	doc.set("items", [])
 	doc.set("sp_optional_lines", [])
@@ -201,12 +206,22 @@ def write_lines(doc, result) -> None:
 				# SP-58: a hidden template line is the commission (cost only); a print group merges
 				"sp_line_kind": kind,
 				"sp_merge_group": line.print_group,
+				# the template's years per component (SP-172), or the item's when it has none; a
+				# year the quote changed stays while the line keeps its item
+				"sp_warranty_years": _warranty(warranties, line, item_code),
 			},
 		)
 	for row in manual_rows:
 		doc.append("items", row.as_dict(no_default_fields=True))
 	for row in manual_optional:
 		doc.append("sp_optional_lines", row.as_dict(no_default_fields=True))
+
+
+def _warranty(warranties: dict, line, item_code: str) -> float | None:
+	kept_item, kept_years = warranties.get(line.line_key, (None, None))
+	if kept_item == item_code and flt(kept_years):
+		return flt(kept_years)
+	return line.get("warranty_years") or None
 
 
 def quote_for_edit(name: str):
