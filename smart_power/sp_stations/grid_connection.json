@@ -1,0 +1,18 @@
+{
+ "_source": "SP-173: the grid-connection (net metering) cycle with the distribution company. The real steps, owners, documents and durations are still an open question for the owner (SP-158); these are draft steps (owner's decision 22-11-2026) for محمد to correct in SP Task Template. Durations are left empty.",
+ "templates": [
+  {
+   "template_name": "ربط على الشبكة (صافي القياس)",
+   "system_type": ["System Type", "ONGRID"],
+   "task_type": "Grid Connection",
+   "description": "دورة ربط المحطة على شبكة شركة التوزيع بنظام صافي القياس. خطوات مبدئية يعدّلها الأدمن.",
+   "steps": [
+    {"subject": "تقديم طلب صافي القياس والمستندات لشركة التوزيع", "owner_role": "SP Regulatory Compliance", "documents": "بطاقة العميل، مستند الملكية أو الإيجار، آخر إيصال كهرباء، الملف الفني للمحطة"},
+    {"subject": "المعاينة والدراسة الفنية مع شركة التوزيع", "owner_role": "SP Installation Manager", "documents": "المخطط الكهربائي ونقطة الربط المقترحة"},
+    {"subject": "سداد رسوم الدراسة والتعاقد", "owner_role": "SP Accountant", "documents": "إيصالات السداد"},
+    {"subject": "توقيع عقد صافي القياس", "owner_role": "SP Regulatory Compliance", "documents": "عقد صافي القياس الموقّع"},
+    {"subject": "تركيب العداد ثنائي الاتجاه والربط على الشبكة", "owner_role": "SP Installation Manager", "documents": "محضر التركيب والتشغيل"}
+   ]
+  }
+ ]
+}

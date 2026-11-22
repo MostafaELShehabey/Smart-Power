@@ -34,22 +34,25 @@ def create_task(
 	image: str | None = None,
 	due_at=None,
 	priority: str = NORMAL,
+	distinct_subject: bool = False,
 ) -> list[str]:
-	"""One open task per user (a user who already has this open task is not given another)."""
+	"""One open task per user (a user who already has this open task is not given another). With
+	distinct_subject, the same record may hold several open tasks of one type, one per subject
+	(the steps of a station task template, SP-173)."""
 	if isinstance(users, str):
 		users = [users]
 	names = []
 	for user in sorted({u for u in users or [] if u}):
-		if reference_name and frappe.db.exists(
-			TASK,
-			{
-				"task_type": task_type,
-				"reference_doctype": reference_doctype,
-				"reference_name": reference_name,
-				"assigned_to": user,
-				"status": OPEN,
-			},
-		):
+		same = {
+			"task_type": task_type,
+			"reference_doctype": reference_doctype,
+			"reference_name": reference_name,
+			"assigned_to": user,
+			"status": OPEN,
+		}
+		if distinct_subject:
+			same["subject"] = subject
+		if reference_name and frappe.db.exists(TASK, same):
 			continue
 		doc = frappe.get_doc(
 			{

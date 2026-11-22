@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "creation": "2026-11-22 21:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": [
+  "subject",
+  "owner_role",
+  "expected_days",
+  "documents"
+ ],
+ "fields": [
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Step",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 4
+  },
+  {
+   "fieldname": "owner_role",
+   "fieldtype": "Link",
+   "label": "Owner Role",
+   "options": "Role",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Every active user with this role gets the step's task."
+  },
+  {
+   "fieldname": "expected_days",
+   "fieldtype": "Int",
+   "label": "Expected Days",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Days from the station's opening; empty: no due date."
+  },
+  {
+   "fieldname": "documents",
+   "fieldtype": "Small Text",
+   "label": "Documents",
+   "in_list_view": 1,
+   "columns": 3
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-22 21:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stations",
+ "name": "SP Task Template Step",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -110,6 +110,9 @@ def after_insert(doc) -> None:
 	from smart_power.sp_stations.money import refresh
 
 	refresh(doc.name)
+	from smart_power.sp_stations.task_templates import open_station_tasks
+
+	open_station_tasks(doc)  # e.g. the on-grid grid-connection steps (SP-173)
 
 
 def validate(doc) -> None:

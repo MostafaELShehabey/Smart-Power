@@ -53,6 +53,9 @@ def after_install() -> None:
 	from smart_power.sp_site.commissioning import seed_commissioning_templates
 
 	seed_commissioning_templates()  # SP-97
+	from smart_power.sp_stations.task_templates import seed_task_templates
+
+	seed_task_templates()  # SP-173: the on-grid grid-connection steps
 	seed_settings()
 	sync_rule_settings()
 	apply_customer_naming()
