@@ -78,7 +78,10 @@ def validate(doc) -> None:
 
 	if flt(doc.amount) <= 0:
 		frappe.throw(_("The amount must be above zero."))
-	if _kind(doc.from_account) != OFFICIAL:
+	from smart_power.sp_finance.opening import allowed_source
+
+	# the opening's custody comes from Temporary Opening (SP-160)
+	if _kind(doc.from_account) != OFFICIAL and not allowed_source(doc, doc.from_account):
 		frappe.throw(_("Custody is given from an official account (a bank, the Post, InstaPay …)."))
 	doc.custody_account = holder_account(doc.holder, CUSTODY, doc.company)
 	if doc.docstatus.is_draft():

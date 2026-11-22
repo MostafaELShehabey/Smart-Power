@@ -1,0 +1,184 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 02:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "opening_date",
+  "station_mode",
+  "column_break_head",
+  "status",
+  "workbook",
+  "workbook_hash",
+  "checked_on",
+  "posted_on",
+  "posted_by",
+  "check_section",
+  "check_result",
+  "check_json",
+  "reconcile_json",
+  "error",
+  "documents_section",
+  "documents"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "opening_date",
+   "fieldtype": "Date",
+   "label": "Opening Date",
+   "reqd": 1,
+   "default": "2027-01-01",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "station_mode",
+   "fieldtype": "Select",
+   "label": "Open Stations",
+   "options": "Remaining only\nAgreed and paid to date",
+   "default": "Remaining only",
+   "description": "Remaining only: each open station opens with what is left to collect. Agreed and paid to date: the full agreed amount and what was paid before the opening date."
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nChecked\nPosted\nFailed",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "workbook",
+   "fieldtype": "Attach",
+   "label": "Opening Workbook",
+   "description": "The template filled with the 31-12 balances (Download Template)."
+  },
+  {
+   "fieldname": "workbook_hash",
+   "fieldtype": "Data",
+   "label": "Checked Workbook",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "checked_on",
+   "fieldtype": "Datetime",
+   "label": "Checked On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "posted_on",
+   "fieldtype": "Datetime",
+   "label": "Posted On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "posted_by",
+   "fieldtype": "Link",
+   "label": "Posted By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "check_section",
+   "fieldtype": "Section Break",
+   "label": "Check"
+  },
+  {
+   "fieldname": "check_result",
+   "fieldtype": "HTML",
+   "label": "Check Result"
+  },
+  {
+   "fieldname": "check_json",
+   "fieldtype": "Long Text",
+   "label": "Check Data",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "reconcile_json",
+   "fieldtype": "Long Text",
+   "label": "Reconciliation Data",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Small Text",
+   "label": "Posting Error",
+   "read_only": 1,
+   "depends_on": "eval:doc.status=='Failed'"
+  },
+  {
+   "fieldname": "documents_section",
+   "fieldtype": "Section Break",
+   "label": "Documents Posted",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "documents",
+   "fieldtype": "Table",
+   "label": "Documents",
+   "options": "SP Opening Balance Document",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 02:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Opening Balance",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1
+  },
+  {
+   "role": "SP Accountant",
+   "read": 1,
+   "print": 1,
+   "report": 1,
+   "export": 1,
+   "write": 1,
+   "create": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "company",
+ "track_changes": 1
+}

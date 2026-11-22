@@ -3978,3 +3978,64 @@ Ninthly,تاسعاً
 Tenthly,عاشراً
 Eleventhly,حادي عشر
 Twelfthly,ثاني عشر
+A posted opening cannot be deleted.,لا يمكن حذف أرصدة افتتاحية مُرحَّلة.
+Account {0} is not found.,الحساب {0} غير موجود.
+Agreed and paid to date,المتفق عليه والمدفوع حتى تاريخه
+Attach the filled workbook first.,أرفق ملف الأرصدة بعد ملئه أولًا.
+Check Data,بيانات المراجعة
+Check Result,نتيجة المراجعة
+Check the workbook first: only a checked opening is posted.,راجع الملف أولًا: لا تُرحَّل إلا أرصدة تمت مراجعتها.
+Checked,تمت المراجعة
+Checked On,تاريخ المراجعة
+Checked Workbook,الملف الذي تمت مراجعته
+Documents Posted,المستندات المُرحَّلة
+Download Template,تنزيل النموذج
+Enter a positive {0}.,أدخل قيمة موجبة في {0}.
+Enter either a debit or a credit.,أدخل مدينًا أو دائنًا فقط.
+Equity,حقوق الملكية
+No problems found.,لا توجد مشكلات.
+Not in the template,ليس في النموذج
+Only the admin posts the opening.,المدير وحده يرحِّل الأرصدة الافتتاحية.
+Open Stations,المحطات المفتوحة
+Open custody goes on the Custody sheet: {0}.,العهدة المفتوحة تُدخل في ورقة العهد: {0}.
+Opening Date,تاريخ الافتتاح
+Opening Workbook,ملف الأرصدة الافتتاحية
+Opening balance,رصيد افتتاحي
+Opening balances on {0},الأرصدة الافتتاحية في {0}
+Owner's equity (the balancing figure),حقوق المالك (رقم التوازن)
+Post Opening,ترحيل الأرصدة الافتتاحية
+Post the opening on {0}? It is posted once and cannot be undone here.,ترحيل الأرصدة الافتتاحية في {0}؟ تُرحَّل مرة واحدة ولا يمكن التراجع عنها من هنا.
+Posted By,رحَّلها
+Posted On,تاريخ الترحيل
+Posting Error,خطأ الترحيل
+Posting started: the opening shows Posted when it is done.,بدأ الترحيل: تظهر الأرصدة «مُرحَّلة» عند الانتهاء.
+Reconciliation Data,بيانات المطابقة
+Remaining only,المتبقي فقط
+Remaining only: each open station opens with what is left to collect. Agreed and paid to date: the full agreed amount and what was paid before the opening date.,المتبقي فقط: تُفتح كل محطة مفتوحة بما بقي تحصيله. المتفق عليه والمدفوع حتى تاريخه: المبلغ المتفق عليه كاملًا وما دُفع قبل تاريخ الافتتاح.
+Rows,الصفوف
+SP Opening Balance,الأرصدة الافتتاحية
+SP Opening Balance Document,مستند الأرصدة الافتتاحية
+Sheet,الورقة
+Supplier {0} is not found.,المورد {0} غير موجود.
+Temporary Opening cleared into the owner's equity,تصفية الافتتاح المؤقت في حقوق المالك
+The company has no {0} account.,ليس للشركة حساب {0}.
+The opening is posted.,الأرصدة الافتتاحية مُرحَّلة.
+The opening is posted: it no longer changes.,الأرصدة الافتتاحية مُرحَّلة: لم تعد تتغير.
+The opening of {0} is already prepared in {1}.,الأرصدة الافتتاحية لـ {0} مُعدَّة بالفعل في {1}.
+The template filled with the 31-12 balances (Download Template).,النموذج بعد ملئه بأرصدة 31-12 (تنزيل النموذج).
+The trial balance does not match the template.,ميزان المراجعة لا يطابق النموذج.
+The trial balance matches the template.,ميزان المراجعة يطابق النموذج.
+The trial balance's debits and credits are not equal.,المدين والدائن في ميزان المراجعة غير متساويين.
+The workbook changed since it was checked: check it again.,تغيّر الملف بعد مراجعته: راجعه مرة أخرى.
+The workbook has {0} problems: check it again.,في الملف {0} مشكلة: راجعه مرة أخرى.
+Warehouse {0} is not found.,المخزن {0} غير موجود.
+"{0} comes through its own sheet (customers, suppliers or stock).","{0} يُدخل في ورقته الخاصة (العملاء أو الموردون أو المخزون)."
+{0} is after the opening date.,{0} بعد تاريخ الافتتاح.
+{0} is counted twice in {1}.,{0} مُدخل مرتين في {1}.
+{0} is not a date.,{0} ليس تاريخًا.
+{0} is not a user.,{0} ليس مستخدمًا.
+{0} is not an item.,{0} ليس صنفًا.
+{0} is the opening's own account.,{0} حساب خاص بالأرصدة الافتتاحية.
+{0} problems to fix,{0} مشكلة يجب إصلاحها
+{0} {1} is not found.,{0} {1} غير موجود.
+Opening Balances,الأرصدة الافتتاحية
