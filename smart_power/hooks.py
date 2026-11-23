@@ -177,7 +177,9 @@ setup_wizard_complete = "smart_power.sp_core.setup.locale.apply_locale"
 # the "Smart Power Admin" module or a name without the "SP " prefix, so they are never exported.
 fixtures = [
 	{"dt": dt, "filters": [["module", "in", list(SP_MODULES)]]} for dt in ("Custom Field", "Property Setter")
-] + [{"dt": dt, "filters": [["name", "like", DEV_NAME_PREFIX + "%"]]} for dt in ("Role", "Workflow")]
+] + [{"dt": dt, "filters": [["name", "like", DEV_NAME_PREFIX + "%"]]} for dt in ("Role",)]
+# The SP workflows are seeded once (sp_core/workflows.py, SP-133), not shipped as fixtures: a fixture
+# is re-imported with force on every migrate, which would undo the admin's changes in X5.
 # Role profiles are synced from the role catalogue instead (sp_core/setup/install.py): re-importing
 # them as fixtures on every migrate would re-queue a job that rewrites every user's roles.
 
@@ -422,6 +424,13 @@ doc_events = {
 		dt: {"before_insert": "smart_power.events.customization.guard_dev_names"}
 		for dt in PREFIX_OWNED_DOCTYPES
 	},
+}
+# X5 (SP-133): what the code needs stays in the case and station workflows, and changes are audited
+doc_events["Workflow"] = {
+	**doc_events.get("Workflow", {}),
+	# before Frappe's own validate, which deactivates the type's other workflows with raw SQL
+	"before_validate": "smart_power.sp_core.workflows.validate_workflow",
+	"on_update": "smart_power.sp_core.workflows.on_workflow_change",
 }
 
 scheduler_events = {
