@@ -22,6 +22,7 @@ import frappe
 from frappe import _
 from frappe.utils import cint, cstr, flt
 
+from smart_power.sp_core.services import lists
 from smart_power.sp_core.setup.seed import defaults
 from smart_power.sp_sales.customer import find_by_mobile, is_valid_mobile, normalize_mobile
 
@@ -42,7 +43,8 @@ META_KEY = "request_fields"
 NUMBER_TYPES = {"Float": flt, "Int": cint}
 TEXT_TYPES = {"Data", "Small Text", "Select"}
 LOAD_TABLE = "Load Table"  # shows the case's load table (SP Load Line) instead of a single value
-FIELD_TYPES = set(NUMBER_TYPES) | TEXT_TYPES | {"Check", LOAD_TABLE}
+LIST = "List"  # the values of a list (X4), read when the form opens (SP-132)
+FIELD_TYPES = set(NUMBER_TYPES) | TEXT_TYPES | {"Check", LOAD_TABLE, LIST}
 PAYMENT_LIST = "Financing Type"
 QUOTE_REQUEST_TASK, SITE_SURVEY_TASK = "Quote Request", "Site Survey"
 TASK_OPEN, TASK_CANCELLED = "Open", "Cancelled"
@@ -53,7 +55,29 @@ def request_fields(system_type: str | None) -> list[dict]:
 	if not system_type:
 		return []
 	meta = _meta(system_type)
-	return [f for f in meta.get(META_KEY) or [] if f.get("fieldname") and f.get("fieldtype") in FIELD_TYPES]
+	fields = [f for f in meta.get(META_KEY) or [] if f.get("fieldname") and f.get("fieldtype") in FIELD_TYPES]
+	return [_as_select(f) if f["fieldtype"] == LIST else f for f in fields]
+
+
+def list_choices(list_name: str) -> list[str]:
+	"""The active values of a list, as the form shows them (Arabic, then English, then the code)."""
+	rows = frappe.get_all(
+		LIST_VALUE,
+		{"list_name": list_name, "is_active": 1},
+		["value_ar", "value_en", "code"],
+		order_by="sort_order asc, value_ar asc",
+	)
+	return [r.value_ar or r.value_en or r.code for r in rows]
+
+
+def _as_select(field: dict) -> dict:
+	"""A List field asks like a Select of the list's values, read now so list edits show at once."""
+	return {
+		**field,
+		"fieldtype": "Select",
+		"options": "\n".join(list_choices(field.get("options") or "")),
+		"list": field.get("options"),
+	}
 
 
 def clean_details(system_type: str | None, details) -> dict:
@@ -482,6 +506,8 @@ def sync_request_fields(doc) -> None:
 			frappe.throw(_("Request field row {0}: {1} is not a field type.").format(row.idx, row.fieldtype))
 		if row.fieldtype == "Select" and not (row.options or "").strip():
 			frappe.throw(_("Request field row {0}: enter its choices, one per line.").format(row.idx))
+		if row.fieldtype == LIST and (row.options or "").strip() not in lists.list_names():
+			frappe.throw(_("Request field row {0}: {1} is not a list.").format(row.idx, row.options or ""))
 		seen.add(row.fieldname)
 		field = {
 			"fieldname": row.fieldname,
@@ -491,7 +517,7 @@ def sync_request_fields(doc) -> None:
 		}
 		if row.label_ar:
 			field["label_ar"] = row.label_ar
-		if row.fieldtype == "Select":
+		if row.fieldtype in ("Select", LIST):
 			field["options"] = row.options.strip()
 		fields.append(field)
 	if fields or had_rows or META_KEY in meta:
