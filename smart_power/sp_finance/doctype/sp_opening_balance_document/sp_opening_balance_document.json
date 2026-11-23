@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 02:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": [
+  "sheet",
+  "reference_doctype",
+  "reference_name",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "sheet",
+   "fieldtype": "Data",
+   "label": "Sheet",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Document Type",
+   "options": "DocType",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Document",
+   "options": "reference_doctype",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "in_list_view": 1,
+   "columns": 2
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 02:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Finance",
+ "name": "SP Opening Balance Document",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
