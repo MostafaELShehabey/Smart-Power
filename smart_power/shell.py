@@ -95,6 +95,8 @@ ITEM_ROLES = {
 	("Stations", "Installed Capacity"): ("SP Regulatory Compliance", *ADMIN),
 	("Stations", "Compliance Documents"): ("SP Regulatory Compliance", *ADMIN),
 	("Stations", "Compliance Reports"): ("SP Regulatory Compliance", *ADMIN),
+	# design tools (T1, SP-65)
+	("Quotes", "Design Tools"): ("SP System Designer", "SP Quote Creator", *ADMIN),
 }
 
 

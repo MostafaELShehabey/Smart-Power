@@ -48,6 +48,9 @@
 
 			<!-- 2. design inputs -->
 			<section v-show="step === 1" class="sp-qb-card">
+				<div v-if="canEdit && data.inputs.length" class="sp-qb-actions">
+					<button class="btn btn-default btn-sm" @click="openTools">{{ __("Design Tools") }}</button>
+				</div>
 				<p v-if="!data.inputs.length" class="text-muted">
 					{{ __("This system type has no calculation template yet: add its lines in the Items step.") }}
 				</p>
@@ -409,6 +412,13 @@ async function recalc() {
 	} finally {
 		busy.value = false;
 	}
+}
+
+// T1 design tools (SP-65): keep what is typed first, the tools push into the saved quote
+async function openTools() {
+	if (dirty.value) await save(true);
+	frappe.route_options = { quote: props.name };
+	frappe.set_route("sp-design-tools");
 }
 
 async function save(silent) {

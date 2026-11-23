@@ -4,9 +4,10 @@ import QuoteBuilder from "./quote_builder/QuoteBuilder.vue";
 
 window.sp = window.sp || {};
 sp.quote_builder = {
-	mount(page, name) {
-		// back on the same quote with unsaved changes: keep them on screen
-		if (page.sp_builder_name === name && page.sp_builder_dirty?.()) return;
+	mount(page, name, reload) {
+		// back on the same quote with unsaved changes: keep them on screen, unless the design
+		// tools (SP-65) just saved new inputs into it
+		if (!reload && page.sp_builder_name === name && page.sp_builder_dirty?.()) return;
 		if (page.sp_builder) page.sp_builder.unmount();
 		page.sp_builder_name = name;
 		$(page.main).empty();

@@ -1,0 +1,29 @@
+{
+ "creation": "2026-11-23 22:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "tool",
+ "idx": 0,
+ "modified": "2026-11-23 22:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Quotes",
+ "name": "sp-design-tools",
+ "owner": "Administrator",
+ "page_name": "sp-design-tools",
+ "roles": [
+  {
+   "role": "SP System Designer"
+  },
+  {
+   "role": "SP Quote Creator"
+  },
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Design Tools"
+}
