@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "creation": "2026-11-24 03:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-24 03:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Automation Action",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "field_order": [
+  "kind",
+  "recipient_type",
+  "recipient",
+  "task_type",
+  "due_days",
+  "message"
+ ],
+ "permissions": [],
+ "fields": [
+  {
+   "fieldname": "kind",
+   "fieldtype": "Select",
+   "label": "Action",
+   "options": "Notify\nCreate Task\nAssign",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "recipient_type",
+   "fieldtype": "Select",
+   "label": "To",
+   "options": "Role\nUser\nField",
+   "default": "Field",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "recipient",
+   "fieldtype": "Data",
+   "label": "Who",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3,
+   "description": "A role, a user, or a field holding a user (a path through links: parent.sp_station.collection_owner)."
+  },
+  {
+   "fieldname": "task_type",
+   "fieldtype": "Select",
+   "label": "Task Type",
+   "options": "Quote Request\nFollow-up Call\nDiscount Request\nReceipt to Confirm\nReceipt Rejected\nPayment to Confirm\nSupplier Payment to Confirm\nTransfer to Confirm\nEntry to Review\nReopen Request\nMake Contract\nSite Survey\nTransfer to Issue\nTransfer to Receive\nTransfer Difference\nMaterial Request\nReturn to Receive\nSettlement to Approve\nStock Count\nCount Difference\nConsignment Reconciliation\nPassword Reset\nFix Rejected Sync\nReassign Request\nTechnical Review\nAgri Bank Advance\nPhoto Request\nTechnical Close\nSet Referrer\nDay Close to Confirm\nGrid Connection\nCutover Step\nService Ticket\nOther",
+   "default": "Other",
+   "depends_on": "eval:doc.kind=='Create Task'"
+  },
+  {
+   "fieldname": "due_days",
+   "fieldtype": "Int",
+   "label": "Task Due In (days)",
+   "depends_on": "eval:doc.kind=='Create Task'"
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Small Text",
+   "label": "Message",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "What the alert or task says. {{ doc.name }} and the record's other fields can be used."
+  }
+ ]
+}

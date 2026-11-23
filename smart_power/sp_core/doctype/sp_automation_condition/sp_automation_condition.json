@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "creation": "2026-11-24 03:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-24 03:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Automation Condition",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "field_order": [
+  "field",
+  "op",
+  "value"
+ ],
+ "permissions": [],
+ "fields": [
+  {
+   "fieldname": "field",
+   "fieldtype": "Data",
+   "label": "Field",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3,
+   "description": "A field of the record, or a path through links: parent.sp_station.status."
+  },
+  {
+   "fieldname": "op",
+   "fieldtype": "Select",
+   "label": "Operator",
+   "options": "=\n!=\n>\n<\n>=\n<=\nin\nnot in\nis set\nis not set\ncontains",
+   "default": "=",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "value",
+   "fieldtype": "Data",
+   "label": "Value",
+   "in_list_view": 1,
+   "columns": 3,
+   "description": "For in / not in: values separated by commas."
+  }
+ ]
+}

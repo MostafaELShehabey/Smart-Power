@@ -234,6 +234,9 @@ doc_events = {
 		**_RULE_EVENTS,
 		# a cancelled source cancels the Journal Entries it posted (SP-113)
 		"on_cancel": "smart_power.sp_finance.posting.cancel_postings",
+		# the admin's automations (X9, SP-135), filtered by a cached map of their record types
+		"after_insert": "smart_power.sp_core.automation.on_doc_event",
+		"on_update": "smart_power.sp_core.automation.on_doc_event",
 	},
 	"SP Rule Setting": {"on_update": "smart_power.rules.clear_cache"},
 	# A14 (SP-126): nothing new is recorded into a closed month
@@ -441,6 +444,8 @@ scheduler_events = {
 		"*/15 * * * *": ["smart_power.sp_sales.quote_alerts.check_quote_clock"],  # sp-allow-number: cron
 	},
 	"daily": [
+		# the time-based automations (X9, SP-135): each record once
+		"smart_power.sp_core.automation.run_daily",
 		# campaign results, for what changed outside a doc event (SP-52)
 		"smart_power.sp_sales.campaigns.refresh_active",
 		# sent quote versions past Valid Till become Expired (SP-54)

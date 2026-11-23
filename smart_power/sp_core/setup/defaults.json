@@ -496,6 +496,7 @@
 		{"key": "quote_needs_repricing", "label_ar": "عرض يحتاج إعادة تسعير", "label_en": "Quote needs repricing", "default_push": 1, "roles": "SP Quote Creator, SP Customer Followup"},
 		{"key": "service_ticket", "label_ar": "تذكرة صيانة جديدة", "label_en": "New service ticket", "default_push": 1, "roles": "SP Installation Manager, SP Warranty Service"},
 		{"key": "service_ticket_status", "label_ar": "تغيّرت حالة تذكرة الصيانة", "label_en": "Service ticket status changed", "default_push": 1, "roles": "SP Customer Followup, SP Followup All, SP Lead Intake"},
+		{"key": "automation", "label_ar": "تنبيه من أتمتة", "label_en": "Automation alert", "default_push": 1, "roles": "SP Admin", "_source": "SP-135"},
 		{"key": "compliance_expiry", "label_ar": "مستند تأهيل قارب على الانتهاء", "label_en": "Compliance document expiring", "default_push": 1, "roles": "SP Regulatory Compliance, SP Admin", "_source": "SP-101"},
 		{"key": "survey_done", "label_ar": "تمت معاينة الموقع", "label_en": "Site survey done", "default_push": 1, "roles": "SP Admin, SP Quote Creator"},
 		{"key": "missing_data", "label_ar": "بيانات ناقصة في الطلب", "label_en": "Missing data on a request", "default_push": 1, "roles": "SP Lead Intake, SP Customer Followup"},
