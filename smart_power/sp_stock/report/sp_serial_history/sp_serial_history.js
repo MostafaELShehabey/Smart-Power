@@ -6,7 +6,7 @@ frappe.query_reports["SP Serial History"] = {
 	formatter(value, row, column, data, default_formatter) {
 		if (column.fieldname === "photo" && data && data.photo) {
 			const url = encodeURI(data.photo);
-			return `<a href="${url}" target="_blank" rel="noopener">${__("Open")}</a>`;
+			return `<a href="${url}" target="_blank" rel="noopener">${__("Open", null, "action")}</a>`;
 		}
 		return default_formatter(value, row, column, data);
 	},

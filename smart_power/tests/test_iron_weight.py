@@ -95,6 +95,24 @@ class TestIronWeight(IntegrationTestCase):
 		self.assertEqual((r["theoretical_kg"], r["actual_kg"], r["variance_kg"]), (THEORETICAL, SCALE, -38))
 		self.assertEqual(r["warning"], "")  # -0.98%, under the 2% warning
 
+	def test_the_confirmer_sees_the_scale_weight_against_the_theoretical_before_confirming(self):
+		item = self.iron("SP-IRON-KG-E")
+		po = self.iron_order(item, kg=1000)
+		expected = next(c for c in gr.expected_deliveries() if c["purchase_order"] == po.name)
+		self.assertTrue(expected["lines"][0]["weighed"])  # the receiver is told to type the scale weight
+		lines = [{"purchase_order_item": po.items[0].name, "received_qty": 1030, "condition": "OK"}]
+		name = gr.record_receipt(po.name, self.main, lines, photo(), SIGNATURE)["name"]
+		frappe.set_user(self.confirmer)
+		pending = next(r for r in rc.pending_receipts() if r["name"] == name)
+		self.assertTrue(pending["lines"][0]["weighed"])
+		weight = pending["weight"]
+		self.assertEqual(
+			(weight["theoretical_kg"], weight["actual_kg"], weight["variance_pct"]), (1000, 1030, 3)
+		)
+		self.assertTrue(weight["warning"])  # 3% is above the 2% limit
+		frappe.set_user("Administrator")
+		self.assertEqual(iw.weight_check(po.name, 1010)["warning"], "")  # 1% passes quietly
+
 	def test_a_heavier_supply_is_received_and_warned_above_the_threshold(self):
 		item = self.iron("SP-IRON-KG-B")
 		po = self.iron_order(item, kg=1000)

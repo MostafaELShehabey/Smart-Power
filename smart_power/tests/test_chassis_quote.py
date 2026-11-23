@@ -95,6 +95,24 @@ class TestChassisQuote(IntegrationTestCase):
 			sum(line["amount"] for line in chassis_lines), sum(r.sale_amount for r in calc.lines)
 		)
 
+	def test_the_calc_replaces_the_empty_line_a_new_chassis_quote_starts_with(self):
+		from smart_power.sp_quotes.special_lines import MANUAL, service_item
+
+		quote = quote_for(cq.CHASSIS_ONLY)
+		label = frappe.db.get_value("SP List Value", cq.CHASSIS_ONLY, "value_ar")
+		doc = frappe.get_doc("Quotation", quote.name)
+		# as builder.new_quote leaves it: one manual line named after the system type, no price
+		doc.set("items", [{"item_code": service_item(MANUAL), "item_name": label, "qty": 1, "rate": 0}])
+		doc.append("items", {"item_code": service_item(MANUAL), "item_name": "نقل", "qty": 1, "rate": 500})
+		doc.save()
+		calc = self.calc(quote.name)
+		doc.reload()
+		# the empty line is gone, the hand line with its own price stays, the calc's row is added
+		hand = doc.items[0]
+		self.assertEqual((hand.item_name, hand.sp_line_key, flt(hand.rate)), ("نقل", None, 500))
+		self.assertEqual([r.sp_line_key for r in doc.items], [None, cq.CHASSIS_LINE])
+		self.assertEqual(doc.items[1].rate, calc.total_sale)
+
 	def test_without_a_calc_the_station_line_keeps_the_per_kw_default(self):
 		row = self.chassis_row(self.station_quote())
 		self.assertEqual(row.sp_cost, flt(21.45 * PER_KW))

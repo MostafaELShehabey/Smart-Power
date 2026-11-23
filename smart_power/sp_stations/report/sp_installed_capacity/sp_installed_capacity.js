@@ -31,10 +31,13 @@ frappe.query_reports["SP Installed Capacity"] = {
 			label: __("Company"),
 			fieldtype: "Link",
 			options: "Company",
-			default: frappe.defaults.get_user_default("Company"),
+			default: frappe.defaults.get_user_default("Company") || frappe.boot.sp_company,
 		},
 	],
 	formatter(value, row, column, data, default_formatter) {
+		// a section row is its title alone, and the total has no price per kW: no zeros in their place
+		if (data && data.is_section && column.fieldname !== "operation_date") return "";
+		if (data && data.is_total && column.fieldname === "price_per_kw") return "";
 		const out = default_formatter(value, row, column, data);
 		return data && (data.is_total || data.is_section) ? `<b>${out}</b>` : out;
 	},

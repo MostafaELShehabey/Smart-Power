@@ -39,7 +39,7 @@ from smart_power.sp_stock.goods_receipt import (
 	_is_serial,
 	_sees_all,
 )
-from smart_power.sp_stock.iron_weight import settle_weighed_lines
+from smart_power.sp_stock.iron_weight import is_weighed, settle_weighed_lines, weight_check
 from smart_power.sp_stock.shared_purchase import allocate
 
 OK, DAMAGED = "OK", "Damaged"
@@ -276,12 +276,22 @@ def pending_receipts() -> list[dict]:
 	by_receipt: dict[str, list] = {}
 	for line in lines:
 		order_line = ordered.get(line.purchase_order_item) or frappe._dict()
-		line.update({"ordered": flt(order_line.qty), "already_received": flt(order_line.received_qty)})
+		line.update(
+			{
+				"ordered": flt(order_line.qty),
+				"already_received": flt(order_line.received_qty),
+				"weighed": is_weighed(line.item_code),
+			}
+		)
 		by_receipt.setdefault(line.pop("parent"), []).append(line)
 	for receipt in receipts:
+		own = by_receipt.get(receipt.name, [])
+		scale_kg = sum(flt(l.received_qty) for l in own if l.weighed and l.condition == OK)
 		receipt.update(
 			{
-				"lines": by_receipt.get(receipt.name, []),
+				"lines": own,
+				# iron: the scale weight against the theoretical weight, before it is confirmed (SP-178)
+				"weight": weight_check(receipt.purchase_order, scale_kg) if scale_kg else None,
 				"received_by_name": get_fullname(receipt.received_by),
 				"posting_date": str(receipt.posting_date),
 			}

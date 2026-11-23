@@ -9,7 +9,7 @@ frappe.query_reports["SP Cash Flow"] = {
 			label: __("Company"),
 			fieldtype: "Link",
 			options: "Company",
-			default: frappe.defaults.get_user_default("Company"),
+			default: frappe.defaults.get_user_default("Company") || frappe.boot.sp_company,
 			reqd: 1,
 		},
 		{

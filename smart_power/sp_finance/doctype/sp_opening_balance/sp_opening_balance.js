@@ -13,7 +13,7 @@ frappe.ui.form.on("SP Opening Balance", {
 		});
 		if (frm.is_new()) return;
 		if (frm.doc.status !== "Posted") {
-			frm.add_custom_button(__("Check"), () => sp_ob_check(frm));
+			frm.add_custom_button(__("Check", null, "SP Opening Balance"), () => sp_ob_check(frm));
 		}
 		const admin = frappe.user.has_role("SP Admin") || frappe.user.has_role("System Manager");
 		if (frm.doc.status === "Checked" && admin) {

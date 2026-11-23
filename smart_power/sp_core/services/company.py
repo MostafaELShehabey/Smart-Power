@@ -10,6 +10,13 @@ COMPANY_SETTINGS = "SP Company Settings"
 FALLBACK_LOGO = "/assets/smart_power/images/sp_logo.png"
 
 
+def boot(bootinfo) -> None:
+	"""The company the reports open on when the user has no default company of their own."""
+	from smart_power.sp_stock.consignment import _default_company
+
+	bootinfo.sp_company = _default_company()
+
+
 def get_company_settings():
 	"""The cached SP Company Settings (read-only use; no permission check, as templates need it)."""
 	return frappe.get_cached_doc(COMPANY_SETTINGS)

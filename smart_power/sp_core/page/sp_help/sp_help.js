@@ -40,7 +40,7 @@ frappe.pages["sp-help"].on_page_load = function (wrapper) {
 						<ol>${t.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
 					</div>`).appendTo($card.find(".sp-tasks"));
 				if (t.screen) {
-					$(`<button class="btn btn-default btn-xs">${__("Open")}</button>`)
+					$(`<button class="btn btn-default btn-xs">${__("Open", null, "action")}</button>`)
 						.appendTo($task)
 						.on("click", () => frappe.set_route(...t.screen.split("/")));
 				}

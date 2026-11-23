@@ -88,7 +88,7 @@ frappe.pages["sp-admin-guide"].on_page_load = function (wrapper) {
 			<div class="frappe-card" style="padding: var(--padding-md); margin-bottom: var(--margin-md);">
 				<h4>${i + 1}. ${esc(task.title)}</h4>
 				<ol>${task.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
-				<button class="btn btn-default btn-sm">${__("Open")}</button>
+				<button class="btn btn-default btn-sm">${__("Open", null, "action")}</button>
 			</div>`).appendTo($body);
 		$card.find("button").on("click", () => frappe.set_route(...task.route));
 	});

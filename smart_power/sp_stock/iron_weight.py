@@ -13,6 +13,7 @@ its next chassis calc with it (chassis_calc.factory_dict).
     is_weighed(item_code)            the item is weighed at receipt
     settle_weighed_lines(receipt)    before the receipt posts: its PO's weighed lines = the scale
     variance(filters)                theoretical vs scale weight per PO, grouped per factory
+    weight_check(order, kg)          the same for one order with a receipt still to confirm
 """
 
 import json
@@ -85,6 +86,20 @@ def _received_kg(order: str) -> float:
 		["item_code", "stock_qty"],
 	)
 	return flt(sum(flt(r.stock_qty) for r in rows if is_weighed(r.item_code)), QTY_DIGITS)
+
+
+def weight_check(order: str | None, kg: float) -> dict | None:
+	"""For the confirmer: an order's scale weight, with a receipt still to confirm, against its
+	theoretical weight. None when the order has no theoretical weight."""
+	theoretical = flt(frappe.db.get_value(PO, order, "sp_theoretical_weight_kg")) if order else 0
+	if not theoretical:
+		return None
+	threshold = flt(frappe.db.get_single_value("Smart Power Settings", SETTING))
+	actual = flt(_received_kg(order) + flt(kg), QTY_DIGITS)
+	row = _row(order, None, theoretical, actual, threshold, 0)
+	return {
+		key: row[key] for key in ("theoretical_kg", "actual_kg", "variance_kg", "variance_pct", "warning")
+	}
 
 
 def variance(filters: dict | None = None) -> list[dict]:

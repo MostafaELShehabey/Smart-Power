@@ -17,7 +17,7 @@ frappe.query_reports["SP Center PnL"] = {
 			label: __("Company"),
 			fieldtype: "Link",
 			options: "Company",
-			default: frappe.defaults.get_user_default("Company"),
+			default: frappe.defaults.get_user_default("Company") || frappe.boot.sp_company,
 			reqd: 1,
 		},
 		{ fieldname: "from_date", label: __("From Date"), fieldtype: "Date", default: frappe.datetime.month_start(), reqd: 1 },

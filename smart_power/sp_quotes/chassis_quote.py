@@ -87,10 +87,38 @@ def use_calculator(doc, result) -> None:
 # --- a "Chassis only" quote -----------------------------------------------------------------------
 
 
+def _placeholder_names(doc) -> set[str]:
+	"""What builder.new_quote names the empty line of a quote with no template."""
+	types = frappe.get_all("SP Case System Type", {"parent": doc.get("sp_case") or ""}, pluck="system_type")
+	labels = frappe.get_all("SP List Value", {"name": ("in", types or [""])}, pluck="value_ar")
+	return {_("Quote line"), *(label for label in labels if label)}
+
+
+def _is_placeholder(row, names: set[str]) -> bool:
+	"""That empty line: the manual item under its starting name, no key, no cost, and no price of
+	its own (ERPNext may have filled the manual item's price-list rate in)."""
+	from smart_power.sp_quotes.special_lines import MANUAL, service_item
+
+	if row.item_code != service_item(MANUAL) or row.get("sp_line_key") or flt(row.get("sp_cost")):
+		return False
+	if row.item_name not in names:
+		return False
+	return not flt(row.rate) or flt(row.rate) == flt(row.get("price_list_rate"))
+
+
 def _chassis_only_row(doc, calc) -> None:
 	from smart_power.sp_quotes.special_lines import MANUAL, service_item
 
-	doc.set("items", [row for row in doc.items if row.get("sp_line_key") != CHASSIS_LINE])
+	# the calc's row replaces the last one, and the empty line a new quote starts with
+	names = _placeholder_names(doc)
+	doc.set(
+		"items",
+		[
+			row
+			for row in doc.items
+			if row.get("sp_line_key") != CHASSIS_LINE and not _is_placeholder(row, names)
+		],
+	)
 	doc.append(
 		"items",
 		{
