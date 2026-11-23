@@ -479,11 +479,17 @@ permission_query_conditions = {
 	"SP Campaign": "smart_power.sp_sales.campaigns.query_conditions",
 	# leads: one's own, made, owned or to follow up (SP-51)
 	"Lead": "smart_power.sp_sales.leads.query_conditions",
-	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.get_permission_query_conditions",
+	"SP Task": [
+		"smart_power.sp_core.doctype.sp_task.sp_task.get_permission_query_conditions",
+		"smart_power.sp_core.row_rules.query_conditions",
+	],
 	# Buying prices (List Price, P1 Cost) for cost roles only (SP-35).
 	"Item Price": "smart_power.permissions.item_price_query_conditions",
 	# A case is seen by its owners; كاميليا and the admin see all (SP-35, SP-46).
-	"SP Case": "smart_power.permissions.case_query_conditions",
+	"SP Case": [
+		"smart_power.permissions.case_query_conditions",
+		"smart_power.sp_core.row_rules.query_conditions",
+	],
 	# featured customers for all, the rest for their owners (SP-50)
 	"Customer": "smart_power.permissions.customer_query_conditions",
 	# a case's quotes follow the case (SP-35)
@@ -492,31 +498,45 @@ permission_query_conditions = {
 	"Account": "smart_power.sp_finance.accounts.account_query_conditions",
 	"GL Entry": "smart_power.sp_finance.accounts.gl_query_conditions",
 	# a collection officer sees only the stations they collect (SP-120)
-	"SP Station": "smart_power.permissions.station_query_conditions",
+	"SP Station": [
+		"smart_power.permissions.station_query_conditions",
+		"smart_power.sp_core.row_rules.query_conditions",
+	],
 	# a customer payment: its recorder, its collector and the admin (SP-35)
 	"Payment Entry": "smart_power.permissions.payment_query_conditions",
 	"SP Customer Payment": "smart_power.permissions.customer_payment_query_conditions",
 	# a custody holder sees only their own custody and settlements (SP-122)
 	"SP Custody": "smart_power.sp_finance.custody.custody_query",
 	"SP Custody Settlement": "smart_power.sp_finance.custody.settlement_query",
+	"SP Service Ticket": "smart_power.sp_core.row_rules.query_conditions",  # SP-131
 }
 has_permission = {
 	"SP User Guide": "smart_power.sp_core.guides.has_permission",
 	"SP Field Entry": "smart_power.sp_winch.field_entry.has_permission",
 	"SP Campaign": "smart_power.sp_sales.campaigns.has_permission",
 	"Lead": "smart_power.sp_sales.leads.has_permission",
-	"SP Task": "smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
+	"SP Task": [
+		"smart_power.sp_core.doctype.sp_task.sp_task.has_permission",
+		"smart_power.sp_core.row_rules.has_permission",
+	],
 	"Item Price": "smart_power.permissions.item_price_has_permission",
-	"SP Case": "smart_power.permissions.case_has_permission",
+	"SP Case": [
+		"smart_power.permissions.case_has_permission",
+		"smart_power.sp_core.row_rules.has_permission",
+	],
 	"Customer": "smart_power.permissions.customer_has_permission",
 	"Quotation": "smart_power.permissions.quote_has_permission",
 	"Account": "smart_power.sp_finance.accounts.account_has_permission",
 	"Journal Entry": "smart_power.sp_finance.journal.has_permission",
-	"SP Station": "smart_power.permissions.station_has_permission",
+	"SP Station": [
+		"smart_power.permissions.station_has_permission",
+		"smart_power.sp_core.row_rules.has_permission",
+	],
 	"Payment Entry": "smart_power.permissions.payment_has_permission",
 	"SP Customer Payment": "smart_power.permissions.customer_payment_has_permission",
 	"SP Custody": "smart_power.sp_finance.custody.has_permission",
 	"SP Custody Settlement": "smart_power.sp_finance.custody.has_permission",
+	"SP Service Ticket": "smart_power.sp_core.row_rules.has_permission",  # SP-131
 }
 
 # the quote's cost and hidden lines leave the server only for its creator and the admin (SP-35)

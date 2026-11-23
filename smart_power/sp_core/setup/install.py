@@ -59,6 +59,9 @@ def after_install() -> None:
 	from smart_power.sp_core.guides import seed_guides
 
 	seed_guides()  # the users' guides (SP-162)
+	from smart_power.sp_core.permissions_matrix import seed_module_map
+
+	seed_module_map()  # the permissions matrix's menu groups (SP-131)
 	seed_settings()
 	sync_rule_settings()
 	apply_customer_naming()
@@ -150,3 +153,6 @@ def after_migrate() -> None:
 	from smart_power.sp_core.guides import seed_guides
 
 	seed_guides()  # the users' guides, where missing (SP-162)
+	from smart_power.sp_core.permissions_matrix import seed_module_map
+
+	seed_module_map()  # the permissions matrix's menu groups, where missing (SP-131)

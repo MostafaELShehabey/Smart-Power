@@ -4442,3 +4442,37 @@ Winch and transport,الونش والنقل
 Template Calibration,معايرة القوالب
 SP Template Calibration,معايرة القوالب
 {0} stations had no actual recorded and are left out.,{0} محطة بدون فعلي مسجل ولم تُحسب.
++ New,+ جديد
+Apply these changes to {0} now? Each one is recorded in the audit log.,تطبيق هذه التغييرات على {0} الآن؟ يُسجَّل كل تغيير في سجل المراجعة.
+Assigned to me,المسندة إليّ
+Assigned to Me Only,المسندة إليه فقط
+Own Records Only,سجلاته فقط
+Clone Role,نسخ دور
+Clone {0},نسخ {0}
+Document Types,أنواع المستندات
+Enter the role's name.,أدخل اسم الدور.
+Field Rules,قواعد الحقول
+Menu of {0},قائمة {0}
+New Role,دور جديد
+New Role Name,اسم الدور الجديد
+Nothing changed.,لم يتغير شيء.
+Permissions Matrix,مصفوفة الصلاحيات
+Pick a role first.,اختر دورًا أولًا.
+Pick the role to clone first.,اختر الدور المراد نسخه أولًا.
+Preview Menu,معاينة القائمة
+Role Name,اسم الدور
+Role {0} already exists.,الدور {0} موجود بالفعل.
+Role {0} does not exist.,الدور {0} غير موجود.
+SP Module Map,خريطة الأقسام
+SP Module Map DocType,نوع مستند في خريطة الأقسام
+SP Role Row Rule,قاعدة صفوف الدور
+"The menu group (its sidebar's title), for example Purchasing.",مجموعة القائمة (عنوان قائمتها الجانبية)، مثل المشتريات.
+partly,جزئيًا
+{0} always keeps its access; the matrix does not change it.,يحتفظ {0} دائمًا بصلاحياته؛ المصفوفة لا تغيّرها.
+{0} changes saved.,تم حفظ {0} تغيير.
+{0} made with {1} permissions.,تم إنشاء {0} بعدد {1} صلاحية.
+{0}: give View before Confirm.,{0}: امنح العرض قبل الاعتماد.
+{0}: give View on {1} first.,{0}: امنح العرض على {1} أولًا.
+See cost and profit,رؤية التكلفة والربح
+See supplier prices,رؤية أسعار الموردين
+See station costs,رؤية تكاليف المحطة
