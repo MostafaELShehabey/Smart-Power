@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "task",
+  "is_top",
+  "steps",
+  "screen",
+  "video_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "task",
+   "fieldtype": "Data",
+   "label": "Task",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "is_top",
+   "fieldtype": "Check",
+   "label": "Top Task",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "The three top tasks are on the card and are checked at the training."
+  },
+  {
+   "fieldname": "steps",
+   "fieldtype": "Small Text",
+   "label": "Steps",
+   "in_list_view": 1,
+   "columns": 4,
+   "description": "One step per line."
+  },
+  {
+   "fieldname": "screen",
+   "fieldtype": "Data",
+   "label": "Screen",
+   "description": "Where the task starts: a page (sp-quote-request) or a list (List/SP Station).",
+   "columns": 1
+  },
+  {
+   "fieldname": "video_url",
+   "fieldtype": "Data",
+   "label": "Video",
+   "options": "URL",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "The 2-3 minute video in the project drive."
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP User Guide Task",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 1,
+ "permissions": []
+}

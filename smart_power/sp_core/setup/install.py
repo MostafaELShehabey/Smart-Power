@@ -56,6 +56,9 @@ def after_install() -> None:
 	from smart_power.sp_stations.task_templates import seed_task_templates
 
 	seed_task_templates()  # SP-173: the on-grid grid-connection steps
+	from smart_power.sp_core.guides import seed_guides
+
+	seed_guides()  # the users' guides (SP-162)
 	seed_settings()
 	sync_rule_settings()
 	apply_customer_naming()
@@ -144,3 +147,6 @@ def after_migrate() -> None:
 	from smart_power.notify import sync_events
 
 	sync_events()  # the notification event catalogue (SP-40)
+	from smart_power.sp_core.guides import seed_guides
+
+	seed_guides()  # the users' guides, where missing (SP-162)

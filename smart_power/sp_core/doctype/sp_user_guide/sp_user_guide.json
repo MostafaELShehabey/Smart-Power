@@ -1,0 +1,152 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "profile",
+  "role_keys",
+  "is_active",
+  "column_break_head",
+  "home",
+  "menu",
+  "screens",
+  "tasks_section",
+  "tasks",
+  "rules_section",
+  "dos",
+  "column_break_rules",
+  "donts"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "profile",
+   "fieldtype": "Data",
+   "label": "Profile",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1,
+   "description": "The person profile the guide is for (Users and Roles)."
+  },
+  {
+   "fieldname": "role_keys",
+   "fieldtype": "Small Text",
+   "label": "Role Keys",
+   "read_only": 1,
+   "description": "The profile's roles: a user who holds all of them sees this guide."
+  },
+  {
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Active",
+   "default": "1"
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "home",
+   "fieldtype": "Small Text",
+   "label": "Your Home Page"
+  },
+  {
+   "fieldname": "menu",
+   "fieldtype": "Small Text",
+   "label": "Your Menu"
+  },
+  {
+   "fieldname": "screens",
+   "fieldtype": "Small Text",
+   "label": "Your Screens",
+   "description": "One per line."
+  },
+  {
+   "fieldname": "tasks_section",
+   "fieldtype": "Section Break",
+   "label": "Tasks"
+  },
+  {
+   "fieldname": "tasks",
+   "fieldtype": "Table",
+   "label": "Tasks",
+   "options": "SP User Guide Task"
+  },
+  {
+   "fieldname": "rules_section",
+   "fieldtype": "Section Break",
+   "label": "Do's and Don'ts"
+  },
+  {
+   "fieldname": "dos",
+   "fieldtype": "Small Text",
+   "label": "Always",
+   "description": "One per line."
+  },
+  {
+   "fieldname": "column_break_rules",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "donts",
+   "fieldtype": "Small Text",
+   "label": "Never",
+   "description": "One per line."
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP User Guide",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "field:profile",
+ "naming_rule": "By fieldname",
+ "title_field": "title",
+ "track_changes": 1,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "Desk User",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1
+  }
+ ]
+}

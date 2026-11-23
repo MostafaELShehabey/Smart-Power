@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "attended",
+  "task_1",
+  "task_2",
+  "task_3",
+  "completed",
+  "observed_by",
+  "observed_on",
+  "note"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "attended",
+   "fieldtype": "Check",
+   "label": "Attended",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "task_1",
+   "fieldtype": "Check",
+   "label": "Top Task 1",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "task_2",
+   "fieldtype": "Check",
+   "label": "Top Task 2",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "task_3",
+   "fieldtype": "Check",
+   "label": "Top Task 3",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "completed",
+   "fieldtype": "Check",
+   "label": "Completed",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "observed_by",
+   "fieldtype": "Link",
+   "label": "Observed By",
+   "options": "User",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "observed_on",
+   "fieldtype": "Datetime",
+   "label": "Observed On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note",
+   "in_list_view": 1,
+   "columns": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Training Attendee",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 1,
+ "permissions": []
+}

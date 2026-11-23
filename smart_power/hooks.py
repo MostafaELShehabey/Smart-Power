@@ -463,6 +463,8 @@ scheduler_events = {
 }
 
 permission_query_conditions = {
+	# a user reads the guides of their own profiles; the admin reads them all (SP-162)
+	"SP User Guide": "smart_power.sp_core.guides.query_conditions",
 	# who asked to reopen a day sees their own request (SP-109)
 	"SP Reopen Request": "smart_power.sp_winch.field_lock.query_conditions",
 	# an operator sees their own field entries (SP-108)
@@ -493,6 +495,7 @@ permission_query_conditions = {
 	"SP Custody Settlement": "smart_power.sp_finance.custody.settlement_query",
 }
 has_permission = {
+	"SP User Guide": "smart_power.sp_core.guides.has_permission",
 	"SP Field Entry": "smart_power.sp_winch.field_entry.has_permission",
 	"SP Campaign": "smart_power.sp_sales.campaigns.has_permission",
 	"Lead": "smart_power.sp_sales.leads.has_permission",

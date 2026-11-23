@@ -4166,3 +4166,52 @@ Reports,التقارير
 Role Permissions,صلاحيات الأدوار
 User Permissions,صلاحيات المستخدمين
 Customize Form,تخصيص النموذج
+All (admin),الكل (الأدمن)
+Always,دائمًا
+Attended,حضر
+Attendees,الحضور
+Do's and Don'ts,افعل ولا تفعل
+Guide,الدليل
+Mark at most {0} top tasks: they are the card's.,علِّم {0} مهام رئيسية على الأكثر: هي مهام الكارت.
+Never,أبدًا
+No guide is set for your roles yet. Ask the admin.,لا يوجد دليل لأدوارك بعد. اسأل الأدمن.
+Observed By,لاحظه
+Observed On,وقت الملاحظة
+One per line.,واحد في كل سطر.
+One step per line.,خطوة في كل سطر.
+Only Not Completed,غير المكتمل فقط
+Only the admin reads the training status.,الأدمن وحده يرى حالة التدريب.
+Print Card,طباعة الكارت
+Profile,الملف الوظيفي
+Role Keys,الأدوار
+SP Training Attendee,متدرب
+SP Training Session,جلسة تدريب
+SP User Guide,دليل المستخدم
+SP User Guide Task,مهمة في الدليل
+Screen,الشاشة
+Session,الجلسة
+Session Date,تاريخ الجلسة
+The 2-3 minute video in the project drive.,الفيديو (2-3 دقائق) على درايف المشروع.
+The person profile the guide is for (Users and Roles).,الملف الوظيفي الذي يخصه الدليل (المستخدمون والأدوار).
+The profile's roles: a user who holds all of them sees this guide.,أدوار الملف: من له كل هذه الأدوار يرى الدليل.
+The three top tasks are on the card and are checked at the training.,المهام الثلاث الرئيسية في الكارت، وتُراجع في التدريب.
+"Tick a top task when the user did it unaided, watched by the trainer.",علِّم المهمة الرئيسية عندما ينفذها المستخدم وحده أمام المدرب.
+Top Task,مهمة رئيسية
+Top Task 1,المهمة الرئيسية 1
+Top Task 2,المهمة الرئيسية 2
+Top Task 3,المهمة الرئيسية 3
+Trainer,المدرب
+Video,الفيديو
+Watch the Video,شاهد الفيديو
+Where the task starts: a page (sp-quote-request) or a list (List/SP Station).,من أين تبدأ المهمة: صفحة (sp-quote-request) أو قائمة (List/SP Station).
+Your Home Page,صفحتك الرئيسية
+Your Menu,قائمتك
+Your Screens,شاشاتك
+{0} is listed twice.,{0} مكرر.
+{0} is not a person profile.,{0} ليس ملفًا وظيفيًا.
+Top Tasks,المهام الرئيسية
+User Guides,أدلة المستخدمين
+Training Sessions,جلسات التدريب
+Training Status,حالة التدريب
+SP Training Status,حالة التدريب
+SP Quick Reference Card,كارت مرجعي سريع
