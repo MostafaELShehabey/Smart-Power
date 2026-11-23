@@ -10,6 +10,8 @@ frappe.pages["sp-quote-builder"].on_page_show = async function (wrapper) {
 		frappe.set_route("List", "Quotation");
 		return;
 	}
+	const reload = !!frappe.route_options?.sp_reload; // the design tools pushed into it (SP-65)
+	if (reload) frappe.route_options = null;
 	await frappe.require("quote_builder.bundle.js");
-	sp.quote_builder.mount(wrapper.sp_page, name);
+	sp.quote_builder.mount(wrapper.sp_page, name, reload);
 };

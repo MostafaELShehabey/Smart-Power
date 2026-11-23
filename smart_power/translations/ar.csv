@@ -4348,3 +4348,65 @@ Logged,مسجلة,SP Supplier Claim
 Sent,مُرسلة,SP Supplier Claim
 Rejected,مرفوضة,SP Supplier Claim
 Case,طلب العميل,SP Station
+A draft quote of a case.,عرض سعر مسودة لطلب.
+Add Load,إضافة جهاز
+Add at least one load with its watts.,أضف جهازًا واحدًا على الأقل بقدرته بالوات.
+All checks pass,كل الفحوصات سليمة
+Array Isc,تيار Isc للمصفوفة
+Blank means −0.29 %/°C. Used by the string calculator (design tools).,الفراغ يعني −0.29 %/°م. تستخدمه حاسبة الاسترنج في أدوات التصميم.
+Daily Energy,الطاقة اليومية
+Design Tools,أدوات التصميم
+Drive or Inverter,الدرايف أو الإنفرتر
+Drive Need (kW),قدرة الدرايف المطلوبة (كيلو وات)
+Drives that Fit,الدرايفات المناسبة
+Enter the head and the flow.,أدخل الرفع والتصرف.
+Enter {0}.,أدخل {0}.
+Find Pumps,ابحث عن الطلمبات
+Head at this Flow (m),الرفع عند هذا التصرف (متر)
+Limit (V),الحد (فولت)
+Appliance,الجهاز
+Losses (m),الفواقد (متر)
+MPPT Max,أقصى MPPT
+MPPT Min,أدنى MPPT
+Max DC,أقصى جهد DC
+Max DC Voltage,أقصى جهد DC
+Maximum Temperature (°C),أعلى درجة حرارة (°م)
+Minimum Temperature (°C),أدنى درجة حرارة (°م)
+Missing specs,مواصفات ناقصة
+Night Energy,طاقة الليل
+No pump curve covers {0} m at {1} m³/h ({2} pumps have a curve).,لا يغطي منحنى أي طلمبة {0} متر عند {1} م³/ساعة (لـ {2} طلمبة منحنى).
+None in the catalogue,لا يوجد في الكتالوج
+Off-grid Sizing,حساب الأوف جريد
+Only pumps with a manufacturer's curve are listed.,تظهر فقط الطلمبات التي لها منحنى من المصنع.
+Solar Panel,اللوح الشمسي
+Panels per String,عدد الألواح في الاسترنج
+Panels per string and strings must be at least 1.,عدد الألواح في الاسترنج وعدد الاسترنجات لا يقل عن 1.
+Peak Load,أقصى حمل
+Pump Selector,اختيار الطلمبة
+Push to Quote,إرسال إلى عرض السعر
+Push to quote writes a result into the quote's design inputs and recalculates it.,«إرسال إلى عرض السعر» يكتب النتيجة في مدخلات تصميم العرض ويعيد حسابه.
+Quote {0} updated and recalculated.,تم تحديث العرض {0} وإعادة حسابه.
+Recalculating the quote…,جارٍ إعادة حساب العرض…
+Required Head (m),الرفع المطلوب (متر)
+Size the System,احسب المنظومة
+String Calculator,حاسبة الاسترنج
+String Vmp at {0} °C ≤ MPPT max,جهد Vmp للاسترنج عند {0} °م ≤ أقصى MPPT
+String Vmp at {0} °C ≥ MPPT min,جهد Vmp للاسترنج عند {0} °م ≥ أدنى MPPT
+String Voc at {0} °C < max DC,جهد Voc للاسترنج عند {0} °م < أقصى جهد DC
+Number of Strings,عدد الاسترنجات
+Template {0} is not sized by this tool.,القالب {0} لا يُحسب بهذه الأداة.
+The design fails a check,التصميم لا يجتاز أحد الفحوصات
+The minimum temperature is above the maximum.,أدنى درجة حرارة أعلى من أقصاها.
+The string check failed: fix the design before pushing it.,فحص الاسترنج لم ينجح: عدّل التصميم قبل إرساله.
+This quote has no calculation template.,هذا العرض ليس له قالب حساب.
+Unknown design tool {0}.,أداة تصميم غير معروفة {0}.
+Value (V),القيمة (فولت)
+Vmp,Vmp
+Voc,Voc
+Voc Temperature Coefficient (%/°C),معامل حرارة Voc (%/°م)
+Water Level / Pump Depth (m),منسوب المياه / عمق الطلمبة (متر)
+{0} Ah: {1} batteries of {2} Ah,{0} أمبير ساعة: {1} بطارية سعة {2} أمبير ساعة
+{0} has no {1}. Add it on the item first.,{0} ليس له {1}. أضفه على الصنف أولًا.
+{0} panels in {1} strings (need {2} W),{0} لوح في {1} استرنج (المطلوب {2} وات)
+Run the Check,افحص
+String Check,فحص الاسترنج

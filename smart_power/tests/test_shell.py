@@ -85,6 +85,13 @@ class TestShell(IntegrationTestCase):
 		amira = make_user("sp.shell.amira@example.com", profile_keys("SP Projects Manager"))
 		self.assertFalse({"Compliance Documents", "Compliance Reports"} & set(rail(amira)["Stations"]))
 
+	def test_the_design_tools_show_to_the_quote_creator_only(self):
+		# T1 design tools (SP-65): the follow-up lead sees the quotes, not the tools
+		creator = make_user("sp.shell.creator@example.com", ("quote_creator",))
+		self.assertIn("Design Tools", rail(creator)["Quotes"])
+		lead = make_user("sp.shell.lead@example.com", ("followup_all",))
+		self.assertNotIn("Design Tools", rail(lead)["Quotes"])
+
 
 class TestNewMenuAndCounts(IntegrationTestCase):
 	def menu(self, user):
