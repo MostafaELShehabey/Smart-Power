@@ -492,6 +492,7 @@
 		{"key": "quote_sent", "label_ar": "تم إرسال عرض السعر", "label_en": "Quote sent", "default_push": 1, "roles": "SP Customer Followup, SP Followup All, SP Lead Intake"},
 		{"key": "request_overdue", "label_ar": "طلب أقدم من 24 ساعة", "label_en": "Request older than 24 h", "default_push": 1, "roles": "SP Admin, SP Quote Creator"},
 		{"key": "quote_needs_repricing", "label_ar": "عرض يحتاج إعادة تسعير", "label_en": "Quote needs repricing", "default_push": 1, "roles": "SP Quote Creator, SP Customer Followup"},
+		{"key": "survey_done", "label_ar": "تمت معاينة الموقع", "label_en": "Site survey done", "default_push": 1, "roles": "SP Admin, SP Quote Creator"},
 		{"key": "missing_data", "label_ar": "بيانات ناقصة في الطلب", "label_en": "Missing data on a request", "default_push": 1, "roles": "SP Lead Intake, SP Customer Followup"},
 		{"key": "revision_requested", "label_ar": "العميل يطلب تعديل العرض", "label_en": "Customer wants the quote revised", "default_push": 1, "roles": "SP Quote Creator"},
 		{"key": "discount_given", "label_ar": "تم إعطاء خصم", "label_en": "Discount given", "default_push": 0, "roles": "SP Admin"},

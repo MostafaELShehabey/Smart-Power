@@ -170,7 +170,11 @@ class TestQueueActions(IntegrationTestCase):
 		self.assertTrue(
 			frappe.db.exists(
 				"SP Task",
-				{"reference_name": self.case.name, "task_type": "Site Survey", "assigned_to": self.mostafa},
+				{
+					"reference_name": frappe.db.get_value("SP Site Survey", {"case": self.case.name}),
+					"task_type": "Site Survey",
+					"assigned_to": self.mostafa,
+				},
 			)
 		)
 		with self.assertRaises(frappe.ValidationError):

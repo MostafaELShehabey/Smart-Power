@@ -172,26 +172,19 @@ def ask_missing_data(case: str, message: str) -> None:
 
 @frappe.whitelist(methods=["POST"])
 def ask_site_survey(case: str) -> int:
-	"""Ask installations for a site survey: a "Site Survey" task for each installation manager
-	(SP-95 replaces it with the Site Survey document). Returns how many were asked."""
+	"""Ask installations for a site survey: an SP Site Survey (SP-95) with a task for each
+	surveyor. Returns how many were asked."""
+	from smart_power.sp_site import site_survey
+
 	doc = frappe.get_doc(CASE, case)
 	_check_can_act(doc)
-	if frappe.db.exists(
-		"SP Task",
-		{
-			"reference_doctype": CASE,
-			"reference_name": doc.name,
-			"task_type": SITE_SURVEY_TASK,
-			"status": TASK_OPEN,
-		},
-	):
+	if site_survey.open_survey(doc.name):
 		frappe.throw(_("A site survey is already asked for this request."))
-	managers = _users_with(INSTALLATION_MANAGER_ROLE)
-	if not managers:
+	surveyors = site_survey.surveyors()
+	if not surveyors:
 		frappe.throw(_("No installation manager to ask."))
-	for user in managers:
-		_task(doc, SITE_SURVEY_TASK, user, _("Site survey for {0}").format(doc.customer_name or doc.customer))
-	return len(managers)
+	site_survey.ask(doc)
+	return len(surveyors)
 
 
 @frappe.whitelist(methods=["POST"])

@@ -4215,3 +4215,22 @@ Training Sessions,جلسات التدريب
 Training Status,حالة التدريب
 SP Training Status,حالة التدريب
 SP Quick Reference Card,كارت مرجعي سريع
+Changed on the Request,ما تغيّر في الطلب
+Enter the well data or the load table first.,أدخل بيانات البئر أو جدول الأحمال أولًا.
+Load table: {0} rows replaced by {1},جدول الأحمال: استُبدل {0} صف بـ {1}
+Location pin replaced,تم استبدال موقع الخريطة
+Pump Depth (m),عمق الطلمبة (متر)
+Site survey done for {0},تمت معاينة موقع {0}
+Site survey {0} replaced: {1},المعاينة {0} استبدلت: {1}
+Submit Survey,إرسال المعاينة
+Surveyed At,وقت المعاينة
+Surveyed By,قام بالمعاينة
+The survey is already submitted.,المعاينة مُرسلة بالفعل.
+The survey is submitted: it no longer changes.,المعاينة مُرسلة ولا تُعدّل.
+Water Level (m),منسوب المياه (متر)
+Well Data,بيانات البئر
+Well Depth (m),عمق البئر (متر)
+Well Yield (m³/h),إنتاجية البئر (م³/س)
+What the request said before this survey replaced it.,ما كان في الطلب قبل أن تستبدله هذه المعاينة.
+{0}: {1} → {2},{0}: {1} ← {2}
+Site Surveys,معاينات المواقع
