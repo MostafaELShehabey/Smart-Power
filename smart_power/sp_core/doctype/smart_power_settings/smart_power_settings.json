@@ -56,6 +56,7 @@
   "oil_interval_km",
   "oil_alert_km",
   "login_lock_attempts",
+  "mobile_rate_limit",
   "centers_section",
   "center_projects",
   "center_showroom",
@@ -449,13 +450,20 @@
    "label": "Calibration Minimum Stations",
    "non_negative": 1,
    "description": "The calibration report suggests a new template default only once this many closed stations used the line."
+  },
+  {
+   "fieldname": "mobile_rate_limit",
+   "fieldtype": "Int",
+   "label": "Mobile Rate Limit (per minute)",
+   "non_negative": 1,
+   "description": "The calls a user's phone may make to the mobile API in a minute; the next one gets 429."
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-11-23 23:00:00.000000",
+ "modified": "2026-11-24 05:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Smart Power Settings",

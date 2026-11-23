@@ -350,6 +350,7 @@
 	],
 	"settings": {
 		"login_lock_attempts": {"value": 5, "_source": "SP-36: 5 failed tries lock the account; only the admin unlocks it"},
+		"mobile_rate_limit": {"value": 120, "_source": "SP-148: 120 requests a minute per user"},
 		"validity_days": {"value": 3, "_source": "SP-128 settings list; Miro frame 01 'valid 3 days'"},
 		"quote_due_hours": {"value": 24, "_source": "decision 70 (24h quote, warning only)"},
 		"quote_amber_hours": {"value": 18, "_source": "SP-48: amber at 18 h, red after 24 h"},

@@ -13,7 +13,8 @@
   "active",
   "last_sync",
   "revoked_on",
-  "revoked_by"
+  "revoked_by",
+  "fcm_token"
  ],
  "fields": [
   {
@@ -72,11 +73,18 @@
    "options": "User",
    "label": "Revoked By",
    "read_only": 1
+  },
+  {
+   "fieldname": "fcm_token",
+   "fieldtype": "Small Text",
+   "label": "Push Token",
+   "read_only": 1,
+   "description": "The phone's push messaging token (SP-149)."
   }
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-11-22 08:00:00.000000",
+ "modified": "2026-11-24 05:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP Mobile Device",

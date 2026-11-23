@@ -96,3 +96,4 @@ smart_power.patches.sp143_team_commission
 smart_power.patches.sp182_request_field_rows
 smart_power.patches.sp99_service_charge_type
 smart_power.patches.sp183_calibration
+smart_power.patches.sp148_mobile_rate_limit
