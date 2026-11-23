@@ -87,7 +87,7 @@ MAIN_ACTIONS = {
 	"SP Lead Intake": ("SP Case", "create"),
 	"SP Customer Followup": ("SP Case", "write"),
 	"SP Followup All": ("SP Case", "read"),
-	"SP Site Survey": ("SP Task", "read"),  # its survey comes as a task until SP-95
+	"SP Site Survey": ("SP Site Survey", "write"),
 	"SP Marketing Agent": ("Lead", "create"),
 	"SP System Designer": ("Quotation", "read"),
 	"SP Quote Creator": ("Quotation", "create"),

@@ -1,0 +1,239 @@
+{
+ "actions": [],
+ "autoname": "SRV-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "creation": "2026-11-23 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "case",
+  "customer_name",
+  "mobile",
+  "system_type",
+  "location_text",
+  "column_break_head",
+  "status",
+  "surveyed_by",
+  "surveyed_at",
+  "device_time",
+  "client_uuid",
+  "well_section",
+  "well_depth",
+  "water_level",
+  "column_break_well",
+  "pump_depth",
+  "yield_m3h",
+  "loads_section",
+  "loads",
+  "site_section",
+  "geo",
+  "notes",
+  "differences"
+ ],
+ "fields": [
+  {
+   "fieldname": "case",
+   "fieldtype": "Link",
+   "label": "Case",
+   "options": "SP Case",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "mobile",
+   "fieldtype": "Data",
+   "label": "Mobile",
+   "read_only": 1,
+   "options": "Phone"
+  },
+  {
+   "fieldname": "system_type",
+   "fieldtype": "Data",
+   "label": "System Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "location_text",
+   "fieldtype": "Data",
+   "label": "Location",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nDone",
+   "default": "Open",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "surveyed_by",
+   "fieldtype": "Link",
+   "label": "Surveyed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "surveyed_at",
+   "fieldtype": "Datetime",
+   "label": "Surveyed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "device_time",
+   "fieldtype": "Datetime",
+   "label": "Device Time",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "client_uuid",
+   "fieldtype": "Data",
+   "label": "Client UUID",
+   "read_only": 1,
+   "hidden": 1,
+   "unique": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "well_section",
+   "fieldtype": "Section Break",
+   "label": "Well Data"
+  },
+  {
+   "fieldname": "well_depth",
+   "fieldtype": "Float",
+   "label": "Well Depth (m)"
+  },
+  {
+   "fieldname": "water_level",
+   "fieldtype": "Float",
+   "label": "Water Level (m)"
+  },
+  {
+   "fieldname": "column_break_well",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pump_depth",
+   "fieldtype": "Float",
+   "label": "Pump Depth (m)"
+  },
+  {
+   "fieldname": "yield_m3h",
+   "fieldtype": "Float",
+   "label": "Well Yield (m³/h)"
+  },
+  {
+   "fieldname": "loads_section",
+   "fieldtype": "Section Break",
+   "label": "Load Table"
+  },
+  {
+   "fieldname": "loads",
+   "fieldtype": "Table",
+   "label": "Loads",
+   "options": "SP Load Line"
+  },
+  {
+   "fieldname": "site_section",
+   "fieldtype": "Section Break",
+   "label": "Site"
+  },
+  {
+   "fieldname": "geo",
+   "fieldtype": "Geolocation",
+   "label": "Location Pin"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "differences",
+   "fieldtype": "Small Text",
+   "label": "Changed on the Request",
+   "read_only": 1,
+   "description": "What the request said before this survey replaced it."
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Site",
+ "name": "SP Site Survey",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Installation Manager",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "SP Site Survey",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "SP Quote Creator",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "customer_name",
+ "track_changes": 1
+}

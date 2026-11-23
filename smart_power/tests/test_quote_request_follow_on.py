@@ -38,14 +38,19 @@ class TestQuoteRequestFollowOn(IntegrationTestCase):
 			"SP Task", {"reference_name": case, "task_type": "Quote Request"}, pluck="assigned_to"
 		)
 		self.assertTrue({self.aya, self.maha} <= set(tasks))
-		self.assertFalse(frappe.get_all("SP Task", {"reference_name": case, "task_type": "Site Survey"}))
+		self.assertFalse(frappe.db.exists("SP Site Survey", {"case": case}))
 
 	def test_site_visit_asks_installations(self):
 		case = as_user(
 			self.camelia, create_quote_request, request(mobile="01007772002", site_visit_needed=1)
 		)["case"]
 		survey = frappe.get_all(
-			"SP Task", {"reference_name": case, "task_type": "Site Survey"}, pluck="assigned_to"
+			"SP Task",
+			{
+				"reference_name": frappe.db.get_value("SP Site Survey", {"case": case}),
+				"task_type": "Site Survey",
+			},
+			pluck="assigned_to",
 		)
 		self.assertIn(self.mostafa, survey)
 

@@ -364,13 +364,9 @@ def after_request(case) -> None:
 			_("Quote request: {0}").format(case.customer_name or case.customer),
 		)
 	if case.site_visit_needed:
-		for user in _users_with(INSTALLATION_MANAGER_ROLE):
-			_task(
-				case,
-				SITE_SURVEY_TASK,
-				user,
-				_("Site survey for {0}").format(case.customer_name or case.customer),
-			)
+		from smart_power.sp_site.site_survey import ask
+
+		ask(case)  # the survey and its tasks (SP-95)
 
 
 def hand_over_request(case) -> None:
