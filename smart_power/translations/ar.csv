@@ -4283,3 +4283,23 @@ Work line {0} has a part issued or a charge: it no longer changes.,السطر {0
 Work line {0}: choose the warehouse the part comes from.,السطر {0}: اختر المخزن الذي تُصرف منه القطعة.
 Work line {0}: enter the part's quantity.,السطر {0}: أدخل كمية القطعة.
 Work line {0}: the amounts cannot be negative.,السطر {0}: المبالغ لا تكون سالبة.
+Board,اللوحة
+Check In,تسجيل الوصول
+Check-in Location,موقع تسجيل الوصول
+Checked In At,وقت الوصول
+Choose who does the task.,اختر من ينفذ المهمة.
+Hours on Site,ساعات العمل بالموقع
+Mark Done,تم التنفيذ
+No site tasks planned.,لا توجد مهام موقع مخططة.
+Only the projects or installation manager plans site tasks.,مدير المشروعات أو مدير التركيبات وحده يخطط مهام الموقع.
+Plan Site Task,تخطيط مهمة موقع
+Site Task Board,لوحة مهام الموقع
+Station {0} has no project.,المحطة {0} ليس لها مشروع.
+Technicians,الفنيون
+The hours cannot be negative.,الساعات لا تكون سالبة.
+The task is done.,المهمة منفَّذة.
+This site task is not assigned to you.,هذه المهمة ليست مسندة إليك.
+{0} is not a site stage.,{0} ليست مرحلة موقع.
+{0} is not a site task.,{0} ليست مهمة موقع.
+Location not available,الموقع غير متاح
+To do,للتنفيذ

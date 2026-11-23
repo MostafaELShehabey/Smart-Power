@@ -510,8 +510,11 @@ def site(doc, amounts: bool) -> dict:
 	expense_labels = _labels(e.expense_type for e in expenses)
 	for e in expenses:
 		e.expense_type = expense_labels.get(e.expense_type) or e.expense_type
+	from smart_power.sp_site.site_tasks import board
+
 	return {
 		"tasks": tasks,
+		"site_tasks": board(doc.name),  # S2 (SP-100)
 		"logs": _money(logs, amounts, "labour_total"),
 		"labour_total": sum(flt(log.get("labour_total")) for log in logs if log.docstatus == SUBMITTED)
 		if amounts
