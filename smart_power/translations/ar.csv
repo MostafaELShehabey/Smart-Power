@@ -4059,3 +4059,22 @@ Status {0} is not one of: {1}.,الحالة {0} ليست من: {1}.
 The paid amount is more than the agreed amount.,المدفوع أكبر من المبلغ المتفق عليه.
 The remaining is not the agreed amount less the paid.,المتبقي لا يساوي المتفق عليه ناقص المدفوع.
 Vehicle {0} is not found.,العربية {0} غير موجودة.
+Already a customer.,عميل بالفعل.
+Already a customer: what it lacked is filled in.,عميل بالفعل: استُكمل ما كان ناقصًا.
+Campaign {0} is not found.,الحملة {0} غير موجودة.
+File {0} is not found.,الملف {0} غير موجود.
+No item has the model {0}: import it with its group first.,لا يوجد صنف بالموديل {0}: استورده مع مجموعته أولًا.
+No licence plate.,لا يوجد رقم لوحة.
+No supplier name.,لا يوجد اسم مورد.
+"No valid mobile: add one, then run again.",لا يوجد موبايل صحيح: أضفه ثم أعد التشغيل.
+Payment terms {0} are not found.,شروط الدفع {0} غير موجودة.
+Same mobile as {0}: merged into it.,نفس موبايل {0}: دُمج معه.
+Sheet {0} is not an item group.,الشيت {0} ليس مجموعة أصناف.
+Supplier group {0} is not found.,مجموعة الموردين {0} غير موجودة.
+The file has no column for: {0}.,الملف ليس به عمود لـ: {0}.
+Tier {0} is not فرد or شركة.,النوع {0} ليس فرد أو شركة.
+"Type {0} is not ونش, جامبو or أخرى.",النوع {0} ليس ونش أو جامبو أو أخرى.
+row {0},الصف {0}
+{0} is not a valid mobile.,{0} ليس موبايل صحيح.
+{0} is not in the Region list.,{0} ليست في قائمة المناطق.
+{0} is not in the Worker Skill list.,{0} ليست في قائمة مهارات العمال.
