@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "creation": "2026-11-24 03:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "links": [],
+ "modified": "2026-11-24 03:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Automation",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "field:title",
+ "naming_rule": "By fieldname",
+ "title_field": "title",
+ "track_changes": 1,
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "SP Admin",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "description": "An automation (X9): when a record is created, changes status or a field, or a date is near or past, check the conditions and notify, create a task or assign.",
+ "field_order": [
+  "title",
+  "doctype_name",
+  "trigger",
+  "watch_field",
+  "column_break_trigger",
+  "date_field",
+  "offset_days",
+  "is_active",
+  "conditions_section",
+  "conditions",
+  "actions_section",
+  "actions"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Name",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "doctype_name",
+   "fieldtype": "Link",
+   "label": "Record",
+   "options": "DocType",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "trigger",
+   "fieldtype": "Select",
+   "label": "When",
+   "options": "On create\nOn status change\nOn field change\nDays before a date\nDays after a date",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "watch_field",
+   "fieldtype": "Data",
+   "label": "Field Watched",
+   "depends_on": "eval:['On status change','On field change'].includes(doc.trigger)",
+   "description": "On status change: the status field (status when empty)."
+  },
+  {
+   "fieldname": "column_break_trigger",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_field",
+   "fieldtype": "Data",
+   "label": "Date Field",
+   "depends_on": "eval:(doc.trigger||'').startsWith('Days')",
+   "mandatory_depends_on": "eval:(doc.trigger||'').startsWith('Days')"
+  },
+  {
+   "fieldname": "offset_days",
+   "fieldtype": "Int",
+   "label": "Days",
+   "depends_on": "eval:(doc.trigger||'').startsWith('Days')"
+  },
+  {
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Active",
+   "default": "1",
+   "in_list_view": 1,
+   "description": "Clear it to pause the automation."
+  },
+  {
+   "fieldname": "conditions_section",
+   "fieldtype": "Section Break",
+   "label": "Only When"
+  },
+  {
+   "fieldname": "conditions",
+   "fieldtype": "Table",
+   "label": "Conditions",
+   "options": "SP Automation Condition"
+  },
+  {
+   "fieldname": "actions_section",
+   "fieldtype": "Section Break",
+   "label": "Then"
+  },
+  {
+   "fieldname": "actions",
+   "fieldtype": "Table",
+   "label": "Actions",
+   "options": "SP Automation Action",
+   "reqd": 1
+  }
+ ]
+}

@@ -4537,3 +4537,64 @@ Open in the Workflow Builder,فتح في مصمم المسارات
 "The system's code moves these records from status to status, so they have no editable workflow.",النظام ينقل هذه السجلات من حالة إلى أخرى، لذلك ليس لها مسار قابل للتعديل.
 Goods Receipt,استلام البضاعة
 Cash Box Day,يومية الخزينة
+!=,لا يساوي
+<,أقل من
+<=,أقل من أو يساوي
+=,يساوي
+>,أكبر من
+>=,أكبر من أو يساوي
+"A field of the record, or a path through links: parent.sp_station.status.",حقل من السجل، أو مسار عبر الروابط: parent.sp_station.status.
+"A role, a user, or a field holding a user (a path through links: parent.sp_station.collection_owner).",دور، أو مستخدم، أو حقل يحمل مستخدمًا (مسار عبر الروابط: parent.sp_station.collection_owner).
+Action {0}: {1} is not a field of {2}.,الإجراء {0}: {1} ليس حقلًا في {2}.
+Action {0}: {1} is not a role.,الإجراء {0}: {1} ليس دورًا.
+Action {0}: {1} is not a user.,الإجراء {0}: {1} ليس مستخدمًا.
+Add at least one action.,أضف إجراءً واحدًا على الأقل.
+Assign,إسناد
+Automation,أتمتة
+Automation {0} failed,فشلت الأتمتة {0}
+Clear it to pause the automation.,ألغِ التحديد لإيقاف الأتمتة مؤقتًا.
+Condition {0}: {1} is not a field of {2}.,الشرط {0}: {1} ليس حقلًا في {2}.
+Conditions,الشروط
+Create Task,إنشاء مهمة
+Date Field,حقل التاريخ
+Days after a date,أيام بعد تاريخ
+Days before a date,أيام قبل تاريخ
+Field Watched,الحقل المراقَب
+Fired On,وقت التنفيذ
+For in / not in: values separated by commas.,لـ «ضمن» و«ليس ضمن»: قيم تفصلها فواصل.
+It would do this,ستقوم بالآتي
+Nothing was done: this was a test.,لم يُنفَّذ شيء: هذه تجربة.
+Notify,تنبيه
+On create,عند الإنشاء
+On field change,عند تغيّر حقل
+On status change,عند تغيّر الحالة
+On status change: the status field (status when empty).,عند تغيّر الحالة: حقل الحالة (status إذا تُرك فارغًا).
+Only When,فقط عندما
+Pick the field whose change starts the automation.,اختر الحقل الذي يبدأ تغيّره الأتمتة.
+Pick the record the automation watches.,اختر السجل الذي تراقبه الأتمتة.
+Record Type,نوع السجل
+SP Automation,أتمتة
+SP Automation Action,إجراء أتمتة
+SP Automation Condition,شرط أتمتة
+SP Automation Log,سجل الأتمتة
+Task Due In (days),موعد المهمة بعد (أيام)
+Test on a Record,تجربة على سجل
+The automation is paused: it does nothing now.,الأتمتة موقوفة: لا تفعل شيئًا الآن.
+The conditions do not hold,الشروط غير متحققة
+The days cannot be negative.,الأيام لا تكون سالبة.
+Then,ثم
+What It Did,ما قامت به
+What the alert or task says. {{ doc.name }} and the record's other fields can be used.,نص التنبيه أو المهمة. يمكن استخدام {{ doc.name }} وباقي حقول السجل.
+contains,يحتوي على
+in,ضمن
+is not set,غير محدد
+is set,محدد
+nobody,لا أحد
+not in,ليس ضمن
+now,الآن
+{0} is not a date field of {1}.,{0} ليس حقل تاريخ في {1}.
+{0}: {1} {2},{0}: {1} {2}
+Automations,الأتمتة
+"An automation (X9): when a record is created, changes status or a field, or a date is near or past, check the conditions and notify, create a task or assign.",أتمتة: عند إنشاء سجل أو تغيّر حالته أو حقل فيه، أو اقتراب تاريخ أو مروره، تتحقق من الشروط ثم تنبّه أو تنشئ مهمة أو تُسند.
+"What each automation did, and on which record: a time-based automation fires once per record.",ما قامت به كل أتمتة وعلى أي سجل: الأتمتة الزمنية تعمل مرة واحدة لكل سجل.
+Automation alert,تنبيه من أتمتة

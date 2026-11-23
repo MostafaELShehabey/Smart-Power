@@ -354,6 +354,22 @@
    "child": 0,
    "collapsible": 1,
    "hidden": 0,
+   "icon": "zap",
+   "indent": 0,
+   "is_default_module": 0,
+   "keep_closed": 0,
+   "label": "Automations",
+   "link_to": "SP Automation",
+   "link_type": "DocType",
+   "open_in_new_tab": 0,
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "added": 0,
+   "child": 0,
+   "collapsible": 1,
+   "hidden": 0,
    "icon": "file-text",
    "indent": 0,
    "is_default_module": 0,
@@ -475,7 +491,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-11-24 03:00:00.000000",
+ "modified": "2026-11-24 04:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "Admin Studio",
