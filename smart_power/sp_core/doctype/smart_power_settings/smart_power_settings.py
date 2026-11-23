@@ -24,6 +24,7 @@ class SmartPowerSettings(Document):
 		brand_priorities: DF.Table[SPBrandPriority]
 		btb_price_list: DF.Link | None
 		btc_price_list: DF.Link | None
+		calibration_min_stations: DF.Int
 		case_inactivity_days: DF.Int
 		chassis_iron_markup_pct: DF.Percent
 		chassis_markup_basis: DF.Literal["Markup on cost", "Margin on sale"]
