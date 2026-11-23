@@ -4234,3 +4234,28 @@ Well Yield (m³/h),إنتاجية البئر (م³/س)
 What the request said before this survey replaced it.,ما كان في الطلب قبل أن تستبدله هذه المعاينة.
 {0}: {1} → {2},{0}: {1} ← {2}
 Site Surveys,معاينات المواقع
+A ticket that is {0} cannot become {1}.,تذكرة حالتها {0} لا تصبح {1}.
+Closed At,وقت الإغلاق
+"Each component of the station with its warranty end, on the day the ticket was opened.",كل مكوّن في المحطة ونهاية ضمانه، يوم فتح التذكرة.
+In warranty,في الضمان
+Issue Type,نوع المشكلة
+Not registered,غير مسجل
+Only installations move a service ticket.,التركيبات وحدها تغيّر حالة تذكرة الصيانة.
+Opened By,فتحها
+Out of warranty,خارج الضمان
+Partly in warranty,جزء في الضمان
+SP Service Ticket,تذكرة صيانة
+Service Ticket,تذكرة صيانة
+Service ticket {0} is now {1},تذكرة الصيانة {0} أصبحت {1}
+Service ticket {0}: {1} at station {2} ({3}),تذكرة صيانة {0}: {1} في المحطة {2} ({3})
+Station {0} is not one of this customer's stations.,المحطة {0} ليست من محطات هذا العميل.
+The ticket is closed: it no longer changes.,التذكرة مغلقة ولا تُعدّل.
+Urgency,الأولوية
+Urgent,عاجل
+Warranty Status,حالة الضمان
+{0} ({1}): {2} until {3},{0} ({1}): {2} حتى {3}
+{0} is not a service issue.,{0} ليست مشكلة صيانة.
+Service Tickets,تذاكر الصيانة
+Accept,قبول
+Start Work,بدء العمل
+Close Ticket,إغلاق التذكرة

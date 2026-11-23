@@ -492,6 +492,8 @@
 		{"key": "quote_sent", "label_ar": "تم إرسال عرض السعر", "label_en": "Quote sent", "default_push": 1, "roles": "SP Customer Followup, SP Followup All, SP Lead Intake"},
 		{"key": "request_overdue", "label_ar": "طلب أقدم من 24 ساعة", "label_en": "Request older than 24 h", "default_push": 1, "roles": "SP Admin, SP Quote Creator"},
 		{"key": "quote_needs_repricing", "label_ar": "عرض يحتاج إعادة تسعير", "label_en": "Quote needs repricing", "default_push": 1, "roles": "SP Quote Creator, SP Customer Followup"},
+		{"key": "service_ticket", "label_ar": "تذكرة صيانة جديدة", "label_en": "New service ticket", "default_push": 1, "roles": "SP Installation Manager, SP Warranty Service"},
+		{"key": "service_ticket_status", "label_ar": "تغيّرت حالة تذكرة الصيانة", "label_en": "Service ticket status changed", "default_push": 1, "roles": "SP Customer Followup, SP Followup All, SP Lead Intake"},
 		{"key": "survey_done", "label_ar": "تمت معاينة الموقع", "label_en": "Site survey done", "default_push": 1, "roles": "SP Admin, SP Quote Creator"},
 		{"key": "missing_data", "label_ar": "بيانات ناقصة في الطلب", "label_en": "Missing data on a request", "default_push": 1, "roles": "SP Lead Intake, SP Customer Followup"},
 		{"key": "revision_requested", "label_ar": "العميل يطلب تعديل العرض", "label_en": "Customer wants the quote revised", "default_push": 1, "roles": "SP Quote Creator"},
