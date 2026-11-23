@@ -1,0 +1,138 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 20:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "doc_type",
+  "number",
+  "status",
+  "column_break_dates",
+  "issue_date",
+  "expiry_date",
+  "reminder_days",
+  "section_file",
+  "file",
+  "notes",
+  "reminded_for"
+ ],
+ "fields": [
+  {
+   "fieldname": "doc_type",
+   "fieldtype": "Select",
+   "label": "Document Type",
+   "options": "Qualification Certificate\nCommercial Register\nTax Card\nInsurance\nOther",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "number",
+   "fieldtype": "Data",
+   "label": "Document Number",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Valid\nExpiring\nExpired",
+   "default": "Valid",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_dates",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "issue_date",
+   "fieldtype": "Date",
+   "label": "Issue Date"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reminder_days",
+   "fieldtype": "Data",
+   "label": "Reminder Days",
+   "default": "60,30,7",
+   "description": "Days before expiry at which a reminder goes out, separated by commas"
+  },
+  {
+   "fieldname": "section_file",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "file",
+   "fieldtype": "Attach",
+   "label": "File"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "reminded_for",
+   "fieldtype": "Data",
+   "label": "Reminded For",
+   "hidden": 1,
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stations",
+ "name": "SP Compliance Document",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "CDOC-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Regulatory Compliance",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1
+  }
+ ]
+}

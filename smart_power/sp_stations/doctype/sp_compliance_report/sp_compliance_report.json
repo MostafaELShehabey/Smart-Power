@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 20:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "period_from",
+  "period_to",
+  "column_break_status",
+  "status",
+  "submitted_on",
+  "section_file",
+  "file",
+  "notes",
+  "r3_snapshot"
+ ],
+ "fields": [
+  {
+   "fieldname": "period_from",
+   "fieldtype": "Date",
+   "label": "Period From",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "period_to",
+   "fieldtype": "Date",
+   "label": "Period To",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nSubmitted",
+   "default": "Draft",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "submitted_on",
+   "fieldtype": "Date",
+   "label": "Submitted On",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "section_file",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "file",
+   "fieldtype": "Attach",
+   "label": "File"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "r3_snapshot",
+   "fieldtype": "JSON",
+   "label": "Statement Snapshot",
+   "hidden": 1,
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 20:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Stations",
+ "name": "SP Compliance Report",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "CRPT-.YYYY.-.####",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Regulatory Compliance",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1
+  }
+ ]
+}

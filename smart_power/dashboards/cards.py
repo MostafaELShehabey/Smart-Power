@@ -32,6 +32,7 @@ VARIANTS = {
 	"store": ("SP Main Store Keeper", "SP Showroom Store Keeper", "SP Site Receiver"),
 	"showroom": ("SP Showroom Sales", "SP Showroom Cashier", "SP Winch Manager"),
 	"finance": ("SP Accountant", *ADMIN),
+	"compliance": ("SP Regulatory Compliance", *ADMIN),
 }
 
 
@@ -227,6 +228,23 @@ def quotes_expiring(user: str) -> dict:
 		"value": count,
 		"indicator": ORANGE if count else GREEN,
 		**_list("Quotation", sp_status="Sent", valid_till=["between", [nowdate(), str(soon)]]),
+	}
+
+
+@card("documents_expiring", "Documents expiring", ("compliance",))
+def documents_expiring(user: str) -> dict:
+	"""The qualification documents expired or inside their first reminder mark (RG1, SP-101): red
+	once one has expired."""
+	from smart_power.sp_stations.compliance import DOCUMENT, expiring_filter
+
+	soon = expiring_filter()
+	count = frappe.db.count(DOCUMENT, {"expiry_date": soon})
+	expired = frappe.db.count(DOCUMENT, {"expiry_date": ("<", nowdate())})
+	return {
+		"value": count,
+		"indicator": RED if expired else ORANGE if count else GREEN,
+		"note": _("{0} expired").format(expired) if expired else "",
+		**_list(DOCUMENT, expiry_date=soon),
 	}
 
 

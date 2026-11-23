@@ -44,6 +44,7 @@ GROUP_ROLES = {
 		"SP Customer Followup",
 		"SP Followup All",
 		"SP Accountant",
+		"SP Regulatory Compliance",
 		*ADMIN,
 	),
 	"Purchasing": (
@@ -90,6 +91,10 @@ ITEM_ROLES = {
 	("Purchasing", "Supplier Ledger"): ("SP Supplier Accounts", "SP Accountant", *ADMIN),
 	("Purchasing", "Consignment Containers"): ("SP Purchase Officer", "SP Main Store Keeper", *ADMIN),
 	("Stations", "Contracts"): ("SP Contract Manager", "SP Project Manager", "SP Accountant", *ADMIN),
+	# qualification and compliance (RG1, SP-101)
+	("Stations", "Installed Capacity"): ("SP Regulatory Compliance", *ADMIN),
+	("Stations", "Compliance Documents"): ("SP Regulatory Compliance", *ADMIN),
+	("Stations", "Compliance Reports"): ("SP Regulatory Compliance", *ADMIN),
 }
 
 
@@ -124,6 +129,8 @@ def apply_to_boot(bootinfo) -> None:
 		sidebars.pop(group, None)
 	for group, labels in visible.items():
 		if labels and group in sidebars:
+			# the boot's labels are already in the user's language
+			labels = labels | {_(label) for label in labels}
 			sidebars[group]["items"] = [i for i in sidebars[group]["items"] if i.get("label") not in labels]
 
 	def keep(row) -> bool:

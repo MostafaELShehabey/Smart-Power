@@ -37,6 +37,7 @@ HOME_LABELS = {
 	"store": "Stores",
 	"showroom": "Showroom",
 	"finance": "Finance",
+	"compliance": "Compliance",
 }
 
 

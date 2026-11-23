@@ -461,6 +461,8 @@ scheduler_events = {
 		"smart_power.sp_stock.stock_count.create_scheduled_counts",
 		# on the 1st: the consignment reconciliation sheet for the month just closed (SP-93)
 		"smart_power.sp_stock.consignment_reconciliation.create_monthly",
+		# qualification documents at a reminder mark: the compliance officer and the admin, once (SP-101)
+		"smart_power.sp_stations.compliance.expiry_reminders",
 		"smart_power.tasks.update_rule_stats",
 		"smart_power.tasks.backup_admin_customizations",
 	],

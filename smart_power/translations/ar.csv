@@ -4310,3 +4310,31 @@ Case,طلب العميل,SP Site Survey
 Status,حالة المعاينة,SP Site Survey
 Weighed item: type the scale weight in kg under Good.,صنف يُوزن: اكتب وزن الميزان بالكيلو في خانة «سليم».
 Scale weight {0} kg against a theoretical {1} kg,وزن الميزان {0} كجم مقابل وزن نظري {1} كجم
+A submitted report keeps its statement.,التقرير المُرسل يحتفظ ببيانه.
+Attach Statement,إرفاق البيان
+"Days before expiry at which a reminder goes out, separated by commas",عدد الأيام قبل الانتهاء التي يخرج عندها التذكير، مفصولة بفواصل
+Expiring,قارب على الانتهاء
+Expiry Date,تاريخ الانتهاء
+Generate Statement,إصدار البيان
+Insurance,التأمين
+Issue Date,تاريخ الإصدار
+Period From,الفترة من
+Period To,الفترة إلى
+Qualification Certificate,شهادة التأهيل
+Reminded For,تم التذكير عن
+Reminder Days,أيام التذكير
+"Reminder days are whole numbers of days separated by commas, such as 60,30,7.","أيام التذكير أعداد صحيحة من الأيام مفصولة بفواصل، مثل 60,30,7."
+SP Compliance Document,مستند تأهيل
+SP Compliance Report,تقرير نصف سنوي
+Statement Snapshot,نسخة البيان
+The issue date is after the expiry date.,تاريخ الإصدار بعد تاريخ الانتهاء.
+The period's start is after its end.,بداية الفترة بعد نهايتها.
+Valid,ساري
+{0} expired,{0} منتهي
+{0} expired on {1},{0}: انتهت الصلاحية في {1}
+"{0} expires in {1} days, on {2}",{0}: باقي {1} يوم على انتهاء الصلاحية ({2})
+Compliance,التراخيص والتأهيل
+Documents expiring,مستندات قاربت على الانتهاء
+Compliance Documents,مستندات التأهيل
+Compliance Reports,التقارير النصف سنوية
+Document Number,رقم المستند

@@ -65,6 +65,26 @@ class TestShell(IntegrationTestCase):
 		self.assertIn("Follow-up", groups)
 		self.assertFalse({"Admin Studio", "Inventory", "Purchasing", "Finance"} & set(groups))
 
+	def test_the_compliance_officer_reaches_her_screens_and_not_the_contracts(self):
+		# آية: technical office with regulatory compliance (RG1, SP-101)
+		aya = make_user("sp.shell.aya@example.com", profile_keys("SP Technical Office"))
+		stations = rail(aya)["Stations"]
+		self.assertLessEqual(
+			{"Installed Capacity", "Compliance Documents", "Compliance Reports"}, set(stations)
+		)
+		self.assertNotIn("Contracts", stations)
+		# the items a role does not use stay hidden in Arabic too: the boot's labels are translated
+		frappe.local.lang = "ar"
+		try:
+			arabic = rail(aya)["Stations"]
+		finally:
+			frappe.local.lang = "en"
+		self.assertIn("مستندات التأهيل", arabic)
+		self.assertNotIn("العقود", arabic)
+		# and a projects manager does not get the compliance screens
+		amira = make_user("sp.shell.amira@example.com", profile_keys("SP Projects Manager"))
+		self.assertFalse({"Compliance Documents", "Compliance Reports"} & set(rail(amira)["Stations"]))
+
 
 class TestNewMenuAndCounts(IntegrationTestCase):
 	def menu(self, user):
