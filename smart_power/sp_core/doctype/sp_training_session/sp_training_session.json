@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "session_date",
+  "guide",
+  "trainer",
+  "place",
+  "column_break_head",
+  "top_task_1",
+  "top_task_2",
+  "top_task_3",
+  "completed_count",
+  "attendees_section",
+  "attendees",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "session_date",
+   "fieldtype": "Date",
+   "label": "Session Date",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "guide",
+   "fieldtype": "Link",
+   "label": "Guide",
+   "options": "SP User Guide",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "trainer",
+   "fieldtype": "Link",
+   "label": "Trainer",
+   "options": "User"
+  },
+  {
+   "fieldname": "place",
+   "fieldtype": "Data",
+   "label": "Place",
+   "default": "Staging"
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "top_task_1",
+   "fieldtype": "Data",
+   "label": "Top Task 1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "top_task_2",
+   "fieldtype": "Data",
+   "label": "Top Task 2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "top_task_3",
+   "fieldtype": "Data",
+   "label": "Top Task 3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_count",
+   "fieldtype": "Int",
+   "label": "Completed",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "attendees_section",
+   "fieldtype": "Section Break",
+   "label": "Attendees",
+   "description": "Tick a top task when the user did it unaided, watched by the trainer."
+  },
+  {
+   "fieldname": "attendees",
+   "fieldtype": "Table",
+   "label": "Attendees",
+   "options": "SP Training Attendee"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-23 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Training Session",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "TRN-.YYYY.-.###",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  }
+ ]
+}
