@@ -4039,3 +4039,23 @@ Warehouse {0} is not found.,المخزن {0} غير موجود.
 {0} problems to fix,{0} مشكلة يجب إصلاحها
 {0} {1} is not found.,{0} {1} غير موجود.
 Opening Balances,الأرصدة الافتتاحية
+"A winch debt from before go-live, opened by the opening balances (SP-160).",دين ونش من قبل بدء التشغيل، فتحته الأرصدة الافتتاحية (SP-160).
+Bank {0} is not found.,البنك {0} غير موجود.
+Cheque {0} is already registered.,الشيك {0} مسجل بالفعل.
+Customer {0} is not found.,العميل {0} غير موجود.
+Enter the cheque's number and due date.,أدخل رقم الشيك وتاريخ استحقاقه.
+Enter the customer's name and mobile.,أدخل اسم العميل ورقم موبايله.
+Enter the instalment's due date.,أدخل تاريخ استحقاق القسط.
+Enter the station's number in the sheet.,أدخل رقم المحطة في الشيت.
+"Enter the vehicle: the company has more than one winch, or none.",أدخل العربية: للشركة أكثر من ونش أو لا يوجد ونش.
+Opening balance of station {0},الرصيد الافتتاحي للمحطة {0}
+Paid Before Go-live,المدفوع قبل بدء التشغيل
+Paid before the opening balances (Agreed and paid to date); counted in Paid (SP-160).,ما دُفع قبل الأرصدة الافتتاحية (المتفق عليه والمدفوع حتى تاريخه)؛ يُحسب ضمن المدفوع (SP-160).
+Paid on station {0} before the opening,المدفوع على المحطة {0} قبل الافتتاح
+Station {0} is listed twice.,المحطة {0} مكررة في الشيت.
+Station {0} is not on the Stations sheet.,المحطة {0} ليست في شيت المحطات.
+"Station {0}: the instalments add up to {1}, but {2} is left to collect.",المحطة {0}: مجموع الأقساط {1}، لكن المتبقي للتحصيل {2}.
+Status {0} is not one of: {1}.,الحالة {0} ليست من: {1}.
+The paid amount is more than the agreed amount.,المدفوع أكبر من المبلغ المتفق عليه.
+The remaining is not the agreed amount less the paid.,المتبقي لا يساوي المتفق عليه ناقص المدفوع.
+Vehicle {0} is not found.,العربية {0} غير موجودة.

@@ -14,7 +14,7 @@ from frappe.utils import flt
 from smart_power.sp_finance import opening as ob
 from smart_power.sp_finance.accounts import CUSTODY, holder_account, seed_accounts
 from smart_power.tests.test_customer_payment import account
-from smart_power.tests.utils import load_erpnext_test_data, make_user
+from smart_power.tests.utils import load_erpnext_test_data, make_user, set_setting
 
 load_erpnext_test_data()
 
@@ -231,3 +231,173 @@ class TestOpeningBalancePosted(OpeningCase):
 		with patch.object(ob, "_content", return_value=workbook(self.sheets())):
 			result = ob.reconcile(self.doc.name)
 		self.assertTrue(result["matches"], [r for r in result["rows"] if not r["matches"]])
+
+
+AGRI_BANK = "SP OB Agri Bank"
+WINCH_PLATE = "SP160-WINCH"
+LEFT, FIRST, SECOND = 60000, 25000, 35000  # what the open station still owes, in two instalments
+AGREED, PAID = 100000, 40000  # Agreed and paid to date: the contract, and what was paid before
+ADVANCE_LEFT, WINCH_OWED = 20000, 3000
+DUE_FIRST, DUE_SECOND = "2012-03-01", "2012-06-01"
+
+
+class StationsCase(OpeningCase):
+	"""The open stations, their advances and the winch debts (part 2)."""
+
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		from smart_power.sp_finance import advances
+		from smart_power.sp_finance.centers import seed_centers
+		from smart_power.sp_stock import warehouses as wh
+		from smart_power.sp_winch import field_entry as fe
+
+		wh.seed_warehouses(COMPANY)
+		seed_centers(COMPANY)
+		set_setting(account_map=[])  # the site's own company maps the same events
+		advances.seed_account_map(COMPANY)
+		fe.seed_account_map(COMPANY)
+		if not frappe.db.exists("Bank", AGRI_BANK):
+			frappe.get_doc({"doctype": "Bank", "bank_name": AGRI_BANK}).insert()
+		if not frappe.db.exists("Vehicle", WINCH_PLATE):
+			frappe.get_doc(
+				{
+					"doctype": "Vehicle",
+					"license_plate": WINCH_PLATE,
+					"sp_vehicle_type": "Winch",
+					"company": COMPANY,
+				}
+			).insert()
+		cls.collector = make_user("sp.ob.collector@example.com", ("accountant",))
+
+	def setUp(self):
+		super().setUp()
+		frappe.db.delete("SP Cheque", {"cheque_no": ("like", "SP160-%")})
+
+	def station_sheets(self, mode_rows: dict, cheques=True) -> dict:
+		return {
+			ob.STATIONS: [
+				{"ref": "S1", "customer": "_Test Customer", "collection_owner": self.collector, **mode_rows}
+			],
+			ob.INSTALLMENTS: [
+				{"station": "S1", "due_date": DUE_SECOND, "amount": SECOND},
+				{"station": "S1", "due_date": DUE_FIRST, "amount": FIRST},
+			],
+			ob.CHEQUES: [
+				{
+					"station": "S1",
+					"cheque_no": "SP160-1",
+					"bank": "البريد",
+					"due_date": DUE_FIRST,
+					"amount": FIRST,
+				}
+			]
+			if cheques
+			else [],
+		}
+
+	def posted(self, doctype: str) -> list[str]:
+		return [d.reference_name for d in self.doc.documents if d.reference_doctype == doctype]
+
+
+class TestOpeningStations(StationsCase):
+	def test_an_open_station_shows_its_two_instalments_and_cheque_in_collections(self):
+		from smart_power.sp_stations.collections import collections
+		from smart_power.sp_winch.receivables import receivables
+
+		sheets = self.station_sheets({"remaining": LEFT, "contract_date": "2011-10-01"})
+		sheets[ob.ADVANCES] = [{"station": "S1", "bank": AGRI_BANK, "amount": ADVANCE_LEFT}]
+		sheets[ob.WINCH] = [
+			{
+				"customer_name": "SP OB Winch Debtor",
+				"phone": "01001600160",
+				"amount": WINCH_OWED,
+				"debt_date": "2011-11-15",
+				"vehicle": WINCH_PLATE,
+			}
+		]
+		advances = frappe.db.get_value(
+			"Account", {"company": COMPANY, "account_name": "Customer Advances - Agri Bank"}
+		)
+		sheets[ob.TRIAL] = [
+			{"account": advances, "debit": ADVANCE_LEFT},
+			{"account": "Debtors - _TC", "debit": WINCH_OWED},
+			{"account": "Opening Balance Equity - _TC", "credit": ADVANCE_LEFT + WINCH_OWED},
+		]
+		self.assertEqual(self.check(sheets)["errors"], [])
+		self.post(sheets)
+		self.assertEqual(self.doc.status, ob.POSTED)
+
+		station = frappe.get_doc("SP Station", self.posted("SP Station")[0])
+		self.assertTrue(station.project and station.sales_order)
+		self.assertEqual(station.collection_owner, self.collector)
+		self.assertEqual((flt(station.agreed_amount), flt(station.paid_amount)), (LEFT, 0))
+		self.assertEqual(flt(station.remaining_amount), LEFT)
+		row = next(r for r in collections()["stations"] if r["station"] == station.name)
+		self.assertEqual(
+			[(str(r["due_date"]), r["amount"]) for r in row["schedule"]],
+			[(DUE_FIRST, FIRST), (DUE_SECOND, SECOND)],
+		)
+		self.assertEqual([(c.cheque_no, flt(c.amount)) for c in row["cheques"]], [("SP160-1", FIRST)])
+
+		advance = frappe.get_doc("SP Customer Advance", self.posted("SP Customer Advance")[0])
+		self.assertEqual((advance.status, flt(advance.outstanding_amount)), ("Open", ADVANCE_LEFT))
+
+		job = frappe.get_doc("SP Field Entry", self.posted("SP Field Entry")[0])
+		self.assertTrue(job.is_opening)
+		self.assertEqual((job.payment_status, flt(job.outstanding_amount)), ("Open", WINCH_OWED))
+		owed = {r["phone"]: r for r in receivables()["customers"]}
+		self.assertIn("01001600160", owed)
+
+		with patch.object(ob, "_content", return_value=workbook(sheets)):
+			result = ob.reconcile(self.doc.name)
+		self.assertTrue(result["matches"], [r for r in result["rows"] if not r["matches"]])
+
+	def test_the_instalments_must_add_up_to_what_is_left(self):
+		sheets = self.station_sheets({"remaining": LEFT + 1})
+		result = self.check(sheets)
+		self.assertIn((ob.STATIONS, 3), {(e["sheet"], e["row"]) for e in result["errors"]})
+		sheets = self.station_sheets({"remaining": LEFT})
+		sheets[ob.CHEQUES].append(dict(sheets[ob.CHEQUES][0]))
+		sheets[ob.INSTALLMENTS].append({"station": "S9", "due_date": DUE_FIRST, "amount": 1})
+		rows = {(e["sheet"], e["row"]) for e in self.check(sheets)["errors"]}
+		self.assertTrue({(ob.CHEQUES, 4), (ob.INSTALLMENTS, 5)} <= rows)
+
+	def test_an_opening_winch_job_is_made_only_by_the_opening(self):
+		job = frappe.get_doc(
+			{
+				"doctype": "SP Field Entry",
+				"entry_kind": "Job",
+				"for_kind": "Outside",
+				"vehicle": WINCH_PLATE,
+				"work_date": ON,
+				"customer_name": "SP OB Winch Debtor",
+				"customer_phone": "01001600160",
+				"is_opening": 1,
+				"agreed_amount": 1,
+			}
+		)
+		self.assertRaises(frappe.MandatoryError, job.insert)  # a normal job, which names its type
+
+
+class TestOpeningPaidToDate(StationsCase):
+	def test_agreed_and_paid_to_date_counts_the_paid_money_on_the_station(self):
+		self.doc.db_set("station_mode", ob.AGREED_AND_PAID)
+		self.doc.reload()
+		sheets = self.station_sheets(
+			{"agreed": AGREED, "paid": PAID, "contract_date": "2011-10-01"}, cheques=False
+		)
+		self.post(sheets)
+		self.assertEqual(self.doc.status, ob.POSTED)
+		station = frappe.get_doc("SP Station", self.posted("SP Station")[0])
+		self.assertEqual(
+			(flt(station.agreed_amount), flt(station.paid_amount), flt(station.remaining_amount)),
+			(AGREED, PAID, AGREED - PAID),
+		)
+		self.assertEqual((str(station.next_due_date), flt(station.next_due_amount)), (DUE_FIRST, FIRST))
+		owed_back = frappe.db.sql(
+			"""select sum(credit - debit) from `tabGL Entry` where party = '_Test Customer'
+			and project = %s and is_cancelled = 0""",
+			station.project,
+		)[0][0]
+		self.assertEqual(flt(owed_back), PAID)  # on Debtors, for the final invoice to take

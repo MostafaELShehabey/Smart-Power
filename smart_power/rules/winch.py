@@ -21,6 +21,8 @@ DAY_LOCKED = "DAY_LOCKED"  # what the mobile app reads
 def field_entry_day_locked(doc, ctx: RuleContext):
 	from smart_power.sp_winch.field_lock import is_locked
 
+	if doc.get("is_opening"):
+		return None  # a debt from before go-live, opened by the opening balances (SP-160)
 	before = doc.get_doc_before_save()
 	days = {(doc.vehicle, doc.work_date)}
 	if before:

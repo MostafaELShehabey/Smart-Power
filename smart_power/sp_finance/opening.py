@@ -15,6 +15,14 @@ template's Trial Balance sheet, line by line.
     Stock          the count of 29-30 Dec with the new item codes: an opening Stock Reconciliation
                    per warehouse
     Consignment    the goods suppliers keep with us, per container (SP-91)
+    Stations       the open stations: a station (and its project) each, with an opening Sales
+                   Order for what is left to collect (Remaining only, the default) or for the
+                   agreed amount with what was paid to date (Agreed and paid to date)
+    Installments   the instalments still due per station: the opening order's payment schedule
+    Cheques        the cheques in hand per station: the opening order's cheques (the register)
+    Advances       the Agri Bank advances outstanding per station: a Customer Advance each
+    Winch          what each outside winch customer owes: an opening winch job each, dated on the
+                   debt date, collected with winch receipts
     Trial Balance  the 31-12 list the opening must match (Reconcile)
 
 The opening documents go through the Temporary Opening account, which a last entry clears into
@@ -43,10 +51,29 @@ ROUNDING = 0.005  # sp-allow-number: half a piastre
 DIGITS = 2  # sp-allow-number: currency precision
 HINT = "#"  # a row whose first cell starts with it is a hint, not data
 FIRST_DATA_ROW = 2  # sp-allow-number: the row under the header, as the workbook numbers it
+SAVEPOINT = "sp_opening_post"
 JOB_TIMEOUT = 3600  # sp-allow-number: an hour for a large opening
 
 ACCOUNTS, CUSTODY, CUSTOMERS, SUPPLIERS = "Accounts", "Custody", "Customers", "Suppliers"
 STOCK, CONSIGNMENT, TRIAL = "Stock", "Consignment", "Trial Balance"
+STATIONS, INSTALLMENTS, CHEQUES, ADVANCES, WINCH = (
+	"Stations",
+	"Installments",
+	"Cheques",
+	"Advances",
+	"Winch",
+)
+REMAINING_ONLY, AGREED_AND_PAID = "Remaining only", "Agreed and paid to date"
+STATION, ORDER, CHEQUE, ADVANCE, FIELD_ENTRY = (
+	"SP Station",
+	"Sales Order",
+	"SP Cheque",
+	"SP Customer Advance",
+	"SP Field Entry",
+)
+OPEN_STATION, TECH_CLOSED = "Open", "Technically closed"
+OPEN_STATUSES = (OPEN_STATION, "Purchasing", "Installing", TECH_CLOSED)
+OPENING_ITEM, OPENING_ITEM_NAME = "SP-OPENING", "رصيد افتتاحي"
 # sheet → its columns, and the Arabic hint row under them
 SHEETS = {
 	ACCOUNTS: (
@@ -83,6 +110,46 @@ SHEETS = {
 		("pallets", "عدد البالتات"),
 		("per_pallet", "الألواح في البالتة"),
 		("received_on", "تاريخ الاستلام"),
+	),
+	STATIONS: (
+		("ref", "رقم المحطة في الشيت"),
+		("customer", "العميل"),
+		("contract_date", "تاريخ العقد"),
+		("agreed", "قيمة العقد"),
+		("paid", "المدفوع حتى يوم الافتتاح"),
+		("remaining", "المتبقي"),
+		("collection_owner", "مسؤول التحصيل"),
+		("sales_owner", "مسؤول البيع"),
+		("execution_owner", "مسؤول التنفيذ"),
+		("status", "الحالة"),
+		("location", "المكان"),
+	),
+	INSTALLMENTS: (
+		("station", "رقم المحطة في الشيت"),
+		("due_date", "تاريخ الاستحقاق"),
+		("amount", "المبلغ"),
+	),
+	CHEQUES: (
+		("station", "رقم المحطة في الشيت"),
+		("cheque_no", "رقم الشيك"),
+		("bank", "البنك أو مكتب البريد"),
+		("due_date", "تاريخ الاستحقاق"),
+		("amount", "المبلغ"),
+		("holder", "الشيك مع"),
+	),
+	ADVANCES: (
+		("station", "رقم المحطة في الشيت"),
+		("bank", "البنك"),
+		("amount", "المتبقي من السلفة"),
+		("paid_on", "تاريخ السلفة"),
+	),
+	WINCH: (
+		("customer_name", "العميل"),
+		("phone", "الموبايل"),
+		("amount", "المستحق عليه"),
+		("debt_date", "تاريخ الدين"),
+		("vehicle", "العربية"),
+		("place", "المكان"),
 	),
 	TRIAL: (("account", "الحساب"), ("debit", "مدين"), ("credit", "دائن")),
 }
@@ -192,6 +259,9 @@ class Plan:
 		self.equity = self._named_account(EQUITY_ACCOUNT)
 		self.lines, self.custody, self.customers, self.suppliers = [], [], [], []
 		self.stock, self.consignment, self.trial = {}, [], []
+		self.mode = doc.station_mode or REMAINING_ONLY
+		self.stations: dict[str, dict] = {}
+		self.winch: list[dict] = []
 		self.build()
 
 	# problems and lookups
@@ -234,7 +304,8 @@ class Plan:
 			return value
 		return frappe.db.get_value("User", {"full_name": value, "enabled": 1})
 
-	def date(self, sheet, row, key, default=None):
+	def date(self, sheet, row, key, default=None, future=False):
+		"""A past date by default; with future, any date (instalments, cheques)."""
 		value = row.get(key)
 		if value in (None, ""):
 			return default
@@ -243,9 +314,16 @@ class Plan:
 		except Exception:
 			self.error(sheet, row, _("{0} is not a date.").format(key))
 			return default
-		if day > self.on:
+		if day > self.on and not future:
 			self.error(sheet, row, _("{0} is after the opening date.").format(key))
 		return day
+
+	def owner(self, sheet, row, key):
+		value = row.get(key)
+		user = self.user(value)
+		if value not in (None, "") and not user:
+			self.error(sheet, row, _("{0} is not a user.").format(value))
+		return user
 
 	def amount(self, sheet, row, key="amount", allow_zero=False) -> float:
 		try:
@@ -265,6 +343,11 @@ class Plan:
 		self._parties(SUPPLIERS, "Supplier", "supplier", "supplier_name", self.suppliers)
 		self._stock()
 		self._consignment()
+		self._stations()
+		self._installments()
+		self._cheques()
+		self._advances()
+		self._winch()
 		self._trial()
 
 	def _accounts(self) -> None:
@@ -372,6 +455,165 @@ class Plan:
 				}
 			)
 
+	def _stations(self) -> None:
+		for row in self.sheets.get(STATIONS, []):
+			ref = str(row.get("ref") or "").strip()
+			customer = self.party("Customer", row.get("customer"), "customer_name", mobile=True)
+			if not ref:
+				self.error(STATIONS, row, _("Enter the station's number in the sheet."))
+				continue
+			if ref in self.stations:
+				self.error(STATIONS, row, _("Station {0} is listed twice.").format(ref))
+				continue
+			if not customer:
+				self.error(STATIONS, row, _("Customer {0} is not found.").format(row.get("customer") or ""))
+				continue
+			if self.mode == AGREED_AND_PAID:
+				agreed = self.amount(STATIONS, row, "agreed")
+				paid = self.amount(STATIONS, row, "paid", allow_zero=True)
+				remaining = flt(agreed - paid, DIGITS)
+				if paid > agreed:
+					self.error(STATIONS, row, _("The paid amount is more than the agreed amount."))
+				given = row.get("remaining")
+				if given not in (None, "") and abs(flt(given) - remaining) > ROUNDING:
+					self.error(STATIONS, row, _("The remaining is not the agreed amount less the paid."))
+			else:
+				remaining = self.amount(STATIONS, row, "remaining", allow_zero=True)
+				agreed, paid = remaining, 0.0
+			status = str(row.get("status") or "").strip() or OPEN_STATION
+			if status not in OPEN_STATUSES:
+				self.error(
+					STATIONS,
+					row,
+					_("Status {0} is not one of: {1}.").format(
+						status, ", ".join(_(s) for s in OPEN_STATUSES)
+					),
+				)
+			self.stations[ref] = {
+				"_row": row["_row"],
+				"customer": customer,
+				"contract_date": self.date(STATIONS, row, "contract_date", self.on),
+				"agreed": agreed,
+				"paid": paid,
+				"remaining": remaining,
+				"status": status,
+				"collection_owner": self.owner(STATIONS, row, "collection_owner"),
+				"sales_owner": self.owner(STATIONS, row, "sales_owner"),
+				"execution_owner": self.owner(STATIONS, row, "execution_owner"),
+				"location": str(row.get("location") or "").strip() or None,
+				"installments": [],
+				"cheques": [],
+				"advances": [],
+			}
+
+	def station_of(self, sheet, row) -> dict | None:
+		ref = str(row.get("station") or "").strip()
+		station = self.stations.get(ref)
+		if not station:
+			self.error(sheet, row, _("Station {0} is not on the Stations sheet.").format(ref))
+		return station
+
+	def _installments(self) -> None:
+		for row in self.sheets.get(INSTALLMENTS, []):
+			station = self.station_of(INSTALLMENTS, row)
+			amount = self.amount(INSTALLMENTS, row)
+			due = self.date(INSTALLMENTS, row, "due_date", future=True)
+			if not due:
+				self.error(INSTALLMENTS, row, _("Enter the instalment's due date."))
+			if station and due:
+				station["installments"].append({"due_date": due, "payment_amount": amount})
+		for ref, station in self.stations.items():
+			listed = flt(sum(i["payment_amount"] for i in station["installments"]), DIGITS)
+			if abs(listed - station["remaining"]) > ROUNDING:
+				self.error(
+					STATIONS,
+					station,
+					_("Station {0}: the instalments add up to {1}, but {2} is left to collect.").format(
+						ref, listed, station["remaining"]
+					),
+				)
+
+	def _cheques(self) -> None:
+		seen = set()
+		for row in self.sheets.get(CHEQUES, []):
+			station = self.station_of(CHEQUES, row)
+			number = str(row.get("cheque_no") or "").strip()
+			bank = str(row.get("bank") or "").strip()
+			amount = self.amount(CHEQUES, row)
+			due = self.date(CHEQUES, row, "due_date", future=True)
+			if not number or not due:
+				self.error(CHEQUES, row, _("Enter the cheque's number and due date."))
+				continue
+			registered = frappe.db.exists(CHEQUE, {"cheque_no": number, "bank_or_post": bank})
+			if (number, bank) in seen or registered:
+				self.error(CHEQUES, row, _("Cheque {0} is already registered.").format(number))
+				continue
+			seen.add((number, bank))
+			if station:
+				station["cheques"].append(
+					{
+						"cheque_no": number,
+						"bank": bank or None,
+						"due_date": due,
+						"amount": amount,
+						"holder": self.owner(CHEQUES, row, "holder"),
+					}
+				)
+
+	def _advances(self) -> None:
+		for row in self.sheets.get(ADVANCES, []):
+			station = self.station_of(ADVANCES, row)
+			amount = self.amount(ADVANCES, row)
+			bank = str(row.get("bank") or "").strip()
+			if not frappe.db.exists("Bank", bank):
+				self.error(ADVANCES, row, _("Bank {0} is not found.").format(bank))
+				continue
+			if station:
+				station["advances"].append(
+					{"bank": bank, "amount": amount, "paid_on": self.date(ADVANCES, row, "paid_on", self.on)}
+				)
+
+	def _winch(self) -> None:
+		from smart_power.sp_sales.customer import normalize_mobile
+
+		for row in self.sheets.get(WINCH, []):
+			name = str(row.get("customer_name") or "").strip()
+			phone = normalize_mobile(str(row.get("phone") or ""))
+			amount = self.amount(WINCH, row)
+			if not name or not phone:
+				self.error(WINCH, row, _("Enter the customer's name and mobile."))
+				continue
+			vehicle = self.vehicle(row)
+			if vehicle:
+				self.winch.append(
+					{
+						"customer_name": name,
+						"customer_phone": phone,
+						"agreed_amount": amount,
+						"work_date": self.date(WINCH, row, "debt_date", self.on),
+						"vehicle": vehicle,
+						"place": str(row.get("place") or "").strip() or None,
+					}
+				)
+
+	def vehicle(self, row) -> str | None:
+		"""The row's vehicle, else the company's only winch."""
+		from smart_power.sp_winch.vehicles import JUMBO_TYPE
+
+		value = str(row.get("vehicle") or "").strip()
+		if value:
+			if frappe.db.exists("Vehicle", value):
+				return value
+			self.error(WINCH, row, _("Vehicle {0} is not found.").format(value))
+			return None
+		winches = frappe.get_all(
+			"Vehicle", {"company": self.company, "sp_vehicle_type": ("!=", JUMBO_TYPE)}, pluck="name"
+		)
+		if len(winches) != 1:
+			self.error(WINCH, row, _("Enter the vehicle: the company has more than one winch, or none."))
+			return None
+		return winches[0]
+
 	def _trial(self) -> None:
 		for row in self.sheets.get(TRIAL, []):
 			account = self.account(row.get("account"))
@@ -397,13 +639,24 @@ class Plan:
 			flt(i["qty"]) * flt(i["valuation_rate"]) for lines in self.stock.values() for i in lines.values()
 		)
 
+	def advances(self) -> float:
+		return sum(a["amount"] for s in self.stations.values() for a in s["advances"])
+
+	def paid_to_date(self) -> float:
+		"""What the customers paid before go-live (Agreed and paid to date): owed back to them on
+		Debtors until the final invoice takes it."""
+		return sum(s["paid"] for s in self.stations.values())
+
 	def through_temporary(self) -> float:
 		"""What the opening documents credit to Temporary Opening, less what they debit."""
 		return (
 			sum(c["amount"] for c in self.customers)
 			+ self.stock_value(in_ledger=True)
 			+ sum(c["amount"] for c in self.custody)
+			+ self.advances()
+			+ sum(w["agreed_amount"] for w in self.winch)
 			- sum(s["amount"] for s in self.suppliers)
+			- self.paid_to_date()
 		)
 
 	def equity_credit(self) -> float:
@@ -419,6 +672,19 @@ class Plan:
 			(SUPPLIERS, len(self.suppliers), sum(s["amount"] for s in self.suppliers)),
 			(STOCK, sum(len(v) for v in self.stock.values()), self.stock_value()),
 			(CONSIGNMENT, len(self.consignment), 0.0),
+			(STATIONS, len(self.stations), sum(s["remaining"] for s in self.stations.values())),
+			(
+				INSTALLMENTS,
+				sum(len(s["installments"]) for s in self.stations.values()),
+				sum(i["payment_amount"] for s in self.stations.values() for i in s["installments"]),
+			),
+			(
+				CHEQUES,
+				sum(len(s["cheques"]) for s in self.stations.values()),
+				sum(c["amount"] for s in self.stations.values() for c in s["cheques"]),
+			),
+			(ADVANCES, sum(len(s["advances"]) for s in self.stations.values()), self.advances()),
+			(WINCH, len(self.winch), sum(w["agreed_amount"] for w in self.winch)),
 			(TRIAL, len(self.trial), sum(t["net"] for t in self.trial if t["net"] > 0)),
 		]
 		return {
@@ -426,6 +692,7 @@ class Plan:
 			"sections": [{"sheet": _(s), "rows": n, "amount": flt(a, DIGITS)} for s, n, a in sections],
 			"equity": self.equity_credit(),
 			"opening_date": str(self.on),
+			"station_mode": _(self.mode),
 		}
 
 
@@ -486,6 +753,9 @@ def post(name: str) -> str:
 def run_post(name: str) -> None:
 	"""All or nothing: on any error nothing stays posted, and the opening shows the error."""
 	doc = frappe.get_doc(OPENING, name)
+	if doc.status != CHECKED:
+		return  # posted already, or changed since: a job queued twice never posts twice
+	frappe.db.savepoint(SAVEPOINT)
 	try:
 		plan, _digest = _plan(doc)
 		if plan.errors:
@@ -505,7 +775,7 @@ def run_post(name: str) -> None:
 		if not frappe.in_test:
 			frappe.db.commit()  # nosemgrep: a background job commits its own work
 	except Exception:
-		frappe.db.rollback()
+		frappe.db.rollback(save_point=SAVEPOINT)  # the opening's own work, nothing else
 		message = frappe.get_traceback(with_context=False).strip().splitlines()[-1]
 		frappe.db.set_value(OPENING, name, {"status": FAILED, "error": message})
 		if not frappe.in_test:
@@ -540,12 +810,10 @@ class Poster:
 		self.stock()
 		self.consignment()
 		self.custody()
-		self.extra()
+		self.stations()
+		self.winch()
 		self.close_temporary()
 		return self.posted
-
-	def extra(self) -> None:
-		"""Sections later stories add (stations, advances, winch jobs)."""
 
 	def journal(self, lines: list[dict], remark: str):
 		je = frappe.get_doc(
@@ -668,16 +936,148 @@ class Poster:
 			doc.submit()
 			self.keep(CUSTODY, doc, row["amount"])
 
+	def stations(self) -> None:
+		from smart_power.sp_stations.money import refresh
+
+		for row in self.plan.stations.values():
+			station = frappe.get_doc(
+				{
+					"doctype": STATION,
+					"customer": row["customer"],
+					"company": self.company,
+					"contract_date": row["contract_date"],
+					"collection_owner": row["collection_owner"],
+					"sales_owner": row["sales_owner"],
+					"execution_owner": row["execution_owner"],
+					"location_text": row["location"],
+				}
+			)
+			station.flags.ignore_permissions = True
+			station.insert()  # its project and site warehouse come with it
+			project = frappe.db.get_value(STATION, station.name, "project")
+			self.keep(STATIONS, station, row["remaining"])
+			if row["paid"]:
+				frappe.db.set_value(STATION, station.name, "opening_paid_amount", row["paid"])
+				self.paid_to_date(station.name, row, project)
+			for advance in row["advances"]:
+				self.advance(station.name, advance)
+			if row["agreed"] > 0:
+				self.order(station.name, row, project)
+			if row["status"] != OPEN_STATION:
+				values = {"status": row["status"]}
+				if row["status"] == TECH_CLOSED:
+					values["tech_closed_on"] = self.on
+				frappe.db.set_value(STATION, station.name, values)
+			refresh(station.name)
+			for cheque in frappe.get_all(CHEQUE, {"station": station.name}, ["name", "amount"]):
+				self.keep(CHEQUES, frappe._dict(doctype=CHEQUE, name=cheque.name), flt(cheque.amount))
+
+	def order(self, station: str, row: dict, project: str) -> None:
+		"""The opening contract: what is left (or the agreed amount), its instalments and cheques."""
+		schedule = sorted(row["installments"], key=lambda i: i["due_date"])
+		if row["paid"]:  # paid before go-live: the first instalment, covered by the opening payment
+			schedule.insert(0, {"due_date": row["contract_date"], "payment_amount": row["paid"]})
+		start = min([row["contract_date"], *(i["due_date"] for i in schedule)])
+		last = max([self.on, *(i["due_date"] for i in schedule)])
+		so = frappe.get_doc(
+			{
+				"doctype": ORDER,
+				"company": self.company,
+				"customer": row["customer"],
+				"transaction_date": start,
+				"delivery_date": last,
+				"sp_station": station,
+				"project": project,
+				"disable_rounded_total": 1,
+				"items": [
+					{
+						"item_code": opening_item(),
+						"item_name": _("Opening balance of station {0}").format(station),
+						"qty": 1,
+						"rate": row["agreed"],
+						"delivery_date": last,
+						"project": project,
+					}
+				],
+				"payment_schedule": schedule,
+				"sp_cheques": row["cheques"],
+			}
+		)
+		so.flags.ignore_permissions = True
+		so.insert()
+		frappe.db.set_value(STATION, station, "sales_order", so.name, update_modified=False)
+		so.submit()  # its cheques join the register (SP-118)
+		self.keep(STATIONS, so, row["agreed"])
+
+	def paid_to_date(self, station: str, row: dict, project: str) -> None:
+		"""Agreed and paid to date: what was paid sits on Debtors as the customer's, for the final
+		invoice to take."""
+		receivable = frappe.get_cached_value("Company", self.company, "default_receivable_account")
+		je = self.journal(
+			[
+				{"account": self.plan.temporary, "debit": row["paid"], "project": project},
+				{
+					"account": receivable,
+					"credit": row["paid"],
+					"party_type": "Customer",
+					"party": row["customer"],
+					"project": project,
+				},
+			],
+			_("Paid on station {0} before the opening").format(station),
+		)
+		self.keep(STATIONS, je, row["paid"])
+
+	def advance(self, station: str, row: dict) -> None:
+		doc = frappe.get_doc(
+			{
+				"doctype": ADVANCE,
+				"station": station,
+				"bank": row["bank"],
+				"amount": row["amount"],
+				"paid_on": row["paid_on"],
+				"paid_from_account": self.plan.temporary,
+			}
+		)
+		doc.flags.sp_opening = True
+		doc.flags.ignore_permissions = True
+		doc.insert()
+		doc.submit()
+		self.keep(ADVANCES, doc, row["amount"])
+
+	def winch(self) -> None:
+		for row in self.plan.winch:
+			doc = frappe.get_doc(
+				{
+					"doctype": FIELD_ENTRY,
+					"entry_kind": "Job",
+					"for_kind": "Outside",
+					"is_opening": 1,
+					"note": _("Opening balance"),
+					**row,
+				}
+			)
+			doc.flags.sp_opening = True
+			doc.flags.ignore_permissions = True
+			doc.insert()
+			self.keep(WINCH, doc, row["agreed_amount"])
+
 	def close_temporary(self) -> None:
 		"""Temporary Opening, as the opening documents left it, into Opening Balance Equity."""
 		names = [p["reference_name"] for p in self.posted]
 		if not names:
 			return
-		# a record that posts through its own Journal Entry (custody, advances)
-		for p in self.posted:
-			if frappe.get_meta(p["reference_doctype"]).has_field("journal_entry"):
-				entry = frappe.db.get_value(p["reference_doctype"], p["reference_name"], "journal_entry")
-				names += [entry] if entry else []
+		# a record that posts through its own Journal Entries (custody, advances, winch jobs)
+		for p in list(self.posted):
+			names += frappe.get_all(
+				"Journal Entry",
+				{
+					"sp_source_doctype": p["reference_doctype"],
+					"sp_source_name": p["reference_name"],
+					"docstatus": 1,
+				},
+				pluck="name",
+			)
 		rows = frappe.get_all(
 			"GL Entry",
 			{"account": self.plan.temporary, "voucher_no": ("in", names), "is_cancelled": 0},
@@ -695,6 +1095,33 @@ class Poster:
 			_("Temporary Opening cleared into the owner's equity"),
 		)
 		self.keep(_("Equity"), je, abs(balance))
+
+
+def opening_item() -> str:
+	"""The non-stock line of an opening contract, in the service items' group."""
+	if not frappe.db.exists("Item", OPENING_ITEM):
+		from smart_power.sp_core.setup.seed import defaults
+		from smart_power.sp_quotes.special_lines import UOM, seed_service_items
+
+		seed_service_items()  # and their item group
+		frappe.get_doc(
+			{
+				"doctype": "Item",
+				"item_code": OPENING_ITEM,
+				"item_name": OPENING_ITEM_NAME,
+				"item_group": defaults()["service_items"]["group"],
+				"stock_uom": UOM,
+				"is_stock_item": 0,
+				"include_item_in_manufacturing": 0,
+			}
+		).insert(ignore_permissions=True)
+	return OPENING_ITEM
+
+
+def temporary_account(company: str) -> str | None:
+	return frappe.db.get_value(
+		"Account", {"company": company, "account_name": TEMPORARY_ACCOUNT, "is_group": 0}
+	)
 
 
 def allowed_source(doc, account: str | None) -> bool:

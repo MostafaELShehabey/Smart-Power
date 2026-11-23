@@ -14,6 +14,7 @@
   "on_behalf_of",
   "logged_by",
   "reopened",
+  "is_opening",
   "section_job",
   "booking",
   "job_type",
@@ -140,6 +141,15 @@
    "no_copy": 1,
    "in_standard_filter": 1,
    "description": "Changed while its day was reopened."
+  },
+  {
+   "fieldname": "is_opening",
+   "fieldtype": "Check",
+   "label": "Opening Balance",
+   "read_only": 1,
+   "no_copy": 1,
+   "in_standard_filter": 1,
+   "description": "A winch debt from before go-live, opened by the opening balances (SP-160)."
   },
   {
    "fieldname": "section_job",
@@ -522,7 +532,7 @@
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-11-19 20:00:00.000000",
+ "modified": "2026-11-23 06:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Winch",
  "name": "SP Field Entry",

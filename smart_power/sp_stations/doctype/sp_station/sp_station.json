@@ -3,7 +3,7 @@
  "creation": "2026-11-15 16:00:00.000000",
  "doctype": "DocType",
  "engine": "InnoDB",
- "modified": "2026-11-21 20:00:00.000000",
+ "modified": "2026-11-23 06:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -98,6 +98,7 @@
   "money_section",
   "agreed_amount",
   "paid_amount",
+  "opening_paid_amount",
   "pending_amount",
   "write_off_amount",
   "column_break_money",
@@ -493,6 +494,16 @@
    "no_copy": 1,
    "permlevel": 1,
    "in_list_view": 1
+  },
+  {
+   "fieldname": "opening_paid_amount",
+   "fieldtype": "Currency",
+   "label": "Paid Before Go-live",
+   "read_only": 1,
+   "no_copy": 1,
+   "permlevel": 1,
+   "depends_on": "opening_paid_amount",
+   "description": "Paid before the opening balances (Agreed and paid to date); counted in Paid (SP-160)."
   },
   {
    "fieldname": "pending_amount",
