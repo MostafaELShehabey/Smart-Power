@@ -4259,3 +4259,27 @@ Service Tickets,تذاكر الصيانة
 Accept,قبول
 Start Work,بدء العمل
 Close Ticket,إغلاق التذكرة
+Accept the ticket before logging work.,اقبل التذكرة قبل تسجيل العمل.
+Charge to Customer,المطلوب من العميل
+"Each remote call or site visit, with the part used. A part is issued from stock when the line is saved.",كل اتصال عن بُعد أو زيارة موقع، مع القطعة المستخدمة. تُصرف القطعة من المخزن عند حفظ السطر.
+In Warranty,في الضمان
+Income Record,سجل الإيراد
+Only installations log service work.,التركيبات وحدها تسجّل أعمال الصيانة.
+Remote,عن بُعد
+Replaced,تم الاستبدال
+SP Service Work,عمل صيانة
+SP Supplier Claim,مطالبة مورد
+"Service charge on ticket {0} ({1}): choose Money In and the account, then submit.",رسوم صيانة للتذكرة {0} ({1}): اختر «وارد» والحساب ثم اعتمد.
+Service charge {0} to record for ticket {1},رسوم صيانة {0} مطلوب تسجيلها للتذكرة {1}
+Service part on ticket {0},قطعة صيانة للتذكرة {0}
+Site visit,زيارة موقع
+Supplier Claim,مطالبة مورد
+The list Simple Record Type has no Service Charge value.,قائمة أنواع السجلات البسيطة ليس بها «رسوم صيانة».
+The main store unless another is chosen.,المخزن الرئيسي ما لم يُختر غيره.
+Ticked: the part's cost goes to the station. Unticked: the customer is charged.,معلَّم: تكلفة القطعة على المحطة. غير معلَّم: تُحسب على العميل.
+Work Log,سجل الأعمال
+Work line {0} has a part issued or a charge: it cannot be removed.,السطر {0} صُرفت قطعته أو له رسوم: لا يُحذف.
+Work line {0} has a part issued or a charge: it no longer changes.,السطر {0} صُرفت قطعته أو له رسوم: لا يُعدّل.
+Work line {0}: choose the warehouse the part comes from.,السطر {0}: اختر المخزن الذي تُصرف منه القطعة.
+Work line {0}: enter the part's quantity.,السطر {0}: أدخل كمية القطعة.
+Work line {0}: the amounts cannot be negative.,السطر {0}: المبالغ لا تكون سالبة.

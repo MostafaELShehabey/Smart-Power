@@ -15,6 +15,10 @@ frappe.ui.form.on("SP Service Ticket", {
 		frm.set_value("station", null);
 	},
 	refresh(frm) {
+		if (!frm.is_new() && frm.doc.status !== "Open") {
+			// SV2 (SP-99): a claim to the supplier for a covered component, record-only
+			frm.add_custom_button(__("Supplier Claim"), () => frappe.new_doc("SP Supplier Claim", { ticket: frm.doc.name }));
+		}
 		const next = SP_SVC_NEXT[frm.doc.status];
 		const installer = ["SP Installation Manager", "SP Warranty Service", "SP Admin", "System Manager"].some((r) => frappe.user.has_role(r));
 		if (frm.is_new() || !next || !installer) return;
@@ -22,5 +26,12 @@ frappe.ui.form.on("SP Service Ticket", {
 			await frappe.call({ method: "smart_power.sp_site.service.move", args: { name: frm.doc.name, status: next }, freeze: true });
 			frm.reload_doc();
 		}).addClass("btn-primary");
+	},
+});
+
+frappe.ui.form.on("SP Service Work", {
+	work_log_add(frm, cdt, cdn) {
+		// a new line starts covered when the whole station is in warranty
+		frappe.model.set_value(cdt, cdn, "in_warranty", frm.doc.warranty_status === "In warranty" ? 1 : 0);
 	},
 });

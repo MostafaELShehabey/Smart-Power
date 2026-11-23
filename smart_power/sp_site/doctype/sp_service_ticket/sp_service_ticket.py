@@ -12,3 +12,6 @@ class SPServiceTicket(Document):
 
 	def after_insert(self):
 		service.after_insert(self)
+
+	def on_update(self):
+		service.on_update(self)
