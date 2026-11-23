@@ -738,6 +738,22 @@ const SP_ST_RENDER = {
 				amounts,
 				__("No tasks.")
 			) +
+			sp_st_h(__("Site Task Board")) +
+			sp_st_table(
+				[
+					{ label: __("Task"), key: "name", type: "link", doctype: "Task" },
+					{ label: __("Subject"), key: "subject" },
+					{ label: __("Board"), key: "column", type: "status" },
+					{ label: __("Technicians"), key: "technicians" },
+					{ label: __("Planned"), key: "planned_date", type: "date" },
+					{ label: __("Checked In At"), key: "checkin_at", type: "date" },
+					{ label: __("Hours on Site"), key: "hours" },
+					{ label: __("Photos"), key: "photos" },
+				],
+				d.site_tasks,
+				amounts,
+				__("No site tasks planned.")
+			) +
 			sp_st_h(__("Site Daily Logs")) +
 			sp_st_table(
 				[
@@ -988,3 +1004,29 @@ async function sp_station_next_step(frm) {
 	);
 	frm.change_custom_button_type(__(next), null, "primary");
 }
+
+// S2 (SP-100): the planners give the crew a site task from the station
+frappe.ui.form.on("SP Station", {
+	refresh(frm) {
+		const planner = ["SP Project Manager", "SP Installation Manager", "SP Admin", "System Manager"].some((r) => frappe.user.has_role(r));
+		if (frm.is_new() || !planner || ["Cancelled", "Financially closed"].includes(frm.doc.status)) return;
+		frm.add_custom_button(__("Plan Site Task"), () => {
+			const d = new frappe.ui.Dialog({
+				title: __("Plan Site Task"),
+				fields: [
+					{ fieldname: "title", fieldtype: "Data", label: __("Task"), reqd: 1 },
+					{ fieldname: "stage", fieldtype: "Link", label: __("Site Stage"), options: "SP List Value", get_query: () => ({ filters: { list_name: "Site Stage", is_active: 1 } }) },
+					{ fieldname: "technicians", fieldtype: "MultiSelectList", label: __("Technicians"), reqd: 1, get_data: (txt) => frappe.db.get_link_options("User", txt, { enabled: 1 }) },
+					{ fieldname: "planned_date", fieldtype: "Date", label: __("Planned"), default: frappe.datetime.get_today() },
+				],
+				primary_action_label: __("Plan"),
+				async primary_action(values) {
+					await frappe.call({ method: "smart_power.sp_site.site_tasks.plan", args: { station: frm.doc.name, ...values }, freeze: true });
+					d.hide();
+					frm.reload_doc();
+				},
+			});
+			d.show();
+		});
+	},
+});

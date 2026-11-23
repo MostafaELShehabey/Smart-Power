@@ -118,6 +118,8 @@ website_context = {
 # Customer list: gold star for featured customers (SP-31).
 # Quotation form: New Version / Approve Version (SP-54).
 doctype_js = {
+	# S2 / TK1 site tasks: check in on site, mark done with the hours (SP-100)
+	"Task": "public/js/task.js",
 	"Quotation": "public/js/quotation.js",
 	# C2 customer record: overview, requests and quotes, calls, stations, documents (SP-50)
 	"Customer": "public/js/customer.js",
