@@ -4143,3 +4143,26 @@ Untick a Step,إلغاء تعليم خطوة
 its owner,صاحبها
 {0} of {1} users passed,نجح {0} من {1} مستخدم
 Go-live,بدء التشغيل
+Admin Guide,دليل الأدمن
+Arabic Label,الاسم بالعربي
+Choices,الاختيارات
+Field Name,اسم الحقل
+Guardrails,ضوابط
+Load Table,جدول الأحمال
+"Made from the label when the row is saved; it never changes, so old requests keep their answers.",يُصنع من الاسم عند حفظ الصف ولا يتغير، فتبقى إجابات الطلبات القديمة.
+Quote Request Fields,أسئلة طلب عرض السعر
+Request Fields,أسئلة الطلب
+"Request field row {0}: enter its choices, one per line.",سؤال الطلب في الصف {0}: أدخل الاختيارات، اختيار في كل سطر.
+Request field row {0}: enter its label.,سؤال الطلب في الصف {0}: أدخل الاسم.
+Request field row {0}: {1} is already asked.,سؤال الطلب في الصف {0}: {1} موجود بالفعل.
+Request field row {0}: {1} is not a field type.,سؤال الطلب في الصف {0}: {1} ليس نوع حقل.
+SP Request Field,سؤال طلب عرض السعر
+Small Text,نص قصير
+What the quote request asks for this system type (SP-47). Add a row to add a question; tick Required to make it required for this type only.,ما يسأله طلب عرض السعر لهذا النوع (SP-47). أضف صفًا لإضافة سؤال، وعلِّم «إجباري» ليصبح مطلوبًا لهذا النوع وحده.
+No-code Tools,أدوات بدون برمجة
+Workflows,مسارات العمل
+Print Format Builder,منشئ نماذج الطباعة
+Reports,التقارير
+Role Permissions,صلاحيات الأدوار
+User Permissions,صلاحيات المستخدمين
+Customize Form,تخصيص النموذج
