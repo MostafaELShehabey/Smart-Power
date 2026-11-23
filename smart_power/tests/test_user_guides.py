@@ -1,6 +1,8 @@
 """User guides and training (SP-162): a guide per person profile, seen by its own people, printed
 as a one-page card; a session completes a user who did the top three tasks unaided."""
 
+from unittest.mock import patch
+
 import frappe
 from frappe.tests import IntegrationTestCase
 
@@ -59,6 +61,10 @@ class TestUserGuides(IntegrationTestCase):
 		)
 
 	def test_the_card_prints_the_top_tasks(self):
+		if frappe.utils.get_assets_json() is None:  # CI does not build the assets
+			patcher = patch("frappe.utils.get_assets_json", return_value={})
+			patcher.start()
+			self.addCleanup(patcher.stop)
 		html = frappe.get_print(gd.GUIDE, STORE, print_format="SP Quick Reference Card")
 		guide = frappe.get_doc(gd.GUIDE, STORE)
 		top = next(t for t in guide.tasks if t.is_top)
