@@ -86,6 +86,7 @@ smart_power.patches.sp71_case_inactivity
 smart_power.patches.sp125_invoice_series
 smart_power.patches.sp83_shared_purchase
 smart_power.patches.sp171_bank_quote_formats
+smart_power.patches.sp171_bank_formats_new_builder
 smart_power.patches.sp166_chassis_factories
 smart_power.patches.sp167_chassis_station_markup
 smart_power.patches.sp178_iron_weight_variance
