@@ -89,10 +89,11 @@ def _set_warranty(doc) -> None:
 	cover = warranty_for(doc.station)
 	doc.warranty_status = cover["status"]
 	doc.warranty_details = "\n".join(
-		_("{0} ({1}): {2} until {3}").format(
+		(
+			_("{0} ({1}): in warranty until {2}") if c["covered"] else _("{0} ({1}): warranty ended on {2}")
+		).format(
 			c["item_name"] or c["item"] or "",
 			c["serial_no"],
-			_(IN) if c["covered"] else _(OUT),
 			formatdate(c["end_date"]) if c["end_date"] else "",
 		)
 		for c in cover["components"]

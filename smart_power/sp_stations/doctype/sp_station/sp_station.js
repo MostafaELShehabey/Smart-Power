@@ -743,9 +743,9 @@ const SP_ST_RENDER = {
 				[
 					{ label: __("Task"), key: "name", type: "link", doctype: "Task" },
 					{ label: __("Subject"), key: "subject" },
-					{ label: __("Board"), key: "column", type: "status" },
+					{ label: __("Status"), key: "column", type: "status" },
 					{ label: __("Technicians"), key: "technicians" },
-					{ label: __("Planned"), key: "planned_date", type: "date" },
+					{ label: __("Planned Date"), key: "planned_date", type: "date" },
 					{ label: __("Checked In At"), key: "checkin_at", type: "date" },
 					{ label: __("Hours on Site"), key: "hours" },
 					{ label: __("Photos"), key: "photos" },
@@ -1016,10 +1016,10 @@ frappe.ui.form.on("SP Station", {
 				fields: [
 					{ fieldname: "title", fieldtype: "Data", label: __("Task"), reqd: 1 },
 					{ fieldname: "stage", fieldtype: "Link", label: __("Site Stage"), options: "SP List Value", get_query: () => ({ filters: { list_name: "Site Stage", is_active: 1 } }) },
-					{ fieldname: "technicians", fieldtype: "MultiSelectList", label: __("Technicians"), reqd: 1, get_data: (txt) => frappe.db.get_link_options("User", txt, { enabled: 1 }) },
-					{ fieldname: "planned_date", fieldtype: "Date", label: __("Planned"), default: frappe.datetime.get_today() },
+					{ fieldname: "technicians", fieldtype: "MultiSelectList", label: __("Technicians"), reqd: 1, get_data: (txt) => frappe.xcall("smart_power.sp_site.site_tasks.technicians", { txt }) },
+					{ fieldname: "planned_date", fieldtype: "Date", label: __("Planned Date"), default: frappe.datetime.get_today() },
 				],
-				primary_action_label: __("Plan"),
+				primary_action_label: __("Plan Task"),
 				async primary_action(values) {
 					await frappe.call({ method: "smart_power.sp_site.site_tasks.plan", args: { station: frm.doc.name, ...values }, freeze: true });
 					d.hide();

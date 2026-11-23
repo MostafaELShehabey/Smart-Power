@@ -136,7 +136,7 @@
   {
    "fieldname": "work_log",
    "fieldtype": "Table",
-   "label": "Work Log",
+   "label": "Work Lines",
    "options": "SP Service Work"
   },
   {
@@ -155,7 +155,7 @@
    "link_fieldname": "ticket"
   }
  ],
- "modified": "2026-11-23 18:00:00.000000",
+ "modified": "2026-11-23 22:30:00.000000",
  "modified_by": "Administrator",
  "module": "SP Site",
  "name": "SP Service Ticket",

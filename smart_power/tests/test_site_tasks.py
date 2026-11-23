@@ -52,6 +52,15 @@ class TestSiteTasks(IntegrationTestCase):
 		frappe.set_user(self.other)
 		self.assertEqual(st.my_tasks(), [])  # nothing is his
 
+	def test_the_planner_picks_from_the_installation_crew_only(self):
+		frappe.set_user(self.amira)
+		crew = {row["value"] for row in st.technicians()}
+		self.assertLessEqual({self.gaber, self.other}, crew)
+		self.assertNotIn(self.amira, crew)  # a planner without a crew role is not offered
+		self.assertEqual([r["value"] for r in st.technicians("sp.tk.gaber")], [self.gaber])
+		frappe.set_user(self.gaber)
+		self.assertRaises(frappe.PermissionError, st.technicians)
+
 	def test_check_in_records_the_time_and_the_location(self):
 		task = self.planned("تمديد الكابلات")
 		frappe.set_user(self.other)

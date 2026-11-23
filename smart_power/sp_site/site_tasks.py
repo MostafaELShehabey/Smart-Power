@@ -16,10 +16,11 @@ task, so nothing is counted twice.
 
 import frappe
 from frappe import _
-from frappe.utils import flt, get_fullname, now_datetime, today
+from frappe.utils import flt, get_fullname, getdate, now_datetime, today
 
 TASK, STATION = "Task", "SP Station"
 PLANNER_ROLES = ("SP Project Manager", "SP Installation Manager", "SP Admin", "System Manager")
+CREW_ROLES = ("SP Installation Technician", "SP Installation Manager")
 OPEN, WORKING, COMPLETED, CANCELLED = "Open", "Working", "Completed", "Cancelled"
 COLUMNS = {OPEN: "To do", WORKING: "In progress", COMPLETED: "Done"}
 STAGE_LIST = "Site Stage"
@@ -29,6 +30,26 @@ NO_LOCATION = "Location not available"
 def is_planner(user: str | None = None) -> bool:
 	user = user or frappe.session.user
 	return user == "Administrator" or bool(set(PLANNER_ROLES) & set(frappe.get_roles(user)))
+
+
+@frappe.whitelist()
+def technicians(txt: str | None = None) -> list[dict]:
+	"""Who a planner can give a site task to: the installation crew, by name."""
+	if not is_planner():
+		frappe.throw(_("Only a planner gives out site tasks."), frappe.PermissionError)
+	holders = frappe.get_all("Has Role", {"role": ("in", CREW_ROLES), "parenttype": "User"}, pluck="parent")
+	users = frappe.get_all(
+		"User",
+		{"name": ("in", holders or [""]), "enabled": 1},
+		["name", "full_name"],
+		order_by="full_name asc",
+	)
+	needle = (txt or "").strip().lower()
+	return [
+		{"value": u.name, "label": u.full_name or u.name, "description": u.name}
+		for u in users
+		if not needle or needle in (u.full_name or "").lower() or needle in u.name.lower()
+	]
 
 
 def _assigned(task: str) -> list[str]:
@@ -97,7 +118,7 @@ def _row(t) -> dict:
 		"stage": frappe.db.get_value("SP List Value", t.sp_stage, "value_ar") if t.sp_stage else None,
 		"column": COLUMNS.get(t.status, t.status),
 		"status": t.status,
-		"planned_date": t.exp_start_date,
+		"planned_date": getdate(t.exp_start_date) if t.exp_start_date else None,
 		"technicians": "، ".join(get_fullname(u) for u in assigned),
 		"checkin_at": t.sp_checkin_at,
 		"checkin_geo": t.sp_checkin_geo,
