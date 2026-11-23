@@ -40,6 +40,14 @@ SENSITIVE = (
 	"SP Document Template",
 	"Accounting Period",
 	"SP Mobile Device",
+	# the admin's no-code changes (SP-182): fields, forms, workflows, prints, notifications, reports
+	"Custom Field",
+	"Property Setter",
+	"Workflow",
+	"Print Format",
+	"Notification",
+	"Report",
+	"SP List Value",
 )
 
 

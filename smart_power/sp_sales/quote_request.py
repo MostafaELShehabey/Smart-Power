@@ -1,7 +1,8 @@
 """Quote requests (SP-47, C3): each system type asks only its own fields.
 
 The fields live in the System Type's Extra Data (SP List Value meta_json, X4) under
-"request_fields", so the admin changes them without a developer (SP-132 gives them a screen):
+"request_fields". The admin edits them in the Request Fields table on the System Type (SP-182),
+which is kept in that Extra Data; SP-132 (R2) may give them a screen of their own:
 
     {"request_fields": [{"fieldname": "well_depth_m", "label": "Well Depth (m)",
                           "label_ar": "عمق البئر (متر)", "fieldtype": "Float", "reqd": 0}]}
@@ -435,18 +436,79 @@ def check_loads(system_type: str | None, loads) -> None:
 		frappe.throw(_("{0} is required for this system type.").format(_label(field)), frappe.MandatoryError)
 
 
+ROW_KEYS = ("fieldname", "label", "label_ar", "fieldtype", "reqd", "options")
+
+
 def seed_request_fields() -> None:
-	"""Give each seeded system type its request fields, unless the admin has set them already."""
+	"""Give each seeded system type its request fields, unless the admin has set them already, so
+	a deploy never overwrites the admin's own (SP-182)."""
 	seeds = {k: v for k, v in defaults().get(META_KEY, {}).items() if not k.startswith("_")}
 	for code, fields in seeds.items():
 		name = frappe.db.get_value(LIST_VALUE, {"list_name": SYSTEM_TYPE_LIST, "code": code})
-		if not name:
+		if not name or META_KEY in _meta(name):
 			continue
-		meta = _meta(name)
-		if META_KEY in meta:
-			continue
+		doc = frappe.get_doc(LIST_VALUE, name)
+		doc.set("request_fields", [{k: f.get(k) for k in ROW_KEYS if f.get(k) is not None} for f in fields])
+		doc.flags.ignore_permissions = True
+		doc.save()
+
+
+def sync_request_fields(doc) -> None:
+	"""SP List Value validate: a System Type's Request Fields table is what its quote request asks,
+	kept in the Extra Data the form reads. A type set up before the table gets its rows from there."""
+	if doc.list_name != SYSTEM_TYPE_LIST:
+		return
+	meta = _parse(doc.meta_json)
+	before = None if doc.is_new() else doc.get_doc_before_save()
+	had_rows = bool(before and before.get("request_fields"))
+	# the Extra Data edited by hand (or a type set up before the table) wins over an unchanged table
+	json_changed = meta.get(META_KEY) != (_parse(before.meta_json).get(META_KEY) if before else None)
+	table_changed = _rows(doc) != (_rows(before) if before else [])
+	if meta.get(META_KEY) and (
+		(json_changed and not table_changed) or not (doc.get("request_fields") or had_rows)
+	):
+		doc.set(
+			"request_fields",
+			[
+				{k: field.get(k) for k in ROW_KEYS if field.get(k) is not None}
+				| {"label": field.get("label") or field.get("fieldname")}
+				for field in meta[META_KEY]
+			],
+		)
+	fields, seen = [], set()
+	for row in doc.get("request_fields") or []:
+		row.fieldname = row.fieldname or frappe.scrub(row.label or "")
+		if not row.fieldname:
+			frappe.throw(_("Request field row {0}: enter its label.").format(row.idx))
+		if row.fieldname in seen:
+			frappe.throw(_("Request field row {0}: {1} is already asked.").format(row.idx, row.label))
+		if row.fieldtype not in FIELD_TYPES:
+			frappe.throw(_("Request field row {0}: {1} is not a field type.").format(row.idx, row.fieldtype))
+		if row.fieldtype == "Select" and not (row.options or "").strip():
+			frappe.throw(_("Request field row {0}: enter its choices, one per line.").format(row.idx))
+		seen.add(row.fieldname)
+		field = {
+			"fieldname": row.fieldname,
+			"label": row.label,
+			"fieldtype": row.fieldtype,
+			"reqd": cint(row.reqd),
+		}
+		if row.label_ar:
+			field["label_ar"] = row.label_ar
+		if row.fieldtype == "Select":
+			field["options"] = row.options.strip()
+		fields.append(field)
+	if fields or had_rows or META_KEY in meta:
 		meta[META_KEY] = fields
-		frappe.db.set_value(LIST_VALUE, name, "meta_json", json.dumps(meta, ensure_ascii=False))
+	doc.meta_json = json.dumps(meta, ensure_ascii=False) if meta else None
+
+
+def _parse(raw) -> dict:
+	return raw if isinstance(raw, dict) else (json.loads(raw) if raw else {})
+
+
+def _rows(doc) -> list[tuple]:
+	return [tuple(row.get(k) or None for k in ROW_KEYS) for row in doc.get("request_fields") or []]
 
 
 def _meta(system_type: str) -> dict:

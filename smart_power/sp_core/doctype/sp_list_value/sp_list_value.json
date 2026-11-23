@@ -16,7 +16,9 @@
   "value_en",
   "parent_value",
   "is_active",
-  "meta_json"
+  "meta_json",
+  "request_section",
+  "request_fields"
  ],
  "fields": [
   {
@@ -81,12 +83,25 @@
    "fieldname": "meta_json",
    "fieldtype": "JSON",
    "label": "Extra Data"
+  },
+  {
+   "fieldname": "request_section",
+   "fieldtype": "Section Break",
+   "label": "Quote Request Fields",
+   "depends_on": "eval:doc.list_name==\"System Type\"",
+   "description": "What the quote request asks for this system type (SP-47). Add a row to add a question; tick Required to make it required for this type only."
+  },
+  {
+   "fieldname": "request_fields",
+   "fieldtype": "Table",
+   "label": "Request Fields",
+   "options": "SP Request Field"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-18 18:00:00.000000",
+ "modified": "2026-11-23 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP List Value",

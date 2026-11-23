@@ -55,6 +55,9 @@ class SPListValue(Document):
 			frappe.throw(_("Code {0} already exists in the list {1}.").format(self.code, _(self.list_name)))
 		if self.parent_value == self.name:
 			frappe.throw(_("A value cannot be its own parent."))
+		from smart_power.sp_sales.quote_request import sync_request_fields
+
+		sync_request_fields(self)  # a System Type's quote request questions (SP-182)
 
 	def on_trash(self):
 		"""A value in use is never deleted: the admin deactivates it instead (SP-32)."""
