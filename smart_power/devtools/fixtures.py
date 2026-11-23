@@ -95,9 +95,14 @@ def admin_customizations() -> dict:
 			field, value = STANDARD_FLAG[dt]
 			names = [n for n in names if frappe.db.get_value(dt, n, field) != value]
 		out[dt] = [frappe.get_doc(dt, n).as_dict() for n in sorted(names)]
-	for dt in ("Workflow", "Role Profile"):
-		names = frappe.get_all(dt, filters={"name": ("not like", DEV_NAME_PREFIX + "%")}, pluck="name")
-		out[dt] = [frappe.get_doc(dt, n).as_dict() for n in sorted(names)]
+	names = frappe.get_all(
+		"Role Profile", filters={"name": ("not like", DEV_NAME_PREFIX + "%")}, pluck="name"
+	)
+	out["Role Profile"] = [frappe.get_doc("Role Profile", n).as_dict() for n in sorted(names)]
+	# every workflow: the SP ones are the admin's to change too, since SP-133 seeds them only once
+	out["Workflow"] = [
+		frappe.get_doc("Workflow", n).as_dict() for n in sorted(frappe.get_all("Workflow", pluck="name"))
+	]
 	out["Custom DocPerm"] = frappe.get_all("Custom DocPerm", fields=["*"], order_by="parent, role")
 	return out
 

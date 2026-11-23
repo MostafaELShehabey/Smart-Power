@@ -1,0 +1,23 @@
+{
+ "creation": "2026-11-24 03:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "git-branch",
+ "idx": 0,
+ "modified": "2026-11-24 03:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "sp-workflows",
+ "owner": "Administrator",
+ "page_name": "sp-workflows",
+ "roles": [
+  {
+   "role": "SP Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "title": "Workflows"
+}

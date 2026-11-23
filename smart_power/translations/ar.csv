@@ -4521,3 +4521,19 @@ List Name (English),اسم القائمة (إنجليزي)
 List Name (Arabic),اسم القائمة (عربي)
 "Its key, for example Soil Type.",مفتاحها، مثل Soil Type.
 Saved: forms already open show it after a reload.,تم الحفظ: النماذج المفتوحة تُظهر التغيير بعد إعادة التحميل.
+{0} is a core system state and cannot be removed or renamed.,{0} حالة أساسية للنظام ولا يمكن حذفها أو تغيير اسمها.
+Locked workflow,مسار مقفل
+"The statuses of {0} are set by the system; X5 shows them, but they have no workflow.",حالات {0} يحددها النظام؛ تظهر في دورات السجلات لكن ليس لها مسار قابل للتعديل.
+The step {0} → {1} ({2}) is needed by the system and cannot be removed.,الخطوة {0} → {1} ({2}) يحتاجها النظام ولا يمكن حذفها.
+Only the system moves a record to {0}. Put the new step before it.,النظام وحده ينقل السجل إلى {0}. ضع الخطوة الجديدة قبلها.
+"{0} is set by the system: a new state goes before it, not after it.",{0} يحددها النظام: الحالة الجديدة توضع قبلها لا بعدها.
+{0} has no lifecycle in X5.,{0} ليس له دورة في دورات السجلات.
+Lifecycles,دورات السجلات
+Edited in the Workflow Builder,تُعدَّل في مصمم المسارات
+Set by the system (read-only),يحددها النظام (للعرض فقط)
+Only the system moves a record here,النظام وحده ينقل السجل إلى هنا
+Open in the Workflow Builder,فتح في مصمم المسارات
+"A locked state or step is needed by the system: it cannot be removed or renamed. A new state goes before a state marked ⚙, which only the system sets.",الحالة أو الخطوة المقفلة يحتاجها النظام: لا يمكن حذفها أو تغيير اسمها. الحالة الجديدة توضع قبل الحالة المعلَّمة ⚙ التي يحددها النظام وحده.
+"The system's code moves these records from status to status, so they have no editable workflow.",النظام ينقل هذه السجلات من حالة إلى أخرى، لذلك ليس لها مسار قابل للتعديل.
+Goods Receipt,استلام البضاعة
+Cash Box Day,يومية الخزينة

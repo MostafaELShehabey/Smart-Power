@@ -39,6 +39,9 @@ def after_install() -> None:
 	# before fixtures sync: the SP Case workflow fixture needs its states and actions (SP-46)
 	ensure_workflow_masters()
 	station_masters()  # and the SP Station workflow's (SP-73)
+	from smart_power.sp_core.workflows import seed_workflows
+
+	seed_workflows()  # the SP workflows, once: the admin's changes are kept (SP-133)
 	apply_locale()
 	apply_branding()
 	from smart_power.sp_core.login import apply_login_settings
@@ -156,3 +159,6 @@ def after_migrate() -> None:
 	from smart_power.sp_core.permissions_matrix import seed_module_map
 
 	seed_module_map()  # the permissions matrix's menu groups, where missing (SP-131)
+	from smart_power.sp_core.workflows import seed_workflows
+
+	seed_workflows()  # only the missing ones: the admin's workflows stay as they are (SP-133)

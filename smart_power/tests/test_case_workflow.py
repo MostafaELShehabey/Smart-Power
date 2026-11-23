@@ -50,7 +50,7 @@ class TestCaseWorkflow(IntegrationTestCase):
 			self.assertTrue(frappe.db.exists("Workflow State", state))
 
 	def test_fixture_matches_the_constants(self):
-		path = os.path.join(frappe.get_app_path("smart_power"), "fixtures", "workflow.json")
+		path = os.path.join(frappe.get_app_path("smart_power"), "sp_core", "setup", "workflows.json")
 		with open(path, encoding="utf-8") as f:
 			wf = json.load(f)[0]
 		self.assertEqual([s["state"] for s in wf["states"]], list(STATES))
