@@ -81,9 +81,7 @@ def classic_layouts() -> dict:
 			html(bf.SIGNATURE),
 		],
 		OLD_AGRI_BANK: [
-			heading(
-				"عرض سعر توريد وتركيب محطة طاقة شمسية شاملة الموتور والطلمبة ومشتملات تشغيل البئر"
-			),
+			heading("عرض سعر توريد وتركيب محطة طاقة شمسية شاملة الموتور والطلمبة ومشتملات تشغيل البئر"),
 			*section("بيانات العميل"),
 			field("customer_name"),
 			column,
@@ -230,7 +228,14 @@ class TestBankFormats(IntegrationTestCase):
 		for name, layout in classic_layouts().items():
 			self.classic(name, layout)
 		self.assertEqual(sorted(bf.convert_to_new_builder()), sorted([OLD_AL_AHLY, OLD_AGRI_BANK]))
-		look = ["font_size", "show_label_colon", "margin_top", "margin_bottom", "page_number", "pdf_generator"]
+		look = [
+			"font_size",
+			"show_label_colon",
+			"margin_top",
+			"margin_bottom",
+			"page_number",
+			"pdf_generator",
+		]
 		for old, new in ((OLD_AL_AHLY, bf.AL_AHLY), (OLD_AGRI_BANK, bf.AGRI_BANK)):
 			moved, seeded = frappe.get_doc("Print Format", old), frappe.get_doc("Print Format", new)
 			self.assertEqual((moved.print_format_builder, moved.print_format_builder_beta), (0, 1))

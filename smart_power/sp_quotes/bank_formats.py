@@ -144,9 +144,10 @@ NOTE = "<div class='sp-bank-note'>ملحوظة : الأسعار لا تشمل أ
 
 COLUMN_GUTTER = 30  # sp-allow-number: px between two columns, as the classic layout's grid
 STACKED_FROM = 3  # sp-allow-number: from three columns on the classic layout put the label above the value
-# what the classic layout printed whatever the format's own settings said: 12px text (its CSS), and
-# the letterhead and footer at the paper's edge (the classic Chrome PDF ignored these two margins)
-CLASSIC_LOOK = {"font_size": 12, "show_label_colon": 1, "margin_top": 0, "margin_bottom": 0}  # sp-allow-number: see above
+CLASSIC_FONT_PX = 12  # sp-allow-number: the text size the classic layout's CSS printed
+# what the classic layout printed whatever the format's own settings said: its text size, and the
+# letterhead and footer at the paper's edge (the classic Chrome PDF ignored these two margins)
+CLASSIC_LOOK = {"font_size": CLASSIC_FONT_PX, "show_label_colon": 1, "margin_top": 0, "margin_bottom": 0}
 
 # each field with the banks' own wording and its type; the admin changes a label in the builder
 FIELDS = {
