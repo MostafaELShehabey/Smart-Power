@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "full_name",
+  "roles",
+  "account_ok",
+  "home_ok",
+  "action_ok",
+  "result",
+  "message",
+  "first_login",
+  "checked_on"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "in_list_view": 1,
+   "columns": 2,
+   "read_only": 1
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "roles",
+   "fieldtype": "Small Text",
+   "label": "Roles",
+   "read_only": 1
+  },
+  {
+   "fieldname": "account_ok",
+   "fieldtype": "Check",
+   "label": "Account",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "home_ok",
+   "fieldtype": "Check",
+   "label": "Home",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "action_ok",
+   "fieldtype": "Check",
+   "label": "Main Action",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "result",
+   "fieldtype": "Select",
+   "label": "Result",
+   "options": "Pass\nFail",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Small Text",
+   "label": "Message",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "first_login",
+   "fieldtype": "Datetime",
+   "label": "First Login Since Go-live",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "checked_on",
+   "fieldtype": "Datetime",
+   "label": "Checked On",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-23 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Cutover Smoke",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1,
+ "editable_grid": 1,
+ "permissions": []
+}

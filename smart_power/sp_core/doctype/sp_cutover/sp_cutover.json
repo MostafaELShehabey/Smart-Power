@@ -1,0 +1,177 @@
+{
+ "actions": [],
+ "creation": "2026-11-23 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "go_live_date",
+  "company",
+  "column_break_head",
+  "status",
+  "progress",
+  "steps_section",
+  "steps",
+  "smoke_section",
+  "smoke_run_on",
+  "smoke_summary",
+  "smoke_tests",
+  "rollback_section",
+  "rollback",
+  "hypercare_section",
+  "hypercare"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "default": "Go-live 1-1-2027",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "go_live_date",
+   "fieldtype": "Date",
+   "label": "Go-live Date",
+   "reqd": 1,
+   "default": "2027-01-01",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Planned\nIn progress\nDone",
+   "default": "Planned",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "progress",
+   "fieldtype": "Percent",
+   "label": "Progress",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "steps_section",
+   "fieldtype": "Section Break",
+   "label": "Runbook"
+  },
+  {
+   "fieldname": "steps",
+   "fieldtype": "Table",
+   "label": "Steps",
+   "options": "SP Cutover Step"
+  },
+  {
+   "fieldname": "smoke_section",
+   "fieldtype": "Section Break",
+   "label": "Smoke Tests"
+  },
+  {
+   "fieldname": "smoke_run_on",
+   "fieldtype": "Datetime",
+   "label": "Last Run",
+   "read_only": 1
+  },
+  {
+   "fieldname": "smoke_summary",
+   "fieldtype": "Data",
+   "label": "Result",
+   "read_only": 1
+  },
+  {
+   "fieldname": "smoke_tests",
+   "fieldtype": "Table",
+   "label": "Smoke Tests",
+   "options": "SP Cutover Smoke",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rollback_section",
+   "fieldtype": "Section Break",
+   "label": "Rollback Plan",
+   "description": "If a blocking issue appears in the first 48 hours, that module alone continues in Excel; its entries are kept and reconciled later."
+  },
+  {
+   "fieldname": "rollback",
+   "fieldtype": "Table",
+   "label": "Rollback",
+   "options": "SP Cutover Rollback"
+  },
+  {
+   "fieldname": "hypercare_section",
+   "fieldtype": "Section Break",
+   "label": "Hypercare (4 weeks)",
+   "description": "A daily 15-minute check-in, defects triaged (Highest within 4 hours, High within 1 day) and the backup verified every day."
+  },
+  {
+   "fieldname": "hypercare",
+   "fieldtype": "Table",
+   "label": "Hypercare Days",
+   "options": "SP Cutover Day"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-23 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "SP Core",
+ "name": "SP Cutover",
+ "owner": "Administrator",
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "CUT-.YYYY.-.##",
+ "naming_rule": "Expression (old style)",
+ "title_field": "title",
+ "track_changes": 1,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "SP Admin",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "share": 1,
+   "email": 1
+  },
+  {
+   "role": "Desk User",
+   "read": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1
+  }
+ ]
+}
