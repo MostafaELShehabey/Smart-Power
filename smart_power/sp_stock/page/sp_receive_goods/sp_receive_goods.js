@@ -164,7 +164,9 @@ class SPReceiveGoods {
 			.filter(({ l }) => !l.serial)
 			.map(
 				({ l, i }) => `<tr class="sp-gr-line" data-index="${i}">
-					<td>${esc(l.item_name || l.item_code)}<div class="small text-muted">${esc(__("Still expected: {0}", [l.remaining]))}</div></td>
+					<td>${esc(l.item_name || l.item_code)}<div class="small text-muted">${esc(__("Still expected: {0}", [l.remaining]))}</div>${
+						l.weighed ? `<div class="small text-warning sp-gr-weighed">${esc(__("Weighed item: type the scale weight in kg under Good."))}</div>` : ""
+					}</td>
 					<td><input type="number" min="0" step="any" class="form-control input-sm sp-gr-good" value="${l.remaining}"></td>
 					<td><input type="number" min="0" step="any" class="form-control input-sm sp-gr-damaged" value="0"></td>
 					<td class="text-center"><input type="checkbox" class="sp-gr-short"></td>

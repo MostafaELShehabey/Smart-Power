@@ -4303,3 +4303,10 @@ This site task is not assigned to you.,هذه المهمة ليست مسندة �
 {0} is not a site task.,{0} ليست مهمة موقع.
 Location not available,الموقع غير متاح
 To do,للتنفيذ
+SP Installed Capacity,بيان القدرات المركبة
+Open,فتح,action
+Check,فحص,SP Opening Balance
+Case,طلب العميل,SP Site Survey
+Status,حالة المعاينة,SP Site Survey
+Weighed item: type the scale weight in kg under Good.,صنف يُوزن: اكتب وزن الميزان بالكيلو في خانة «سليم».
+Scale weight {0} kg against a theoretical {1} kg,وزن الميزان {0} كجم مقابل وزن نظري {1} كجم

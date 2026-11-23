@@ -139,7 +139,7 @@ class SPQuoteQueue {
 			}
 			if (r.can_open) {
 				$(`<button class="btn btn-xs btn-default ml-1"></button>`)
-					.text(__("Open"))
+					.text(__("Open", null, "action"))
 					.on("click", () => frappe.set_route("Form", "SP Case", r.name))
 					.appendTo($actions);
 			}

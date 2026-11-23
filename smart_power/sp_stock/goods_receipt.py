@@ -175,6 +175,7 @@ def expected_deliveries() -> list[dict]:
 				"received": flt(row.received_qty) + pending,
 				"remaining": remaining,
 				"serial": _is_serial(row.item_code),
+				"weighed": is_weighed(row.item_code),
 			}
 		)
 	return list(cards.values())

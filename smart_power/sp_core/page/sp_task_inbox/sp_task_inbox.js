@@ -97,7 +97,7 @@ class SPTaskInbox {
 		const button = (label, cls, fn) =>
 			$(`<button class="btn btn-xs ${cls}">${esc(label)}</button>`).on("click", fn).appendTo($actions);
 		if (t.reference_doctype && t.reference_name) {
-			button(__("Open"), "btn-default", () => frappe.set_route("Form", t.reference_doctype, t.reference_name));
+			button(__("Open", null, "action"), "btn-default", () => frappe.set_route("Form", t.reference_doctype, t.reference_name));
 		}
 		if (this.snoozed) {
 			button(__("Wake Now"), "btn-default", () => this.call("wake", { task: t.name }));

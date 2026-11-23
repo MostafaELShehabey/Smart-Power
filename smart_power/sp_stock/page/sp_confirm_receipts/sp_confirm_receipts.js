@@ -46,6 +46,17 @@ class SPConfirmReceipts {
 		</tr>`;
 	}
 
+	weight_note(weight) {
+		// iron (SP-178): the scale weight against the order's theoretical weight, red above the limit
+		if (!weight) return "";
+		const esc = frappe.utils.escape_html;
+		const text = __("Scale weight {0} kg against a theoretical {1} kg", [weight.actual_kg, weight.theoretical_kg]);
+		const pct = `${weight.variance_pct > 0 ? "+" : ""}${weight.variance_pct}%`;
+		return `<div class="small mb-2 sp-confirm-weight ${weight.warning ? "text-danger" : "text-muted"}">${esc(text)} · <span dir="ltr">${esc(pct)}</span>${
+			weight.warning ? ` · <b>${esc(weight.warning)}</b>` : ""
+		}</div>`;
+	}
+
 	render_card(receipt) {
 		const esc = frappe.utils.escape_html;
 		const all_ok = receipt.lines.every((line) => line.condition === "OK");
@@ -72,6 +83,7 @@ class SPConfirmReceipts {
 				</tr></thead>
 				<tbody>${receipt.lines.map((line) => this.line_row(line)).join("")}</tbody>
 			</table></div>
+			${this.weight_note(receipt.weight)}
 			<div class="d-flex flex-wrap align-items-center" style="gap: 16px">
 				<a href="${esc(receipt.exit_permit || "")}" target="_blank" rel="noopener" class="sp-confirm-permit">${esc(__("Exit Permit Photo"))}</a>
 				${receipt.signature ? `<img src="${esc(receipt.signature)}" alt="${esc(__("Receiver Signature"))}" style="max-height: 48px">` : ""}

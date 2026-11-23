@@ -30,6 +30,8 @@ boot_session = [
 	"smart_power.lists.boot",
 	# the owners shown as chips on the record pages (SP-45)
 	"smart_power.records.boot",
+	# the company the reports open on
+	"smart_power.sp_core.services.company.boot",
 ]
 
 required_apps = ["frappe", "erpnext"]
