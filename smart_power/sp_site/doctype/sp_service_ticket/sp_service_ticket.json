@@ -19,7 +19,10 @@
   "closed_at",
   "warranty_section",
   "warranty_status",
-  "warranty_details"
+  "warranty_details",
+  "work_section",
+  "work_log",
+  "company"
  ],
  "fields": [
   {
@@ -123,10 +126,36 @@
    "label": "Components",
    "read_only": 1,
    "description": "Each component of the station with its warranty end, on the day the ticket was opened."
+  },
+  {
+   "fieldname": "work_section",
+   "fieldtype": "Section Break",
+   "label": "Work Log",
+   "description": "Each remote call or site visit, with the part used. A part is issued from stock when the line is saved."
+  },
+  {
+   "fieldname": "work_log",
+   "fieldtype": "Table",
+   "label": "Work Log",
+   "options": "SP Service Work"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1,
+   "hidden": 1
   }
  ],
- "links": [],
- "modified": "2026-11-23 17:00:00.000000",
+ "links": [
+  {
+   "group": "Warranty",
+   "link_doctype": "SP Supplier Claim",
+   "link_fieldname": "ticket"
+  }
+ ],
+ "modified": "2026-11-23 18:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Site",
  "name": "SP Service Ticket",
