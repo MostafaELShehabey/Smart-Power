@@ -4078,3 +4078,68 @@ row {0},الصف {0}
 {0} is not a valid mobile.,{0} ليس موبايل صحيح.
 {0} is not in the Region list.,{0} ليست في قائمة المناطق.
 {0} is not in the Worker Skill list.,{0} ليست في قائمة مهارات العمال.
+"A daily 15-minute check-in, defects triaged (Highest within 4 hours, High within 1 day) and the backup verified every day.",متابعة يومية 15 دقيقة، وفرز الأعطال (العاجل خلال 4 ساعات، والمرتفع خلال يوم) والتحقق من النسخة الاحتياطية كل يوم.
+Back to Excel for this module,العودة للإكسل في هذا الجزء
+Backup Verified,تم التحقق من النسخة الاحتياطية
+Backup Verified At,وقت التحقق من النسخة الاحتياطية
+Backup Verified By,تحقق من النسخة الاحتياطية
+Check-in Held,تمت المتابعة اليومية
+Continue in the system,الاستمرار في النظام
+Cutover,الانتقال للنظام
+Cutover Step,خطوة الانتقال للنظام
+Cutover: {0} ({1}),الانتقال للنظام: {0} ({1})
+Decided At,وقت القرار
+Decided By (Owner),صاحب القرار
+Done At,وقت التنفيذ
+Done By,نفّذها
+Fail,فشل
+Fall-back Criterion,شرط العودة للإكسل
+First Login Since Go-live,أول دخول بعد بدء التشغيل
+Go-live Date,تاريخ بدء التشغيل
+Home: {0},الصفحة الرئيسية: {0}
+Hypercare (4 weeks),الدعم المكثف (4 أسابيع)
+Hypercare Days,أيام الدعم المكثف
+"If a blocking issue appears in the first 48 hours, that module alone continues in Excel; its entries are kept and reconciled later.",إذا ظهر عطل يوقف العمل في أول 48 ساعة، يستمر هذا الجزء وحده على الإكسل، وتُحفظ قيوده وتُطابق لاحقًا.
+In progress,قيد التنفيذ
+Last Run,آخر تشغيل
+Main Action,الإجراء الرئيسي
+Module,الجزء
+None of the roles has a main action to check.,لا يوجد إجراء رئيسي لأي من الأدوار لاختباره.
+Not allowed: {0},غير مسموح: {0}
+Only the admin runs the cutover.,الأدمن وحده يدير الانتقال للنظام.
+Only {0} or the admin ticks this step.,لا يعلّم هذه الخطوة إلا {0} أو الأدمن.
+Open High Defects,أعطال مرتفعة مفتوحة
+Open Highest Defects,أعطال عاجلة مفتوحة
+Pass,نجح
+Planned,مخطط
+Planned On,التاريخ المخطط
+Progress,نسبة الإنجاز
+Rollback,خطة العودة
+Rollback Plan,خطة العودة للإكسل
+Row {0}: {1} is not an active user.,الصف {0}: {1} ليس مستخدمًا نشطًا.
+Run Smoke Tests,تشغيل اختبارات التشغيل
+Run the smoke tests first.,شغّل اختبارات التشغيل أولًا.
+Runbook,خطة الانتقال
+SP Cutover,الانتقال للنظام
+SP Cutover Day,يوم دعم مكثف
+SP Cutover Rollback,خطة عودة
+SP Cutover Smoke,اختبار تشغيل
+SP Cutover Step,خطوة انتقال
+Smoke Tests,اختبارات التشغيل
+Start Hypercare,بدء الدعم المكثف
+Step Key,مفتاح الخطوة
+"Steps with a key are checked before they are ticked (smoke tests, the January close, the hypercare review).",الخطوات التي لها مفتاح تُراجع قبل تعليمها (اختبارات التشغيل، إقفال يناير، مراجعة الدعم المكثف).
+"The account is disabled, locked or has no Smart Power role.",الحساب معطل أو مقفول أو ليس له دور في سمارت باور.
+The go-live month is not closed yet (Month Close).,شهر بدء التشغيل لم يُقفل بعد (إقفال الشهر).
+The last hypercare day must show no open Highest defect.,يجب ألا يكون في آخر يوم دعم مكثف أي عطل عاجل مفتوح.
+The smoke tests failed for: {0}.,فشلت اختبارات التشغيل لـ: {0}.
+The step is already ticked.,الخطوة معلّمة بالفعل.
+The step is not on {0}.,الخطوة ليست في {0}.
+Tick,تعليم
+Tick a Step,تعليم خطوة
+Tick the January close first.,علّم إقفال يناير أولًا.
+Untick,إلغاء التعليم
+Untick a Step,إلغاء تعليم خطوة
+its owner,صاحبها
+{0} of {1} users passed,نجح {0} من {1} مستخدم
+Go-live,بدء التشغيل
