@@ -27,7 +27,12 @@
   "print_group",
   "is_optional",
   "is_hidden",
-  "is_winch_line"
+  "is_winch_line",
+  "calibration_section",
+  "calibration_source",
+  "calibration_group",
+  "column_break_calibration",
+  "calibration_input"
  ],
  "fields": [
   {
@@ -195,11 +200,41 @@
    "fieldname": "is_winch_line",
    "fieldtype": "Check",
    "label": "Winch Line"
+  },
+  {
+   "fieldname": "calibration_section",
+   "fieldtype": "Section Break",
+   "label": "Calibration",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "calibration_source",
+   "fieldtype": "Select",
+   "label": "Calibration Source",
+   "options": "\nItems used\nSite labour\nWinch and transport\nNot calibrated",
+   "description": "Where the calibration report finds this line's actual at station close. Blank: the items used when the line has an item group, otherwise not calibrated."
+  },
+  {
+   "fieldname": "calibration_group",
+   "fieldtype": "Link",
+   "label": "Calibration Item Group",
+   "options": "Item Group",
+   "description": "For items used: the group of the items this line stands for, when it has no item group of its own (DC cable, pipes)."
+  },
+  {
+   "fieldname": "column_break_calibration",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "calibration_input",
+   "fieldtype": "Data",
+   "label": "Calibrated Input",
+   "description": "The template input this line's quantity is a multiple of (per string, per kW). The report suggests its new default."
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-22 21:00:00.000000",
+ "modified": "2026-11-23 23:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Quotes",
  "name": "SP Calc Template Line",

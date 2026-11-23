@@ -28,6 +28,8 @@ COST_FORMULA = "Formula"
 NUMBER_INPUTS = ("Float", "Int")
 # Edits allowed on a published version
 STATUS_FIELDS = ("is_published", "published_on", "description")
+# where the calibration report (SP-183) reads a line's actual: set on a published version too
+CALIBRATION_FIELDS = ("calibration_source", "calibration_group", "calibration_input")
 
 
 class SPCalcTemplate(Document):
@@ -101,6 +103,12 @@ class SPCalcTemplate(Document):
 				)
 			if row.pricing_method == LOCKED_BTC:
 				row.lock_markup = 1
+			if row.get("calibration_input") and row.calibration_input not in input_keys:
+				frappe.throw(
+					_("{0}: the calibrated input {1} is not an input of this template.").format(
+						where, frappe.bold(row.calibration_input)
+					)
+				)
 			known.add(row.line_key)
 
 	@frappe.whitelist()
@@ -173,7 +181,11 @@ def content(doc) -> str:
 		data.pop(field, None)
 	for table in ("inputs", "lines"):
 		data[table] = [
-			{k: v for k, v in row.items() if k not in ("name", "idx", "parent", "parentfield", "parenttype")}
+			{
+				k: v
+				for k, v in row.items()
+				if k not in ("name", "idx", "parent", "parentfield", "parenttype", *CALIBRATION_FIELDS)
+			}
 			for row in data.get(table) or []
 		]
 	return json.dumps(data, sort_keys=True, default=str)

@@ -177,7 +177,8 @@
    "cost_default": 55,
    "pricing_method": "Cost x Markup",
    "default_markup": 25,
-   "rounding": "Nearest 5"
+   "rounding": "Nearest 5",
+   "calibration_input": "dc_cable_per_string"
   },
   {
    "line_key": "mc4",
@@ -199,7 +200,8 @@
    "cost_default": 200,
    "pricing_method": "Cost x Markup",
    "default_markup": 15,
-   "rounding": "Nearest 10"
+   "rounding": "Nearest 10",
+   "calibration_input": "pipes_2in_per_string"
   },
   {
    "line_key": "flex",
@@ -232,7 +234,8 @@
    "cost_default": 300,
    "pricing_method": "Cost x Markup",
    "default_markup": 25,
-   "rounding": "Nearest 5"
+   "rounding": "Nearest 5",
+   "calibration_source": "Site labour"
   },
   {
    "line_key": "transport",
@@ -241,7 +244,8 @@
    "qty_formula": "panels.qty / 1000",
    "cost_source": "Manual",
    "cost_default": 240,
-   "pricing_method": "Pass-through"
+   "pricing_method": "Pass-through",
+   "calibration_source": "Winch and transport"
   },
   {
    "line_key": "motor",

@@ -89,6 +89,7 @@ class TestShell(IntegrationTestCase):
 		# T1 design tools (SP-65): the follow-up lead sees the quotes, not the tools
 		creator = make_user("sp.shell.creator@example.com", ("quote_creator",))
 		self.assertIn("Design Tools", rail(creator)["Quotes"])
+		self.assertNotIn("Template Calibration", rail(creator)["Quotes"])  # SP-183: admin only
 		lead = make_user("sp.shell.lead@example.com", ("followup_all",))
 		self.assertNotIn("Design Tools", rail(lead)["Quotes"])
 

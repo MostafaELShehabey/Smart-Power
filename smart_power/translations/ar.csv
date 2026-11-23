@@ -4410,3 +4410,35 @@ Water Level / Pump Depth (m),منسوب المياه / عمق الطلمبة (م
 {0} panels in {1} strings (need {2} W),{0} لوح في {1} استرنج (المطلوب {2} وات)
 Run the Check,افحص
 String Check,فحص الاسترنج
+A suggestion needs {0} stations.,الاقتراح يحتاج {0} محطات.
+Actual Qty,الكمية الفعلية
+Calibrated Input,المدخل المعاير
+Calibration,المعايرة
+Calibration Item Group,مجموعة أصناف المعايرة
+Calibration Minimum Stations,أقل عدد محطات للمعايرة
+Calibration Source,مصدر المعايرة
+Cost Deviation %,انحراف التكلفة %
+Create Draft Version,إنشاء إصدار مسودة
+Current Default,الافتراضي الحالي
+Current Unit Cost,تكلفة الوحدة الحالية
+Draft version {0} made with the suggested defaults.,تم إنشاء الإصدار المسودة {0} بالقيم المقترحة.
+Estimated Qty,الكمية التقديرية
+"For items used: the group of the items this line stands for, when it has no item group of its own (DC cable, pipes).",للأصناف المستخدمة: مجموعة الأصناف التي يمثلها هذا السطر إذا لم تكن له مجموعة أصناف (سلك DC، المواسير).
+Items used,الأصناف المستخدمة
+No line has a suggestion yet: nothing to put in a new version.,لا يوجد سطر له اقتراح بعد: لا شيء يوضع في إصدار جديد.
+Not calibrated,بدون معايرة
+Qty Deviation %,انحراف الكمية %
+Set the calibration item group on the line.,حدد مجموعة أصناف المعايرة على السطر.
+Site labour,عمالة الموقع
+Suggested Default,الافتراضي المقترح
+Suggested Unit Cost,تكلفة الوحدة المقترحة
+Suggested by the calibration report on {0} closed stations: {1},مقترح من تقرير المعايرة على {0} محطة مغلقة: {1}
+The calibration report suggests a new template default only once this many closed stations used the line.,يقترح تقرير المعايرة قيمة افتراضية جديدة للقالب فقط بعد أن يستخدم هذا العدد من المحطات المغلقة السطر.
+"The template input this line's quantity is a multiple of (per string, per kW). The report suggests its new default.",مدخل القالب الذي تتناسب معه كمية هذا السطر (لكل استرنج، لكل كيلو وات). يقترح التقرير قيمته الافتراضية الجديدة.
+"Where the calibration report finds this line's actual at station close. Blank: the items used when the line has an item group, otherwise not calibrated.",من أين يأخذ تقرير المعايرة الفعلي لهذا السطر عند إغلاق المحطة. الفراغ: الأصناف المستخدمة إذا كانت للسطر مجموعة أصناف، وإلا فبدون معايرة.
+Winch and transport,الونش والنقل
+{0} closed stations in the period used a version of this template.,{0} محطة مغلقة في الفترة استخدمت إصدارًا من هذا القالب.
+{0}: the calibrated input {1} is not an input of this template.,{0}: المدخل المعاير {1} ليس من مدخلات هذا القالب.
+Template Calibration,معايرة القوالب
+SP Template Calibration,معايرة القوالب
+{0} stations had no actual recorded and are left out.,{0} محطة بدون فعلي مسجل ولم تُحسب.
