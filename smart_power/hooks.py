@@ -201,7 +201,8 @@ sp_rule_modules = [
 ]
 
 _RULE_EVENTS = {
-	"validate": "smart_power.rules.on_doc_event",
+	# the rules engine, then the form designer's "required when shown" fields (SP-132)
+	"validate": ["smart_power.rules.on_doc_event", "smart_power.sp_core.form_designer.validate_required"],
 	"before_submit": "smart_power.rules.on_doc_event",
 }
 

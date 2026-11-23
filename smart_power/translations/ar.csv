@@ -4476,3 +4476,48 @@ partly,جزئيًا
 See cost and profit,رؤية التكلفة والربح
 See supplier prices,رؤية أسعار الموردين
 See station costs,رؤية تكاليف المحطة
+Add Field,إضافة حقل
+Added,مضاف
+After,بعد
+Empty the field to always show it.,اترك الحقل فارغًا ليظهر دائمًا.
+English Label,العنوان بالإنجليزية
+Enter the field's label.,أدخل عنوان الحقل.
+Enter the list's name.,أدخل اسم القائمة.
+Field added,تمت إضافة الحقل
+Fields and Forms,الحقول والنماذج
+Form,النموذج
+Has the Value,قيمته
+Hiding a field keeps the records' values; show it again at any time.,إخفاء الحقل يحتفظ بقيم السجلات؛ يمكنك إظهاره في أي وقت.
+Links To,يرتبط بـ
+List Name,اسم القائمة
+List {0} made: add its values in Lists.,تم إنشاء القائمة {0}: أضف قيمها من القوائم.
+New List,قائمة جديدة
+Optional: it also names the field.,اختياري: يُستخدم أيضًا في اسم الحقل.
+Pick a form first.,اختر نموذجًا أولًا.
+Pick the document type the field links to.,اختر نوع المستند الذي يرتبط به الحقل.
+Pick the field's type.,اختر نوع الحقل.
+Pick the list the field takes its values from.,اختر القائمة التي يأخذ منها الحقل قيمه.
+Remove this question? Old requests keep their answers.,حذف هذا السؤال؟ الطلبات القديمة تحتفظ بإجاباتها.
+Request field row {0}: {1} is not a list.,حقل الطلب رقم {0}: {1} ليست قائمة.
+Required Then,مطلوب حينها
+SP Field Rule,قاعدة حقل
+"Select: one choice per line. List: the name of a list (Lists), whose values are the choices.",اختيار: خيار في كل سطر. قائمة: اسم قائمة (القوائم) تكون قيمها هي الخيارات.
+Show Only When,يظهر فقط عندما
+Shown,الظهور
+Shown When Field,يظهر عندما يكون الحقل
+The form already has a field {0}.,النموذج به حقل {0} بالفعل.
+The form has no field {0}.,النموذج ليس به حقل {0}.
+The list {0} already exists.,القائمة {0} موجودة بالفعل.
+The questions this system type's quote request asks.,الأسئلة التي يسألها طلب عرض السعر لهذا النوع.
+"The quote request takes text, numbers, lists and yes or no.",طلب عرض السعر يقبل النصوص والأرقام والقوائم ونعم أو لا.
+The request has no field {0}.,الطلب ليس به حقل {0}.
+{0} is not a form the designer changes.,{0} ليس من النماذج التي يغيّرها المصمم.
+{0} is not a system type.,{0} ليس نوع نظام.
+"A field shown, and required, only when another field of its form has a value (form designer, X3).",حقل يظهر، ويكون مطلوبًا، فقط عندما يكون لحقل آخر في نموذجه قيمة معينة (مصمم النماذج).
+Long Text,نص طويل
+Number,رقم
+Yes or No,نعم أو لا
+List Name (English),اسم القائمة (إنجليزي)
+List Name (Arabic),اسم القائمة (عربي)
+"Its key, for example Soil Type.",مفتاحها، مثل Soil Type.
+Saved: forms already open show it after a reload.,تم الحفظ: النماذج المفتوحة تُظهر التغيير بعد إعادة التحميل.
