@@ -130,17 +130,16 @@ class TestDesignTools(IntegrationTestCase):
 		self.assertNotEqual(doc.modified, before)
 		page = builder.load(name)
 		self.assertEqual(flt({i["input_key"]: i["value"] for i in page["inputs"]}["required_flow_m3h"]), 30)
-		pushed = design.push(
-			name,
-			"string",
-			{"panel": self.panel, "n": 14, "strings": 3, "drive": self.drive, "tmin": 5, "tmax": 45},
-		)
+		# the quote's own priced panel, with this test's specs, so the panels line can be written
+		panel = frappe.db.get_value("Quotation Item", {"parent": name, "sp_line_key": "panels"}, "item_code")
+		frappe.db.set_value("Item", panel, {k: v for k, v in PANEL.items() if k != "sp_watt"})
+		frappe.clear_document_cache("Item", panel)
+		watt = flt(frappe.db.get_value("Item", panel, "sp_watt"))
+		string = {"panel": panel, "n": 14, "strings": 3, "drive": self.drive, "tmin": 5, "tmax": 45}
+		pushed = design.push(name, "string", string)
 		self.assertEqual(pushed["pushed"], ["panel_watt", "panels_per_string", "strings"])
-		line = frappe.db.get_value(
-			"Quotation Item", {"parent": name, "sp_line_key": "panels"}, ["qty", "item_code"], as_dict=True
-		)
-		watt = flt(frappe.db.get_value("Item", line.item_code, "sp_watt")) or 710
-		self.assertEqual(flt(line.qty), 14 * 3 * watt)  # the quote's lines follow the pushed string
+		qty = frappe.db.get_value("Quotation Item", {"parent": name, "sp_line_key": "panels"}, "qty")
+		self.assertEqual(flt(qty), 14 * 3 * watt)  # the quote's lines follow the pushed string
 
 	def test_a_failed_check_or_a_wrong_template_is_not_pushed(self):
 		name = self.quote()
