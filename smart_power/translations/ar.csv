@@ -4253,7 +4253,6 @@ The ticket is closed: it no longer changes.,التذكرة مغلقة ولا ت�
 Urgency,الأولوية
 Urgent,عاجل
 Warranty Status,حالة الضمان
-{0} ({1}): {2} until {3},{0} ({1}): {2} حتى {3}
 {0} is not a service issue.,{0} ليست مشكلة صيانة.
 Service Tickets,تذاكر الصيانة
 Accept,قبول
@@ -4338,3 +4337,14 @@ Documents expiring,مستندات قاربت على الانتهاء
 Compliance Documents,مستندات التأهيل
 Compliance Reports,التقارير النصف سنوية
 Document Number,رقم المستند
+{0} ({1}): in warranty until {2},{0} ({1}): في الضمان حتى {2}
+{0} ({1}): warranty ended on {2},{0} ({1}): انتهى الضمان في {2}
+Work Lines,بنود العمل
+Plan Task,تخطيط المهمة
+Only a planner gives out site tasks.,المخطِّط فقط يوزّع مهام الموقع.
+Site Daily Log,يومية الموقع
+SP Site,الموقع والتنفيذ
+Logged,مسجلة,SP Supplier Claim
+Sent,مُرسلة,SP Supplier Claim
+Rejected,مرفوضة,SP Supplier Claim
+Case,طلب العميل,SP Station

@@ -71,6 +71,10 @@ class TestServiceTicket(IntegrationTestCase):
 		doc = self.ticket()
 		self.assertEqual((doc.status, doc.opened_by, doc.warranty_status), (sv.OPEN, self.camelia, sv.PARTLY))
 		self.assertIn("SP72-INV-1", doc.warranty_details)
+		# each line says which way it is: covered until a date, or ended on one
+		lines = {line.split("(")[1].split(")")[0]: line for line in doc.warranty_details.splitlines()}
+		self.assertIn("in warranty until", lines["SP72-INV-1"])
+		self.assertIn("warranty ended on", lines["SP72-PMP-1"])
 		self.assertEqual(sv.warranty_for(self.other)["status"], sv.NONE)
 
 	def test_an_urgent_ticket_gives_installations_a_task_and_a_notification(self):
