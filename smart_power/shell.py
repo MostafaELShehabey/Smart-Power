@@ -110,15 +110,46 @@ def visible_groups(user: str | None = None) -> dict[str, set]:
 	user = user or frappe.session.user
 	if user == "Administrator":
 		return {group: set() for group in GROUP_ROLES}
-	roles = set(frappe.get_roles(user))
+	return groups_for_roles(set(frappe.get_roles(user)))
+
+
+def _matrix_reads(roles: set) -> set[str]:
+	"""The document types that the roles made in the permissions matrix (X2, SP-131; Role
+	is_custom) may read. The roles of the catalogue keep the menus set above."""
+	custom = set(frappe.get_all("Role", {"name": ("in", list(roles) or [""]), "is_custom": 1}, pluck="name"))
+	if not custom:
+		return set()
+	return set(
+		frappe.get_all(
+			"Custom DocPerm", {"role": ("in", list(custom)), "permlevel": 0, "read": 1}, pluck="parent"
+		)
+	)
+
+
+def groups_for_roles(roles: set) -> dict[str, set]:
+	"""visible_groups for a set of roles (the matrix's menu preview uses it too). A role made in
+	the matrix opens the groups whose document types it may read (SP Module Map), and their
+	items for those types."""
+	reads = _matrix_reads(roles)
+	opened, links = set(), {}
+	if reads:
+		from smart_power.sp_core.permissions_matrix import module_map, sidebars
+
+		opened = {group for group, doctypes in module_map() if reads & set(doctypes)}
+		links = {
+			(group, i.get("label")): i.get("link_to")
+			for group, items in sidebars().items()
+			for i in items
+			if i.get("link_type") == "DocType"
+		}
 	return {
 		group: {
 			label
 			for (g, label), item_roles in ITEM_ROLES.items()
-			if g == group and not _allowed(item_roles, roles)
+			if g == group and not _allowed(item_roles, roles) and links.get((g, label)) not in reads
 		}
 		for group, group_roles in GROUP_ROLES.items()
-		if _allowed(group_roles, roles)
+		if _allowed(group_roles, roles) or group in opened
 	}
 
 
@@ -193,6 +224,20 @@ NEW_ACTIONS = (
 
 
 @frappe.whitelist()
+def new_actions_for_roles(roles: set) -> list[str]:
+	"""The "+ New" labels a user with only these roles gets (the matrix's menu preview)."""
+	out = []
+	for _key, label, _kind, _target, doctype, action_roles in NEW_ACTIONS:
+		if action_roles and not set(action_roles) & roles:
+			continue
+		if doctype and not any(
+			p.role in roles and not p.permlevel and p.create for p in frappe.get_meta(doctype).permissions
+		):
+			continue
+		out.append(_(label))
+	return out
+
+
 def get_new_menu() -> list[dict]:
 	"""The "+ New" menu: only what this user may start."""
 	user = frappe.session.user

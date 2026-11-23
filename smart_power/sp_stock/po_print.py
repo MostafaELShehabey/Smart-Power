@@ -10,7 +10,7 @@ import frappe
 from frappe import _
 from frappe.utils import flt
 
-from smart_power.permissions import PO_COST_ROLES
+from smart_power.permissions import COST_PERMLEVEL, PO_COST_ROLES
 from smart_power.sp_core.printing import ar_date, ar_words
 
 PRINT_FORMAT = "SP Purchase Order"
@@ -43,8 +43,12 @@ def make_desk_default() -> None:
 
 
 def sees_prices() -> bool:
+	"""The supplier prices are the order's permission level 2: the cost roles, and any role the
+	permissions matrix (SP-131) gave "see supplier prices"."""
 	user = frappe.session.user
-	return user == "Administrator" or bool(set(PO_COST_ROLES) & set(frappe.get_roles(user)))
+	if user == "Administrator" or set(PO_COST_ROLES) & set(frappe.get_roles(user)):
+		return True
+	return COST_PERMLEVEL in frappe.get_meta("Purchase Order").get_permlevel_access("read", user=user)
 
 
 def _names(rows) -> dict:
