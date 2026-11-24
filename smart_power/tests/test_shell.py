@@ -114,6 +114,14 @@ class TestNewMenuAndCounts(IntegrationTestCase):
 		amira = make_user("sp.shell.amira@example.com", profile_keys("SP Projects Manager"))
 		self.assertIn("purchase_order", self.menu(amira))
 
+	def test_the_dock_may_call_new_and_the_counts(self):
+		# sp_shell.js calls both over HTTP; the matrix's preview helper stays server-side
+		from smart_power.shell import new_actions_for_roles
+
+		self.assertIn(get_new_menu, frappe.whitelisted)
+		self.assertIn(get_counts, frappe.whitelisted)
+		self.assertNotIn(new_actions_for_roles, frappe.whitelisted)
+
 	def test_the_counts_follow_the_inbox(self):
 		from smart_power.sp_core.inbox import create_task
 

@@ -223,7 +223,6 @@ NEW_ACTIONS = (
 )
 
 
-@frappe.whitelist()
 def new_actions_for_roles(roles: set) -> list[str]:
 	"""The "+ New" labels a user with only these roles gets (the matrix's menu preview)."""
 	out = []
@@ -238,6 +237,7 @@ def new_actions_for_roles(roles: set) -> list[str]:
 	return out
 
 
+@frappe.whitelist()
 def get_new_menu() -> list[dict]:
 	"""The "+ New" menu: only what this user may start."""
 	user = frappe.session.user
