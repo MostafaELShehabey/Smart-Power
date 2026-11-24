@@ -118,10 +118,132 @@ COST_DOCTYPES = {
 	"Purchase Receipt": (PO_COST_ROLES, ("SP Admin", "SP Purchase Officer")),
 }
 
+# --- Stock values: what the goods cost, on ERPNext's own stock records (BUG-28) ----------------
+
+# The store keepers and the technicians carry ERPNext's Stock User and Projects User, which read
+# these fields at permlevel 0: valuation, incoming and outgoing rates, stock value, last purchase
+# rate, project costing. They live at the cost permlevel (fixtures/property_setter.json), so the
+# form, the list, the report view, a report's "Add column" and every export drop them for anyone
+# outside the cost roles. {doctype: fields}; a child table follows its parent's permissions.
+STOCK_COST_FIELDS = {
+	"Item": ("valuation_rate", "last_purchase_rate"),
+	"Bin": ("valuation_rate", "stock_value"),
+	"Stock Ledger Entry": (
+		"incoming_rate",
+		"outgoing_rate",
+		"valuation_rate",
+		"stock_value",
+		"stock_value_difference",
+		"stock_queue",
+	),
+	"Stock Closing Balance": ("valuation_rate", "stock_value", "stock_value_difference"),
+	"Stock Entry": (
+		"total_outgoing_value",
+		"total_incoming_value",
+		"value_difference",
+		"additional_costs",
+		"total_additional_costs",
+		"total_amount",
+	),
+	"Stock Entry Detail": ("basic_rate", "basic_amount", "additional_cost", "valuation_rate", "amount"),
+	"Material Request Item": ("rate", "price_list_rate", "amount"),
+	"Stock Reconciliation": ("difference_amount",),
+	"Stock Reconciliation Item": (
+		"valuation_rate",
+		"amount",
+		"current_valuation_rate",
+		"current_amount",
+		"amount_difference",
+	),
+	"Serial No": ("purchase_rate",),
+	"Project": (
+		"estimated_costing",
+		"total_costing_amount",
+		"total_purchase_cost",
+		"total_consumed_material_cost",
+		"gross_margin",
+		"per_gross_margin",
+	),
+	"Task": ("total_costing_amount",),
+	"Sales Order Item": ("valuation_rate", "gross_profit"),
+	"Delivery Note Item": ("incoming_rate",),
+}
+# The DocTypes whose permission rules carry those fields (a child table's are its parent's).
+STOCK_COST_DOCTYPES = (
+	"Item",
+	"Bin",
+	"Stock Ledger Entry",
+	"Stock Closing Balance",
+	"Stock Entry",
+	"Material Request",
+	"Stock Reconciliation",
+	"Serial No",
+	"Project",
+	"Task",
+	"Sales Order",
+	"Delivery Note",
+)
+# ERPNext computes these values itself; the admin and the accountant may also type them.
+STOCK_COST_WRITERS = ("SP Admin", "SP Accountant")
+COST_DOCTYPES.update({doctype: (COST_ROLES, STOCK_COST_WRITERS) for doctype in STOCK_COST_DOCTYPES})
+
+# ERPNext's script reports that show stock values or prices. A query report runs its own SQL, so
+# the field levels above do not reach it: each gets a Custom Role with the roles that may see
+# cost. The store keeper keeps quantities in "Stock by Owner" (SP-87).
+VALUE_REPORTS = (
+	"Stock Balance",
+	"Stock Ledger",
+	"Stock Ledger Variance",
+	"Stock Ageing",
+	"Stock Analytics",
+	"Stock and Account Value Comparison",
+	"Incorrect Stock Value Report",
+	"Incorrect Serial No Valuation",
+	"Available Serial No",
+	"Serial No Ledger",
+	"Batch-Wise Balance History",
+	"Warehouse wise Item Balance Age and Value",
+	"Item Price Stock",
+	"Item Prices",
+	"Item Variant Details",
+	"Item Wise Consumption",
+)
+VALUE_REPORT_ROLES = (*COST_ROLES, "System Manager", "Accounts Manager", "Stock Manager")
+
+
+def sync_cost_reports() -> None:
+	"""Limit each value report to the cost roles with a Custom Role, once: a Custom Role the
+	admin already keeps for the report is left as it is."""
+	roles = [r for r in VALUE_REPORT_ROLES if frappe.db.exists("Role", r)]
+	for report in VALUE_REPORTS:
+		if not frappe.db.exists("Report", report) or frappe.db.exists("Custom Role", {"report": report}):
+			continue
+		frappe.get_doc(
+			{
+				"doctype": "Custom Role",
+				"report": report,
+				"ref_doctype": frappe.db.get_value("Report", report, "ref_doctype"),
+				"roles": [{"role": role} for role in roles],
+			}
+		).insert(ignore_permissions=True)
+
+
+@frappe.whitelist()
+def get_data_for_custom_field(doctype: str, field: str, names: str | list[str] | None = None):
+	"""A report's "Add column" (Frappe's get_data_for_custom_field): a field the user may not
+	read, such as a cost at the cost permlevel, is refused with a message instead of failing."""
+	from frappe.desk.query_report import get_data_for_custom_field as frappe_data
+	from frappe.model import get_permitted_fields
+
+	if field != "name" and field not in get_permitted_fields(doctype):
+		label = frappe.get_meta(doctype).get_label(field)
+		frappe.throw(_("You cannot see {0}.").format(_(label)), frappe.PermissionError)
+	return frappe_data(doctype, field, names)
+
 
 def sync_cost_permissions() -> None:
-	"""Give the cost roles read (and some write) at the cost permlevel on Quotation and Purchase
-	Order; never remove rows.
+	"""Give the cost roles read (and some write) at the cost permlevel on Quotation, Purchase
+	Order, Purchase Receipt and the stock DocTypes above; never remove rows.
 
 	Uses Frappe's own add_permission, which copies the standard rules into Role Permissions
 	the first time (as the Role Permissions Manager does). Rows the admin changed are kept.
