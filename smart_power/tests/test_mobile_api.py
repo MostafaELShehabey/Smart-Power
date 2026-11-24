@@ -15,6 +15,9 @@ from smart_power.tests.utils import load_erpnext_test_data, make_user
 load_erpnext_test_data()
 
 COMPANY = "_Test Company"
+# made per run, so no password is written in the repo
+PHONE_PASS = "Mb1-" + frappe.generate_hash(length=12)
+HTTP_PASS = "Hp1-" + frappe.generate_hash(length=12)
 
 
 def keys_anywhere(value) -> set:
@@ -84,14 +87,14 @@ class TestMobileAPI(IntegrationTestCase):
 		self.assertEqual(common.safe(data), {"name": "x", "rows": [{"qty": 2}], "operation_date": "d"})
 
 	def test_a_phone_signs_in_and_a_wrong_password_counts(self):
-		update_password(self.mostafa, "Mob1le-Test-Pass")
+		update_password(self.mostafa, PHONE_PASS)
 		frappe.db.set_value("User", self.mostafa, "sp_must_change_password", 0)
 		with (
 			patch.object(common, "device_id", return_value="PHONE-1"),
 			patch.object(auth, "device_id", return_value="PHONE-1"),
 		):
 			frappe.set_user("Guest")
-			result = auth.login(self.mostafa, "Mob1le-Test-Pass", "Test phone")
+			result = auth.login(self.mostafa, PHONE_PASS, "Test phone")
 			self.assertEqual(result["user"], self.mostafa)
 			api_key = frappe.db.get_value("User", self.mostafa, "api_key")
 			self.assertTrue(result["token"].startswith(f"{api_key}:"))
@@ -103,18 +106,14 @@ class TestMobileAPI(IntegrationTestCase):
 			self.assertEqual(wrong["error"]["code"], "AUTH")
 			self.assertEqual(frappe.db.get_value("User", self.mostafa, "sp_failed_logins"), before + 1)
 			frappe.db.set_value("User", self.mostafa, "sp_must_change_password", 1)
-			self.assertEqual(
-				auth.login(self.mostafa, "Mob1le-Test-Pass", None)["error"]["code"], "PASSWORD_CHANGE"
-			)
+			self.assertEqual(auth.login(self.mostafa, PHONE_PASS, None)["error"]["code"], "PASSWORD_CHANGE")
 			frappe.db.set_value("User", self.mostafa, "sp_must_change_password", 0)
 			device = frappe.db.get_value(common.DEVICE, {"user": self.mostafa, "device_id": "PHONE-1"})
 			frappe.db.set_value(common.DEVICE, device, "revoked_on", frappe.utils.now_datetime())
 			self.as_user(self.mostafa)
 			self.assertEqual(stations.mine()["error"]["code"], "DEVICE_REVOKED")
 			frappe.set_user("Guest")
-			self.assertEqual(
-				auth.login(self.mostafa, "Mob1le-Test-Pass", None)["error"]["code"], "DEVICE_REVOKED"
-			)
+			self.assertEqual(auth.login(self.mostafa, PHONE_PASS, None)["error"]["code"], "DEVICE_REVOKED")
 
 	def test_sync_push_takes_each_item_on_its_own(self):
 		self.as_user(self.mostafa)
@@ -166,7 +165,7 @@ class TestMobileOverHTTP(FrappeAPITestCase):
 		super().setUpClass()
 		frappe.db.rollback()  # commit the user alone, nothing the test setup prepared before it
 		make_user(cls.USER, ("installation_manager",))
-		update_password(cls.USER, "Mob1le-Http-Pass")
+		update_password(cls.USER, HTTP_PASS)
 		frappe.db.set_value("User", cls.USER, "sp_must_change_password", 0)
 		frappe.db.commit()
 
@@ -185,7 +184,7 @@ class TestMobileOverHTTP(FrappeAPITestCase):
 
 	def test_sign_in_then_call_with_the_token(self):
 		login = self.post(
-			self.method("smart_power.api.mobile.v1.auth.login"), {"usr": self.USER, "pwd": "Mob1le-Http-Pass"}
+			self.method("smart_power.api.mobile.v1.auth.login"), {"usr": self.USER, "pwd": HTTP_PASS}
 		)
 		self.assertEqual(login.status_code, 200, login.json)
 		token = login.json["message"]["token"]
