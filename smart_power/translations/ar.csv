@@ -4598,3 +4598,21 @@ Automations,الأتمتة
 "An automation (X9): when a record is created, changes status or a field, or a date is near or past, check the conditions and notify, create a task or assign.",أتمتة: عند إنشاء سجل أو تغيّر حالته أو حقل فيه، أو اقتراب تاريخ أو مروره، تتحقق من الشروط ثم تنبّه أو تنشئ مهمة أو تُسند.
 "What each automation did, and on which record: a time-based automation fires once per record.",ما قامت به كل أتمتة وعلى أي سجل: الأتمتة الزمنية تعمل مرة واحدة لكل سجل.
 Automation alert,تنبيه من أتمتة
+Change your password on the website first.,غيّر كلمة المرور من الموقع أولًا.
+For the admin only.,للأدمن فقط.
+Mobile Rate Limit (per minute),حد طلبات الموبايل (في الدقيقة)
+Not permitted.,غير مسموح.
+Push Token,رمز الإشعارات
+Send the file in the field 'file'.,أرسل الملف في الحقل 'file'.
+Sign in from this phone first.,سجّل الدخول من هذا الهاتف أولًا.
+Something went wrong.,حدث خطأ ما.
+Station {0} was not found.,المحطة {0} غير موجودة.
+The calls a user's phone may make to the mobile API in a minute; the next one gets 429.,عدد الطلبات التي يرسلها هاتف المستخدم إلى واجهة الموبايل في الدقيقة؛ الطلب التالي يُرفض (429).
+The expense needs its custody.,المصروف يحتاج عهدته.
+The phone's push messaging token (SP-149).,رمز إشعارات الهاتف (SP-149).
+This phone was turned off by the admin.,أوقف الأدمن هذا الهاتف.
+Too many requests: wait a minute and try again.,طلبات كثيرة: انتظر دقيقة ثم حاول مرة أخرى.
+Unknown action {0}.,إجراء غير معروف {0}.
+Unknown item.,عنصر غير معروف.
+"Wrong mobile, email or password.",الموبايل أو البريد أو كلمة المرور غير صحيحة.
+You are not on this station.,أنت لست على هذه المحطة.

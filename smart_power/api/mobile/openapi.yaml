@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Smart Power mobile API
+  version: "1.0"
+  description: |
+    The mobile app's API (SP-148). Every call is a Frappe method under
+    /api/method/smart_power.api.mobile.v1.<module>.<function>.
+    Sign in with auth.login, then send `Authorization: token <token>` and the phone's
+    `X-SP-Device` id on every call. A user may make Mobile Rate Limit calls a minute (120).
+    Errors come back as {"message": {"error": {"code", "message_ar", "details"}}} with the
+    HTTP status of their code. A call without a token gets AUTH (401); a wrong or revoked token
+    is refused by Frappe itself (401) before the API runs. v1 is frozen after go-live; breaking
+    changes go to v2.
+servers:
+  - url: /api/method/smart_power.api.mobile.v1
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "token <api_key>:<api_secret>, as auth.login returns it"
+  parameters:
+    device:
+      name: X-SP-Device
+      in: header
+      required: false
+      schema: {type: string}
+      description: The phone's own id; a phone the admin turned off gets DEVICE_REVOKED.
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: object
+          properties:
+            error:
+              type: object
+              properties:
+                code:
+                  type: string
+                  enum: [AUTH, DEVICE_REVOKED, PASSWORD_CHANGE, NOT_PERMITTED, NOT_FOUND, VALIDATION, DAY_LOCKED, RATE_LIMITED]
+                message_ar: {type: string}
+                details: {}
+  responses:
+    Error:
+      description: "AUTH / DEVICE_REVOKED 401, PASSWORD_CHANGE / NOT_PERMITTED 403, NOT_FOUND 404, VALIDATION 417, DAY_LOCKED 423, RATE_LIMITED 429"
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/Error"}
+security:
+  - token: []
+paths:
+  /auth.login:
+    post:
+      summary: Sign in with a mobile or email and a password; returns the token
+      security: []
+      parameters: [{$ref: "#/components/parameters/device"}]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [usr, pwd]
+              properties: {usr: {type: string}, pwd: {type: string}, device_name: {type: string}}
+      responses:
+        "200": {description: "{token, user, full_name, language}"}
+        default: {$ref: "#/components/responses/Error"}
+  /auth.logout:
+    post: {summary: This phone is signed out (not revoked), responses: {"200": {description: "{ok}"}}}
+  /auth.register_push:
+    post:
+      summary: The phone's push token (SP-149)
+      requestBody: {content: {application/json: {schema: {type: object, properties: {fcm_token: {type: string}}}}}}
+      responses: {"200": {description: "{ok}"}}
+  /me.bootstrap:
+    get: {summary: "User, roles, home tiles, settings, own custody and transit balances, next oil change", responses: {"200": {description: The bootstrap}}}
+  /sync.push:
+    post:
+      summary: "What the phone made offline: [{doctype, client_uuid, values}] for SP Field Entry and SP Custody Expense"
+      requestBody: {content: {application/json: {schema: {type: object, properties: {items: {type: array, items: {type: object}}}}}}}
+      responses: {"200": {description: "{results: [{client_uuid, ok, name | error}], server_time}"}}
+  /sync.pull:
+    get:
+      summary: "The lists' values, open tasks and stations changed since `since`"
+      parameters: [{name: since, in: query, schema: {type: string, format: date-time}}]
+      responses: {"200": {description: "{server_time, lists, tasks, stations}"}}
+  /files.upload:
+    post:
+      summary: "Multipart `file`, attached to a record the user may write"
+      requestBody: {content: {multipart/form-data: {schema: {type: object, properties: {file: {type: string, format: binary}, doctype: {type: string}, name: {type: string}, fieldname: {type: string}}}}}}
+      responses: {"200": {description: "{name, file_url}"}}
+  /tasks.list:
+    get: {summary: "The inbox: open tasks with counts per type", responses: {"200": {description: The tasks}}}
+  /tasks.action:
+    post:
+      summary: "approve / reject {reason} / snooze {until} / wake"
+      requestBody: {content: {application/json: {schema: {type: object, properties: {task: {type: string}, action: {type: string, enum: [approve, reject, snooze, wake]}, payload: {type: object}}}}}}
+      responses: {"200": {description: "{ok}"}}
+  /stations.mine:
+    get: {summary: "The user's open stations (site view: no money)", responses: {"200": {description: Stations}}}
+  /stations.get:
+    get:
+      summary: "One station's site view: systems, customer mobile, site tasks; no price, cost or amount"
+      parameters: [{name: name, in: query, required: true, schema: {type: string}}]
+      responses: {"200": {description: The station}, default: {$ref: "#/components/responses/Error"}}
+  /pos.expected_deliveries:
+    get: {summary: "The goods the user's stores expect (no prices)", responses: {"200": {description: Deliveries}}}
+  /transfers.mine:
+    get: {summary: The transfers the user recorded, responses: {"200": {description: Transfers}}}
+  /bookings.today:
+    get: {summary: "The driver's winch jobs of today", responses: {"200": {description: Jobs}}}
+  /field_entries.mine:
+    get: {summary: The light entries the user logged, responses: {"200": {description: Entries}}}
+  /custody.mine:
+    get: {summary: "The user's custody and its lines", responses: {"200": {description: Custody}}}
+  /calls.today:
+    get: {summary: The follow-up calls due today or late, responses: {"200": {description: Calls}}}
+  /review.field_entries:
+    get: {summary: "The light entries waiting for review (flagged first)", responses: {"200": {description: Entries}}}
+  /dashboard.get:
+    get: {summary: "The admin's command dashboard (AD1)", parameters: [{name: month, in: query, schema: {type: string}}], responses: {"200": {description: The dashboard}}}
+  /confirm.list:
+    get: {summary: "The admin's confirmations waiting (M14)", responses: {"200": {description: Pending items}}}
+  /confirm.action:
+    post:
+      summary: "confirm, or reject with a reason"
+      requestBody: {content: {application/json: {schema: {type: object, properties: {doctype: {type: string}, name: {type: string}, action: {type: string, enum: [confirm, reject]}, reason: {type: string}}}}}}
+      responses: {"200": {description: "{ok, result}"}}
+  /lookup.search:
+    get: {summary: "The global search (M15)", parameters: [{name: q, in: query, required: true, schema: {type: string}}], responses: {"200": {description: Results}}}
+  /forms.schema:
+    get:
+      summary: "A form's simple fields, the admin's cx_ fields (X3) included"
+      parameters: [{name: doctype, in: query, required: true, schema: {type: string}}]
+      responses: {"200": {description: "{doctype, fields}"}}
