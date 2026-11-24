@@ -298,7 +298,7 @@ def _build_payment_entry(doc):
 	from smart_power.sp_finance.centers import station_center
 
 	so = (
-		frappe.db.get_value(STATION, doc.station, ["sales_order", "project"], as_dict=True)
+		frappe.db.get_value(STATION, doc.station, ["sales_order", "project", "final_invoice"], as_dict=True)
 		if doc.station
 		else None
 	)
@@ -328,29 +328,51 @@ def _build_payment_entry(doc):
 	pe.setup_party_account_field()
 	pe.set_missing_values()
 	if so and so.sales_order and not doc.is_deposit:
-		_allocate_to_contract(pe, so.sales_order)
+		_allocate_to_contract(pe, so.sales_order, so.final_invoice)
 	return pe
 
 
-def _allocate_to_contract(pe, sales_order: str) -> None:
-	"""The payment is the contract's advance (the schedule is paid oldest instalment first)."""
+def _allocate_to_contract(pe, sales_order: str, invoice: str | None = None) -> None:
+	"""The payment is the contract's advance (the schedule is paid oldest instalment first). Once
+	the technical close has made the final invoice (SP-80), it pays that invoice instead: the
+	contract is fully billed then, and ERPNext refuses an advance against it (BUG-14)."""
+	if invoice:
+		si = frappe.db.get_value(
+			"Sales Invoice",
+			invoice,
+			["docstatus", "rounded_total", "grand_total", "outstanding_amount"],
+			as_dict=True,
+		)
+		if si and si.docstatus == 1:
+			if flt(si.outstanding_amount) > 0:
+				_reference(
+					pe,
+					"Sales Invoice",
+					invoice,
+					flt(si.rounded_total or si.grand_total),
+					flt(si.outstanding_amount),
+				)
+			return  # paid in full: what is over stays on the customer's account
 	so = frappe.db.get_value(
 		"Sales Order",
 		sales_order,
-		["docstatus", "rounded_total", "grand_total", "advance_paid"],
+		["docstatus", "rounded_total", "grand_total", "advance_paid", "per_billed"],
 		as_dict=True,
 	)
-	if not so or so.docstatus != 1:
+	if not so or so.docstatus != 1 or flt(so.per_billed) >= 100:
 		return
 	total = flt(so.rounded_total or so.grand_total)
-	outstanding = total - flt(so.advance_paid)
+	_reference(pe, "Sales Order", sales_order, total, total - flt(so.advance_paid))
+
+
+def _reference(pe, doctype: str, name: str, total: float, outstanding: float) -> None:
 	if outstanding <= 0:
 		return
 	pe.append(
 		"references",
 		{
-			"reference_doctype": "Sales Order",
-			"reference_name": sales_order,
+			"reference_doctype": doctype,
+			"reference_name": name,
 			"total_amount": total,
 			"outstanding_amount": outstanding,
 			"allocated_amount": min(flt(pe.paid_amount), outstanding),

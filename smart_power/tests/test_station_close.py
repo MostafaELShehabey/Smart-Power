@@ -10,12 +10,16 @@ from frappe.utils import add_months, flt, getdate, today
 
 from smart_power.sp_core.documents import seed_warranty_template
 from smart_power.sp_core.setup.seed import seed_list_values
+from smart_power.sp_finance.accounts import seed_accounts
+from smart_power.sp_finance.cheques import mark_collected, mark_deposited
+from smart_power.sp_finance.customer_payment import confirm
 from smart_power.sp_sales.quotation import approve_version
 from smart_power.sp_site import commissioning as com
 from smart_power.sp_stations import close
 from smart_power.sp_stations.contract import make_contract
 from smart_power.sp_stations.station import record_write_off
 from smart_power.sp_stock import warehouses as wh
+from smart_power.tests.test_customer_payment import account
 from smart_power.tests.test_station import WRITE_OFF_MAP
 from smart_power.tests.utils import (
 	load_erpnext_test_data,
@@ -65,6 +69,7 @@ class TestStationClose(IntegrationTestCase):
 		com.seed_commissioning_templates()
 		seed_warranty_template()
 		close.ensure_invoice_series()
+		seed_accounts(COMPANY)
 		cls.amira = make_user("sp.cl80.amira@example.com", ("project_manager",))
 		cls.admin = make_user("sp.cl80.admin@example.com", ("admin",))
 
@@ -183,6 +188,84 @@ class TestStationClose(IntegrationTestCase):
 		self.close_technically(station)
 		self.assertEqual(frappe.db.get_value(STATION, station.name, "status"), "Technically closed")
 		receive(station, TOTAL - PAID)
+		self.assertEqual(frappe.db.get_value(STATION, station.name, "status"), "Financially closed")
+
+	def collect(self, station, amount):
+		"""A station payment recorded and confirmed by the admin, as SP-114 posts it."""
+		frappe.set_user(self.admin)
+		try:
+			doc = frappe.get_doc(
+				{
+					"doctype": "SP Customer Payment",
+					"station": station.name,
+					"amount": amount,
+					"method": "Payment Method-CASH",
+					"receiving_account": account("SP Close Bank", "Bank", "Official", account_type="Bank"),
+					"reference_no": "BUG14",
+					"receipt_photo": "/files/receipt.jpg",
+				}
+			).insert()
+			doc.submit()
+			confirm(doc.name)
+		finally:
+			frappe.set_user("Administrator")
+		return frappe.get_doc("SP Customer Payment", doc.name)
+
+	def closed_station(self):
+		station = self.station()
+		self.commission(station)
+		self.close_technically(station)
+		invoice = frappe.db.get_value(STATION, station.name, "final_invoice")
+		self.assertEqual(
+			flt(frappe.db.get_value("Sales Invoice", invoice, "outstanding_amount")), TOTAL - PAID
+		)
+		return station, invoice
+
+	def references(self, payment):
+		pe = frappe.get_doc("Payment Entry", payment.payment_entry)
+		return [(r.reference_doctype, r.reference_name, flt(r.allocated_amount)) for r in pe.references]
+
+	def test_a_payment_after_the_technical_close_pays_the_final_invoice(self):
+		# BUG-14: the contract is fully billed by then; ERPNext refused an advance against it
+		station, invoice = self.closed_station()
+		part = 500
+		payment = self.collect(station, part)
+		self.assertEqual(payment.status, "Confirmed")
+		self.assertEqual(self.references(payment), [("Sales Invoice", invoice, part)])
+		self.assertEqual(
+			flt(frappe.db.get_value("Sales Invoice", invoice, "outstanding_amount")), TOTAL - PAID - part
+		)
+		self.assertEqual(frappe.db.get_value(STATION, station.name, "status"), "Technically closed")
+		# the rest, and more than is left: the invoice is paid and the station closes financially
+		over = 100
+		last = self.collect(station, TOTAL - PAID - part + over)
+		self.assertEqual(self.references(last), [("Sales Invoice", invoice, TOTAL - PAID - part)])
+		self.assertEqual(flt(frappe.db.get_value("Sales Invoice", invoice, "outstanding_amount")), 0)
+		self.assertEqual(frappe.db.get_value(STATION, station.name, "status"), "Financially closed")
+
+	def test_a_cheque_collected_after_the_technical_close_pays_the_final_invoice(self):
+		set_setting(cheque_auto_confirm=1)
+		station, invoice = self.closed_station()
+		cheque = frappe.get_doc(
+			{
+				"doctype": "SP Cheque",
+				"cheque_no": frappe.generate_hash(length=8),
+				"amount": TOTAL - PAID,
+				"due_date": today(),
+				"bank_or_post": "مكتب بريد",
+				"holder": self.admin,
+				"station": station.name,
+			}
+		).insert()
+		frappe.set_user(self.admin)
+		mark_deposited(cheque.name)
+		mark_collected(cheque.name)
+		frappe.set_user("Administrator")
+		payment = frappe.get_doc(
+			"SP Customer Payment", frappe.db.get_value("SP Cheque", cheque.name, "customer_payment")
+		)
+		self.assertEqual(payment.status, "Confirmed")
+		self.assertEqual(self.references(payment), [("Sales Invoice", invoice, TOTAL - PAID)])
 		self.assertEqual(frappe.db.get_value(STATION, station.name, "status"), "Financially closed")
 
 	def test_the_warranty_certificate_lists_the_components(self):
