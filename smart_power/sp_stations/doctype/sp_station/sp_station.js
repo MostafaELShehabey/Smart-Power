@@ -549,7 +549,7 @@ const SP_ST_RENDER = {
 
 	agreement(d, amounts) {
 		if (!d.contract) return `<p class="text-muted">${__("No contract yet.")}</p>`;
-		const pdf = `<a class="btn btn-xs btn-default" href="${encodeURI(d.pdf)}" target="_blank" rel="noopener">${__("Contract PDF")}</a>`;
+		const pdf = `<a class="btn btn-xs btn-default" href="${sp_st_esc(d.pdf)}" target="_blank" rel="noopener">${__("Contract PDF")}</a>`;
 		return (
 			`<p class="text-muted small">${__("Read-only after signing: it changes only through a change order.")}</p>` +
 			sp_st_facts([
@@ -882,7 +882,7 @@ const SP_ST_RENDER = {
 		if (d.contract) {
 			html +=
 				sp_st_h(__("Contract")) +
-				`<p><a href="/app/sales-order/${encodeURIComponent(d.contract.name)}">${sp_st_esc(d.contract.name)}</a> · <a href="${encodeURI(d.contract.pdf)}" target="_blank" rel="noopener">${__("Contract PDF")}</a></p>`;
+				`<p><a href="/app/sales-order/${encodeURIComponent(d.contract.name)}">${sp_st_esc(d.contract.name)}</a> · <a href="${sp_st_esc(d.contract.pdf)}" target="_blank" rel="noopener">${__("Contract PDF")}</a></p>`;
 		}
 		return (
 			html +

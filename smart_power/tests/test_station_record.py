@@ -1,6 +1,7 @@
 """S2 Station record (SP-76): the tabs each role sees, amounts only for money roles, the Costs tab."""
 
 import json
+from urllib.parse import parse_qs, urlsplit
 
 import frappe
 from frappe import _
@@ -244,6 +245,18 @@ class TestStationRecord(IntegrationTestCase):
 		rows = st.schedule_status([(past, 100), (past, 100), (future, 100)], 150)
 		self.assertEqual([r["status"] for r in rows], ["Paid", "Overdue", "Due"])
 		self.assertEqual([r["paid"] for r in rows], [100, 50, 0])
+
+	def test_the_contract_pdf_link_is_encoded_once(self):
+		# BUG-9: the page used to encode an already encoded link: Frappe got "Sales%2520Order"
+		contract = "SAL-ORD-2026-00001"
+		url = st.contract_pdf_url(contract)
+		self.assertTrue(url.startswith("/api/method/frappe.utils.print_format.download_pdf?"))
+		self.assertEqual(
+			parse_qs(urlsplit(url).query),
+			{"doctype": ["Sales Order"], "name": [contract], "format": ["SP Contract"]},
+		)
+		frappe.db.set_value("SP Station", self.station.name, "sales_order", contract)
+		self.assertEqual(self.tab(self.admin, "documents")["contract"]["pdf"], url)
 
 	def test_history_hides_the_cost_changes_from_who_cannot_see_cost(self):
 		frappe.get_doc(
