@@ -13,8 +13,12 @@ CENTER_FIELDS = ("center_projects", "center_showroom", "center_winch", "center_j
 
 
 def _company(filters) -> str | None:
+	"""The form's company, else the user's, else the site's: a new worker advance or crew salary
+	takes its company from the vehicle only on save, and the pickers must list before that (BUG-18)."""
+	from erpnext import get_default_company
+
 	filters = frappe.parse_json(filters) if isinstance(filters, str) else (filters or {})
-	return filters.get("company") or frappe.defaults.get_user_default("Company")
+	return filters.get("company") or frappe.defaults.get_user_default("Company") or get_default_company()
 
 
 @frappe.whitelist()
