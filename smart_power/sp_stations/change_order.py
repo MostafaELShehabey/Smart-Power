@@ -49,7 +49,7 @@ def _contract_lines(sales_order: str) -> list:
 	return frappe.get_all(
 		SO_ITEM,
 		{"parent": sales_order, "parenttype": SO},
-		["name", "idx", "item_code", "qty", "rate", "delivered_qty"],
+		["name", "idx", "item_code", "item_name", "qty", "rate", "delivered_qty"],
 		order_by="idx asc",
 	)
 
@@ -134,6 +134,8 @@ def _price_lines(doc, station) -> None:
 			taken[match.name] = taken.get(match.name, 0) - qty
 			line.so_detail = match.name
 			line.rate = match.rate  # a return is valued at the contract's price (owner, 2026-11-21)
+			# the contract line's own text: every manual line's item is «بند يدوي» (BUG-12)
+			line.item_name = match.item_name or line.item_name
 		else:
 			line.so_detail = None
 			if not flt(line.rate):
@@ -432,7 +434,7 @@ def contract_lines(station: str) -> list[dict]:
 			{
 				"so_detail": r.name,
 				"item_code": r.item_code,
-				"item_name": frappe.db.get_value("Item", r.item_code, "item_name"),
+				"item_name": r.item_name or frappe.db.get_value("Item", r.item_code, "item_name"),
 				"qty": flt(r.qty),
 				"left": left,
 				"rate": flt(r.rate),
