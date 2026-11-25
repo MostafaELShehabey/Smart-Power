@@ -1657,6 +1657,7 @@ Site Survey,معاينة موقع
 Site survey for {0},معاينة موقع لـ {0}
 Site survey tasks,مهام معاينة الموقع
 Site Visit Needed,يحتاج معاينة موقع
+Site Survey Done,تمت معاينة الموقع
 Site Warehouse,مخزن الموقع
 Skill,المهارة
 Smart Power,سمارت باور
@@ -4618,4 +4619,3 @@ Unknown action {0}.,إجراء غير معروف {0}.
 Unknown item.,عنصر غير معروف.
 "Wrong mobile, email or password.",الموبايل أو البريد أو كلمة المرور غير صحيحة.
 You are not on this station.,أنت لست على هذه المحطة.
-Site Survey Done,تمت معاينة الموقع
