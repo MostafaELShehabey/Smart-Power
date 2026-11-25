@@ -396,6 +396,9 @@ def _close(doc, reason: str, refund_total: float, lines: list[dict]) -> None:
 	# the workflow has no Cancel transition: a station is cancelled only here, with its refunds
 	doc.db_set("status", CANCELLED)
 	doc.add_comment("Info", _("Cancelled: {0}").format(reason))
+	from smart_power.sp_stations.money import refresh
+
+	refresh(doc.name)  # nothing left to pay; paid falls as each refund is confirmed (BUG-26)
 	if doc.sales_order and frappe.db.get_value("Sales Order", doc.sales_order, "docstatus") == 1:
 		so = frappe.get_doc("Sales Order", doc.sales_order)
 		so.flags.ignore_permissions = True
