@@ -140,13 +140,14 @@ def before_migrate() -> None:
 
 
 def after_migrate() -> None:
-	from smart_power.permissions import sync_cost_permissions
+	from smart_power.permissions import sync_cost_permissions, sync_cost_reports
 	from smart_power.rules import sync_rule_settings
 
 	ensure_admin_module()
 	sync_role_profiles()
 	sync_rule_settings()
 	sync_cost_permissions()
+	sync_cost_reports()  # stock value reports for the cost roles only (BUG-28)
 	from smart_power.sp_sales.quote_list import sync_export_permissions
 
 	sync_export_permissions()  # Q1 export (SP-64)

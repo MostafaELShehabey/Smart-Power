@@ -29,7 +29,7 @@ from frappe import _
 from frappe.permissions import setup_custom_perms
 from frappe.utils import cint
 
-from smart_power.permissions import COST_PERMLEVEL
+from smart_power.permissions import COST_PERMLEVEL, STOCK_COST_DOCTYPES
 from smart_power.sp_core.row_rules import ASSIGNED, ASSIGNEE, RULE
 from smart_power.sp_core.services.audit import audit
 
@@ -43,11 +43,14 @@ FIELD_RULES = {
 	"cost_profit": (("Quotation", COST_PERMLEVEL),),
 	"supplier_prices": (("Purchase Order", COST_PERMLEVEL), ("Purchase Receipt", COST_PERMLEVEL)),
 	"station_costs": (("SP Station", COST_PERMLEVEL),),
+	# valuation, stock value and costing on ERPNext's stock and project records (BUG-28)
+	"stock_values": tuple((doctype, COST_PERMLEVEL) for doctype in STOCK_COST_DOCTYPES),
 }
 FIELD_LABELS = {
 	"cost_profit": "See cost and profit",
 	"supplier_prices": "See supplier prices",
 	"station_costs": "See station costs",
+	"stock_values": "See stock values",
 }
 ALL, SOME, NONE = "all", "some", "none"
 

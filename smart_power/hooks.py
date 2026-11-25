@@ -570,6 +570,8 @@ override_whitelisted_methods = {
 	"erpnext.controllers.accounts_controller.update_child_qty_rate": (
 		"smart_power.sp_sales.quotation.update_child_qty_rate"
 	),
+	# a report's "Add column": a field the user may not read is refused plainly (BUG-28)
+	"frappe.desk.query_report.get_data_for_custom_field": "smart_power.permissions.get_data_for_custom_field",
 }
 
 export_python_type_annotations = True
