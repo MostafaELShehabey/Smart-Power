@@ -12,7 +12,7 @@
 
 import frappe
 from frappe import _
-from frappe.utils import flt
+from frappe.utils import cint, flt
 
 EMPLOYEE, ACTIVE = "Employee", "Active"
 # who picks crew on site logs, winch jobs and field entries (they may not read HR's Employee list)
@@ -42,12 +42,30 @@ def validate(doc, method=None) -> None:
 		frappe.throw(_("A daily worker has no login; untick Daily Worker for staff who sign in."))
 
 
+def fill_worker(row, daily_field: str | None = None) -> None:
+	"""The worker's name (and Daily Worker) on a crew line, advance or salary, from the server: the
+	roles that keep them may not read HR's Employee list, so the form does not fetch it (BUG-10)."""
+	if not row.get("employee"):
+		return
+	values = frappe.db.get_value(
+		EMPLOYEE, row.employee, ["employee_name", "sp_is_daily_worker"], as_dict=True
+	)
+	if not values:
+		return
+	row.employee_name = values.employee_name
+	if daily_field:
+		setattr(row, daily_field, values.sp_is_daily_worker)
+
+
 @frappe.whitelist()
 def crew_line(employee: str) -> dict:
 	"""What a new crew or wage line starts with: the worker and his daily wage."""
 	_check_crew_role()
 	row = frappe.db.get_value(
-		EMPLOYEE, employee, ["name", "employee_name", "sp_daily_wage", "sp_skill", "status"], as_dict=True
+		EMPLOYEE,
+		employee,
+		["name", "employee_name", "sp_daily_wage", "sp_is_daily_worker", "sp_skill", "status"],
+		as_dict=True,
 	)
 	if not row:
 		frappe.throw(_("Employee {0} not found.").format(employee))
@@ -55,6 +73,7 @@ def crew_line(employee: str) -> dict:
 		"employee": row.name,
 		"employee_name": row.employee_name,
 		"wage": flt(row.sp_daily_wage),
+		"daily_worker": cint(row.sp_is_daily_worker),
 		"skill": row.sp_skill,
 		"active": row.status == ACTIVE,
 	}

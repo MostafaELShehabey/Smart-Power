@@ -79,6 +79,8 @@ def _one_per_day(doc) -> None:
 
 
 def _crew(doc) -> None:
+	from smart_power.sp_core.workers import fill_worker
+
 	seen = set()
 	for row in doc.crew:
 		if row.employee in seen:
@@ -86,6 +88,7 @@ def _crew(doc) -> None:
 				_("Row {0}: {1} is already on the crew.").format(row.idx, row.employee_name or row.employee)
 			)
 		seen.add(row.employee)
+		fill_worker(row, "is_daily_worker")
 		if flt(row.days) <= 0:
 			frappe.throw(_("Row {0}: the days must be above zero.").format(row.idx))
 		if not flt(row.wage):

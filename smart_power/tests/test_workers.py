@@ -69,3 +69,24 @@ class TestWorkers(IntegrationTestCase):
 		frappe.set_user(self.cashier)
 		with self.assertRaises(frappe.PermissionError):
 			workers.crew_line(ahmed.name)
+
+	def test_the_crew_forms_fill_the_worker_without_reading_employee(self):
+		# BUG-10: the forms fetched the name from Employee, which the crew roles may not read
+		for doctype in ("SP Crew Line", "SP Worker Advance", "SP Crew Salary"):
+			with self.subTest(doctype=doctype):
+				fetched = [
+					f.fieldname
+					for f in frappe.get_meta(doctype).fields
+					if (f.fetch_from or "").startswith("employee.")
+				]
+				self.assertEqual(fetched, [])
+		ahmed = worker("سيد حسن", 300)
+		frappe.set_user(self.mostafa)
+		self.assertFalse(frappe.has_permission("Employee", "read", doc=ahmed.name))
+		line = workers.crew_line(ahmed.name)
+		self.assertEqual(
+			(line["employee_name"], line["daily_worker"], flt(line["wage"])), ("سيد حسن", 1, 300)
+		)
+		row = frappe._dict(employee=ahmed.name)
+		workers.fill_worker(row, "is_daily_worker")  # what the server writes on save
+		self.assertEqual((row.employee_name, row.is_daily_worker), ("سيد حسن", 1))
