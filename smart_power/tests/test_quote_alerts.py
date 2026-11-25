@@ -55,8 +55,10 @@ class TestQuoteAlerts(IntegrationTestCase):
 	def test_overdue_says_request_over_24_hours_once(self):
 		case = make_case(quote_creator=self.aya)
 		aged(case, 24.2)
+		# an Arabic reader, while the job runs in the site's English (BUG-22)
+		frappe.db.set_value("User", self.aya, "language", "ar")
 		lang = frappe.local.lang
-		frappe.local.lang = "ar"
+		frappe.local.lang = "en"
 		try:
 			check_quote_clock()
 			check_quote_clock()

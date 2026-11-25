@@ -226,7 +226,8 @@ def post_confirmed(doc) -> str:
 	_notify(
 		doc,
 		[doc.recorded_by, owner],
-		_("Confirmed: {0} from {1}").format(frappe.format(doc.amount, "Currency"), doc.customer_name),
+		# in each reader's language: bulk confirmations run as a background job (BUG-22)
+		lambda: _("Confirmed: {0} from {1}").format(frappe.format(doc.amount, "Currency"), doc.customer_name),
 		"payment_confirmed",
 	)
 	return entry
@@ -439,7 +440,7 @@ def _refresh(doc) -> None:
 		refresh(doc.station)
 
 
-def _notify(doc, users, subject: str, event: str) -> None:
+def _notify(doc, users, subject, event: str) -> None:
 	from smart_power.notify import send
 
 	users = sorted({u for u in users if u})

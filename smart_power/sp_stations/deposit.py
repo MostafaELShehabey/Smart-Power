@@ -334,7 +334,8 @@ def _notify(station, so, pe) -> None:
 		users,
 		STATION,
 		station.name,
-		_("Deposit confirmed for {0}: station {1}, contract {2}").format(
+		# in each reader's language: the deposit runs as a background job (BUG-22)
+		lambda: _("Deposit confirmed for {0}: station {1}, contract {2}").format(
 			station.customer_name or station.customer, station.name, so.name
 		),
 		from_user=frappe.session.user,

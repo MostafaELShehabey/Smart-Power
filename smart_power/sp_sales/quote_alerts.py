@@ -42,10 +42,10 @@ def check_quote_clock(now=None) -> None:
 			for hit in evaluate(doc, QUOTE_CLOCK_EVENT):
 				record_warning(doc, hit)
 			# "طلب تجاوز 24 ساعة" with the hours from Quote Due Within
-			notify(case, _("Request over {2} hours: {0} ({1})"))  # sp-allow-number: placeholder
+			notify(case, lambda: _("Request over {2} hours: {0} ({1})"))  # sp-allow-number: placeholder
 			frappe.db.set_value("SP Case", case.name, "quote_alert", OVERDUE, update_modified=False)
 		elif state == AMBER and not case.quote_alert:
-			notify(case, _("Quote due soon: {0} ({1})"))
+			notify(case, lambda: _("Quote due soon: {0} ({1})"))
 			frappe.db.set_value("SP Case", case.name, "quote_alert", AMBER, update_modified=False)
 
 
@@ -55,13 +55,16 @@ def recipients(case) -> list[str]:
 	return sorted(set(creators) | set(_users_with(ADMIN)))
 
 
-def notify(case, subject: str) -> None:
+def notify(case, subject) -> None:
+	"""subject: a function giving the text to fill, called in each reader's language (BUG-22)."""
 	send(
 		"request_overdue",
 		recipients(case),
 		"SP Case",
 		case.name,
-		subject.format(case.customer_name or case.name, case.name, f"{due_hours():g}"),
+		lambda: (subject() if callable(subject) else subject).format(
+			case.customer_name or case.name, case.name, f"{due_hours():g}"
+		),
 		from_user="Administrator",
 	)
 

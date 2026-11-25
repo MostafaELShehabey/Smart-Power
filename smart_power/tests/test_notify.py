@@ -94,3 +94,55 @@ class TestNotify(IntegrationTestCase):
 	def test_nobody_is_notified_twice_or_as_a_guest(self):
 		result = notify.send("custody", [self.requester, self.requester, None, "Guest"], None, None, "x")
 		self.assertEqual(result["in_app"], [self.requester])
+
+
+class TestNotifyLanguage(IntegrationTestCase):
+	"""BUG-22: a daily job runs in the site's language (English here); what it writes to people
+	is in each reader's own."""
+
+	TEXT = "Instalment due: {0} from {1} (station {2}) on {3}"
+	ARABIC = "قسط مستحق"
+
+	def setUp(self):
+		notify.sync_events()
+		self.arabic = make_user("sp.nt.arabic@example.com", ("customer_followup",))
+		self.english = make_user("sp.nt.english@example.com", ("customer_followup",))
+		frappe.db.set_value("User", self.arabic, "language", "ar")
+		frappe.db.set_value("User", self.english, "language", "en")
+		frappe.db.delete("Notification Log", {"for_user": ("in", (self.arabic, self.english))})
+		before = frappe.local.lang
+		frappe.local.lang = "en"  # as a scheduled job runs
+		self.addCleanup(setattr, frappe.local, "lang", before)
+
+	def subject(self):
+		return frappe._(self.TEXT).format("100", "عميل", "2026-001", "01-12-2026")
+
+	def test_a_built_subject_is_written_in_each_readers_language(self):
+		notify.send("installment_due", [self.arabic, self.english], None, None, self.subject)
+		logs = dict(
+			frappe.get_all(
+				"Notification Log",
+				{"for_user": ("in", (self.arabic, self.english))},
+				["for_user", "subject"],
+				as_list=True,
+			)
+		)
+		self.assertIn(self.ARABIC, logs[self.arabic])
+		self.assertTrue(logs[self.english].startswith("Instalment due"))
+		self.assertEqual(frappe.local.lang, "en")  # the job's own language is left as it was
+
+	def test_a_text_is_sent_as_it_is(self):
+		notify.send("installment_due", [self.arabic], None, None, "نص جاهز")
+		self.assertEqual(
+			frappe.db.get_value("Notification Log", {"for_user": self.arabic}, "subject"), "نص جاهز"
+		)
+
+	def test_a_task_is_written_in_its_users_language(self):
+		from smart_power.sp_core.inbox import create_task
+
+		names = create_task("Other", None, None, [self.arabic, self.english], self.subject)
+		subjects = dict(
+			frappe.get_all("SP Task", {"name": ("in", names)}, ["assigned_to", "subject"], as_list=True)
+		)
+		self.assertIn(self.ARABIC, subjects[self.arabic])
+		self.assertTrue(subjects[self.english].startswith("Instalment due"))

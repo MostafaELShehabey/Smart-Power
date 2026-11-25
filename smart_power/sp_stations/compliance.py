@@ -83,36 +83,22 @@ def expiry_reminders(today=None) -> int:
 		key = f"{row.expiry_date}:{min(reached)}"
 		if row.reminded_for == key:
 			continue
-		for lang, group in by_language(users).items():
-			_remind(row, left, lang, group)
+		_remind(row, left, users)
 		frappe.db.set_value(DOCUMENT, row.name, "reminded_for", key, update_modified=False)
 		sent += 1
 	return sent
 
 
-def by_language(users: list[str]) -> dict[str, list[str]]:
-	"""The users by their own language: a daily job has no reader, so each alert is written per reader."""
-	default = frappe.db.get_single_value("System Settings", "language") or "ar"
-	groups: dict[str, list[str]] = {}
-	for user in frappe.get_all("User", {"name": ("in", users or [""])}, ["name", "language"]):
-		groups.setdefault(user.language or default, []).append(user.name)
-	return groups
-
-
-def _remind(row, left: int, lang: str, users: list[str]) -> None:
+def _remind(row, left: int, users: list[str]) -> None:
 	from smart_power.notify import send
 
-	before = frappe.local.lang
-	frappe.local.lang = lang
-	try:
+	def subject():  # in each reader's language (BUG-22)
 		title = " ".join(p for p in (_(row.doc_type), row.number) if p)
 		if left < 0:
-			subject = _("{0} expired on {1}").format(title, formatdate(row.expiry_date))
-		else:
-			subject = _("{0} expires in {1} days, on {2}").format(title, left, formatdate(row.expiry_date))
-		send(EVENT, users, DOCUMENT, row.name, subject)
-	finally:
-		frappe.local.lang = before
+			return _("{0} expired on {1}").format(title, formatdate(row.expiry_date))
+		return _("{0} expires in {1} days, on {2}").format(title, left, formatdate(row.expiry_date))
+
+	send(EVENT, users, DOCUMENT, row.name, subject)
 
 
 def expiring_filter(today=None) -> list:

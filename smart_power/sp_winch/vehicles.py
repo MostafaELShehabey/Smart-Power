@@ -114,6 +114,10 @@ def check_oil_due() -> None:
 		if km_to_oil(row) > margin or cint(row.sp_oil_alerted_at) == cint(row.sp_next_oil_km):
 			continue
 		users = sorted({*managers, row.sp_driver_user} - {None, ""})
-		subject = _("{0}: {1} km to the oil change").format(row.name, km_to_oil(row))
-		send(EVENT_OIL, users, VEHICLE, row.name, subject)
+		send(EVENT_OIL, users, VEHICLE, row.name, _oil_subject(row))
 		frappe.db.set_value(VEHICLE, row.name, "sp_oil_alerted_at", row.sp_next_oil_km, update_modified=False)
+
+
+def _oil_subject(row):
+	"""In each reader's language: a daily job has none of its own (BUG-22)."""
+	return lambda: _("{0}: {1} km to the oil change").format(row.name, km_to_oil(row))

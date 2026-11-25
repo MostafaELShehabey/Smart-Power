@@ -232,7 +232,9 @@ def lock_entries() -> list[str]:
 			[user],
 			ENTRY,
 			names[0],
-			_("{0} field entries lock within 24 hours").format(len(names)),
+			lambda names=names: _("{0} field entries lock within 24 hours").format(
+				len(names)
+			),  # per reader (BUG-22)
 			from_user="Administrator",
 		)
 	return locked

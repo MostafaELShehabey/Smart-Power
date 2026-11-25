@@ -130,6 +130,11 @@ def _subject(auto, action, doc) -> str:
 	return _("{0}: {1} {2}").format(auto.title, _(doc.doctype), doc.name)
 
 
+def _subject_per_reader(auto, action, doc):
+	"""A daily rule has no reader of its own: each user gets it in their language (BUG-22)."""
+	return lambda: _subject(auto, action, doc)
+
+
 def plan(auto, doc) -> list[dict]:
 	out = []
 	ref_doctype, ref_name = _reference(doc)
@@ -154,11 +159,12 @@ def execute(auto, doc) -> list[dict]:
 	from smart_power.sp_core.inbox import create_task
 
 	done = plan(auto, doc)
-	for row in done:
+	for action, row in zip(auto.actions, done, strict=True):
 		if not row["users"]:
 			continue
+		subject = _subject_per_reader(auto, action, doc)
 		if row["kind"] == NOTIFY:
-			send(EVENT, row["users"], row["reference_doctype"], row["reference_name"], row["subject"])
+			send(EVENT, row["users"], row["reference_doctype"], row["reference_name"], subject)
 		elif row["kind"] == TASK:
 			due = add_days(now_datetime(), row["due_days"])
 			create_task(
@@ -166,7 +172,7 @@ def execute(auto, doc) -> list[dict]:
 				row["reference_doctype"],
 				row["reference_name"],
 				row["users"],
-				row["subject"],
+				subject,
 				due_at=due,
 			)
 		elif row["kind"] == ASSIGN:

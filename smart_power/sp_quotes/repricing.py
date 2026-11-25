@@ -153,7 +153,8 @@ def check_quote(name: str) -> bool:
 	case = frappe.db.get_value(CASE, doc.sp_case, ["status", "follow_up_owner"], as_dict=True)
 	if not case or case.status in CLOSED_CASES:
 		return False
-	note = _note(doc, differences(doc)["lines"])
+	lines = differences(doc)["lines"]
+	note = _note(doc, lines)
 	if not note:
 		return False
 	mark_needs_repricing(name, note)
@@ -162,7 +163,7 @@ def check_quote(name: str) -> bool:
 		[doc.get("sp_quote_creator"), case.follow_up_owner],
 		QUOTATION,
 		name,
-		_("Quote {0} needs repricing: {1}").format(name, note),
+		lambda: _("Quote {0} needs repricing: {1}").format(name, _note(doc, lines)),  # per reader (BUG-22)
 	)
 	return True
 

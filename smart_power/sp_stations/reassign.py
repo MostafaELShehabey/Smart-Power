@@ -200,13 +200,15 @@ def _tell(doc, kind: str, old: str | None, new: str, reason: str, by: str) -> No
 	from smart_power.notify import send
 
 	customer = doc.customer_name or doc.customer
-	what = _(_label(kind))
+	# each text in its reader's language: the daily hand-over job has none of its own (BUG-22)
 	send(
 		EVENT,
 		[new],
 		STATION,
 		doc.name,
-		_("You are now the {0} of station {1} ({2}): {3}").format(what, doc.name, customer, reason),
+		lambda: _("You are now the {0} of station {1} ({2}): {3}").format(
+			_(_label(kind)), doc.name, customer, reason
+		),
 		from_user=by,
 	)
 	if old and old != new:
@@ -215,8 +217,8 @@ def _tell(doc, kind: str, old: str | None, new: str, reason: str, by: str) -> No
 			[old],
 			STATION,
 			doc.name,
-			_("Station {0} ({1}) moved to {2} as {3}: {4}").format(
-				doc.name, customer, get_fullname(new), what, reason
+			lambda: _("Station {0} ({1}) moved to {2} as {3}: {4}").format(
+				doc.name, customer, get_fullname(new), _(_label(kind)), reason
 			),
 			from_user=by,
 		)

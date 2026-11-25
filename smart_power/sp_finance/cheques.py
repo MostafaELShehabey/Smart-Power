@@ -132,7 +132,7 @@ def mark_bounced(name: str, note: str | None = None) -> str:
 	_alert(
 		doc,
 		[owner, *_admins()],
-		_("Cheque {0} of {1} bounced ({2})").format(
+		lambda: _("Cheque {0} of {1} bounced ({2})").format(
 			doc.cheque_no, frappe.format(doc.amount, "Currency"), doc.customer_name or doc.station
 		),
 		"cheque_bounced",
@@ -166,7 +166,7 @@ def check_due() -> list[str]:
 		_alert(
 			doc,
 			[doc.holder, owner, *_admins()],
-			_("Cheque {0} of {1} is due on {2}; deposit it at the Post").format(
+			lambda doc=doc: _("Cheque {0} of {1} is due on {2}; deposit it at the Post").format(
 				doc.cheque_no,
 				frappe.format(doc.amount, "Currency"),
 				frappe.format(getdate(doc.due_date), "Date"),
@@ -183,7 +183,8 @@ def _admins() -> list[str]:
 	return _users_with(ADMIN_ROLE)
 
 
-def _alert(doc, users, subject: str, event: str) -> None:
+def _alert(doc, users, subject, event: str) -> None:
+	"""subject: a function, so each reader gets it in their language (BUG-22)."""
 	from smart_power.notify import send
 
 	users = sorted({u for u in users if u})

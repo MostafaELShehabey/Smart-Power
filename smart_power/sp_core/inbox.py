@@ -27,7 +27,7 @@ def create_task(
 	reference_doctype: str | None,
 	reference_name: str | None,
 	users,
-	subject: str,
+	subject,
 	*,
 	description: str | None = None,
 	amount: float | None = None,
@@ -38,11 +38,16 @@ def create_task(
 ) -> list[str]:
 	"""One open task per user (a user who already has this open task is not given another). With
 	distinct_subject, the same record may hold several open tasks of one type, one per subject
-	(the steps of a station task template, SP-173)."""
+	(the steps of a station task template, SP-173). subject: a text, or a function that builds it,
+	called in each user's own language (a scheduled job has none of its own, BUG-22)."""
+	from smart_power.notify import language_of, render
+
 	if isinstance(users, str):
 		users = [users]
 	names = []
+	template = subject
 	for user in sorted({u for u in users or [] if u}):
+		subject = render(template, language_of(user)) if callable(template) else template
 		same = {
 			"task_type": task_type,
 			"reference_doctype": reference_doctype,
