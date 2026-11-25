@@ -143,6 +143,37 @@ class TestStationCancel(IntegrationTestCase):
 		frappe.set_user("Administrator")
 		self.assertEqual(frappe.db.get_value(ENTRY, name, "docstatus"), 1)
 
+	def money(self):
+		return frappe.db.get_value(
+			"SP Station",
+			self.station.name,
+			["paid_amount", "remaining_amount", "next_due_date", "next_due_amount"],
+			as_dict=True,
+		)
+
+	def test_a_cancelled_station_owes_nothing_and_its_refund_takes_the_paid_back(self):
+		"""BUG-26: paid, remaining and the next due stayed on a cancelled, refunded station."""
+		[name] = self.cancel()["refunds"]
+		m = self.money()
+		# cancelled: nothing more is due; the deposit is still held until its refund is confirmed
+		self.assertEqual((flt(m.paid_amount), flt(m.remaining_amount)), (DEPOSIT, 0))
+		self.assertEqual((m.next_due_date, flt(m.next_due_amount)), (None, 0))
+		frappe.set_user(self.admin)
+		supplier_payment.confirm(name)
+		frappe.set_user("Administrator")
+		m = self.money()
+		self.assertEqual((flt(m.paid_amount), flt(m.remaining_amount), m.next_due_date), (0, 0, None))
+
+	def test_the_patch_clears_a_station_cancelled_before(self):
+		from smart_power.patches import bug26_cancelled_station_money
+
+		self.cancel()
+		frappe.db.set_value(
+			"SP Station", self.station.name, {"remaining_amount": 50000, "next_due_amount": 50000}
+		)
+		bug26_cancelled_station_money.execute()
+		self.assertEqual(flt(self.money().remaining_amount), 0)
+
 	def test_an_inverter_on_site_goes_back_to_the_main_store_at_cost(self):
 		site = self.station.site_warehouse
 		self.receipt(site, 1, rate=250)  # delivered to the site
