@@ -15,7 +15,8 @@ date, amount, expense type, center, the station when it is a project's, what pai
   cashier, shop-cash expenses only.
 
     expenses_by_center(filters)   the A10 list: totals by center and type (SP Expenses by Center
-                                  and Type)
+                                  and Type), from direct expenses, custody settlements and the
+                                  winch's field expenses
 """
 
 import json
@@ -24,7 +25,15 @@ import frappe
 from frappe import _
 from frappe.utils import flt, now_datetime
 
-from smart_power.sp_finance.centers import INDIRECT, JUMBO, SHOWROOM, WINCH, center, station_center
+from smart_power.sp_finance.centers import (
+	INDIRECT,
+	JUMBO,
+	PROJECTS,
+	SHOWROOM,
+	WINCH,
+	center,
+	station_center,
+)
 
 EXPENSE, EVENT, LIST = "SP Expense", "Expense", "Expense Type"
 PROJECT = "Project"
@@ -209,17 +218,13 @@ def seed_account_map(company: str) -> None:
 
 
 def expenses_by_center(filters: dict | None = None) -> list[dict]:
-	"""Submitted expenses, totalled by center and type."""
+	"""Every expense, totalled by center and type (SP-123: paid from any custody, the shop cash or
+	the owner): direct expenses, approved custody settlement lines and the winch's field expenses
+	(BUG-19)."""
 	filters = frappe._dict(filters or {})
-	where = {"docstatus": 1}
-	if filters.get("from_date") and filters.get("to_date"):
-		where["work_date"] = ("between", [filters.from_date, filters.to_date])
-	for key in ("center_type", "expense_type", "station", "company"):
-		if filters.get(key):
-			where[key] = filters[key]
-	rows = frappe.get_all(
-		EXPENSE, where, ["cost_center", "center_type", "expense_type", "amount"], order_by="cost_center asc"
-	)
+	rows = _direct_expenses(filters) + _custody_expenses(filters) + _field_expenses(filters)
+	if filters.get("center_type"):
+		rows = [r for r in rows if r.center_type == filters.center_type]
 	labels = dict(
 		frappe.get_all(
 			"SP List Value",
@@ -243,4 +248,89 @@ def expenses_by_center(filters: dict | None = None) -> list[dict]:
 		)
 		row["count"] += 1
 		row["amount"] += flt(r.amount)
-	return sorted(totals.values(), key=lambda r: (r["cost_center"] or "", r["expense_type"]))
+	return sorted(totals.values(), key=lambda r: (r["cost_center"] or "", r["expense_type"] or ""))
+
+
+def _between(filters) -> dict:
+	if filters.get("from_date") and filters.get("to_date"):
+		return {"work_date": ("between", [filters.from_date, filters.to_date])}
+	return {}
+
+
+def _direct_expenses(filters) -> list:
+	where = {"docstatus": 1, **_between(filters)}
+	for key in ("expense_type", "station", "company"):
+		if filters.get(key):
+			where[key] = filters[key]
+	return frappe.get_all(EXPENSE, where, ["cost_center", "center_type", "expense_type", "amount"])
+
+
+def _custody_expenses(filters) -> list:
+	"""The approved lines of submitted custody settlements, on the center they posted to."""
+	where = {"parenttype": "SP Custody Settlement", "docstatus": 1, "decision": ("!=", "Reject")}
+	where.update(_between(filters))
+	for key in ("expense_type", "station"):
+		if filters.get(key):
+			where[key] = filters[key]
+	lines = frappe.get_all(
+		"SP Custody Settlement Line",
+		where,
+		["parent", "station", "cost_center", "center_type", "expense_type", "amount"],
+	)
+	companies = dict(
+		frappe.get_all(
+			"SP Custody Settlement",
+			{"name": ("in", list({r.parent for r in lines}) or [""])},
+			["name", "company"],
+			as_list=True,
+		)
+	)
+	out = []
+	for r in lines:
+		company = companies.get(r.parent)
+		if filters.get("company") and company != filters.company:
+			continue
+		# as custody._expense_lines posts them: a station's on Projects, else the line's center
+		cost_center = station_center(company) if r.station else r.cost_center
+		out.append(
+			frappe._dict(
+				cost_center=cost_center,
+				center_type=_center_type(cost_center, company),
+				expense_type=r.expense_type,
+				amount=r.amount,
+			)
+		)
+	return out
+
+
+def _field_expenses(filters) -> list:
+	"""The winch and Jumbo field expenses (fuel …): posted on their vehicle's center when logged."""
+	if filters.get("station"):
+		return []  # a vehicle's running cost is not a station's
+	where = {"entry_kind": "Expense", "is_opening": 0, **_between(filters)}
+	for key in ("expense_type", "company"):
+		if filters.get(key):
+			where[key] = filters[key]
+	rows = frappe.get_all(
+		"SP Field Entry", where, ["vehicle", "cost_center", "company", "expense_type", "amount"]
+	)
+	kinds = dict(
+		frappe.get_all(
+			"Vehicle",
+			{"name": ("in", list({r.vehicle for r in rows}) or [""])},
+			["name", "sp_vehicle_type"],
+			as_list=True,
+		)
+	)
+	for r in rows:
+		kind = kinds.get(r.vehicle)
+		r.center_type = kind if kind in CENTER_KEYS else _center_type(r.cost_center, r.company)
+	return rows
+
+
+def _center_type(cost_center: str | None, company: str | None) -> str:
+	"""The center a cost center is, in the list's terms (Project, Showroom, Winch, Jumbo, Indirect)."""
+	for label, key in (("Project", PROJECTS), *[(k, v) for k, v in CENTER_KEYS.items()]):
+		if cost_center and cost_center == center(key, company):
+			return label
+	return "Indirect"

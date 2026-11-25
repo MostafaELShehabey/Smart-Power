@@ -156,6 +156,21 @@ class TestFieldEntry(IntegrationTestCase):
 		self.assertEqual(balance(self.running, cost_center=doc.cost_center) - spent, FUEL_COST)
 		self.assertEqual(balance(custody) - held, -FUEL_COST)
 
+	def test_a_fuel_expense_is_in_the_expenses_by_center_report(self):
+		# BUG-19: the report read only direct expenses; the winch's fuel was missing
+		from smart_power.sp_finance.expenses import expenses_by_center
+
+		def fuel():
+			filters = {"from_date": today(), "to_date": today(), "company": COMPANY, "center_type": "Winch"}
+			return sum(
+				r["amount"] for r in expenses_by_center(filters) if r["cost_center"] == doc.cost_center
+			)
+
+		doc = self.expense()
+		before = fuel()
+		self.expense(amount=FUEL_COST * 2)
+		self.assertEqual(fuel() - before, FUEL_COST * 2)
+
 	def test_the_same_client_uuid_synced_twice_is_one_entry(self):
 		first = self.expense(client_uuid="sp108-once")
 		second = self.expense(client_uuid="sp108-once")
