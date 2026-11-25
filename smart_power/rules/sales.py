@@ -101,6 +101,16 @@ def quote_margin_range(doc, ctx: RuleContext):
 	)
 
 
+def message_for_user(doc, hit) -> str:
+	"""A rule's message as the user who triggered it may read it: the margin range check names the
+	quote's margin, which only who sees its cost may read (SP-35, BUG-8)."""
+	from smart_power.permissions import sees_quote_internals
+
+	if hit.spec.key == "quote_margin_range" and not sees_quote_internals(doc):
+		return _("The margin is outside the range for this offer type: the admin will review it.")
+	return hit.finding.message
+
+
 # Checked when a version that needs repricing is approved (sp_quotes.repricing), not on every save.
 QUOTE_APPROVE_EVENT = "quote_approve"
 OLD_PRICE_RULE = "quote_old_price_approval"

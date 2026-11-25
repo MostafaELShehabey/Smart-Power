@@ -233,7 +233,7 @@ def call_task(doc, case) -> None:
 def check_margin(doc, reason: str | None = None) -> list[str]:
 	"""A margin outside its range, or a stale price sent with a reason (SP-63), is listed for the
 	admin; the send goes ahead."""
-	from smart_power.rules.sales import PRICE_AGE_RULE
+	from smart_power.rules.sales import PRICE_AGE_RULE, message_for_user
 
 	messages = []
 	for hit in evaluate(doc, QUOTE_SEND_EVENT):
@@ -241,7 +241,7 @@ def check_margin(doc, reason: str | None = None) -> list[str]:
 			record_override(doc, hit, reason)
 		else:
 			record_warning(doc, hit, reason if hit.spec.key == PRICE_AGE_RULE else None)
-		messages.append(hit.finding.message)
+		messages.append(message_for_user(doc, hit))  # the margin only for who sees the cost (BUG-8)
 	return messages
 
 
