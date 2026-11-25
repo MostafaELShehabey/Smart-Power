@@ -145,6 +145,32 @@ class TestExpectedClosing(CashBoxCase):
 		self.assertEqual(flt(doc.expected_closing), EXPECTED)
 
 
+class TestOpenDayIsCurrent(CashBoxCase):
+	def test_an_expense_after_the_last_save_shows_on_the_form(self):
+		"""BUG-15: the close dialog read the expected closing of the day's last save."""
+		from frappe.desk.form.load import run_onload
+
+		doc = self.the_day()
+		later = frappe.get_doc(
+			{
+				"doctype": ex.EXPENSE,
+				"company": COMPANY,
+				"work_date": today(),
+				"amount": 150,
+				"expense_type": "Expense Type-PETTY_CASH",
+				"center_type": "Showroom",
+				"paid_from_kind": "Shop cash",
+			}
+		)
+		self.as_user(self.cashier, lambda: (later.insert(), later.submit()))
+		shown = frappe.get_doc(DAY, doc.name)
+		with patch.object(cb, "sales_in", return_value=SALES):
+			run_onload(shown)
+		self.assertEqual(
+			(flt(shown.expenses_out), flt(shown.expected_closing)), (EXPENSE + 150, EXPECTED - 150)
+		)
+
+
 class TestDayClose(CashBoxCase):
 	def test_counted_2150_needs_a_reason_and_the_admin_confirm_posts_minus_50(self):
 		doc = self.the_day()

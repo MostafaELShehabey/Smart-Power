@@ -15,4 +15,6 @@ class SPCashBoxDay(Document):
 	def onload(self):
 		from smart_power.sp_finance import cash_box
 
+		if self.status == cash_box.OPEN and self.cash_account and self.day:
+			cash_box.compute(self)  # an open day shows its figures as of now, not of its last save (BUG-15)
 		self.set_onload("sp_cash_box", cash_box.state(self))

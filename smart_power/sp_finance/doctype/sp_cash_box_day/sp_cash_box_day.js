@@ -71,7 +71,8 @@ function sp_cb_lines(frm, m, pending) {
 	field.$wrapper.html(`<table class="table table-sm"><tbody>${body}</tbody>${foot}</table>`);
 }
 
-function sp_cb_close(frm) {
+async function sp_cb_close(frm) {
+	await frm.reload_doc(); // an expense or deposit recorded since the form opened (BUG-15)
 	const dialog = new frappe.ui.Dialog({
 		title: __("Close the Day"),
 		fields: [
