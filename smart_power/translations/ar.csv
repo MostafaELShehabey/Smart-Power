@@ -934,6 +934,7 @@ Margin Range,نطاق الربح
 Margin Ranges,نطاقات الربح
 Margin {0}% in range ({1}),الهامش {0}% داخل النطاق ({1})
 Margin {0}% is outside the range {1}% to {2}% for this offer type.,الهامش {0}% خارج النطاق من {1}% إلى {2}% لهذا النوع من العروض.
+The margin is outside the range for this offer type: the admin will review it.,الهامش خارج النطاق لهذا النوع من العروض: سيراجعه الأدمن.
 Margin {0}% out of range ({1}),الهامش {0}% خارج النطاق ({1})
 Mark All Read,تمييز الكل كمقروء
 Mark cheque {0} as taken to the Post?,تمييز الشيك {0} كمودع في البريد؟
@@ -4620,4 +4621,3 @@ Unknown item.,عنصر غير معروف.
 You are not on this station.,أنت لست على هذه المحطة.
 "Factory {0} has no iron cost per kg, so this calc cannot price the chassis. Set the factory's iron item or its iron cost. Until then, quotes keep their own chassis price.",المصنع {0} ليس له تكلفة لكيلو الحديد، فلا تستطيع الحاسبة تسعير الشاسيه. حدّد صنف الحديد للمصنع أو تكلفة الحديد. حتى ذلك الحين تحتفظ عروض الأسعار بسعر الشاسيه الخاص بها.
 "Chassis calculator {0} has no iron cost (set it on its factory): the template's chassis price is kept.",حاسبة الشاسيه {0} بدون تكلفة حديد (حدّدها في المصنع): تم الإبقاء على سعر الشاسيه من القالب.
-The margin is outside the range for this offer type: the admin will review it.,الهامش خارج النطاق لهذا النوع من العروض: سيراجعه الأدمن.
