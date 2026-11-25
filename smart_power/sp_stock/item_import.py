@@ -35,6 +35,7 @@ COLUMNS = (
 	("sp_head_m", "الرفع (متر)", "Head (m)", True),
 	("sp_flow_m3h", "التصرف (م³/ساعة)", "Flow (m³/h)", True),
 	("sp_battery_ah", "سعة البطارية (أمبير ساعة)", "Battery Capacity (Ah)", True),
+	("sp_system_voltage", "جهد النظام (فولت)", "System Voltage (V)", True),
 )
 HEADER_TO_FIELD = {
 	header.strip().lower(): fieldname

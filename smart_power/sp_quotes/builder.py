@@ -518,7 +518,12 @@ def pick_options(name: str, line_key: str, data: dict | str | None = None) -> di
 	items = {
 		i.name: i for i in group_items(row.item_group, ["item_name", "brand", *([field] if field else [])])
 	}
-	best = ranked_items(row.item_group, row.capacity_field, need, brands_of(doc)) if sized else []
+	voltage = flt(line.get("voltage")) or None  # the battery bank's, for the off-grid lines (BUG-25)
+	best = (
+		ranked_items(row.item_group, row.capacity_field, need, brands_of(doc), voltage=voltage)
+		if sized
+		else []
+	)
 	codes = [*best, *(code for code in items if code not in best)][:PICK_LIMIT]
 	stock = on_hand(codes, doc.company)
 	price_list = PRICE_LIST_OF.get(row.pricing_method, COST)
