@@ -376,7 +376,15 @@ def check_inactivity(only: list[str] | None = None) -> list[str]:
 			record_warning(doc, hit)
 		users = sorted({u for u in [doc.get(OWNER_FIELD), *admins] if u})
 		if users:
-			send(INACTIVE_EVENT, users, CASE, doc.name, hits[0].finding.message, from_user="Administrator")
+			send(
+				INACTIVE_EVENT,
+				users,
+				CASE,
+				doc.name,
+				# the rule's message in each reader's language (BUG-22)
+				lambda doc=doc, hits=hits: (evaluate(doc, "inactivity") or hits)[0].finding.message,
+				from_user="Administrator",
+			)
 		frappe.db.set_value(CASE, doc.name, "last_inactive_alert", now_datetime(), update_modified=False)
 		alerted.append(doc.name)
 	return alerted

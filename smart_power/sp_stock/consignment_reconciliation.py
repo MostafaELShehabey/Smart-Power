@@ -273,7 +273,8 @@ def create_monthly(day=None) -> list[str]:
 			RECONCILIATION,
 			doc.name,
 			_users_with(KEEPER),
-			_("Reconcile {0}'s consignment for {1} with its statement").format(
+			# in each keeper's language: the monthly sheet is made by a daily job (BUG-22)
+			lambda supplier=supplier: _("Reconcile {0}'s consignment for {1} with its statement").format(
 				supplier, frappe.utils.formatdate(month, "MM-yyyy")
 			),
 		)

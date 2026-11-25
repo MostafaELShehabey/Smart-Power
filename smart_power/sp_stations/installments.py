@@ -134,14 +134,16 @@ def _alert(doc, row: dict, event: str, users: list) -> None:
 	from smart_power.notify import send
 
 	customer = doc.customer_name or doc.customer
-	left = frappe.format(row["left"], "Currency")
-	when = frappe.format(getdate(row["due_date"]), "Date")
-	if event == "installment_overdue":
-		subject = _("Overdue: {0} of {1} (station {2}) was due on {3}").format(left, customer, doc.name, when)
-	else:
-		subject = _("Instalment due: {0} from {1} (station {2}) on {3}").format(
-			left, customer, doc.name, when
-		)
+
+	def subject():  # in each reader's language: a daily job has none of its own (BUG-22)
+		left = frappe.format(row["left"], "Currency")
+		when = frappe.format(getdate(row["due_date"]), "Date")
+		if event == "installment_overdue":
+			return _("Overdue: {0} of {1} (station {2}) was due on {3}").format(
+				left, customer, doc.name, when
+			)
+		return _("Instalment due: {0} from {1} (station {2}) on {3}").format(left, customer, doc.name, when)
+
 	users = sorted({u for u in users if u})
 	if users:
 		send(

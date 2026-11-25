@@ -184,7 +184,7 @@ def check_old_debts() -> list[str]:
 			users,
 			ENTRY,
 			job.name,
-			_("Old winch debt: {0} owes {1} since {2}").format(
+			lambda job=job: _("Old winch debt: {0} owes {1} since {2}").format(  # per reader (BUG-22)
 				job.customer_name,
 				frappe.format(job.outstanding_amount, "Currency"),
 				frappe.format(job.work_date, "Date"),

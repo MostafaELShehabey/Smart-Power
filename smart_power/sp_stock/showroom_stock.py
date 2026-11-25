@@ -39,15 +39,19 @@ def check_showroom_stock() -> int:
 	rows = low_items()
 	users = _users_with(ALERTED_ROLE)
 	if rows and users:
-		names = ", ".join(r["item_name"] or r["item_code"] for r in rows[:NAMED])
-		if len(rows) > NAMED:
-			names = _("{0} and {1} more").format(names, len(rows) - NAMED)
+
+		def subject():  # in each reader's language: a daily job has none of its own (BUG-22)
+			names = ", ".join(r["item_name"] or r["item_code"] for r in rows[:NAMED])
+			if len(rows) > NAMED:
+				names = _("{0} and {1} more").format(names, len(rows) - NAMED)
+			return _("{0} items low in the showroom store: {1}").format(len(rows), names)
+
 		send(
 			EVENT_LOW,
 			users,
 			None,
 			None,
-			_("{0} items low in the showroom store: {1}").format(len(rows), names),
+			subject,
 			from_user="Administrator",
 		)
 	return len(rows)

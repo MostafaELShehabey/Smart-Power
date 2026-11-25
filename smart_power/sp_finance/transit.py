@@ -83,12 +83,17 @@ def check_cash_held() -> list[str]:
 			continue
 		for hit in hits:
 			record_warning(doc, hit)
-		_alert(acc, balance, hits[0].finding.message)
+		# the rule's message in each reader's language (BUG-22)
+		_alert(
+			acc,
+			balance,
+			lambda doc=doc, hits=hits: (evaluate(doc, CASH_HELD_EVENT) or hits)[0].finding.message,
+		)
 		alerted.append(acc.name)
 	return alerted
 
 
-def _alert(acc, balance: float, message: str) -> None:
+def _alert(acc, balance: float, message) -> None:
 	from smart_power.notify import send
 	from smart_power.sp_sales.quote_request import _users_with
 
@@ -100,6 +105,6 @@ def _alert(acc, balance: float, message: str) -> None:
 		users,
 		"Account",
 		acc.name,
-		_("Deposit the cash: {0}").format(message),
+		lambda: _("Deposit the cash: {0}").format(message() if callable(message) else message),
 		from_user="Administrator",
 	)

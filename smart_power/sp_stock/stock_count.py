@@ -161,11 +161,12 @@ def _new_count(warehouse: str, blind, scheduled=0, recount_of=None, users=None):
 	)
 	doc.flags.ignore_permissions = True  # the caller has checked who may start it
 	doc.insert()
-	subject = (
-		_("Count {0} again at {1}").format(doc.name, warehouse)
-		if recount_of
-		else _("Stock count {0} at {1}").format(doc.name, warehouse)
-	)
+
+	def subject():  # in each counter's language: the scheduled counts run in a daily job (BUG-22)
+		if recount_of:
+			return _("Count {0} again at {1}").format(doc.name, warehouse)
+		return _("Stock count {0} at {1}").format(doc.name, warehouse)
+
 	create_task(TASK_COUNT, COUNT, doc.name, users or _counters(warehouse), subject)
 	return doc
 

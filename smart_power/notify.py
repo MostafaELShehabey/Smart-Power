@@ -1,7 +1,7 @@
 """Notifications G4 (SP-40): the in-app feed is the official channel for requests, approvals and
 alerts (decision 70: WhatsApp stays allowed, the record is here).
 
-    send(event, users, doctype, name, subject)
+    send(event, users, doctype, name, subject)   # subject: a text, or lambda: _(...) per reader
 
 1. an in-app item for each user (Frappe's Notification Log, the bell), tagged with its event;
 2. the users' unread count in realtime (`sp_counts`);
@@ -47,10 +47,38 @@ def unread(user: str) -> int:
 	return frappe.db.count(LOG, {"for_user": user, "read": 0})
 
 
+def by_language(users) -> dict[str, list[str]]:
+	"""The users by their own language (else the site's). A daily job has no reader of its own, so
+	what it writes for people is written once per language (BUG-22)."""
+	default = frappe.db.get_single_value("System Settings", "language") or "ar"
+	groups: dict[str, list[str]] = {}
+	for user in frappe.get_all("User", {"name": ("in", list(users) or [""])}, ["name", "language"]):
+		groups.setdefault(user.language or default, []).append(user.name)
+	return groups
+
+
+def language_of(user: str) -> str:
+	return next(iter(by_language([user])), None) or frappe.local.lang
+
+
+def render(subject, lang: str) -> str:
+	"""A subject in one language: a function is called in that language; a text is as it is."""
+	if not callable(subject):
+		return subject
+	from frappe.translate import print_language
+
+	with print_language(lang):
+		return subject()
+
+
 def send(
-	event: str, users, doctype: str | None, name: str | None, subject: str, from_user: str | None = None
+	event: str, users, doctype: str | None, name: str | None, subject, from_user: str | None = None
 ) -> dict:
-	"""Notify the users of an event; returns who got it in the app and who was pushed."""
+	"""Notify the users of an event; returns who got it in the app and who was pushed.
+
+	subject: the text, or a function that builds it (`lambda: _("…").format(…)`). A function is
+	called in each reader's own language, so a scheduled job, which runs in the site's language,
+	still writes to every reader in theirs (BUG-22)."""
 	from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
 
 	if not frappe.db.exists(EVENT, event):
@@ -58,19 +86,24 @@ def send(
 	users = sorted({u for u in users or [] if u and u != "Guest"})
 	if not users:
 		return {"in_app": [], "push": []}
-	make_notification_logs(
-		frappe._dict(
-			{
-				"type": "Alert",
-				"document_type": doctype,
-				"document_name": name,
-				"subject": subject,
-				"sp_event": event,
-				"from_user": from_user or frappe.session.user,
-			}
-		),
-		users,
-	)
+	groups = by_language(users) if callable(subject) else {frappe.local.lang: users}
+	texts = {}
+	for lang, group in groups.items():
+		text = render(subject, lang)
+		texts.update(dict.fromkeys(group, text))
+		make_notification_logs(
+			frappe._dict(
+				{
+					"type": "Alert",
+					"document_type": doctype,
+					"document_name": name,
+					"subject": text,
+					"sp_event": event,
+					"from_user": from_user or frappe.session.user,
+				}
+			),
+			group,
+		)
 	for user in users:
 		frappe.publish_realtime("sp_counts", {"unread": unread(user)}, user=user, after_commit=True)
 	pushed = [u for u in users if wants_push(u, event)]
@@ -82,7 +115,7 @@ def send(
 				# frappe.enqueue keeps `event` for itself
 				user=user,
 				event_key=event,
-				subject=subject,
+				subject=texts.get(user, ""),
 				doctype=doctype,
 				docname=name,
 				enqueue_after_commit=True,

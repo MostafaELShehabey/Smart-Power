@@ -36,6 +36,11 @@ class TestCaseInactivity(IntegrationTestCase):
 			{"for_user": user, "document_name": self.case.name, "sp_event": INACTIVE_EVENT},
 		)
 
+	def subject(self, user):
+		return frappe.db.get_value(
+			"Notification Log", {"for_user": user, "document_name": self.case.name}, "subject"
+		)
+
 	def test_six_idle_days_alert_the_owner_and_the_admin_once(self):
 		self.assertIn(self.case.name, check_inactivity())
 		self.assertEqual((self.alerts(self.owner), self.alerts(self.admin)), (1, 1))
@@ -43,6 +48,19 @@ class TestCaseInactivity(IntegrationTestCase):
 		self.assertEqual(self.alerts(self.owner), 1)
 		hit = frappe.db.exists("SP Rule Hit", {"rule_key": "case_inactive", "reference_name": self.case.name})
 		self.assertTrue(hit)
+
+	def test_the_daily_alert_reaches_each_reader_in_their_language(self):
+		# BUG-22: the scheduler runs in the site's language; the alert was English for everyone
+		frappe.db.set_value("User", self.owner, "language", "ar")
+		frappe.db.set_value("User", self.admin, "language", "en")
+		before = frappe.local.lang
+		frappe.local.lang = "en"
+		try:
+			check_inactivity()
+		finally:
+			frappe.local.lang = before
+		self.assertIn("لا متابعة على الحالة", self.subject(self.owner))
+		self.assertTrue(self.subject(self.admin).startswith("No action on case"))
 
 	def test_a_call_the_next_day_stops_the_alerts(self):
 		check_inactivity()
