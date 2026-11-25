@@ -26,6 +26,7 @@ from frappe import _
 from frappe.utils import add_days, cint, get_datetime, getdate, now_datetime
 
 from smart_power.sp_core.inbox import create_task
+from smart_power.sp_core.web import LIGHT_ENTRY
 
 CUTOVER, TASK = "SP Cutover", "SP Task"
 TASK_TYPE = "Cutover Step"
@@ -36,7 +37,6 @@ PASS, FAIL = "Pass", "Fail"
 PLANNED, IN_PROGRESS, DONE = "Planned", "In progress", "Done"
 HYPERCARE_DAYS = 28  # sp-allow-number: four weeks
 FULL_PERCENT = 100  # sp-allow-number: a percentage
-LIGHT_ENTRY = "Light"
 
 # days from go-live: the runbook's dates (scope note of 6-11-2026)
 FREEZE, REHEARSAL, SIGN_OFF, COUNT, EVE, GO_LIVE = -12, -8, -7, -3, -1, 0  # sp-allow-number: the runbook
