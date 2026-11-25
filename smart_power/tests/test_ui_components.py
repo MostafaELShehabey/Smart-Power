@@ -196,6 +196,26 @@ class TestDatesAndPickers(IntegrationTestCase):
 		)
 		self.assertTrue(set(official) <= offered)
 
+	def test_a_new_form_without_its_company_still_offers_the_accounts(self):
+		# BUG-18: a new worker advance has no company until saved; "Paid From" listed nothing
+		from unittest.mock import patch
+
+		from smart_power.sp_finance.queries import account_picker
+
+		official = set(
+			frappe.get_all(
+				"Account", {"company": COMPANY, "sp_account_kind": "Official", "is_group": 0}, pluck="name"
+			)
+		)
+		frappe.defaults.clear_user_default("Company", self.holder)
+		frappe.set_user(self.holder)
+		try:
+			with patch("erpnext.get_default_company", return_value=COMPANY):
+				offered = {r[0] for r in account_picker("Account", "", "name", 0, 50, {"company": None})}
+		finally:
+			frappe.set_user("Administrator")
+		self.assertTrue(official and official <= offered)
+
 
 class TestPasteIntoTheGrid(IntegrationTestCase):
 	def test_ten_codes_pasted_from_excel_match_ten_items(self):
