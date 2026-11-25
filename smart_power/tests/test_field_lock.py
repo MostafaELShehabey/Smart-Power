@@ -174,6 +174,20 @@ class TestFieldLock(IntegrationTestCase):
 		frappe.set_user("Administrator")
 		self.assertEqual(self.ask(day), self.ask(day))
 
+	def test_a_driver_with_nothing_logged_that_day_sees_the_lock_and_asks(self):
+		# BUG-17: the light page offered "ask" only on an entry already logged that day
+		day = add_days(today(), -(N + 1))
+		with self.assertRaises(RuleBlocked):
+			self.log(day)
+		frappe.set_user(self.driver)
+		try:
+			state = lock.lock_state(self.vehicle, str(day))
+			self.assertEqual((state["locked"], state["blocked"], state["request"]), (True, True, None))
+			request = lock.ask_to_reopen(self.vehicle, str(day), "Fuel receipt found")
+			self.assertEqual(lock.lock_state(self.vehicle, str(day))["request"], request)
+		finally:
+			frappe.set_user("Administrator")
+
 	def test_only_the_projects_manager_or_admin_decides(self):
 		request = self.ask(add_days(today(), -(N + 1)))
 		frappe.set_user(self.other)

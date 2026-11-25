@@ -121,6 +121,12 @@ class SPFieldPage {
 			this.save();
 		});
 		this.$page.on("click", ".sp-ask", (e) => this.ask_to_reopen($(e.currentTarget).closest("li").data()));
+		// a new entry for a locked day: say so, and ask to reopen it from here (BUG-17)
+		this.field("vehicle").on("change", () => this.check_lock());
+		this.field("work_date").on("change", () => this.check_lock());
+		this.$form.find(".sp-ask-day").on("click", () =>
+			this.ask_to_reopen({ vehicle: this.field("vehicle").val(), work_date: this.field("work_date").val() })
+		);
 		this.$page.on("click", ".sp-change", (e) => this.open_entry($(e.currentTarget).closest("li").data("name")));
 	}
 
@@ -166,6 +172,24 @@ class SPFieldPage {
 		this.$page.find(".sp-entry-reset").addClass("d-none");
 		this.$page.find(".sp-tab").prop("disabled", false);
 		this.set_kind("Job");
+		this.check_lock();
+	}
+
+	// SP-109 on the light page (BUG-17): the day's lock, with the way to ask to reopen it
+	async check_lock() {
+		const $lock = this.$form.find(".sp-day-lock").addClass("d-none");
+		const $save = this.$form.find(".sp-save").prop("disabled", false);
+		const vehicle = this.field("vehicle").val();
+		const work_date = this.field("work_date").val();
+		if (!vehicle || !work_date || this.editing) return;
+		const { message: state } = await frappe.call({ method: `${SP_FL}.lock_state`, args: { vehicle, work_date } });
+		// the day changed while asking (typing a date passes through others): a later check answers
+		if (vehicle !== this.field("vehicle").val() || work_date !== this.field("work_date").val()) return;
+		if (!state || !state.locked) return;
+		if (state.blocked) $save.prop("disabled", true);
+		$lock.find(".sp-day-lock-text").text(state.request ? `${this.t.locked} · ${this.t.waiting}` : this.t.locked);
+		$lock.find(".sp-ask-day").toggleClass("d-none", Boolean(state.request));
+		$lock.removeClass("d-none");
 	}
 
 	from_booking(name) {
@@ -214,6 +238,7 @@ class SPFieldPage {
 			$result.addClass("alert-danger").text(this.t.failed || "");
 		} finally {
 			$button.prop("disabled", false);
+			if (!this.editing) this.check_lock(); // a refusal for a locked day shows how to ask (BUG-17)
 		}
 	}
 
@@ -266,7 +291,9 @@ class SPFieldPage {
 		frappe
 			.call({ method: `${SP_FL}.ask_to_reopen`, args: { vehicle, work_date, reason: reason.trim() } })
 			.then(() => {
+				this.$form.find(".sp-result").removeClass("d-none alert-danger").addClass("alert-success").text(this.t.sent || "");
 				this.load_entries();
+				this.check_lock();
 			});
 	}
 

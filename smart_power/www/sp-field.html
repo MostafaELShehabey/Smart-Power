@@ -184,6 +184,10 @@
 				<label>{{ _("Note") }}</label>
 				<textarea class="form-control" name="note" rows="2"></textarea>
 			</div>
+			<div class="alert alert-warning d-none sp-day-lock" role="status">
+				<span class="sp-day-lock-text"></span>
+				<button type="button" class="btn btn-sm btn-warning ml-2 d-none sp-ask-day">{{ _("Ask to Reopen") }}</button>
+			</div>
 			<button type="submit" class="btn btn-primary btn-block btn-lg sp-save">{{ _("Save") }}</button>
 			<div class="alert mt-3 d-none sp-result" role="status"></div>
 		</form>
