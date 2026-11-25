@@ -797,6 +797,10 @@ Invalid mobile,رقم موبايل غير صحيح
 Inverter,الإنفرتر
 Inverter / Drive Specs,مواصفات الإنفرتر / الدرايف
 Inverter at least as large as the motor,الإنفرتر لا يقل عن الموتور
+Every calculated line is on the quote,كل بنود الحساب ظاهرة في العرض
+"A line still waiting for its item, or with no price, is left off the quote and its total. Block stops the send until the item or the price is set or the admin overrides with a reason. Warn sends it and lists it for the admin.",البند الذي ينتظر صنفه أو بلا سعر لا يظهر في العرض ولا في إجماليه. «منع» يوقف الإرسال حتى يُحدَّد الصنف أو السعر أو يتجاوز الأدمن بسبب. «تحذير» يرسله ويعرضه على الأدمن.
+"Not on the quote, so not in its total: {0}.",ليست في العرض ولا في إجماليه: {0}.
+Choose their item or price in the quote builder.,اختر صنفها أو سعرها في منشئ العروض.
 Inverter Brand,ماركة الإنفرتر
 Inverter Model,موديل الإنفرتر
 Inverter Serial,سيريال الإنفرتر

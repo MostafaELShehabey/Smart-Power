@@ -3,6 +3,8 @@
     quote_inverter_motor   the inverter's rated power covers the motor's, in kW after converting HP
     quote_depth_pipe       the pump depth divides by the length of the chosen pipe, or the nearest
                            valid depths are offered
+    quote_lines_left_off   no calculated line is left off the quote for want of an item or a price
+                           (BUG-23); Block by default
 
 Each has its level in the rules screen. Warn shows on the quote and is listed for the admin when the
 quote is sent. Block stops the send until the design is fixed or the admin overrides with a reason.
@@ -15,11 +17,12 @@ import frappe
 from frappe import _
 from frappe.utils import flt
 
-from smart_power.rules import WARN, Finding, RuleContext, rule
+from smart_power.rules import BLOCK, WARN, Finding, RuleContext, rule
 from smart_power.rules.sales import QUOTE_SEND_EVENT
 
-INVERTER_RULE, DEPTH_RULE = "quote_inverter_motor", "quote_depth_pipe"
-TECHNICAL_RULES = (INVERTER_RULE, DEPTH_RULE)
+INVERTER_RULE, DEPTH_RULE, LEFT_OFF_RULE = "quote_inverter_motor", "quote_depth_pipe", "quote_lines_left_off"
+TECHNICAL_RULES = (INVERTER_RULE, DEPTH_RULE, LEFT_OFF_RULE)
+NAMED = 5  # sp-allow-number: lines named in the message before "and N more"
 KW_PER_HP = 0.746  # sp-allow-number: the definition of a horsepower
 DIGITS = 2  # sp-allow-number: power and depth as shown on the quote
 TOLERANCE = 1e-6  # sp-allow-number: a whole number of pipes, whatever the float says
@@ -137,6 +140,65 @@ def quote_depth_pipe(doc, ctx: RuleContext):
 		suggestion=_("Use {0} m.").format(" / ".join(f"{d:g}" for d in depths)),
 		highlight=True,
 		data={"input": keys["depth"], "depths": depths},
+	)
+
+
+def lines_left_off(doc) -> list[str]:
+	"""The calculated lines a send would leave off the quote and its total: waiting for an item, or
+	with a quantity but neither price nor cost. A winch line with no amount yet and the hidden
+	commission are not charged by design, an optional line is outside the total, and a line of 0 is
+	simply unused."""
+	from smart_power.sp_quotes.chassis_quote import use_calculator
+	from smart_power.sp_quotes.engine import calculate
+	from smart_power.sp_quotes.quote_calc import brands_of, loads
+
+	if not doc.get("sp_calc_template") or _design_inputs(doc) is None:
+		return []
+	result = calculate(
+		doc.sp_calc_template,
+		loads(doc.sp_design_inputs),
+		loads(doc.sp_calc_overrides),
+		on_date=doc.transaction_date,
+		brands=brands_of(doc),
+	)
+	use_calculator(doc, result)
+	left = []
+	for line in result.lines:
+		# the commission and an optional line are outside the total; a winch line waits for its amount
+		if line.is_hidden or line.is_optional or line.is_winch_line or not flt(line.qty):
+			continue
+		# as quote_calc.write_lines: a line with no item and no text of its own is not written
+		waiting = not line.item_code and (line.item_group or not line.item_name)
+		unpriced = not (flt(line.rate) or flt(line.cost))
+		if waiting or unpriced:
+			left.append(line.item_name or line.line_key)
+	return left
+
+
+@rule(
+	LEFT_OFF_RULE,
+	doctypes=("Quotation",),
+	events=(QUOTE_SEND_EVENT,),
+	category="Technical",
+	default_level=BLOCK,
+	title="Every calculated line is on the quote",
+	description="A line still waiting for its item, or with no price, is left off the quote and its "
+	"total. Block stops the send until the item or the price is set or the admin overrides with a "
+	"reason. Warn sends it and lists it for the admin.",
+	review_category="Rule Warning",
+)
+def quote_lines_left_off(doc, ctx: RuleContext):
+	left = lines_left_off(doc)
+	if not left:
+		return None
+	names = ", ".join(left[:NAMED])
+	if len(left) > NAMED:
+		names = _("{0} and {1} more").format(names, len(left) - NAMED)
+	return Finding(
+		message=_("Not on the quote, so not in its total: {0}.").format(names),
+		suggestion=_("Choose their item or price in the quote builder."),
+		highlight=True,
+		data={"lines": left},
 	)
 
 
