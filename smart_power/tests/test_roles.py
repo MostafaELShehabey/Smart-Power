@@ -83,6 +83,28 @@ class TestLightEntryRedirect(IntegrationTestCase):
 		self._request("/desk")
 		redirect_light_users()
 
+	def test_an_office_user_set_to_light_lands_on_the_field_page(self):
+		"""BUG-30: the admin's «طريقة التسجيل: Light» sends the user to the field page."""
+		user = make_user("sp.light.office@example.com", ("customer_followup",))
+		frappe.db.set_value("User", user, "sp_entry_mode", "Light")
+		frappe.set_user(user)
+		frappe.session.data.user_type = "System User"
+		for path in ("/app", "/desk/", "/app/home"):
+			self._request(path)
+			with self.assertRaises(RequestRedirect, msg=path) as ctx:
+				redirect_light_users()
+			self.assertTrue(ctx.exception.new_url.endswith("/sp-field"))
+		self._request("/desk/quotation")  # a desk link they were sent still opens
+		redirect_light_users()
+
+	def test_an_office_user_on_full_keeps_the_desk(self):
+		user = make_user("sp.full.office@example.com", ("customer_followup",))
+		frappe.db.set_value("User", user, "sp_entry_mode", "Full")
+		frappe.set_user(user)
+		frappe.session.data.user_type = "System User"
+		self._request("/app")
+		redirect_light_users()
+
 	def test_home_page_hook_points_drivers_to_the_field_page(self):
 		home = frappe.get_hooks("role_home_page")
 		self.assertEqual(home[role("driver")][-1], "sp-field")
