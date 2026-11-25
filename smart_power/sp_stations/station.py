@@ -22,6 +22,8 @@ from smart_power.sp_core.services.audit import audited
 from smart_power.sp_stations.station_workflow import CANCELLED, FIN_CLOSED, TECH_CLOSED
 
 STATION, CASE = "SP Station", "SP Case"
+KW_WATTS = 1000  # sp-allow-number: watts in a kW
+KW_DIGITS = 3  # sp-allow-number: kW as the stations list shows it
 PROJECT_MANAGER, ADMIN_ROLES = "SP Project Manager", ("SP Admin", "System Manager")
 OWNER_LABELS = {
 	"sales_owner": "Follow-up Owner",
@@ -47,6 +49,7 @@ def before_insert(doc) -> None:
 		if not doc.systems:
 			for row in case.system_types:
 				doc.append("systems", {"system_type": row.system_type, "qty": 1})
+		size_from_quote(doc, doc.quotation_accepted or case.accepted_quotation)
 	if doc.customer and not doc.region:
 		doc.region = frappe.db.get_value("Customer", doc.customer, "sp_region")
 	doc.company = (
@@ -73,6 +76,54 @@ def before_insert(doc) -> None:
 					"changed_by": frappe.session.user,
 				},
 			)
+
+
+def size_from_quote(doc, quotation: str | None) -> bool:
+	"""The station's size from what was sold (BUG-27): the plant's kW and the pump's HP on the system
+	row of the quote's type. A row already sized keeps its numbers. Returns whether it changed."""
+	if not doc.get("systems"):
+		return False
+	size = quote_size(quotation, doc.case)
+	if not size:
+		return False
+	row = next((r for r in doc.systems if r.system_type == size.system_type), doc.systems[0])
+	changed = False
+	if size.kw and not flt(row.capacity_kw):
+		row.capacity_kw, changed = size.kw, True
+	if size.hp and not flt(row.hp):
+		row.hp, changed = size.hp, True
+	return changed
+
+
+def quote_size(quotation: str | None, case: str | None = None) -> frappe._dict | None:
+	"""kW and HP: the accepted quote's panels (their line counts watts in every shipped template) and
+	its HP input, else the request's own kw and hp."""
+	from smart_power.sp_quotes.quote_calc import loads
+
+	kw = hp = 0.0
+	system_type = None
+	quote = (
+		frappe.db.get_value("Quotation", quotation, ["sp_design_inputs", "sp_calc_template"], as_dict=True)
+		if quotation
+		else None
+	)
+	if quote:
+		inputs = loads(quote.sp_design_inputs)
+		watts = sum(
+			flt(r.qty)
+			for r in frappe.get_all(
+				"Quotation Item",
+				{"parent": quotation, "parenttype": "Quotation", "sp_line_key": "panels"},
+				["qty"],
+			)
+		)
+		kw, hp = flt(watts / KW_WATTS, KW_DIGITS) or flt(inputs.get("kw")), flt(inputs.get("hp"))
+		if quote.sp_calc_template:
+			system_type = frappe.db.get_value("SP Calc Template", quote.sp_calc_template, "offer_type")
+	if not (kw or hp) and case:
+		details = loads(frappe.db.get_value(CASE, case, "request_details"))
+		kw, hp = flt(details.get("kw")), flt(details.get("hp"))
+	return frappe._dict(kw=kw, hp=hp, system_type=system_type) if (kw or hp) else None
 
 
 def _projects_manager() -> str | None:

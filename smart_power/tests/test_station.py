@@ -164,3 +164,57 @@ class TestStation(IntegrationTestCase):
 		frappe.db.set_value("SP Station", closed.name, "status", "Technically closed")
 		with self.assertRaises(frappe.ValidationError):
 			cancel_station(closed.name, "متأخر")
+
+
+class TestStationSize(IntegrationTestCase):
+	"""BUG-27: a station opened from its case takes the plant's kW and the pump's HP."""
+
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		wh.seed_warehouses(COMPANY)
+
+	def open(self, quote, case=None):
+		case = case or quote.sp_case
+		frappe.db.set_value(
+			"SP Case", case, "accepted_quotation", quote.name if quote.docstatus == 1 else None
+		)
+		doc = frappe.get_doc({"doctype": "SP Station", "case": case, "company": COMPANY}).insert()
+		return frappe.get_doc("SP Station", doc.name)
+
+	def pump_case(self, details=None):
+		case = frappe.get_doc("SP Case", make_quotation(save=False).sp_case)
+		case.append("system_types", {"system_type": "System Type-PUMP"})
+		case.save()
+		if details:  # as the request left them (its own form checks the rest)
+			frappe.db.set_value("SP Case", case.name, "request_details", frappe.as_json(details))
+		return case.name
+
+	def test_the_accepted_quote_gives_the_plants_kw_and_the_pumps_hp(self):
+		quote = make_quotation(rate=1000, valid_days=3, save=False, case=self.pump_case())
+		quote.items[0].sp_line_key = "panels"
+		quote.items[0].qty = 21450  # the panels line counts watts: 30 x 715 W
+		quote.sp_design_inputs = frappe.as_json({"hp": 30})
+		quote.insert()
+		quote.submit()
+		st = self.open(quote)
+		self.assertEqual((flt(st.systems[0].capacity_kw), flt(st.systems[0].hp)), (21.45, 30))
+		self.assertEqual((flt(st.capacity_kw_total), flt(st.hp_total)), (21.45, 30))
+
+	def test_without_a_sized_quote_the_request_gives_them(self):
+		quote = make_quotation(rate=1000, valid_days=3, case=self.pump_case({"kw": 10, "hp": 15}))
+		quote.submit()
+		st = self.open(quote)
+		self.assertEqual((flt(st.capacity_kw_total), flt(st.hp_total)), (10, 15))
+
+	def test_the_patch_sizes_a_station_opened_before(self):
+		from smart_power.patches import bug27_station_capacity
+
+		quote = make_quotation(rate=1000, valid_days=3, case=self.pump_case({"hp": 20}))
+		quote.submit()
+		st = self.open(quote)
+		row = st.systems[0]
+		frappe.db.set_value(row.doctype, row.name, {"capacity_kw": 0, "hp": 0})
+		frappe.db.set_value("SP Station", st.name, {"capacity_kw_total": 0, "hp_total": 0})
+		bug27_station_capacity.execute()
+		self.assertEqual(flt(frappe.db.get_value("SP Station", st.name, "hp_total")), 20)
