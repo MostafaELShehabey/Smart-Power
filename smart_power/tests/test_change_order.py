@@ -20,6 +20,7 @@ PANEL, OTHER = "_Test Item", "_Test Item 2"
 APPROVAL = "/private/files/sp78-approval.pdf"
 INSTALMENTS = 8
 CHASSIS_RATE, CHASSIS_COST, MC4_RATE, MC4_COST = 60000, 46875, 50, 40
+CHASSIS_TEXT, MC4_TEXT = "شاسيه حديد مجلفن", "وصلة MC4"  # a manual line's own text
 
 
 class TestChangeOrder(IntegrationTestCase):
@@ -114,7 +115,11 @@ class TestChangeOrder(IntegrationTestCase):
 		and 10 connectors at 50 (cost 40 each). The estimate is frozen as at the deposit."""
 		quote = make_quotation(rate=CHASSIS_RATE, valid_days=3, save=False)
 		quote.items[0].sp_cost = CHASSIS_COST
-		quote.append("items", {"item_code": PANEL, "qty": 10, "rate": MC4_RATE, "sp_cost": MC4_COST})
+		quote.items[0].item_name = CHASSIS_TEXT
+		quote.append(
+			"items",
+			{"item_code": PANEL, "item_name": MC4_TEXT, "qty": 10, "rate": MC4_RATE, "sp_cost": MC4_COST},
+		)
 		quote.insert()
 		quote.submit()
 		approve_version(quote.name)
@@ -147,6 +152,19 @@ class TestChangeOrder(IntegrationTestCase):
 		self.assertEqual(flt(doc.delta_amount), -2 * MC4_RATE)
 		snapshot = json.loads(frappe.db.get_value("SP Station", station.name, "estimated_cost_snapshot"))
 		self.assertEqual(snapshot["total_cost"], CHASSIS_COST + 8 * MC4_COST)
+
+	def test_a_returned_manual_line_keeps_its_own_text(self):
+		"""BUG-12: the picker and the change order named every manual line «بند يدوي»."""
+		station, connectors = self.manual_station()
+		frappe.set_user(self.amira)
+		offered = {line["so_detail"]: line["item_name"] for line in co.contract_lines(station.name)}
+		frappe.set_user("Administrator")
+		self.assertEqual(sorted(offered.values()), sorted([CHASSIS_TEXT, MC4_TEXT]))
+		doc = self.change(station, [(PANEL, -2, 0, {"so_detail": connectors})], mode=co.REDUCE_LAST)
+		self.assertEqual(doc.items[0].item_name, MC4_TEXT)
+		self.assertEqual(
+			frappe.db.get_value("SP Change Order Item", doc.items[0].name, "item_name"), MC4_TEXT
+		)
 
 	def test_an_estimate_frozen_before_the_fix_matches_by_the_quotes_order(self):
 		station, connectors = self.manual_station()
