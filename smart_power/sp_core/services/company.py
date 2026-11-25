@@ -7,7 +7,8 @@ from text in the template. The cached document is refreshed when the admin saves
 import frappe
 
 COMPANY_SETTINGS = "SP Company Settings"
-FALLBACK_LOGO = "/assets/smart_power/images/sp_logo.png"
+# the company's stacked logo, as on its letterhead (SP-185)
+FALLBACK_LOGO = "/assets/smart_power/images/sp_logo_stacked.png"
 
 
 def boot(bootinfo) -> None:

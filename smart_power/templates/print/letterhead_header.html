@@ -1,26 +1,52 @@
-{%- set company = get_company_settings() -%}
-<style class="sp-letterhead-style">
-	/* the letterhead's own sizes, so any print format (ERPNext's too) shows it right */
-	.sp-letterhead { direction: rtl; font-family: "IBM Plex Sans Arabic", sans-serif; }
-	.sp-letterhead-table { width: 100%; border-bottom: 2px solid #c8a24a; }
-	.sp-letterhead-logo { width: 90px; }
-	.sp-letterhead-logo img { max-height: 60px; max-width: 90px; }
-	.sp-legal-name { font-size: 16px; font-weight: 700; color: #0b2e59; }
-	.sp-legal-line { font-size: 11px; color: #4a5568; }
+{#- The Smart Power letterhead header (SP-185), traced from the company's own paper: a navy bar cut by
+    the logo, two navy bands and two orange stripes at the right, the name and tagline under the bar.
+    One drawing of 2000 units across the paper's width (210 mm), so it keeps its proportions on any
+    paper; the bars run a little past the edges, so no hairline of white is left there. The logo, the names and the tagline come from Company settings (X12). -#}
+{%- set lh = letterhead() -%}
+<style class="sp-lh-style">
+	/* the letterhead carries its own look, so any print format (ERPNext's too) and any report shows it right */
+	@font-face { font-family: "SP Letterhead"; font-weight: 400; src: url("/assets/smart_power/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2") format("woff2"); }
+	@font-face { font-family: "SP Letterhead"; font-weight: 400; src: url("/assets/smart_power/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2") format("woff2"); }
+	@font-face { font-family: "SP Letterhead"; font-weight: 700; src: url("/assets/smart_power/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2") format("woff2"); }
+	@font-face { font-family: "SP Letterhead"; font-weight: 700; src: url("/assets/smart_power/fonts/ibm-plex-sans-arabic-latin-700-normal.woff2") format("woff2"); }
+	.sp-lh {
+		--sp-navy: #204c74;
+		--sp-orange: #eb9943;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		direction: ltr;
+		font-family: "IBM Plex Sans Arabic", "SP Letterhead", sans-serif;
+		/* the drawing may be wider than its place (a padded sheet, a table cell): it never widens it */
+		contain: inline-size;
+	}
+	/* on screen the sheet has padding: the drawing is as wide as the paper and centred over it */
+	.sp-lh > svg { display: block; flex: 0 0 auto; width: 210mm; height: auto; overflow: hidden; }
+	.landscape .sp-lh > svg { width: 297mm; }
+	@media screen { .print-format .sp-lh-head { margin-top: -15mm; } }
+	/* Frappe leaves a gap under a letterhead: the drawing has its own */
+	.letter-head:has(.sp-lh) { margin-bottom: 0 !important; }
+	/* a PDF page and a browser print: as wide as the page gives */
+	.wrapper .sp-lh > svg { width: 100%; }
+	.wrapper .sp-lh { margin-top: 0; margin-bottom: 0; }
+	@media print { .sp-lh > svg { width: 100%; } }
+	.sp-lh .sp-navy { fill: var(--sp-navy); }
+	.sp-lh .sp-orange { fill: var(--sp-orange); }
+	.sp-lh .sp-lh-name { font-size: 33.5px; font-weight: 700; }
+	.sp-lh .sp-lh-tagline { font-size: 26px; font-weight: 700; }
 </style>
-<div class="sp-letterhead" dir="rtl">
-	<table class="sp-letterhead-table">
-		<tr>
-			<td class="sp-letterhead-logo"><img src="{{ embed_image(company_logo()) }}" alt=""></td>
-			<td class="sp-letterhead-name">
-				<div class="sp-legal-name">{{ company.legal_name_ar or company.company or "" }}</div>
-				{%- if company.commercial_register %}
-				<div class="sp-legal-line">{{ _("Commercial Register") }}: <span class="sp-num">{{ company.commercial_register }}</span></div>
-				{%- endif %}
-				{%- if company.tax_card %}
-				<div class="sp-legal-line">{{ _("Tax Card") }}: <span class="sp-num">{{ company.tax_card }}</span></div>
-				{%- endif %}
-			</td>
-		</tr>
-	</table>
+<div class="sp-lh sp-lh-head">
+	<svg viewBox="0 0 2000 314" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{{ lh.name_en }}">
+		<rect class="sp-navy" x="-20" y="88" width="307" height="109"/>
+		<rect class="sp-navy" x="620" y="88" width="1400" height="109"/>
+		<polygon class="sp-navy" points="1113,0 1269,0 1481,212 1325,212"/>
+		<polygon class="sp-navy" points="1337,0 1493,0 1705,212 1549,212"/>
+		<polygon class="sp-orange" points="1541,0 1698,0 1483,215 1326,215"/>
+		<polygon class="sp-orange" points="1761,0 1918,0 1703,215 1546,215"/>
+		{%- if lh.logo %}
+		<image href="{{ lh.logo }}" x="300" y="25" width="296" height="238" preserveAspectRatio="xMidYMid meet"/>
+		{%- endif %}
+		<text class="sp-lh-name" x="1131" y="225" text-anchor="middle" direction="ltr"><tspan class="sp-navy">{{ lh.name_en }}</tspan> <tspan class="sp-orange">{{ lh.name_ar }}</tspan></text>
+		<text class="sp-lh-tagline sp-navy" x="1131" y="260" text-anchor="middle" direction="rtl">{{ lh.tagline }}</text>
+	</svg>
 </div>

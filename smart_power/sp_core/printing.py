@@ -203,14 +203,21 @@ def _app_file_base64(*parts: str) -> str | None:
 
 
 @functools.cache
-def _styles() -> str:
-	"""The print CSS with IBM Plex Sans Arabic embedded, so a PDF never depends on the network."""
-	fonts = "".join(
+def print_fonts() -> str:
+	"""IBM Plex Sans Arabic as embedded @font-face rules, so a PDF never depends on the network."""
+	return "".join(
 		"@font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;"
 		f"font-weight:{weight};src:url(data:font/woff2;base64,{_app_file_base64('fonts', name)}) format('woff2');}}"
 		for weight, name in FONT_FILES
 	)
-	return fonts + frappe.read_file(frappe.get_app_path("smart_power", "public", "css", "sp_print.css"))
+
+
+@functools.cache
+def _styles() -> str:
+	"""The print CSS with its font embedded."""
+	return print_fonts() + frappe.read_file(
+		frappe.get_app_path("smart_power", "public", "css", "sp_print.css")
+	)
 
 
 def sp_print_styles() -> Markup:
