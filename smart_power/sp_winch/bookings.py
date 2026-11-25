@@ -180,6 +180,7 @@ def todays_jobs(user: str | None = None) -> list[dict]:
 			"place",
 			"for_kind",
 			"station",
+			"internal_center",
 			"customer_name",
 			"customer_phone",
 			"agreed_amount",
@@ -195,6 +196,12 @@ def todays_jobs(user: str | None = None) -> list[dict]:
 			"who": r.customer_name or r.station or _("Smart Power"),
 			"phone": r.customer_phone,
 			"amount": flt(r.agreed_amount) if r.for_kind == FOR_OUTSIDE else None,
+			# what "Log this job" fills on the phone form (BUG-16); the server fills the same on save
+			"job_type": r.job_type,
+			"for_kind": r.for_kind,
+			"station": r.station,
+			"internal_center": r.internal_center,
+			"customer_name": r.customer_name,
 		}
 		for r in rows
 	]

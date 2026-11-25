@@ -198,8 +198,20 @@ class SPFieldPage {
 		this.set_kind("Job");
 		this.field("booking").val(name);
 		if (booking) {
-			this.field("vehicle").val(booking.vehicle);
-			this.field("place").val(booking.place || "");
+			// the booking's job as planned (BUG-16): the server fills the same on save
+			const fill = {
+				vehicle: booking.vehicle,
+				job_type: booking.job_type,
+				for_kind: booking.for_kind,
+				station: booking.station,
+				internal_center: booking.internal_center,
+				customer_name: booking.customer_name,
+				customer_phone: booking.phone,
+				place: booking.place,
+				agreed_amount: booking.amount, // only where they collect it
+			};
+			Object.entries(fill).forEach(([name, value]) => this.field(name).val(value ?? ""));
+			this.show();
 			this.$page.find(".sp-entry-title").text(`${booking.job} · ${booking.who}`);
 		}
 		this.$form[0].scrollIntoView({ behavior: "smooth" });

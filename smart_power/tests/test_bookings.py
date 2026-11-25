@@ -138,6 +138,16 @@ class TestBookings(IntegrationTestCase):
 		with patch("smart_power.sp_winch.bookings.nowdate", return_value=tomorrow.planned_date):
 			self.assertEqual([j["name"] for j in b.todays_jobs()], [tomorrow.name])
 
+	def test_todays_job_carries_what_log_this_job_fills(self):
+		"""BUG-16: the phone form gets the booking's job type, customer, phone and price."""
+		doc = self.outside()
+		frappe.set_user(self.driver)
+		job = next(j for j in b.todays_jobs() if j["name"] == doc.name)
+		self.assertEqual(
+			(job["job_type"], job["for_kind"], job["customer_name"], job["phone"], job["amount"]),
+			(self.job, b.FOR_OUTSIDE, "عميل خارجي", "01000000000", 1500),
+		)
+
 	def test_a_booking_without_an_operator_stays_expected(self):
 		doc = self.outside(operator=None)
 		self.assertEqual(doc.status, b.EXPECTED)
