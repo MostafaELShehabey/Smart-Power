@@ -241,8 +241,10 @@ def _tell_admins(doc, case, row) -> None:
 
 def check_margin(doc) -> list[str]:
 	"""After a discount the margin is checked against its offer type's range: a warning only."""
+	from smart_power.rules.sales import message_for_user
+
 	messages = []
 	for hit in evaluate(doc, QUOTE_SEND_EVENT):
-		record_warning(doc, hit)
-		messages.append(hit.finding.message)
+		record_warning(doc, hit)  # the admin's review item keeps the figures
+		messages.append(message_for_user(doc, hit))
 	return messages

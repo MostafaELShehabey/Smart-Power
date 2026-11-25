@@ -159,3 +159,20 @@ class TestDiscounts(IntegrationTestCase):
 		)
 		html = frappe.get_print("Quotation", self.quote.name, "SP Quotation", doc=self.doc())
 		self.assertEqual(html.count('class="sp-quote-discount"'), 2)
+
+	def test_the_follow_up_owner_is_not_told_the_margin(self):
+		# BUG-8: the warning after a discount named the margin to a role that never sees it
+		set_setting(margin_ranges=[{"scope": "Supply and install", "min_pct": 30, "max_pct": 50}])
+		frappe.set_user(self.owner)
+		[warning] = give_discount(self.quote.name, percent=1, note="خصم")["warnings"]
+		self.assertNotIn("%", warning)
+		self.assertIn("admin will review", warning)
+		frappe.set_user(self.admin)
+		[warning] = give_discount(self.quote.name, percent=1, note="خصم")["warnings"]
+		self.assertIn("%", warning)  # the admin sees the figures
+		frappe.set_user("Administrator")
+		self.assertTrue(
+			frappe.db.exists(
+				"SP Rule Hit", {"rule_key": "quote_margin_range", "reference_name": self.quote.name}
+			)
+		)
