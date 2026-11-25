@@ -10,7 +10,29 @@ const SP_OWNERS = [
 	{ fieldname: "requested_by", label: "Requested By" },
 ];
 
+// the case's «+ Quotation» starts the quote as the queue does (BUG-24): the request is taken and
+// its draft opens in the Quote Builder, not ERPNext's plain quote form. A later quote is a new
+// version or option of the sent one, made from that quote.
+const SP_QUOTE_OPEN = ["Quote request", "Draft"];
+const SP_QUOTE_ROLES = ["SP Quote Creator", "SP Admin"];
+
 frappe.ui.form.on("SP Case", {
+	setup(frm) {
+		frm.can_make_methods = {
+			Quotation: () =>
+				SP_QUOTE_OPEN.includes(frm.doc.status) && SP_QUOTE_ROLES.some((r) => frappe.user.has_role(r)),
+		};
+		frm.make_methods = {
+			Quotation: async () => {
+				const { message } = await frappe.call({
+					method: "smart_power.sp_sales.quote_queue.start_quote",
+					args: { case: frm.doc.name },
+					freeze: true,
+				});
+				frappe.set_route("sp-quote-builder", message.quotation);
+			},
+		};
+	},
 	refresh(frm) {
 		// after the contract: read-only, with whom the case is now (SP-35)
 		if (frm.doc.__onload?.sp_read_only) {
