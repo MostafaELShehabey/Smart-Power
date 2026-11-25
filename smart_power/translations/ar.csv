@@ -156,6 +156,11 @@ Bank / Post Office,البنك / مكتب البريد
 Bank Branch,فرع البنك
 Batteries,البطاريات
 Battery Capacity (Ah),سعة البطارية (أمبير ساعة)
+System Voltage (V),جهد النظام (فولت)
+"The DC system an inverter or a battery is for: 12, 24 or 48 V (a 51.2 V battery is 48).",نظام التيار المستمر الذي يعمل عليه الإنفرتر أو البطارية: 12 أو 24 أو 48 فولت (بطارية 51.2 فولت تعتبر 48).
+Voltage Formula,معادلة الجهد
+"Only items of this system voltage, e.g. battery_voltage. Items with no voltage set come after them.",الأصناف بجهد النظام هذا فقط، مثل battery_voltage. الأصناف بلا جهد محدد تأتي بعدها.
+{0} has no system voltage set: check it is {1} V.,لم يُحدَّد جهد النظام للصنف {0}: تأكد أنه {1} فولت.
 battery_ah,سعة البطارية (أمبير ساعة)
 Becomes a call task for the collection owner.,تصبح مهمة اتصال لمسئول التحصيل.
 Becomes a call task for the follow-up owner.,تصبح مهمة اتصال لمسئول المتابعة.

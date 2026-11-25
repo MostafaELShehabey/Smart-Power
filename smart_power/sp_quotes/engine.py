@@ -53,7 +53,7 @@ COST_X_MARKUP, LOCKED_BTC, PASS_THROUGH, FIXED_LIST = (
 )
 # item specs a formula can read as item.<name> (custom fields sp_<name> on Item, SP-29)
 SPECS = ("hp", "kw", "watt", "battery_ah", "vmp", "voc", "imp", "isc", "max_dc_v", "mppt_min", "mppt_max")
-SPECS += ("head_m", "flow_m3h")
+SPECS += ("head_m", "flow_m3h", "system_voltage")
 WARN, INFO = "warn", "info"
 OVERRIDABLE = ("qty", "item_code", "brand", "markup", "rate", "cost")
 
@@ -121,6 +121,7 @@ def calculate(
 				if row.selection_rule in SIZED_RULES
 				else None
 			),
+			voltage=voltage_of(row, namespace, where),
 			lock_markup=cint(row.lock_markup),
 			is_manual_qty=cint(manual_qty),
 			is_optional=cint(row.is_optional),
@@ -208,7 +209,8 @@ def select_item(
 		picked = first_in_stock(row.item_group)
 	elif row.selection_rule in SIZED_RULES:
 		need = formulas.evaluate(row.need_formula, namespace, where)
-		ranked = ranked_items(row.item_group, row.capacity_field, need, brands, brand)
+		voltage = voltage_of(row, namespace, where)
+		ranked = ranked_items(row.item_group, row.capacity_field, need, brands, brand, voltage)
 		if row.selection_rule == PUMP_CURVE and duty_of(namespace):
 			picked = by_pump_curve(row, ranked, duty_of(namespace), results)
 		else:
@@ -219,15 +221,32 @@ def select_item(
 						row,
 						WARN,
 						_("No item in {0} covers {1}.").format(
-							brand or row.item_group, f"{row.capacity_field} ≥ {need:g}"
+							brand or row.item_group,
+							f"{row.capacity_field} ≥ {need:g}" + (f", {voltage:g} V" if voltage else ""),
 						),
 					)
 				)
+		if picked and voltage and not flt(frappe.get_cached_value("Item", picked, "sp_system_voltage")):
+			results.append(
+				rule(
+					row,
+					INFO,
+					_("{0} has no system voltage set: check it is {1} V.").format(picked, f"{voltage:g}"),
+				)
+			)
 	else:
 		return row.item_code
 	if not picked and row.item_code:
 		return row.item_code
 	return picked
+
+
+def voltage_of(row, namespace: dict, where: str) -> float | None:
+	"""The system voltage a sized line's item must be for (BUG-25): the off-grid inverter and
+	batteries follow the battery bank's voltage."""
+	if row.selection_rule not in SIZED_RULES or not row.get("voltage_formula"):
+		return None
+	return flt(formulas.evaluate(row.voltage_formula, namespace, where)) or None
 
 
 def group_items(item_group: str, fields: list[str] | None = None) -> list:
@@ -251,21 +270,32 @@ def first_in_stock(item_group: str) -> str | None:
 
 
 def ranked_items(
-	item_group: str, capacity_field: str, need: float, brands: dict | None = None, brand: str | None = None
+	item_group: str,
+	capacity_field: str,
+	need: float,
+	brands: dict | None = None,
+	brand: str | None = None,
+	voltage: float | None = None,
 ) -> list[str]:
 	"""The items that cover the need, best first: the top-priority brand's smallest item leads
-	(brands without a priority come last). A chosen brand leaves only that brand's items."""
+	(brands without a priority come last). A chosen brand leaves only that brand's items. With a
+	system voltage, an item of another voltage is left out and one with none set comes after
+	those that match (BUG-25)."""
 	field = f"sp_{capacity_field}"
 	order = brand_priority(item_group) if brands is None else brands.get(item_group, [])
 	candidates = [
 		i
-		for i in group_items(item_group, [field, "brand"])
-		if i.get(field) is not None and flt(i.get(field)) >= need and (not brand or i.brand == brand)
+		for i in group_items(item_group, [field, "brand", "sp_system_voltage"])
+		if i.get(field) is not None
+		and flt(i.get(field)) >= need
+		and (not brand or i.brand == brand)
+		and (not voltage or not flt(i.sp_system_voltage) or flt(i.sp_system_voltage) == flt(voltage))
 	]
 
 	def rank(i):
 		priority = order.index(i.brand) if i.brand in order else len(order)
-		return (priority, flt(i.get(field)), i.name)
+		unknown = bool(voltage) and not flt(i.sp_system_voltage)
+		return (unknown, priority, flt(i.get(field)), i.name)
 
 	return [i.name for i in sorted(candidates, key=rank)]
 

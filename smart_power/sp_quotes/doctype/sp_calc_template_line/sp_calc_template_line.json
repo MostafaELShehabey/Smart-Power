@@ -12,6 +12,7 @@
   "selection_rule",
   "capacity_field",
   "need_formula",
+  "voltage_formula",
   "column_break_qty",
   "qty_formula",
   "cost_source",
@@ -92,6 +93,13 @@
    "fieldtype": "Small Text",
    "label": "Need Formula",
    "description": "The smallest capacity accepted, e.g. hp."
+  },
+  {
+   "depends_on": "eval:['Brand priority','Stock first','Pump curve'].includes(doc.selection_rule)",
+   "fieldname": "voltage_formula",
+   "fieldtype": "Small Text",
+   "label": "Voltage Formula",
+   "description": "Only items of this system voltage, e.g. battery_voltage. Items with no voltage set come after them."
   },
   {
    "fieldname": "column_break_qty",
@@ -234,7 +242,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-11-23 23:00:00.000000",
+ "modified": "2026-11-25 16:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Quotes",
  "name": "SP Calc Template Line",
