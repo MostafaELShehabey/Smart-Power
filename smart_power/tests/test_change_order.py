@@ -162,6 +162,15 @@ class TestChangeOrder(IntegrationTestCase):
 		doc = self.change(station.reload() or station, [(OTHER, -1, 0)])
 		self.assertEqual((flt(doc.items[0].cost), flt(doc.cost_delta)), (9000, -9000))
 
+	def test_the_print_the_customer_signs_has_no_cost(self):
+		"""BUG-31: the standard print showed the cost column and the contract line's id."""
+		doc = self.change(self.station(), [(PANEL, -2, 0)], submit=False)
+		self.assertEqual((flt(doc.items[0].cost), flt(doc.cost_delta)), (4000, -8000))
+		html = frappe.get_print(co.CHANGE_ORDER, doc.name)  # as the Administrator, who sees cost
+		self.assertIn("-10,000", html)  # the change the customer approves
+		for internal in ("4,000", "8,000", doc.items[0].so_detail, doc.approval_file):
+			self.assertFalse(internal in html, f"{internal} is on the print")
+
 	def test_plus_12000_spread_over_the_remaining_6_raises_each_by_2000(self):
 		station = self.station()
 		doc = self.change(station, [(OTHER, 1, 12000)])
