@@ -60,12 +60,13 @@ def get_queue(view: str = ALL) -> list[dict]:
 	rows = lister(CASE, filters=filters, fields=QUEUE_FIELDS, order_by="creation asc", limit_page_length=0)
 	amber_left = amber_seconds_left()
 	names = [r.name for r in rows]
-	types, loads = _system_types(names), _load_counts(names)
+	types, loads, surveys = _system_types(names), _load_counts(names), _surveys(names)
 	for row in rows:
 		row.update(clock(row))
 		row["amber_left"] = amber_left
 		code, row["system_type"] = types.get(row.name, (None, None))
 		row.update(summarize_request(code, row.pop("request_details", None), loads.get(row.name, 0)))
+		row["survey"] = surveys.get(row.name)  # Open or Done: the chip follows it (BUG-5)
 		row["follow_up_owner_name"] = row.follow_up_owner and get_fullname(row.follow_up_owner)
 		row["requested_by_name"] = row.requested_by and get_fullname(row.requested_by)
 		row["can_take"] = is_creator and not row.quote_creator and row.status == OPEN_STATUSES[0]
@@ -92,6 +93,21 @@ def take(case: str) -> str:
 			_("This request was already taken by {0}.").format(frappe.bold(get_fullname(doc.quote_creator)))
 		)
 	return apply_workflow(doc, TAKE_ACTION).name
+
+
+def _surveys(cases: list[str]) -> dict[str, str]:
+	"""The status of each case's latest site survey (SP-95)."""
+	if not cases:
+		return {}
+	out = {}
+	for row in frappe.get_all(
+		"SP Site Survey",
+		filters={"case": ("in", cases)},
+		fields=["case", "status"],
+		order_by="creation asc",
+	):
+		out[row.case] = row.status  # the latest wins
+	return out
 
 
 def _load_counts(cases: list[str]) -> dict[str, int]:

@@ -89,6 +89,23 @@ class TestSiteSurvey(IntegrationTestCase):
 		self.assertRaises(frappe.ValidationError, doc.save)  # a submitted survey no longer changes
 		self.assertRaises(frappe.ValidationError, sv.complete, survey)
 
+	def test_the_queue_shows_the_survey_done_once_submitted(self):
+		# BUG-5: the chip read only the request's flag, so a done survey still said "needed"
+		from smart_power.sp_sales.quote_queue import get_queue
+
+		case, survey = self.request("01009500954")
+
+		def queue_survey():
+			row = next(r for r in as_user(self.aya, get_queue) if r["name"] == case)
+			return row["site_visit_needed"], row["survey"]
+
+		self.assertEqual(queue_survey(), (1, sv.OPEN))
+		doc = frappe.get_doc(sv.SURVEY, survey)
+		doc.well_depth = 110
+		doc.save()
+		sv.complete(survey)
+		self.assertEqual(queue_survey(), (1, sv.DONE))  # the request still says it asked for one
+
 	def test_a_load_table_replaces_the_requests_loads(self):
 		case, survey = self.request("01009500953")
 		doc = frappe.get_doc(sv.SURVEY, survey)
