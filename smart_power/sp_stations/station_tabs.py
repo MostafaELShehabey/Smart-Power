@@ -28,12 +28,22 @@ Tabs and their sources:
 """
 
 import json
+from urllib.parse import urlencode
 
 import frappe
 from frappe import _
 from frappe.utils import cint, flt, get_fullname, getdate, today
 
 from smart_power.permissions import can_see_cost
+
+CONTRACT_PRINT = "SP Contract"
+
+
+def contract_pdf_url(sales_order: str) -> str:
+	"""The contract's PDF, encoded once here: the page uses the link as it is (BUG-9)."""
+	query = urlencode({"doctype": "Sales Order", "name": sales_order, "format": CONTRACT_PRINT})
+	return f"/api/method/frappe.utils.print_format.download_pdf?{query}"
+
 
 STATION = "SP Station"
 SETTINGS = "Smart Power Settings"
@@ -324,7 +334,7 @@ def agreement(doc, amounts: bool) -> dict:
 		"contract": so.name,
 		"date": so.transaction_date,
 		"signed": so.docstatus == SUBMITTED,
-		"pdf": f"/api/method/frappe.utils.print_format.download_pdf?doctype=Sales%20Order&name={so.name}&format=SP%20Contract",
+		"pdf": contract_pdf_url(so.name),
 		"lines": _money(
 			[
 				{
@@ -585,7 +595,7 @@ def documents(doc, amounts: bool) -> dict:
 	if doc.sales_order:
 		result["contract"] = {
 			"name": doc.sales_order,
-			"pdf": f"/api/method/frappe.utils.print_format.download_pdf?doctype=Sales%20Order&name={doc.sales_order}&format=SP%20Contract",
+			"pdf": contract_pdf_url(doc.sales_order),
 		}
 	if doc.project:
 		result["invoices"] = frappe.get_all(
