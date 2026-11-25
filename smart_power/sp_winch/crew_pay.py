@@ -81,6 +81,9 @@ def _account(company: str, account_name: str) -> str | None:
 
 
 def validate_advance(doc) -> None:
+	from smart_power.sp_core.workers import fill_worker
+
+	fill_worker(doc, "daily_worker")  # not fetched by the form (BUG-10)
 	if flt(doc.amount) <= 0:
 		frappe.throw(_("The amount must be above zero."))
 	if flt(doc.installment_amount) <= 0 or flt(doc.installment_amount) > flt(doc.amount):
@@ -210,6 +213,7 @@ def salary_start(employee: str) -> dict:
 	return {
 		"monthly_salary": flt(row.sp_monthly_salary),
 		"daily_worker": bool(row.sp_is_daily_worker),
+		"employee_name": frappe.db.get_value(EMPLOYEE, employee, "employee_name"),
 		"owed": sum(flt(a.outstanding_amount) for a in open_advances(employee)),
 		"mode": repayment_mode(),
 	}
@@ -229,6 +233,9 @@ def _plan(doc) -> list[dict]:
 
 
 def validate_salary(doc) -> None:
+	from smart_power.sp_core.workers import fill_worker
+
+	fill_worker(doc)  # not fetched by the form (BUG-10)
 	_vehicle(doc)
 	doc.month = get_first_day(getdate(doc.month))
 	if not flt(doc.gross_amount):

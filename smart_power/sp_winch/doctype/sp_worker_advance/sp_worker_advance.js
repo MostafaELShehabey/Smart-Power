@@ -11,6 +11,15 @@ frappe.ui.form.on("SP Worker Advance", {
 			filters: { company: frm.doc.company },
 		}));
 	},
+	async employee(frm) {
+		// the crew service: the winch manager may not read HR's Employee list (BUG-10)
+		if (!frm.doc.employee) return frm.set_value({ employee_name: "", daily_worker: 0 });
+		const { message } = await frappe.call({
+			method: "smart_power.sp_core.workers.crew_line",
+			args: { employee: frm.doc.employee },
+		});
+		frm.set_value({ employee_name: message.employee_name, daily_worker: message.daily_worker });
+	},
 	refresh(frm) {
 		if (frm.doc.docstatus === 1 && frm.doc.status === "Open") {
 			frm.add_custom_button(__("Repay in Cash"), () => sp_repay_in_cash(frm));

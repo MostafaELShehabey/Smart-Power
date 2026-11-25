@@ -18,6 +18,7 @@ frappe.ui.form.on("SP Crew Salary", {
 			method: "smart_power.sp_winch.crew_pay.salary_start",
 			args: { employee: frm.doc.employee },
 		});
+		frm.set_value("employee_name", start.employee_name); // not fetched: HR's list is closed (BUG-10)
 		if (start.monthly_salary) frm.set_value("gross_amount", start.monthly_salary);
 		if (start.owed) {
 			const note =

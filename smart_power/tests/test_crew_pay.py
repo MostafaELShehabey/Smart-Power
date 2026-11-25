@@ -139,6 +139,12 @@ class TestCrewPay(IntegrationTestCase):
 		salaries = cp._account(COMPANY, cp.SALARIES_ACCOUNT)
 		self.assertEqual(balance(salaries, voucher_no=("in", postings(after))), SALARY)
 
+	def test_the_advance_and_salary_name_the_worker_from_the_server(self):
+		# BUG-10: the form no longer fetches them from Employee (the winch manager may not read it)
+		advance = self.advance(self.worker, amount=500, installment=500)
+		self.assertEqual((advance.employee_name, advance.daily_worker), ("SP181 Daily", 1))
+		self.assertEqual(self.salary().employee_name, "SP181 Driver")
+
 	def test_cancelling_a_salary_gives_the_installment_back(self):
 		doc = self.advance()
 		pay = self.salary()

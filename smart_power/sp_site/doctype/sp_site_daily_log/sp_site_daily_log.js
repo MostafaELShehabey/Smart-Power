@@ -35,8 +35,16 @@ frappe.ui.form.on("SP Crew Line", {
 	async employee(frm, cdt, cdn) {
 		const row = locals[cdt][cdn];
 		if (!row.employee) return;
-		const { message } = await frappe.db.get_value("Employee", row.employee, "sp_daily_wage");
-		await frappe.model.set_value(cdt, cdn, "wage", message.sp_daily_wage || 0);
+		// the crew service: the roles that keep the log may not read HR's Employee list (BUG-10)
+		const { message } = await frappe.call({
+			method: "smart_power.sp_core.workers.crew_line",
+			args: { employee: row.employee },
+		});
+		await frappe.model.set_value(cdt, cdn, {
+			employee_name: message.employee_name,
+			is_daily_worker: message.daily_worker,
+			wage: message.wage || 0,
+		});
 	},
 	days: (frm, cdt, cdn) => sp_crew_amount(frm, cdt, cdn),
 	wage: (frm, cdt, cdn) => sp_crew_amount(frm, cdt, cdn),
