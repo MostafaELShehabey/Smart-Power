@@ -112,6 +112,7 @@ class TestChassisQuote(IntegrationTestCase):
 		self.assertEqual((hand.item_name, hand.sp_line_key, flt(hand.rate)), ("نقل", None, 500))
 		self.assertEqual([r.sp_line_key for r in doc.items], [None, cq.CHASSIS_LINE])
 		self.assertEqual(doc.items[1].rate, calc.total_sale)
+		self.assertEqual([r.idx for r in doc.items], [1, 2])  # no two rows share a number
 
 	def test_without_a_calc_the_station_line_keeps_the_per_kw_default(self):
 		row = self.chassis_row(self.station_quote())

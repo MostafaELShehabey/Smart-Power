@@ -132,6 +132,9 @@ def _chassis_only_row(doc, calc) -> None:
 			"sp_line_kind": MANUAL,
 		},
 	)
+	# the kept rows keep their old numbers: two rows could share one and swap places on reload
+	for idx, row in enumerate(doc.items, start=1):
+		row.idx = idx
 
 
 def on_calc_update(calc_doc) -> None:
