@@ -8,7 +8,7 @@ from frappe.tests import IntegrationTestCase
 
 from smart_power.rules import RuleBlocked, evaluate
 from smart_power.rules.sales import QUOTE_SEND_EVENT
-from smart_power.rules.technical import DEPTH_RULE, INVERTER_RULE, nearest_depths, rated_kw
+from smart_power.rules.technical import DEPTH_RULE, INVERTER_RULE, LEFT_OFF_RULE, nearest_depths, rated_kw
 from smart_power.sp_core.documents import seed_quote_template
 from smart_power.sp_quotes import builder
 from smart_power.sp_quotes.engine import calculate
@@ -177,3 +177,86 @@ class TestDepthRule(IntegrationTestCase):
 		self.assertNotIn(DEPTH_RULE, [r["key"] for r in fixed["rules"]])
 		pipes = calculate(self.template.name, {"pump_depth": 99}).lines[0]
 		self.assertEqual(pipes.qty, 33)
+
+
+class TestLinesLeftOff(IntegrationTestCase):
+	"""BUG-23: a line waiting for its item, or with no price, went out missing from the quote."""
+
+	def setUp(self):
+		set_rule(LEFT_OFF_RULE, "Block")
+		self.pipe = make_item(f"SP23-PIPE-{frappe.generate_hash(length=6).upper()}", item_group=GROUP).name
+		self.board = make_item(f"SP23-BRD-{frappe.generate_hash(length=6).upper()}", item_group=GROUP).name
+		self.template = make_template(
+			inputs=[],
+			lines=[
+				{
+					"line_key": "pipes",
+					"item_code": self.pipe,
+					"qty_formula": "2",
+					"cost_source": "Per-kW default",
+					"cost_default": 50,
+					"pricing_method": "Pass-through",
+				},
+				# waiting for the creator to pick the board from its group
+				{
+					"line_key": "board",
+					"item_group": GROUP,
+					"description": "لوحة تجربة",
+					"qty_formula": "1",
+					"cost_source": "Per-kW default",
+					"cost_default": 900,
+					"pricing_method": "Pass-through",
+				},
+				# a service line whose price the template does not give yet
+				{
+					"line_key": "install",
+					"description": "تركيب تجربة",
+					"qty_formula": "1",
+					"cost_source": "Per-kW default",
+					"cost_default": 0,
+					"pricing_method": "Pass-through",
+				},
+			],
+		)
+
+	def quote(self, overrides=None):
+		quote = make_quotation(save=False)
+		quote.sp_calc_template = self.template.name
+		quote.sp_design_inputs = "{}"
+		quote.sp_calc_overrides = json.dumps(overrides or {})
+		return quote.insert()
+
+	def send(self, quote, **kw):
+		return TestInverterRule.send(self, quote, **kw)
+
+	def test_it_blocks_by_default(self):
+		from smart_power.rules import registry
+
+		self.assertEqual(registry()[LEFT_OFF_RULE].default_level, "Block")
+
+	def test_a_line_waiting_for_its_item_or_its_price_is_named(self):
+		hit = hits(self.quote())[LEFT_OFF_RULE]
+		self.assertEqual(hit.level, "Block")
+		self.assertEqual(len(hit.finding.data["lines"]), 2)
+		self.assertNotIn("pipes", hit.finding.data["lines"])
+
+	def test_the_send_stops_until_the_lines_are_filled(self):
+		quote = self.quote()
+		user = make_user("sp.lo.creator@example.com", ("quote_creator",))
+		frappe.db.set_value("SP Case", quote.sp_case, "quote_creator", user, update_modified=False)
+		frappe.set_user(user)
+		try:
+			with self.assertRaises(RuleBlocked):
+				self.send(quote)
+		finally:
+			frappe.set_user("Administrator")
+		self.assertEqual(frappe.db.get_value("Quotation", quote.name, "docstatus"), 0)
+		filled = self.quote({"board": {"item_code": self.board}, "install": {"cost": 300}})
+		self.assertNotIn(LEFT_OFF_RULE, hits(filled))
+
+	def test_the_admin_sends_it_with_a_reason(self):
+		quote = self.quote()
+		with self.assertRaises(RuleBlocked):
+			self.send(quote)
+		self.send(quote, reason="البنود ستضاف في نسخة لاحقة")
+		self.assertEqual(frappe.db.get_value("Quotation", quote.name, "docstatus"), 1)
