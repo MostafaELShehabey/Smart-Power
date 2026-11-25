@@ -1,4 +1,5 @@
-"""A10 Expenses by center and type (SP-123): submitted expenses, totalled per center and type."""
+"""A10 Expenses by center and type (SP-123): every expense (direct, custody settlements, field
+expenses), totalled per center and type."""
 
 import frappe
 from frappe import _

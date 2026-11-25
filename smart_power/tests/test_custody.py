@@ -143,6 +143,29 @@ class TestCustody(IntegrationTestCase):
 		self.assertEqual((doc.status, flt(doc.approved_amount)), ("Carried", 800))
 		self.assertEqual({r.status for r in doc.lines}, {"Approved"})
 
+	def test_approved_custody_expenses_are_in_the_expenses_by_center_report(self):
+		# BUG-19: the report read only direct expenses (SP Expense), never a custody's
+		from smart_power.sp_finance.expenses import expenses_by_center
+
+		def totals():
+			rows = expenses_by_center({"from_date": today(), "to_date": today(), "company": COMPANY})
+			out = {}
+			for r in rows:
+				out[r["cost_center"]] = out.get(r["cost_center"], 0) + r["amount"]
+			return out
+
+		before = totals()
+		self.three_expenses()
+		self.approve(self.settle())
+		after = totals()
+		gained = {c: after.get(c, 0) - before.get(c, 0) for c in after if after.get(c, 0) != before.get(c, 0)}
+		# the station's 400 and the project petty cash's 250 on Projects, the 150 on the indirect pool
+		self.assertEqual(gained, {self.projects: 650, self.indirect: 150})
+		station_only = expenses_by_center(
+			{"from_date": today(), "to_date": today(), "station": self.station.name}
+		)
+		self.assertEqual(sum(r["amount"] for r in station_only), 400)
+
 	def test_a_rejected_expense_returns_with_the_reason_and_the_rest_are_approved(self):
 		self.three_expenses()
 		settlement = self.settle()
