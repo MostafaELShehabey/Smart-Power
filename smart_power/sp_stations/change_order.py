@@ -25,7 +25,7 @@ import json
 
 import frappe
 from frappe import _
-from frappe.utils import flt, now_datetime, today
+from frappe.utils import cint, flt, now_datetime, today
 
 from smart_power.sp_stations.station_workflow import CANCELLED, FIN_CLOSED, TECH_CLOSED
 
@@ -61,11 +61,33 @@ def _price(item_code: str, customer: str | None) -> frappe._dict:
 	return get_price(item_code, tier if tier in ("Individual", "Company") else "Individual")
 
 
-def _snapshot_cost(station, item_code: str) -> float | None:
-	snapshot = json.loads(station.estimated_cost_snapshot or "{}")
-	return next(
-		(flt(r.get("cost")) for r in snapshot.get("lines") or [] if r.get("item_code") == item_code), None
+def _snapshot_cost(station, so_detail: str) -> float | None:
+	"""The estimated unit cost of the contract line a return comes off. Lines are told apart by
+	the quote row they came from, never by item code: every manual line is SP-MANUAL (BUG-11)."""
+	quote_row, item_code, rate = frappe.db.get_value(
+		SO_ITEM, so_detail, ["quotation_item", "item_code", "rate"]
 	)
+	snapshot = json.loads(station.estimated_cost_snapshot or "{}")
+	lines = snapshot.get("lines") or []
+	if quote_row:
+		keyed = next((r for r in lines if r.get("quotation_item") == quote_row), None)
+		if keyed:
+			return flt(keyed.get("cost"))
+		# an estimate frozen before the lines carried their quote row: they are in the quote's order
+		idx = cint(frappe.db.get_value("Quotation Item", quote_row, "idx"))
+		if 0 < idx <= len(lines) and lines[idx - 1].get("item_code") == item_code:
+			return flt(lines[idx - 1].get("cost"))
+		return None
+	# a line an earlier change order added: that order's cost for it
+	for order in reversed(snapshot.get("change_orders") or []):
+		for r in order.get("lines") or []:
+			if (
+				r.get("item_code") == item_code
+				and flt(r.get("qty")) > 0
+				and abs(flt(r.get("rate")) - flt(rate)) < ROUNDING
+			):
+				return flt(r.get("cost"))
+	return None
 
 
 def validate(doc) -> None:
@@ -123,7 +145,7 @@ def _price_lines(doc, station) -> None:
 					)
 				)
 		if not flt(line.cost):
-			line.cost = _snapshot_cost(station, line.item_code) if qty < 0 else None
+			line.cost = _snapshot_cost(station, line.so_detail) if qty < 0 else None
 			line.cost = flt(
 				line.cost if line.cost is not None else _price(line.item_code, station.customer).cost
 			)
@@ -414,7 +436,7 @@ def contract_lines(station: str) -> list[dict]:
 				"qty": flt(r.qty),
 				"left": left,
 				"rate": flt(r.rate),
-				"cost": _snapshot_cost(doc, r.item_code) if sees_cost else None,
+				"cost": _snapshot_cost(doc, r.name) if sees_cost else None,
 			}
 		)
 	return rows

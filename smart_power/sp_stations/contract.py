@@ -247,7 +247,13 @@ def freeze_estimate(so_name: str) -> bool:
 	quote = so.items[0].get("prevdoc_docname") if so.items else None
 	rows = frappe.get_doc(QUOTE, quote).items if quote else []
 	lines = [
-		{"item_code": r.item_code, "qty": flt(r.qty), "rate": flt(r.rate), "cost": flt(r.get("sp_cost"))}
+		{
+			"item_code": r.item_code,
+			"quotation_item": r.name,  # the contract line's own row: manual lines share an item (BUG-11)
+			"qty": flt(r.qty),
+			"rate": flt(r.rate),
+			"cost": flt(r.get("sp_cost")),
+		}
 		for r in rows
 	]
 	snapshot = {

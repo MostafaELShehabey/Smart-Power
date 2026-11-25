@@ -8,7 +8,7 @@ from frappe.utils import add_days, add_months, flt, today
 
 from smart_power.sp_sales.quotation import approve_version
 from smart_power.sp_stations import change_order as co
-from smart_power.sp_stations.contract import make_contract
+from smart_power.sp_stations.contract import freeze_estimate, make_contract
 from smart_power.sp_stations.station_tabs import tab
 from smart_power.sp_stock import warehouses as wh
 from smart_power.tests.test_station import COMPANY, receive
@@ -19,6 +19,7 @@ load_erpnext_test_data()
 PANEL, OTHER = "_Test Item", "_Test Item 2"
 APPROVAL = "/private/files/sp78-approval.pdf"
 INSTALMENTS = 8
+CHASSIS_RATE, CHASSIS_COST, MC4_RATE, MC4_COST = 60000, 46875, 50, 40
 
 
 class TestChangeOrder(IntegrationTestCase):
@@ -80,7 +81,10 @@ class TestChangeOrder(IntegrationTestCase):
 					"reason": "طلب العميل",
 					"approval_file": APPROVAL,
 					"schedule_mode": mode,
-					"items": [{"item_code": item, "qty": qty, "rate": rate} for item, qty, rate in lines],
+					"items": [
+						{"item_code": item, "qty": qty, "rate": rate, **(extra[0] if extra else {})}
+						for item, qty, rate, *extra in lines
+					],
 					**kw,
 				}
 			).insert()
@@ -104,6 +108,59 @@ class TestChangeOrder(IntegrationTestCase):
 				order_by="idx asc",
 			)
 		]
+
+	def manual_station(self):
+		"""Two manual lines of one item, as a pump quote has them: a chassis of 60,000 (cost 46,875)
+		and 10 connectors at 50 (cost 40 each). The estimate is frozen as at the deposit."""
+		quote = make_quotation(rate=CHASSIS_RATE, valid_days=3, save=False)
+		quote.items[0].sp_cost = CHASSIS_COST
+		quote.append("items", {"item_code": PANEL, "qty": 10, "rate": MC4_RATE, "sp_cost": MC4_COST})
+		quote.insert()
+		quote.submit()
+		approve_version(quote.name)
+		result = make_contract(quote.sp_case)
+		so = frappe.get_doc("Sales Order", result["sales_order"])
+		so.payment_terms_template = None
+		so.set("payment_schedule", [])
+		for month in range(2):
+			so.append(
+				"payment_schedule",
+				{"due_date": add_months(today(), month), "invoice_portion": 50, "payment_amount": 30250},
+			)
+		so.save()
+		sign_contract(so)
+		freeze_estimate(so.name)
+		station = frappe.get_doc("SP Station", result["station"])
+		connectors = next(r.name for r in so.items if flt(r.rate) == MC4_RATE)
+		return station, connectors
+
+	def test_a_returned_manual_line_takes_its_own_cost_not_the_first_lines(self):
+		# BUG-11: every manual line is one item; the return took the chassis's cost
+		station, connectors = self.manual_station()
+		frappe.set_user(self.amira)
+		offered = {line["so_detail"]: line["cost"] for line in co.contract_lines(station.name)}
+		frappe.set_user("Administrator")
+		self.assertEqual(offered[connectors], MC4_COST)
+		self.assertEqual(sorted(offered.values()), [MC4_COST, CHASSIS_COST])
+		doc = self.change(station, [(PANEL, -2, 0, {"so_detail": connectors})], mode=co.REDUCE_LAST)
+		self.assertEqual((flt(doc.items[0].cost), flt(doc.cost_delta)), (MC4_COST, -2 * MC4_COST))
+		self.assertEqual(flt(doc.delta_amount), -2 * MC4_RATE)
+		snapshot = json.loads(frappe.db.get_value("SP Station", station.name, "estimated_cost_snapshot"))
+		self.assertEqual(snapshot["total_cost"], CHASSIS_COST + 8 * MC4_COST)
+
+	def test_an_estimate_frozen_before_the_fix_matches_by_the_quotes_order(self):
+		station, connectors = self.manual_station()
+		snapshot = json.loads(frappe.db.get_value("SP Station", station.name, "estimated_cost_snapshot"))
+		for line in snapshot["lines"]:
+			line.pop("quotation_item")
+		frappe.db.set_value("SP Station", station.name, "estimated_cost_snapshot", json.dumps(snapshot))
+		self.assertEqual(co._snapshot_cost(frappe.get_doc("SP Station", station.name), connectors), MC4_COST)
+
+	def test_a_line_an_earlier_change_order_added_returns_at_that_orders_cost(self):
+		station = self.station()
+		self.change(station, [(OTHER, 1, 12000, {"cost": 9000})])
+		doc = self.change(station.reload() or station, [(OTHER, -1, 0)])
+		self.assertEqual((flt(doc.items[0].cost), flt(doc.cost_delta)), (9000, -9000))
 
 	def test_plus_12000_spread_over_the_remaining_6_raises_each_by_2000(self):
 		station = self.station()
