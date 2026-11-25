@@ -88,9 +88,13 @@ class SPQuoteQueue {
 		const $tbody = $table.find("tbody");
 		rows.forEach((r) => {
 			const colour = SP_QQ_COLOURS[r.state] || "gray";
-			const visit = r.site_visit_needed
-				? ` <span class="indicator-pill orange">${esc(__("Site Visit Needed"))}</span>`
-				: "";
+			// a submitted survey is done: the quote creator need not wait for it (BUG-5)
+			const visit =
+				r.survey === "Done"
+					? ` <span class="indicator-pill green">${esc(__("Site Survey Done"))}</span>`
+					: r.site_visit_needed || r.survey
+					? ` <span class="indicator-pill orange">${esc(__("Site Visit Needed"))}</span>`
+					: "";
 			const $row = $(`<tr>
 				<td><span class="indicator-pill sp-qq-clock ${colour}">${esc(__(r.state))}</span>
 					<div class="text-muted small">${esc(__("{0} h", [r.hours]))}</div></td>
