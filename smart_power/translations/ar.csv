@@ -858,6 +858,14 @@ Left,المتبقي
 Leftover,المتبقي
 Leftover Cash,النقدية المتبقية
 Legal Name (Arabic),الاسم القانوني (عربي)
+Letterhead,الورق الرسمي
+Brand Name (English),الاسم التجاري (إنجليزي)
+Brand Name (Arabic),الاسم التجاري (عربي)
+Printed under the header bar of every document.,يُطبع تحت الشريط العلوي في كل مستند.
+Tagline (Arabic),وصف النشاط (عربي)
+The line under the brand name on the letterhead.,السطر الذي تحت الاسم التجاري في الورق الرسمي.
+Company Email,بريد الشركة الإلكتروني
+"Printed in the footer of every document, beside the phones of the addresses.",يُطبع في أسفل كل مستند، بجانب تليفونات العناوين.
 Level,المستوى
 Light,خفيف
 Light: phone entry for the winch and car (decision 44).,خفيف: تسجيل من الموبايل للونش والعربية (قرار 44).

@@ -15,6 +15,12 @@
   "logo",
   "column_break_branding",
   "stamp_image",
+  "brand_section",
+  "brand_name_en",
+  "brand_name_ar",
+  "column_break_brand",
+  "tagline_ar",
+  "email",
   "addresses_section",
   "addresses"
  ],
@@ -85,10 +91,46 @@
    "fieldtype": "Table",
    "label": "Addresses",
    "options": "SP Company Address"
+  },
+  {
+   "fieldname": "brand_section",
+   "fieldtype": "Section Break",
+   "label": "Letterhead"
+  },
+  {
+   "fieldname": "brand_name_en",
+   "fieldtype": "Data",
+   "label": "Brand Name (English)",
+   "default": "Smart Power",
+   "description": "Printed under the header bar of every document."
+  },
+  {
+   "fieldname": "brand_name_ar",
+   "fieldtype": "Data",
+   "label": "Brand Name (Arabic)",
+   "default": "سمارت باور"
+  },
+  {
+   "fieldname": "column_break_brand",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tagline_ar",
+   "fieldtype": "Data",
+   "label": "Tagline (Arabic)",
+   "default": "لأنظمة الطاقة الشمسية والمقاولات",
+   "description": "The line under the brand name on the letterhead."
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "options": "Email",
+   "label": "Company Email",
+   "description": "Printed in the footer of every document, beside the phones of the addresses."
   }
  ],
  "links": [],
- "modified": "2026-11-09 21:00:00.000000",
+ "modified": "2026-11-25 13:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Core",
  "name": "SP Company Settings",

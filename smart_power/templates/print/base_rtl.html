@@ -1,24 +1,37 @@
 {#- Smart Power base for printed documents (SP-23): right to left, IBM Plex Sans Arabic (embedded),
-    A4. The letterhead (default "Smart Power") gives the header (logo, legal name, commercial
-    register) and the footer (addresses, page X of Y); a PDF repeats both on every page.
+    A4. The letterhead (default "Smart Power", SP-185) gives the brand header (logo, name, tagline)
+    and the footer (phones, email, addresses, page X of Y); a PDF repeats both on every page, edge
+    to edge.
 
     A print format uses it like this:
         {% extends "smart_power/templates/print/base_rtl.html" %}
         {% block body %} ... {{ money(doc.grand_total) }} {{ ar_words(doc.grand_total) }} ... {% endblock %}
+
+    A paper that is not A4 (the showroom receipt) replaces the `letterhead` and `letterfoot` blocks.
 -#}
 {{ sp_print_styles() }}
+{%- block letterhead %}
 {%- if letter_head and not no_letterhead %}
 <div id="header-html" class="hidden-pdf">
 	<div class="letter-head">{{ letter_head }}</div>
 </div>
+{%- elif no_letterhead %}
+{#- printed on the company's own pre-printed paper: the letterhead's areas stay blank #}
+<style>
+	.print-format { margin-top: 33mm; margin-bottom: 21mm; }
+	@media screen { .print-format { margin: auto !important; } }
+</style>
 {%- endif %}
+{%- endblock %}
 <div class="sp-print" dir="rtl" lang="ar">
 	{%- block title %}{% endblock %}
 	{%- block body %}{% endblock %}
 	{%- block signatures %}{% endblock %}
 </div>
+{%- block letterfoot %}
 {%- if footer and not no_letterhead %}
 <div id="footer-html" class="visible-pdf">
 	<div class="letter-head-footer">{{ footer }}</div>
 </div>
 {%- endif %}
+{%- endblock %}

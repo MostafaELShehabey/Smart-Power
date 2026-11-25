@@ -65,6 +65,10 @@ app_include_js = [
 ]
 
 # The same display formats for print formats and PDFs (SP-22, used by SP-23).
+# Chrome PDFs print the brand letterhead edge to edge (SP-185)
+pdf_header_html = "smart_power.sp_core.letterhead.pdf_header_html"
+pdf_footer_html = "smart_power.sp_core.letterhead.pdf_footer_html"
+
 jinja = {
 	"methods": [
 		"smart_power.sp_core.formatting.time_12h",
@@ -73,6 +77,8 @@ jinja = {
 		"smart_power.sp_core.services.company.get_company_settings",
 		"smart_power.sp_core.services.company.company_logo",
 		"smart_power.sp_core.services.company.company_addresses",
+		# The brand letterhead (SP-185)
+		"smart_power.sp_core.letterhead.letterhead",
 		# Printed documents (SP-23)
 		"smart_power.sp_core.printing.money",
 		"smart_power.sp_core.printing.ar_words",
