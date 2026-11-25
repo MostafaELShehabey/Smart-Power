@@ -12,19 +12,22 @@ A calc (SP-166) linked to a quotation prices that quotation's chassis:
   so the PDF total is the analysis total. The quote's discounts and margin range work as usual.
 
 Saving a calc updates its draft quote; a sent version stays frozen (SP-54).
+A calc without its iron cost (its factory has none) prices nothing: the quote keeps its own
+chassis price and says so (BUG-6).
 """
 
 import frappe
 from frappe import _
 from frappe.utils import flt
 
-from smart_power.sp_quotes.engine import COST_X_MARKUP, INFO, PCT, round_rate, totals
+from smart_power.sp_quotes.chassis_calc import priced
+from smart_power.sp_quotes.engine import COST_X_MARKUP, INFO, PCT, WARN, round_rate, totals
 
 QUOTATION, CALC, SETTINGS = "Quotation", "SP Chassis Calc", "Smart Power Settings"
 CHASSIS_LINE = "chassis"  # the template line a station quote prices its chassis on
 CHASSIS_ONLY = "System Type-CHASSIS"
 LOCKED, LINE_MARKUP = "Factory markup", "Line markup"
-CALC_FIELDS = ["name", "factory", "capacity_kw", "total_cost", "total_sale"]
+CALC_FIELDS = ["name", "factory", "capacity_kw", "iron_cost_kg", "total_cost", "total_sale"]
 
 
 def linked_calc(quotation: str | None):
@@ -60,6 +63,17 @@ def use_calculator(doc, result) -> None:
 	line = next((row for row in result.lines if row.line_key == CHASSIS_LINE), None)
 	kw = flt(calc.capacity_kw) if calc else 0
 	if not (calc and line and kw > 0):
+		return
+	if not priced(calc):  # the template's per-kW chassis stays, and the quote says why (BUG-6)
+		result.rule_results.append(
+			{
+				"line_key": CHASSIS_LINE,
+				"level": WARN,
+				"message": _(
+					"Chassis calculator {0} has no iron cost (set it on its factory): the template's chassis price is kept."
+				).format(calc.name),
+			}
+		)
 		return
 	cost = flt(calc.total_cost) / kw
 	if markup_mode() == LINE_MARKUP and line.pricing_method == COST_X_MARKUP:
@@ -145,7 +159,10 @@ def on_calc_update(calc_doc) -> None:
 		return
 	doc = quote_for_edit(calc_doc.quotation)
 	if is_chassis_only(doc):
-		_chassis_only_row(doc, linked_calc(doc.name))
+		calc = linked_calc(doc.name)
+		if not priced(calc):  # a calc without its iron cost never replaces the quote's chassis price (BUG-6)
+			return
+		_chassis_only_row(doc, calc)
 		doc.save()
 	elif doc.get("sp_calc_template"):
 		recalculate(doc)
@@ -154,7 +171,7 @@ def on_calc_update(calc_doc) -> None:
 def print_lines(doc) -> list[dict] | None:
 	"""A chassis-only quote prints its calc's lines (no cost), in the analysis' order."""
 	calc = linked_calc(doc.get("name")) if is_chassis_only(doc) else None
-	if not calc:
+	if not priced(calc):  # a calc without its iron cost did not price the quote: its own lines print (BUG-6)
 		return None
 	return [
 		{
