@@ -7,7 +7,7 @@ from frappe.utils import flt
 
 from smart_power.sp_quotes import chassis_calc as cc
 from smart_power.sp_quotes import chassis_quote as cq
-from smart_power.sp_quotes.quote_calc import calculate_quote
+from smart_power.sp_quotes.quote_calc import calculate_quote, recalculate
 from smart_power.sp_quotes.quote_print import quote_print
 from smart_power.tests.test_calc_template import make_template
 from smart_power.tests.utils import load_erpnext_test_data, make_quotation, make_test_case, set_setting
@@ -112,6 +112,37 @@ class TestChassisQuote(IntegrationTestCase):
 		self.assertEqual((hand.item_name, hand.sp_line_key, flt(hand.rate)), ("نقل", None, 500))
 		self.assertEqual([r.sp_line_key for r in doc.items], [None, cq.CHASSIS_LINE])
 		self.assertEqual(doc.items[1].rate, calc.total_sale)
+
+	def without_iron_cost(self):
+		"""The factory as the demo ones are: no iron item and no iron cost typed."""
+		before = frappe.db.get_value(cc.FACTORY, AGRI, ["iron_item", "iron_cost_kg"], as_dict=True)
+		frappe.db.set_value(cc.FACTORY, AGRI, {"iron_item": None, "iron_cost_kg": 0})
+		self.addCleanup(frappe.db.set_value, cc.FACTORY, AGRI, before)
+
+	def test_a_calc_without_iron_cost_keeps_the_station_quotes_chassis_line(self):
+		# BUG-6: the calc priced at 0 and its quote lost the chassis price without a word
+		quote = self.station_quote()
+		self.without_iron_cost()
+		calc = self.calc(quote.name)  # saving the calc updates the draft quote
+		self.assertFalse(cc.priced(calc))
+		self.assertIn(AGRI, calc.review)  # the calc says so instead of all green
+		row = self.chassis_row(quote)
+		self.assertAlmostEqual(row.sp_cost, flt(21.45 * PER_KW))  # the template's per-kW chassis
+		self.assertTrue(flt(row.rate) > 0)
+		result = recalculate(frappe.get_doc("Quotation", quote.name))
+		warnings = [r for r in result.rule_results if r["line_key"] == cq.CHASSIS_LINE]
+		self.assertEqual([r["level"] for r in warnings], [cq.WARN])
+		self.assertIn(calc.name, warnings[0]["message"])
+
+	def test_a_calc_without_iron_cost_leaves_a_chassis_only_quote_as_it_is(self):
+		quote = quote_for(cq.CHASSIS_ONLY)
+		doc = frappe.get_doc("Quotation", quote.name)
+		before = [(r.item_name, flt(r.rate)) for r in doc.items]
+		self.without_iron_cost()
+		self.calc(quote.name)
+		doc.reload()
+		self.assertEqual([(r.item_name, flt(r.rate)) for r in doc.items], before)
+		self.assertIsNone(cq.print_lines(doc))  # the PDF prints the quote's own lines
 
 	def test_without_a_calc_the_station_line_keeps_the_per_kw_default(self):
 		row = self.chassis_row(self.station_quote())

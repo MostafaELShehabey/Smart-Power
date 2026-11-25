@@ -12,6 +12,7 @@ AGRI, SHAFEI = "أجري سولار", "علي الشافعي"
 GOLDEN_WIDTH, GOLDEN_ARRAYS = 1.13, 7
 GOLDEN_RAILS = "3x6 + 3x5 + 1x4"  # the corrected golden file's holder pieces per line
 TONGWEI_WIDTH = 1.303  # Agri Solar's worked example: 30 Tongwei 715 panels
+DEMO_IRON_COST = 100  # a demo cost per kg, not the factory's real one
 
 
 def golden(stands=0, layout=GOLDEN_RAILS):
@@ -120,6 +121,8 @@ class TestCalcRecord(ChassisCase):
 		super().setUpClass()
 		cls.creator = make_user("sp.chassis.creator@example.com", ("quote_creator",))
 		cls.admin = make_user("sp.chassis.admin@example.com", ("admin",))
+		# a priced factory: without its iron cost a calc is flagged, not green (BUG-6)
+		frappe.db.set_value(cc.FACTORY, AGRI, "iron_cost_kg", DEMO_IRON_COST)
 
 	def setUp(self):
 		self.addCleanup(frappe.set_user, "Administrator")

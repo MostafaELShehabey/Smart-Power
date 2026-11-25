@@ -206,6 +206,18 @@ def apply(doc) -> None:
 			"review": "\n".join(t["problems"]) or "✓",
 		}
 	)
+	if not priced(doc):
+		# priced without its iron: a quote must not take that chassis price (BUG-6)
+		problem = _(
+			"Factory {0} has no iron cost per kg, so this calc cannot price the chassis. Set the factory's iron item or its iron cost. Until then, quotes keep their own chassis price."
+		).format(doc.factory)
+		doc.review = problem if doc.review == "✓" else f"{problem}\n{doc.review}"
+
+
+def priced(calc) -> bool:
+	"""A calc with its iron cost, a cost and an offer: only that one prices a quote's chassis.
+	Without the iron cost it prices the chassis at nothing, or at its small parts only (BUG-6)."""
+	return bool(calc) and flt(calc.iron_cost_kg) > 0 and flt(calc.total_cost) > 0 and flt(calc.total_sale) > 0
 
 
 # --- the showroom price list ----------------------------------------------------------------------

@@ -4618,3 +4618,5 @@ Unknown action {0}.,إجراء غير معروف {0}.
 Unknown item.,عنصر غير معروف.
 "Wrong mobile, email or password.",الموبايل أو البريد أو كلمة المرور غير صحيحة.
 You are not on this station.,أنت لست على هذه المحطة.
+"Factory {0} has no iron cost per kg, so this calc cannot price the chassis. Set the factory's iron item or its iron cost. Until then, quotes keep their own chassis price.",المصنع {0} ليس له تكلفة لكيلو الحديد، فلا تستطيع الحاسبة تسعير الشاسيه. حدّد صنف الحديد للمصنع أو تكلفة الحديد. حتى ذلك الحين تحتفظ عروض الأسعار بسعر الشاسيه الخاص بها.
+"Chassis calculator {0} has no iron cost (set it on its factory): the template's chassis price is kept.",حاسبة الشاسيه {0} بدون تكلفة حديد (حدّدها في المصنع): تم الإبقاء على سعر الشاسيه من القالب.
