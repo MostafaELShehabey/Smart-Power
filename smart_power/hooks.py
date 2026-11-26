@@ -149,6 +149,10 @@ doctype_js = {
 	"Vehicle": "public/js/vehicle.js",
 }
 
+doctype_tree_js = {
+	# The stores tree opens on Smart Power's company, with no company filter (BUG-34)
+	"Warehouse": "public/js/warehouse_tree.js",
+}
 doctype_list_js = {
 	"Customer": "public/js/customer_list.js",
 	# Item list: import from Excel with Arabic headers (SP-29).

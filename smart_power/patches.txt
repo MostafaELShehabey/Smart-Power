@@ -11,6 +11,7 @@ smart_power.patches.sp31_customer_naming
 smart_power.patches.sp29_item_groups
 smart_power.patches.sp30_price_lists
 smart_power.patches.sp28_warehouses
+smart_power.patches.bug34_default_company
 smart_power.patches.sp46_case_workflow_masters
 smart_power.patches.sp47_request_fields
 smart_power.patches.sp48_quote_clock

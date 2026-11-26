@@ -208,6 +208,8 @@ class TestDatesAndPickers(IntegrationTestCase):
 			)
 		)
 		frappe.defaults.clear_user_default("Company", self.holder)
+		# no desk default either, whatever the site's own is (BUG-34): the fallback is under test
+		frappe.defaults.clear_default(key="company", parent="__default")
 		frappe.set_user(self.holder)
 		try:
 			with patch("erpnext.get_default_company", return_value=COMPANY):

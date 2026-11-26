@@ -51,6 +51,8 @@ class TestCustomerPayment(IntegrationTestCase):
 		wh.seed_warehouses(COMPANY)
 
 	def setUp(self):
+		# the tests' company, whatever the site's own default company is (BUG-34)
+		frappe.db.set_default("company", COMPANY)
 		set_setting(large_payment_threshold=100000)
 		self.amira = make_user("sp.cp.amira@example.com", ("project_manager", "collection_officer"))
 		self.camelia = make_user("sp.cp.camelia@example.com", ("customer_followup", "followup_all"))

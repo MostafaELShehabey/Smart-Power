@@ -106,6 +106,21 @@ def create_company(answers: dict) -> None:
 	company = frappe.db.get_value("Company", {"company_name": answers["company_name"]})
 	if company and not frappe.db.get_single_value("Global Defaults", "default_company"):
 		frappe.db.set_single_value("Global Defaults", "default_company", company)
+	ensure_default_company()
+
+
+def ensure_default_company() -> None:
+	"""Make the company in Global Defaults the desk's default company too (BUG-34).
+
+	Saving Global Defaults registers it, but `create_company` writes the field alone. So a site
+	that was set up before the company was made had no default company on the desk, and ERPNext's
+	own screens opened on the first company by name. A default that is already there is kept.
+	"""
+	company = frappe.db.get_single_value("Global Defaults", "default_company")
+	if not company or not frappe.db.exists("Company", company):
+		return
+	if not frappe.defaults.get_global_default("company"):
+		frappe.db.set_default("company", company)
 
 
 def link_company_settings(company: str) -> None:
