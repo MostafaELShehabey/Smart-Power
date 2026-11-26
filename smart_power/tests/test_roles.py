@@ -115,6 +115,20 @@ class TestLightEntryRedirect(IntegrationTestCase):
 		self._request("/desk/quotation")  # a desk link they were sent still opens
 		redirect_light_users()
 
+	def test_the_apps_bare_address_opens_its_home(self):
+		"""BUG-3: a refresh of /desk/smart-power showed «غير مسموح» to users, «غير موجود» to the admin."""
+		home = frappe.get_hooks("app_home")[-1]
+		for user in ("Administrator", make_user("sp.app.root@example.com", ("customer_followup",))):
+			frappe.set_user(user)
+			frappe.session.data.user_type = "System User"
+			for path in ("/desk/smart-power", "/app/smart-power/"):
+				self._request(path)
+				with self.assertRaises(RequestRedirect, msg=f"{user} {path}") as ctx:
+					redirect_light_users()
+				self.assertTrue(ctx.exception.new_url.endswith(home), path)
+		self._request(home)  # the home itself is left alone
+		redirect_light_users()
+
 	def test_an_office_user_on_full_keeps_the_desk(self):
 		user = make_user("sp.full.office@example.com", ("customer_followup",))
 		frappe.db.set_value("User", user, "sp_entry_mode", "Full")
