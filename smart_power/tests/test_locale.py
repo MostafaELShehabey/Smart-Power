@@ -57,6 +57,18 @@ class TestLocale(IntegrationTestCase):
 		self.assertEqual((ws.app_name, ws.app_logo, ws.brand_html), ("Smart Power", LOGO, BRAND_HTML))
 		self.assertEqual(frappe.db.get_single_value("System Settings", "app_name"), "Smart Power")
 
+	def test_every_report_and_page_has_an_arabic_title(self):
+		"""BUG-20: the winch month grid and year summary showed their English names as titles."""
+		from frappe.translate import get_all_translations
+
+		arabic = get_all_translations("ar")
+		modules = frappe.get_module_list("smart_power")
+		titles = frappe.get_all("Report", {"module": ("in", modules), "is_standard": "Yes"}, pluck="name")
+		titles += [
+			p.title or p.name for p in frappe.get_all("Page", {"module": ("in", modules)}, ["name", "title"])
+		]
+		self.assertEqual([t for t in titles if t not in arabic], [])
+
 	def test_hooks(self):
 		self.assertIn(
 			"smart_power.sp_core.setup.locale.apply_locale", frappe.get_hooks("setup_wizard_complete")
