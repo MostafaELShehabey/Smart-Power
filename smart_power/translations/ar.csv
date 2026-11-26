@@ -2882,7 +2882,9 @@ Year,السنة
 Sheet Item,البند
 Closing Balance,رصيد نهاية المدة
 Month Grid,جدول الشهر
+SP Winch Month Grid,جدول الشهر
 Year Summary,ملخص السنة
+SP Winch Year Summary,ملخص السنة
 A winch or Jumbo crew member's monthly salary; each Crew Salary starts with it (SP-181).,المرتب الشهري لفرد طاقم الونش أو الجامبو؛ كل مرتب طاقم يبدأ به (SP-181).
 Advance Deduction,خصم السلفة
 Advance repaid by {0},سداد سلفة من {0}
@@ -2923,6 +2925,7 @@ Last Repaid,آخر سداد
 Worker Advances,سلف العمال
 Crew Salaries,مرتبات الطاقم
 Worker Balances,أرصدة العمال
+SP Worker Balances,أرصدة العمال
 Only the showroom cashier takes money into the showroom box.,خزنة المعرض لأمين خزنة المعرض فقط.
 Only the showroom cashier takes station payments here.,تحصيل دفعات المحطات هنا لأمين خزنة المعرض فقط.
 "Paid at the showroom: {0} from {1} on {2}, waiting for the admin",دفعة في المعرض: {0} من {1} على {2}، في انتظار تأكيد الأدمن
