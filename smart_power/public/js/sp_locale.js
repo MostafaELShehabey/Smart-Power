@@ -18,3 +18,7 @@
 		return `${m.format(frappe.boot.sysdefaults.date_format.toUpperCase())} ${clock(m)}`;
 	};
 })();
+
+// A location map opens on Egypt, not on Frappe's default centre in India (BUG-4): the whole
+// country, since the company has no single base the sites cluster around.
+Object.assign(frappe.utils.map_defaults, { center: [26.8, 30.8], zoom: 6 }); // sp-allow-number: Egypt's centre and a country-wide zoom
