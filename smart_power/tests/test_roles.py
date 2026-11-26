@@ -1,6 +1,7 @@
 """Role catalogue, person profiles and the light-entry redirect (SP-34)."""
 
 from types import SimpleNamespace
+from unittest.mock import patch
 
 import frappe
 from frappe.tests import IntegrationTestCase
@@ -77,11 +78,28 @@ class TestLightEntryRedirect(IntegrationTestCase):
 			redirect_light_users()
 		self.assertTrue(ctx.exception.new_url.endswith("/sp-field"))
 
-	def test_office_user_is_not_redirected(self):
+	def test_office_user_is_not_sent_to_the_field_page(self):
 		frappe.set_user("Administrator")
 		frappe.session.data.user_type = "System User"
-		self._request("/desk")
+		self._request("/desk/quotation")
 		redirect_light_users()
+
+	def test_a_full_user_opening_the_desk_lands_on_the_smart_power_home(self):
+		"""BUG-2: full users signed in to Frappe's app chooser; only the admin reached the home."""
+		user = make_user("sp.full.home@example.com", ("customer_followup",))
+		frappe.set_user(user)
+		frappe.session.data.user_type = "System User"
+		with patch("frappe.is_setup_complete", return_value=True):
+			for path in ("/desk", "/app/"):
+				self._request(path)
+				with self.assertRaises(RequestRedirect, msg=path) as ctx:
+					redirect_light_users()
+				self.assertTrue(ctx.exception.new_url.endswith(frappe.get_hooks("app_home")[-1]), path)
+			self._request("/desk/home")  # ERPNext's own app still opens
+			redirect_light_users()
+		with patch("frappe.is_setup_complete", return_value=False):
+			self._request("/desk")  # the setup wizard comes first
+			redirect_light_users()
 
 	def test_an_office_user_set_to_light_lands_on_the_field_page(self):
 		"""BUG-30: the admin's «طريقة التسجيل: Light» sends the user to the field page."""
@@ -102,7 +120,7 @@ class TestLightEntryRedirect(IntegrationTestCase):
 		frappe.db.set_value("User", user, "sp_entry_mode", "Full")
 		frappe.set_user(user)
 		frappe.session.data.user_type = "System User"
-		self._request("/app")
+		self._request("/app/home")
 		redirect_light_users()
 
 	def test_home_page_hook_points_drivers_to_the_field_page(self):
