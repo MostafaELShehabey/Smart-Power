@@ -4,7 +4,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "links": [],
- "modified": "2026-11-21 10:00:00.000000",
+ "modified": "2026-11-25 20:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Stations",
  "owner": "Administrator",
@@ -74,14 +74,16 @@
    "permlevel": 1,
    "in_list_view": 1,
    "columns": 2,
-   "description": "Estimated cost of the line (the item's cost when empty)."
+   "description": "Estimated cost of the line (the item's cost when empty).",
+   "print_hide": 1
   },
   {
    "fieldname": "so_detail",
    "fieldtype": "Data",
    "label": "Contract Line",
    "read_only": 1,
-   "hidden": 1
+   "hidden": 1,
+   "print_hide": 1
   }
  ],
  "row_format": "Dynamic"

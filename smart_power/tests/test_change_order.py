@@ -5,6 +5,7 @@ import json
 import frappe
 from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, add_months, flt, today
+from frappe.www.printview import get_rendered_template
 
 from smart_power.sp_sales.quotation import approve_version
 from smart_power.sp_stations import change_order as co
@@ -179,6 +180,17 @@ class TestChangeOrder(IntegrationTestCase):
 		self.change(station, [(OTHER, 1, 12000, {"cost": 9000})])
 		doc = self.change(station.reload() or station, [(OTHER, -1, 0)])
 		self.assertEqual((flt(doc.items[0].cost), flt(doc.cost_delta)), (9000, -9000))
+
+	def test_the_print_the_customer_signs_has_no_cost(self):
+		"""BUG-31: the standard print showed the cost column and the contract line's id."""
+		doc = self.change(self.station(), [(PANEL, -2, 0)], submit=False)
+		self.assertEqual((flt(doc.items[0].cost), flt(doc.cost_delta)), (4000, -8000))
+		# the standard format alone, as the Administrator, who sees cost: printview's page needs
+		# built assets, which CI does not have
+		html = get_rendered_template(doc, no_letterhead=1)
+		self.assertIn("-10,000", html)  # the change the customer approves
+		for internal in ("4,000", "8,000", doc.items[0].so_detail, doc.approval_file):
+			self.assertFalse(internal in html, f"{internal} is on the print")
 
 	def test_plus_12000_spread_over_the_remaining_6_raises_each_by_2000(self):
 		station = self.station()
