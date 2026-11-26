@@ -3665,6 +3665,14 @@ Intake,الاستقبال والمتابعة
 Technical Office,المكتب الفني
 Installations,التركيبات
 Stores,المخازن
+Warehouse,المخزن
+Warehouses,المخازن
+Warehouse Tree,شجرة المخازن
+Inventory,المخزون
+{0} Tree,شجرة {0}
+Expand/Collapse,توسيع / طي
+Show all (including disabled),عرض الكل (مع المعطّل)
+Reload Tree,إعادة تحميل الشجرة
 Projects,المشاريع
 Cancel an internal invoice with Cancel with Reason; the admin gives the reason.,ألغِ الفاتورة الداخلية من «إلغاء مع ذكر السبب»؛ المدير يذكر السبب.
 Cancel the Invoice,إلغاء الفاتورة
