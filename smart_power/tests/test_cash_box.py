@@ -171,6 +171,53 @@ class TestOpenDayIsCurrent(CashBoxCase):
 		)
 
 
+class TestSimpleRecordsInTheBox(CashBoxCase):
+	def record(self, amount, direction, record_type="Simple Record Type-STORAGE_FEE"):
+		doc = frappe.get_doc(
+			{
+				"doctype": "SP Simple Record",
+				"company": COMPANY,
+				"work_date": today(),
+				"record_type": record_type,
+				"amount": amount,
+				"direction": direction,
+				"account": self.box,
+				"cost_center": self.made[centers.SHOWROOM],
+				"note": "BUG-29",
+			}
+		).insert()
+		doc.submit()
+		return doc
+
+	def test_a_simple_record_through_the_box_counts_in_its_day(self):
+		"""BUG-29 (Q-12): a 50 storage fee taken into the box was outside its count."""
+		from smart_power.sp_core.setup.seed import seed_list_values
+		from smart_power.sp_finance import simple_record
+
+		seed_list_values()
+		simple_record.seed_account_map(COMPANY)
+		doc = self.the_day()
+		self.record(50, "Money In")
+		self.record(20, "Money Out", "Simple Record Type-OTHER_EXPENSE")
+		with patch.object(cb, "sales_in", return_value=SALES):
+			cb.compute(doc)
+		self.assertEqual(
+			(flt(doc.records_in), flt(doc.records_out), flt(doc.expected_closing)), (50, 20, EXPECTED + 30)
+		)
+		self.assertEqual(len(cb.movements(self.box, today())["records"]), 2)
+
+	def test_the_simple_records_account_picker_offers_the_box(self):
+		from smart_power.sp_finance.queries import account_picker
+
+		def offered(**extra):
+			rows = account_picker("Account", "", "name", 0, 50, {"company": COMPANY, **extra})
+			return [name for name, _label in rows]
+
+		frappe.set_user(make_user("sp.cb.accountant@example.com", ("accountant",)))
+		self.assertNotIn(self.box, offered())
+		self.assertIn(self.box, offered(showroom_box=1))
+
+
 class TestDayClose(CashBoxCase):
 	def test_counted_2150_needs_a_reason_and_the_admin_confirm_posts_minus_50(self):
 		doc = self.the_day()

@@ -3,7 +3,8 @@ frappe.ui.form.on("SP Simple Record", {
 	setup(frm) {
 		// Cancel reverses the record's entry with a new entry; it never cancels the entry itself
 		frm.ignore_doctypes_on_cancel_all = ["Journal Entry"];
-		sp.ui.account_picker(frm, "account");
+		// money may also come into or leave the showroom box; the box's day counts it (Q-12)
+		sp.ui.account_picker(frm, "account", null, { showroom_box: 1 });
 		sp.ui.center_picker(frm, "cost_center");
 		// Submit posts money: show exactly the entry first (SP-44)
 		frm.savesubmit = async function () {

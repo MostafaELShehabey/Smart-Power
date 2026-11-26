@@ -161,10 +161,11 @@ sp.ui.center_picker = function (frm, fieldname, table) {
 	table ? frm.set_query(fieldname, table, query) : frm.set_query(fieldname, query);
 };
 
-sp.ui.account_picker = function (frm, fieldname, table) {
+// `extra` adds to the filters: { showroom_box: 1 } also offers the showroom box (خزنة المعرض).
+sp.ui.account_picker = function (frm, fieldname, table, extra) {
 	const query = () => ({
 		query: "smart_power.sp_finance.queries.account_picker",
-		filters: { company: frm.doc.company },
+		filters: { company: frm.doc.company, ...(extra || {}) },
 	});
 	table ? frm.set_query(fieldname, table, query) : frm.set_query(fieldname, query);
 };
