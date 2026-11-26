@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "track_changes": 1,
  "links": [],
- "modified": "2026-11-22 00:00:00.000000",
+ "modified": "2026-11-26 15:00:00.000000",
  "modified_by": "Administrator",
  "module": "SP Finance",
  "name": "SP Cash Box Day",
@@ -26,9 +26,11 @@
   "opening",
   "sales_in",
   "station_payments_in",
+  "records_in",
   "column_break_flow",
   "expenses_out",
   "deposits_out",
+  "records_out",
   "expected_closing",
   "lines_section",
   "lines_html",
@@ -114,6 +116,13 @@
    "description": "Pending and confirmed."
   },
   {
+   "fieldname": "records_in",
+   "fieldtype": "Currency",
+   "label": "Simple Records In",
+   "read_only": 1,
+   "description": "Simple records whose money came into the box."
+  },
+  {
    "fieldname": "column_break_flow",
    "fieldtype": "Column Break"
   },
@@ -128,6 +137,13 @@
    "fieldtype": "Currency",
    "label": "Deposits Out",
    "read_only": 1
+  },
+  {
+   "fieldname": "records_out",
+   "fieldtype": "Currency",
+   "label": "Simple Records Out",
+   "read_only": 1,
+   "description": "Simple records whose money left the box."
   },
   {
    "fieldname": "expected_closing",

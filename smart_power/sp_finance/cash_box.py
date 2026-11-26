@@ -5,9 +5,12 @@ One day of the showroom box (خزنة المعرض, a transit account) at a time
     opening                 the last closing counted (confirmed, or waiting for the admin)
     + sales in              cash sales into the box (SP-102's showroom sales)
     + station payments in   station payments taken at the showroom, pending and confirmed (SH5)
+    + simple records in     SP Simple Records whose money came into the box (SP-43; Q-12, owner
+                            2026-11-26: a simple record may use the box, and the box counts it)
     - expenses out          SP Expense paid from the shop cash (SP-123)
     - deposits out          SP Transfer out of the box to the Post or the bank (SH3), pending and
                             confirmed
+    - simple records out    SP Simple Records whose money left the box
     = expected closing
 
 A deposit waiting for the admin (SP-105) is "deposit pending": out of the box's cash in hand, not
@@ -33,6 +36,7 @@ from smart_power.sp_core.inbox import close_tasks, create_task
 from smart_power.sp_core.services.audit import audited
 
 DAY, PAYMENT, EXPENSE, TRANSFER = "SP Cash Box Day", "SP Customer Payment", "SP Expense", "SP Transfer"
+RECORD, RECORD_IN, RECORD_OUT = "SP Simple Record", "Money In", "Money Out"
 OPEN, PENDING, CONFIRMED = "Open", "Closed-pending", "Confirmed"
 CLOSED = (PENDING, CONFIRMED)
 EVENT, OVER_SHORT_ACCOUNT = "Cash Over/Short", "Cash Over and Short"
@@ -115,7 +119,23 @@ def movements(account: str, day) -> dict:
 		},
 		["name", "amount", "to_account", "status"],
 	)
-	return {"payments": payments, "expenses": expenses, "deposits": deposits}
+	records = frappe.get_all(
+		RECORD,
+		{
+			"account": account,
+			"work_date": day,
+			"docstatus": 1,
+			"direction": ("in", (RECORD_IN, RECORD_OUT)),
+		},
+		["name", "amount", "direction", "record_type", "note"],
+	)
+	names = frappe.get_all(
+		"SP List Value", {"name": ("in", [r.record_type for r in records] or [""])}, ["name", "value_ar"]
+	)
+	type_name = {n.name: n.value_ar for n in names}
+	for r in records:
+		r.record_type_name = type_name.get(r.record_type) or r.record_type
+	return {"payments": payments, "expenses": expenses, "deposits": deposits, "records": records}
 
 
 def compute(doc) -> None:
@@ -125,9 +145,11 @@ def compute(doc) -> None:
 	doc.station_payments_in = sum(flt(r.amount) for r in moves["payments"])
 	doc.expenses_out = sum(flt(r.amount) for r in moves["expenses"])
 	doc.deposits_out = sum(flt(r.amount) for r in moves["deposits"])
+	doc.records_in = sum(flt(r.amount) for r in moves["records"] if r.direction == RECORD_IN)
+	doc.records_out = sum(flt(r.amount) for r in moves["records"] if r.direction == RECORD_OUT)
 	doc.expected_closing = (
-		flt(doc.opening) + flt(doc.sales_in) + flt(doc.station_payments_in)
-		- flt(doc.expenses_out) - flt(doc.deposits_out)
+		flt(doc.opening) + flt(doc.sales_in) + flt(doc.station_payments_in) + flt(doc.records_in)
+		- flt(doc.expenses_out) - flt(doc.deposits_out) - flt(doc.records_out)
 	)  # fmt: skip
 	from smart_power.sp_finance.transit import days_held
 

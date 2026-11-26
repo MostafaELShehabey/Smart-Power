@@ -48,6 +48,10 @@ function sp_cb_lines(frm, m, pending) {
 	const esc = frappe.utils.escape_html;
 	const rows = [];
 	for (const r of m.payments || []) rows.push([__("Station payment"), `${esc(r.customer_name || "")} · ${esc(r.station || "")}`, r.amount, r.name, "SP Customer Payment"]);
+	for (const r of m.records || []) {
+		const sign = r.direction === "Money Out" ? -1 : 1;
+		rows.push([__("Simple record"), esc(r.record_type_name || "") + (r.note ? ` · ${esc(r.note)}` : ""), sign * r.amount, r.name, "SP Simple Record"]);
+	}
 	for (const r of m.expenses || []) rows.push([__("Expense"), esc(r.expense_type_name || r.expense_type || "") + (r.note ? ` · ${esc(r.note)}` : ""), -r.amount, r.name, "SP Expense"]);
 	const waiting = (r) => (r.status === "Pending" ? ` <span class="indicator-pill orange">${__("Waiting for the admin")}</span>` : "");
 	for (const r of m.deposits || [])

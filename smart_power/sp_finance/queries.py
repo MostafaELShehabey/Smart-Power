@@ -62,8 +62,15 @@ def picker_accounts(company: str, user: str | None = None) -> list[str]:
 def account_picker(
 	doctype: str, txt: str, searchfield: str, start: int, page_len: int, filters: dict | str | None = None
 ) -> list:
-	"""Money accounts: the 4 official ones and the user's own transit and custody accounts."""
-	names = picker_accounts(_company(filters))
+	"""Money accounts: the 4 official ones and the user's own transit and custody accounts; with
+	the `showroom_box` filter, the showroom box too (a simple record may use it, Q-12)."""
+	from smart_power.sp_finance.customer_payment import showroom_box_account
+
+	company = _company(filters)
+	names = picker_accounts(company)
+	wanted = frappe.parse_json(filters) if isinstance(filters, str) else (filters or {})
+	if wanted.get("showroom_box") and (box := showroom_box_account(company)):
+		names = [*names, box]
 	return frappe.get_all(
 		"Account",
 		filters={"name": ("in", names or [""])},

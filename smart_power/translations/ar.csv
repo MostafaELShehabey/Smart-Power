@@ -3415,6 +3415,8 @@ Deposit the cash at the Post or the bank.,أودع النقدية في البو�
 Deposits Out,الإيداعات الخارجة
 Expected Closing,الرصيد المتوقع للإقفال
 Expenses Out,المصروفات الخارجة
+Simple Records Out,السجلات البسيطة الخارجة
+Simple records whose money left the box.,السجلات البسيطة التي خرجت نقديتها من الخزنة.
 Needed when the count differs.,مطلوب عند اختلاف العد.
 No movements yet today.,لا توجد حركات اليوم بعد.
 Only the admin confirms a day close.,الأدمن فقط يؤكد إقفال اليوم.
@@ -3433,6 +3435,8 @@ Showroom Box Cash Limit,حد نقدية خزنة المعرض
 Showroom box over its limit,خزنة المعرض فوق حدها
 Showroom box {0}: {1},خزنة المعرض {0}: {1}
 Station Payments In,دفعات المحطات الداخلة
+Simple Records In,السجلات البسيطة الداخلة
+Simple records whose money came into the box.,السجلات البسيطة التي دخلت نقديتها الخزنة.
 Station payment,دفعة محطة
 The Day,اليوم
 The box already has an open day ({0}): close it first.,للخزنة يوم مفتوح بالفعل ({0}): أقفله أولاً.
