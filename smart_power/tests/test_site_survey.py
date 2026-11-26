@@ -58,6 +58,13 @@ class TestSiteSurvey(IntegrationTestCase):
 		frappe.set_user(self.mostafa)  # he cannot open the case, but he has the survey
 		self.assertTrue(frappe.has_permission(sv.SURVEY, "write", doc=doc))
 
+	def test_a_survey_comes_from_its_request_not_from_new(self):
+		"""BUG-32: a surveyor's «جديد» survey searched the cases he cannot read, and could never be saved."""
+		_case, survey = self.request("01009500958")
+		frappe.set_user(self.mostafa)
+		self.assertFalse(frappe.has_permission(sv.SURVEY, "create"))
+		self.assertTrue(frappe.has_permission(sv.SURVEY, "write", doc=frappe.get_doc(sv.SURVEY, survey)))
+
 	def test_submitting_joins_the_request_and_keeps_what_it_replaced(self):
 		case, survey = self.request("01009500952")
 		frappe.db.set_value(sv.CASE, case, "quote_creator", self.aya)
