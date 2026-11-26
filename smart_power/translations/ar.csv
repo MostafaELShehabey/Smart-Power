@@ -1249,6 +1249,9 @@ Outcome,النتيجة
 Outstanding,المتبقي
 Outstanding: {0},المتبقي: {0}
 Overdue,متأخر
+Overdue {0},متأخر {0}
+{0} left,باقي {0}
+Requested {0} h ago,طُلب منذ {0} ساعة
 Overdue Alert Sent,أُرسل تنبيه التأخير
 Overdue call-backs,مكالمات متأخرة
 Overdue: {0} of {1} (station {2}) was due on {3},متأخر: {0} على {1} (المحطة {2}) كان مستحقًا في {3}
