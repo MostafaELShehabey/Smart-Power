@@ -57,9 +57,27 @@ bench get-app https://github.com/frappe/erpnext --branch v16.54.0
 bench get-app smart_power <this repo>
 bench new-site sp.localhost --install-app erpnext --install-app smart_power
 bench --site sp.localhost set-config developer_mode 1
-bench --site sp.localhost set-config allow_tests true
-bench --site sp.localhost run-tests --app smart_power
 ```
+
+**The tests have their own site.** Never set `allow_tests` on a working site (the one you open in
+the browser, staging, production):
+
+```bash
+bench new-site test_sp --install-app erpnext --install-app smart_power
+bench --site test_sp set-config allow_tests true
+bench --site test_sp run-tests --app smart_power
+```
+
+The tests load ERPNext's test data: about twenty test companies with their accounts, users, items
+and warehouses, and System Settings set to English and Asia/Kolkata. On a working site these mix
+with Smart Power's records (test users in pickers, accounts listed twice) and move every time by
+3.5 hours. The test helpers stop with a clear message on a site whose name does not start with
+`test_` (BUG-39).
+
+If the tests already ran on a working site, `bench --site <site> execute
+smart_power.sp_core.setup.locale.apply_locale` puts the language and the time zone back for new
+records; the test records and the times already stored stay, so a site meant for real data is
+better created again.
 
 Before a commit: `pre-commit install` once, then the hooks run ruff, eslint and the three
 project checks.

@@ -177,6 +177,8 @@ before_login = ["smart_power.sp_core.login.before_login"]
 on_login = ["smart_power.sp_core.login.on_login"]
 
 # Install and migrate
+# The tests run on a site kept for them, never on a working site (BUG-39)
+before_tests = "smart_power.tests.utils.ensure_test_site"
 after_install = "smart_power.sp_core.setup.install.after_install"
 after_sync = "smart_power.sp_core.setup.install.after_sync"
 before_migrate = "smart_power.sp_core.setup.install.before_migrate"
