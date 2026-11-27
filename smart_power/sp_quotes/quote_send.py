@@ -122,7 +122,10 @@ def send_quote(
 		doc.check_permission("submit")
 		doc.submit()  # the version is frozen: dated today, valid from today (SP-54)
 
-	pdf = frappe.get_print("Quotation", doc.name, print_format, doc=doc, as_pdf=True)
+	# the print works on its own copy: before_print strips the cost and the hidden lines from the
+	# quote it is given, for a sender who may not see them, and the margin is checked below (BUG-37)
+	printed = frappe.get_doc("Quotation", doc.name)
+	pdf = frappe.get_print("Quotation", doc.name, print_format, doc=printed, as_pdf=True)
 	sends = frappe.db.count(LOG, {"quotation": doc.name})
 	file = frappe.get_doc(
 		{
