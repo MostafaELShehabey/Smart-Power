@@ -80,6 +80,27 @@ class TestQuoteMargin(IntegrationTestCase):
 		self.assertFalse(margin_check(self.quote(10, scope="Supply only"))["in_range"])
 		self.assertTrue(margin_check(self.quote(10))["in_range"])
 
+	def test_a_follow_up_send_checks_the_real_margin(self):
+		"""BUG-37: the PDF is printed without the cost for a sender who may not see it; that must not
+		leave the margin check reading 0%."""
+
+		def printing(doctype, name, print_format=None, doc=None, **kw):
+			doc.run_method("before_print", frappe._dict())  # as frappe.get_print does to its quote
+			return blank_pdf()
+
+		q = self.quote(10)
+		sender = make_user("sp.mr.sender@example.com", ("customer_followup", "followup_all"))
+		# a later version: the case is already with its follow-up owner, who sends it
+		frappe.db.set_value("SP Case", q.sp_case, {"follow_up_owner": sender, "status": "Follow-up"})
+		frappe.set_user(sender)
+		try:
+			with patch("frappe.get_print", side_effect=printing):
+				result = send_quote(q.name)
+		finally:
+			frappe.set_user("Administrator")
+		self.assertEqual(result["warnings"], [])
+		self.assertFalse(frappe.db.exists("SP Review Item", {"reference_name": q.name, "category": "Margin"}))
+
 	def test_follow_up_never_sees_the_margin_chip(self):
 		q = self.quote(12.5)
 		frappe.set_user(self.camelia)
