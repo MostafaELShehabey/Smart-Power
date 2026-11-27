@@ -227,6 +227,17 @@ class TestCustomerPayment(IntegrationTestCase):
 		)
 		self.assertEqual(flt(station.paid_amount), 20000)
 		self.assertEqual(frappe.db.get_value("SP Case", q.sp_case, "status"), "Won")
+		# BUG-38: the deposit belongs to the station it opened, and posts to the Projects center
+		doc.reload()
+		self.assertEqual(doc.station, station.name)
+		from smart_power.sp_finance.centers import station_center
+
+		centers = set(
+			frappe.get_all(
+				"GL Entry", {"voucher_no": doc.payment_entry, "is_cancelled": 0}, pluck="cost_center"
+			)
+		)
+		self.assertEqual(centers, {station_center(COMPANY)})
 
 	def test_the_dialog_records_a_pending_payment(self):
 		from smart_power.sp_finance.customer_payment import payment_options, record_payment
