@@ -55,6 +55,26 @@ html[lang="ar"] body {
 	font-family: var(--font-stack);
 }
 
+/* Smart Power pages (BUG-40): the body keeps the same 15px from the sidebar as Frappe's own lists,
+ * forms and the page title above it. Without it the text touched the sidebar, and the Bootstrap rows
+ * inside (-15px each side) made the body wider than the page: it slid 10px under the sidebar and the
+ * first letters were cut, as on Showroom Sale and the Command Dashboard. */
+.page-container[data-page-route^="sp-"] .layout-main-section,
+.page-container[data-page-route^="sp-"] .layout-side-section {
+	padding-inline: var(--padding-md, 15px);
+}
+/* A page with its own side menu (Lists): the main column gives way to the menu instead of keeping
+ * 80% of the width beside it, which pushed the page 62px past the sidebar on a 1366px screen. */
+.page-container[data-page-route^="sp-"] .layout-main-section-wrapper {
+	flex-shrink: 1;
+	min-width: 0;
+}
+/* On a phone most tables are wider than the screen: each scrolls in its own box (BUG-40). */
+@media (max-width: 767.98px) {
+	.page-container[data-page-route^="sp-"] .layout-main-section :has(> table) {
+		overflow-x: auto;
+	}
+}
 /* Top bar (where the desk shows one) */
 .navbar {
 	background-color: var(--sp-navy);
