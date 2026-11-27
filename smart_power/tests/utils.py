@@ -10,6 +10,30 @@ CUSTOMER_NAMING_DEFAULT = "cust_master_name"
 NAMING_BY_CUSTOMER_NAME = "Customer Name"
 
 
+# A site kept for the tests is named like CI's "test_site".
+TEST_SITE_PREFIX = "test_"
+
+
+def ensure_test_site() -> None:
+	"""Stop the tests on a working site (BUG-39).
+
+	ERPNext's test data adds its own companies, users, items and accounts beside Smart Power's, and
+	sets System Settings to English and Asia/Kolkata. On a working site that cannot be undone: the
+	time zone is fixed once the site holds data.
+	"""
+	site = getattr(frappe.local, "site", None) or ""
+	if site.startswith(TEST_SITE_PREFIX):
+		return
+	raise SystemExit(
+		f"The tests do not run on site '{site}': they load ERPNext's test companies and users and "
+		"reset its language and time zone.\n"
+		f"Run them on a site kept for tests, named '{TEST_SITE_PREFIX}…' (see README, Developer setup):\n"
+		f"  bench new-site {TEST_SITE_PREFIX}sp --install-app erpnext --install-app smart_power\n"
+		f"  bench --site {TEST_SITE_PREFIX}sp set-config allow_tests true\n"
+		f"  bench --site {TEST_SITE_PREFIX}sp run-tests --app smart_power"
+	)
+
+
 def load_erpnext_test_data() -> None:
 	"""Create ERPNext's test company, customers and items (once per process).
 
@@ -19,6 +43,7 @@ def load_erpnext_test_data() -> None:
 	- its records link customers by name ("_Test Customer"), so customers are named by
 	  Customer Name while it loads, not CUS-##### (SP-31), then the site value is restored.
 	"""
+	ensure_test_site()
 	naming = frappe.defaults.get_global_default(CUSTOMER_NAMING_DEFAULT)
 	frappe.defaults.set_global_default(CUSTOMER_NAMING_DEFAULT, NAMING_BY_CUSTOMER_NAME)
 	frappe.flags.sp_loading_erpnext_test_data = True
