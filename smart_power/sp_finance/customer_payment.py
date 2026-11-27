@@ -217,6 +217,7 @@ def post_confirmed(doc) -> str:
 		else:
 			entry = _payment_entry(doc)
 			doc.db_set("payment_entry", entry)
+			_link_station(doc)
 	finally:
 		frappe.flags.sp_system_posting = False
 	doc.db_set({"status": CONFIRMED, "confirmed_by": frappe.session.user})
@@ -318,8 +319,9 @@ def _build_payment_entry(doc):
 			"reference_no": doc.reference_no or doc.name,
 			"reference_date": doc.work_date,
 			"project": so.project if so else None,
-			# a station's money posts to the Projects center (SP-27)
-			"cost_center": station_center(doc.company) if so else None,
+			# a station's money posts to the Projects center (SP-27); so does the deposit that
+			# opens the station, recorded on the case before the station exists (BUG-38)
+			"cost_center": station_center(doc.company) if so or doc.is_deposit else None,
 			"remarks": _("Customer payment {0}").format(doc.name),
 			"mode_of_payment": mode_for_method(doc.method),
 			"sp_is_deposit": doc.is_deposit,
@@ -431,6 +433,16 @@ def _build_third_party_entry(doc):
 
 def _close_tasks(doc) -> None:
 	close_tasks(PAYMENT, doc.name)
+
+
+def _link_station(doc) -> None:
+	"""A deposit is recorded on the case; its confirmation opens the station (SP-175). The payment
+	then belongs to that station, as every later payment does (BUG-38)."""
+	if doc.station or not doc.case:
+		return
+	station = frappe.db.get_value(STATION, {"case": doc.case})
+	if station:
+		doc.db_set("station", station)
 
 
 def _refresh(doc) -> None:
