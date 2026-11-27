@@ -64,7 +64,10 @@ class SPQuoteQueue {
 	// One line per clock, title and button row, so no cell breaks into its neighbour (BUG-36)
 	add_styles() {
 		if (document.getElementById("sp-qq-style")) return;
+		// cells keep each item on one line (BUG-36), so on a narrow screen the table is wider than
+		// the page: it scrolls inside its own box, and the page no longer slides under the sidebar (BUG-40)
 		$(`<style id="sp-qq-style">
+			.sp-qq-body { overflow-x: auto; }
 			.sp-qq-table th, .sp-qq-table .sp-qq-nowrap, .sp-qq-table .indicator-pill { white-space: nowrap; }
 			.sp-qq-table td { vertical-align: middle; }
 			.sp-qq-table th:last-child, .sp-qq-table td:last-child { width: 1%; }
